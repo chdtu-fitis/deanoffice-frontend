@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-subjectforgroup',
+  selector: 'subjectforgroup',
   templateUrl: './subjectforgroup.component.html',
-  styleUrls: ['./subjectforgroup.component.css']
+  styleUrls: ['./subjectforgroup.component.scss']
 })
 export class SubjectforgroupComponent implements OnInit {
 
