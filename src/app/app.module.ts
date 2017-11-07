@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { GroupComponent } from './group/group.component';
 import { SpecialityComponent } from './speciality/speciality.component';
 import {CoursesForGroupsModule} from "./courses-for-groups/courses-for-groups.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {CoursesForGroupsModule} from "./courses-for-groups/courses-for-groups.mo
   ],
   imports: [
     BrowserModule,
-    CoursesForGroupsModule
+    CoursesForGroupsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

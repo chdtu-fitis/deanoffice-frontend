@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
+import {Http} from "@angular/http";
+import {Teacher} from "../entity/Teacher";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class TeacherService {
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
+  getTeachers() {
+    return this.http.get<Teacher>('/coursesforgroups/teachers').toPromise();
+  }
 
 }
