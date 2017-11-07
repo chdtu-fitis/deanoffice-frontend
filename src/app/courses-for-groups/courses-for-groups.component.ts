@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StudentGroup} from "../model/entity/StudentGroup";
 
 @Component({
   selector: 'courses-for-groups',
@@ -6,10 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses-for-groups.component.scss']
 })
 export class CoursesForGroupsComponent implements OnInit {
-
+  selectedSemester: number;
+  selectedGroup: StudentGroup;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  changeGroup(event){
+    this.selectedGroup = event;
+  }
+  changeSemester(event){
+    this.selectedSemester = event;
   }
 
 }

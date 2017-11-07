@@ -1,3 +1,6 @@
-<p>
-  courses-for-groups works!
-</p>
+<div>
+  <selection-form (selectGroup)="changeGroup($event)" (selectSemester)="changeSemester()"></selection-form>
+  <table [selectedGroup]="selectedGroup" [selectedSemester]="selectedSemester"></table>
+
+  <!--<p *ngIf="selectedGroup">{{selectedGroup.name}}</p>-->
+</div>

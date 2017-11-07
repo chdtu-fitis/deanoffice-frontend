@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {StudentGroup} from "../../model/entity/StudentGroup";
 
 @Component({
   selector: 'table',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  @Input() selectedGroup: StudentGroup;
+  @Input() selectedSemester: number;
 
   constructor() { }
 
