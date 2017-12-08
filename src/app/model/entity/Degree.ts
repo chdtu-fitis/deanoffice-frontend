@@ -1,4 +1,4 @@
-import {NameWithEngEntity} from "./superclasses/NameWithEngEntity";
-export class Degree extends NameWithEngEntity{
+import {NameEntity} from "./superclasses/NameEntity";
+export class Degree extends NameEntity{
 
 }

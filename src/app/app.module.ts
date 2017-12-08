@@ -6,12 +6,14 @@ import { GroupComponent } from './group/group.component';
 import { SpecialityComponent } from './speciality/speciality.component';
 import {CoursesForGroupsModule} from "./courses-for-groups/courses-for-groups.module";
 import {HttpClientModule} from "@angular/common/http";
+import { DiplomaSupplementComponent } from './diploma-supplement/diploma-supplement.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupComponent,
-    SpecialityComponent
+    SpecialityComponent,
+    DiplomaSupplementComponent
   ],
   imports: [
     BrowserModule,
