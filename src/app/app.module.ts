@@ -7,6 +7,9 @@ import { SpecialityComponent } from './speciality/speciality.component';
 import {CoursesForGroupsModule} from "./courses-for-groups/courses-for-groups.module";
 import {HttpClientModule} from "@angular/common/http";
 import { DiplomaSupplementComponent } from './diploma-supplement/diploma-supplement.component';
+import { AppRoutingModule } from './app-routing.module';
+import {FormsModule} from "@angular/forms";
+import {DegreeService} from "./model/service/degree.service";
 
 @NgModule({
   declarations: [
@@ -17,10 +20,11 @@ import { DiplomaSupplementComponent } from './diploma-supplement/diploma-supplem
   ],
   imports: [
     BrowserModule,
-    CoursesForGroupsModule,
+    FormsModule,
+    AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [DegreeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
