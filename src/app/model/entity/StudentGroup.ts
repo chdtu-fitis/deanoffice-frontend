@@ -12,6 +12,6 @@ export class StudentGroup extends NameWithActiveEntity{
   constructor(){
     super();
     this.tuitionForm = 't'; // f - fulltime, e - extramural
-    this.tuitionTerm = 't'; // r - regular, s - shortened
+    this.tuitionTerm = 'r'; // r - regular, s - shortened
   }
 }

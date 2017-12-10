@@ -10,6 +10,7 @@ import { DiplomaSupplementComponent } from './diploma-supplement/diploma-supplem
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule} from "@angular/forms";
 import {DegreeService} from "./model/service/degree.service";
+import {GroupService} from "./model/service/group.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {DegreeService} from "./model/service/degree.service";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [DegreeService],
+  providers: [DegreeService, GroupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
