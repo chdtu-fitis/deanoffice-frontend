@@ -16,11 +16,13 @@ export class DiplomaSupplementComponent implements OnInit {
   constructor(private degreeService: DegreeService, private groupService: GroupService) { }
 
   ngOnInit() {
-    this.degrees = this.degreeService.getDegrees();
+    this.degreeService.getDegrees()
+      .subscribe(degrees => this.degrees = degrees);
   }
 
   onDegreeChange(degreeId: string): void {
-    this.groups = this.groupService.getGroupsByDegree(degreeId);
+    this.groupService.getGroupsByDegree(degreeId)
+      .subscribe(groups => this.groups = groups);
   }
 
   onGroupChange(): void {
