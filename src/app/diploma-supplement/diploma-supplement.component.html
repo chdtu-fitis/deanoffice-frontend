@@ -6,7 +6,18 @@
   <!--<select id="cmbDegree" ng-options="degree.name for degree in degrees" ng-change="onDegreeChange(degree.id)">-->
   <!--</select>-->
   Група:
-  <select id="cmbGroup" ng-change="onGroupChange()">
+  <select id="cmbGroup" (change)="onGroupChange($event.target.value)">
     <option *ngFor="let group of groups" value="{{group.id}}">{{group.name}}</option>
   </select>
+
+  <div id="diplomaSupplementStudents">
+    Студенти:
+    <table>
+      <tr *ngFor="let student of students">
+        <td>{{ student.surname }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.patronimic }}</td>
+      </tr>
+    </table>
+  </div>
 </div>

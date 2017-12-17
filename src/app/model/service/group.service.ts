@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import {StudentGroup} from "../entity/StudentGroup";
-import {Degree} from "../entity/Degree";
 import {Observable} from "rxjs/Observable";
 import {catchError} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs/observable/of";
+import {Student} from "../entity/Student";
 
 @Injectable()
 export class GroupService {
-  private groupsByDegreeUrl = 'http://localhost:8080/group/graduates';
+  private groupsUrl = 'http://localhost:8080/groups';
+  private groupsByDegreeUrl = this.groupsUrl+'/graduates';
   constructor(private http: HttpClient) { }
 
   // constructor() {
@@ -43,6 +44,13 @@ export class GroupService {
       );
   }
 
+  getGroupStudents(groupId: string): Observable<Student[]> {
+    const url = `${this.groupsUrl}/${groupId}/students`;
+    return this.http.get<Student[]>(url)
+      .pipe(
+        catchError(this.handleError('getGroupsByDegree', []))
+      );
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
