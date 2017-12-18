@@ -1,15 +1,20 @@
-import {RouterModule, Routes} from '@angular/router';
-import {GridComponent} from '../components/grid/grid.component';
 import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {DiplomaSupplementComponent} from '../components/diploma-supplement/diploma-supplement.component';
+import {AppComponent} from '../components/app/app.component';
 
-const webRoutes: Routes = [
-    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-    {path: 'dashboard', component: GridComponent, pathMatch: 'full'},
+const routes: Routes = [
+    {path: 'diplsuppl', component: DiplomaSupplementComponent},
+    {path: '', component: DiplomaSupplementComponent, pathMatch: 'full'}
 ];
 
-@NgModule(<NgModule>{
-    exports: [RouterModule],
-    imports: [RouterModule.forRoot(webRoutes)]
+@NgModule({
+    imports: [
+        RouterModule.forRoot(routes)
+    ],
+    exports: [
+        RouterModule
+    ]
 })
-export class AppRouteModule{
+export class AppRoutingModule {
 }
