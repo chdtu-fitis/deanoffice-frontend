@@ -22,4 +22,5 @@ export class Student extends Person{
   motherPhone: string;
   motherInfo: string;
   notes: string;
+  selected: boolean;
 }

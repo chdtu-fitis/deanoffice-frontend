@@ -1,23 +1,33 @@
-<div>
-  Ступінь:
-  <select id="cmbDegree" (change)="onDegreeChange($event.target.value)">
+<div class="content" id="diplomaSupplementStudents">
+  <p>Студенти:</p>
+  <table>
+    <thead>
+      <td>№</td>
+      <td><input type="checkbox" (click)="onSelectAllStudents($event.target.checked)" checked></td>
+      <td>Прізвище</td>
+      <td>Ім'я</td>
+      <td>По-батькові</td>
+    </thead>
+    <tr *ngFor="let student of students; let i = index">
+      <td>{{ i+1 }}</td>
+      <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+      <td>{{ student.surname }}</td>
+      <td>{{ student.name }}</td>
+      <td>{{ student.patronimic }}</td>
+    </tr>
+  </table>
+</div>
+<div class="side-control">
+  <p>Ступінь:</p>
+  <select id="cmbDegree" class="diplom-select" (change)="onDegreeChange($event.target.value)">
     <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
   </select>
-  <!--<select id="cmbDegree" ng-options="degree.name for degree in degrees" ng-change="onDegreeChange(degree.id)">-->
-  <!--</select>-->
-  Група:
-  <select id="cmbGroup" (change)="onGroupChange($event.target.value)">
+  <p>Група:</p>
+  <select id="cmbGroup" class="diplom-select" (change)="onGroupChange($event.target.value)">
     <option *ngFor="let group of groups" value="{{group.id}}">{{group.name}}</option>
   </select>
 
-  <div id="diplomaSupplementStudents">
-    Студенти:
-    <table>
-      <tr *ngFor="let student of students">
-        <td>{{ student.surname }}</td>
-        <td>{{ student.name }}</td>
-        <td>{{ student.patronimic }}</td>
-      </tr>
-    </table>
-  </div>
+  <button class="btn" id="createSup" (click)="onFormSupplement()">Сформувати додаток</button>
+  <button class="btn" >Таблиця оцінок студентів</button>
+  <p>{{message}}</p>
 </div>
