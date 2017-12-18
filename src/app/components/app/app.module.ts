@@ -9,9 +9,9 @@ import {HttpClientModule} from '@angular/common/http';
 import { DiplomaSupplementComponent } from '../diploma-supplement/diploma-supplement.component';
 import { AppRoutingModule } from '../../app-routing.module';
 import {FormsModule} from '@angular/forms';
-import {DegreeService} from '../../service/degree.service';
-import {GroupService} from '../../service/group.service';
-import {StudentService} from '../../service/student.service';
+import {DegreeService} from '../../services/degree.service';
+import {GroupService} from '../../services/group.service';
+import {StudentService} from '../../services/student.service';
 
 @NgModule({
   declarations: [

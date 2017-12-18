@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Degree} from '../../model/Degree';
-import {DegreeService} from '../../service/degree.service';
-import {GroupService} from '../../service/group.service';
-import {StudentGroup} from '../../model/StudentGroup';
-import {StudentService} from '../../service/student.service';
-import {Student} from '../../model/Student';
+import {Degree} from '../../models/Degree';
+import {DegreeService} from '../../services/degree.service';
+import {GroupService} from '../../services/group.service';
+import {StudentGroup} from '../../models/StudentGroup';
+import {StudentService} from '../../services/student.service';
+import {Student} from '../../models/Student';
 
 @Component({
   selector: 'diploma-supplement',
