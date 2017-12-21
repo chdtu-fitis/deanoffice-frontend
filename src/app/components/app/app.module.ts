@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import {GroupComponent} from "../group/group.component";
 import {SpecialityComponent} from "../speciality/speciality.component";
 import {DiplomaSupplementComponent} from "../diploma-supplement/diploma-supplement.component";

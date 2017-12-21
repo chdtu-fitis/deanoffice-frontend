@@ -7,7 +7,6 @@ import {GroupService} from "../../services/group.service";
 import {StudentService} from "../../services/student.service";
 import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
 
-
 @Component({
   selector: 'diploma-supplement',
   templateUrl: './diploma-supplement.component.html',
@@ -17,6 +16,7 @@ export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
   students: Student[];
+  studentsSelected: boolean;
   message: string;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
@@ -36,7 +36,10 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onGroupChange(groupId: string): void {
     this.groupService.getGroupStudents(groupId)
-      .subscribe(students => {this.students = students; for (var student of this.students) {student.selected = true;}});
+      .subscribe(students => {this.students = students;
+                              for (var student of this.students) {student.selected = true;}
+                              this.studentsSelected = true;
+      });
 
   }
 

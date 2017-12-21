@@ -1,9 +1,8 @@
 <div class="content" id="diplomaSupplementStudents">
-  <p>Студенти:</p>
   <table>
     <thead>
       <td>№</td>
-      <td><input type="checkbox" (click)="onSelectAllStudents($event.target.checked)" checked></td>
+      <td><input type="checkbox" [(ngModel)]="studentsSelected" (click)="onSelectAllStudents($event.target.checked)" checked></td>
       <td>Прізвище</td>
       <td>Ім'я</td>
       <td>По-батькові</td>
