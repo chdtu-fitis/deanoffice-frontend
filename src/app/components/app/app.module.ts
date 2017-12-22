@@ -12,13 +12,15 @@ import {GroupService} from "../../services/group.service";
 import {StudentService} from "../../services/student.service";
 import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
 import {AppComponent} from "./app.component";
+import { ExamReportComponent } from '../exam-report/exam-report.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupComponent,
     SpecialityComponent,
-    DiplomaSupplementComponent
+    DiplomaSupplementComponent,
+    ExamReportComponent
   ],
   imports: [
     BrowserModule,
