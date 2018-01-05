@@ -53,8 +53,7 @@ export class DiplomaSupplementComponent implements OnInit {
     this.message = "";
     for (var student of this.students) {
       if (student.selected){
-        this.diplomaSupplementService.buildDiplomaSupplement(""+student.id)
-          .subscribe(message => this.message += message);
+        this.diplomaSupplementService.buildDiplomaSupplement(""+student.id);
       }
     }
   }

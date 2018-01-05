@@ -11,12 +11,9 @@ export class DiplomaSupplementService {
 
   constructor(private http: HttpClient) { }
 
-  buildDiplomaSupplement(studentId: string): Observable<Student[]> {
+  buildDiplomaSupplement(studentId: string): void {
     const url = `${this.diplomaSupplementUrl}/students/${studentId}`;
-    return this.http.get<String>(url)
-      .pipe(
-        catchError(this.handleError('getGroupsByDegree', []))
-      );
+    window.open(url, "_blank");
   }
 
   /**
