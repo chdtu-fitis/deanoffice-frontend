@@ -9,7 +9,7 @@ export class StudentGroupService {
     }
 
     getGroups() {
-        return this.http.get<StudentGroup>('/coursesforgroups/groups').toPromise();
+        return this.http.get<StudentGroup>('/coursesforgroups/groups').subscribe();
     }
 
 }

@@ -9,7 +9,16 @@ import {ApiService} from '../../services/api.service';
 })
 export class GridComponent implements OnInit {
 
-    public title = 'hello';
+    rows = [
+        { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+        { name: 'Dany', gender: 'Male', company: 'KFC' },
+        { name: 'Molly', gender: 'Female', company: 'Burger King' },
+    ];
+    columns = [
+        { prop: 'name' },
+        { name: 'Gender' },
+        { name: 'Company' }
+    ];
 
     constructor(public apiService: ApiService) {
     }
@@ -18,7 +27,7 @@ export class GridComponent implements OnInit {
     }
 
     getData() {
-        this.title = this.apiService.getData()['res'];
+        // this.title = this.apiService.getData()['res'];
     }
 
 }

@@ -44,7 +44,7 @@ a { color: inherit; }
 	width: 70px;
 	height: 70px;
 	float: left;
-	background: url(../img/logo.png) no-repeat;
+	background: url(/assets/img/logo.png) no-repeat;
 	background-size: 100% 100%;
 	position: relative;
 	color: #a7a4a4;
@@ -80,7 +80,7 @@ a { color: inherit; }
 	float: left;
 	width: 25px;
 	height: 25px;
-	background: url(../img/check-icon.png) no-repeat;
+	background: url(/assets/img/check-icon.png) no-repeat;
 	background-size: 100% 100%;
 	margin-right: 12px;
 	margin-top: -6px;
@@ -122,19 +122,19 @@ a { color: inherit; }
 	border-radius: 50%;
 }	
 .user-add {	
-	background: url(../img/userAdd.png) no-repeat;
+	background: url(assets/img/userAdd.png) no-repeat;
 	background-size: 100% 100%;
 }
 .user-add:hover {
-	background: url(../img/userAdd2.png) no-repeat;
+	background: url(/assets/img/userAdd2.png) no-repeat;
 	background-size: 100% 100%;
 }
 .user-logout {
-	background: url(../img/userDelete.png) no-repeat;
+	background: url(/assets/img/userDelete.png) no-repeat;
 	background-size: 100% 100%;
 }
 .user-logout:hover {
-	background: url(../img/userDelete2.png) no-repeat;
+	background: url(/assets/img/userDelete2.png) no-repeat;
 	background-size: 100% 100%;
 }
 

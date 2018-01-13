@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { DegreeService } from '../../services/degree.service';
 import { GroupService } from '../../services/group.service';
 import { StudentService } from '../../services/student.service';
+import { GridModule } from '../grid/grid.module';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { StudentService } from '../../services/student.service';
         BrowserModule,
         FormsModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        GridModule,
     ],
     providers: [DegreeService, GroupService, StudentService],
     bootstrap: [AppComponent]
