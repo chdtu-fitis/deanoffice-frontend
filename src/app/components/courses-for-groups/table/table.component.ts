@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {StudentGroup} from '../../../model/StudentGroup';
+import {StudentGroup} from '../../../models/StudentGroup';
 
 @Component({
   selector: 'table',

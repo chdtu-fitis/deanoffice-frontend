@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {CourseForGroup} from '../../../model/CourseForGroup';
+import {CourseForGroup} from '../../../models/CourseForGroup';
 import {CoursesForGroupsService} from '../courses-for-groups.service';
-import {StudentGroup} from '../../../model/StudentGroup';
+import {StudentGroup} from '../../../models/StudentGroup';
 
 @Component({
   selector: 'selection-form',

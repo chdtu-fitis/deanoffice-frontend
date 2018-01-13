@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CourseForGroup} from '../../model/CourseForGroup';
-import {StudentGroup} from '../../model/StudentGroup';
-import {Teacher} from '../../model/Teacher';
+import {CourseForGroup} from '../../models/CourseForGroup';
+import {StudentGroup} from '../../models/StudentGroup';
+import {Teacher} from '../../models/Teacher';
 
 @Injectable()
 export class CoursesForGroupsService {
