@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 
 @Component({
@@ -9,15 +9,18 @@ import {StudentGroup} from '../../models/StudentGroup';
 export class CoursesForGroupsComponent implements OnInit {
   selectedSemester: number;
   selectedGroup: StudentGroup;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  changeGroup(event){
+  changeGroup(event) {
     this.selectedGroup = event;
   }
-  changeSemester(event){
+
+  changeSemester(event) {
     this.selectedSemester = event;
   }
 

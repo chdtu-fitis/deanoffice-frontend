@@ -5,11 +5,11 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class TeacherService {
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    getTeachers() {
-        return this.http.get<Teacher>('/coursesforgroups/teachers').toPromise();
-    }
+  getTeachers() {
+    return this.http.get<Teacher>('/coursesforgroups/teachers').toPromise();
+  }
 
 }

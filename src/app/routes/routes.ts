@@ -5,19 +5,19 @@ import {ExamReportComponent} from '../components/exam-report/exam-report.compone
 import {GridComponent} from '../components/grid/grid.component';
 
 const routes: Routes = [
-    {path: 'diplsuppl', component: DiplomaSupplementComponent, pathMatch: 'full'},
-    {path: 'examreport', component: ExamReportComponent, pathMatch: 'full'},
-    {path: 'test', component: GridComponent, pathMatch: 'full'},
-    {path: '', component: DiplomaSupplementComponent, pathMatch: 'full'}
+  {path: 'diplsuppl', component: DiplomaSupplementComponent, pathMatch: 'full'},
+  {path: 'examreport', component: ExamReportComponent, pathMatch: 'full'},
+  {path: 'test', component: GridComponent, pathMatch: 'full'},
+  {path: '', component: DiplomaSupplementComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forRoot(routes)
-    ],
-    exports: [
-        RouterModule
-    ]
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule {
 }

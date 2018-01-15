@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Degree} from '../../models/Degree';
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
@@ -16,7 +16,8 @@ export class DiplomaSupplementComponent implements OnInit {
   groups: StudentGroup[];
   students: Student[];
 
-  constructor(private degreeService: DegreeService, private groupService: GroupService, private studentService: StudentService) { }
+  constructor(private degreeService: DegreeService, private groupService: GroupService, private studentService: StudentService) {
+  }
 
   ngOnInit() {
     this.degreeService.getDegrees()
