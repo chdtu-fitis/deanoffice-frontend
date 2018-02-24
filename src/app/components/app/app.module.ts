@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
@@ -28,7 +29,8 @@ import { StudentsComponent } from '../students/students.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxDatatableModule,
   ],
   providers: [DegreeService, GroupService, StudentService, DiplomaSupplementService],
   bootstrap: [AppComponent]

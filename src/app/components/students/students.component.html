@@ -1,7 +1,6 @@
-<div>
-  <ul>
-    <li *ngFor="let student of students">
-      {{ student.id }} {{student.surname}}
-    </li>
-  </ul>
+<div *ngIf="students">
+  <ngx-datatable
+    [columns]="columns"
+    [rows]="students">
+  </ngx-datatable>
 </div>

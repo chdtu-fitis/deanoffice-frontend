@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@swimlane/ngx-datatable": "^9.3.1",
     "ag-grid": "^15.0.0",
     "ag-grid-angular": "^15.0.0",
     "core-js": "^2.4.1",
