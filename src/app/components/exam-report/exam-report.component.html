@@ -1,31 +1,30 @@
-<p>
-  exam-report works!
-</p>
-<p>
-  exam-report changable!
-</p>
-<!--<input type="button">-->
-<select>
-  <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
-</select>
+<div class="container-fluid">
+  <div class="mt-4">
+    <form class="form-inline">
+      <select class="form-control mr-sm-2">
+        <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
+      </select>
 
-<select>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-</select>
+      <select class="form-control mr-sm-2">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
 
-<select>
-  <option value="volvo">Семестр</option>
-  <option value="saab">Семестр</option>
-  <option value="vw">Семестр</option>
-</select>
+      <select class="form-control mr-sm-2">
+        <option value="volvo">Семестр</option>
+        <option value="saab">Семестр</option>
+        <option value="vw">Семестр</option>
+      </select>
 
-<select>
-  <option value="volvo">Група</option>
-  <option value="saab">Група</option>
-  <option value="vw">Група</option>
-</select>
+      <select class="form-control mr-sm-2">
+        <option value="volvo">Група</option>
+        <option value="saab">Група</option>
+        <option value="vw">Група</option>
+      </select>
 
-<button (click)="onForm()">Сформувати відомість</button>
+      <button class="btn btn-success" (click)="onForm()">Сформувати відомість</button>
+    </form>
+  </div>
+</div>
