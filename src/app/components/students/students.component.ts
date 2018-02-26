@@ -11,8 +11,8 @@ import { headerValues } from './translations';
 })
 export class StudentsComponent implements OnInit {
   students: Student[];
-  columns = [];
-  defaultColumns = ['id', 'surname', 'name'];
+  columns: Array<Object> = [];
+  defaultColumns: Set<string> = new Set(['id', 'name', 'surname']);
 
   constructor(private studentService: StudentService) { }
 
@@ -20,15 +20,18 @@ export class StudentsComponent implements OnInit {
     this.studentService.getStudents()
       .subscribe(students => {
         this.students = students;
-        this.createColumns();
+        this.setColumns(Array.from(this.defaultColumns.keys()));
       })
   }
 
-  createColumns() {
-    this.columns = this.defaultColumns.map(prop => ({
-      prop,
-      name: headerValues[prop],
-    }))
+  setColumns(columns: Array<string>) {
+    this.columns = this.transformArrayToColumns(columns);
   }
 
+  private transformArrayToColumns(array: Array<string>): Array<Object> {
+    return array.map(prop => ({
+      prop,
+      name: headerValues[prop],
+    }));
+  }
 }

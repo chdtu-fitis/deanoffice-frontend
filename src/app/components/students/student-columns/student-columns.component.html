@@ -1,0 +1,8 @@
+<div>
+  <span *ngFor="let col of columns | entries">
+    <label [for]="col.key">{{col.key}}</label>
+    <input [id]="col.key" type="checkbox" [checked]="col.value" (change)="onChange(col.key)">
+  </span>
+  <button (click)="applyColumns()">Ок</button>
+  <button (click)="resetColumns()">По замовчуванню</button>
+</div>

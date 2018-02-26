@@ -15,6 +15,8 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {AppComponent} from './app.component';
 import { ExamReportComponent } from '../exam-report/exam-report.component';
 import { StudentsComponent } from '../students/students.component';
+import { StudentColumnsComponent } from '../students/student-columns/student-columns.component';
+import { EntriesPipe } from '../../pipes/entries.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { StudentsComponent } from '../students/students.component';
     DiplomaSupplementComponent,
     ExamReportComponent,
     StudentsComponent,
+    StudentColumnsComponent,
+    EntriesPipe,
   ],
   imports: [
     BrowserModule,
