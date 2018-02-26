@@ -14,11 +14,13 @@ import {DiplomaSupplementService} from "../../services/diploma-supplement.servic
 import {AppComponent} from "./app.component";
 import { ExamReportComponent } from '../exam-report/exam-report.component';
 import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    SidebarComponent,
     GroupComponent,
     SpecialityComponent,
     DiplomaSupplementComponent,
