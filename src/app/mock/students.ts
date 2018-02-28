@@ -1,31 +1,27 @@
 const studentMock = {
-  id: 1,
-  active: true,
-  surname: 'Іванов',
-  name: 'Іван',
-  patronimic: 'Іванович',
-  surnameEng: 'Ivanov',
-  nameEng: 'Ivan',
-  patronimicEng: 'Ivanovych',
-  studentGroup: 'КТ-141',
-  birthDate: new Date(),
-  registrationAdress: 'test test',
-  actualAdress: 'test test',
-  school: 'test test',
-  recordGroupNumber: '123qwe',
-  studentCardNumber: '123123',
-  telephone: '123123123',
-  email: 'qwwe@qwe.qwe',
-  fatherName: 'Qwe',
-  fatherPhone: 'Qwe',
-  fatherInfo: 'qweqwe',
-  motherName: 'werer',
-  motherPhone: 'werwer',
-  motherInfo: 'www',
-  notes: '',
-  selected: false,
+  id: 12,
+  payment: 'BUDGET',
+  student: {
+    id: 123,
+    name: 'Test',
+    nameEng: 'Test eng',
+    surname: 'Surname',
+    surnameEng: 'Surname eng',
+    patronimic: 'Patronimic',
+    patronimicEng: 'Patronimic eng',
+    sex: 'male',
+    birthDate: new Date().toLocaleDateString(),
+    registrationAddress: 'Address1',
+    actualAddress: 'Address2',
+    telephone: null,
+  },
+  recordBookNumber: '123qweqwe',
+  studentGroup: {
+    name: 'KT-141',
+    id: 1234
+  },
 };
 
 export default new Array(20)
   .fill(studentMock)
-  .map((elem, id) => ({ ...elem, id, surname: elem.surname + id }))
+  .map((elem, id) => ({ ...elem, id }))

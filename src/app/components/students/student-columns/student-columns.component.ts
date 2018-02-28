@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Student } from '../../../models/Student';
+import { translations } from '../translations';
 
 @Component({
     selector: 'app-student-columns',
@@ -9,12 +9,12 @@ import { Student } from '../../../models/Student';
 export class StudentColumnsComponent {
   columns: Object = {};
   @Input() defaultColumns: Set<string>;
-  @Input() set students([student]: Student[]) {
-    Object.keys(student).forEach(col => {
+  @Input() set allColumns(columns: string[]) {
+    columns.forEach(col => {
       this.columns[col] = this.defaultColumns.has(col);
-    })
+    });
   }
-  @Output() setColumns = new EventEmitter<Array<string>>();
+  @Output() setColumns = new EventEmitter<string[]>();
 
   applyColumns() {
     const columns = Object.keys(this.columns).filter(key => this.columns[key]);
@@ -30,5 +30,9 @@ export class StudentColumnsComponent {
 
   onChange(col) {
     this.columns[col] = !this.columns[col];
+  }
+
+  getName(col) {
+    return translations[col] || col;
   }
 }

@@ -1,11 +1,12 @@
 <div *ngIf="students">
   <app-student-columns
-    [students]="students"
+    [allColumns]="allColumns"
     [defaultColumns]="defaultColumns"
     (setColumns)="setColumns($event)">
   </app-student-columns>
 
   <ngx-datatable
+    class="bootstrap"
     [columns]="columns"
     [rows]="students">
   </ngx-datatable>

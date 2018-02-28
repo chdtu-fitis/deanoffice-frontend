@@ -2,36 +2,47 @@ import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/Student';
-import { headerValues } from './translations';
+import { translations } from './translations';
+
+const defaultColumns = ['student.name', 'student.surname', 'student.patronimic',
+'student.telephone', 'student.birthDate', 'studentGroup.name', 'payment'];
+const allColumns = defaultColumns.concat('student.nameEng', 'student.surnameEng',
+'student.patronimicEng', 'student.sex', 'student.registrationAddress',
+'student.actualAddress', 'recordBookNumber');
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss']
+  styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
   students: Student[];
-  columns: Array<Object> = [];
-  defaultColumns: Set<string> = new Set(['id', 'name', 'surname']);
+  allColumns: string[] = allColumns;
+  columns: Object[] = [];
+  defaultColumns: Set<string> = new Set(defaultColumns);
+  isAllDataLoaded: boolean;
 
   constructor(private studentService: StudentService) { }
 
   ngOnInit() {
-    this.studentService.getStudents()
+    this.studentService.getInitialStudents()
       .subscribe(students => {
         this.students = students;
         this.setColumns(Array.from(this.defaultColumns.keys()));
       })
   }
 
-  setColumns(columns: Array<string>) {
+  setColumns(columns: string[]) {
+    if (!this.isAllDataLoaded) {
+      this.studentService.getStudents().subscribe(students => {
+        this.students = students;
+        this.isAllDataLoaded = true;
+      });
+    }
     this.columns = this.transformArrayToColumns(columns);
   }
 
-  private transformArrayToColumns(array: Array<string>): Array<Object> {
-    return array.map(prop => ({
-      prop,
-      name: headerValues[prop],
-    }));
+  private transformArrayToColumns(array: string[]): Object[] {
+    return array.map(prop => ({ prop, name: translations[prop] }));
   }
 }
