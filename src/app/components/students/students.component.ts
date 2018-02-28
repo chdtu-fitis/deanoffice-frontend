@@ -2,13 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/Student';
-import { translations } from './translations';
-
-const defaultColumns = ['student.name', 'student.surname', 'student.patronimic',
-'student.telephone', 'student.birthDate', 'studentGroup.name', 'payment'];
-const allColumns = defaultColumns.concat('student.nameEng', 'student.surnameEng',
-'student.patronimicEng', 'student.sex', 'student.registrationAddress',
-'student.actualAddress', 'recordBookNumber');
+import { translations } from './translations.js';
+import { defaultColumns } from './constants.js';
 
 @Component({
   selector: 'app-students',
@@ -17,7 +12,6 @@ const allColumns = defaultColumns.concat('student.nameEng', 'student.surnameEng'
 })
 export class StudentsComponent implements OnInit {
   students: Student[];
-  allColumns: string[] = allColumns;
   columns: Object[] = [];
   defaultColumns: Set<string> = new Set(defaultColumns);
   isAllDataLoaded: boolean;

@@ -1,7 +1,5 @@
 <div *ngIf="students">
   <app-student-columns
-    [allColumns]="allColumns"
-    [defaultColumns]="defaultColumns"
     (setColumns)="setColumns($event)">
   </app-student-columns>
 
