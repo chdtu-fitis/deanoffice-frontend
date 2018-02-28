@@ -1,11 +1,16 @@
 import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
 
-export let handleError = function handleError<T>(operation = 'operation', result?: T) {
+export let handleErrorForObservable = function handleError<T>(operation: string, result?: T) {
   return (error: any): Observable<T> => {
-    console.log(operation + ': ' + ERRORS[error.status]);
+    handleErrorForPromise(error, operation);
     return of(result as T);
   }
+};
+
+export let handleErrorForPromise = (error: any, operation = 'operation') => {
+  const errorMessage: string = ERRORS[error.status];
+  console.log(operation + ': ' + errorMessage);
 };
 
 const ERRORS = {
@@ -17,6 +22,8 @@ const ERRORS = {
   500: 'Ошибка сервера!',
   503: 'Служба временно недоступна, пожалуйста, пропробуйте пойже или свяжитесь с технической поддержкой'
 };
+
+// TODO: Написать нормальные сообщения для ошибок
 
 // 400 некорректный запрос
 // Такой код означает, что запрос к серверу был сформулирован неправильно, возможно использовался некорректный синтаксис.
