@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
 import { Student } from '../../models/Student';
@@ -15,6 +15,8 @@ export class StudentsComponent implements OnInit {
   columns: Object[] = [];
   defaultColumns: Set<string> = new Set(defaultColumns);
   isAllDataLoaded: boolean;
+  @ViewChild('sexTemplate') sexTemplate: TemplateRef<any>;
+  @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
 
   constructor(private studentService: StudentService) { }
 
@@ -37,6 +39,13 @@ export class StudentsComponent implements OnInit {
   }
 
   private transformArrayToColumns(array: string[]): Object[] {
-    return array.map(prop => ({ prop, name: translations[prop] }));
+    return array.map(prop => {
+      let cellTemplate;
+      switch (prop) {
+        case 'student.sex': cellTemplate = this.sexTemplate; break;
+        case 'payment': cellTemplate = this.paymentTemplate; break;
+      }
+      return { prop, name: translations[prop], cellTemplate };
+    });
   }
 }

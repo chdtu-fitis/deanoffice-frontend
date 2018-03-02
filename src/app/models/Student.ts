@@ -6,7 +6,7 @@ export class Student extends Person {
     surnameEng?: string;
     nameEng?: string;
     patronimicEng?: string;
-    studentGroup: StudentGroup|string; // todo remove string
+    studentGroup: StudentGroup;
     birthDate: Date;
     registrationAdress?: string;
     actualAdress?: string;
