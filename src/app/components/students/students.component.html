@@ -1,11 +1,16 @@
 <div *ngIf="students">
-  <app-student-columns
-    (setColumns)="setColumns($event)">
-  </app-student-columns>
-
+  <button class="btn btn-info" (click)="modal.showModal()">Видимі колонки</button>
   <ngx-datatable
     class="bootstrap"
     [columns]="columns"
-    [rows]="students">
+    [rows]="students"
+    [rowHeight]="'auto'"
+  >
   </ngx-datatable>
+
+  <app-student-columns
+    #modal
+    (setColumns)="setColumns($event)"
+  >
+  </app-student-columns>
 </div>

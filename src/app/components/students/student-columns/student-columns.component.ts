@@ -1,13 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { translations } from '../translations.js';
 import { defaultColumns, allColumns } from '../constants.js';
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
     selector: 'app-student-columns',
     templateUrl: './student-columns.component.html',
     styleUrls: ['./student-columns.component.css'],
 })
-export class StudentColumnsComponent implements OnInit {
+export class StudentColumnsComponent extends ModalComponent implements OnInit {
   columns: Object = {};
   @Output() setColumns = new EventEmitter<string[]>();
 
@@ -20,6 +21,7 @@ export class StudentColumnsComponent implements OnInit {
   applyColumns() {
     const columns = Object.keys(this.columns).filter(key => this.columns[key]);
     this.setColumns.emit(columns);
+    this.hideModal();
   }
 
   resetColumns() {
@@ -27,6 +29,7 @@ export class StudentColumnsComponent implements OnInit {
       this.columns[key] = defaultColumns.find(el => el === key)
     });
     this.setColumns.emit(defaultColumns);
+    this.hideModal();
   }
 
   onChange(col) {

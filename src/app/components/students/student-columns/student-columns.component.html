@@ -1,8 +1,33 @@
-<div>
-  <span *ngFor="let col of columns | entries">
-    <label [for]="col.key">{{getName(col.key)}}</label>
-    <input [id]="col.key" type="checkbox" [checked]="col.value" (change)="onChange(col.key)">
-  </span>
-  <button (click)="applyColumns()">Ок</button>
-  <button (click)="resetColumns()">По замовчуванню</button>
+<div class="modal fade" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Видимі колонки</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div *ngFor="let col of columns | entries" class="col-4 col-md-down-6">
+            <div class="form-check form-check-inline my-2">
+              <input
+                [id]="col.key"
+                type="checkbox"
+                [checked]="col.value"
+                (change)="onChange(col.key)"
+                class="form-check-input"
+              >
+              <label [for]="col.key" class="form-check-label">{{getName(col.key)}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="applyColumns()" class="btn btn-success">Ок</button>
+        <button (click)="resetColumns()" class="btn btn-outline-info">По замовчуванню</button>
+      </div>
+    </div>
+  </div>
 </div>

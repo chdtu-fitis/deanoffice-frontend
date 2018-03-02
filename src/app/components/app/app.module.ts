@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ModalModule } from 'ngx-bootstrap';
 
 import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
@@ -17,6 +18,7 @@ import { ExamReportComponent } from '../exam-report/exam-report.component';
 import { StudentsComponent } from '../students/students.component';
 import { StudentColumnsComponent } from '../students/student-columns/student-columns.component';
 import { EntriesPipe } from '../../pipes/entries.pipe';
+import { ModalComponent } from '../modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { EntriesPipe } from '../../pipes/entries.pipe';
     StudentsComponent,
     StudentColumnsComponent,
     EntriesPipe,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { EntriesPipe } from '../../pipes/entries.pipe';
     AppRoutingModule,
     HttpClientModule,
     NgxDatatableModule,
+    ModalModule.forRoot(),
   ],
   providers: [DegreeService, GroupService, StudentService, DiplomaSupplementService],
   bootstrap: [AppComponent]
