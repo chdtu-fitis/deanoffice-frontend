@@ -1,29 +1,12 @@
 <div *ngIf="students">
   <button class="btn btn-info" (click)="modal.showModal()">Видимі колонки</button>
-  <ngx-datatable
-    class="bootstrap"
+  <app-students-table
     [columns]="columns"
-    [rows]="students"
-    [rowHeight]="'auto'"
-  >
-  </ngx-datatable>
+    [rows]="students">
+  </app-students-table>
 
   <app-student-columns
     #modal
-    (setColumns)="setColumns($event)"
-  >
+    (setColumns)="setColumns($event)">
   </app-student-columns>
-
-
-  <ng-template #sexTemplate let-row="row" let-value="value">
-    <span>
-      {{value === 'male' ? 'Чол.' : 'Жін.'}}
-    </span>
-  </ng-template>
-
-  <ng-template #paymentTemplate let-row="row" let-value="value">
-    <span>
-      {{value === 'BUDGET' ? 'Бюджет' : 'Контракт'}}
-    </span>
-  </ng-template>
 </div>

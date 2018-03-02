@@ -1,0 +1,19 @@
+<ngx-datatable
+  class="bootstrap"
+  [columns]="cols"
+  [rows]="rows"
+  [rowHeight]="'auto'"
+>
+</ngx-datatable>
+
+<ng-template #sexTemplate let-row="row" let-value="value">
+    <span>
+      {{value === 'male' ? 'Чол.' : 'Жін.'}}
+    </span>
+</ng-template>
+
+<ng-template #paymentTemplate let-row="row" let-value="value">
+    <span>
+      {{value === 'BUDGET' ? 'Бюджет' : 'Контракт'}}
+    </span>
+</ng-template>

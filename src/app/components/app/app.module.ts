@@ -19,6 +19,7 @@ import { StudentsComponent } from '../students/students.component';
 import { StudentColumnsComponent } from '../students/student-columns/student-columns.component';
 import { EntriesPipe } from '../../pipes/entries.pipe';
 import { ModalComponent } from '../modal/modal.component';
+import { StudentsTableComponent } from '../students/students-table/students-table.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ModalComponent } from '../modal/modal.component';
     StudentColumnsComponent,
     EntriesPipe,
     ModalComponent,
+    StudentsTableComponent,
   ],
   imports: [
     BrowserModule,
