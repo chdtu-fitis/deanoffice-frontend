@@ -6,7 +6,7 @@ import { ModalComponent } from '../../modal/modal.component';
 @Component({
     selector: 'app-student-columns',
     templateUrl: './student-columns.component.html',
-    styleUrls: ['./student-columns.component.css'],
+    styleUrls: ['./student-columns.component.scss'],
 })
 export class StudentColumnsComponent extends ModalComponent implements OnInit {
   columns: Object = {};

@@ -27,10 +27,10 @@ export class StudentsComponent implements OnInit {
   setColumns(columns: string[]) {
     if (!this.isAllDataLoaded) {
       this.studentService.getStudents().subscribe(students => {
-        this.students = students;
+        this.students = JSON.parse(JSON.stringify(students));
         this.isAllDataLoaded = true;
       });
     }
-    this.columns = columns
+    this.columns = JSON.parse(JSON.stringify(columns));
   }
 }

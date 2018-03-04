@@ -1,3 +1,8 @@
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+.ngx-datatable.bootstrap .datatable-header .datatable-header-cell {
+  border: solid #ddd;
+  border-width: 1px 1px 0 0;
+}
