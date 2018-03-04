@@ -5,6 +5,9 @@ import { TableComponent } from './table/table.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {SelectionFormComponent} from './form/selection-form.component';
+import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
+import { AddedCoursesComponent } from './added-courses/added-courses.component';
+import { CourseCreationComponent } from './course-creation/course-creation.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,10 @@ import {SelectionFormComponent} from './form/selection-form.component';
   declarations: [
     CoursesForGroupsComponent,
     TableComponent,
-    SelectionFormComponent
+    SelectionFormComponent,
+    StudiedCoursesComponent,
+    AddedCoursesComponent,
+    CourseCreationComponent
   ],
   exports: [
     CoursesForGroupsComponent
