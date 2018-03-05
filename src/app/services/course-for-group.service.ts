@@ -5,14 +5,14 @@ import {CourseForGroup} from '../models/CourseForGroup';
 @Injectable()
 export class CourseForGroupService {
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    getCoursesBySpecialization(specializationId) {
-        return this.http.get<CourseForGroup>(`/coursesforgroups/${specializationId}/courses`).toPromise();
-    }
+  getCoursesBySpecialization(specializationId) {
+    return this.http.get<CourseForGroup>(`/coursesforgroups/${specializationId}/courses`).toPromise();
+  }
 
-    setCoursesForGroup(body, groupId) {
-        return this.http.post(`/coursesforgroups/${groupId}/courses`, body).toPromise();
-    }
+  setCoursesForGroup(body, groupId) {
+    return this.http.post(`/coursesforgroups/${groupId}/courses`, body).toPromise();
+  }
 }

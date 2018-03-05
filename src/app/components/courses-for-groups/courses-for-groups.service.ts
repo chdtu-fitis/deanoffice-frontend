@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentGroup} from '../../models/StudentGroup';
@@ -12,17 +12,18 @@ export class CoursesForGroupsService {
     {name: 'dsgsdg'}
   ];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getCoursesBySpecialization(specializationId){
+  getCoursesBySpecialization(specializationId) {
     return this.http.get<CourseForGroup[]>(`/coursesforgroups/${specializationId}/courses`).toPromise();
   }
 
-  setCoursesForGroup(body, groupId){
+  setCoursesForGroup(body, groupId) {
     return this.http.post(`/coursesforgroups/${groupId}/courses`, body).toPromise();
   }
 
-  getGroups(){
+  getGroups() {
     return this.http.get<StudentGroup[]>('/coursesforgroups/groups').toPromise();
   }
 

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Degree} from "../../models/Degree";
-import {DegreeService} from "../../services/degree.service";
+import {Component, OnInit} from '@angular/core';
+import {Degree} from '../../models/Degree';
+import {DegreeService} from '../../services/degree.service';
 
 @Component({
   selector: 'exam-report',
@@ -10,7 +10,8 @@ import {DegreeService} from "../../services/degree.service";
 export class ExamReportComponent implements OnInit {
   degrees: Degree[];
 
-  constructor(private degreeService: DegreeService) { }
+  constructor(private degreeService: DegreeService) {
+  }
 
   ngOnInit() {
     this.degreeService.getDegrees()

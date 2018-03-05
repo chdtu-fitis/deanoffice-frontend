@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import {catchError} from "rxjs/operators";
-import {Student} from "../models/Student";
-import {HttpClient} from "@angular/common/http";
-import {of} from "rxjs/observable/of";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
+import {Student} from '../models/Student';
+import {HttpClient} from '@angular/common/http';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class DiplomaSupplementService {
   private diplomaSupplementUrl = 'http://localhost:8080/documents/diplomas/supplements';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   buildDiplomaSupplement(studentId: string): void {
     const url = `${this.diplomaSupplementUrl}/students/${studentId}`;
@@ -23,7 +24,7 @@ export class DiplomaSupplementService {
    * @param result - optional value to return as the observable result
    */
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable <T> => {
+    return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
       // TODO: better job of transforming error for user consumption
