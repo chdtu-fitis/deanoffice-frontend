@@ -25,8 +25,6 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.20",
-    "ag-grid": "^15.0.0",
-    "ag-grid-angular": "^15.0.0",
     "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.12.9"
