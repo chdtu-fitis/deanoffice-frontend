@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { translations } from '../translations.js';
 import { defaultColumns, allColumns } from '../constants.js';
-import { ModalComponent } from '../../modal/modal.component';
+import { ModalComponent } from '../../shared/modal/modal.component';
 
 @Component({
     selector: 'app-students-columns',
