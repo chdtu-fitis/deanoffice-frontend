@@ -4,6 +4,7 @@
   float: left;
   padding: 20px;
 }
+
 .side-control {
   width: 30%;
   min-height: 400px;
@@ -11,19 +12,23 @@
   padding: 20px;
   border-left: 2px solid #ccc;
 }
+
 .diplom-select {
   width: 100%;
   margin-bottom: 20px;
 }
+
 select {
   height: 40px;
   cursor: pointer;
 }
+
 p {
   font-weight: bold;
   text-transform: uppercase;
   color: #485668;
 }
+
 .btn {
   width: 100%;
   margin-bottom: 20px;

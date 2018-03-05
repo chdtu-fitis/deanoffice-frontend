@@ -10,7 +10,8 @@ export class TableComponent implements OnInit {
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

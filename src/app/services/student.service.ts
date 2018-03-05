@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { of } from 'rxjs/observable/of';
+import {Injectable} from '@angular/core';
+import {of} from 'rxjs/observable/of';
 
 import studentsMock from '../mock/students';
 import initialStudentsMock from '../mock/students-initial';
@@ -7,7 +7,8 @@ import initialStudentsMock from '../mock/students-initial';
 @Injectable()
 export class StudentService {
 
-  constructor() { }
+  constructor() {
+  }
 
   getInitialStudents() {
     return of(initialStudentsMock)

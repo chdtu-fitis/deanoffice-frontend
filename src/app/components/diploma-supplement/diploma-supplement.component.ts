@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Degree} from "../../models/Degree";
-import {StudentGroup} from "../../models/StudentGroup";
-import {Student} from "../../models/Student";
-import {DegreeService} from "../../services/degree.service";
-import {GroupService} from "../../services/group.service";
-import {StudentService} from "../../services/student.service";
-import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
+import {Component, OnInit} from '@angular/core';
+import {Degree} from '../../models/Degree';
+import {DegreeService} from '../../services/degree.service';
+import {GroupService} from '../../services/group.service';
+import {StudentGroup} from '../../models/StudentGroup';
+import {StudentService} from '../../services/student.service';
+import {Student} from '../../models/Student';
 
 @Component({
   selector: 'diploma-supplement',
@@ -16,11 +15,9 @@ export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
   students: Student[];
-  studentsSelected: boolean;
-  message: string;
 
-  constructor(private degreeService: DegreeService, private groupService: GroupService,
-              private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) { }
+  constructor(private degreeService: DegreeService, private groupService: GroupService, private studentService: StudentService) {
+  }
 
   ngOnInit() {
     this.degreeService.getDegrees()
@@ -36,25 +33,6 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onGroupChange(groupId: string): void {
     this.groupService.getGroupStudents(groupId)
-      .subscribe(students => {this.students = students;
-                              for (var student of this.students) {student.selected = true;}
-                              this.studentsSelected = true;
-      });
-
-  }
-
-  onSelectAllStudents(checked: boolean): void {
-    for (var student of this.students) {
-      student.selected = checked;
-    }
-  }
-
-  onFormSupplement(): void {
-    this.message = "";
-    for (var student of this.students) {
-      if (student.selected){
-        this.diplomaSupplementService.buildDiplomaSupplement(""+student.id);
-      }
-    }
+      .subscribe(students => this.students = students);
   }
 }
