@@ -1,26 +1,20 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ModalModule } from 'ngx-bootstrap';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
-import {HttpClientModule} from '@angular/common/http';
 import {DiplomaSupplementComponent} from '../diploma-supplement/diploma-supplement.component';
 import {AppRoutingModule} from '../../routes/routes';
-import {FormsModule} from '@angular/forms';
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
 import {StudentService} from '../../services/student.service';
 import {GridModule} from '../grid/grid.module';
 import {ExamReportComponent} from '../exam-report/exam-report.component';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
-import {StudentsComponent} from '../students/students.component';
-import {StudentsColumnsComponent} from '../students/students-columns/students-columns.component';
-import {EntriesPipe} from '../../pipes/entries.pipe';
-import {ModalComponent} from '../modal/modal.component';
-import {StudentsTableComponent} from '../students/students-table/students-table.component';
+import {StudentsModule} from '../students/students.module';
 
 @NgModule({
   declarations: [
@@ -29,11 +23,6 @@ import {StudentsTableComponent} from '../students/students-table/students-table.
     SpecialityComponent,
     DiplomaSupplementComponent,
     ExamReportComponent,
-    StudentsComponent,
-    StudentsColumnsComponent,
-    EntriesPipe,
-    ModalComponent,
-    StudentsTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +30,7 @@ import {StudentsTableComponent} from '../students/students-table/students-table.
     AppRoutingModule,
     HttpClientModule,
     GridModule,
-    HttpClientModule,
-    NgxDatatableModule,
-    ModalModule.forRoot(),
+    StudentsModule,
   ],
   providers: [
     DegreeService,
@@ -51,7 +38,7 @@ import {StudentsTableComponent} from '../students/students-table/students-table.
     StudentService,
     DiplomaSupplementService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }
