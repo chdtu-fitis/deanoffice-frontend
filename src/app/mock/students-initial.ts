@@ -17,5 +17,4 @@ const studentMock = {
 
 export default new Array(20)
   .fill(studentMock)
-  .map((elem, id) => ({ ...elem, id, 'student.surname': elem.surname + id }))
-
+  .map((elem, id) => ({ ...elem, id }));
