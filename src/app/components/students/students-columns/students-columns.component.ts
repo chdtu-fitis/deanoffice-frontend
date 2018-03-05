@@ -4,11 +4,11 @@ import { defaultColumns, allColumns } from '../constants.js';
 import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
-    selector: 'app-student-columns',
-    templateUrl: './student-columns.component.html',
-    styleUrls: ['./student-columns.component.scss'],
+    selector: 'app-students-columns',
+    templateUrl: './students-columns.component.html',
+    styleUrls: ['./students-columns.component.scss'],
 })
-export class StudentColumnsComponent extends ModalComponent implements OnInit {
+export class StudentsColumnsComponent extends ModalComponent implements OnInit {
   columns: Object = {};
   @Output() setColumns = new EventEmitter<string[]>();
 

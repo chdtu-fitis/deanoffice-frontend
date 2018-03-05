@@ -16,7 +16,7 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {AppComponent} from './app.component';
 import { ExamReportComponent } from '../exam-report/exam-report.component';
 import { StudentsComponent } from '../students/students.component';
-import { StudentColumnsComponent } from '../students/student-columns/student-columns.component';
+import { StudentsColumnsComponent } from '../students/students-columns/students-columns.component';
 import { EntriesPipe } from '../../pipes/entries.pipe';
 import { ModalComponent } from '../modal/modal.component';
 import { StudentsTableComponent } from '../students/students-table/students-table.component';
@@ -29,7 +29,7 @@ import { StudentsTableComponent } from '../students/students-table/students-tabl
     DiplomaSupplementComponent,
     ExamReportComponent,
     StudentsComponent,
-    StudentColumnsComponent,
+    StudentsColumnsComponent,
     EntriesPipe,
     ModalComponent,
     StudentsTableComponent,
