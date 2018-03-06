@@ -25,10 +25,13 @@
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^2.0.2",
     "rxjs": "^5.5.6",
-    "zone.js": "^0.8.20"
+    "zone.js": "^0.8.20",
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.1",
+    "@angular/cli": "^1.7.1",
     "@angular/compiler-cli": "^5.2.6",
     "@angular/language-service": "^5.2.6",
     "@types/jasmine": "~2.8.6",

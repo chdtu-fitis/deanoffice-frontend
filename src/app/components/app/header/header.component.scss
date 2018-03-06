@@ -1,0 +1,16 @@
+.Header {
+  max-height: 54px;
+}
+
+.navbar-nav .nav-item {
+  .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  &:hover,
+  &.active {
+    .nav-link {
+      color: #fff;
+    }
+  }
+}

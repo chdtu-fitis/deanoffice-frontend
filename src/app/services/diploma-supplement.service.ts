@@ -13,7 +13,7 @@ export class DiplomaSupplementService {
   }
 
   buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.diplomaSupplementUrl}/students/${studentId}`;
+    const url = `${this.diplomaSupplementUrl}/studentdegrees/${studentId}`;
     window.open(url, "_blank");
   }
 

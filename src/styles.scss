@@ -1,6 +1,12 @@
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '~bootstrap/scss/bootstrap';
+
+html,
+body {
+  height: 100%;
+}
 
 .ngx-datatable.bootstrap .datatable-header {
   background: #99dddd;
