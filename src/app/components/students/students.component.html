@@ -1,12 +1,10 @@
-<div *ngIf="students">
-  <button class="btn btn-info mb-3" (click)="columnsModal.showModal()">Вибір колонок</button>
-  <app-students-table
-    [columns]="columns"
-    [rows]="students">
-  </app-students-table>
+<button class="btn btn-info mb-3" (click)="columnsModal.showModal()">Вибір колонок</button>
+<app-students-table
+  [columns]="columns"
+  [rows]="students">
+</app-students-table>
 
-  <app-students-columns
-    #columnsModal
-    (setColumns)="setColumns($event)">
-  </app-students-columns>
-</div>
+<app-students-columns
+  #columnsModal
+  (setColumns)="setColumns($event)">
+</app-students-columns>

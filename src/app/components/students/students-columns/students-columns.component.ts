@@ -20,16 +20,16 @@ export class StudentsColumnsComponent extends ModalComponent implements OnInit {
 
   applyColumns() {
     const columns = Object.keys(this.columns).filter(key => this.columns[key]);
-    this.setColumns.emit(columns);
     this.hideModal();
+    this.setColumns.emit(columns);
   }
 
   resetColumns() {
     Object.keys(this.columns).forEach(key => {
       this.columns[key] = defaultColumns.find(el => el === key)
     });
-    this.setColumns.emit(defaultColumns);
     this.hideModal();
+    this.setColumns.emit(defaultColumns);
   }
 
   onChange(col) {

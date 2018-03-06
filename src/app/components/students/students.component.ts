@@ -10,27 +10,27 @@ import { defaultColumns } from './constants.js';
   styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
-  students: Student[];
-  columns: Object[] = [];
+  students: any[];
+  columns: any[] = defaultColumns;
   isAllDataLoaded: boolean;
 
   constructor(private studentService: StudentService) { }
 
   ngOnInit() {
     this.studentService.getInitialStudents()
-      .subscribe(students => {
+      .subscribe((students: any[]) => {
         this.students = students;
-        this.setColumns(defaultColumns);
       })
   }
 
   setColumns(columns: string[]) {
     if (!this.isAllDataLoaded) {
-      this.studentService.getStudents().subscribe(students => {
-        this.students = JSON.parse(JSON.stringify(students));
-        this.isAllDataLoaded = true;
-      });
+      this.studentService.getStudents()
+        .subscribe((students: any[]) => {
+          this.students = students;
+          this.isAllDataLoaded = true;
+        });
     }
-    this.columns = JSON.parse(JSON.stringify(columns));
+    this.columns = columns;
   }
 }

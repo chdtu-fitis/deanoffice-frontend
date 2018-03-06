@@ -1,21 +1,20 @@
 import {Injectable} from '@angular/core';
-import {of} from 'rxjs/observable/of';
-
-import studentsMock from '../mock/students';
-import initialStudentsMock from '../mock/students-initial';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class StudentService {
+  private url = 'http://localhost:8080/students';
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   getInitialStudents() {
-    return of(initialStudentsMock)
+    // todo use proper type
+    return this.http.get<any[]>(`${this.url}/degrees`);
   }
 
   getStudents() {
-    return of(studentsMock)
+    return this.http.get<any[]>(`${this.url}/degrees/more-detail`);
   }
 
 }
