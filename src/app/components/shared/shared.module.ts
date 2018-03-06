@@ -6,11 +6,13 @@ import {ModalModule} from 'ngx-bootstrap';
 
 import {ModalComponent} from './modal/modal.component';
 import {EntriesPipe} from '../../pipes/entries.pipe';
+import {SidebarComponent} from '../app/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     EntriesPipe,
     ModalComponent,
+    SidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import {EntriesPipe} from '../../pipes/entries.pipe';
     NgxDatatableModule,
     EntriesPipe,
     ModalComponent,
+    SidebarComponent,
   ]
 })
 

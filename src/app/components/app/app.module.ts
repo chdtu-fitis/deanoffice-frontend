@@ -4,7 +4,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
 import {HeaderComponent} from './header/header.component';
-import {SidebarComponent} from './sidebar/sidebar.component';
 import {AppComponent} from './app.component';
 import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
@@ -17,12 +16,12 @@ import {GridModule} from '../grid/grid.module';
 import {ExamReportComponent} from '../exam-report/exam-report.component';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 import {StudentsModule} from '../students/students.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidebarComponent,
     GroupComponent,
     SpecialityComponent,
     DiplomaSupplementComponent,
@@ -35,6 +34,7 @@ import {StudentsModule} from '../students/students.module';
     HttpClientModule,
     GridModule,
     StudentsModule,
+    SharedModule,
   ],
   providers: [
     DegreeService,

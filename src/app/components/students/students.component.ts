@@ -10,7 +10,7 @@ import { defaultColumns } from './constants.js';
   styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
-  students: any[];
+  students: any[] = [];
   columns: any[] = defaultColumns;
   isAllDataLoaded: boolean;
 

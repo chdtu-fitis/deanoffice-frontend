@@ -1,8 +1,23 @@
-<button class="btn btn-info mb-3" (click)="columnsModal.showModal()">Вибір колонок</button>
-<app-students-table
-  [columns]="columns"
-  [rows]="students">
-</app-students-table>
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-nowrap">
+    <div class="col scrollable py-3">
+      <button class="btn btn-info mb-3" (click)="columnsModal.showModal()">Вибір колонок</button>
+
+      <app-students-table
+        [columns]="columns"
+        [rows]="students">
+      </app-students-table>
+
+      <div class="bg-light fixed-bottom p-3">
+        Всього: {{students.length || '0'}}
+      </div>
+    </div>
+
+    <app-sidebar>
+      <h6>Фільтри:</h6>
+    </app-sidebar>
+  </div>
+</div>
 
 <app-students-columns
   #columnsModal
