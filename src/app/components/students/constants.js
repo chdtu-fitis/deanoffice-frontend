@@ -1,6 +1,6 @@
 export const defaultColumns = [
-  'student.name',
   'student.surname',
+  'student.name',
   'student.patronimic',
   'student.telephone',
   'student.birthDate',
@@ -9,8 +9,8 @@ export const defaultColumns = [
 ];
 
 export const allColumns = defaultColumns.concat(
-  'student.nameEng',
   'student.surnameEng',
+  'student.nameEng',
   'student.patronimicEng',
   'student.sex',
   'student.registrationAddress',

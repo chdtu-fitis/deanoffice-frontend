@@ -11,6 +11,6 @@ export const translations = {
   'student.actualAddress': 'Адреса',
   'student.telephone': 'Телефон',
   'student.sex': 'Стать',
-  'payment': 'Форма навчення',
+  'payment': 'Форма навчання',
   'recordBookNumber': 'Заліковка',
 };
