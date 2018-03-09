@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentDegree} from '../../../models/StudentDegree';
+import {months} from '../constants.js';
 
 @Component({
     selector: 'app-students-filters',
@@ -11,6 +12,7 @@ import {StudentDegree} from '../../../models/StudentDegree';
 })
 export class StudentsFiltersComponent {
   filters: FormGroup;
+  months: string[] = months;
   @Input() groups: StudentGroup[];
   @Input() students: StudentDegree[];
   @Output() applyFilters = new EventEmitter();
@@ -21,22 +23,39 @@ export class StudentsFiltersComponent {
       payment: this.fb.array([]),
       birthDate: '',
       birthMonth: ''
-    })
+    });
   }
 
   setFilters() {
-    console.log(this.filters.value);
-    const form = this.filters.value;
-    const students = this.students.filter(student => {
-      const group = form.group.name;
-      return group ? student.studentGroup.name === group : true;
-    });
-
+    const students = this.students.filter(entry => this.filter(entry));
     this.applyFilters.emit(students);
   }
 
   resetFilters() {
     this.filters.reset();
     this.applyFilters.emit(this.students);
+  }
+
+  private filter(entry: StudentDegree): Boolean {
+    const { group, payment, birthDate, birthMonth } = this.filters.value;
+    const isGroupMatch = group ? entry.studentGroup.name === group : true;
+
+    let isBirthDateMatch = true;
+    if (birthDate) {
+      isBirthDateMatch = entry.student.birthDate
+        ? new Date(birthDate).getTime() === new Date(entry.student.birthDate).getTime()
+        : false;
+    }
+
+    let isBirthMonthMatch = true;
+    if (birthMonth) {
+      isBirthMonthMatch = entry.student.birthDate
+        ? birthMonth === new Date(entry.student.birthDate).getMonth()
+        : false;
+    }
+
+    // todo filter by payment
+
+    return isGroupMatch && isBirthDateMatch && isBirthMonthMatch;
   }
 }

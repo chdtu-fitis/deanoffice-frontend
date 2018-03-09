@@ -28,9 +28,17 @@ export const allColumns = defaultColumns.concat(
   'previousDiplomaDate',
 );
 
-export const filters = {
-  group: '',
-  payment: '',
-  birthDate: '',
-  birthMonth: '',
-};
+export const months = [
+  'Січень',
+  'Лютий',
+  'Березень',
+  'Квітень',
+  'Травень',
+  'Червень',
+  'Липень',
+  'Серпень',
+  'Вересень',
+  'Жовтень',
+  'Листопад',
+  'Грудень'
+];
