@@ -1,22 +1,24 @@
 <ngx-datatable
-  class="bootstrap"
+  class="material"
   [columns]="cols"
   [rows]="rows"
   [rowHeight]="'auto'"
+  [headerHeight]="'auto'"
   [columnMode]="'force'"
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
+  [trackByProp]="'id'"
 >
 </ngx-datatable>
 
-<ng-template #sexTemplate let-row="row" let-value="value">
+<ng-template #sexTemplate let-value="value">
     <span>
       {{value === 'MALE' ? 'Чол.' : ''}}
       {{value === 'FEMALE' ? 'Жін.' : ''}}
     </span>
 </ng-template>
 
-<ng-template #paymentTemplate let-row="row" let-value="value">
+<ng-template #paymentTemplate let-value="value">
     <span>
       {{value === 'BUDGET' ? 'Бюджет' : ''}}
       {{value === 'CONTRACT' ? 'Контракт' : ''}}
