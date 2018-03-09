@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
-import { Student } from '../../models/Student';
 import { defaultColumns } from './constants.js';
+import { StudentDegree } from '../../models/StudentDegree';
 
 @Component({
   selector: 'app-students',
@@ -10,7 +10,7 @@ import { defaultColumns } from './constants.js';
   styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
-  students: any[] = [];
+  students: StudentDegree[] = [];
   columns: any[] = defaultColumns;
   isAllDataLoaded: boolean;
 
@@ -18,7 +18,7 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit() {
     this.studentService.getInitialStudents()
-      .subscribe((students: any[]) => {
+      .subscribe((students: StudentDegree[]) => {
         this.students = students;
       })
   }
@@ -26,7 +26,7 @@ export class StudentsComponent implements OnInit {
   setColumns(columns: string[]) {
     if (!this.isAllDataLoaded) {
       this.studentService.getStudents()
-        .subscribe((students: any[]) => {
+        .subscribe((students: StudentDegree[]) => {
           this.students = students;
           this.isAllDataLoaded = true;
         });

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {StudentDegree} from '../models/StudentDegree';
 
 @Injectable()
 export class StudentService {
@@ -9,12 +10,11 @@ export class StudentService {
   }
 
   getInitialStudents() {
-    // todo use proper type
-    return this.http.get<any[]>(`${this.url}/degrees`);
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees`);
   }
 
   getStudents() {
-    return this.http.get<any[]>(`${this.url}/degrees/more-detail`);
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
   }
 
 }

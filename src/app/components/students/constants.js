@@ -23,7 +23,7 @@ export const allColumns = defaultColumns.concat(
   'protocolNumber',
   'previousDiplomaNumber',
   'diplomaDate',
-  'SupplementDate',
+  'supplementDate',
   'protocolDate',
   'previousDiplomaDate',
 );

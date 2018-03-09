@@ -8,13 +8,19 @@ body {
   height: 100%;
 }
 
-.ngx-datatable.bootstrap .datatable-header {
-  background: #99dddd;
-  font-weight: bold;
+.ngx-datatable.bootstrap {
+  .datatable-header {
+    background: #99dddd;
+    font-weight: bold;
 
-  .datatable-header-cell {
-    border: solid #ddd;
-    border-width: 1px 1px 0 0;
+    .datatable-header-cell {
+      border: solid #ddd;
+      border-width: 1px 1px 0 0;
+    }
+  }
+
+  .datatable-body .datatable-body-row {
+    padding: 5px 10px;
   }
 }
 
