@@ -5,16 +5,21 @@
 
       <app-students-table
         [columns]="columns"
-        [rows]="students">
+        [rows]="rows">
       </app-students-table>
 
       <div class="bg-light fixed-bottom p-3">
-        Всього: {{students.length || '0'}}
+        Всього: {{rows.length || '0'}}
       </div>
     </div>
 
     <app-sidebar>
       <h6>Фільтри:</h6>
+      <app-students-filters
+        [groups]="groups"
+        [students]="students"
+        (applyFilters)="applyFilters($event)">
+      </app-students-filters>
     </app-sidebar>
   </div>
 </div>

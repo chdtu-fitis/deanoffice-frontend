@@ -27,3 +27,10 @@ export const allColumns = defaultColumns.concat(
   'protocolDate',
   'previousDiplomaDate',
 );
+
+export const filters = {
+  group: '',
+  payment: '',
+  birthDate: '',
+  birthMonth: '',
+};
