@@ -4,7 +4,7 @@ import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
 import {StudentGroup} from '../../models/StudentGroup';
 import {StudentService} from '../../services/student.service';
-import {Student} from '../../models/Student';
+import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
 
 @Component({
@@ -15,7 +15,7 @@ import {DiplomaSupplementService} from "../../services/diploma-supplement.servic
 export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
-  students: Student[];
+  students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
 
