@@ -20,7 +20,7 @@ export const translations = {
   'protocolNumber': 'Номер протоколу',
   'previousDiplomaNumber': 'Номер попереднього диплому',
   'diplomaDate': 'Дата диплому',
-  'SupplementDate': 'Дата додатку до диплому',
+  'supplementDate': 'Дата додатку до диплому',
   'protocolDate': 'Дата протоколу',
   'previousDiplomaDate': 'Дата попереднього диплому',
 };
