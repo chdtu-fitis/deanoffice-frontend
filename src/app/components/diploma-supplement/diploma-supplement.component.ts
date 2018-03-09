@@ -25,22 +25,24 @@ export class DiplomaSupplementComponent implements OnInit {
 
   ngOnInit() {
     this.degreeService.getDegrees()
-      .subscribe(degrees => this.degrees = degrees);
-    this.groupService.getGroupsByDegree('1')
-      .subscribe(groups => this.groups = groups);
+      .subscribe(degrees => {
+        this.degrees = degrees;
+        this.onDegreeChange('1');
+      });
   }
 
   onDegreeChange(degreeId: string): void {
     this.groupService.getGroupsByDegree(degreeId)
-      .subscribe(groups => this.groups = groups);
+      .subscribe(groups => {
+        this.groups = groups;
+        this.onGroupChange(this.groups[0].id.toString());
+      });
   }
 
   onGroupChange(groupId: string): void {
-    this.groupService.getGroupStudents(groupId)
-      .subscribe(students => {this.students = students;
-        for (var student of this.students) {student.selected = true;}
-        this.studentsSelected = true;
-      });
+    this.students = this.groups.find(x => x.id == Number(groupId)).studentDegrees;
+    for (var student of this.students) {student.selected = true;}
+    this.studentsSelected = true;
   }
 
   onSelectAllStudents(checked: boolean): void {
