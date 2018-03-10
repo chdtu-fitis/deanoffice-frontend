@@ -47,11 +47,16 @@ export class GroupService {
   }
 
   getGroupStudents(groupId: string): Observable<StudentDegree[]> {
+
     const url = `${this.groupsUrl}/${groupId}/students`;
     return this.http.get<StudentDegree[]>(url)
       .pipe(
         catchError(this.handleError('getStudentsByGroup', []))
       );
+  }
+
+  getGroupsByFaculty(facultyId: string): Observable<StudentGroup[]> {
+    return this.http.get<StudentGroup[]>(`http://localhost:8080/${facultyId}/groups`)
   }
 
   /**
