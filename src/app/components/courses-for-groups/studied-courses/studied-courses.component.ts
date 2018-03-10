@@ -20,7 +20,7 @@ export class StudiedCoursesComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.coursesForGroupsService.getGroups().then(groups => this.groups = groups);
+
   }
 
   changeSelectedGroup(group: StudentGroup){

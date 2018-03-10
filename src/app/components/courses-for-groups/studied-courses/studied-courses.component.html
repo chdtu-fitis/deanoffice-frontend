@@ -1,4 +1,5 @@
-<div *ngIf="groups && semesters">
+<!--<div *ngIf="groups && semesters">-->
+<div>
   <select [(ngModel)]="selectedGroup" (click)="changeSelectedGroup(selectedGroup)">
     <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
   </select>
