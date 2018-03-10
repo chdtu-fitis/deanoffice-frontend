@@ -17,12 +17,13 @@
     </div>
 
     <app-sidebar class="sidebar">
-      <b>Фільтри:</b>
+      <b class="mb-2">Фільтри:</b>
       <app-students-filters
         [groups]="groups"
         [students]="students"
         (applyFilters)="setRows($event)">
       </app-students-filters>
+      <hr />
     </app-sidebar>
   </div>
 </div>

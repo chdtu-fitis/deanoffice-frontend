@@ -1,35 +1,35 @@
-<form class="row" [formGroup]="filters">
-  <div class="form-group col">
+<form class="row" [formGroup]="form">
+  <div class="form-group col-6">
     <label for="group">Група</label>
     <select formControlName="group" class="form-control" id="group">
-      <option value="" [selected]="!filters.value.group">Всі</option>
+      <option value="" [selected]="!form.value.group">Всі</option>
       <option *ngFor="let group of groups" [ngValue]="group.name">{{group.name}}</option>
     </select>
   </div>
-  <div formArrayName="payment" class="form-group col">
+  <div class="form-group col-6">
     <label>Форма навчання</label>
-    <div class="btn-group">
-      <label class="btn btn-outline-info" btnCheckbox>
-        Бюджет
-      </label>
-      <label class="btn btn-outline-info" btnCheckbox>
-        Контракт
-      </label>
+    <div formArrayName="payment">
+      <div *ngFor="let child of payment.controls; let i = index">
+        <div class="form-check" formGroupName="{{i}}">
+          <input class="form-check-input" [id]="'checkbox'+i" formControlName="selected" type="checkbox" />
+          <label class="form-check-label" [for]="'checkbox'+i">{{child.value.label}}</label>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="form-group col">
+  <div class="form-group col-6">
     <label for="birthDate">Дата народження</label>
     <input formControlName="birthDate" type="date" class="form-control" id="birthDate">
   </div>
-  <div class="form-group col">
+  <div class="form-group col-6">
     <label for="birthMonth">Місяць народження</label>
     <select formControlName="birthMonth" class="form-control" id="birthMonth">
-      <option value="" [selected]="!filters.value.birthMonth">Всі</option>
+      <option value="" [selected]="!form.value.birthMonth">Всі</option>
       <option *ngFor="let month of months; let i = index" [ngValue]="i">{{month}}</option>
     </select>
   </div>
   <div class="col">
-    <button type="submit" class="btn btn-success" (click)="setFilters()">OK</button>
-    <button type="submit" class="btn btn-outline-info" (click)="resetFilters()">Reset</button>
+    <button type="submit" class="btn btn-success mr-2" (click)="setFilters()">OK</button>
+    <button type="submit" class="btn btn-outline-info" (click)="resetFilters()">По замовчуванню</button>
   </div>
 </form>
