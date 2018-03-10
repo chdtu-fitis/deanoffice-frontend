@@ -24,7 +24,7 @@
   <div class="wrapper">
     <div class="logo"></div>
 
-    <nav class="header-nav">
+    <nav class="header-nav" *ngIf="loggedIn">
       <li>
         <a href=""><span class="check-icon"></span> Початок року</a>
       </li>
@@ -38,12 +38,12 @@
         <a href="">Документи <span class="check-icon"></span></a>
       </li>
     </nav>
-    <nav class="service-nav">
+    <nav class="service-nav" *ngIf="loggedIn">
       <li>
         <a class="user-add" title="User online"></a>
       </li>
       <li>
-        <a class="user-logout" title="Logout"></a>
+        <a class="user-logout" (click)="logout()" title="Logout"></a>
       </li>
     </nav>
   </div>
