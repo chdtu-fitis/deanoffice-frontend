@@ -22,9 +22,13 @@
         <td>Контроль</td>
         <td>Години</td>
         </thead>
+        <tr *ngFor="let course of courses; let i = index">
+          <td>{{ course.courseName.name }}</td>
+          <td>{{ course.knowlegeControl }}</td>
+          <td>{{ course.hours }}</td>
+        </tr>
       </table>
     </div>
-
   </div>
 </div>
 

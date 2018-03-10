@@ -1,6 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StudentGroup} from "../../../models/StudentGroup";
 import {GroupService} from "../../../services/group.service";
+import {CourseForGroup} from "../../../models/CourseForGroup";
+import {Course} from "../../../models/Course";
 
 @Component({
   selector: 'studied-courses',
@@ -14,6 +16,7 @@ export class StudiedCoursesComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   semesters: number[];
+  courses: Course[];
 
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
