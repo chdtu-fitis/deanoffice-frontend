@@ -45,7 +45,7 @@ export class StudentsComponent implements OnInit {
     this.columns = columns;
   }
 
-  applyFilters(rows) {
+  setRows(rows) {
     this.rows = rows;
   }
 }

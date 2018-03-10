@@ -9,6 +9,7 @@ import {StudentsTableComponent} from './students-table/students-table.component'
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {SharedModule} from '../shared/shared.module';
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
+import {StudentsSearchComponent} from './students-search/students-search.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {StudentsFiltersComponent} from './students-filters/students-filters.comp
     StudentsTableComponent,
     StudentsColumnsComponent,
     StudentsFiltersComponent,
+    StudentsSearchComponent,
   ],
   imports: [
     CommonModule,

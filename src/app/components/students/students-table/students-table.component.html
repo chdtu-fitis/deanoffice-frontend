@@ -1,4 +1,5 @@
 <ngx-datatable
+  #table
   class="material"
   [columns]="cols"
   [rows]="rows"
@@ -8,6 +9,7 @@
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
   [trackByProp]="'id'"
+  [selectionType]="'multi'"
 >
 </ngx-datatable>
 
