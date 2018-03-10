@@ -23,6 +23,7 @@
         <td>Години</td>
         </thead>
         <tr *ngFor="let course of courses; let i = index">
+          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)" checked></td>
           <td>{{ course.courseName.name }}</td>
           <td>{{ course.knowlegeControl }}</td>
           <td>{{ course.hours }}</td>
