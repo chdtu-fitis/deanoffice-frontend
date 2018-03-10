@@ -14,6 +14,7 @@ import {StudentService} from '../../services/student.service';
 import {GridModule} from '../grid/grid.module';
 import {ExamReportComponent} from '../exam-report/exam-report.component';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
+import {AuthenticationModule} from '../login/authentication.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    GridModule
+    GridModule,
+    AuthenticationModule
   ],
   providers: [
     DegreeService,
