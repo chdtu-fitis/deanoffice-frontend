@@ -1,0 +1,28 @@
+<div class="modal fade"
+     *ngIf="isModalShown" [config]="{show: true}" (onHidden)="onHidden()" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Зарахувати студента</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <tabset>
+          <tab heading="Зарахувати нового" id="tab1">
+            content 1
+          </tab>
+          <tab heading="Зарахувати існуючого" id="tab2">
+            content 2
+          </tab>
+        </tabset>
+      </div>
+      <div class="modal-footer">
+        <button (click)="modal.hideModal()" class="btn btn-success btn-submit">Ок</button>
+        <button (click)="modal.hideModal()" class="btn btn-outline-danger">Скасувати</button>
+      </div>
+    </div>
+  </div>
+</div>

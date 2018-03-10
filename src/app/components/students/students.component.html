@@ -1,7 +1,10 @@
 <div class="container-fluid h-100">
   <div class="row h-100 flex-nowrap">
     <div class="col scrollable py-3">
-      <button class="btn btn-info mb-3" (click)="columnsModal.showModal()">Вибір колонок</button>
+      <div class="mb-3">
+        <button class="btn btn-info" (click)="columnsModal.showModal()">Вибір колонок</button>
+        <button class="btn btn-success" (click)="addStudentModal.showModal()">Зарахувати</button>
+      </div>
 
       <app-students-table
         [columns]="columns"
@@ -23,3 +26,8 @@
   #columnsModal
   (setColumns)="setColumns($event)">
 </app-students-columns>
+
+<app-add-student
+  #addStudentModal
+  [groups]="groups"
+></app-add-student>
