@@ -1,0 +1,19 @@
+.btn.login {
+  background-color: #1A5CAB;
+  border-color:  #1A5CAB;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.form-container {
+  border: 1px solid #1A5CAB;
+  padding: 5px 30px;
+  h2 {
+    padding-top: 6px;
+    padding-bottom: 10px;
+  }
+  .help-block {
+    padding-top: 5px;
+  }
+}
