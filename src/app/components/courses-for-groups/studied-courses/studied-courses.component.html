@@ -1,9 +1,30 @@
 <!--<div *ngIf="groups && semesters">-->
 <div>
-  <select [(ngModel)]="selectedGroup" (change)="changeSemesters()" >
-    <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-  </select>
-  <select [(ngModel)]="selectedSemester">
-    <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-  </select>
+  <div class="selection">
+    <select [(ngModel)]="selectedGroup" (change)="changeSemesters()">
+      <option [disabled]="true" [selected]="true">Група</option>
+      <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+    </select>
+    <select [(ngModel)]="selectedSemester">
+      <option [disabled]="true" [selected]="true">Семестр</option>
+      <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+    </select>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      Предмети
+    </div>
+    <div >
+      <table class="table table-striped mt-4">
+        <thead>
+        <td><input type="checkbox"></td>
+        <td>Назва</td>
+        <td>Контроль</td>
+        <td>Години</td>
+        </thead>
+      </table>
+    </div>
+
+  </div>
 </div>
+
