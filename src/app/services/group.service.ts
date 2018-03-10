@@ -55,8 +55,8 @@ export class GroupService {
       );
   }
 
-  getGroupsByFaculty(facultyId: string): Observable<StudentGroup[]> {
-    return this.http.get<StudentGroup[]>(`http://localhost:8080/${facultyId}/groups`)
+  getGroupsByFaculty(): Observable<StudentGroup[]> {
+    return this.http.get<StudentGroup[]>(`http://localhost:8080/groups`)
   }
 
   /**

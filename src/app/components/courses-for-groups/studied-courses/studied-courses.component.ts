@@ -1,10 +1,12 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StudentGroup} from "../../../models/StudentGroup";
+import {GroupService} from "../../../services/group.service";
 
 @Component({
   selector: 'studied-courses',
   templateUrl: './studied-courses.component.html',
-  styleUrls: ['./studied-courses.component.scss']
+  styleUrls: ['./studied-courses.component.scss'],
+  providers: [GroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
 
@@ -16,28 +18,19 @@ export class StudiedCoursesComponent implements OnInit {
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
 
-  constructor() {
+  constructor(private groupService: GroupService) {
   }
 
   ngOnInit() {
-
+    this.groupService.getGroupsByFaculty().subscribe(groups => {
+      this.groups = groups;
+    })
   }
 
-  changeSelectedGroup(group: StudentGroup){
-    this.selectedGroup = group;
-    this.changeSemesters(group);
-    this.selectGroup.emit(this.selectedGroup);
-  }
-
-  private changeSemesters(group: StudentGroup){
-    for (let i = 0; i < group.studySemesters; i++){
+  changeSemesters(){
+    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
       this.semesters.push(i + 1);
     }
-  }
-
-  changeSelectedSemester(semester: number){
-    this.selectedSemester = semester;
-    this.selectSemester.emit(semester);
   }
 
 }
