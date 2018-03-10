@@ -1,5 +1,9 @@
-<div>
-  <studied-courses (selectGroup)="changeGroup($event)" (selectSemester)="changeSemester()"></studied-courses>
-  <added-courses></added-courses>
-  <course-creation></course-creation>
+<div class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col scrollable mt-4">
+      <studied-courses (selectGroup)="changeGroup($event)" (selectSemester)="changeSemester()"></studied-courses>
+      <added-courses></added-courses>
+      <course-creation></course-creation>
+    </div>
+  </div>
 </div>
