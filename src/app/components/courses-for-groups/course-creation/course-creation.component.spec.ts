@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { CourseCreationComponent } from './course-creation.component';
 
@@ -10,7 +10,7 @@ describe('CourseCreationComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CourseCreationComponent ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

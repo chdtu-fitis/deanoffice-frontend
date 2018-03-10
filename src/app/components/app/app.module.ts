@@ -13,10 +13,15 @@ import {StudentService} from "../../services/student.service";
 import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
 import {AppComponent} from "./app.component";
 import { ExamReportComponent } from '../exam-report/exam-report.component';
+import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import {GridModule} from '../grid/grid.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    SidebarComponent,
     GroupComponent,
     SpecialityComponent,
     DiplomaSupplementComponent,
@@ -26,7 +31,8 @@ import { ExamReportComponent } from '../exam-report/exam-report.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    GridModule
   ],
   providers: [DegreeService, GroupService, StudentService, DiplomaSupplementService],
   bootstrap: [AppComponent]

@@ -23,4 +23,5 @@ import { CourseCreationComponent } from './course-creation/course-creation.compo
     CoursesForGroupsComponent
   ]
 })
-export class CoursesForGroupsModule { }
+export class CoursesForGroupsModule {
+}
