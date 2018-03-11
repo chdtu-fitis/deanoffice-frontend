@@ -27,6 +27,7 @@ import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 })
 
 export class ExistingStudentInputComponent implements ControlValueAccessor, Validator {
+  @Input() control: FormControl;
   @Input() id: string;
   @Input() ngClass: any;
   @Output() onValueChange = new EventEmitter();
@@ -38,6 +39,7 @@ export class ExistingStudentInputComponent implements ControlValueAccessor, Vali
 
   constructor(private studentService: StudentService, private fb: FormBuilder) {
     this.dataSource = Observable.create((observer: any) => {
+      // this.selectedItem = null;
       this.studentService.search(this.val).subscribe((result: any ) => {
         console.log(result);
         observer.next(result);
@@ -46,7 +48,6 @@ export class ExistingStudentInputComponent implements ControlValueAccessor, Vali
   }
 
   registerOnChange(fn) {
-    console.log('on change');
     this.propagateChange = fn;
   }
 
@@ -60,16 +61,13 @@ export class ExistingStudentInputComponent implements ControlValueAccessor, Vali
   }
 
   validate(c: FormControl): ValidationErrors {
-    return (this.val && this.selectedItem) ? {
-      studentSelected: {
-        valid: false,
-      },
-    } : null;
-  }
-
-  onChange() {
-    this.selectedItem = null;
-    console.log('on change');
+    // todo add validation on val change
+    return null;
+    // return (!this.selectedItem) ? {
+    //   studentSelected: {
+    //     valid: false,
+    //   },
+    // } : null;
   }
 
   onSelect({item}: TypeaheadMatch) {
@@ -77,6 +75,6 @@ export class ExistingStudentInputComponent implements ControlValueAccessor, Vali
     this.val = `${surname} ${name} ${patronimic}`;
     this.selectedItem = item;
     this.propagateChange(item.id);
-    console.log('on select', this.selectedItem);
+    this.onValueChange.emit(item);
   }
 }

@@ -7,10 +7,11 @@
          [typeaheadWaitMs]="300"
          [typeaheadMinLength]="3"
          [typeaheadItemTemplate]="template"
-         (change)="onChange($event)"
          class="form-control"
          id="typeahead"
+         [appValidation]="control"
   >
+  <app-validation-errors [control]="control"></app-validation-errors>
 </div>
 
 <ng-template #template let-model="item" let-index="index">
