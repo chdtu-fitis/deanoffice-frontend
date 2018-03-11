@@ -1,9 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Input} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { ModalComponent } from '../../shared/modal/modal.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';
+
+enum Tabs {
+  New,
+  Existing,
+}
 
 @Component({
     selector: 'app-add-student',
@@ -12,6 +17,8 @@ import {StudentService} from '../../../services/student.service';
 })
 export class AddStudentComponent extends ModalComponent {
   form: FormGroup;
+  tabs = Tabs;
+  activeTab: Tabs = Tabs.New;
   @Input() groups: StudentGroup[];
 
   constructor(
@@ -20,25 +27,54 @@ export class AddStudentComponent extends ModalComponent {
   ) {
     super();
     this.form = fb.group({
-      student: fb.group({
-        id: [''],
-        name: [''],
-        surname: [''],
-        patronimic: [''],
-        birthDate: ['', Validators.required],
-      }),
+      student: '',
       studentGroupId: ['', Validators.required],
-    })
+    });
+    this.setStudentFormGroup();
   }
 
-  addStudent() {
-    console.log(this.form.value);
-    console.log(this.form);
-    // this.studentService.addStudent(this.form.value);
+  selectTab(tab: Tabs) {
+    this.activeTab = tab;
+    this.form.reset();
+    this.setStudentFormGroup();
+  }
+
+  onSubmit(e: Event) {
+    this.validateAllFormFields(this.form);
+    if (this.form.invalid) {
+      return;
+    }
+    console.log('submitted', this.form.value);
   }
 
   hideModal() {
     super.hideModal();
     this.form.reset();
+  }
+
+  setStudentFormGroup() {
+    const controls = this.activeTab === Tabs.New
+      ? {
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        patronimic: ['', Validators.required],
+        birthDate: ['', Validators.required],
+      }
+      : {
+        id: ['', Validators.required],
+        birthDate: ['', Validators.required],
+      };
+    this.form.setControl('student', this.fb.group(controls));
+  }
+
+  private validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 }
