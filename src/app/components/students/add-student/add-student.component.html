@@ -11,6 +11,7 @@
       </div>
       <div class="modal-body">
         <tabset>
+
           <tab heading="Зарахувати нового" id="tab1">
             <form [formGroup]="form" class="mt-3">
               <div formGroupName="student">
@@ -51,8 +52,29 @@
               </div>
             </form>
           </tab>
+
           <tab heading="Зарахувати існуючого" id="tab2">
-            content 2
+            <form class="mt-3" [formGroup]="form">
+              <app-existing-student-input
+                (select)="selectExisting($event)">
+              </app-existing-student-input>
+              <div class="row">
+                <div formGroupName="student" class="col-6">
+                  <div class="form-group">
+                    <label for="tab2-birthDate">Дата народження</label>
+                    <input type="date" formControlName="birthDate" class="form-control" id="tab2-birthDate"
+                           [appValidation]="form.controls.student.controls.birthDate">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <label for="tab2-group">Група</label>
+                  <select formControlName="studentGroupId" class="form-control" id="tab2-group"
+                          [appValidation]="form.controls.studentGroupId">
+                    <option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </form>
           </tab>
         </tabset>
       </div>

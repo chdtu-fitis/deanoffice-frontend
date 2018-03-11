@@ -1,0 +1,19 @@
+<div class="form-group" [formGroup]="form">
+  <label for="typeahead">ПІБ студента</label>
+  <input formControlName="query"
+         [typeahead]="dataSource"
+         (typeaheadLoading)="changeTypeaheadLoading($event)"
+         (typeaheadNoResults)="changeTypeaheadNoResults($event)"
+         (typeaheadOnSelect)="typeaheadOnSelect($event)"
+         [typeaheadOptionsLimit]="7"
+         [typeaheadWaitMs]="300"
+         [typeaheadMinLength]="3"
+         [typeaheadItemTemplate]="template"
+         class="form-control"
+         id="typeahead"
+  >
+</div>
+
+<ng-template #template let-model="item" let-index="index">
+  <span>{{model.surname}} {{model.name}} {{model.patronimic}}</span>
+</ng-template>

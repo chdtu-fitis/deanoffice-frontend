@@ -22,4 +22,17 @@ export class StudentService {
     console.log('post', studentDegree);
     // return this.http.post(`${this.url}/degrees/`, studentDegree);
   }
+
+  search(fullName: string = '') {
+    console.log('search', fullName);
+    const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
+    return this.http.get<StudentDegree[]>(`${this.url}/search`, {
+      params: {
+        surname,
+        name,
+        patronimic,
+      }
+    });
+  }
+
 }

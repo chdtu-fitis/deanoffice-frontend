@@ -27,7 +27,12 @@ export class AddStudentComponent extends ModalComponent {
         birthDate: ['', Validators.required],
       }),
       studentGroupId: ['', Validators.required],
+      test: '',
     })
+  }
+
+  selectExisting(value) {
+    console.log('selected', value);
   }
 
   addStudent() {
