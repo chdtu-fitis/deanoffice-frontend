@@ -38,6 +38,10 @@ export class GroupService {
   //   this.groups.push(group);
   // }
 
+  getGroups(): Observable<StudentGroup[]> {
+    return this.http.get<StudentGroup[]>(this.groupsUrl);
+  }
+
   getGroupsByDegree(degreeId: string): Observable<StudentGroup[]> {
     const url = `${this.groupsByDegreeUrl}?degreeId=${degreeId}`;
     return this.http.get<StudentGroup[]>(url)

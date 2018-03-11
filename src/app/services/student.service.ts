@@ -18,4 +18,8 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
   }
 
+  addStudent(studentDegree) {
+    console.log('post', studentDegree);
+    // return this.http.post(`${this.url}/degrees/`, studentDegree);
+  }
 }

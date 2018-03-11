@@ -7,12 +7,14 @@ import {ModalModule} from 'ngx-bootstrap';
 import {ModalComponent} from './modal/modal.component';
 import {EntriesPipe} from '../../pipes/entries.pipe';
 import {SidebarComponent} from '../app/sidebar/sidebar.component';
+import {ValidationDirective} from './validation.directive';
 
 @NgModule({
   declarations: [
     EntriesPipe,
     ModalComponent,
     SidebarComponent,
+    ValidationDirective,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import {SidebarComponent} from '../app/sidebar/sidebar.component';
     EntriesPipe,
     ModalComponent,
     SidebarComponent,
+    ValidationDirective,
   ]
 })
 
