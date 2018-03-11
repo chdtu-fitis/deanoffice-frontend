@@ -1,10 +1,8 @@
-<div class="form-group" [formGroup]="form">
+<div class="form-group">
   <label for="typeahead">ПІБ студента</label>
-  <input formControlName="query"
+  <input [(ngModel)]="val"
          [typeahead]="dataSource"
-         (typeaheadLoading)="changeTypeaheadLoading($event)"
-         (typeaheadNoResults)="changeTypeaheadNoResults($event)"
-         (typeaheadOnSelect)="typeaheadOnSelect($event)"
+         (typeaheadOnSelect)="onSelect($event)"
          [typeaheadOptionsLimit]="7"
          [typeaheadWaitMs]="300"
          [typeaheadMinLength]="3"

@@ -21,24 +21,20 @@ export class AddStudentComponent extends ModalComponent {
     super();
     this.form = fb.group({
       student: fb.group({
-        name: ['', Validators.required],
-        surname: ['', Validators.required],
-        patronimic: ['', Validators.required],
+        id: [''],
+        name: [''],
+        surname: [''],
+        patronimic: [''],
         birthDate: ['', Validators.required],
       }),
       studentGroupId: ['', Validators.required],
-      test: '',
     })
-  }
-
-  selectExisting(value) {
-    console.log('selected', value);
   }
 
   addStudent() {
     console.log(this.form.value);
     console.log(this.form);
-    this.studentService.addStudent(this.form.value);
+    // this.studentService.addStudent(this.form.value);
   }
 
   hideModal() {

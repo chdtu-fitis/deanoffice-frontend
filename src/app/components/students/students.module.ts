@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {StudentsComponent} from './students.component';
 import {StudentsTableComponent} from './students-table/students-table.component';
@@ -23,6 +23,7 @@ import {ExistingStudentInputComponent} from './existing-student-input/existing-s
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     SharedModule,
     TabsModule.forRoot(),
