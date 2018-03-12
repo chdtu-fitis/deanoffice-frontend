@@ -29,7 +29,6 @@ import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 export class ExistingStudentInputComponent implements ControlValueAccessor, Validator {
   @Input() control: FormControl;
   @Input() id: string;
-  @Input() ngClass: any;
   @Output() onValueChange = new EventEmitter();
   val: any;
   selectedItem: any;
@@ -37,9 +36,10 @@ export class ExistingStudentInputComponent implements ControlValueAccessor, Vali
 
   propagateChange = (_) => {};
 
-  constructor(private studentService: StudentService, private fb: FormBuilder) {
+  constructor(private studentService: StudentService) {
     this.dataSource = Observable.create((observer: any) => {
-      // this.selectedItem = null;
+      this.selectedItem = null;
+      this.propagateChange('');
       this.studentService.search(this.val).subscribe((result: any ) => {
         console.log(result);
         observer.next(result);

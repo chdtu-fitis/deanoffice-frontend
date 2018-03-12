@@ -19,7 +19,7 @@ enum Tabs {
 })
 export class AddStudentComponent extends BaseReactiveFormComponent implements IAppModal {
   tabs = Tabs;
-  activeTab: Tabs = Tabs.New;
+  activeTab: Tabs = Tabs.Existing;
   @Input() groups: StudentGroup[];
   @ViewChild('modal') modal: ModalDirective;
 
@@ -68,5 +68,11 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
         sex: ['', Validators.required],
       };
     this.form.setControl('student', this.fb.group(controls));
+  }
+
+  onSelectStudent(student) {
+    this.form.patchValue({
+      student: { birthDate: student.birthDate },
+    });
   }
 }

@@ -11,8 +11,21 @@
       </div>
       <div class="modal-body">
         <tabset>
+          <tab heading="Зарахувати існуючого" (select)="selectTab(tabs.Existing)">
+            <form class="mt-3" [formGroup]="form" novalidate *ngIf="activeTab === tabs.Existing">
+              <div formGroupName="student">
+                <app-existing-student-input
+                  formControlName="id"
+                  [control]="form.controls.student.controls.id"
+                  (onValueChange)="onSelectStudent($event)"
+                >
+                </app-existing-student-input>
+              </div>
+              <ng-container *ngTemplateOutlet="commonFields"></ng-container>
+            </form>
+          </tab>
 
-          <tab heading="Зарахувати нового" id="tab1" (select)="selectTab(tabs.New)">
+          <tab heading="Зарахувати нового" (select)="selectTab(tabs.New)">
             <form [formGroup]="form" class="mt-3" novalidate *ngIf="activeTab === tabs.New">
               <div formGroupName="student">
                 <div class="form-group">
@@ -33,17 +46,6 @@
                          [appValidation]="form.controls.student.controls.patronimic">
                   <app-validation-errors [control]="form.controls.student.controls.patronimic"></app-validation-errors>
                 </div>
-              </div>
-              <ng-container *ngTemplateOutlet="commonFields"></ng-container>
-            </form>
-          </tab>
-
-          <tab heading="Зарахувати існуючого" id="tab2" (select)="selectTab(tabs.Existing)">
-            <form class="mt-3" [formGroup]="form" novalidate *ngIf="activeTab === tabs.Existing">
-              <div formGroupName="student">
-                <app-existing-student-input
-                  formControlName="id" [control]="form.controls.student.controls.id">
-                </app-existing-student-input>
               </div>
               <ng-container *ngTemplateOutlet="commonFields"></ng-container>
             </form>
