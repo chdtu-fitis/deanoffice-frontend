@@ -1,11 +1,16 @@
 <div class="container-fluid h-100">
-  <div class="row h-100">
+  <div class="row">
     <div class="col-7 scrollable mt-4">
       <studied-courses (selectGroup)="changeGroup($event)" (selectSemester)="changeSemester()"></studied-courses>
+
     </div>
     <div  class="col-5 scrollable mt-4">
       <course-creation></course-creation>
     </div>
   </div>
-  <added-courses></added-courses>
+  <div class="row">
+    <div class="col scrollable mt-4">
+      <added-courses></added-courses>
+    </div>
+  </div>
 </div>
