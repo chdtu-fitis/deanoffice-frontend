@@ -3,8 +3,9 @@
   <input [(ngModel)]="val"
          [typeahead]="dataSource"
          (typeaheadOnSelect)="onSelect($event)"
-         [typeaheadOptionsLimit]="7"
-         [typeaheadWaitMs]="300"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="5"
+         [typeaheadWaitMs]="500"
          [typeaheadMinLength]="3"
          [typeaheadItemTemplate]="template"
          class="form-control"
@@ -15,5 +16,11 @@
 </div>
 
 <ng-template #template let-model="item" let-index="index">
-  <span>{{model.surname}} {{model.name}} {{model.patronimic}}</span>
+  <div class="py-2">
+    <b>{{model.surname}} {{model.name}} {{model.patronimic}}</b>
+    <div class="d-flex justify-content-between">
+      <small>{{model.birthDate}}</small>
+      <small class="ml-5">{{model.groups}}</small>
+    </div>
+  </div>
 </ng-template>
