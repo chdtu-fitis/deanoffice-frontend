@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
-import {Student} from '../models/Student';
+import {StudentDegree} from '../models/StudentDegree';
 
 @Injectable()
 export class GroupService {
@@ -50,11 +50,11 @@ export class GroupService {
       );
   }
 
-  getGroupStudents(groupId: string): Observable<Student[]> {
+  getGroupStudents(groupId: string): Observable<StudentDegree[]> {
     const url = `${this.groupsUrl}/${groupId}/students`;
-    return this.http.get<Student[]>(url)
+    return this.http.get<StudentDegree[]>(url)
       .pipe(
-        catchError(this.handleError('getGroupsByDegree', []))
+        catchError(this.handleError('getStudentsByGroup', []))
       );
   }
 

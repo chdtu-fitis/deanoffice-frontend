@@ -9,12 +9,12 @@
           <td>Ім'я</td>
           <td>По-батькові</td>
         </thead>
-        <tr *ngFor="let student of students; let i = index">
+        <tr *ngFor="let studDegree of students; let i = index">
           <td>{{ i+1 }}</td>
-          <td><input type="checkbox" [(ngModel)]="student.selected"></td>
-          <td>{{ student.surname }}</td>
-          <td>{{ student.name }}</td>
-          <td>{{ student.patronimic }}</td>
+          <td><input type="checkbox" [(ngModel)]="studDegree.selected"></td>
+          <td>{{ studDegree.student.surname }}</td>
+          <td>{{ studDegree.student.name }}</td>
+          <td>{{ studDegree.student.patronimic }}</td>
         </tr>
       </table>
     </div>

@@ -1,20 +1,29 @@
-import {StudentGroup} from './StudentGroup';
 import {Student} from './Student';
+import {StudentGroup} from './StudentGroup';
+import {Degree} from './Degree';
 import {BaseEntity} from './basemodels/BaseEntity';
 
 export class StudentDegree extends BaseEntity {
   student: Student;
   studentGroup: StudentGroup;
-  payment?: string;
+  degree?: Degree;
   recordBookNumber?: string;
-  diplomaNumber?: number;
-  supplementNumber?: number;
+  admissionOrderNumber?: string;
+  admissionOrderDate?: Date;
+  contractNumber?: string;
+  contractDate?: Date;
+  diplomaNumber?: string;
+  diplomaDate?: Date;
+  supplementNumber?: string;
+  supplementDate?: Date;
   thesisName?: string;
   thesisNameEng?: string;
-  protocolNumber?: number;
-  previousDiplomaNumber?: number;
-  diplomaDate?: Date;
-  supplementDate?: Date;
+  protocolNumber?: string;
   protocolDate?: Date;
+  previousDiplomaType?: string;
+  previousDiplomaNumber?: string;
   previousDiplomaDate?: Date;
+  payment?: string;
+  active?: boolean;
+  selected?: boolean;
 }
