@@ -6,7 +6,7 @@ import { translations } from '../translations.js';
     templateUrl: './students-table.component.html',
     styleUrls: ['./students-table.component.scss'],
 })
-export class StudentsTableComponent implements OnInit {
+export class StudentsTableComponent {
   @Input() set columns(cols: string[]) {
     this.cols = this.transformArrayToColumns(cols);
   }
@@ -14,9 +14,6 @@ export class StudentsTableComponent implements OnInit {
   @ViewChild('sexTemplate') sexTemplate: TemplateRef<any>;
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   cols: Object[];
-
-  ngOnInit() {
-  }
 
   private transformArrayToColumns(array: string[]): Object[] {
     return array.map(prop => {
