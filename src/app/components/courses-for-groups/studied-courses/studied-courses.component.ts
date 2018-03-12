@@ -15,9 +15,9 @@ export class StudiedCoursesComponent implements OnInit {
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
-  semesters: number[];
-  courses: Course[];
-  selectedCourses: Course[];
+  semesters: number[] = [];
+  courses: CourseForGroup[];
+  selectedCourses: CourseForGroup[];
 
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
@@ -31,7 +31,7 @@ export class StudiedCoursesComponent implements OnInit {
     })
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
+  changeSelectedCoursesList(checked: boolean, selectedCourse: CourseForGroup) {
     if (!checked){
       for (let course of this.selectedCourses){
         if (course.id === selectedCourse.id)
@@ -43,6 +43,7 @@ export class StudiedCoursesComponent implements OnInit {
   }
 
   changeSemesters(){
+    this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++){
       this.semesters.push(i + 1);
     }

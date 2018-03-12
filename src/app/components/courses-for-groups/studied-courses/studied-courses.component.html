@@ -2,11 +2,11 @@
 <div>
   <div class="selection">
     <select [(ngModel)]="selectedGroup" (change)="changeSemesters()">
-      <option [disabled]="true" [selected]="true">Група</option>
+      <!--<option [disabled]="true" [selected]="true">Група</option>-->
       <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
     </select>
     <select [(ngModel)]="selectedSemester">
-      <option [disabled]="true" [selected]="true">Семестр</option>
+      <!--<option [disabled]="true" [selected]="true">Семестр</option>-->
       <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
     </select>
   </div>
@@ -24,9 +24,9 @@
         </thead>
         <tr *ngFor="let course of courses; let i = index">
           <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)" checked></td>
-          <td>{{ course.courseName.name }}</td>
-          <td>{{ course.knowlegeControl }}</td>
-          <td>{{ course.hours }}</td>
+          <td>{{ course.course.courseName.name }}</td>
+          <td>{{ course.course.knowlegeControl }}</td>
+          <td>{{ course.course.hours }}</td>
         </tr>
       </table>
     </div>
