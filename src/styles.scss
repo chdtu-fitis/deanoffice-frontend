@@ -9,7 +9,12 @@ body {
 }
 
 .ngx-datatable.material {
+  height: 100%;
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.14);
+
+  .visible {
+    height: 100%;
+  }
 
   .datatable-header {
     height: auto;
@@ -23,11 +28,18 @@ body {
     }
   }
 
-  .datatable-body .datatable-body-row {
-    padding: 5px 10px;
+  .datatable-body {
+    overflow: auto;
+    height: calc(100% - 33px) !important; // 100% - table header height
+    padding-right: 10px; // fixes x-overflow on the table
 
-    .datatable-body-cell {
-      padding: 0;
+    .datatable-body-row {
+      padding: 5px 10px;
+      box-sizing: border-box;
+
+      .datatable-body-cell {
+        padding: 0;
+      }
     }
   }
 }

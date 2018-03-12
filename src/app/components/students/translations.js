@@ -4,7 +4,6 @@ export const translations = {
   'student.patronimic': 'По-батькові',
   'student.surnameEng': 'Прізвище (англ.)',
   'student.nameEng': 'Ім\'я (англ.)',
-  'student.patronimicEng': 'По-батькові (англ.)',
   'studentGroup.name': 'Група',
   'student.birthDate': 'Дата народження',
   'student.registrationAddress': 'Адреса реєстрації',
@@ -20,7 +19,7 @@ export const translations = {
   'protocolNumber': 'Номер протоколу',
   'previousDiplomaNumber': 'Номер попереднього диплому',
   'diplomaDate': 'Дата диплому',
-  'supplementDate': 'Дата додатку до диплому',
+  'supplementDate': 'Дата додатку',
   'protocolDate': 'Дата протоколу',
   'previousDiplomaDate': 'Дата попереднього диплому',
 };
