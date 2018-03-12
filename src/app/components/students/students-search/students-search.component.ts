@@ -19,15 +19,15 @@ export class StudentsSearchComponent {
   }
 
   searchStudent() {
-    const value = this.searchForm.value.search.trim();
+    const value = this.searchForm.value.search.trim().toLowerCase();
     const [surname, name, patronimic] = value.split(' ');
     if (!surname) {
       return;
     }
     const index = this.rows.findIndex(({ student }) => {
-      const isSurnameMatch = !surname || student.surname === surname;
-      const isNameMatch = !name || student.name === name;
-      const isPatronimicMatch = !patronimic || student.patronimic === patronimic;
+      const isSurnameMatch = !surname || student.surname.toLowerCase() === surname;
+      const isNameMatch = !name || student.name.toLowerCase() === name;
+      const isPatronimicMatch = !patronimic || student.patronimic.toLowerCase() === patronimic;
       return isSurnameMatch && isPatronimicMatch && isNameMatch;
     });
 
