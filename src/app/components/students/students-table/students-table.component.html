@@ -4,12 +4,15 @@
   [columns]="cols"
   [rows]="rows"
   [rowHeight]="'auto'"
-  [headerHeight]="'auto'"
+  [rowIdentity]="getRowIdentity"
+  [headerHeight]="33"
   [columnMode]="'force'"
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
   [trackByProp]="'id'"
   [selectionType]="'multi'"
+  [selected]="selected"
+  (select)="select($event)">
 >
 </ngx-datatable>
 

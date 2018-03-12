@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 
 import {StudentDegree} from '../../../models/StudentDegree';
@@ -11,6 +11,7 @@ import {StudentDegree} from '../../../models/StudentDegree';
 export class StudentsSearchComponent {
   searchForm;
   @Input() rows: StudentDegree[];
+  @Output() searchResult = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
     this.searchForm = this.fb.group({
@@ -25,9 +26,9 @@ export class StudentsSearchComponent {
       return;
     }
     const index = this.rows.findIndex(({ student }) => {
-      const isSurnameMatch = !surname || !!student.surname.match(new RegExp(surname, 'i'));
-      const isNameMatch = !name || !!student.name.match(new RegExp(name, 'i'));
-      const isPatronimicMatch = !patronimic || !!student.patronimic.match(new RegExp(patronimic, 'i'));
+      const isSurnameMatch = !surname || !!student.surname.match(new RegExp(`^${surname}`, 'i'));
+      const isNameMatch = !name || !!student.name.match(new RegExp(`^${name}`, 'i'));
+      const isPatronimicMatch = !patronimic || !!student.patronimic.match(new RegExp(`^${patronimic}`, 'i'));
       return isSurnameMatch && isPatronimicMatch && isNameMatch;
     });
 
@@ -35,5 +36,6 @@ export class StudentsSearchComponent {
     if (elem && elem[0]) {
       elem[0].scrollIntoView();
     }
+    this.searchResult.emit([this.rows[index]]);
   }
 }

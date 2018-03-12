@@ -1,5 +1,9 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, TemplateRef,
+  ViewChild
+} from '@angular/core';
 import { translations } from '../translations.js';
+import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
     selector: 'app-students-table',
@@ -10,7 +14,9 @@ export class StudentsTableComponent {
   @Input() set columns(cols: string[]) {
     this.cols = this.transformArrayToColumns(cols);
   }
-  @Input() rows: Object[];
+  @Input() rows: StudentDegree[];
+  @Input() selected: StudentDegree[] = [];
+  @Output() onSelect = new EventEmitter();
   @ViewChild('sexTemplate') sexTemplate: TemplateRef<any>;
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate') dateTemplate: TemplateRef<any>;
@@ -37,5 +43,13 @@ export class StudentsTableComponent {
 
   getDate(date) {
     return new Date(date).getTime();
+  }
+
+  getRowIdentity(row) {
+    return row.id;
+  }
+
+  select({ selected }) {
+    this.onSelect.emit(selected);
   }
 }

@@ -16,6 +16,7 @@ export class StudentsComponent implements OnInit {
   groups: StudentGroup[] = [];
   columns: any[] = defaultColumns;
   rows: StudentDegree[] = [];
+  selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
 
   constructor(
@@ -45,7 +46,12 @@ export class StudentsComponent implements OnInit {
     this.columns = columns;
   }
 
-  setRows(rows) {
+  setRows(rows: StudentDegree[]) {
     this.rows = rows;
+  }
+
+  onSelect(students: StudentDegree[]) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...students);
   }
 }
