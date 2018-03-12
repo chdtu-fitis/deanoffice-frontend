@@ -31,6 +31,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.form = fb.group({
       student: '',
       studentGroupId: ['', Validators.required],
+      payment: ['', Validators.required],
     });
     this.setStudentFormGroup();
   }
@@ -44,6 +45,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   submit() {
     super.onSubmit();
     console.log('submitted', this.form.value);
+    // this.studentService.addStudent(this.form.value);
   }
 
   hideModal() {
@@ -58,10 +60,12 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
         surname: ['', Validators.required],
         patronimic: ['', Validators.required],
         birthDate: ['', Validators.required],
+        sex: ['', Validators.required],
       }
       : {
         id: ['', Validators.required],
         birthDate: ['', Validators.required],
+        sex: ['', Validators.required],
       };
     this.form.setControl('student', this.fb.group(controls));
   }
