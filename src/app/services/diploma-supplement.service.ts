@@ -7,7 +7,7 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class DiplomaSupplementService {
-  private diplomaSupplementUrl = 'http://localhost:8080/diplsuppl';
+  private diplomaSupplementUrl = 'http://localhost:8080/documents/diplomas/supplements';
 
   constructor(private http: HttpClient) {
   }
