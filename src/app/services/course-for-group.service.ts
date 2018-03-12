@@ -10,6 +10,6 @@ export class CourseForGroupService {
   }
 
   getCoursesBySpecialization(specializationId): Observable<CourseForGroup[]> {
-    return this.http.get<CourseForGroup[]>(`/specialization/${specializationId}/courses`);
+    return this.http.get<CourseForGroup[]>(`http://localhost:8080/specialization/${specializationId}/courses`);
   }
 }

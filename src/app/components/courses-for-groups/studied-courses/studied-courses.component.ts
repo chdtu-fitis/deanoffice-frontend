@@ -3,12 +3,13 @@ import {StudentGroup} from "../../../models/StudentGroup";
 import {GroupService} from "../../../services/group.service";
 import {CourseForGroup} from "../../../models/CourseForGroup";
 import {Course} from "../../../models/Course";
+import {CourseForGroupService} from "../../../services/course-for-group.service";
 
 @Component({
   selector: 'studied-courses',
   templateUrl: './studied-courses.component.html',
   styleUrls: ['./studied-courses.component.scss'],
-  providers: [GroupService]
+  providers: [GroupService, CourseForGroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
 
@@ -22,7 +23,7 @@ export class StudiedCoursesComponent implements OnInit {
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
 
-  constructor(private groupService: GroupService) {
+  constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
   }
 
   ngOnInit() {
@@ -42,11 +43,19 @@ export class StudiedCoursesComponent implements OnInit {
       this.selectedCourses.push(selectedCourse)
   }
 
-  changeSemesters(){
+  private changeSemesters(){
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++){
       this.semesters.push(i + 1);
     }
+  }
+
+  onGroupChange(){
+    this.changeSemesters();
+    this.courseForGroupService.getCoursesBySpecialization(22).subscribe(cfg => {
+      this.courses = cfg;
+
+    })
   }
 
 }

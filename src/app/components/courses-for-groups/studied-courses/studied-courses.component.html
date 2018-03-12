@@ -1,7 +1,7 @@
 <!--<div *ngIf="groups && semesters">-->
 <div>
   <div class="selection">
-    <select [(ngModel)]="selectedGroup" (change)="changeSemesters()">
+    <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
       <!--<option [disabled]="true" [selected]="true">Група</option>-->
       <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
     </select>
@@ -14,7 +14,7 @@
     <div class="card-header">
       Предмети
     </div>
-    <div >
+    <div class="div-table">
       <table class="table table-striped mt-4">
         <thead>
         <td><input type="checkbox"></td>
