@@ -1,9 +1,10 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ModalDirective} from 'ngx-bootstrap';
 
-import { ModalComponent } from '../../shared/modal/modal.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';
+import {IAppModal} from '../../shared/modal.interface';
 
 enum Tabs {
   New,
@@ -15,17 +16,17 @@ enum Tabs {
     templateUrl: './add-student.component.html',
     styleUrls: ['./add-student.component.scss'],
 })
-export class AddStudentComponent extends ModalComponent {
+export class AddStudentComponent implements IAppModal {
   form: FormGroup;
   tabs = Tabs;
   activeTab: Tabs = Tabs.New;
   @Input() groups: StudentGroup[];
+  @ViewChild('modal') modal: ModalDirective;
 
   constructor(
     private fb: FormBuilder,
     private studentService: StudentService
   ) {
-    super();
     this.form = fb.group({
       student: '',
       studentGroupId: ['', Validators.required],
@@ -48,7 +49,7 @@ export class AddStudentComponent extends ModalComponent {
   }
 
   hideModal() {
-    super.hideModal();
+    this.modal.hide();
     this.form.reset();
   }
 

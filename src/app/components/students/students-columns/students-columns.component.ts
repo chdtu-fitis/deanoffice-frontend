@@ -1,15 +1,18 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { translations } from '../translations.js';
-import { defaultColumns, allColumns } from '../constants.js';
-import { ModalComponent } from '../../shared/modal/modal.component';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap';
+
+import {translations} from '../translations.js';
+import {defaultColumns, allColumns } from '../constants.js';
+import {IAppModal} from '../../shared/modal.interface';
 
 @Component({
     selector: 'app-students-columns',
     templateUrl: './students-columns.component.html',
     styleUrls: ['./students-columns.component.scss'],
 })
-export class StudentsColumnsComponent extends ModalComponent implements OnInit {
+export class StudentsColumnsComponent implements OnInit, IAppModal {
   columns: Object = {};
+  @ViewChild('modal') modal: ModalDirective;
   @Output() setColumns = new EventEmitter<string[]>();
 
   ngOnInit() {
@@ -20,7 +23,7 @@ export class StudentsColumnsComponent extends ModalComponent implements OnInit {
 
   applyColumns() {
     const columns = Object.keys(this.columns).filter(key => this.columns[key]);
-    this.hideModal();
+    this.modal.hide();
     this.setColumns.emit(columns);
   }
 
@@ -28,7 +31,7 @@ export class StudentsColumnsComponent extends ModalComponent implements OnInit {
     Object.keys(this.columns).forEach(key => {
       this.columns[key] = defaultColumns.find(el => el === key)
     });
-    this.hideModal();
+    this.modal.hide();
     this.setColumns.emit(defaultColumns);
   }
 
