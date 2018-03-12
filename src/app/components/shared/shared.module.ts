@@ -4,14 +4,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {ModalModule} from 'ngx-bootstrap';
 
-import {ModalComponent} from './modal/modal.component';
 import {EntriesPipe} from '../../pipes/entries.pipe';
 import {SidebarComponent} from '../app/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     EntriesPipe,
-    ModalComponent,
     SidebarComponent,
   ],
   imports: [
@@ -25,7 +23,6 @@ import {SidebarComponent} from '../app/sidebar/sidebar.component';
     ModalModule,
     NgxDatatableModule,
     EntriesPipe,
-    ModalComponent,
     SidebarComponent,
   ]
 })
