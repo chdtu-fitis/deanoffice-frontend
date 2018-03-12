@@ -1,5 +1,6 @@
 import {NameWithActiveEntity} from './basemodels/NameWithActiveEntity';
 import {Specialization} from './Specialization';
+import {StudentDegree} from "./StudentDegree";
 
 export class StudentGroup extends NameWithActiveEntity {
   specialization: Specialization;
@@ -9,6 +10,7 @@ export class StudentGroup extends NameWithActiveEntity {
   studySemesters: number;
   studyYears: number;
   beginYears: number;
+  studentDegrees: StudentDegree[];
 
   constructor() {
     super();

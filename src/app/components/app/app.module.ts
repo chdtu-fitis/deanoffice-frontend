@@ -1,24 +1,28 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
 import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
-import {HttpClientModule} from '@angular/common/http';
 import {DiplomaSupplementComponent} from '../diploma-supplement/diploma-supplement.component';
-import {AppRoutingModule} from '../../routes/routes';
 import {FormsModule} from '@angular/forms';
+import {AppRoutingModule} from '../../routes/routes';
+import {HttpClientModule} from '@angular/common/http';
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
 import {StudentService} from '../../services/student.service';
-import {GridModule} from '../grid/grid.module';
+import {AppComponent} from './app.component';
 import {ExamReportComponent} from '../exam-report/exam-report.component';
+import {HeaderComponent} from './header/header.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {GridModule} from '../grid/grid.module';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 import {AuthenticationModule} from '../login/authentication.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    SidebarComponent,
     GroupComponent,
     SpecialityComponent,
     DiplomaSupplementComponent,
@@ -32,12 +36,7 @@ import {AuthenticationModule} from '../login/authentication.module';
     GridModule,
     AuthenticationModule
   ],
-  providers: [
-    DegreeService,
-    GroupService,
-    StudentService,
-    DiplomaSupplementService
-  ],
+  providers: [DegreeService, GroupService, StudentService, DiplomaSupplementService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
