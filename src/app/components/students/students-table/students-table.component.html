@@ -14,15 +14,15 @@
 </ngx-datatable>
 
 <ng-template #sexTemplate let-value="value">
-    <span>
-      {{value === 'MALE' ? 'Чол.' : ''}}
-      {{value === 'FEMALE' ? 'Жін.' : ''}}
-    </span>
+  {{value === 'MALE' ? 'Чол.' : ''}}
+  {{value === 'FEMALE' ? 'Жін.' : ''}}
 </ng-template>
 
 <ng-template #paymentTemplate let-value="value">
-    <span>
-      {{value === 'BUDGET' ? 'Бюджет' : ''}}
-      {{value === 'CONTRACT' ? 'Контракт' : ''}}
-    </span>
+  {{value === 'BUDGET' ? 'Бюджет' : ''}}
+  {{value === 'CONTRACT' ? 'Контракт' : ''}}
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  {{getDate(value) | date: 'dd-MM-yyyy'}}
 </ng-template>
