@@ -52,10 +52,14 @@ export class StudiedCoursesComponent implements OnInit {
 
   onGroupChange(){
     this.changeSemesters();
-    this.courseForGroupService.getCoursesBySpecialization(22).subscribe(cfg => {
-      this.courses = cfg;
-
-    })
+    this.onDataChange();
   }
 
+  onDataChange(){
+    if (this.selectedSemester) {
+      this.courseForGroupService.getCoursesBySpecializationAndSemester(22, this.selectedSemester).subscribe(cfg => {
+        this.courses = cfg;
+      })
+    }
+  }
 }
