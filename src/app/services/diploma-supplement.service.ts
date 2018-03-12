@@ -7,13 +7,13 @@ import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class DiplomaSupplementService {
-  private diplomaSupplementUrl = 'http://localhost:8080/diplsuppl';
+  private diplomaSupplementUrl = 'http://localhost:8080/documents/diplomas/supplements';
 
   constructor(private http: HttpClient) {
   }
 
   buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.diplomaSupplementUrl}/students/${studentId}`;
+    const url = `${this.diplomaSupplementUrl}/studentdegrees/${studentId}`;
     window.open(url, "_blank");
   }
 

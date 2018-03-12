@@ -1,8 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/scss/bootstrap";
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
+
+html,
+body {
+  height: 100%;
+}
 .resize-handle {
   cursor: ew-resize;
   border-right: solid 1px #eee;
