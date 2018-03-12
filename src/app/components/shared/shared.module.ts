@@ -8,6 +8,7 @@ import {EntriesPipe} from '../../pipes/entries.pipe';
 import {SidebarComponent} from '../app/sidebar/sidebar.component';
 import {ValidationDirective} from './validation.directive';
 import {ValidationErrorsComponent} from './validation-errors/validation-errors.component';
+import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {ValidationErrorsComponent} from './validation-errors/validation-errors.c
     SidebarComponent,
     ValidationDirective,
     ValidationErrorsComponent,
+    BaseReactiveFormComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import {ValidationErrorsComponent} from './validation-errors/validation-errors.c
     SidebarComponent,
     ValidationDirective,
     ValidationErrorsComponent,
+    BaseReactiveFormComponent,
   ]
 })
 

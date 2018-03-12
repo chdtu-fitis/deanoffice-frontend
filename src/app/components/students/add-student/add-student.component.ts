@@ -1,10 +1,11 @@
 import {Component, Input, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ModalDirective} from 'ngx-bootstrap';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';
 import {IAppModal} from '../../shared/modal.interface';
+import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 
 enum Tabs {
   New,
@@ -16,8 +17,7 @@ enum Tabs {
     templateUrl: './add-student.component.html',
     styleUrls: ['./add-student.component.scss'],
 })
-export class AddStudentComponent implements IAppModal {
-  form: FormGroup;
+export class AddStudentComponent extends BaseReactiveFormComponent implements IAppModal {
   tabs = Tabs;
   activeTab: Tabs = Tabs.New;
   @Input() groups: StudentGroup[];
@@ -27,6 +27,7 @@ export class AddStudentComponent implements IAppModal {
     private fb: FormBuilder,
     private studentService: StudentService
   ) {
+    super();
     this.form = fb.group({
       student: '',
       studentGroupId: ['', Validators.required],
@@ -40,11 +41,8 @@ export class AddStudentComponent implements IAppModal {
     this.setStudentFormGroup();
   }
 
-  onSubmit(e: Event) {
-    this.validateAllFormFields(this.form);
-    if (this.form.invalid) {
-      return;
-    }
+  submit() {
+    super.onSubmit();
     console.log('submitted', this.form.value);
   }
 
@@ -66,16 +64,5 @@ export class AddStudentComponent implements IAppModal {
         birthDate: ['', Validators.required],
       };
     this.form.setControl('student', this.fb.group(controls));
-  }
-
-  private validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 }
