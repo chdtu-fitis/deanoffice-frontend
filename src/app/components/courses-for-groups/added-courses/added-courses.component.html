@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-header">
-    Предмети
+    Призначені предмети
   </div>
-  <div>
-    <table class="table table-striped mt-4">
+  <div class="div-table">
+    <table class="table table-striped">
       <thead>
       <td><input type="checkbox"></td>
       <td>Назва</td>
@@ -12,11 +12,13 @@
       <td>Викладач</td>
       <td>Дата екзамену</td>
       </thead>
-      <tr *ngFor="let course of courses; let i = index">
+      <tr *ngFor="let course of coursesForGroup; let i = index">
         <td><input type="checkbox" checked></td>
-        <td>{{ course.courseName.name }}</td>
-        <td>{{ course.knowlegeControl }}</td>
-        <td>{{ course.hours }}</td>
+        <td>{{ course.course.courseName.name }}</td>
+        <td>{{ course.course.knowlegeControl }}</td>
+        <td>{{ course.course.hours }}</td>
+        <td>{{ course.teacher }}</td>
+        <td>{{ course.examDate }}</td>
       </tr>
     </table>
   </div>

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
+import {CourseForGroup} from '../../models/CourseForGroup';
 
 @Component({
   selector: 'courses-for-groups',
@@ -9,6 +10,7 @@ import {StudentGroup} from '../../models/StudentGroup';
 export class CoursesForGroupsComponent implements OnInit {
   selectedSemester: number;
   selectedGroup: StudentGroup;
+  coursesForGroup: CourseForGroup[];
 
   constructor() {
   }

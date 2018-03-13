@@ -1,10 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {GroupService} from '../../../services/group.service';
+import {Component, OnInit, Input} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
-import {Course} from '../../../models/Course';
-import {Teacher} from "../../../models/Teacher";
-
 
 @Component({
   selector: 'added-courses',
@@ -13,10 +8,7 @@ import {Teacher} from "../../../models/Teacher";
 })
 export class AddedCoursesComponent implements OnInit {
 
-  courses: Course[];
-  studentGroup: StudentGroup;
-  teacher: Teacher;
-  examDate: Date;
+  @Input() coursesForGroup: CourseForGroup[];
 
   constructor() { }
 
