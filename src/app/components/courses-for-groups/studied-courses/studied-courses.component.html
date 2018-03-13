@@ -5,7 +5,7 @@
       <!--<option [disabled]="true" [selected]="true">Група</option>-->
       <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
     </select>
-    <select [(ngModel)]="selectedSemester" (change)="onDataChange()">
+    <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
       <!--<option [disabled]="true" [selected]="true">Семестр</option>-->
       <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
     </select>

@@ -9,7 +9,7 @@ export class CourseForGroupService {
   constructor(private http: HttpClient) {
   }
 
-  getCoursesBySpecializationAndSemester(specializationId, semester): Observable<CourseForGroup[]> {
-    return this.http.get<CourseForGroup[]>(`http://localhost:8080/specialization/${specializationId}/courses?semester=${semester}`);
+  getCoursesBySemester(semester): Observable<CourseForGroup[]> {
+    return this.http.get<CourseForGroup[]>(`http://localhost:8080/courses/${semester}`);
   }
 }
