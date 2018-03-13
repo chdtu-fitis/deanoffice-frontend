@@ -3,26 +3,27 @@ import {StudentGroup} from "../../../models/StudentGroup";
 import {GroupService} from "../../../services/group.service";
 import {CourseForGroup} from "../../../models/CourseForGroup";
 import {Course} from "../../../models/Course";
+import {CourseForGroupService} from "../../../services/course-for-group.service";
 
 @Component({
   selector: 'studied-courses',
   templateUrl: './studied-courses.component.html',
   styleUrls: ['./studied-courses.component.scss'],
-  providers: [GroupService]
+  providers: [GroupService, CourseForGroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
 
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
-  semesters: number[];
-  courses: Course[];
-  selectedCourses: Course[];
+  semesters: number[] = [];
+  courses: CourseForGroup[];
+  selectedCourses: CourseForGroup[];
 
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
 
-  constructor(private groupService: GroupService) {
+  constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class StudiedCoursesComponent implements OnInit {
     })
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
+  changeSelectedCoursesList(checked: boolean, selectedCourse: CourseForGroup) {
     if (!checked){
       for (let course of this.selectedCourses){
         if (course.id === selectedCourse.id)
@@ -42,10 +43,23 @@ export class StudiedCoursesComponent implements OnInit {
       this.selectedCourses.push(selectedCourse)
   }
 
-  changeSemesters(){
+  private changeSemesters(){
+    this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++){
       this.semesters.push(i + 1);
     }
   }
 
+  onGroupChange(){
+    this.changeSemesters();
+    this.onSemesterChange();
+  }
+
+  onSemesterChange(){
+    if (this.selectedSemester) {
+      this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+        this.courses = cfg;
+      })
+    }
+  }
 }
