@@ -17,6 +17,10 @@ export class DiplomaSupplementService {
     window.open(url, "_blank");
   }
 
+  buildGradePercent(groupId: string): void {
+    const url = `http://localhost:8080/documents/percentagereport/groups/${groupId}`;
+    window.open(url, "_blank");
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
