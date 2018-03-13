@@ -1,24 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
-import {Student} from '../models/Student';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class DiplomaSupplementService {
-  private diplomaSupplementUrl = 'http://localhost:8080/documents/diplomas/supplements';
+  private documentsUrl = `${environment.apiUrl}/documents`;
 
   constructor(private http: HttpClient) {
   }
 
   buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.diplomaSupplementUrl}/studentdegrees/${studentId}`;
+    const url = `${this.documentsUrl}/diplomas/supplements/studentdegrees/${studentId}`;
     window.open(url, "_blank");
   }
 
   buildGradePercent(groupId: string): void {
-    const url = `http://localhost:8080/documents/percentagereport/groups/${groupId}`;
+    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}`;
     window.open(url, "_blank");
   }
   /**
