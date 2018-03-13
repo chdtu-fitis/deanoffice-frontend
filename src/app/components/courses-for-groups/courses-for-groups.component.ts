@@ -26,4 +26,8 @@ export class CoursesForGroupsComponent implements OnInit {
     this.selectedSemester = event;
   }
 
+  changeCoursesForGroup(event) {
+    this.coursesForGroup = event;
+  }
+
 }

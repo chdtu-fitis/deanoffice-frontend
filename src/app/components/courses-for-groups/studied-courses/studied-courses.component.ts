@@ -18,10 +18,10 @@ export class StudiedCoursesComponent implements OnInit {
   selectedSemester: number;
   semesters: number[] = [];
   courses: CourseForGroup[];
-  selectedCourses: CourseForGroup[];
 
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
+  @Output() selectedCourses: CourseForGroup[];
 
   constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
   }

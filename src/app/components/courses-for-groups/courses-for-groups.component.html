@@ -3,7 +3,7 @@
     <div class="col-7 scrollable mt-4">
       <studied-courses (selectGroup)="changeGroup($event)" (selectSemester)="changeSemester()"></studied-courses>
       <div class="col-6 mt-4">
-        <button class="btn btn-info w-100">Призначити</button>
+        <button class="btn btn-info w-100" (onClick)="changeCoursesForGroup($event)">Призначити</button>
       </div>
     </div>
     <div  class="col-5 scrollable mt-4">
@@ -12,7 +12,7 @@
   </div>
   <div class="row">
     <div class="col scrollable mt-4">
-      <added-courses></added-courses>
+      <added-courses [coursesForGroup]="coursesForGroup" [selectedGroup]="selectedGroup" [selectedSemester]="selectedSemester"></added-courses>
     </div>
   </div>
 </div>
