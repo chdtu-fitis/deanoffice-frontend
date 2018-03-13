@@ -17,7 +17,7 @@ export class StudiedCoursesComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   semesters: number[] = [];
-  courses: CourseForGroup[];
+  coursesForGroup: CourseForGroup[];
 
   @Output() selectGroup = new EventEmitter();
   @Output() selectSemester = new EventEmitter();
@@ -43,22 +43,21 @@ export class StudiedCoursesComponent implements OnInit {
       this.selectedCourses.push(selectedCourse)
   }
 
-  private changeSemesters() {
+  private changeSemesters(){
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++){
       this.semesters.push(i + 1);
     }
   }
 
-  onGroupChange() {
+  onGroupChange(){
     this.changeSemesters();
-    this.onSemesterChange();
   }
 
-  onSemesterChange() {
+  onSemesterChange(){
     if (this.selectedSemester) {
       this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
-        this.courses = cfg;
+        this.coursesForGroup = cfg;
       })
     }
   }
