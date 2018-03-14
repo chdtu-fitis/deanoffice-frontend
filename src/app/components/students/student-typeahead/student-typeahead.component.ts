@@ -21,7 +21,7 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
   @Input() id: string;
   @Output() onValueChange = new EventEmitter();
   val: string;
-  selectedItem: any;
+  selectedId: any;
   dataSource: Observable<any>;
   errorMessages = {
     required: 'Необхідно вибрати студента зі списку',
@@ -34,7 +34,12 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
       if (this.val.length < 3) {
         return;
       }
-      this.propagateChange('');
+
+      // clear the selected value if input value was changed after selection
+      if (this.selectedId) {
+        this.selectedId = null;
+        this.propagateChange('');
+      }
       this.studentService.search(this.val).subscribe((result: any ) => {
         observer.next(result);
       });
@@ -58,6 +63,7 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
     const { surname, name, patronimic } = item;
     this.val = `${surname} ${name} ${patronimic}`;
     this.propagateChange(item.id);
+    this.selectedId = item.id;
     this.onValueChange.emit(item);
   }
 }
