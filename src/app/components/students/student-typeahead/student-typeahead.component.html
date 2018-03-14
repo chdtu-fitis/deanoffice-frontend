@@ -12,7 +12,7 @@
          id="typeahead"
          [appValidation]="control"
   >
-  <app-validation-errors [control]="control"></app-validation-errors>
+  <app-validation-errors [control]="control" [messages]="errorMessages"></app-validation-errors>
 </div>
 
 <ng-template #template let-model="item" let-index="index">

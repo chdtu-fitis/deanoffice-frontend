@@ -6,13 +6,12 @@ import { AbstractControlDirective, AbstractControl } from '@angular/forms';
   templateUrl: 'validation-errors.component.html'
 })
 export class ValidationErrorsComponent {
-  private static readonly errorMessages = {
-    'required': () => 'Поле обов\'язкове',
-    'studentSelected': () => 'Необхідно вибрати студента зі списку'
+  errorMessages = {
+    'required': 'Поле обов\'язкове',
   };
 
-  @Input()
-  private control: AbstractControlDirective | AbstractControl;
+  @Input() private control: AbstractControlDirective | AbstractControl;
+  @Input() private messages: Object;
 
   shouldShowErrors(): boolean {
     return this.control
@@ -26,11 +25,11 @@ export class ValidationErrorsComponent {
 
   listOfErrors(): string[] {
     return Object.keys(this.control.errors)
-      .map(field => this.getMessage(field, this.control.errors[field]));
+      .map(field => this.getMessage(field));
   }
 
-  private getMessage(type: string, params: any) {
-    return ValidationErrorsComponent.errorMessages[type](params);
+  private getMessage(type: string) {
+    return Object.assign(this.errorMessages, this.messages)[type]
   }
 
 }

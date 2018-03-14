@@ -23,6 +23,9 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
   val: string;
   selectedItem: any;
   dataSource: Observable<any>;
+  errorMessages = {
+    required: 'Необхідно вибрати студента зі списку',
+  };
 
   propagateChange = (_) => {};
 
