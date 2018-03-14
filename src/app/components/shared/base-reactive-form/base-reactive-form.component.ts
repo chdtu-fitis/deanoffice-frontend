@@ -8,11 +8,8 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class BaseReactiveFormComponent {
   form: FormGroup;
 
-  onSubmit() {
+  submit() {
     this.validateAllFormFields(this.form);
-    if (this.form.invalid) {
-      return;
-    }
   }
 
   protected validateAllFormFields(formGroup: FormGroup) {

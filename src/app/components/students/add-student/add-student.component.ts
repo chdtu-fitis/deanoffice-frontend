@@ -1,11 +1,12 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, ViewChild, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from 'ngx-bootstrap';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
+import {StudentDegree} from '../../../models/StudentDegree';
 
 enum Tabs {
   New,
@@ -21,6 +22,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   tabs = Tabs;
   activeTab: Tabs = Tabs.Existing;
   @Input() groups: StudentGroup[];
+  @Output() newStudent = new EventEmitter<StudentDegree>();
   @ViewChild('modal') modal: ModalDirective;
 
   constructor(
@@ -36,21 +38,36 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.setStudentFormGroup();
   }
 
+  get student() {
+    return this.form.controls['student'] as FormGroup;
+  }
+
   selectTab(tab: Tabs) {
+    if (this.activeTab === tab) {
+      return;
+    }
+
     this.activeTab = tab;
     this.form.reset();
     this.setStudentFormGroup();
   }
 
   submit() {
-    super.onSubmit();
-    console.log('submitted', this.form.value);
-    // this.studentService.addStudent(this.form.value);
+    super.submit();
+    if (this.form.invalid) {
+      return;
+    }
+    this.studentService.addStudentDegree(this.form.value)
+      .subscribe((student: StudentDegree) => {
+        this.newStudent.emit(student);
+        this.hideModal();
+      });
   }
 
   hideModal() {
     this.modal.hide();
     this.form.reset();
+    this.activeTab = Tabs.Existing;
   }
 
   setStudentFormGroup() {
@@ -65,14 +82,13 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
       : {
         id: ['', Validators.required],
         birthDate: ['', Validators.required],
-        sex: ['', Validators.required],
       };
     this.form.setControl('student', this.fb.group(controls));
   }
 
-  onSelectStudent(student) {
+  onSelectStudent({ birthDate }) {
     this.form.patchValue({
-      student: { birthDate: student.birthDate },
+      student: { birthDate },
     });
   }
 }

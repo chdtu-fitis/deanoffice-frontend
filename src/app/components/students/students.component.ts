@@ -43,4 +43,8 @@ export class StudentsComponent implements OnInit {
     }
     this.columns = columns;
   }
+
+  prependStudent(student) {
+    this.students = [student, ...this.students];
+  };
 }

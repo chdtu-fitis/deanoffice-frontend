@@ -32,4 +32,5 @@
 <app-add-student
   #addStudentModal
   [groups]="groups"
+  (newStudent)="prependStudent($event)"
 ></app-add-student>
