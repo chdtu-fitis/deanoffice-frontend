@@ -10,7 +10,7 @@ import {StudentsTableComponent} from './students-table/students-table.component'
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {SharedModule} from '../shared/shared.module';
 import {AddStudentComponent} from './add-student/add-student.component';
-import {ExistingStudentInputComponent} from './existing-student-input/existing-student-input.component';
+import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import {ExistingStudentInputComponent} from './existing-student-input/existing-s
     StudentsTableComponent,
     StudentsColumnsComponent,
     AddStudentComponent,
-    ExistingStudentInputComponent,
+    StudentTypeaheadComponent,
   ],
   imports: [
     CommonModule,
