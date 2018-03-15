@@ -1,11 +1,13 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
+import {CourseForGroupService} from "../../../services/course-for-group.service";
 
 @Component({
   selector: 'added-courses',
   templateUrl: './added-courses.component.html',
-  styleUrls: ['./added-courses.component.scss']
+  styleUrls: ['./added-courses.component.scss'],
+  providers: [CourseForGroupService]
 })
 export class AddedCoursesComponent implements OnInit {
 
@@ -14,7 +16,7 @@ export class AddedCoursesComponent implements OnInit {
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
 
-  constructor() { }
+  constructor(private courseForGroupService: CourseForGroupService) { }
 
   ngOnInit() {
   }
