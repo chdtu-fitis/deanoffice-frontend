@@ -4,7 +4,7 @@ import {KnowledgeControl} from './KnowlegeControl';
 
 export class Course extends BaseEntity {
   courseName: CourseName;
-  knowlegeControl: KnowledgeControl;
+  knowledgeControl: KnowledgeControl;
   semester: number;
   hours: number;
   credits: number;
