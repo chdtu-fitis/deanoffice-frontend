@@ -1,10 +1,11 @@
 .Header {
   max-height: 54px;
+  background: #678;
 }
 
 .navbar-nav .nav-item {
   .nav-link {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
   }
 
   &:hover,
