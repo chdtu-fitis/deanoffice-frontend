@@ -17,11 +17,12 @@ export class StudiedCoursesComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   semesters: number[] = [];
-  coursesForGroup: CourseForGroup[];
-  selectedCourses: CourseForGroup[];
+  coursesForGroup: Course[];
+  selectedCourses: Course[];
 
-  @Output() selectGroup = new EventEmitter();
-  @Output() selectSemester = new EventEmitter();
+  @Output() onGroupSelect = new EventEmitter();
+  @Output() onSemesterSelect = new EventEmitter();
+  @Output() onSelectedCoursesChange = new EventEmitter();
 
   constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
   }
@@ -32,15 +33,17 @@ export class StudiedCoursesComponent implements OnInit {
     })
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: CourseForGroup) {
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
     if (!checked){
       for (let course of this.selectedCourses){
-        if (course.id === selectedCourse.id)
-          this.selectedCourses.concat(course)
+        if (course.id === selectedCourse.id){}
+          this.selectedCourses.splice(course);
       }
     }
-    else
+    else {
       this.selectedCourses.push(selectedCourse)
+    }
+    this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
 
   private changeSemesters(){
@@ -52,6 +55,7 @@ export class StudiedCoursesComponent implements OnInit {
 
   onGroupChange(){
     this.changeSemesters();
+    this.onGroupSelect.emit(this.selectedGroup);
   }
 
   onSemesterChange(){
@@ -60,5 +64,6 @@ export class StudiedCoursesComponent implements OnInit {
         this.coursesForGroup = cfg;
       })
     }
+    this.onSemesterSelect.emit(this.selectedSemester);
   }
 }
