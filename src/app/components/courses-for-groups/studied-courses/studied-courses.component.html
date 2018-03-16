@@ -22,11 +22,11 @@
         <td>Контроль</td>
         <td>Години</td>
         </thead>
-        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
+        <tr *ngFor="let course of courses; let i = index">
           <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)" checked></td>
-          <td>{{ courseForGroup.course.courseName.name }}</td>
-          <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
-          <td>{{ courseForGroup.course.hours }}</td>
+          <td>{{ course.courseName.name }}</td>
+          <td>{{ course.knowledgeControl.name }}</td>
+          <td>{{ course.hours }}</td>
         </tr>
       </table>
     </div>
