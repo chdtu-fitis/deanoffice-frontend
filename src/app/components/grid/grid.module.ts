@@ -2,14 +2,14 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {GridComponent} from './grid.component';
 import {HttpClientModule} from '@angular/common/http';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [GridComponent],
   imports: [
     CommonModule,
     HttpClientModule,
-    NgxDatatableModule
+    SharedModule,
   ],
   exports: [GridComponent]
 })

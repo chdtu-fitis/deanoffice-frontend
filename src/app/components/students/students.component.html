@@ -1,0 +1,27 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-nowrap">
+    <div class="col content py-3">
+      <button class="btn btn-info mb-3" (click)="columnsModal.modal.show()">Вибір колонок</button>
+
+      <div class="students-table">
+        <app-students-table
+          [columns]="columns"
+          [rows]="students">
+        </app-students-table>
+      </div>
+
+      <div class="bg-light fixed-bottom p-3">
+        Всього: {{students.length || '0'}}
+      </div>
+    </div>
+
+    <app-sidebar class="sidebar">
+      <b>Фільтри:</b>
+    </app-sidebar>
+  </div>
+</div>
+
+<app-students-columns
+  #columnsModal
+  (setColumns)="setColumns($event)">
+</app-students-columns>
