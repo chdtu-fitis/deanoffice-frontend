@@ -9,11 +9,11 @@
           <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
         </select>
       </div>
-      <studied-courses [courses]="courses"></studied-courses>
+      <studied-courses (onSelectedCoursesChange)="selectedCoursesChange($event)" [courses]="courses"></studied-courses>
     </div>
     <div  class="col-5 scrollable mt-4">
       <course-creation></course-creation>
     </div>
   </div>
-  <added-courses></added-courses>
+  <added-courses [selectedGroup]="selectedGroup" [selectedSemester]="selectedSemester" [selectedCourses]="selectedCourses"></added-courses>
 </div>

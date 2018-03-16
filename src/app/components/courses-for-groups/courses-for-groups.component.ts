@@ -28,18 +28,18 @@ export class CoursesForGroupsComponent implements OnInit {
     })
   }
 
-  private changeSemesters(){
+  private changeSemesters() {
     this.semesters = [];
-    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
+    for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
       this.semesters.push(i + 1);
     }
   }
 
-  onGroupChange(){
+  onGroupChange() {
     this.changeSemesters();
   }
 
-  onSemesterChange(){
+  onSemesterChange() {
     if (this.selectedSemester) {
       this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
@@ -47,11 +47,7 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  changeGroup(event) {
-    this.selectedGroup = event;
-  }
-
-  changeSemester(event) {
-    this.selectedSemester = event;
+  selectedCoursesChange(selectedCourses) {
+    this.selectedCourses = selectedCourses;
   }
 }
