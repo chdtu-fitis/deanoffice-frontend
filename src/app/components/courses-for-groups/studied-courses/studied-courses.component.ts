@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {StudentGroup} from "../../../models/StudentGroup";
 import {GroupService} from "../../../services/group.service";
 import {CourseForGroup} from "../../../models/CourseForGroup";
@@ -12,16 +12,8 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
   providers: [GroupService, CourseForGroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
-
-  groups: StudentGroup[];
-  selectedGroup: StudentGroup;
-  selectedSemester: number;
-  semesters: number[] = [];
-  courses: Course[];
+  @Input() courses: Course[];
   selectedCourses: Course[];
-
-  @Output() onGroupSelect = new EventEmitter();
-  @Output() onSemesterSelect = new EventEmitter();
   @Output() onSelectedCoursesChange = new EventEmitter();
 
   constructor() {

@@ -19,11 +19,6 @@ export class CoursesForGroupsComponent implements OnInit {
   courses: Course[];
   selectedCourses: Course[];
 
-  @Output() onGroupSelect = new EventEmitter();
-  @Output() onSemesterSelect = new EventEmitter();
-  @Output() onSelectedCoursesChange = new EventEmitter();
-
-
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
 
@@ -42,7 +37,6 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onGroupChange(){
     this.changeSemesters();
-    this.onGroupSelect.emit(this.selectedGroup);
   }
 
   onSemesterChange(){
@@ -51,7 +45,6 @@ export class CoursesForGroupsComponent implements OnInit {
         this.courses = cfg;
       })
     }
-    this.onSemesterSelect.emit(this.selectedSemester);
   }
 
   changeGroup(event) {
