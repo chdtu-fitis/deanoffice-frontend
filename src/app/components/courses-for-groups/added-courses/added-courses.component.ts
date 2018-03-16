@@ -12,7 +12,6 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
 export class AddedCoursesComponent implements OnInit {
 
   coursesForGroup: CourseForGroup[];
-  @Input() addedCoursesForGroup: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
 
@@ -21,17 +20,4 @@ export class AddedCoursesComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSemesterChange() {
-    if (this.selectedSemester) {
-      this.courseForGroupService.getCoursesBySemesterAndGroupID(this.selectedGroup.id, this.selectedSemester).subscribe(cfg => {
-        this.coursesForGroup = cfg;
-      })
-    }
-  }
-  onGroupChange() {
-    this.onSemesterChange();
-  }
-  onCoursesForGroupChange() {
-    this.coursesForGroup = this.coursesForGroup.concat(this.addedCoursesForGroup);
-  }
 }

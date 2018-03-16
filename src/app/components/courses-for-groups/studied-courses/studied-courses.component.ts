@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {StudentGroup} from "../../../models/StudentGroup";
 import {GroupService} from "../../../services/group.service";
 import {CourseForGroup} from "../../../models/CourseForGroup";
@@ -12,53 +12,27 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
   providers: [GroupService, CourseForGroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
+  @Input() courses: Course[];
+  selectedCourses: Course[];
+  @Output() onSelectedCoursesChange = new EventEmitter();
 
-  groups: StudentGroup[];
-  selectedGroup: StudentGroup;
-  selectedSemester: number;
-  semesters: number[] = [];
-  coursesForGroup: CourseForGroup[];
-
-  @Output() selectGroup = new EventEmitter();
-  @Output() selectSemester = new EventEmitter();
-  @Output() selectedCourses: CourseForGroup[];
-
-  constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.groupService.getGroupsByFaculty().subscribe(groups => {
-      this.groups = groups;
-    })
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: CourseForGroup) {
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course, index: number) {
     if (!checked){
       for (let course of this.selectedCourses){
-        if (course.id === selectedCourse.id)
-          this.selectedCourses.concat(course)
+        if (course.id === selectedCourse.id){}
+          this.selectedCourses.splice(index);
       }
     }
-    else
+    else {
       this.selectedCourses.push(selectedCourse)
-  }
-
-  private changeSemesters(){
-    this.semesters = [];
-    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
-      this.semesters.push(i + 1);
     }
+    this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
 
-  onGroupChange(){
-    this.changeSemesters();
-  }
-
-  onSemesterChange(){
-    if (this.selectedSemester) {
-      this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
-        this.coursesForGroup = cfg;
-      })
-    }
-  }
 }

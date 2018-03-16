@@ -7,9 +7,4 @@ import {HttpClient} from '@angular/common/http';
 export class TeacherService {
   constructor(private http: HttpClient) {
   }
-
-  getTeachers() {
-    return this.http.get<Teacher>('/coursesforgroups/teachers').toPromise();
-  }
-
 }
