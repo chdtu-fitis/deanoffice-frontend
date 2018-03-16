@@ -16,10 +16,10 @@ export const translations = {
   'supplementNumber': 'Номер додатку до диплому',
   'thesisName': 'Тема диплому',
   'thesisNameEng': 'Тема диплому (англ.)',
-  'protocolNumber': 'Номер протоколу',
+  'protocolNumber': 'Номер протоколу захисту диплому',
   'previousDiplomaNumber': 'Номер попереднього диплому',
   'diplomaDate': 'Дата диплому',
-  'supplementDate': 'Дата додатку',
-  'protocolDate': 'Дата протоколу',
+  'supplementDate': 'Дата додатку до диплому',
+  'protocolDate': 'Дата протоколу захисту диплому',
   'previousDiplomaDate': 'Дата попереднього диплому',
 };
