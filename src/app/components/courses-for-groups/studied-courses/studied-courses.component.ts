@@ -24,20 +24,17 @@ export class StudiedCoursesComponent implements OnInit {
   @Output() onSemesterSelect = new EventEmitter();
   @Output() onSelectedCoursesChange = new EventEmitter();
 
-  constructor(private groupService: GroupService, private courseForGroupService: CourseForGroupService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.groupService.getGroupsByFaculty().subscribe(groups => {
-      this.groups = groups;
-    })
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course, index: number) {
     if (!checked){
       for (let course of this.selectedCourses){
         if (course.id === selectedCourse.id){}
-          this.selectedCourses.splice(course);
+          this.selectedCourses.splice(index);
       }
     }
     else {
@@ -46,24 +43,4 @@ export class StudiedCoursesComponent implements OnInit {
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
 
-  private changeSemesters(){
-    this.semesters = [];
-    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
-      this.semesters.push(i + 1);
-    }
-  }
-
-  onGroupChange(){
-    this.changeSemesters();
-    this.onGroupSelect.emit(this.selectedGroup);
-  }
-
-  onSemesterChange(){
-    if (this.selectedSemester) {
-      this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
-        this.courses = cfg;
-      })
-    }
-    this.onSemesterSelect.emit(this.selectedSemester);
-  }
 }

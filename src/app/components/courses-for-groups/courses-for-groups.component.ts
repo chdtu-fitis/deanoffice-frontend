@@ -1,19 +1,57 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
+import {Course} from "../../models/Course";
+import {CourseForGroupService} from "../../services/course-for-group.service";
+import {GroupService} from "../../services/group.service";
+import {CourseService} from "../../services/course.service";
 
 @Component({
   selector: 'courses-for-groups',
   templateUrl: './courses-for-groups.component.html',
-  styleUrls: ['./courses-for-groups.component.scss']
+  styleUrls: ['./courses-for-groups.component.scss'],
+  providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
-  selectedSemester: number;
+  groups: StudentGroup[];
   selectedGroup: StudentGroup;
+  selectedSemester: number;
+  semesters: number[] = [];
+  courses: Course[];
+  selectedCourses: Course[];
 
-  constructor() {
+  @Output() onGroupSelect = new EventEmitter();
+  @Output() onSemesterSelect = new EventEmitter();
+  @Output() onSelectedCoursesChange = new EventEmitter();
+
+
+  constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
 
   ngOnInit() {
+    this.groupService.getGroupsByFaculty().subscribe(groups => {
+      this.groups = groups;
+    })
+  }
+
+  private changeSemesters(){
+    this.semesters = [];
+    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
+      this.semesters.push(i + 1);
+    }
+  }
+
+  onGroupChange(){
+    this.changeSemesters();
+    this.onGroupSelect.emit(this.selectedGroup);
+  }
+
+  onSemesterChange(){
+    if (this.selectedSemester) {
+      this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+        this.courses = cfg;
+      })
+    }
+    this.onSemesterSelect.emit(this.selectedSemester);
   }
 
   changeGroup(event) {
@@ -23,5 +61,4 @@ export class CoursesForGroupsComponent implements OnInit {
   changeSemester(event) {
     this.selectedSemester = event;
   }
-
 }
