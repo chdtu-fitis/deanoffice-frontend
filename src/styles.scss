@@ -36,6 +36,23 @@ body {
     .datatable-body-row {
       padding: 5px 10px;
       box-sizing: border-box;
+      cursor: pointer;
+
+      &.active {
+        background: #c0ffc0;
+
+        .datatable-row-group {
+          background: none;
+        }
+
+        &:hover {
+          background: darken(#c0ffc0, 0.3);
+
+          .datatable-row-group {
+            background: none;
+          }
+        }
+      }
 
       .datatable-body-cell {
         padding: 0;

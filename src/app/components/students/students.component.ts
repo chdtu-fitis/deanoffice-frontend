@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../services/student.service';
 import { defaultColumns } from './constants.js';
 import { StudentDegree } from '../../models/StudentDegree';
+import { GroupService } from '../../services/group.service';
+import { StudentGroup } from '../../models/StudentGroup';
 
 @Component({
   selector: 'app-students',
@@ -11,17 +13,25 @@ import { StudentDegree } from '../../models/StudentDegree';
 })
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
+  groups: StudentGroup[] = [];
   columns: any[] = defaultColumns;
+  rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
 
-  constructor(private studentService: StudentService) { }
+  constructor(
+    private studentService: StudentService,
+    private groupService: GroupService,
+  ) { }
 
   ngOnInit() {
-    this.studentService.getInitialStudents()
-      .subscribe((students: StudentDegree[]) => {
-        this.students = students;
-      })
+    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
+      this.students = students;
+      this.rows = students;
+    });
+    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+      this.groups = groups;
+    });
   }
 
   setColumns(columns: string[]) {
@@ -29,10 +39,15 @@ export class StudentsComponent implements OnInit {
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
           this.students = students;
+          this.rows = students;
           this.isAllDataLoaded = true;
         });
     }
     this.columns = columns;
+  }
+
+  setRows(rows: StudentDegree[]) {
+    this.rows = rows;
   }
 
   onSelect(students: StudentDegree[]) {
