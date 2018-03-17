@@ -22,7 +22,9 @@
       <b>Фільтри:</b>
       <hr />
 
-      <button *ngIf="selected.length === 1" class="btn btn-info w-100">Редагувати особисту інформацію</button>
+      <div *ngIf="selected.length === 1">
+        <button class="btn btn-info w-100" (click)="personalInfoModal.modal.show()">Редагувати особисту інформацію</button>
+      </div>
     </app-sidebar>
   </div>
 </div>
@@ -31,3 +33,5 @@
   #columnsModal
   (setColumns)="setColumns($event)">
 </app-students-columns>
+
+<app-student-personal-info #personalInfoModal></app-student-personal-info>

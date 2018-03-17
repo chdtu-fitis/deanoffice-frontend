@@ -38,6 +38,5 @@ export class StudentsComponent implements OnInit {
   onSelect(students: StudentDegree[]) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...students);
-    console.log(this.selected);
   }
 }
