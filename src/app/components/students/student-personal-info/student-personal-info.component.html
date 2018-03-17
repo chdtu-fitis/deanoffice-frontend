@@ -1,7 +1,7 @@
 <div class="modal fade"
      bsModal #modal="bs-modal"
      tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Редагування особистої інформації</h4>
@@ -10,6 +10,118 @@
         </button>
       </div>
       <div class="modal-body">
+        <form [formGroup]="form">
+          <h6 class="mb-3">Особиста інформація</h6>
+          <div class="row">
+            <div class="form-group col">
+              <label for="name">Ім'я</label>
+              <input formControlName="name" class="form-control" id="name">
+            </div>
+            <div class="form-group col">
+              <label for="surname">Прізвище</label>
+              <input formControlName="surname" class="form-control" id="surname">
+            </div>
+            <div class="form-group col">
+              <label for="patronimic">По-батькові</label>
+              <input formControlName="patronimic" class="form-control" id="patronimic">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="nameEng">Ім'я (англ.)</label>
+              <input formControlName="nameEng" class="form-control" id="nameEng">
+            </div>
+            <div class="form-group col">
+              <label for="surnameEng">Прізвище (англ.)</label>
+              <input formControlName="surnameEng" class="form-control" id="surnameEng">
+            </div>
+            <div class="form-group col">
+              <label for="patronimicEng">По-батькові (англ.)</label>
+              <input formControlName="patronimicEng" class="form-control" id="patronimicEng">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col">
+              <label for="surname">Стать</label>
+              <div class="form-check">
+                <input formControlName="sex" class="form-check-input" type="checkbox" value="MALE" id="sex1">
+                <label class="form-check-label" for="sex1">
+                  Чоловіча
+                </label>
+              </div>
+              <div class="form-check">
+                <input formControlName="sex" class="form-check-input" type="checkbox" value="FEMALE" id="sex2">
+                <label class="form-check-label" for="sex2">
+                  Жіноча
+                </label>
+              </div>
+            </div>
+            <div class="form-group col">
+              <label for="birthDate">Дата народження</label>
+              <input formControlName="birthDate" type="date" class="form-control" id="birthDate">
+            </div>
+            <div class="form-group col">
+              <label for="school">Школа</label>
+              <input formControlName="school" class="form-control" id="school">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <h6 class="mb-3">Інформація про батьків</h6>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="fatherName">ПІБ батька</label>
+                  <input formControlName="fatherName" class="form-control" id="fatherName">
+                </div>
+                <div class="form-group col-6">
+                  <label for="motherName">ПІБ матері</label>
+                  <input formControlName="motherName" class="form-control" id="motherName">
+                </div>
+                <div class="form-group col-6">
+                  <label for="fatherPhone">Телефон батька</label>
+                  <input formControlName="fatherPhone" class="form-control" id="fatherPhone">
+                </div>
+                <div class="form-group col-6">
+                  <label for="motherPhone">Телефон матері</label>
+                  <input formControlName="motherPhone" class="form-control" id="motherPhone">
+                </div>
+                <div class="form-group col-6">
+                  <label for="fatherInfo">Інформація про батька</label>
+                  <input formControlName="fatherInfo" class="form-control" id="fatherInfo">
+                </div>
+                <div class="form-group col-6">
+                  <label for="motherInfo">Інформація про матір</label>
+                  <input formControlName="motherInfo" class="form-control" id="motherInfo">
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <h6 class="mb-3">Контактна інформація</h6>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="email">Email</label>
+                  <input formControlName="email" class="form-control" id="email">
+                </div>
+                <div class="form-group col-6">
+                  <label for="telephone">Телефон</label>
+                  <input formControlName="telephone" class="form-control" id="telephone">
+                </div>
+                <div class="form-group col-12">
+                  <label for="actualAddress">Поточна адреса</label>
+                  <input formControlName="actualAddress" class="form-control" id="actualAddress">
+                </div>
+                <div class="form-group col-12">
+                  <label for="registrationAddress">Адреса реєстрації</label>
+                  <input formControlName="registrationAddress" class="form-control" id="registrationAddress">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mt-4">
+            <label for="notes">Примітки</label>
+            <input formControlName="notes" class="form-control" id="notes">
+          </div>
+        </form>
 
       </div>
       <div class="modal-footer">
