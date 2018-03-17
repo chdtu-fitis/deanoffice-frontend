@@ -8,6 +8,9 @@
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
   [trackByProp]="'id'"
+  [selectionType]="'multi'"
+  [selected]="selected"
+  (select)="select($event)"
 >
 </ngx-datatable>
 

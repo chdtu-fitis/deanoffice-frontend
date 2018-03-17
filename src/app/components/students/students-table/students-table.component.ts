@@ -1,5 +1,6 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { translations } from '../translations.js';
+import {StudentDegree} from '../../../models/StudentDegree';
 
 @Component({
     selector: 'app-students-table',
@@ -11,6 +12,8 @@ export class StudentsTableComponent {
     this.cols = this.transformArrayToColumns(cols);
   }
   @Input() rows: Object[];
+  @Input() selected: StudentDegree[] = [];
+  @Output() onSelect = new EventEmitter();
   @ViewChild('sexTemplate') sexTemplate: TemplateRef<any>;
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   cols: Object[];
@@ -24,5 +27,9 @@ export class StudentsTableComponent {
       }
       return { prop, name: translations[prop], cellTemplate };
     });
+  }
+
+  select({ selected }) {
+    this.onSelect.emit(selected);
   }
 }

@@ -12,6 +12,7 @@ import { StudentDegree } from '../../models/StudentDegree';
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
   columns: any[] = defaultColumns;
+  selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
 
   constructor(private studentService: StudentService) { }
@@ -32,5 +33,11 @@ export class StudentsComponent implements OnInit {
         });
     }
     this.columns = columns;
+  }
+
+  onSelect(students: StudentDegree[]) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...students);
+    console.log(this.selected);
   }
 }

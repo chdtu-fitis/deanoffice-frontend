@@ -6,7 +6,10 @@
       <div class="students-table">
         <app-students-table
           [columns]="columns"
-          [rows]="students">
+          [rows]="students"
+          [selected]="selected"
+          (onSelect)="onSelect($event)"
+        >
         </app-students-table>
       </div>
 
@@ -17,6 +20,9 @@
 
     <app-sidebar class="sidebar">
       <b>Фільтри:</b>
+      <hr />
+
+      <button *ngIf="selected.length === 1" class="btn btn-info w-100">Редагувати особисту інформацію</button>
     </app-sidebar>
   </div>
 </div>
