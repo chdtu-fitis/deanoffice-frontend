@@ -4,6 +4,7 @@ import {Degree} from '../models/Degree';
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 import {catchError, map, tap} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -11,7 +12,7 @@ const httpOptions = {
 
 @Injectable()
 export class DegreeService {
-  private degreesUrl = 'http://localhost:8080/degrees';
+  private degreesUrl = `${environment.apiUrl}/degrees`;
 
   constructor(private http: HttpClient) {
   }

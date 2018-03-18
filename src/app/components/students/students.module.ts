@@ -11,6 +11,8 @@ import {StudentsColumnsComponent} from './students-columns/students-columns.comp
 import {SharedModule} from '../shared/shared.module';
 import {AddStudentComponent} from './add-student/add-student.component';
 import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.component';
+import {StudentsFiltersComponent} from './students-filters/students-filters.component';
+import {StudentsSearchComponent} from './students-search/students-search.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.c
     StudentsColumnsComponent,
     AddStudentComponent,
     StudentTypeaheadComponent,
+    StudentsFiltersComponent,
+    StudentsSearchComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +32,7 @@ import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.c
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
+    ReactiveFormsModule,
   ],
 })
 

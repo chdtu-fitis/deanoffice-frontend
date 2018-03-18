@@ -13,24 +13,25 @@ import { StudentGroup } from '../../models/StudentGroup';
 })
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
+  groups: StudentGroup[] = [];
   columns: any[] = defaultColumns;
+  rows: StudentDegree[] = [];
+  selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
-  groups: StudentGroup[];
 
   constructor(
     private studentService: StudentService,
-    private groupService: GroupService
+    private groupService: GroupService,
   ) { }
 
   ngOnInit() {
-    this.studentService.getInitialStudents()
-      .subscribe((students: StudentDegree[]) => {
-        this.students = students;
-      });
-    this.groupService.getGroups()
-      .subscribe((groups: StudentGroup[]) => {
-        this.groups = groups;
-      })
+    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
+      this.students = students;
+      this.rows = students;
+    });
+    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+      this.groups = groups;
+    });
   }
 
   setColumns(columns: string[]) {
@@ -38,6 +39,7 @@ export class StudentsComponent implements OnInit {
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
           this.students = students;
+          this.rows = students;
           this.isAllDataLoaded = true;
         });
     }
@@ -47,4 +49,13 @@ export class StudentsComponent implements OnInit {
   prependStudent(student) {
     this.students = [student, ...this.students];
   };
+
+  setRows(rows: StudentDegree[]) {
+    this.rows = rows;
+  }
+
+  onSelect(students: StudentDegree[]) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...students);
+  }
 }
