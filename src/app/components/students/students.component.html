@@ -1,22 +1,35 @@
 <div class="container-fluid h-100">
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
-      <button class="btn btn-info mb-3" (click)="columnsModal.modal.show()">Вибір колонок</button>
+      <div class="mb-4 mt-3 d-flex">
+        <app-students-search class="mr-auto" [rows]="rows" (searchResult)="onSelect($event)"></app-students-search>
+        <button class="btn btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
+        <button class="btn ml-2 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+      </div>
 
       <div class="students-table">
         <app-students-table
           [columns]="columns"
-          [rows]="students">
+          [rows]="rows"
+          [selected]="selected"
+          (onSelect)="onSelect($event)"
+        >
         </app-students-table>
       </div>
 
       <div class="bg-light fixed-bottom p-3">
-        Всього: {{students.length || '0'}}
+        Всього: {{rows.length || '0'}}
       </div>
     </div>
 
     <app-sidebar class="sidebar">
-      <b>Фільтри:</b>
+      <b class="mb-2">Фільтри:</b>
+      <app-students-filters
+        [groups]="groups"
+        [students]="students"
+        (applyFilters)="setRows($event)">
+      </app-students-filters>
+      <hr />
     </app-sidebar>
   </div>
 </div>
@@ -25,3 +38,9 @@
   #columnsModal
   (setColumns)="setColumns($event)">
 </app-students-columns>
+
+<app-add-student
+  #addStudentModal
+  [groups]="groups"
+  (newStudent)="prependStudent($event)"
+></app-add-student>

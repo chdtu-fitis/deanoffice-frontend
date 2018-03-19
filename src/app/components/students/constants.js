@@ -26,3 +26,18 @@ export const allColumns = defaultColumns.concat(
   'protocolNumber',
   'protocolDate',
 );
+
+export const months = [
+  'Січень',
+  'Лютий',
+  'Березень',
+  'Квітень',
+  'Травень',
+  'Червень',
+  'Липень',
+  'Серпень',
+  'Вересень',
+  'Жовтень',
+  'Листопад',
+  'Грудень'
+];

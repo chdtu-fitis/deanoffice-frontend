@@ -15,6 +15,7 @@ import {DiplomaSupplementService} from "../../services/diploma-supplement.servic
 export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
+  currentGroup: StudentGroup;
   students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
@@ -40,7 +41,8 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onGroupChange(groupId: string): void {
-    this.students = this.groups.find(x => x.id == Number(groupId)).studentDegrees;
+    this.currentGroup = this.groups.find(x => x.id == Number(groupId));
+    this.students = this.currentGroup.studentDegrees;
     for (var student of this.students) {student.selected = true;}
     this.studentsSelected = true;
   }
@@ -58,5 +60,10 @@ export class DiplomaSupplementComponent implements OnInit {
         this.diplomaSupplementService.buildDiplomaSupplement(""+student.id);
       }
     }
+  }
+
+  onFormGradePercent(): void {
+    this.message = "";
+    this.diplomaSupplementService.buildGradePercent(""+this.currentGroup.id);
   }
 }

@@ -5,10 +5,11 @@ import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
 import {StudentDegree} from '../models/StudentDegree';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class GroupService {
-  private groupsUrl = 'http://localhost:8080/groups';
+  private groupsUrl = `${environment.apiUrl}/groups`;
   private groupsByDegreeUrl = this.groupsUrl + '/graduates';
 
   constructor(private http: HttpClient) {
@@ -37,6 +38,10 @@ export class GroupService {
   //   group.specialization.degree.name = 'магістр';
   //   this.groups.push(group);
   // }
+
+  getGroups(): Observable<StudentGroup[]> {
+    return this.http.get<StudentGroup[]>(this.groupsUrl);
+  }
 
   getGroupsByDegree(degreeId: string): Observable<StudentGroup[]> {
     const url = `${this.groupsByDegreeUrl}?degreeId=${degreeId}`;
