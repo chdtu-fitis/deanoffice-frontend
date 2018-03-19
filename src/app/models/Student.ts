@@ -6,6 +6,7 @@ export class Student extends Person {
   surnameEng?: string;
   nameEng?: string;
   patronimicEng?: string;
+  sex?: string;
   studentGroup: StudentGroup;
   birthDate: Date;
   registrationAdress?: string;

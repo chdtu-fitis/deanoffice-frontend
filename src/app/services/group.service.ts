@@ -38,6 +38,7 @@ export class GroupService {
   //   group.specialization.degree.name = 'магістр';
   //   this.groups.push(group);
   // }
+
   getGroups(): Observable<StudentGroup[]> {
     return this.http.get<StudentGroup[]>(this.groupsUrl);
   }
