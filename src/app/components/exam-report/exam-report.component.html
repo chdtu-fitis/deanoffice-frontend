@@ -1,32 +1,190 @@
-<div class="container-fluid h-100">
-  <div class="row h-100">
-    <div class="col scrollable mt-4">
-      <form class="form-inline">
-        <select class="form-control mr-sm-2">
+<div class="statement-wrapper">
+
+  <div class="select-container">
+    <div class="select-wraper">
+      <div class="form-group">
+        <h3>Ступінь</h3>
+        <select id="cmbDegree" (change)="onDegreeChange($event.target.value, '5')">
           <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
         </select>
+      </div>
+    </div>
 
-        <select class="form-control mr-sm-2">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
+    <div class="select-wraper">
+      <h3>Курс</h3>
+      <select name="year" id="year" (change)="onCourseChange($event.target.value)">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
 
-        <select class="form-control mr-sm-2">
-          <option value="volvo">Семестр</option>
-          <option value="saab">Семестр</option>
-          <option value="vw">Семестр</option>
-        </select>
+    <div class="select-wraper">
+      <h3>Група</h3>
+      <select id="cmbGroup" class="cmbGroup">
+        <option *ngFor="let group of groups; let i = index" value="group.id">{{group.name}}</option>
+      </select>
+    </div>
 
-        <select class="form-control mr-sm-2">
-          <option value="volvo">Група</option>
-          <option value="saab">Група</option>
-          <option value="vw">Група</option>
-        </select>
-
-        <button class="btn btn-success" (click)="onForm()">Сформувати відомість</button>
-      </form>
+    <div class="select-wraper">
+      <h3>Семестр</h3>
+      <select name="semester" id="semester" (change)="onGroupChange($event.target.value)">
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
     </div>
   </div>
+
+  <div class="wrapp">
+    <h2>Список предметів</h2>
+    <div class="table-wrapper">
+      <table class="main-table">
+        <thead>
+        <tr>
+          <td>№</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Назва предмету</td>
+          <td>Вид іспиту</td>
+          <td>Годин</td>
+          <td>Викладач</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td>2</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Англійська мова</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="wrapp-2">
+    <h2>Список студентів</h2>
+    <div class="table-wrapper-2">
+      <table class="student-table">
+        <thead>
+        <tr>
+          <td>№</td>
+          <td>Прізвище</td>
+          <td>Ім'я</td>
+          <td>По батькові</td>
+          <td>Заліковка</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ studentDegree.student.surname }}</td>
+          <td>{{ studentDegree.student.name }}</td>
+          <td>{{ studentDegree.student.patronimic }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button>Вибрати всі предмети</button>
+  <button>Сформувати відомість</button>
 </div>
