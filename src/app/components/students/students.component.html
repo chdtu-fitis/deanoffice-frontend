@@ -4,6 +4,7 @@
       <div class="mb-4 mt-3 d-flex">
         <app-students-search class="mr-auto" [rows]="rows" (searchResult)="onSelect($event)"></app-students-search>
         <button class="btn btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
+        <button class="btn ml-2 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
       </div>
 
       <div class="students-table">
@@ -40,5 +41,11 @@
   #columnsModal
   (setColumns)="setColumns($event)">
 </app-students-columns>
+
+<app-add-student
+  #addStudentModal
+  [groups]="groups"
+  (newStudent)="prependStudent($event)"
+></app-add-student>
 
 <app-student-personal-info #personalInfoModal></app-student-personal-info>
