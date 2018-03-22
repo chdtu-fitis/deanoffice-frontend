@@ -51,6 +51,14 @@ export class GroupService {
       );
   }
 
+  getGroupsByDegreeAndYear(degreeId: string, year: string): Observable<StudentGroup[]> {
+    const url = `${this.groupsUrl}/year?degreeId=${degreeId}&year=${year}`;
+    return this.http.get<StudentGroup[]>(url)
+      .pipe(
+        catchError(this.handleError('getGroupsByDegree', []))
+      );
+  }
+
   getGroupStudents(groupId: string): Observable<StudentDegree[]> {
     const url = `${this.groupsUrl}/${groupId}/students`;
     return this.http.get<StudentDegree[]>(url)
