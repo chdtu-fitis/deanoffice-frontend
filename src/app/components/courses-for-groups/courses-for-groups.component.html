@@ -8,7 +8,7 @@
         <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
           <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
         </select>
-        <input [(ngModel)]="searchText" placeholder="Пошук за предметом...">
+        <input [(ngModel)]="searchText" placeholder="Пошук за предметом..." class="search">
       </div>
       <studied-courses [courses]="courses" [searchText]="searchText"></studied-courses>
     </div>
