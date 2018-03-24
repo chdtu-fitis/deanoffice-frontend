@@ -18,6 +18,7 @@ export class CoursesForGroupsComponent implements OnInit {
   semesters: number[] = [];
   courses: Course[];
   selectedCourses: Course[];
+  searchText = '';
 
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
