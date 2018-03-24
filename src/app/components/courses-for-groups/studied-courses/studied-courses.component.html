@@ -6,13 +6,13 @@
     <div class="div-table">
       <table class="table table-striped">
         <thead>
-        <td><input type="checkbox"></td>
+        <td></td>
         <td>Назва</td>
         <td>Контроль</td>
         <td>Години</td>
         </thead>
         <tr *ngFor="let course of courses; let i = index">
-          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course, i)" checked></td>
+          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course, i)"></td>
           <td>{{ course.courseName.name }}</td>
           <td>{{ course.knowledgeControl.name }}</td>
           <td>{{ course.hours }}</td>
