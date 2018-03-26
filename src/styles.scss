@@ -1,7 +1,73 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+@import '~bootstrap/scss/bootstrap';
 
 html,
 body {
   height: 100%;
+}
+
+.resize-handle {
+  cursor: ew-resize;
+  border-right: solid 1px #eee;
+}
+
+.ngx-datatable.material {
+  height: 100%;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.14);
+
+  .visible {
+    height: 100%;
+  }
+
+  .datatable-header {
+    height: auto;
+
+    .datatable-header-cell {
+      border: solid #ddd;
+      border-width: 1px 1px 0 0;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: 800;
+    }
+  }
+
+  .datatable-body {
+    overflow: auto;
+    height: calc(100% - 33px) !important; // 100% - table header height
+    padding-right: 10px; // fixes x-overflow on the table
+
+    .datatable-body-row {
+      padding: 5px 10px;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      &.active {
+        background: #c0ffc0;
+
+        .datatable-row-group {
+          background: none;
+        }
+
+        &:hover {
+          background: darken(#c0ffc0, 0.3);
+
+          .datatable-row-group {
+            background: none;
+          }
+        }
+      }
+
+      .datatable-body-cell {
+        padding: 0;
+      }
+    }
+  }
+}
+
+.scrollable {
+  overflow-y: auto;
 }
 

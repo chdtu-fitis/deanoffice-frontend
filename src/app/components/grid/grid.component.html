@@ -1,6 +1,16 @@
-<div>
-  <ngx-datatable
-    [rows]="rows"
-    [columns]="columns">
-  </ngx-datatable>
-</div>
+
+<button (click)="actual()">{{ buttonText }}</button>
+<ngx-datatable
+        class="bootstrap"
+        [rows]="rows"
+        [sortType]="'multi'"
+        [loadingIndicator]="loadingIndicator"
+        [columns]="columns"
+        [columnMode]="'force'"
+        [headerHeight]="40"
+        [footerHeight]="40"
+        [limit]="10"
+        [selected]="selected"
+        [selectionType]="'multi'"
+        (select)='onSelect($event)'>
+</ngx-datatable>

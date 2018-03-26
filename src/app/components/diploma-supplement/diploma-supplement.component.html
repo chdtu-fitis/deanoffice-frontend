@@ -19,7 +19,7 @@
       </table>
     </div>
 
-    <app-sidebar>
+    <app-sidebar class="sidebar">
       <div class="form-group">
         <label for="cmbDegree">Ступінь:</label>
         <select id="cmbDegree" class="form-control" (change)="onDegreeChange($event.target.value)">
@@ -34,7 +34,7 @@
       </div>
 
       <button class="btn btn-success w-100 mt-4" (click)="onFormSupplement()">Сформувати додаток</button>
-      <button class="btn btn-info w-100 mt-4">Таблиця оцінок студентів</button>
+      <button class="btn btn-info w-100 mt-4" (click)="onFormGradePercent()">Таблиця оцінок студентів</button>
     </app-sidebar>
   </div>
 </div>

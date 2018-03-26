@@ -1,0 +1,34 @@
+<div class="modal fade"
+     bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Вибір колонок</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div *ngFor="let col of columns | entries" class="col-4 col-md-down-6">
+            <div class="form-check form-check-inline my-2">
+              <input
+                [id]="col.key"
+                type="checkbox"
+                [checked]="col.value"
+                (change)="onChange(col.key)"
+                class="form-check-input"
+              >
+              <label [for]="col.key" class="form-check-label">{{getName(col.key)}}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="applyColumns()" class="btn btn-success btn-submit">Ок</button>
+        <button (click)="resetColumns()" class="btn btn-outline-info">За замовчуванням</button>
+      </div>
+    </div>
+  </div>
+</div>
