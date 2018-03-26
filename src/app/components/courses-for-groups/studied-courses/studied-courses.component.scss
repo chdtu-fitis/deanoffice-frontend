@@ -1,0 +1,18 @@
+@import "../../../../styles.scss";
+
+.selection{
+  margin-bottom: 10px;
+}
+
+.div-table{
+  height: 200px;
+  overflow: auto;
+}
+
+table tr td{
+  padding: 5px;
+}
+
+table thead td{
+  padding: 5px;
+}
