@@ -1,15 +1,4 @@
-<!--<div *ngIf="groups && semesters">-->
 <div>
-  <div class="selection">
-    <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
-      <!--<option [disabled]="true" [selected]="true">Група</option>-->
-      <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-    </select>
-    <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
-      <!--<option [disabled]="true" [selected]="true">Семестр</option>-->
-      <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-    </select>
-  </div>
   <div class="card">
     <div class="card-header">
       Предмети
@@ -17,16 +6,16 @@
     <div class="div-table">
       <table class="table table-striped">
         <thead>
-        <td><input type="checkbox"></td>
+        <td></td>
         <td>Назва</td>
         <td>Контроль</td>
         <td>Години</td>
         </thead>
-        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
-          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)" checked></td>
-          <td>{{ courseForGroup.course.courseName.name }}</td>
-          <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
-          <td>{{ courseForGroup.course.hours }}</td>
+        <tr *ngFor="let course of courses | coursesSearch : searchText; let i = index">
+          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course, i)"></td>
+          <td>{{ course.courseName.name }}</td>
+          <td>{{ course.knowledgeControl.name }}</td>
+          <td>{{ course.hours }}</td>
         </tr>
       </table>
     </div>
