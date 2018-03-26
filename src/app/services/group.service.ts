@@ -5,6 +5,7 @@ import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
 import {environment} from '../../environments/environment';
+import {StudentDegree} from "../models/StudentDegree";
 
 @Injectable()
 export class GroupService {
