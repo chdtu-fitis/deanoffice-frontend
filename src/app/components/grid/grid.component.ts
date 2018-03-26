@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-grid',
     templateUrl: './grid.component.html',
-    styleUrls: ['./grid.component.scss'],
-    providers: [ApiService]
+    styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit {
+export class GridComponent {
     buttonText = 'Показати неактуальні';
     isActual = true;
     selected = [];
@@ -23,17 +21,6 @@ export class GridComponent implements OnInit {
         {name: 'Галузь Знань', prop: 'company'},
         {name: 'Галузь Знань Англійською', prop: 'company'}
     ];
-
-    constructor(public apiService: ApiService) {
-    }
-
-    ngOnInit() {
-        // this.getData();
-    }
-
-    getData() {
-        // this.title = this.apiService.getData()['res'];
-    }
 
     onSelect({selected}) {
         console.log('Select Event', selected, this.selected);

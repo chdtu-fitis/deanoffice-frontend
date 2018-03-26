@@ -8,5 +8,4 @@ export class CourseForGroupService {
 
   constructor(private http: HttpClient) {
   }
-
 }

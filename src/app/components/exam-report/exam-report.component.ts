@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Degree} from '../../models/Degree';
 import {DegreeService} from '../../services/degree.service';
-import {StudentGroup} from "../../models/StudentGroup";
-import {GroupService} from "../../services/group.service";
+import {StudentGroup} from '../../models/StudentGroup';
+import {GroupService} from '../../services/group.service';
 
 @Component({
   selector: 'exam-report',
@@ -31,14 +31,6 @@ export class ExamReportComponent implements OnInit {
       .subscribe(groups => {
         this.groups = groups;
         this.currentGroup = groups[0];
-        // this.onGroupChange(this.groups[0].id.toString());
       });
   }
-
-  // onGroupChange(groupId: string): void {
-  //   this.students = this.groups.find(x => x.id == Number(groupId)).studentDegrees;
-  //   for (var student of this.students) {student.selected = true;}
-  //   this.studentsSelected = true;
-  // }
-
 }
