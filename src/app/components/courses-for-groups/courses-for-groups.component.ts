@@ -19,7 +19,7 @@ export class CoursesForGroupsComponent implements OnInit {
   courses: Course[];
   selectedCourses: Course[];
   searchText = '';
-
+  studiedCoursesLoading = false;
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
 
@@ -41,9 +41,11 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   onSemesterChange(){
+    this.studiedCoursesLoading = true;
     if (this.selectedSemester) {
       this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
+        this.studiedCoursesLoading = false;
       })
     }
   }
