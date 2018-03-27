@@ -12,14 +12,16 @@
       <td>Викладач</td>
       <td>Дата екзамену</td>
       </thead>
-      <tr *ngFor="let course of coursesForGroup; let i = index">
-        <td><input type="checkbox" checked></td>
-        <td>{{ course.course.courseName.name }}</td>
-        <td>{{ course.course.knowledgeControl.name}}</td>
-        <td>{{ course.course.hours }}</td>
-        <td>{{ course.teacher }}</td>
-        <td>{{ course.examDate }}</td>
-      </tr>
+      <!--<div *ngIf="show">-->
+        <tr *ngFor="let course of selectedCoursesForGroups; let i = index">
+          <td><input type="checkbox"></td>
+          <td>{{ course.course.courseName.name }}</td>
+          <td>{{ course.course.knowledgeControl.name}}</td>
+          <td>{{ course.course.hours }}</td>
+          <td>{{ course.teacher }}</td>
+          <td>{{ course.examDate }}</td>
+        </tr>
+      <!--</div>-->
     </table>
   </div>
 </div>

@@ -4,6 +4,7 @@ import {Course} from "../../models/Course";
 import {CourseForGroupService} from "../../services/course-for-group.service";
 import {GroupService} from "../../services/group.service";
 import {CourseService} from "../../services/course.service";
+import {CourseForGroup} from "../../models/CourseForGroup";
 
 @Component({
   selector: 'courses-for-groups',
@@ -19,6 +20,8 @@ export class CoursesForGroupsComponent implements OnInit {
   courses: Course[];
   selectedCourses: Course[];
   searchText = '';
+  coursesForGroup: CourseForGroup[] = [];
+  showAdded = false;
 
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
@@ -29,9 +32,9 @@ export class CoursesForGroupsComponent implements OnInit {
     })
   }
 
-  private changeSemesters(){
+  private changeSemesters() {
     this.semesters = [];
-    for (let i = 0; i < this.selectedGroup.studySemesters; i++){
+    for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
       this.semesters.push(i + 1);
     }
   }
@@ -47,4 +50,23 @@ export class CoursesForGroupsComponent implements OnInit {
       })
     }
   }
+
+  private addSelectedCoursesToCoursesForGroup (){
+    this.coursesForGroup = [];
+    for (let course of this.selectedCourses){
+      let courseForGroup = new CourseForGroup();
+      courseForGroup.course = course;
+      this.coursesForGroup.push(courseForGroup);
+    }
+  }
+
+  changeSelectedCourses(event){
+    this.selectedCourses = event;
+    this.addSelectedCoursesToCoursesForGroup();
+  }
+
+  showCourses(){
+    this.showAdded = true;
+  }
+
 }

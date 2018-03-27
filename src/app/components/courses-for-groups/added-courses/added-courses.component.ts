@@ -3,6 +3,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
 import {Course} from '../../../models/Course';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'added-courses',
@@ -13,9 +14,10 @@ import {Course} from '../../../models/Course';
 export class AddedCoursesComponent implements OnInit {
 
   coursesForGroup: CourseForGroup[];
-  @Input() selectedCourses: Course[];
+  @Input() selectedCoursesForGroups: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
+  @Input() show;
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -27,4 +29,6 @@ export class AddedCoursesComponent implements OnInit {
       this.coursesForGroup = courses;
     })
   }
+
+
 }
