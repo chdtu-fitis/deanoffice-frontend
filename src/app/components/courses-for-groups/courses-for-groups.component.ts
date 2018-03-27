@@ -57,6 +57,7 @@ export class CoursesForGroupsComponent implements OnInit {
       let courseForGroup = new CourseForGroup();
       courseForGroup.course = course;
       this.coursesForGroup.push(courseForGroup);
+      this.showAdded = false;
     }
   }
 
