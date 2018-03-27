@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-7 scrollable mt-4">
       <div class="selection">
-        <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
+        <select  [(ngModel)]="selectedGroup" (change)="onGroupChange()">
           <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
         </select>
         <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
@@ -16,6 +16,6 @@
       <course-creation></course-creation>
     </div>
   </div>
-  <button type="button" class="btn btn-info" (click)="showCourses()">Перенести</button>
-  <added-courses [selectedSemester]="semester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForGroup" [show]="showAdded"></added-courses>
+  <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Перенести</button>
+  <added-courses [selectedSemester]="semester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
 </div>

@@ -17,7 +17,6 @@ export class AddedCoursesComponent implements OnInit {
   @Input() selectedCoursesForGroups: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
-  @Input() show;
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 

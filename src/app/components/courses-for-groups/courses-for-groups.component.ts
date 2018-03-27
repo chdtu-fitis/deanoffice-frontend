@@ -18,10 +18,10 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedSemester: number;
   semesters: number[] = [];
   courses: Course[];
+  coursesForAdd: CourseForGroup[];
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
-  showAdded = false;
 
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
@@ -51,23 +51,22 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  private addSelectedCoursesToCoursesForGroup (){
+  private addSelectedCoursesToCoursesForGroup () {
     this.coursesForGroup = [];
     for (let course of this.selectedCourses){
       let courseForGroup = new CourseForGroup();
       courseForGroup.course = course;
       this.coursesForGroup.push(courseForGroup);
-      this.showAdded = false;
     }
   }
 
-  changeSelectedCourses(event){
+  changeSelectedCourses(event) {
     this.selectedCourses = event;
     this.addSelectedCoursesToCoursesForGroup();
   }
 
-  showCourses(){
-    this.showAdded = true;
+  addCoursesToCoursesForGroup() {
+    this.coursesForAdd = this.coursesForGroup;
   }
 
 }
