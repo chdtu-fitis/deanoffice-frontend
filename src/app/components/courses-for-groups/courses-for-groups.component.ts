@@ -47,12 +47,4 @@ export class CoursesForGroupsComponent implements OnInit {
       })
     }
   }
-
-  changeGroup(event) {
-    this.selectedGroup = event;
-  }
-
-  changeSemester(event) {
-    this.selectedSemester = event;
-  }
 }

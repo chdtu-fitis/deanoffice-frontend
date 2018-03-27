@@ -35,5 +35,4 @@ export class StudiedCoursesComponent implements OnInit {
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
-
 }

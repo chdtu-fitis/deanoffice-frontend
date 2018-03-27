@@ -20,9 +20,11 @@ export class AddedCoursesComponent implements OnInit {
   constructor(private courseForGroupService: CourseForGroupService) { }
 
   ngOnInit() {
+  }
+
+  getCoursesForGroup() {
     this.courseForGroupService.getCoursesForGroupsBySemesterAndGroup(this.selectedSemester, this.selectedGroup).subscribe(courses => {
       this.coursesForGroup = courses;
     })
   }
-
 }
