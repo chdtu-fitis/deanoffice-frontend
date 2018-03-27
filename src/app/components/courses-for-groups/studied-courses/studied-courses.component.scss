@@ -5,6 +5,14 @@
 }
 
 .div-table{
-  height: 250px;
+  height: 200px;
   overflow: auto;
+}
+
+table tr td{
+  padding: 5px;
+}
+
+table thead td{
+  padding: 5px;
 }

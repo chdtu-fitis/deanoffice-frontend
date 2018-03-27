@@ -10,7 +10,7 @@ export class CourseService {
   }
 
   getCoursesBySemester(semester): Observable<Course[]> {
-    return this.http.get<Course[]>(`http://localhost:8080/courses/${semester}`);
+    return this.http.get<Course[]>(`http://localhost:8080/courses?semester=${semester}`);
   }
 
 }

@@ -6,11 +6,17 @@ import {ModalModule} from 'ngx-bootstrap';
 
 import {EntriesPipe} from '../../pipes/entries.pipe';
 import {SidebarComponent} from '../app/sidebar/sidebar.component';
+import {ValidationDirective} from './validation.directive';
+import {ValidationErrorsComponent} from './validation-errors/validation-errors.component';
+import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
 
 @NgModule({
   declarations: [
     EntriesPipe,
     SidebarComponent,
+    ValidationDirective,
+    ValidationErrorsComponent,
+    BaseReactiveFormComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +30,9 @@ import {SidebarComponent} from '../app/sidebar/sidebar.component';
     NgxDatatableModule,
     EntriesPipe,
     SidebarComponent,
+    ValidationDirective,
+    ValidationErrorsComponent,
+    BaseReactiveFormComponent,
   ]
 })
 
