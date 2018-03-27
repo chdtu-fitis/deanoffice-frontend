@@ -2,9 +2,11 @@
   <div class="row">
     <div class="col-7 scrollable mt-4">
       <div class="selection">
+        Група:
         <select  [(ngModel)]="selectedGroup" (change)="onGroupChange()">
           <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
         </select>
+        Семестр:
         <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
           <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
         </select>
