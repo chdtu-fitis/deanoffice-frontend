@@ -1,0 +1,26 @@
+<div class="form-group">
+  <label for="typeahead">ПІБ студента</label>
+  <input [(ngModel)]="val"
+         [typeahead]="dataSource"
+         (typeaheadOnSelect)="onSelect($event)"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="5"
+         [typeaheadWaitMs]="500"
+         [typeaheadMinLength]="3"
+         [typeaheadItemTemplate]="template"
+         class="form-control"
+         id="typeahead"
+         [appValidation]="control"
+  >
+  <app-validation-errors [control]="control" [messages]="errorMessages"></app-validation-errors>
+</div>
+
+<ng-template #template let-model="item" let-index="index">
+  <div class="py-2">
+    <b>{{model.surname}} {{model.name}} {{model.patronimic}}</b>
+    <div class="d-flex justify-content-between">
+      <small>{{model.birthDate}}</small>
+      <small class="ml-5">{{model.groups}}</small>
+    </div>
+  </div>
+</ng-template>
