@@ -4,8 +4,8 @@ import {DiplomaSupplementComponent} from '../components/diploma-supplement/diplo
 import {ExamReportComponent} from '../components/exam-report/exam-report.component';
 import {GridComponent} from '../components/grid/grid.component';
 import {StudentsComponent} from '../components/students/students.component';
-import {CoursesForGroupsComponent} from "../components/courses-for-groups/courses-for-groups.component";
 import {CoursesForGroupsModule} from "../components/courses-for-groups/courses-for-groups.module";
+import {CoursesForGroupsComponent} from "../components/courses-for-groups/courses-for-groups.component";
 
 const routes: Routes = [
   {path: 'diplsuppl', component: DiplomaSupplementComponent, pathMatch: 'full'},
