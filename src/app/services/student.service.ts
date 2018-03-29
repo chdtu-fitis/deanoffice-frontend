@@ -43,4 +43,7 @@ export class StudentService {
     });
   }
 
+  updateStudent(student: Student) {
+    return this.http.put<Student>(`${this.url}/`, student);
+  }
 }

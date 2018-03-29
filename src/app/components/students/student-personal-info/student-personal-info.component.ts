@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -17,6 +17,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   model: Student;
   id: string;
   @ViewChild('modal') modal: ModalDirective;
+  @Output() onSubmit = new EventEmitter();
 
   constructor(private fb: FormBuilder, private studentService: StudentService) {
     super();
@@ -61,6 +62,10 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
+    const update = Object.assign(this.form.value, { id: this.model.id });
+    this.studentService.updateStudent(update).subscribe((student: Student) => {
+      this.onSubmit.emit(student);
+      this.modal.hide();
+    })
   }
 }

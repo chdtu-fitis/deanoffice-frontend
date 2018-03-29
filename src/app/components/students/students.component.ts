@@ -5,6 +5,7 @@ import { defaultColumns } from './constants.js';
 import { StudentDegree } from '../../models/StudentDegree';
 import { GroupService } from '../../services/group.service';
 import { StudentGroup } from '../../models/StudentGroup';
+import {Student} from "../../models/Student";
 
 @Component({
   selector: 'app-students',
@@ -57,5 +58,9 @@ export class StudentsComponent implements OnInit {
   onSelect(students: StudentDegree[]) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...students);
+  }
+
+  updateStudent() {
+    console.log('update student');
   }
 }
