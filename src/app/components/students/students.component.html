@@ -31,7 +31,11 @@
       </app-students-filters>
       <hr />
       <div *ngIf="selected.length === 1">
-        <button class="btn btn-info w-100" (click)="personalInfoModal.modal.show()">Редагувати особисту інформацію</button>
+        <button
+          class="btn btn-info w-100"
+          (click)="personalInfoModal.openModal(selected[0]?.student?.id)">
+          Редагувати особисту інформацію
+        </button>
       </div>
     </app-sidebar>
   </div>
@@ -48,4 +52,6 @@
   (newStudent)="prependStudent($event)"
 ></app-add-student>
 
-<app-student-personal-info #personalInfoModal></app-student-personal-info>
+<app-student-personal-info
+  #personalInfoModal
+></app-student-personal-info>

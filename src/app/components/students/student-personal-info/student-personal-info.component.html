@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="form">
+        <form [formGroup]="form" *ngIf="model">
           <h6 class="mb-3">Особиста інформація</h6>
           <div class="row">
             <div class="form-group col">
@@ -44,13 +44,13 @@
             <div class="form-group col">
               <label for="surname">Стать</label>
               <div class="form-check">
-                <input formControlName="sex" class="form-check-input" type="checkbox" value="MALE" id="sex1">
+                <input formControlName="sex" class="form-check-input" type="radio" value="MALE" id="sex1">
                 <label class="form-check-label" for="sex1">
                   Чоловіча
                 </label>
               </div>
               <div class="form-check">
-                <input formControlName="sex" class="form-check-input" type="checkbox" value="FEMALE" id="sex2">
+                <input formControlName="sex" class="form-check-input" type="radio" value="FEMALE" id="sex2">
                 <label class="form-check-label" for="sex2">
                   Жіноча
                 </label>

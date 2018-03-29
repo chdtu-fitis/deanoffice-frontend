@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {StudentDegree} from '../models/StudentDegree';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import {Student} from '../models/Student';
 
 @Injectable()
 export class StudentService {
@@ -17,6 +18,10 @@ export class StudentService {
 
   getStudents(): Observable<StudentDegree[]> {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
+  }
+
+  getStudentById(id: string): Observable<Student> {
+    return this.http.get<Student>(`${this.url}/${id}`);
   }
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
