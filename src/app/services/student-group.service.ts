@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CourseForGroup} from '../models/CourseForGroup';
-import {Observable} from "rxjs/Observable";
+import {StudentGroup} from '../models/StudentGroup';
 
 @Injectable()
-export class CourseForGroupService {
+export class StudentGroupService {
 
   constructor(private http: HttpClient) {
   }
