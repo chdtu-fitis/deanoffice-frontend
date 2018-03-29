@@ -1,10 +1,11 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {Course} from "../../models/Course";
 import {CourseForGroupService} from "../../services/course-for-group.service";
 import {GroupService} from "../../services/group.service";
 import {CourseService} from "../../services/course.service";
 import {CourseForGroup} from "../../models/CourseForGroup";
+import {AddedCoursesComponent} from "./added-courses/added-courses.component";
 
 @Component({
   selector: 'courses-for-groups',
@@ -22,6 +23,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
+  @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
 
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
@@ -49,6 +51,7 @@ export class CoursesForGroupsComponent implements OnInit {
         this.courses = cfg;
       })
     }
+    this.child.getCoursesForGroup();
   }
 
   private addSelectedCoursesToCoursesForGroup () {

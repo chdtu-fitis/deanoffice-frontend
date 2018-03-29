@@ -10,7 +10,7 @@ export class CourseForGroupService {
   }
 
   getCoursesForGroupsBySemesterAndGroup(semester, group): Observable<CourseForGroup[]> {
-    return this.http.get<CourseForGroup[]>(`http://localhost:8080/courses?group=${group.id}&semester=${semester}`);
+    return this.http.get<CourseForGroup[]>(`http://localhost:8080//groups/${group.id}/courses?semester=${semester}`);
   }
 
 }
