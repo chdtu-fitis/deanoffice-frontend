@@ -36,7 +36,6 @@ export class GroupService {
   }
 
   getGroupStudents(groupId: string): Observable<StudentDegree[]> {
-
     const url = `${this.groupsUrl}/${groupId}/students`;
     return this.http.get<StudentDegree[]>(url)
       .pipe(

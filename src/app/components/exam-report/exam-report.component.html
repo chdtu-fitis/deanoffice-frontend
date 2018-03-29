@@ -4,7 +4,7 @@
     <div class="select-wraper">
       <div class="form-group">
         <h3>Ступінь</h3>
-        <select id="cmbDegree" (change)="onDegreeChange($event.target.value, '5')">
+        <select id="cmbDegree" (change)="onDegreeChange($event.target.value, '1')">
           <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
         </select>
       </div>
@@ -12,27 +12,22 @@
 
     <div class="select-wraper">
       <h3>Курс</h3>
-      <select name="year" id="year" (change)="onCourseChange($event.target.value)">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+      <select [(ngModel)]="selectedYear" (change)="onYearChange($event.target.value, '1')" id="years" class="form-control">
+        <option  [ngValue]="i" *ngFor="let i of years">{{i}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
       <h3>Група</h3>
       <select id="cmbGroup" class="cmbGroup">
-        <option *ngFor="let group of groups; let i = index" value="group.id">{{group.name}}</option>
+        <option *ngFor="let group of groups" value="group.id">{{group.name}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
       <h3>Семестр</h3>
-      <select name="semester" id="semester" (change)="onGroupChange($event.target.value)">
-        <option value="1">1</option>
-        <option value="2">2</option>
+      <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()" class="form-control">
+        <option [ngValue]="i" *ngFor="let i of semesters;let idx = index">{{i}}</option>
       </select>
     </div>
   </div>
@@ -40,6 +35,7 @@
   <div class="wrapp">
     <h2>Список предметів</h2>
     <div class="table-wrapper">
+
       <table class="main-table">
         <thead>
         <tr>
@@ -55,106 +51,17 @@
         </thead>
         <tbody>
 
-        <tr>
-          <td>2</td>
+        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
+          <td>{{i+1}}</td>
           <td>
             <input type="checkbox" name="">
           </td>
-          <td>Англійська мова</td>
+          <td>{{courseForGroup.course.courseName.name}}</td>
           <td>Залік</td>
           <td>124</td>
           <td>Викладач</td>
         </tr>
-        <tr>
-          <td>3</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            <input type="checkbox" name="">
-          </td>
-          <td>Англійська мова</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
-        </tr>
+
         </tbody>
       </table>
     </div>
@@ -174,7 +81,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
+        <tr *ngFor="let studentDegree of currentGroupStudents; let i = index">
           <td>{{ i+1 }}</td>
           <td>{{ studentDegree.student.surname }}</td>
           <td>{{ studentDegree.student.name }}</td>
