@@ -17,14 +17,14 @@
               <div class="row mt-3" [formArrayName]="i">
                 <div class="form-group col">
                   <label for="studentGroup">Група</label>
-                  <select formControlName="studentGroup" class="form-control" id="studentGroup" [appValidation]="degree.controls.studentGroup">
+                  <select formControlName="studentGroupId" class="form-control" id="studentGroup" [appValidation]="degree.controls.studentGroupId">
                     <option *ngFor="let group of groups" [ngValue]="group.id"
-                            [selected]="group.id === degree.value.studentGroup"
+                            [selected]="group.id === degree.value.studentGroupId"
                     >
                       {{group.name}}
                     </option>
                   </select>
-                  <app-validation-errors [control]="degree.controls.studentGroup"></app-validation-errors>
+                  <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
                 <div class="form-group col-6">
                   <label>Форма навчання</label>

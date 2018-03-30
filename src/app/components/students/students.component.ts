@@ -25,10 +25,7 @@ export class StudentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
-      this.students = students;
-      this.rows = students;
-    });
+    this.getStudents();
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
@@ -57,5 +54,15 @@ export class StudentsComponent implements OnInit {
   onSelect(students: StudentDegree[]) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...students);
+  }
+
+  getStudents() {
+    const stream = this.isAllDataLoaded
+      ? this.studentService.getStudents()
+      : this.studentService.getInitialStudents();
+    stream.subscribe((students: StudentDegree[]) => {
+      this.students = students;
+      this.rows = students;
+    });
   }
 }

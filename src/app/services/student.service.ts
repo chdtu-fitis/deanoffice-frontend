@@ -19,8 +19,8 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
   }
 
-  getDegreesByStudentId(id: number): Observable<StudentDegree[]> {
-    return this.http.get<StudentDegree[]>(`${this.url}/${id}/degrees/`);
+  getDegreesByStudentId(id: number): Observable<StudentDegree> {
+    return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
   }
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
@@ -42,4 +42,7 @@ export class StudentService {
     });
   }
 
+  updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]) {
+    return this.http.put(`${this.url}/${id}/degrees/`, degrees);
+  }
 }

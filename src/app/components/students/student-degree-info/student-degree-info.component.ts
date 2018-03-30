@@ -15,8 +15,7 @@ import {StudentGroup} from '../../../models/StudentGroup';
 })
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
-  model: any[];
-  id: string;
+  model: StudentDegree;
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
   @Input() groups: StudentGroup[];
@@ -26,9 +25,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   }
 
   openModal(id) {
-    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees) => {
+    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
-      console.log(this.model);
       this.buildForm();
       this.modal.show();
     });
@@ -38,7 +36,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     this.form = this.fb.group({
       degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) =>
         this.fb.group({
-          studentGroup: [degree.studentGroup.id, Validators.required],
+          studentGroupId: [degree.studentGroup.id, Validators.required],
           recordBookNumber: [degree.recordBookNumber],
           diplomaNumber: [degree.diplomaNumber],
           diplomaDate: [degree.diplomaDate],
@@ -62,6 +60,12 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
+    this.studentService.updateStudentDegreesByStudentId(
+      this.model.id,
+      this.form.value.degrees
+    ).subscribe(() => {
+      this.onSubmit.emit();
+      this.modal.hide();
+    });
   }
 }
