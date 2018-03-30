@@ -15,78 +15,73 @@ import {StudentDegree} from "../../models/StudentDegree";
 })
 export class ExamReportComponent implements OnInit {
   degrees: Degree[];
+  currentDegree: Degree;
+
   groups: StudentGroup[];
   currentGroup: StudentGroup;
-  currentGroupStudents: StudentDegree[];
+
   coursesForGroup: CourseForGroup[];
+  selectedCourses: CourseForGroup[];
 
   years: Array<number>;
   selectedYear: number;
   semesters: Array<number>;
   selectedSemester: number;
 
+  students: StudentDegree[];
+
   constructor(private groupService: GroupService, private degreeService: DegreeService, private courseForGroupService: CourseForGroupService){ }
 
   ngOnInit() {
-    this.years = [ 1,2,3 ];
-    this.semesters = [ 1,2];
+    this.years = [1, 2, 3, 4, 5];
+    this.semesters = [1, 2];
+    this.selectedYear = 1;
+
+    this.selectInitialSemester();
 
     this.degreeService.getDegrees()
       .subscribe(degrees => {
         this.degrees = degrees;
-        this.onDegreeChange('1', '1');
+        this.currentDegree = this.degrees[0];
+        this.onDegreeChange();
       });
-    this.selectedYear = 1;
-    let currentDate = new Date();
-    if (currentDate.getMonth() > 1 && currentDate.getMonth() < 9) {
-      this.selectedSemester = 1;
-      console.log(this.selectedSemester);
-    } else {
-      this.selectedSemester = 2;
-      console.log(this.selectedSemester);
-    }
   }
 
-  onDegreeChange(degreeId: string, year: string): void {
-    this.groupService.getGroupsByDegreeAndYear(degreeId, year)
+  onDegreeChange(): void {
+    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
         this.groups = groups;
         this.currentGroup = groups[0];
-        this.currentGroupStudents = this.currentGroup.studentDegrees;
-        // this.onGroupChange(this.groups[0].id.toString());
+        this.students = this.currentGroup.studentDegrees;
+        this.onSemesterOrGroupChange();
       });
   }
 
-  onYearChange(degreeId: string, year: string): void {
-    this.groupService.getGroupsByDegreeAndYear(degreeId, year)
+  onYearChange(): void {
+    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
         this.groups = groups;
         this.currentGroup = groups[0];
+        this.students = this.currentGroup.studentDegrees;
+        this.onSemesterOrGroupChange();
       });
   }
 
-  onSemesterChange(): void {
-    console.log(this.selectedSemester);
+  onSemesterOrGroupChange(): void {
     this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, this.selectedSemester)
       .subscribe(coursesForGroup => {
         this.coursesForGroup = coursesForGroup;
+        this.students = this.currentGroup.studentDegrees;
       });
   }
 
-  // onCourseChange(year: string): void {
-  //   this.groupService.getGroupsByDegreeAndYear(degreeId, year)
-  //     .subscribe(groups => {
-  //       this.groups = groups;
-  //       this.currentGroup = groups[0];
-  //       // this.onGroupChange(this.groups[0].id.toString());
-  //     });
-  // }
-
-
-  // onGroupChange(groupId: string): void {
-  //   this.students = this.groups.find(x => x.id == Number(groupId)).studentDegrees;
-  //   for (var student of this.students) {student.selected = true;}
-  //   this.studentsSelected = true;
-  // }
+  selectInitialSemester(): void {
+    let currentDate = new Date();
+    if (currentDate.getMonth() > 1 && currentDate.getMonth() < 9) {
+      this.selectedSemester = 2;
+    } else {
+      this.selectedSemester = 1;
+    }
+  }
 
 }

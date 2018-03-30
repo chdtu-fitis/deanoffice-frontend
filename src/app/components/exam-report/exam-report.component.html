@@ -4,30 +4,30 @@
     <div class="select-wraper">
       <div class="form-group">
         <h3>Ступінь</h3>
-        <select id="cmbDegree" (change)="onDegreeChange($event.target.value, '1')">
-          <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
+        <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
+          <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
         </select>
       </div>
     </div>
 
     <div class="select-wraper">
       <h3>Курс</h3>
-      <select [(ngModel)]="selectedYear" (change)="onYearChange($event.target.value, '1')" id="years" class="form-control">
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
         <option  [ngValue]="i" *ngFor="let i of years">{{i}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
       <h3>Група</h3>
-      <select id="cmbGroup" class="cmbGroup">
-        <option *ngFor="let group of groups" value="group.id">{{group.name}}</option>
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="cmbGroup" (change)="onSemesterOrGroupChange()">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
       <h3>Семестр</h3>
-      <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()" class="form-control">
-        <option [ngValue]="i" *ngFor="let i of semesters;let idx = index">{{i}}</option>
+      <select [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()" class="form-control">
+        <option [ngValue]="i" *ngFor="let i of semesters">{{i}}</option>
       </select>
     </div>
   </div>
@@ -81,7 +81,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let studentDegree of currentGroupStudents; let i = index">
+        <tr *ngFor="let studentDegree of students; let i = index">
           <td>{{ i+1 }}</td>
           <td>{{ studentDegree.student.surname }}</td>
           <td>{{ studentDegree.student.name }}</td>
