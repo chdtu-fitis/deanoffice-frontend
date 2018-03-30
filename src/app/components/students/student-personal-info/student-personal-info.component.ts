@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+// import { FileUploader } from 'ng2-file-upload';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -16,6 +17,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   form: FormGroup;
   model: Student;
   id: string;
+  photo;
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
@@ -26,6 +28,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   openModal(id) {
     this.studentService.getStudentById(id).subscribe((student: Student) => {
       this.model = student;
+      console.log(student);
       this.buildForm();
       this.modal.show();
     });
@@ -57,12 +60,34 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     });
   }
 
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.photo = e.target['result'];
+        this.studentService.updatePhoto(this.model.id, this.photo).subscribe(
+          res => {
+            console.log(res);
+          },
+          err => console.warn(err),
+        );
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  hideModal() {
+    this.photo = null;
+    this.modal.hide();
+  }
+
   submit() {
     super.submit();
     if (this.form.invalid) {
       return;
     }
-    const update = Object.assign(this.form.value, { id: this.model.id });
+    const { id } = this.model;
+    const update = Object.assign(this.form.value, { id });
     this.studentService.updateStudent(update).subscribe((student: Student) => {
       this.onSubmit.emit(student);
       this.modal.hide();
