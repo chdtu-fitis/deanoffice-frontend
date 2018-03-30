@@ -1,0 +1,104 @@
+<div class="modal fade"
+     bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Редагування навчальної інформації</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" *ngIf="model">
+          <tabset formArrayName="degrees">
+            <tab *ngFor="let degree of form.get('degrees').controls; let i = index" [heading]="'Освіта ' + (i + 1)">
+              <div class="row mt-3">
+                <!--<div class="form-group col">-->
+                  <!--<label for="group">Група</label>-->
+                    <!--<select formControlName="group" class="form-control" id="group">-->
+                    <!--<option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+                <div class="form-group col-6" [formArrayName]="i">
+                  <label>Форма навчання</label>
+                  <div class="form-check">
+                    <input formControlName="payment"
+                           class="form-check-input" type="radio" value="BUDGET" id="payment1">
+                    <label class="form-check-label" for="payment1">Бюджет</label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="payment"
+                           class="form-check-input" type="radio" value="CONTRACT" id="payment2">
+                    <label class="form-check-label" for="payment2">Контракт</label>
+                  </div>
+                </div>
+                <div class="form-group col" [formArrayName]="i">
+                  <label for="recordBookNumber">Номер заліковки</label>
+                  <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber">
+                </div>
+              </div>
+                <!--<div class="form-group col">-->
+                  <!--<label for="recordBookNumber">Номер заліковки</label>-->
+                  <!--<input formControlName="recordBookNumber" class="form-control" id="recordBookNumber">-->
+                <!--</div>-->
+              <h6 class="mb-3">Диплом</h6>
+              <div [formArrayName]="i">
+                <div class="row">
+                  <div class="form-group col">
+                    <label for="diplomaNumber">Номер диплому</label>
+                    <input formControlName="diplomaNumber" class="form-control" id="diplomaNumber">
+                  </div>
+                  <div class="form-group col">
+                    <label for="diplomaDate">Дата диплому</label>
+                    <input type="date" formControlName="diplomaDate" class="form-control" id="diplomaDate">
+                  </div>
+                  <div class="form-group col">
+                    <label for="supplementNumber">Номер додатку до диплому</label>
+                    <input formControlName="supplementNumber" class="form-control" id="supplementNumber">
+                  </div>
+                  <div class="form-group col">
+                    <label for="supplementDate">Дата додатку до диплому</label>
+                    <input type="date" formControlName="supplementDate" class="form-control" id="supplementDate">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col">
+                    <label for="thesisName">Тема диплому</label>
+                    <input formControlName="thesisName" class="form-control" id="thesisName">
+                  </div>
+                  <div class="form-group col">
+                    <label for="thesisNameEng">Тема диплому (англ.)</label>
+                    <input formControlName="thesisNameEng" class="form-control" id="thesisNameEng">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col">
+                    <label for="protocolNumber">Номер протоколу</label>
+                    <input formControlName="protocolNumber" class="form-control" id="protocolNumber">
+                  </div>
+                  <div class="form-group col">
+                    <label for="protocolDate">Дата диплому</label>
+                    <input type="date" formControlName="protocolDate" class="form-control" id="protocolDate">
+                  </div>
+                  <div class="form-group col">
+                    <label for="previousDiplomaNumber">Номер попереднього диплому</label>
+                    <input formControlName="previousDiplomaNumber" class="form-control" id="previousDiplomaNumber">
+                  </div>
+                  <div class="form-group col">
+                    <label for="previousDiplomaDate">Дата попереднього диплому</label>
+                    <input type="date" formControlName="previousDiplomaDate" class="form-control" id="previousDiplomaDate">
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="submit()" class="btn btn-success btn-submit">Редагувати</button>
+        <button (click)="modal.hide()" class="btn btn-outline-danger">Скасувати</button>
+      </div>
+    </div>
+  </div>
+</div>
