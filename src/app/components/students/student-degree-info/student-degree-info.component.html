@@ -9,33 +9,41 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="form" *ngIf="model">
+      <div class="modal-body" *ngIf="model">
+        <h5 class="mb-3">Студент: {{model.surname}} {{model.name}} {{model.patronimic}}</h5>
+        <form [formGroup]="form" novalidate>
           <tabset formArrayName="degrees">
             <tab *ngFor="let degree of form.get('degrees').controls; let i = index" [heading]="'Освіта ' + (i + 1)">
               <div class="row mt-3" [formArrayName]="i">
                 <div class="form-group col">
                   <label for="studentGroup">Група</label>
-                    <select formControlName="studentGroup" class="form-control" id="studentGroup">
-                    <option *ngFor="let group of groups" [ngValue]="group.id" [selected]="group.id === degree.value.studentGroup">{{group.name}}</option>
+                  <select formControlName="studentGroup" class="form-control" id="studentGroup" [appValidation]="degree.controls.studentGroup">
+                    <option *ngFor="let group of groups" [ngValue]="group.id"
+                            [selected]="group.id === degree.value.studentGroup"
+                    >
+                      {{group.name}}
+                    </option>
                   </select>
+                  <app-validation-errors [control]="degree.controls.studentGroup"></app-validation-errors>
                 </div>
                 <div class="form-group col-6">
                   <label>Форма навчання</label>
                   <div class="form-check">
                     <input formControlName="payment"
-                           class="form-check-input" type="radio" value="BUDGET" id="payment1">
+                           class="form-check-input" type="radio" value="BUDGET" id="payment1" [appValidation]="degree.controls.payment">
                     <label class="form-check-label" for="payment1">Бюджет</label>
                   </div>
                   <div class="form-check">
                     <input formControlName="payment"
-                           class="form-check-input" type="radio" value="CONTRACT" id="payment2">
+                           class="form-check-input" type="radio" value="CONTRACT" id="payment2" [appValidation]="degree.controls.payment">
                     <label class="form-check-label" for="payment2">Контракт</label>
                   </div>
+                  <app-validation-errors [control]="degree.controls.payment"></app-validation-errors>
                 </div>
                 <div class="form-group col">
                   <label for="recordBookNumber">Номер заліковки</label>
-                  <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber">
+                  <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber" [appValidation]="degree.controls.recordBookNumber">
+                  <app-validation-errors [control]="degree.controls.recordBookNumber"></app-validation-errors>
                 </div>
               </div>
                 <!--<div class="form-group col">-->
@@ -47,47 +55,59 @@
                 <div class="row">
                   <div class="form-group col">
                     <label for="diplomaNumber">Номер диплому</label>
-                    <input formControlName="diplomaNumber" class="form-control" id="diplomaNumber">
+                    <input formControlName="diplomaNumber" class="form-control" id="diplomaNumber" [appValidation]="degree.controls.diplomaNumber">
+                    <app-validation-errors [control]="degree.controls.diplomaNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="diplomaDate">Дата диплому</label>
-                    <input type="date" formControlName="diplomaDate" class="form-control" id="diplomaDate">
+                    <input type="date" formControlName="diplomaDate" class="form-control" id="diplomaDate" [appValidation]="degree.controls.diplomaDate">
+                    <app-validation-errors [control]="degree.controls.diplomaDate"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="supplementNumber">Номер додатку до диплому</label>
-                    <input formControlName="supplementNumber" class="form-control" id="supplementNumber">
+                    <input formControlName="supplementNumber" class="form-control" id="supplementNumber" [appValidation]="degree.controls.supplementNumber">
+                    <app-validation-errors [control]="degree.controls.supplementNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="supplementDate">Дата додатку до диплому</label>
-                    <input type="date" formControlName="supplementDate" class="form-control" id="supplementDate">
+                    <input type="date" formControlName="supplementDate" class="form-control" id="supplementDate" [appValidation]="degree.controls.supplementDate">
+                    <app-validation-errors [control]="degree.controls.supplementDate"></app-validation-errors>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col">
                     <label for="thesisName">Тема диплому</label>
-                    <input formControlName="thesisName" class="form-control" id="thesisName">
+                    <input formControlName="thesisName" class="form-control" id="thesisName" [appValidation]="degree.controls.thesisName">
+                    <app-validation-errors [control]="degree.controls.thesisName"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="thesisNameEng">Тема диплому (англ.)</label>
-                    <input formControlName="thesisNameEng" class="form-control" id="thesisNameEng">
+                    <input formControlName="thesisNameEng" class="form-control" id="thesisNameEng" [appValidation]="degree.controls.thesisNameEng">
+                    <app-validation-errors [control]="degree.controls.thesisNameEng"></app-validation-errors>
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group col">
                     <label for="protocolNumber">Номер протоколу</label>
-                    <input formControlName="protocolNumber" class="form-control" id="protocolNumber">
+                    <input formControlName="protocolNumber" class="form-control" id="protocolNumber" [appValidation]="degree.controls.protocolNumber">
+                    <app-validation-errors [control]="degree.controls.protocolNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="protocolDate">Дата диплому</label>
-                    <input type="date" formControlName="protocolDate" class="form-control" id="protocolDate">
+                    <input type="date" formControlName="protocolDate" class="form-control" id="protocolDate" [appValidation]="degree.controls.protocolDate">
+                    <app-validation-errors [control]="degree.controls.protocolDate"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="previousDiplomaNumber">Номер попереднього диплому</label>
-                    <input formControlName="previousDiplomaNumber" class="form-control" id="previousDiplomaNumber">
+                    <input formControlName="previousDiplomaNumber" class="form-control" id="previousDiplomaNumber"
+                           [appValidation]="degree.controls.previousDiplomaNumber">
+                    <app-validation-errors [control]="degree.controls.previousDiplomaNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
                     <label for="previousDiplomaDate">Дата попереднього диплому</label>
-                    <input type="date" formControlName="previousDiplomaDate" class="form-control" id="previousDiplomaDate">
+                    <input type="date" formControlName="previousDiplomaDate" class="form-control" id="previousDiplomaDate"
+                           [appValidation]="degree.controls.previousDiplomaDate">
+                    <app-validation-errors [control]="degree.controls.previousDiplomaDate"></app-validation-errors>
                   </div>
                 </div>
               </div>
