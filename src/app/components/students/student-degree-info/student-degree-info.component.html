@@ -13,14 +13,14 @@
         <form [formGroup]="form" *ngIf="model">
           <tabset formArrayName="degrees">
             <tab *ngFor="let degree of form.get('degrees').controls; let i = index" [heading]="'Освіта ' + (i + 1)">
-              <div class="row mt-3">
-                <!--<div class="form-group col">-->
-                  <!--<label for="group">Група</label>-->
-                    <!--<select formControlName="group" class="form-control" id="group">-->
-                    <!--<option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>-->
-                  <!--</select>-->
-                <!--</div>-->
-                <div class="form-group col-6" [formArrayName]="i">
+              <div class="row mt-3" [formArrayName]="i">
+                <div class="form-group col">
+                  <label for="studentGroup">Група</label>
+                    <select formControlName="studentGroup" class="form-control" id="studentGroup">
+                    <option *ngFor="let group of groups" [ngValue]="group.id" [selected]="group.id === degree.value.studentGroup">{{group.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group col-6">
                   <label>Форма навчання</label>
                   <div class="form-check">
                     <input formControlName="payment"
@@ -33,7 +33,7 @@
                     <label class="form-check-label" for="payment2">Контракт</label>
                   </div>
                 </div>
-                <div class="form-group col" [formArrayName]="i">
+                <div class="form-group col">
                   <label for="recordBookNumber">Номер заліковки</label>
                   <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber">
                 </div>

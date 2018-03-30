@@ -38,7 +38,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     this.form = this.fb.group({
       degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) =>
         this.fb.group({
-          studentGroup: ['', Validators.required],
+          studentGroup: [degree.studentGroup.id, Validators.required],
           recordBookNumber: [degree.recordBookNumber],
           diplomaNumber: [degree.diplomaNumber],
           diplomaDate: [degree.diplomaDate],
