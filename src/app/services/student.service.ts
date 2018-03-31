@@ -31,7 +31,6 @@ export class StudentService {
   }
 
   search(fullName: string = ''): Observable<StudentDegree[]> {
-    console.log('search', fullName);
     const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
     return this.http.get<StudentDegree[]>(`${this.url}/search`, {
       params: {
