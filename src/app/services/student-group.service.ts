@@ -7,9 +7,4 @@ export class StudentGroupService {
 
   constructor(private http: HttpClient) {
   }
-
-  getGroups() {
-    return this.http.get<StudentGroup>('/coursesforgroups/groups').subscribe();
-  }
-
 }

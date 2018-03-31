@@ -1,32 +1,97 @@
-<div class="container-fluid h-100">
-  <div class="row h-100">
-    <div class="col scrollable mt-4">
-      <form class="form-inline">
-        <select class="form-control mr-sm-2">
-          <option *ngFor="let degree of degrees" value="{{degree.id}}">{{degree.name}}</option>
-        </select>
+<div class="statement-wrapper">
 
-        <select class="form-control mr-sm-2">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
+  <div class="select-container">
+    <div class="select-wraper">
+      <div class="form-group">
+        <h3>Ступінь</h3>
+        <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
+          <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
         </select>
+      </div>
+    </div>
 
-        <select class="form-control mr-sm-2">
-          <option value="volvo">Семестр</option>
-          <option value="saab">Семестр</option>
-          <option value="vw">Семестр</option>
-        </select>
+    <div class="select-wraper">
+      <h3>Курс</h3>
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+        <option  [ngValue]="i" *ngFor="let i of years">{{i}}</option>
+      </select>
+    </div>
 
-        <select class="form-control mr-sm-2">
-          <option value="volvo">Група</option>
-          <option value="saab">Група</option>
-          <option value="vw">Група</option>
-        </select>
+    <div class="select-wraper">
+      <h3>Група</h3>
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="cmbGroup" (change)="onSemesterOrGroupChange()">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      </select>
+    </div>
 
-        <button class="btn btn-success" (click)="onForm()">Сформувати відомість</button>
-      </form>
+    <div class="select-wraper">
+      <h3>Семестр</h3>
+      <select [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()" class="form-control">
+        <option [ngValue]="i" *ngFor="let i of semesters">{{i}}</option>
+      </select>
     </div>
   </div>
+
+  <div class="wrapp">
+    <h2>Список предметів</h2>
+    <div class="table-wrapper">
+
+      <table class="main-table">
+        <thead>
+        <tr>
+          <td>№</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>Назва предмету</td>
+          <td>Вид іспиту</td>
+          <td>Годин</td>
+          <td>Викладач</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
+          <td>{{i+1}}</td>
+          <td>
+            <input type="checkbox" name="">
+          </td>
+          <td>{{courseForGroup.course.courseName.name}}</td>
+          <td>Залік</td>
+          <td>124</td>
+          <td>Викладач</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="wrapp-2">
+    <h2>Список студентів</h2>
+    <div class="table-wrapper-2">
+      <table class="student-table">
+        <thead>
+        <tr>
+          <td>№</td>
+          <td>Прізвище</td>
+          <td>Ім'я</td>
+          <td>По батькові</td>
+          <td>Заліковка</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let studentDegree of students; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ studentDegree.student.surname }}</td>
+          <td>{{ studentDegree.student.name }}</td>
+          <td>{{ studentDegree.student.patronimic }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <button>Вибрати всі предмети</button>
+  <button>Сформувати відомість</button>
 </div>
