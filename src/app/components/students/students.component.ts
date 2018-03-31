@@ -26,10 +26,7 @@ export class StudentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
-      this.students = students;
-      this.rows = students;
-    });
+    this.getStudents();
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
@@ -60,7 +57,13 @@ export class StudentsComponent implements OnInit {
     this.selected.push(...students);
   }
 
-  updateStudent() {
-    console.log('update student');
+  getStudents() {
+    const stream = this.isAllDataLoaded
+      ? this.studentService.getStudents()
+      : this.studentService.getInitialStudents();
+    stream.subscribe((students: StudentDegree[]) => {
+      this.students = students;
+      this.rows = students;
+    });
   }
 }

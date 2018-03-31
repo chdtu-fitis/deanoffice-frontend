@@ -34,8 +34,12 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
   }
 
-  getStudentById(id: string): Observable<Student> {
+  getStudentById(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.url}/${id}`);
+  }
+
+  getPhoto(id: number) {
+    return this.http.get(`${this.url}/${id}/photo`, { responseType: 'blob' });
   }
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
@@ -60,8 +64,8 @@ export class StudentService {
     return this.http.put<Student>(`${this.url}/`, student);
   }
 
-  updatePhoto(id, photo) {
-    const byteArray = convertDataURIToBinary(photo);
-    return this.http.put(`${this.url}/${id}/photo`, byteArray);
+  updatePhoto(id: number, photo: WindowBase64) {
+    // const byteArray = convertDataURIToBinary(photo);
+    return this.http.put(`${this.url}/${id}/photo`, photo);
   }
 }

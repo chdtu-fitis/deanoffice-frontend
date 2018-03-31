@@ -4,7 +4,6 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import { FileUploadModule } from 'ng2-file-upload';
 
 import {StudentsComponent} from './students.component';
 import {StudentsTableComponent} from './students-table/students-table.component';
@@ -36,7 +35,6 @@ import {StudentsSearchComponent} from './students-search/students-search.compone
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
-    FileUploadModule,
   ],
 })
 

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-// import { FileUploader } from 'ng2-file-upload';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -21,21 +21,24 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, private studentService: StudentService, private sanitizer: DomSanitizer) {
     super();
   }
 
   openModal(id) {
     this.studentService.getStudentById(id).subscribe((student: Student) => {
       this.model = student;
-      console.log(student);
       this.buildForm();
       this.modal.show();
     });
+    this.studentService.getPhoto(id).subscribe(photo => {
+      this.createImageFromBlob(photo);
+    })
   }
 
   buildForm() {
     this.form = this.fb.group({
+      photo: '',
       name: [this.model.name, Validators.required],
       surname: [this.model.surname, Validators.required],
       patronimic: [this.model.patronimic, Validators.required],
@@ -76,6 +79,19 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     }
   }
 
+  createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+      this.photo = this.sanitizer.bypassSecurityTrustUrl(reader.result);
+      // this.photo = reader.result;
+      console.log(reader.result);
+    }, false);
+
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+  }
+
   hideModal() {
     this.photo = null;
     this.modal.hide();
@@ -88,8 +104,8 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     }
     const { id } = this.model;
     const update = Object.assign(this.form.value, { id });
-    this.studentService.updateStudent(update).subscribe((student: Student) => {
-      this.onSubmit.emit(student);
+    this.studentService.updateStudent(update).subscribe(() => {
+      this.onSubmit.emit();
       this.modal.hide();
     })
   }
