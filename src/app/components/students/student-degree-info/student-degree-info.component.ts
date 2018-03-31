@@ -37,23 +37,30 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
       degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) =>
         this.fb.group({
           id: [degree.id],
-          studentGroupId: [degree.studentGroup.id, Validators.required],
-          recordBookNumber: [degree.recordBookNumber],
-          diplomaNumber: [degree.diplomaNumber],
-          diplomaDate: [degree.diplomaDate],
-          supplementNumber: [degree.supplementNumber],
-          supplementDate: [degree.supplementDate],
-          thesisName: [degree.thesisName],
-          thesisNameEng: [degree.thesisNameEng],
-          protocolNumber: [degree.protocolNumber],
-          protocolDate: [degree.protocolDate],
-          previousDiplomaType: [degree.previousDiplomaType],
-          previousDiplomaNumber: [degree.previousDiplomaNumber],
-          previousDiplomaDate: [degree.previousDiplomaDate],
-          payment: [degree.payment],
+          studentGroupId: [{value: degree.studentGroup.id, disabled: !degree.active}, Validators.required],
+          recordBookNumber: [this.getValue('recordBookNumber', degree)],
+          diplomaNumber: [this.getValue('diplomaNumber', degree)],
+          diplomaDate: [this.getValue('diplomaDate', degree)],
+          supplementNumber: [this.getValue('supplementNumber', degree)],
+          supplementDate: [this.getValue('supplementDate', degree)],
+          thesisName: [this.getValue('thesisName', degree)],
+          thesisNameEng: [this.getValue('thesisNameEng', degree)],
+          protocolNumber: [this.getValue('protocolNumber', degree)],
+          protocolDate: [this.getValue('protocolDate', degree)],
+          previousDiplomaType: [this.getValue('previousDiplomaType', degree)],
+          previousDiplomaNumber: [this.getValue('previousDiplomaNumber', degree)],
+          previousDiplomaDate: [this.getValue('previousDiplomaDate', degree)],
+          payment: [this.getValue('payment', degree)],
         })
       ))
     });
+  }
+
+  getValue(name: string, degree: StudentDegree) {
+    return {
+      value: degree[name],
+      disabled: !degree.active,
+    }
   }
 
   submit() {

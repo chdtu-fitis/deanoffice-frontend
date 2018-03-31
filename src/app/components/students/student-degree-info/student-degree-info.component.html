@@ -17,13 +17,16 @@
               <div class="row mt-3" [formArrayName]="i">
                 <div class="form-group col">
                   <label for="studentGroup">Група</label>
-                  <select formControlName="studentGroupId" class="form-control" id="studentGroup" [appValidation]="degree.controls.studentGroupId">
+                  <select *ngIf="model.degrees[i].active"
+                          formControlName="studentGroupId" class="form-control"
+                          id="studentGroup" [appValidation]="degree.controls.studentGroupId">
                     <option *ngFor="let group of groups" [ngValue]="group.id"
                             [selected]="group.id === degree.value.studentGroupId"
                     >
                       {{group.name}}
                     </option>
                   </select>
+                  <input *ngIf="!model.degrees[i].active" class="form-control" [value]="model.degrees[i].studentGroup.name" [disabled]="true">
                   <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
                 <div class="form-group col-6">
