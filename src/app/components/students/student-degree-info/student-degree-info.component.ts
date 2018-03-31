@@ -51,6 +51,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           previousDiplomaNumber: [this.getValue('previousDiplomaNumber', degree)],
           previousDiplomaDate: [this.getValue('previousDiplomaDate', degree)],
           payment: [this.getValue('payment', degree)],
+          active: [degree.active],
         })
       ))
     });
