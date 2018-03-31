@@ -14,13 +14,7 @@
           <h6 class="mb-3">Особиста інформація</h6>
           <div class="row">
             <div class="col-3">
-              <div class="form-group">
-                <div class="photo-container">
-                  <img [src]="photo" *ngIf="photo" class="photo"/>
-                </div>
-                <label class="btn btn-outline-info mt-3 w-100">Завантажити фото</label>
-                <input class="photo-input" type="file" (change)="onSelectFile($event)">
-              </div>
+              <app-photo-upload [photo]="photo" (onLoad)="onLoadPhoto($event)"></app-photo-upload>
             </div>
             <div class="col-9">
               <div class="row">

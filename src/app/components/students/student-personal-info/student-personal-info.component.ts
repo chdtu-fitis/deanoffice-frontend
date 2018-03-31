@@ -18,6 +18,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   model: Student;
   id: string;
   photo;
+  newPhoto;
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
@@ -32,7 +33,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       this.modal.show();
     });
     this.studentService.getPhoto(id).subscribe(photo => {
-      this.createImageFromBlob(photo);
+      this.photo = photo;
     })
   }
 
@@ -63,33 +64,8 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     });
   }
 
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        this.photo = e.target['result'];
-        this.studentService.updatePhoto(this.model.id, this.photo).subscribe(
-          res => {
-            console.log(res);
-          },
-          err => console.warn(err),
-        );
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-
-  createImageFromBlob(image: Blob) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      this.photo = this.sanitizer.bypassSecurityTrustUrl(reader.result);
-      // this.photo = reader.result;
-      console.log(reader.result);
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
+  onLoadPhoto(photo: File) {
+    this.newPhoto = photo;
   }
 
   hideModal() {
@@ -103,10 +79,13 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       return;
     }
     const { id } = this.model;
-    const update = Object.assign(this.form.value, { id });
-    this.studentService.updateStudent(update).subscribe(() => {
-      this.onSubmit.emit();
-      this.modal.hide();
-    })
+    if (this.newPhoto) {
+      this.studentService.updatePhoto(id, this.newPhoto).subscribe();
+    }
+    this.studentService.updateStudent(Object.assign(this.form.value, { id }))
+      .subscribe(() => {
+        this.onSubmit.emit();
+        this.modal.hide();
+      })
   }
 }

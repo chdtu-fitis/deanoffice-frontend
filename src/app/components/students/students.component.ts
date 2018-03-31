@@ -5,7 +5,6 @@ import { defaultColumns } from './constants.js';
 import { StudentDegree } from '../../models/StudentDegree';
 import { GroupService } from '../../services/group.service';
 import { StudentGroup } from '../../models/StudentGroup';
-import {Student} from "../../models/Student";
 
 @Component({
   selector: 'app-students',

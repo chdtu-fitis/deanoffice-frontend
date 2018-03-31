@@ -14,6 +14,7 @@ import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.c
 import {StudentPersonalInfoComponent} from './student-personal-info/student-personal-info.component';
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
+import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {StudentsSearchComponent} from './students-search/students-search.compone
     StudentsFiltersComponent,
     StudentsSearchComponent,
     StudentPersonalInfoComponent,
+    PhotoUploadComponent,
   ],
   imports: [
     CommonModule,

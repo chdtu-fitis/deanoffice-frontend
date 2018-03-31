@@ -5,20 +5,6 @@ import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {Student} from '../models/Student';
 
-function convertDataURIToBinary(dataURI) {
-  const BASE64_MARKER = ';base64,';
-  const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-  const base64 = dataURI.substring(base64Index);
-  const raw = window.atob(base64);
-  const rawLength = raw.length;
-  const array = new Uint8Array(new ArrayBuffer(rawLength));
-
-  for (let i = 0; i < rawLength; i++) {
-    array[i] = raw.charCodeAt(i);
-  }
-  return array;
-}
-
 @Injectable()
 export class StudentService {
   private url = `${environment.apiUrl}/students`;
@@ -64,8 +50,7 @@ export class StudentService {
     return this.http.put<Student>(`${this.url}/`, student);
   }
 
-  updatePhoto(id: number, photo: WindowBase64) {
-    // const byteArray = convertDataURIToBinary(photo);
+  updatePhoto(id: number, photo) {
     return this.http.put(`${this.url}/${id}/photo`, photo);
   }
 }
