@@ -69,10 +69,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     if (this.form.invalid) {
       return;
     }
-    this.studentService.updateStudentDegreesByStudentId(
-      this.model.id,
-      this.form.value.degrees
-    ).subscribe(() => {
+    const degrees = this.form.value.degrees.filter(degree => degree.active);
+    this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
       this.onSubmit.emit();
       this.modal.hide();
     });
