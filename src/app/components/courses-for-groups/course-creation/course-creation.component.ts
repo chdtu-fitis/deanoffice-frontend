@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Course} from '../../../models/Course';
 
 @Component({
   selector: 'course-creation',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-creation.component.scss']
 })
 export class CourseCreationComponent implements OnInit {
+  course: Course;
 
   constructor() { }
 
