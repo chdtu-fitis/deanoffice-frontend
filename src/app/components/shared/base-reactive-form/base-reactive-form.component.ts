@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
-import {
-  AbstractControl, FormArray, FormControl,
-  FormGroup
-} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-base-reactive-form',
