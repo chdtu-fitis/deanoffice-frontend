@@ -15,7 +15,7 @@
             <app-students-list [students]="students" (onRemove)="onRemoveStudent($event)"></app-students-list>
           </div>
           <div class="col-6">
-            <form [formGroup]="form" class="mt-3" novalidate>
+            <form [formGroup]="form" novalidate>
               <div class="form-group">
                 <label for="orderNumber">Номер наказу</label>
                 <input formControlName="orderNumber" class="form-control" id="orderNumber"
@@ -45,8 +45,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button (click)="submit()" class="btn btn-success btn-submit">Зарахувати</button>
-        <button (click)="modal.hide()" class="btn btn-outline-danger">Скасувати</button>
+        <button (click)="submit()" class="btn btn-danger btn-submit">Відрахувати</button>
+        <button (click)="modal.hide()" class="btn btn-outline-info">Скасувати</button>
       </div>
     </div>
   </div>
