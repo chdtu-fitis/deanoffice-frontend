@@ -20,6 +20,7 @@ export class CoursesForGroupsComponent implements OnInit {
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[];
+  coursesForDelete: CourseForGroup[];
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
@@ -61,6 +62,21 @@ export class CoursesForGroupsComponent implements OnInit {
       courseForGroup.course = course;
       this.coursesForGroup.push(courseForGroup);
     }
+  }
+
+  changeCoursesForDelete(event) {
+    this.coursesForDelete = event;
+  }
+
+  deleteCoursesFromCoursesForGroups(){
+    for (let course of this.coursesForGroup){
+      for (let courseForDelete of this.coursesForDelete){
+        if (course.id === courseForDelete.id){
+
+        }
+      }
+    }
+
   }
 
   changeSelectedCourses(event) {
