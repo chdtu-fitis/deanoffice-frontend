@@ -13,12 +13,24 @@ import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-re
 export class StudentExpelComponent extends BaseReactiveFormComponent implements IAppModal {
   @ViewChild('modal') modal: ModalDirective;
 
-  constructor(
-    private fb: FormBuilder,
-  ) {
+  constructor(private fb: FormBuilder) {
     super();
+    this.form = this.fb.group({
+      student: '',
+      studentDegreeIds: this.fb.array([]),
+      orderNumber: ['', Validators.required],
+      orderDate: ['', Validators.required],
+      applicationDate: ['', Validators.required],
+      expelDate: ['', Validators.required],
+      // reasonId: ['', Validators.required],
+    })
+  }
+
+  onStudentSelect(student) {
+    console.log(student);
   }
 
   submit() {
+    console.log(this.form.value);
   }
 }
