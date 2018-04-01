@@ -72,11 +72,11 @@ export class CoursesForGroupsComponent implements OnInit {
     for (let course of this.coursesForGroup){
       for (let courseForDelete of this.coursesForDelete){
         if (course.id === courseForDelete.id){
-
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+          this.addCoursesToCoursesForGroup();
         }
       }
     }
-
   }
 
   changeSelectedCourses(event) {
