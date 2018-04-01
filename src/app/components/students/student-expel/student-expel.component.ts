@@ -6,6 +6,7 @@ import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {StudentService} from '../../../services/student.service';
 import {StudentDegree} from '../../../models/StudentDegree';
+import {GeneralService} from '../../../services/general.service';
 
 @Component({
     selector: 'app-student-expel',
@@ -14,17 +15,23 @@ import {StudentDegree} from '../../../models/StudentDegree';
 })
 export class StudentExpelComponent extends BaseReactiveFormComponent implements IAppModal {
   students;
+  reasons;
   @ViewChild('modal') modal: ModalDirective;
 
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+    private generalService: GeneralService
+  ) {
     super();
     this.form = this.fb.group({
       orderNumber: ['', Validators.required],
       orderDate: ['', Validators.required],
       applicationDate: ['', Validators.required],
       expelDate: ['', Validators.required],
-      // reasonId: ['', Validators.required],
+      reasonId: ['', Validators.required],
     });
+    generalService.getStudentExpelReasons().subscribe(reasons => this.reasons = reasons);
   }
 
   openModal(degrees: StudentDegree[]) {
@@ -44,7 +51,10 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
   }
 
   submit() {
-    // const studentDegreeIds = this.students.map(degree => degree.id);
+    super.submit();
+    if (this.form.invalid) {
+      return;
+    }
     console.log(this.form.value);
   }
 }
