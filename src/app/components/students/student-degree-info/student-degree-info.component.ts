@@ -39,6 +39,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           id: [degree.id],
           studentGroupId: [{value: degree.studentGroup.id, disabled: !degree.active}, Validators.required],
           recordBookNumber: [this.getValue('recordBookNumber', degree)],
+          studentCardNumber: [this.getValue('studentCardNumber', degree)],
           diplomaNumber: [this.getValue('diplomaNumber', degree)],
           diplomaDate: [this.getValue('diplomaDate', degree)],
           supplementNumber: [this.getValue('supplementNumber', degree)],
