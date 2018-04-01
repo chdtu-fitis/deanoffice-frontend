@@ -23,9 +23,9 @@ export class AddedCoursesComponent implements OnInit {
   ngOnInit() {}
 
   getCoursesForGroup() {
-    this.courseForGroupService.getCoursesForGroupsBySemesterAndGroup(this.selectedSemester, this.selectedGroup).subscribe(courses => {
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedSemester, this.selectedGroup).subscribe(courses => {
       this.coursesForGroup = courses;
+      console.log(this.coursesForGroup);
     })
-    console.log(this.coursesForGroup);
   }
 }
