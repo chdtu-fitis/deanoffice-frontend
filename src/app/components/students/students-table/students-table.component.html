@@ -10,10 +10,10 @@
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
   [trackByProp]="'id'"
-  [selectionType]="'multi'"
+  [selectionType]="'checkbox'"
+  [selectAllRowsOnPage]="false"
   [selected]="selected"
   (select)="select($event)">
->
 </ngx-datatable>
 
 <ng-template #sexTemplate let-value="value">

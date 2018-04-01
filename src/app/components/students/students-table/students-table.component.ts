@@ -23,21 +23,32 @@ export class StudentsTableComponent {
   cols: Object[];
 
   private transformArrayToColumns(array: string[]): Object[] {
-    return array.map(prop => {
-      let cellTemplate;
+    return ['selected', ...array].map(prop => {
+      let col = {};
       switch (prop) {
         case 'student.sex':
-          cellTemplate = this.sexTemplate; break;
+          col = { cellTemplate: this.sexTemplate }; break;
         case 'student.birthDate':
         case 'diplomaDate':
         case 'supplementDate':
         case 'previousDiplomaDate':
         case 'protocolDate':
-          cellTemplate = this.dateTemplate; break;
+          col = { cellTemplate: this.dateTemplate }; break;
         case 'payment':
-          cellTemplate = this.paymentTemplate; break;
+          col = { cellTemplate: this.paymentTemplate }; break;
+        case 'selected':
+          col = {
+            name: '',
+            sortable: false,
+            canAutoResize: false,
+            draggable: false,
+            resizable: false,
+            headerCheckboxable: true,
+            checkboxable: true,
+            width: 30
+          };
       }
-      return { prop, name: translations[prop], cellTemplate };
+      return { prop, name: translations[prop], ...col };
     });
   }
 
