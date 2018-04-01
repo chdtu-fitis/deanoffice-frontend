@@ -17,6 +17,7 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
   students;
   reasons;
   @ViewChild('modal') modal: ModalDirective;
+  @Output() onSubmit = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +31,7 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
       applicationDate: ['', Validators.required],
       expelDate: ['', Validators.required],
       reasonId: ['', Validators.required],
+      studentDegreeIds: this.fb.array([]),
     });
     generalService.getStudentExpelReasons().subscribe(reasons => this.reasons = reasons);
   }
@@ -55,6 +57,9 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
+    this.studentService.expelStudents(this.form.value).subscribe(() => {
+      this.onSubmit.emit(this.form.value.studentDegreeIds);
+      this.modal.hide();
+    });
   }
 }
