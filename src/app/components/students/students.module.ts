@@ -14,6 +14,7 @@ import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.c
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
 import {StudentExpelComponent} from './student-expel/student-expel.component';
+import {StudentsListComponent} from './students-list/students-list.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {StudentExpelComponent} from './student-expel/student-expel.component';
     StudentsFiltersComponent,
     StudentsSearchComponent,
     StudentExpelComponent,
+    StudentsListComponent,
   ],
   imports: [
     CommonModule,

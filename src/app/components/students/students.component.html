@@ -30,7 +30,13 @@
         (applyFilters)="setRows($event)">
       </app-students-filters>
       <hr />
-      <button class="btn btn-info w-100" (click)="studentExpelModal.modal.show()">Відрахувати студентів</button>
+      <button
+        *ngIf="selected.length"
+        class="btn btn-info w-100"
+        (click)="studentExpelModal.openModal(selected)"
+      >
+        Відрахувати студентів
+      </button>
     </app-sidebar>
   </div>
 </div>
