@@ -2,8 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
-import {Course} from '../../../models/Course';
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'added-courses',
