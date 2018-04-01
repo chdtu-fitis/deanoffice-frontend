@@ -1,3 +1,33 @@
-<p>
-  course-creation works!
-</p>
+<div class="card">
+  <div class="card-header">
+    Створити предмет
+  </div>
+  <div class="creation-form">
+    <div class="row">
+      <div class="form-group col">
+        <input class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.courseName.name" placeholder="Назва">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col">
+        <input class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.hours"  placeholder="Кількість годин">
+      </div>
+      <div class="form-group col">
+        <input class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.semester"  placeholder="Семестр">
+      </div>
+      <!--<div class="form-group col">-->
+        <!--<input class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl.name"  placeholder="Вид контролю">-->
+      <!--</div>-->
+      <div class="form-group col">
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl.name" >
+          <option *ngFor="let kc of knowledgeControl">{{kc.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success" (click)="onForm()">Створити</button>
+      </div>
+    </div>
+  </div>
+</div>
