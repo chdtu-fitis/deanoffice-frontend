@@ -1,0 +1,32 @@
+<div class="container-fluid h-100">
+    <div class="row h-100 flex-nowrap">
+        <div class="content py-1 col-10">
+            <div class="card-body" *ngIf="selectGroup">
+                Группа: {{selectGroup?.name}}
+                Семестр: {{ selectSemester }}
+                <button class="btn btn-success" *ngIf="insertGradesList.length">Додати оцiнки</button>
+            </div>
+
+            <ng-container *ngIf="errorsMessage.length">
+                <div class="alert alert-danger" *ngFor="let error of errorsMessage" role="alert">
+                    {{ error }}
+                </div>
+            </ng-container>
+
+            <div class="alert alert-primary" role="alert" *ngIf="!loading && !selectGroup">
+                Оберiть группу
+            </div>
+            <grades-table [students]="students" [courses]="courses"></grades-table>
+        </div>
+
+        <app-sidebar class="sidebar">
+            <aside class="Sidebar bg-light">
+                <grades-panel [groups]="groups"
+                              (setGroup)="setStudentGroup($event)"
+                              (setSemester)="setSemester($event)">
+                </grades-panel>
+            </aside>
+        </app-sidebar>
+
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="{{ !autoSemesterSelect? 'd-block': 'd-none'}}">
+    <label for="selectSemester">
+        Обрати семестр
+    </label>
+    <select id="selectSemester"
+            [(ngModel)]="selectSemester"
+            class="form-control mb-3"
+            (change)="getSelectedSemester()">
+        <option value="1">1 Семестр</option>
+        <option value="2">2 Семестр</option>
+        <option value="3">3 Семестр</option>
+        <option value="4">4 Семестр</option>
+        <option value="5">5 Семестр</option>
+        <option value="6">6 Семестр</option>
+        <option value="7">7 Семестр</option>
+        <option value="8">8 Семестр</option>
+        <option value="9">9 Семестр</option>
+        <option value="10">10 Семестр</option>
+    </select>
+</div>
+
+<div class="mb-3">
+    <input type="checkbox" checked
+           [(ngModel)]="autoSemesterSelect"
+           (click)="setCurrentSemester()"
+           name="autoSelectSemester"
+           id="autoSelectSemester"/>
+    <label for="autoSelectSemester"
+           class="custom-control-label">
+        Автоматично обрати семестр
+    </label>
+</div>
+
+<div class="groups">
+    <div *ngIf="groups" class="list-group">
+        <button *ngFor="let group of groups" class="list-group-item list-group-item-action"
+                [class.active]="selectGroup === group"
+                (click)="getSelectGroup(group)">
+            {{ group.name }}
+        </button>
+    </div>
+</div>

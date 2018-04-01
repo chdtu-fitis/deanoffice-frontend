@@ -17,7 +17,10 @@ import {ExamReportComponent} from '../exam-report/exam-report.component';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
-import {CourseForGroupService} from "../../services/course-for-group.service";
+import {CourseForGroupService} from '../../services/course-for-group.service';
+import { GradeComponent } from '../grade/grade.component';
+import { GradesTableComponent } from '../grade/grades-table/grades-table.component';
+import { GradesPanelComponent } from '../grade/grades-panel/grades-panel.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import {CourseForGroupService} from "../../services/course-for-group.service";
     SpecialityComponent,
     DiplomaSupplementComponent,
     ExamReportComponent,
+    GradeComponent,
+    GradesTableComponent,
+    GradesPanelComponent,
   ],
   imports: [
     BrowserModule,
