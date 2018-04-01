@@ -19,6 +19,7 @@ import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
 import {CourseForGroupService} from "../../services/course-for-group.service";
 import {AuthenticationModule} from '../login/authentication.module';
+import {FileService} from '../../services/file-service';
 
 @NgModule({
   declarations: [
@@ -38,14 +39,15 @@ import {AuthenticationModule} from '../login/authentication.module';
     StudentsModule,
     SharedModule,
     GridModule,
-    AuthenticationModule
+    AuthenticationModule,
   ],
   providers: [
     DegreeService,
     GroupService,
     StudentService,
     CourseForGroupService,
-    DiplomaSupplementService
+    DiplomaSupplementService,
+    FileService,
   ],
   bootstrap: [AppComponent],
 })
