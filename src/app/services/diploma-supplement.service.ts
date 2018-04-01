@@ -6,7 +6,7 @@ export class DiplomaSupplementService {
   private documentsUrl = `${environment.apiUrl}/documents`;
 
   buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.documentsUrl}/diplomas/supplements/studentdegrees/${studentId}`;
+    const url = `${this.documentsUrl}/supplements/degrees/${studentId}/docx`;
     window.open(url, '_blank');
   }
 
