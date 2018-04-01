@@ -16,12 +16,11 @@ export class CourseForGroupService {
     return this.http.get<CourseForGroup>(`/coursesforgroups/${specializationId}/courses`).toPromise();
   }
 
-  setCoursesForGroup(body, groupId) {
-    return this.http.post(`/coursesforgroups/${groupId}/courses`, body).toPromise();
+  createCoursesForGroup(groupId, newCourses, deleteCoursesIdList) {
+    return this.http.post(`${this.url}/${groupId}/coursesForGroup/`,  newCourses, deleteCoursesIdList);
   }
 
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
     return this.http.get<CourseForGroup[]>(`${this.url}/courses/groups/${groupId}?semester=${semester}`);
   }
-
 }

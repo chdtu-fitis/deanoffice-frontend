@@ -23,4 +23,5 @@
   <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
   <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
   <added-courses (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <button type="button" class="btn btn-info" (click)="createCoursesForGroup()">Зберегти</button>
 </div>

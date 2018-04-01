@@ -18,6 +18,7 @@ export class AddedCoursesComponent implements OnInit {
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
   @Output() onCoursesForDeleteChange = new EventEmitter();
+  @Output() onCoursesForGroup = new EventEmitter();
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -29,6 +30,7 @@ export class AddedCoursesComponent implements OnInit {
       console.log(this.coursesForGroup);
     })
   }
+
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup, index: number){
     console.log(index);
     if (!checked) {

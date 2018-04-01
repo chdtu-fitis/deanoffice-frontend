@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {Course} from "../../models/Course";
-import {CourseForGroupService} from "../../services/course-for-group.service";
 import {GroupService} from "../../services/group.service";
 import {CourseService} from "../../services/course.service";
 import {CourseForGroup} from "../../models/CourseForGroup";
 import {AddedCoursesComponent} from "./added-courses/added-courses.component";
+import {CourseForGroupService} from "../../services/course-for-group.service";
 
 @Component({
   selector: 'courses-for-groups',
@@ -24,9 +24,10 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
+  deleteCoursesIdList: String[] = [];
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
 
-  constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
+  constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {
   }
 
   ngOnInit() {
@@ -48,7 +49,7 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onSemesterChange(){
     if (this.selectedSemester) {
-      this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
       })
     }
@@ -86,6 +87,11 @@ export class CoursesForGroupsComponent implements OnInit {
 
   addCoursesToCoursesForGroup() {
     this.coursesForAdd = this.coursesForGroup;
+  }
+
+  createCoursesForGroup(){
+    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, this.coursesForAdd, this.deleteCoursesIdList).subscribe(() => {
+    })
   }
 
 }
