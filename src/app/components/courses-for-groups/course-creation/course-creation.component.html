@@ -19,14 +19,14 @@
         <!--<input class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl.name"  placeholder="Вид контролю">-->
       <!--</div>-->
       <div class="form-group col">
-        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl.name" >
-          <option *ngFor="let kc of knowledgeControl">{{kc.name}}</option>
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl" >
+          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
         </select>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <button class="btn btn-success" (click)="onForm()">Створити</button>
+        <button class="btn btn-success" (click)="createCourse()">Створити</button>
       </div>
     </div>
   </div>
