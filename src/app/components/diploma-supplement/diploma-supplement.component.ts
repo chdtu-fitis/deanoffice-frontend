@@ -19,6 +19,7 @@ export class DiplomaSupplementComponent implements OnInit {
   students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
+  gradePercentLoading: boolean;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
@@ -54,16 +55,20 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onFormSupplement(): void {
-    this.message = "";
+    this.message = '';
     for (var student of this.students) {
-      if (student.selected){
-        this.diplomaSupplementService.buildDiplomaSupplement(""+student.id);
+      if (student.selected) {
+        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id);
       }
     }
   }
 
   onFormGradePercent(): void {
-    this.message = "";
-    this.diplomaSupplementService.buildGradePercent(""+this.currentGroup.id);
+    this.message = '';
+    this.gradePercentLoading = true;
+    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
+        this.gradePercentLoading = false;
+      }
+    );
   }
 }
