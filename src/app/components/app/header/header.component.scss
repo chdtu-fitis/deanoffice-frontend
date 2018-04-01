@@ -1,6 +1,11 @@
 .Header {
   max-height: 54px;
+  min-height: 38px;
   background: #678;
+}
+
+.user-logout {
+  cursor: pointer;
 }
 
 .navbar-nav .nav-item {

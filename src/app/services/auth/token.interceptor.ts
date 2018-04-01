@@ -10,6 +10,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from './authentication.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
