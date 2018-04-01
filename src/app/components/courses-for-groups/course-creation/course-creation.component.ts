@@ -23,7 +23,6 @@ export class CourseCreationComponent implements OnInit {
 
   createCourse(){
     this.courseService.createCourse(this.course).subscribe(() => {
-
     })
   }
 }
