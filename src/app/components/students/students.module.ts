@@ -13,6 +13,7 @@ import {AddStudentComponent} from './add-student/add-student.component';
 import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.component';
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
+import {StudentExpelComponent} from './student-expel/student-expel.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {StudentsSearchComponent} from './students-search/students-search.compone
     StudentTypeaheadComponent,
     StudentsFiltersComponent,
     StudentsSearchComponent,
+    StudentExpelComponent,
   ],
   imports: [
     CommonModule,
