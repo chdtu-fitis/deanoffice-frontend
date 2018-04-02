@@ -2,6 +2,7 @@ import {
   Component, EventEmitter, Input, Output, TemplateRef,
   ViewChild
 } from '@angular/core';
+
 import { translations } from '../translations.js';
 import { StudentDegree } from '../../../models/StudentDegree';
 

@@ -1,3 +1,5 @@
+export const maxFileSize = 1572864;
+
 export const defaultColumns = [
   'student.surname',
   'student.name',
