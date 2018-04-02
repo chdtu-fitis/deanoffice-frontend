@@ -30,13 +30,13 @@
         (applyFilters)="setRows($event)">
       </app-students-filters>
       <hr />
-      <button
-        *ngIf="selected.length === 1"
-        class="btn btn-info w-100"
-        (click)="studentDegreeInfo.openModal(selected[0]?.student?.id)"
-      >
-        Редагувати навчальну інформацію
-      </button>
+      <div *ngIf="selected.length === 1">
+        <button
+          class="btn btn-info w-100"
+          (click)="personalInfoModal.openModal(selected[0]?.student?.id)">
+          Редагувати особисту інформацію
+        </button>
+      </div>
     </app-sidebar>
   </div>
 </div>
@@ -52,8 +52,7 @@
   (newStudent)="prependStudent($event)"
 ></app-add-student>
 
-<app-student-degree-info
-  #studentDegreeInfo
-  [groups]="groups"
+<app-student-personal-info
   (onSubmit)="getStudents()"
-></app-student-degree-info>
+  #personalInfoModal
+></app-student-personal-info>

@@ -1,0 +1,8 @@
+<div class="form-group">
+  <div class="photo-container">
+    <img [src]="preview" *ngIf="preview" class="photo"/>
+  </div>
+  <label class="btn btn-outline-info mt-3 w-100">Завантажити фото</label>
+  <input class="photo-input" type="file" accept="image/jpeg" (change)="onSelectFile($event)">
+  <div class="invalid-feedback d-block">{{error}}</div>
+</div>

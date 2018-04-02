@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {StudentDegree} from '../models/StudentDegree';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import {Student} from '../models/Student';
 
 @Injectable()
 export class StudentService {
@@ -19,8 +20,12 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
   }
 
-  getDegreesByStudentId(id: number): Observable<StudentDegree> {
-    return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
+  getStudentById(id: number): Observable<Student> {
+    return this.http.get<Student>(`${this.url}/${id}`);
+  }
+
+  getPhoto(id: number) {
+    return this.http.get(`${this.url}/${id}/photo`, { responseType: 'blob' });
   }
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
@@ -41,7 +46,11 @@ export class StudentService {
     });
   }
 
-  updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]) {
-    return this.http.put(`${this.url}/${id}/degrees/`, degrees);
+  updateStudent(student: Student) {
+    return this.http.put<Student>(`${this.url}/`, student);
+  }
+
+  updatePhoto(id: number, photo) {
+    return this.http.put(`${this.url}/${id}/photo`, photo);
   }
 }

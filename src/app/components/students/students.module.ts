@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {StudentsComponent} from './students.component';
 import {StudentsTableComponent} from './students-table/students-table.component';
@@ -11,9 +11,10 @@ import {StudentsColumnsComponent} from './students-columns/students-columns.comp
 import {SharedModule} from '../shared/shared.module';
 import {AddStudentComponent} from './add-student/add-student.component';
 import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.component';
+import {StudentPersonalInfoComponent} from './student-personal-info/student-personal-info.component';
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
-import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-info.component';
+import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
 
 @NgModule({
   declarations: [
@@ -24,17 +25,18 @@ import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-i
     StudentTypeaheadComponent,
     StudentsFiltersComponent,
     StudentsSearchComponent,
-    StudentDegreeInfoComponent,
+    StudentPersonalInfoComponent,
+    PhotoUploadComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FormsModule,
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
-    ReactiveFormsModule,
   ],
 })
 
