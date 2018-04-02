@@ -14,13 +14,11 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CourseCreationComponent implements OnInit {
   course = new Course();
-
   knowledgeControl: KnowledgeControl[] = [];
   form;
-  // newCourseName = '';
 
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
-    this.course.credits = 30;
+    this.course.hoursPerCredit = 30;
   }
 
   ngOnInit() {
