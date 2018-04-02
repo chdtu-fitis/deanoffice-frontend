@@ -29,7 +29,7 @@
                   <input *ngIf="!model.degrees[i].active" class="form-control" [value]="model.degrees[i].studentGroup.name" [disabled]="true">
                   <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
-                <div class="form-group col-6">
+                <div class="form-group col">
                   <label>Форма навчання</label>
                   <div class="form-check">
                     <input formControlName="payment"
