@@ -21,13 +21,6 @@ export class CourseCreationComponent implements OnInit {
 
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
     this.course.credits = 30;
-    // this.course.courseName = new CourseName();
-    // this.course.courseName.name = this.newCourseName;
-  }
-
-  onNameChange(){
-    console.dir(this.course);
-    // this.course.courseName.name = this.newCourseName;
   }
 
   ngOnInit() {
@@ -52,6 +45,8 @@ export class CourseCreationComponent implements OnInit {
   }
 
   createCourse(){
+    this.setCredits();
+    console.dir(this.course);
     this.courseService.createCourse(this.course).subscribe(() => {
     })
   }
@@ -60,5 +55,9 @@ export class CourseCreationComponent implements OnInit {
   get semester() { return this.form.get('semester'); }
   get hours() { return this.form.get('hours'); }
   get kc() { return this.form.get('kc'); }
+
+  private setCredits(){
+    this.course.credits = this.course.hours / this.course.hoursPerCredit;
+  }
 
 }
