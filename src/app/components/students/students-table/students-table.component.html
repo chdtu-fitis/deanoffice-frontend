@@ -13,7 +13,9 @@
   [selectionType]="'checkbox'"
   [selectAllRowsOnPage]="false"
   [selected]="selected"
-  (select)="select($event)">
+  (select)="select($event)"
+  (activate)="activate($event)"
+>
 </ngx-datatable>
 
 <ng-template #sexTemplate let-value="value">

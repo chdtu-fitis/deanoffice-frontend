@@ -17,7 +17,8 @@ export class StudentsTableComponent {
   }
   @Input() rows: StudentDegree[];
   @Input() selected: StudentDegree[] = [];
-  @Output() onSelect = new EventEmitter();
+  @Output() onSelect = new EventEmitter<StudentDegree[]>();
+  @Output() onToggleSelect = new EventEmitter<StudentDegree>();
   @ViewChild('sexTemplate') sexTemplate: TemplateRef<any>;
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate') dateTemplate: TemplateRef<any>;
@@ -63,5 +64,12 @@ export class StudentsTableComponent {
 
   select({ selected }) {
     this.onSelect.emit(selected);
+  }
+
+  activate({ type, row, column }) {
+    if (type !== 'click' || column.prop === 'selected') {
+      return;
+    }
+    this.onToggleSelect.emit(row);
   }
 }
