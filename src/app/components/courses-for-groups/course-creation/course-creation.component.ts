@@ -13,11 +13,21 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
   providers: [CourseService, KnowledgeControlService]
 })
 export class CourseCreationComponent implements OnInit {
-  course: Course = new Course();
+  course = new Course();
+
   knowledgeControl: KnowledgeControl[] = [];
   form;
+  // newCourseName = '';
 
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
+    this.course.credits = 30;
+    // this.course.courseName = new CourseName();
+    // this.course.courseName.name = this.newCourseName;
+  }
+
+  onNameChange(){
+    console.dir(this.course);
+    // this.course.courseName.name = this.newCourseName;
   }
 
   ngOnInit() {
@@ -50,4 +60,5 @@ export class CourseCreationComponent implements OnInit {
   get semester() { return this.form.get('semester'); }
   get hours() { return this.form.get('hours'); }
   get kc() { return this.form.get('kc'); }
+
 }

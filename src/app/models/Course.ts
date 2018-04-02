@@ -8,4 +8,14 @@ export class Course extends BaseEntity {
   semester: number;
   hours: number;
   credits: number;
+
+  constructor(){
+    super();
+    this.courseName = new CourseName();
+    this.knowledgeControl = new KnowledgeControl();
+    this.semester = undefined;
+    this.hours = undefined;
+    this.credits = undefined;
+
+  }
 }

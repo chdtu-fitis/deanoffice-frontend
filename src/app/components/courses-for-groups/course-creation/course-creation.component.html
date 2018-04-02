@@ -5,7 +5,7 @@
   <div class="creation-form">
     <div class="row">
       <div class="form-group col">
-        <input name="name" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.courseName.name" placeholder="Назва">
+        <input name="name" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.courseName.name" (change)="onNameChange()" placeholder="Назва">
       </div>
     </div>
     <div class="row">
@@ -15,11 +15,15 @@
       <div class="form-group col">
         <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.semester"  placeholder="Семестр" >
       </div>
-      <!--<div class="form-group col">-->
-        <!--<input class="form-control mr-2 ng-pristine ng-valid ng-touched" [ngModel] = "course.knowledgeControl.name"  placeholder="Вид контролю">-->
-      <!--</div>-->
+      <div class="form-group col">
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="course.credits">
+          <option [ngValue]="30">30</option>
+          <option [ngValue]="36">36</option>
+        </select>
+      </div>
       <div class="form-group col">
         <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.knowledgeControl">
+          <option [ngValue]="'qwe'" [selected]="course.knowledgeControl.name === 'qwe'">Контроль</option>
           <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
         </select>
       </div>
@@ -29,12 +33,12 @@
         <button class="btn btn-success" (click)="createCourse()">Створити</button>
       </div>
     </div>
-    <div *ngIf="courseName.errors.required || kc.errors.required || semester.errors.required || hours.errors.required" class="row">
-      <div class="col">
-        <div class="alert alert-danger" role="alert">
-          Всі поля мають бути заповнені
-        </div>
-      </div>
-    </div>
+    <!--<div *ngIf="courseName.errors.required || kc.errors.required || semester.errors.required || hours.errors.required" class="row">-->
+      <!--<div class="col">-->
+        <!--<div class="alert alert-danger" role="alert">-->
+          <!--Всі поля мають бути заповнені-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
   </div>
 </div>
