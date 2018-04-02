@@ -16,8 +16,8 @@ export class CourseForGroupService {
     return this.http.get<CourseForGroup>(`/coursesforgroups/${specializationId}/courses`).toPromise();
   }
 
-  createCoursesForGroup(groupId, newCourses, deleteCoursesIdList) {
-    return this.http.post(`${this.url}/${groupId}/coursesForGroup/`,  newCourses, deleteCoursesIdList);
+  createCoursesForGroup(groupId, body) {
+    return this.http.post(`${this.url}/${groupId}/coursesForGroup/`, body);
   }
 
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {

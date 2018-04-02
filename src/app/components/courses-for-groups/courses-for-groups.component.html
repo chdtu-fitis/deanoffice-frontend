@@ -17,11 +17,11 @@
           <studied-courses (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
         </div>
         <div class="col-5">
-          <course-creation></course-creation>
+          <!--<course-creation></course-creation>-->
         </div>
       </div>
   <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
   <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
-  <added-courses (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onCoursesForDeleteChange)="changeCoursesForDelete($event)" (onAddedCoursesForGroup)="changeAddedCourses($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
   <button type="button" class="btn btn-info" (click)="createCoursesForGroup()">Зберегти</button>
 </div>

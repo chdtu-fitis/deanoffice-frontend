@@ -12,13 +12,15 @@ import {Course} from "../../../models/Course";
 })
 export class AddedCoursesComponent implements OnInit {
 
-  coursesForGroup: CourseForGroup[];
-  coursesForGroupForDelete: CourseForGroup[];
+  coursesForGroup: CourseForGroup[] = [];
+  coursesForGroupForDelete: CourseForGroup[] = [];
+  addedCoursesForGroup: CourseForGroup[] = [];
   @Input() selectedCoursesForGroups: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
+  @Output() onAddedCoursesForGroup = new EventEmitter();
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -31,18 +33,28 @@ export class AddedCoursesComponent implements OnInit {
     })
   }
 
+  addNewCoursesForGroup(){
+    for (let courseForGroup of this.selectedCoursesForGroups) {
+      this.coursesForGroup.push(courseForGroup);
+      this.addedCoursesForGroup.push(courseForGroup);
+    }
+  }
+
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup, index: number){
-    console.log(index);
     if (!checked) {
       for (let course of this.coursesForGroupForDelete)
         if (course.id === selectedCourse.id) {
           this.coursesForGroupForDelete.splice(this.coursesForGroupForDelete.indexOf(course), 1);
+          this.addedCoursesForGroup.splice(this.addedCoursesForGroup.indexOf(course), 1);
         }
     }
     else {
-      this.coursesForGroupForDelete.push(selectedCourse)
+      this.coursesForGroupForDelete.push(selectedCourse);
     }
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
-    console.log(this.coursesForGroupForDelete);
+  }
+
+  changeAddedCourses(){
+    this.onAddedCoursesForGroup.emit(this.addedCoursesForGroup);
   }
 }

@@ -19,8 +19,10 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedSemester: number;
   semesters: number[] = [];
   courses: Course[];
-  coursesForAdd: CourseForGroup[];
-  coursesForDelete: CourseForGroup[];
+  coursesForAdd: CourseForGroup[] = [];
+  addedCourses: CourseForGroup[] = [];
+  coursesForDelete: CourseForGroup[] = [];
+  mutableCourses: CourseForGroup[] = [];
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
@@ -67,6 +69,7 @@ export class CoursesForGroupsComponent implements OnInit {
 
   changeCoursesForDelete(event) {
     this.coursesForDelete = event;
+    console.log(this.coursesForDelete);
   }
 
   deleteCoursesFromCoursesForGroups(){
@@ -85,12 +88,19 @@ export class CoursesForGroupsComponent implements OnInit {
     this.addSelectedCoursesToCoursesForGroup();
   }
 
+  changeAddedCourses(event) {
+    this.addedCourses = event;
+  }
+
   addCoursesToCoursesForGroup() {
     this.coursesForAdd = this.coursesForGroup;
+    setTimeout(() => {
+      this.child.addNewCoursesForGroup();
+    }, 0);
   }
 
   createCoursesForGroup(){
-    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, this.coursesForAdd, this.deleteCoursesIdList).subscribe(() => {
+    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {newCourses: this.addedCourses, mutableCourses: this.mutableCourses, deleteCoursesIdList: this.deleteCoursesIdList}).subscribe(() => {
     })
   }
 
