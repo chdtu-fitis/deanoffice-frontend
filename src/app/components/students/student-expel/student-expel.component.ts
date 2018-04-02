@@ -52,6 +52,11 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     this.form.setControl('studentDegreeIds', this.fb.array(ids));
   }
 
+  hideModal() {
+    this.modal.hide();
+    this.form.reset();
+  }
+
   submit() {
     super.submit();
     if (this.form.invalid) {

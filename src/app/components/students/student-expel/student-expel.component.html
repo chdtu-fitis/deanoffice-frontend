@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Відрахувати студентів</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -53,7 +53,7 @@
       </div>
       <div class="modal-footer">
         <button (click)="submit()" class="btn btn-danger btn-submit">Відрахувати</button>
-        <button (click)="modal.hide()" class="btn btn-outline-info">Скасувати</button>
+        <button (click)="hideModal()" class="btn btn-outline-info">Скасувати</button>
       </div>
     </div>
   </div>
