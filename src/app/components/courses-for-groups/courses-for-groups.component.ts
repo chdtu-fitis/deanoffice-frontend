@@ -69,18 +69,27 @@ export class CoursesForGroupsComponent implements OnInit {
 
   changeCoursesForDelete(event) {
     this.coursesForDelete = event;
-    console.log(this.coursesForDelete);
   }
 
   deleteCoursesFromCoursesForGroups(){
     for (let course of this.coursesForGroup){
       for (let courseForDelete of this.coursesForDelete){
-        if (course.id === courseForDelete.id){
-          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-          this.addCoursesToCoursesForGroup();
+        for (let addedCourse of this.addedCourses){
+          if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
+            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+            this.deleteCoursesIdList.push(course.id.toString());
+          }
         }
       }
     }
+    for (let course of this.addedCourses){
+      for (let courseForDelete of this.coursesForDelete){
+        if (course.id === courseForDelete.id){
+          this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+        }
+      }
+    }
+    this.child.deleteFromCoursesForGroup();
   }
 
   changeSelectedCourses(event) {
@@ -103,5 +112,4 @@ export class CoursesForGroupsComponent implements OnInit {
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {newCourses: this.addedCourses, mutableCourses: this.mutableCourses, deleteCoursesIdList: this.deleteCoursesIdList}).subscribe(() => {
     })
   }
-
 }

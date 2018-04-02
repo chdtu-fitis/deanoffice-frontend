@@ -57,4 +57,12 @@ export class AddedCoursesComponent implements OnInit {
   changeAddedCourses(){
     this.onAddedCoursesForGroup.emit(this.addedCoursesForGroup);
   }
+
+  deleteFromCoursesForGroup() {
+    for (let course of this.coursesForGroup)
+      for (let deletedCourse of this.coursesForGroupForDelete)
+        if (deletedCourse.id === course.id) {
+          this.coursesForGroup.splice(this.coursesForGroupForDelete.indexOf(deletedCourse), 1);
+        }
+  }
 }
