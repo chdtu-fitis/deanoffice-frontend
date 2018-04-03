@@ -16,6 +16,7 @@ export class StudiedCoursesComponent implements OnInit {
   @Input() searchText: string;
   selectedCourses: Course[];
   @Output() onSelectedCoursesChange = new EventEmitter();
+  @Input() loading: boolean;
 
   constructor() {
   }

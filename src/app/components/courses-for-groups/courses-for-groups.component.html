@@ -1,5 +1,8 @@
 <div class="container-fluid">
-      <div class="selection row">
+  <div *ngIf="!showPage">
+    <loading [size]="40"></loading>
+  </div>
+      <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
             <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
@@ -12,11 +15,12 @@
       </div>
       <div class="row">
         <div class="col-7 ">
-          <studied-courses [courses]="courses" [searchText]="searchText"></studied-courses>
+          <studied-courses [loading]="studiedCoursesLoading" [courses]="courses" [searchText]="searchText"></studied-courses>
         </div>
         <div class="col-5">
           <course-creation></course-creation>
         </div>
       </div>
   <added-courses></added-courses>
+
 </div>
