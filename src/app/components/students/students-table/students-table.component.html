@@ -10,9 +10,11 @@
   [messages]="{ emptyMessage: 'Дані відсутні.' }"
   [sortType]="'multi'"
   [trackByProp]="'id'"
-  [selectionType]="'multi'"
+  [selectionType]="'checkbox'"
+  [selectAllRowsOnPage]="false"
   [selected]="selected"
-  (select)="select($event)">
+  (select)="select($event)"
+  (activate)="activate($event)"
 >
 </ngx-datatable>
 

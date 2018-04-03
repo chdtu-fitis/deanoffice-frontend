@@ -13,6 +13,7 @@
           [rows]="rows"
           [selected]="selected"
           (onSelect)="onSelect($event)"
+          (onToggleSelect)="toggleSelect($event)"
         >
         </app-students-table>
       </div>
@@ -30,6 +31,27 @@
         (applyFilters)="setRows($event)">
       </app-students-filters>
       <hr />
+      <div *ngIf="selected.length === 1">
+        <button
+          class="btn btn-info w-100"
+          (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
+        >
+          Редагувати особисту інформацію
+        </button>
+        <button
+          class="btn btn-info w-100 mt-3"
+          (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
+        >
+          Редагувати навчальну інформацію
+        </button>
+      </div>
+      <button
+        *ngIf="selected.length"
+        class="btn btn-info w-100 mt-3"
+        (click)="studentExpelModal.openModal(selected)"
+      >
+        Відрахувати студентів
+      </button>
     </app-sidebar>
   </div>
 </div>
@@ -44,3 +66,19 @@
   [groups]="groups"
   (newStudent)="prependStudent($event)"
 ></app-add-student>
+
+<app-student-expel
+  (onSubmit)="onExpel($event)"
+  #studentExpelModal
+></app-student-expel>
+
+<app-student-personal-info
+  (onSubmit)="getStudents()"
+  #personalInfoModal
+></app-student-personal-info>
+
+<app-student-degree-info
+  [groups]="groups"
+  (onSubmit)="getStudents()"
+  #degreeInfoModal
+></app-student-degree-info>

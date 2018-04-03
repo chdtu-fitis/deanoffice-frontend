@@ -1,0 +1,10 @@
+<div class="students-list">
+  <div *ngFor="let student of students" class="card">
+    <div class="card-body">
+      <b>{{student.surname}} {{student.name}} {{student.patronimic}}</b>
+      <small>{{student.birthDate}}</small>
+      <small>{{student.groups}}</small>
+      <button class="close" (click)="remove(student.id)" *ngIf="students.length > 1">×</button>
+    </div>
+  </div>
+</div>
