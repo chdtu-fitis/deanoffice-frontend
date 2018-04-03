@@ -56,6 +56,15 @@ export class StudentsComponent implements OnInit {
     this.selected.push(...students);
   }
 
+  toggleSelect(student: StudentDegree) {
+    const index = this.selected.findIndex(entry => entry.id === student.id);
+    if (index > -1) {
+      this.selected.splice(index, 1);
+    } else {
+      this.onSelect([...this.selected, student]);
+    }
+  }
+
   getStudents() {
     const stream = this.isAllDataLoaded
       ? this.studentService.getStudents()
@@ -64,5 +73,10 @@ export class StudentsComponent implements OnInit {
       this.students = students;
       this.rows = students;
     });
+  }
+
+  onExpel(ids) {
+    this.selected = this.selected.filter(degree => !ids.includes(degree.id));
+    this.getStudents();
   }
 }

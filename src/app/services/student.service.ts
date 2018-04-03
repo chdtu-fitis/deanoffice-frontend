@@ -28,6 +28,10 @@ export class StudentService {
     return this.http.get(`${this.url}/${id}/photo`, { responseType: 'blob' });
   }
 
+  getDegreesByStudentId(id: number): Observable<StudentDegree> {
+    return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
+  }
+
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
       ? { params: { new_student: 'true' }}
@@ -50,7 +54,15 @@ export class StudentService {
     return this.http.put<Student>(`${this.url}/`, student);
   }
 
+  updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]) {
+    return this.http.put(`${this.url}/${id}/degrees/`, degrees);
+  }
+
   updatePhoto(id: number, photo) {
     return this.http.put(`${this.url}/${id}/photo`, photo);
   }
+  expelStudents(studentDegrees: any[]) {
+    return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
+  }
+
 }

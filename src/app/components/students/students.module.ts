@@ -15,6 +15,9 @@ import {StudentPersonalInfoComponent} from './student-personal-info/student-pers
 import {StudentsFiltersComponent} from './students-filters/students-filters.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
 import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
+import {StudentExpelComponent} from './student-expel/student-expel.component';
+import {StudentsListComponent} from './students-list/students-list.component';
+import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-info.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +28,11 @@ import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
     StudentTypeaheadComponent,
     StudentsFiltersComponent,
     StudentsSearchComponent,
+    StudentExpelComponent,
+    StudentsListComponent,
     StudentPersonalInfoComponent,
     PhotoUploadComponent,
+    StudentDegreeInfoComponent,
   ],
   imports: [
     CommonModule,
