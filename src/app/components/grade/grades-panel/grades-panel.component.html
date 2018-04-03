@@ -34,7 +34,7 @@
 <div class="groups">
     <div *ngIf="groups" class="list-group">
         <button *ngFor="let group of groups" class="list-group-item list-group-item-action"
-                [class.active]="selectGroup === group"
+                [class.active]="selectGroup.id === group.id"
                 (click)="getSelectGroup(group)">
             {{ group.name }}
         </button>

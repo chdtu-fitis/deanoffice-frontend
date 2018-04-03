@@ -4,10 +4,13 @@
             <div class="card-body" *ngIf="selectGroup">
                 Группа: {{selectGroup?.name}}
                 Семестр: {{ selectSemester }}
-                <button class="btn btn-success" *ngIf="insertGradesList.length">Додати оцiнки</button>
+                <button class="btn btn-success float-right"
+                        *ngIf="insertEmptyGradesList.length"
+                        (click)="addEmtyGrades()">Заповнити нулями
+                </button>
             </div>
 
-            <ng-container *ngIf="errorsMessage.length">
+            <ng-container *ngIf="errorsMessage.length && loading">
                 <div class="alert alert-danger" *ngFor="let error of errorsMessage" role="alert">
                     {{ error }}
                 </div>
@@ -16,7 +19,7 @@
             <div class="alert alert-primary" role="alert" *ngIf="!loading && !selectGroup">
                 Оберiть группу
             </div>
-            <grades-table [students]="students" [courses]="courses"></grades-table>
+            <grades-table [studentsDegree]="studentsDegree" [courses]="courses"></grades-table>
         </div>
 
         <app-sidebar class="sidebar">

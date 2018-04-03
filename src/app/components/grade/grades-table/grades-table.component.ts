@@ -6,7 +6,7 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./grades-table.component.scss']
 })
 export class GradesTableComponent implements OnInit {
-  @Input() students;
+  @Input() studentsDegree;
   @Input() courses;
   constructor() { }
 

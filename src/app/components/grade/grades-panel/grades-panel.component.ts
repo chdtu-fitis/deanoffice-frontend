@@ -15,7 +15,7 @@ export class GradesPanelComponent {
     selectSemester = 1;
 
     getSelectGroup(group) {
-        if (this.selectGroup === group) return;
+        if (this.selectGroup.id === group.id) return;
         this.studySemesters = group.studySemesters;
         this.selectGroup = group;
         if (this.autoSemesterSelect) this.selectSemester = this.getCurrentSemester(this.selectGroup.creationYear);

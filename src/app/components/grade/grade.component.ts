@@ -18,10 +18,10 @@ export class GradeComponent implements OnInit {
     selectGroup: StudentGroup;
     selectSemester = 1;
     courses: any = [];
-    students: any = [];
+    studentsDegree: any = [];
     loading = false;
     errorsMessage = [];
-    insertGradesList = [];
+    insertEmptyGradesList = [];
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
@@ -69,7 +69,7 @@ export class GradeComponent implements OnInit {
                         course: {
                             id: courses[w].course.id
                         },
-                        student: {
+                        studentDegree: {
                             id: students[q].id
                         }
                     });
@@ -87,10 +87,11 @@ export class GradeComponent implements OnInit {
                 this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
                     this.checkForErrorsAfterQueryingDataFetches(courses, students, grades);
                     const joinGrades = this.joinGradesForStudents(grades, students, courses);
-                    this.students = joinGrades.studentsTemp || [];
-                    this.insertGradesList = joinGrades.emptyGrades || [];
+                    this.studentsDegree = joinGrades.studentsTemp || [];
+                    this.insertEmptyGradesList = joinGrades.emptyGrades || [];
                     this.courses = courses || [];
                     this.loading = true;
+                    console.log(this.studentsDegree);
                 });
             });
         });
@@ -111,6 +112,10 @@ export class GradeComponent implements OnInit {
                 this.errorsMessage.push('Не знайдено студентів в обраній групі.');
             }
         }
+    }
+
+    addEmtyGrades() {
+        console.log(this.insertEmptyGradesList);
     }
 
 }
