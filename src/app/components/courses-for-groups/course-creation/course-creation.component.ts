@@ -16,7 +16,9 @@ export class CourseCreationComponent implements OnInit {
   course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
   form;
-
+  success = false;
+  failCreated = undefined;
+  fail = undefined;
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
     this.course.hoursPerCredit = 30;
   }
@@ -45,7 +47,21 @@ export class CourseCreationComponent implements OnInit {
   createCourse(){
     this.setCredits();
     console.dir(this.course);
-    this.courseService.createCourse(this.course).subscribe(() => {
+    this.courseService.createCourse(this.course).subscribe(res => {
+      this.success = true;
+      this.failCreated = false;
+      this.fail = false
+    },
+        error => {
+      console.log(error)
+      if (error.status === 422) {
+        this.failCreated = true;
+        this.success = false;
+      }
+      else {
+        this.success = false;
+        this.fail = true;
+      }
     })
   }
 

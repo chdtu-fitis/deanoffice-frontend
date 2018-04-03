@@ -32,12 +32,14 @@
         <button class="btn btn-success" (click)="createCourse()">Створити</button>
       </div>
     </div>
-    <!--<div *ngIf="courseName.errors.required || kc.errors.required || semester.errors.required || hours.errors.required" class="row">-->
-      <!--<div class="col">-->
-        <!--<div class="alert alert-danger" role="alert">-->
-          <!--Всі поля мають бути заповнені-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
+    <div *ngIf="success" class="alert alert-success">
+      Створено
+    </div>
+    <div *ngIf="failCreated" class="alert alert-danger">
+      Такий предмет вже створено
+    </div>
+    <div *ngIf="fail" class="alert alert-danger">
+      Невідома помилка
+    </div>
   </div>
 </div>
