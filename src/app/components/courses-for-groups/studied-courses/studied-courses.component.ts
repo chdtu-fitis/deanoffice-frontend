@@ -23,8 +23,7 @@ export class StudiedCoursesComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: Course, index: number) {
-    console.log(index);
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
     if (!checked) {
       for (let course of this.selectedCourses)
         if (course.id === selectedCourse.id) {
@@ -35,6 +34,5 @@ export class StudiedCoursesComponent implements OnInit {
       this.selectedCourses.push(selectedCourse)
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
-    console.log(this.selectedCourses);
   }
 }

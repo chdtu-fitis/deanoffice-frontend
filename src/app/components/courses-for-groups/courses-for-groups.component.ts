@@ -22,7 +22,7 @@ export class CoursesForGroupsComponent implements OnInit {
   coursesForAdd: CourseForGroup[] = [];
   addedCourses: CourseForGroup[] = [];
   coursesForDelete: CourseForGroup[] = [];
-  mutableCourses: CourseForGroup[] = [];
+  updatedCourses: CourseForGroup[] = [];
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
@@ -112,10 +112,18 @@ export class CoursesForGroupsComponent implements OnInit {
   createCoursesForGroup() {
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
       newCourses: this.addedCourses,
-      mutableCourses: this.mutableCourses,
+      updatedCourses: this.updatedCourses,
       deleteCoursesIdList: this.deleteCoursesIdList
     }).subscribe(() => {
     });
     this.onSemesterChange();
   }
+
+  canselChanges(){
+    this.deleteCoursesIdList = [];
+    this.addedCourses = [];
+    this.updatedCourses = [];
+    this.onSemesterChange();
+  }
+
 }
