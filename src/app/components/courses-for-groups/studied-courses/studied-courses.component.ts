@@ -14,7 +14,7 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
 export class StudiedCoursesComponent implements OnInit {
   @Input() courses: Course[];
   @Input() searchText: string;
-  selectedCourses: Course[];
+  selectedCourses: Course[] = [];
   @Output() onSelectedCoursesChange = new EventEmitter();
   @Input() loading: boolean;
 
@@ -24,17 +24,16 @@ export class StudiedCoursesComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: Course, index: number) {
-    if (!checked){
-      for (let course of this.selectedCourses){
-        if (course.id === selectedCourse.id){}
-          this.selectedCourses.splice(index);
-      }
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
+    if (!checked) {
+      for (let course of this.selectedCourses)
+        if (course.id === selectedCourse.id) {
+          this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
+        }
     }
     else {
       this.selectedCourses.push(selectedCourse)
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
-
 }

@@ -4,9 +4,11 @@
   </div>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
+          Група:
           <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
             <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
           </select>
+          Семестр:
           <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
             <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
           </select>
@@ -15,12 +17,15 @@
       </div>
       <div class="row">
         <div class="col-7 ">
-          <studied-courses [loading]="studiedCoursesLoading" [courses]="courses" [searchText]="searchText"></studied-courses>
+          <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
         </div>
         <div class="col-5">
           <course-creation></course-creation>
         </div>
       </div>
-  <added-courses></added-courses>
-
+  <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
+  <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
+  <added-courses (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" (onAddedCoursesForGroup)="changeAddedCourses($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
+  <button type="button" class="btn btn-danger" (click)="cancelChanges()">Відмінити зміни</button>
 </div>
