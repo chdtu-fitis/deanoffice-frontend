@@ -55,6 +55,7 @@ export class CoursesForGroupsComponent implements OnInit {
         this.courses = cfg;
       })
     }
+    console.log(this.child.selectedSemester);
     this.child.getCoursesForGroup();
   }
 
@@ -79,13 +80,9 @@ export class CoursesForGroupsComponent implements OnInit {
             this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
             this.deleteCoursesIdList.push(course.id.toString());
           }
-        }
-      }
-    }
-    for (let course of this.addedCourses){
-      for (let courseForDelete of this.coursesForDelete){
-        if (course.id === courseForDelete.id){
-          this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+          else {
+            this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+          }
         }
       }
     }
@@ -108,8 +105,13 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
   }
 
-  createCoursesForGroup(){
-    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {newCourses: this.addedCourses, mutableCourses: this.mutableCourses, deleteCoursesIdList: this.deleteCoursesIdList}).subscribe(() => {
-    })
+  createCoursesForGroup() {
+    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
+      newCourses: this.addedCourses,
+      mutableCourses: this.mutableCourses,
+      deleteCoursesIdList: this.deleteCoursesIdList
+    }).subscribe(() => {
+    });
+    this.onSemesterChange();
   }
 }

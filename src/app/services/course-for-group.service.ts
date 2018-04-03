@@ -21,6 +21,6 @@ export class CourseForGroupService {
   }
 
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
-    return this.http.get<CourseForGroup[]>(`${this.url}/courses/groups/${groupId}?semester=${semester}`);
+    return this.http.get<CourseForGroup[]>(`${this.url}/groups/${groupId}/courses?semester=${semester}`);
   }
 }

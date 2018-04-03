@@ -27,7 +27,7 @@ export class AddedCoursesComponent implements OnInit {
   ngOnInit() {}
 
   getCoursesForGroup() {
-    this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedSemester, this.selectedGroup).subscribe(courses => {
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.selectedSemester).subscribe(courses => {
       this.coursesForGroup = courses;
       console.log(this.coursesForGroup);
     })
@@ -40,12 +40,11 @@ export class AddedCoursesComponent implements OnInit {
     }
   }
 
-  changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup, index: number){
+  changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
     if (!checked) {
       for (let course of this.coursesForGroupForDelete)
         if (course.id === selectedCourse.id) {
           this.coursesForGroupForDelete.splice(this.coursesForGroupForDelete.indexOf(course), 1);
-          this.addedCoursesForGroup.splice(this.addedCoursesForGroup.indexOf(course), 1);
         }
     }
     else {
@@ -59,10 +58,12 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   deleteFromCoursesForGroup() {
-    for (let course of this.coursesForGroup)
-      for (let deletedCourse of this.coursesForGroupForDelete)
+    for (let course of this.coursesForGroup){
+      for (let deletedCourse of this.coursesForGroupForDelete){
         if (deletedCourse.id === course.id) {
-          this.coursesForGroup.splice(this.coursesForGroupForDelete.indexOf(deletedCourse), 1);
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
         }
+      }
+    }
   }
 }
