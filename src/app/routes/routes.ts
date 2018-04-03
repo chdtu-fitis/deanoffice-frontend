@@ -8,13 +8,10 @@ import {CoursesForGroupsModule} from "../components/courses-for-groups/courses-f
 import {CoursesForGroupsComponent} from "../components/courses-for-groups/courses-for-groups.component";
 
 const routes: Routes = [
-  {path: 'diplsuppl', component: DiplomaSupplementComponent, pathMatch: 'full'},
+  {path: 'diploma-supplement', component: DiplomaSupplementComponent, pathMatch: 'full'},
   {path: 'examreport', component: ExamReportComponent, pathMatch: 'full'},
-  {path: 'test', component: GridComponent, pathMatch: 'full'},
   {path: 'students', component: StudentsComponent},
-  {path: '', component: DiplomaSupplementComponent, pathMatch: 'full'},
   {path: 'courses-for-groups', component: CoursesForGroupsComponent}
-
 ];
 
 @NgModule({

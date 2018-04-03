@@ -28,13 +28,15 @@ export class CoursesForGroupsComponent implements OnInit {
   coursesForGroup: CourseForGroup[] = [];
   deleteCoursesIds: number[] = [];
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
+  studiedCoursesLoading = false;
+  showPage = false;
 
-  constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {
-  }
+  constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
 
   ngOnInit() {
     this.groupService.getGroupsByFaculty().subscribe(groups => {
       this.groups = groups;
+      this.showPage = true;
     })
   }
 
@@ -53,9 +55,11 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   onSemesterChange(){
+    this.studiedCoursesLoading = true;
     if (this.selectedSemester) {
       this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
+        this.studiedCoursesLoading = false;
       })
     }
     setTimeout(() => {
