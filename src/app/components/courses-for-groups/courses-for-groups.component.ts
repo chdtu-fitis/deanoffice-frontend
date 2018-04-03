@@ -47,6 +47,9 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onGroupChange(){
     this.changeSemesters();
+    setTimeout(() => {
+      this.child.getCoursesForGroup();
+    }, 0);
   }
 
   onSemesterChange(){
@@ -55,8 +58,9 @@ export class CoursesForGroupsComponent implements OnInit {
         this.courses = cfg;
       })
     }
-    console.log(this.child.selectedSemester);
-    this.child.getCoursesForGroup();
+    setTimeout(() => {
+      this.child.getCoursesForGroup();
+    }, 0);
   }
 
   private addSelectedCoursesToCoursesForGroup () {
