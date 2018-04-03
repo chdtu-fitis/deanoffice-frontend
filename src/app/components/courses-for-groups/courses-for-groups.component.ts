@@ -20,12 +20,14 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedCourses: Course[];
   searchText = '';
   studiedCoursesLoading = false;
+  showPage = false;
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
 
   ngOnInit() {
     this.groupService.getGroupsByFaculty().subscribe(groups => {
       this.groups = groups;
+      this.showPage = true;
     })
   }
 
