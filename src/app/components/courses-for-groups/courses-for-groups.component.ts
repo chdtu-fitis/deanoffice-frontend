@@ -26,7 +26,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedCourses: Course[];
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
-  deleteCoursesIds: String[] = [];
+  deleteCoursesIds: number[] = [];
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
 
   constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {
@@ -73,8 +73,9 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   changeCoursesForGroup(event){
-    this.coursesForGroup.push(event);
-    console.log(this.coursesForGroup);
+    for(let i = 0; i<event.length; i++){
+      this.coursesForGroup.push(event[i])
+    }
   }
 
   changeCoursesForDelete(event) {
@@ -83,19 +84,25 @@ export class CoursesForGroupsComponent implements OnInit {
 
   deleteCoursesFromCoursesForGroups(){
     for (let course of this.coursesForGroup){
+      this.deleteCoursesIds.push(course.id);
       for (let courseForDelete of this.coursesForDelete){
-        for (let addedCourse of this.addedCourses){
-          if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-            this.deleteCoursesIds.push(course.id.toString());
+        if (this.addedCourses.length>0)
+          for (let addedCourse of this.addedCourses){
+            if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
+              this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+            }
+            else {
+              this.deleteCoursesIds.splice(this.coursesForGroup.indexOf(course), 1);
+              this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+            }
           }
-          else {
-            this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
-          }
+        else {
+          this.deleteCoursesIds.splice(this.coursesForGroup.indexOf(course), 1);
+          this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
         }
       }
     }
-    console.log(this.coursesForGroup);
+    console.log(this.deleteCoursesIds);
     this.child.deleteFromCoursesForGroup();
   }
 
@@ -116,25 +123,25 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   saveCoursesForGroup() {
-    let newCourses;
-    let updatedCourses;
+    let newCourses = [];
+    let updatedCourses = [];
     for (let newCourse of this.addedCourses){
-      newCourses = {course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate}
+      newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate})
     }
     for (let updateCourse of this.updatedCourses){
-      updatedCourses = {id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, dateOfExam: updateCourse.examDate}
+      updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, dateOfExam: updateCourse.examDate})
     }
-    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
-      newCourses: newCourses,
-      updatedCourses: updatedCourses,
-      deleteCoursesIds: this.deleteCoursesIds
-    }).subscribe(() => {
-    });
+    // this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
+    //   newCourses: newCourses,
+    //   updatedCourses: updatedCourses,
+    //   deleteCoursesIds: this.deleteCoursesIds
+    // }).subscribe(() => {
+    // });
     console.log(this.addedCourses, this.updatedCourses, this.deleteCoursesIds);
     this.onSemesterChange();
   }
 
-  canselChanges(){
+  cancelChanges(){
     this.deleteCoursesIds = [];
     this.addedCourses = [];
     this.updatedCourses = [];

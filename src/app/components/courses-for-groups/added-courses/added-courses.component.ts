@@ -29,8 +29,8 @@ export class AddedCoursesComponent implements OnInit {
   getCoursesForGroup() {
     this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.selectedSemester).subscribe(courses => {
       this.coursesForGroup = courses;
+      this.onCoursesForGroup.emit(this.coursesForGroup);
     });
-    this.onCoursesForGroup.emit(this.coursesForGroup);
   }
 
   addNewCoursesForGroup(){

@@ -17,7 +17,7 @@ export class CourseForGroupService {
   }
 
   createCoursesForGroup(groupId, body) {
-    return this.http.post(`${this.url}/coursesForGroup/${groupId}`, body);
+    return this.http.post(`${this.url}/groups/${groupId}/courses`, body);
   }
 
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
