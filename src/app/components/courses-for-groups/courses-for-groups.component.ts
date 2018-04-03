@@ -83,26 +83,26 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   deleteCoursesFromCoursesForGroups(){
+    console.log(this.coursesForDelete);
     for (let course of this.coursesForGroup){
-      this.deleteCoursesIds.push(course.id);
-      for (let courseForDelete of this.coursesForDelete){
-        if (this.addedCourses.length>0)
-          for (let addedCourse of this.addedCourses){
-            if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
-              this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+      if (this.coursesForGroup.length>0)
+        for (let courseForDelete of this.coursesForDelete){
+          if (this.addedCourses.length>0)
+            for (let addedCourse of this.addedCourses){
+              if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
+                this.deleteCoursesIds.push(course.id);
+                this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+              }
+              else {
+                this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+              }
             }
-            else {
-              this.deleteCoursesIds.splice(this.coursesForGroup.indexOf(course), 1);
-              this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
-            }
+          else if (course.id === courseForDelete.id){
+            this.deleteCoursesIds.push(course.id);
+            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
           }
-        else {
-          this.deleteCoursesIds.splice(this.coursesForGroup.indexOf(course), 1);
-          this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
         }
-      }
     }
-    console.log(this.deleteCoursesIds);
     this.child.deleteFromCoursesForGroup();
   }
 
