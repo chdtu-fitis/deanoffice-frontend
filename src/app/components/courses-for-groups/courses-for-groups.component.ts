@@ -19,13 +19,15 @@ export class CoursesForGroupsComponent implements OnInit {
   courses: Course[];
   selectedCourses: Course[];
   searchText = '';
-
+  studiedCoursesLoading = false;
+  showPage = false;
   constructor(private courseForGroupService: CourseService, private groupService: GroupService) {
   }
 
   ngOnInit() {
     this.groupService.getGroupsByFaculty().subscribe(groups => {
       this.groups = groups;
+      this.showPage = true;
     })
   }
 
@@ -41,9 +43,11 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   onSemesterChange(){
+    this.studiedCoursesLoading = true;
     if (this.selectedSemester) {
       this.courseForGroupService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
+        this.studiedCoursesLoading = false;
       })
     }
   }
