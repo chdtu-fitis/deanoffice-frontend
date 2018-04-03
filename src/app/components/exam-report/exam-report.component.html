@@ -3,7 +3,7 @@
   <div class="select-container">
     <div class="select-wraper">
       <div class="form-group">
-        <h3>Ступінь</h3>
+        <h4>Ступінь</h4>
         <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
           <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
         </select>
@@ -11,40 +11,39 @@
     </div>
 
     <div class="select-wraper">
-      <h3>Курс</h3>
-      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+      <h4>Курс</h4>
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years">
         <option  [ngValue]="i" *ngFor="let i of years">{{i}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
-      <h3>Група</h3>
+      <h4>Група</h4>
       <select id="cmbGroup" [(ngModel)]="currentGroup" class="cmbGroup" (change)="onSemesterOrGroupChange()">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
 
     <div class="select-wraper">
-      <h3>Семестр</h3>
-      <select [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()" class="form-control">
+      <h4>Семестр</h4>
+      <select [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()" >
         <option [ngValue]="i" *ngFor="let i of semesters">{{i}}</option>
       </select>
     </div>
   </div>
 
   <div class="wrapp">
-    <h2>Список предметів</h2>
+    <h4>Список предметів</h4>
     <div class="table-wrapper">
-
       <table class="main-table">
         <thead>
         <tr>
           <td>№</td>
           <td>
-            <input type="checkbox" name="">
+            <input type="checkbox" [(ngModel)]="coursesSelected" (click)="onSelectAllCourses($event.target.checked)" checked>
           </td>
           <td>Назва предмету</td>
-          <td>Вид іспиту</td>
+          <td>Семестровий контроль</td>
           <td>Годин</td>
           <td>Викладач</td>
         </tr>
@@ -54,12 +53,12 @@
         <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
           <td>{{i+1}}</td>
           <td>
-            <input type="checkbox" name="">
+            <input type="checkbox" [(ngModel)]="courseForGroup.selected">
           </td>
           <td>{{courseForGroup.course.courseName.name}}</td>
-          <td>Залік</td>
-          <td>124</td>
-          <td>Викладач</td>
+          <td>{{courseForGroup.course.knowledgeControl.name}}</td>
+          <td>{{courseForGroup.course.hours}}</td>
+          <td>{{courseForGroup.teacher?.surname}}</td>
         </tr>
 
         </tbody>
@@ -68,7 +67,7 @@
   </div>
 
   <div class="wrapp-2">
-    <h2>Список студентів</h2>
+    <h4>Список студентів</h4>
     <div class="table-wrapper-2">
       <table class="student-table">
         <thead>
@@ -77,7 +76,6 @@
           <td>Прізвище</td>
           <td>Ім'я</td>
           <td>По батькові</td>
-          <td>Заліковка</td>
         </tr>
         </thead>
         <tbody>
@@ -93,5 +91,5 @@
   </div>
 
   <button>Вибрати всі предмети</button>
-  <button>Сформувати відомість</button>
+  <button (click)="onExamReportForm()">Сформувати відомість</button>
 </div>
