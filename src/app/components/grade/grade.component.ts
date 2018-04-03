@@ -50,15 +50,15 @@ export class GradeComponent implements OnInit {
     joinGradesForStudents(grades: any, students: any, courses: any) {
         const studentsTemp = [];
         const emptyGrades = [];
-        for (let q = 0; q < students.length; q++) {
-            const student = students[q];
+        for (const studentDegree of students) {
+            const student = studentDegree;
             student.grades = [];
-            for (let w = 0; w < courses.length; w++) {
+            for (const course of courses) {
                 let check = false;
-                for (let e = 0; e < grades.length; e++) {
-                    if (students[q].id === grades[e].student.id && grades[e].course.id === courses[w].course.id) {
+                for (const grade of grades) {
+                    if (studentDegree.id === grade.student.id && grade.course.id === course.course.id) {
                         check = true;
-                        student.grades.push(grades[e]);
+                        student.grades.push(grade);
                         break;
                     }
                 }
@@ -67,10 +67,10 @@ export class GradeComponent implements OnInit {
                     emptyGrades.push({
                         points: 0,
                         course: {
-                            id: courses[w].course.id
+                            id: course.course.id
                         },
                         studentDegree: {
-                            id: students[q].id
+                            id: studentDegree.id
                         }
                     });
                 }
