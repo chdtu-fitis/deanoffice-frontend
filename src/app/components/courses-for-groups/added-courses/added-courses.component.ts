@@ -26,6 +26,10 @@ export class AddedCoursesComponent implements OnInit {
 
   ngOnInit() {}
 
+  parseToDate(){
+
+  }
+
   getCoursesForGroup() {
     this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.selectedSemester).subscribe(courses => {
       this.coursesForGroup = courses;
@@ -37,6 +41,7 @@ export class AddedCoursesComponent implements OnInit {
     for (let courseForGroup of this.selectedCoursesForGroups) {
       this.coursesForGroup.push(courseForGroup);
       this.addedCoursesForGroup.push(courseForGroup);
+      this.changeAddedCourses();
     }
   }
 

@@ -135,12 +135,12 @@ export class CoursesForGroupsComponent implements OnInit {
     for (let updateCourse of this.updatedCourses){
       updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, dateOfExam: updateCourse.examDate})
     }
-    // this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
-    //   newCourses: newCourses,
-    //   updatedCourses: updatedCourses,
-    //   deleteCoursesIds: this.deleteCoursesIds
-    // }).subscribe(() => {
-    // });
+    this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
+      newCourses: newCourses,
+      updatedCourses: updatedCourses,
+      deleteCoursesIds: this.deleteCoursesIds
+    }).subscribe(() => {
+    });
     console.log(this.addedCourses, this.updatedCourses, this.deleteCoursesIds);
     this.onSemesterChange();
   }
