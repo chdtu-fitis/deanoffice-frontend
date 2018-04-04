@@ -91,12 +91,16 @@ export class ExamReportComponent implements OnInit {
     }
   }
 
-  onExamReportForm(): void {
+  onExamReportBuild(): void {
     for (var courseForGroup of this.coursesForGroup) {
       if (courseForGroup.selected){
         this.examReportService.buildExamReport(this.currentGroup.id, courseForGroup.course.id);
       }
     }
+  }
+
+  onExamReportJournalBuild(): void {
+      this.examReportService.buildExamReportJournalDoc(this.currentGroup.id, (this.selectedYear-1)*2+this.selectedSemester);
   }
 
   setInitialSemester(): void {

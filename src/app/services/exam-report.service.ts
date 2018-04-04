@@ -11,4 +11,9 @@ export class ExamReportService {
       const url = `${this.documentsUrl}/exam-report/groups/${groupId}/courses/${courseId}/docx`;
       window.open(url, '_blank');
   }
+
+  buildExamReportJournalDoc(groupId: number, semester: number): void {
+    const url = `${this.documentsUrl}/coursereport/groups/${groupId}/${semester}`;
+    window.open(url, '_blank');
+  }
 }
