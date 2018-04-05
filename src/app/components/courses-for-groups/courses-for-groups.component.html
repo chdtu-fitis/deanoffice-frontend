@@ -3,20 +3,24 @@
     <loading [size]="40"></loading>
   </div>
       <div *ngIf="showPage" class="selection row">
-        <div class="col-1 col-name">Група:</div>
-        <div class="col-1">
-          <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedGroup" (change)="onGroupChange()">
-            <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-          </select>
-        </div>
-        <div class="col-1 col-name">Семестр:</div>
-        <div class="col-1">
-          <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
-            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-          </select>
-        </div>
-        <div class="col-3">
-          <input [(ngModel)]="searchText" placeholder="Пошук за предметом..." class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+        <div class="col-7">
+          <div class="row">
+            <div class="col-1 col-name">Група:</div>
+            <div class="col-3">
+              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedGroup" (change)="onGroupChange()">
+                <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+              </select>
+            </div>
+            <div class="col-1 col-name-semester">Семестр:</div>
+            <div class="col-2">
+              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
+                <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+              </select>
+            </div>
+            <div class="col-5">
+              <input [(ngModel)]="searchText" placeholder="Пошук за предметом..." class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+            </div>
+          </div>
         </div>
       </div>
       <div class="row">

@@ -26,8 +26,8 @@ export class AddedCoursesComponent implements OnInit {
 
   ngOnInit() {}
 
-  parseToDate(){
-
+  parseToDate(timestamp: number) {
+    return new Date(timestamp)
   }
 
   getCoursesForGroup() {

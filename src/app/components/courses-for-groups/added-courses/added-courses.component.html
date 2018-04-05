@@ -18,7 +18,7 @@
         <td>{{ course.course.knowledgeControl.name}}</td>
         <td>{{ course.course.hours }}</td>
         <td>{{ course.teacher.surname }} {{ course.teacher.name.substring(0, 1) + ". " }} {{ course.teacher.patronimic.substring(0, 1) + ". " }}</td>
-        <td>{{ course.examDate }}</td>
+        <td>{{ parseToDate(course.examDate) }}</td>
       </tr>
     </table>
   </div>
