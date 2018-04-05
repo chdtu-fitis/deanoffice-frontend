@@ -27,7 +27,18 @@ export class AddedCoursesComponent implements OnInit {
   ngOnInit() {}
 
   parseToDate(timestamp: number) {
-    return new Date(timestamp)
+    if (timestamp==0||timestamp==undefined||timestamp==null) return "";
+    else {
+      let date = new Date(timestamp);
+      let month = '' + (date.getMonth() + 1);
+      let day = '' + date.getDate();
+      let year = date.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [day, month, year].join('.');
+    }
   }
 
   getCoursesForGroup() {
