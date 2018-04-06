@@ -20,7 +20,6 @@ export class AddedCoursesComponent implements OnInit {
   @Input() selectedSemester: number;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
-  @Output() onAddedCoursesForGroup = new EventEmitter();
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -41,6 +40,13 @@ export class AddedCoursesComponent implements OnInit {
     }
   }
 
+  getNameWithInitials(surname: String, name:String, patronimic:String){
+    if (surname==""||surname==undefined||surname==null) return "";
+    else if (name==""||name==undefined||name==null) return new String(surname);
+    else if (patronimic==""||patronimic==undefined||patronimic==null) return new String (surname+" "+name.substring(0, 1)+".");
+    else return new String (surname+" "+name.substring(0, 1)+". "+patronimic.substring(0,1)+".");
+  }
+
   getCoursesForGroup() {
     this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.selectedSemester).subscribe(courses => {
       this.coursesForGroup = courses;
@@ -52,7 +58,6 @@ export class AddedCoursesComponent implements OnInit {
     for (let courseForGroup of this.selectedCoursesForGroups) {
       this.coursesForGroup.push(courseForGroup);
       this.addedCoursesForGroup.push(courseForGroup);
-      this.changeAddedCourses();
     }
   }
 
@@ -67,10 +72,6 @@ export class AddedCoursesComponent implements OnInit {
       this.coursesForGroupForDelete.push(selectedCourse);
     }
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
-  }
-
-  changeAddedCourses(){
-    this.onAddedCoursesForGroup.emit(this.addedCoursesForGroup);
   }
 
   deleteFromCoursesForGroup() {

@@ -20,7 +20,6 @@ export class CoursesForGroupsComponent implements OnInit {
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
-  addedCourses: CourseForGroup[] = [];
   coursesForDelete: CourseForGroup[] = [];
   updatedCourses: CourseForGroup[] = [];
   selectedCourses: Course[];
@@ -91,14 +90,14 @@ export class CoursesForGroupsComponent implements OnInit {
     for (let course of this.coursesForGroup){
       if (this.coursesForGroup.length>0)
         for (let courseForDelete of this.coursesForDelete){
-          if (this.addedCourses.length>0)
-            for (let addedCourse of this.addedCourses){
+          if (this.coursesForAdd.length>0)
+            for (let addedCourse of this.coursesForAdd){
               if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
                 this.deleteCoursesIds.push(course.id);
                 this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
               }
               else {
-                this.addedCourses.splice(this.coursesForGroup.indexOf(course), 1);
+                this.coursesForAdd.splice(this.coursesForGroup.indexOf(course), 1);
               }
             }
           else if (course.id === courseForDelete.id){
@@ -115,10 +114,6 @@ export class CoursesForGroupsComponent implements OnInit {
     this.addSelectedCoursesToCoursesForGroup();
   }
 
-  changeAddedCourses(event) {
-    this.addedCourses = event;
-  }
-
   addCoursesToCoursesForGroup() {
     this.coursesForAdd = this.coursesForGroup;
     setTimeout(() => {
@@ -129,7 +124,7 @@ export class CoursesForGroupsComponent implements OnInit {
   saveCoursesForGroup() {
     let newCourses = [];
     let updatedCourses = [];
-    for (let newCourse of this.addedCourses){
+    for (let newCourse of this.coursesForAdd){
       newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate})
     }
     for (let updateCourse of this.updatedCourses){
@@ -141,13 +136,13 @@ export class CoursesForGroupsComponent implements OnInit {
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
     });
-    console.log(this.addedCourses, this.updatedCourses, this.deleteCoursesIds);
+    console.log(this.coursesForAdd, this.updatedCourses, this.deleteCoursesIds);
     this.onSemesterChange();
   }
 
   cancelChanges(){
     this.deleteCoursesIds = [];
-    this.addedCourses = [];
+    this.coursesForAdd = [];
     this.updatedCourses = [];
     this.onSemesterChange();
   }
