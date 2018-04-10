@@ -5,11 +5,6 @@ import {StudentGroup} from '../models/StudentGroup';
 @Injectable()
 export class StudentGroupService {
 
-    constructor(private http: HttpClient) {
-    }
-
-    getGroups() {
-        return this.http.get<StudentGroup>('/coursesforgroups/groups').toPromise();
-    }
-
+  constructor(private http: HttpClient) {
+  }
 }

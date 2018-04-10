@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Degree} from "../../models/Degree";
-import {StudentGroup} from "../../models/StudentGroup";
-import {Student} from "../../models/Student";
-import {DegreeService} from "../../services/degree.service";
-import {GroupService} from "../../services/group.service";
-import {StudentService} from "../../services/student.service";
+import {Component, OnInit} from '@angular/core';
+import {Degree} from '../../models/Degree';
+import {DegreeService} from '../../services/degree.service';
+import {GroupService} from '../../services/group.service';
+import {StudentGroup} from '../../models/StudentGroup';
+import {StudentService} from '../../services/student.service';
+import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
 
 @Component({
@@ -15,32 +15,36 @@ import {DiplomaSupplementService} from "../../services/diploma-supplement.servic
 export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
-  students: Student[];
+  currentGroup: StudentGroup;
+  students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
-              private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) { }
+              private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
+  }
 
   ngOnInit() {
     this.degreeService.getDegrees()
-      .subscribe(degrees => this.degrees = degrees);
-    this.groupService.getGroupsByDegree('1')
-      .subscribe(groups => this.groups = groups);
+      .subscribe(degrees => {
+        this.degrees = degrees;
+        this.onDegreeChange('1');
+      });
   }
 
   onDegreeChange(degreeId: string): void {
     this.groupService.getGroupsByDegree(degreeId)
-      .subscribe(groups => this.groups = groups);
+      .subscribe(groups => {
+        this.groups = groups;
+        this.onGroupChange(this.groups[0].id.toString());
+      });
   }
 
   onGroupChange(groupId: string): void {
-    this.groupService.getGroupStudents(groupId)
-      .subscribe(students => {this.students = students;
-                              for (var student of this.students) {student.selected = true;}
-                              this.studentsSelected = true;
-      });
-
+    this.currentGroup = this.groups.find(x => x.id == Number(groupId));
+    this.students = this.currentGroup.studentDegrees;
+    for (var student of this.students) {student.selected = true;}
+    this.studentsSelected = true;
   }
 
   onSelectAllStudents(checked: boolean): void {
@@ -56,5 +60,10 @@ export class DiplomaSupplementComponent implements OnInit {
         this.diplomaSupplementService.buildDiplomaSupplement(""+student.id);
       }
     }
+  }
+
+  onFormGradePercent(): void {
+    this.message = "";
+    this.diplomaSupplementService.buildGradePercent(""+this.currentGroup.id);
   }
 }

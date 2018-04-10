@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-header">
+    Створити предмет
+  </div>
+  <div class="creation-form">
+    <div class="row">
+      <div class="form-group col">
+        <input name="name" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.courseName.name" placeholder="Назва">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-2">
+        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.hours"  placeholder="Годин" >
+      </div>
+      <div class="form-group col-3">
+        <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.semester"  placeholder="Семестр" >
+      </div>
+      <div class="form-group col-3">
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="course.hoursPerCredit">
+          <option [ngValue]="30">30</option>
+          <option [ngValue]="36">36</option>
+        </select>
+      </div>
+      <div class="form-group col-4">
+        <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.knowledgeControl">
+          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-success" (click)="createCourse()">Створити</button>
+      </div>
+    </div>
+    <div *ngIf="success" class="alert alert-success">
+      Створено
+    </div>
+    <div *ngIf="failCreated" class="alert alert-danger">
+      Такий предмет вже створено
+    </div>
+    <div *ngIf="fail" class="alert alert-danger">
+      Невідома помилка
+    </div>
+  </div>
+</div>

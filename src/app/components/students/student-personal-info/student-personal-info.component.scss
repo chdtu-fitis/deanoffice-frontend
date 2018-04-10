@@ -1,0 +1,20 @@
+.modal-dialog {
+  max-width: 90%;
+  width: 1000px;
+}
+
+h6 {
+  position: relative;
+  overflow: hidden;
+
+  &:after {
+    position: absolute;
+    top: 51%;
+    overflow: hidden;
+    width: 100%;
+    height: 1px;
+    content: '';
+    background-color: #aaa;
+    margin-left: 10px;
+  }
+}

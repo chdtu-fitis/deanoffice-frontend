@@ -4,18 +4,16 @@ import {Degree} from '../models/Degree';
 import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
 import {handleErrorForObservable} from './httpErrors';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class DegreeService {
-    private degreesUrl = 'http://localhost:8080/degrees';
-
-    constructor(private http: HttpClient) {
-    }
+  private degreesUrl = `${environment.apiUrl}/degrees`;
 
     getDegrees(): Observable<Degree[]> {
         return this.http.get<Degree[]>(this.degreesUrl)
-            .pipe(
-                catchError(handleErrorForObservable('getDegrees', []))
-            );
+            .pipe(catchError(handleErrorForObservable('getDegrees', [])));
     }
+  constructor(private http: HttpClient) {
+  }
 }

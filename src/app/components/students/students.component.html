@@ -1,0 +1,84 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-nowrap">
+    <div class="col content py-3">
+      <div class="mb-4 mt-3 d-flex">
+        <app-students-search class="mr-auto" [rows]="rows" (searchResult)="onSelect($event)"></app-students-search>
+        <button class="btn btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
+        <button class="btn ml-2 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+      </div>
+
+      <div class="students-table">
+        <app-students-table
+          [columns]="columns"
+          [rows]="rows"
+          [selected]="selected"
+          (onSelect)="onSelect($event)"
+          (onToggleSelect)="toggleSelect($event)"
+        >
+        </app-students-table>
+      </div>
+
+      <div class="bg-light fixed-bottom p-3">
+        Всього: {{rows.length || '0'}}
+      </div>
+    </div>
+
+    <app-sidebar class="sidebar">
+      <b class="mb-2">Фільтри:</b>
+      <app-students-filters
+        [groups]="groups"
+        [students]="students"
+        (applyFilters)="setRows($event)">
+      </app-students-filters>
+      <hr />
+      <div *ngIf="selected.length === 1">
+        <button
+          class="btn btn-info w-100"
+          (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
+        >
+          Редагувати особисту інформацію
+        </button>
+        <button
+          class="btn btn-info w-100 mt-3"
+          (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
+        >
+          Редагувати навчальну інформацію
+        </button>
+      </div>
+      <button
+        *ngIf="selected.length"
+        class="btn btn-info w-100 mt-3"
+        (click)="studentExpelModal.openModal(selected)"
+      >
+        Відрахувати студентів
+      </button>
+    </app-sidebar>
+  </div>
+</div>
+
+<app-students-columns
+  #columnsModal
+  (setColumns)="setColumns($event)">
+</app-students-columns>
+
+<app-add-student
+  #addStudentModal
+  [groups]="groups"
+  (newStudent)="prependStudent($event)"
+></app-add-student>
+
+<app-student-expel
+  (onSubmit)="onExpel($event)"
+  #studentExpelModal
+></app-student-expel>
+
+<app-student-personal-info
+  (onSubmit)="getStudents()"
+  #personalInfoModal
+></app-student-personal-info>
+
+<app-student-degree-info
+  [groups]="groups"
+  (onSubmit)="getStudents()"
+  #degreeInfoModal
+></app-student-degree-info>

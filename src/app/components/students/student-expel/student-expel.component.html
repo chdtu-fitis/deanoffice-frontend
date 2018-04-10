@@ -1,0 +1,60 @@
+<div class="modal fade"
+     [config]="{backdrop: 'static'}" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Відрахувати студентів</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row content">
+          <div class="col-6 students-list">
+            <app-students-list [students]="students" (onRemove)="onRemoveStudent($event)"></app-students-list>
+          </div>
+          <div class="col-6">
+            <form [formGroup]="form" novalidate>
+              <div class="form-group">
+                <label for="orderNumber">Номер наказу</label>
+                <input formControlName="orderNumber" class="form-control" id="orderNumber"
+                       [appValidation]="form.controls.orderNumber">
+                <app-validation-errors [control]="form.controls.orderNumber"></app-validation-errors>
+              </div>
+              <div class="form-group">
+                <label for="orderDate">Дата наказу</label>
+                <input type="date" formControlName="orderDate" class="form-control" id="orderDate"
+                       [appValidation]="form.controls.orderDate">
+                <app-validation-errors [control]="form.controls.orderDate"></app-validation-errors>
+              </div>
+              <div class="form-group">
+                <label for="applicationDate">Дата заяви</label>
+                <input type="date" formControlName="applicationDate" class="form-control" id="applicationDate"
+                       [appValidation]="form.controls.applicationDate">
+                <app-validation-errors [control]="form.controls.applicationDate"></app-validation-errors>
+              </div>
+              <div class="form-group">
+                <label for="expelDate">Дата відрахування</label>
+                <input type="date" formControlName="expelDate" class="form-control" id="expelDate"
+                       [appValidation]="form.controls.expelDate">
+                <app-validation-errors [control]="form.controls.expelDate"></app-validation-errors>
+              </div>
+              <div class="form-group">
+                <label for="reason">Причина відрахування</label>
+                <select formControlName="reasonId" class="form-control" id="reason" [appValidation]="form.controls.reasonId">
+                  <option *ngFor="let reason of reasons" [ngValue]="reason.id">{{reason.name}}</option>
+                </select>
+                <app-validation-errors [control]="form.controls.reasonId"></app-validation-errors>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="submit()" class="btn btn-danger btn-submit">Відрахувати</button>
+        <button (click)="hideModal()" class="btn btn-outline-info">Скасувати</button>
+      </div>
+    </div>
+  </div>
+</div>

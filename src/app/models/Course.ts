@@ -3,8 +3,20 @@ import {CourseName} from './CourseName';
 import {KnowledgeControl} from './KnowlegeControl';
 
 export class Course extends BaseEntity {
-    courseName: CourseName;
-    knowlegeControl: KnowledgeControl;
-    hours: number;
-    credits: number;
+  courseName: CourseName;
+  knowledgeControl: KnowledgeControl;
+  semester: number;
+  hours: number;
+  credits: number;
+  hoursPerCredit: number;
+
+  constructor() {
+    super();
+    this.courseName = new CourseName();
+    this.knowledgeControl = new KnowledgeControl();
+    this.semester = undefined;
+    this.hours = undefined;
+    this.credits = undefined;
+    this.hoursPerCredit = undefined;
+  }
 }
