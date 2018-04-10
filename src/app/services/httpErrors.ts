@@ -1,6 +1,5 @@
-import {of} from 'rxjs/observable/of';
 import {Observable} from 'rxjs/Observable';
-import {Error} from 'tslint/lib/error';
+import {of} from 'rxjs/observable/of';
 
 export let handleErrorForObservable = function handleError<T>(operation: string, result?: T) {
   return (error: any): Observable<T> => {
@@ -21,10 +20,10 @@ export let handleErrorForPromise = (error: any, operation = 'operation') => {
 const ERRORS = {
   0: 'Нет ответа от сервера, обратитесь в техническую поддержку',
   400: 'Некоректный запрос!',
-  401: 'Доступ запрещен! Пожалуйста, выполните вход в свою учтенную запись, или, если это уже сделано, то выйдите' +
-  'с неё и зайдите в снова',
+  401: 'Доступ запрещен! Пожалуйста, выполните вход в свою учтенную запись, или, если это уже сделано, то выйдите с неё и зайдите в снова',
   403: 'Отказ в доступе! У вас нет прав на доступ к этому ресурсу',
   404: 'Не найдено!',
+  422: 'Пожалуйста, проверьте введенные данные на правильность',
   500: 'Ошибка сервера!',
   503: 'Служба временно недоступна, пожалуйста, пропробуйте пойже или свяжитесь с технической поддержкой'
 };

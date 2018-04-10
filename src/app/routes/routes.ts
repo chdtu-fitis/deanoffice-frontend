@@ -7,8 +7,8 @@ import {CoursesForGroupsModule} from '../components/courses-for-groups/courses-f
 import {CoursesForGroupsComponent} from '../components/courses-for-groups/courses-for-groups.component';
 
 const routes: Routes = [
-  {path: 'diploma-supplement', component: DiplomaSupplementComponent, pathMatch: 'full'},
-  {path: 'examreport', component: ExamReportComponent, pathMatch: 'full'},
+  {path: 'diploma-supplement', component: DiplomaSupplementComponent},
+  {path: 'examreport', component: ExamReportComponent},
   {path: 'students', component: StudentsComponent},
   {path: 'courses-for-groups', component: CoursesForGroupsComponent}
 ];
