@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Course} from "../models/Course";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
-import {KnowledgeControl} from '../models/KnowlegeControl';
 
 @Injectable()
 export class CourseService {
