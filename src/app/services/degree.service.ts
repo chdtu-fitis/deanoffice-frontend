@@ -4,7 +4,7 @@ import {Degree} from '../models/Degree';
 import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
-import {HandleError} from './httpErrors';
+import {HandleError} from '../components/shared/httpErrors';
 
 @Injectable()
 export class DegreeService {
