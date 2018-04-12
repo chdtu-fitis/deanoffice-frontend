@@ -12,7 +12,7 @@ export class DegreeService {
 
     getDegrees(): Observable<Degree[]> {
         return this.http.get<Degree[]>(this.degreesUrl)
-            .pipe(catchError(HandleError.forObservable('getDegrees', [])));
+            .pipe(catchError(HandleError.forObservable('Отримання списку освітньо-кваліфікаційного рівня', [])));
     }
   constructor(private http: HttpClient) {
   }
