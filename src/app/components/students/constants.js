@@ -26,7 +26,7 @@ export const allColumns = defaultColumns.concat(
   'previousDiplomaNumber',
   'previousDiplomaDate',
   'protocolNumber',
-  'protocolDate',
+  'protocolDate'
 );
 
 export const months = [

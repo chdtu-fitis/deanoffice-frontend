@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 
-import {translations} from '../translations.js';
+import {translations} from '../translations';
 import {defaultColumns, allColumns } from '../constants.js';
 import {IAppModal} from '../../shared/modal.interface';
 

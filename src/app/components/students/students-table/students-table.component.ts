@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
