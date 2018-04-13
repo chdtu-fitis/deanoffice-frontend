@@ -42,10 +42,10 @@
               </div>
               <div class="form-group">
                 <label for="reason">Причина відрахування</label>
-                <select formControlName="reasonId" class="form-control" id="reason" [appValidation]="form.controls.reasonId">
+                <select formControlName="reasonId" class="form-control" id="reason" [appValidation]="form.controls.orderReasonId">
                   <option *ngFor="let reason of reasons" [ngValue]="reason.id">{{reason.name}}</option>
                 </select>
-                <app-validation-errors [control]="form.controls.reasonId"></app-validation-errors>
+                <app-validation-errors [control]="form.controls.orderReasonId"></app-validation-errors>
               </div>
             </form>
           </div>
