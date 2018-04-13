@@ -5,7 +5,6 @@ import {StudentGroup} from "../../models/StudentGroup";
 import {GroupService} from "../../services/group.service";
 import {CourseForGroupService} from "../../services/course-for-group.service";
 import {CourseForGroup} from "../../models/CourseForGroup";
-import {Course} from "../../models/Course";
 import {StudentDegree} from "../../models/StudentDegree";
 import {ExamReportService} from "../../services/exam-report.service";
 
@@ -86,13 +85,13 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSelectAllCourses(checked: boolean): void {
-    for (var courseForGroup of this.coursesForGroup) {
+    for (let courseForGroup of this.coursesForGroup) {
       courseForGroup.selected = checked;
     }
   }
 
   onExamReportBuild(): void {
-    for (var courseForGroup of this.coursesForGroup) {
+    for (let courseForGroup of this.coursesForGroup) {
       if (courseForGroup.selected){
         this.examReportService.buildExamReport(this.currentGroup.id, courseForGroup.course.id);
       }

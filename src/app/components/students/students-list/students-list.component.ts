@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import {StudentDegree} from '../../../models/StudentDegree';
-
 @Component({
     selector: 'app-students-list',
     templateUrl: './students-list.component.html',
