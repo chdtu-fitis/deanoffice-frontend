@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
-import {CourseName} from '../../../models/CourseName';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -47,7 +46,7 @@ export class CourseCreationComponent implements OnInit {
   createCourse(){
     this.setCredits();
     console.dir(this.course);
-    this.courseService.createCourse(this.course).subscribe(res => {
+    this.courseService.createCourse(this.course).subscribe(() => {
       this.success = true;
       this.failCreated = false;
       this.fail = false
