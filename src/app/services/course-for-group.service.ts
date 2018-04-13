@@ -11,6 +11,10 @@ export class CourseForGroupService {
   constructor(private http: HttpClient) {
   }
 
+  createCoursesForGroup(groupId, body) {
+    return this.http.post(`${this.url}/groups/${groupId}/courses`, body);
+  }
+
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
     return this.http.get<CourseForGroup[]>(`${this.url}/groups/${groupId}/courses?semester=${semester}`);
   }
