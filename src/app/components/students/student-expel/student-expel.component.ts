@@ -30,7 +30,7 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
       orderDate: ['', Validators.required],
       applicationDate: ['', Validators.required],
       expelDate: ['', Validators.required],
-      reasonId: ['', Validators.required],
+      orderReasonId: ['', Validators.required],
       studentDegreeIds: this.fb.array([]),
     });
     generalService.getStudentExpelReasons().subscribe(reasons => this.reasons = reasons);
