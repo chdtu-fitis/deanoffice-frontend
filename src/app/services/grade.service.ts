@@ -18,6 +18,12 @@ export class GradeService {
         );
     }
 
+    public updateGrades(grades): Observable<Grade[]> {
+        return this.http.put<Grade[]>(`${this.gradesUrl}/`, grades).pipe(
+            catchError(this.handleError('updateGrades', []))
+        );
+    }
+
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);

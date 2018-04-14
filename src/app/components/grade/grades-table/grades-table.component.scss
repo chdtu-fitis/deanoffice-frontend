@@ -1,0 +1,29 @@
+td>input {
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
+}
+
+td {
+  min-width: 100px;
+}
+
+.page-count {
+  max-width: 30px;
+  min-width: 30px;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.td-student {
+  white-space: nowrap;
+}
+
+table {
+  max-height: 500px;
+}

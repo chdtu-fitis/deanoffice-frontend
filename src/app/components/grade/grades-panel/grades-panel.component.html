@@ -4,8 +4,8 @@
     </label>
     <select id="selectSemester"
             [(ngModel)]="selectSemester"
-            class="form-control mb-3"
-            (change)="getSelectedSemester()">
+            class="form-control form-control-sm mb-3"
+            (change)="toggleSemester()">
         <option value="1">1 Семестр</option>
         <option value="2">2 Семестр</option>
         <option value="3">3 Семестр</option>
@@ -20,13 +20,12 @@
 </div>
 
 <div class="mb-3">
-    <input type="checkbox" checked
+    <label>
+    <input type="checkbox"
            [(ngModel)]="autoSemesterSelect"
-           (click)="setCurrentSemester()"
+           (click)="checkAutoSelectSemester()"
            name="autoSelectSemester"
            id="autoSelectSemester"/>
-    <label for="autoSelectSemester"
-           class="custom-control-label">
         Автоматично обрати семестр
     </label>
 </div>

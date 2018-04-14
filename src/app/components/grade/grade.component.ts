@@ -6,12 +6,13 @@ import {CourseForGroupService} from '../../services/course-for-group.service';
 import {Grade} from '../../models/Grade';
 import {StudentDegree} from '../../models/StudentDegree';
 import {CourseForGroup} from '../../models/CourseForGroup';
+import {StudentService} from '../../services/student.service';
 
 @Component({
     selector: 'grade',
     templateUrl: './grade.component.html',
     styleUrls: ['./grade.component.scss'],
-    providers: [GradeService, GroupService, CourseForGroupService]
+    providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
     groups: StudentGroup[];
@@ -21,10 +22,12 @@ export class GradeComponent implements OnInit {
     studentsDegree: any = [];
     loading = false;
     errorsMessage = [];
-    insertEmptyGradesList = [];
+    emptyGradesList = [];
+    gradesUpdate = [];
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
+                private studentService: StudentService,
                 private courseForGroupService: CourseForGroupService) {
     }
 
@@ -34,12 +37,10 @@ export class GradeComponent implements OnInit {
 
     setStudentGroup(group: StudentGroup): void {
         this.selectGroup = group;
-        this.getGrades();
     }
 
     setSemester(selectSemester: number): void {
         this.selectSemester = selectSemester;
-        this.getGrades();
     }
 
     getGrades(): void {
@@ -56,45 +57,68 @@ export class GradeComponent implements OnInit {
             for (const course of courses) {
                 let check = false;
                 for (const grade of grades) {
-                    if (studentDegree.id === grade.student.id && grade.course.id === course.course.id) {
+                    if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                         check = true;
                         student.grades.push(grade);
                         break;
                     }
                 }
                 if (!check) {
-                    student.grades.push({ empty: true });
-                    emptyGrades.push({
+                    const gradeObject = {
                         points: 0,
+                        empty: true,
                         course: {
                             id: course.course.id
                         },
                         studentDegree: {
                             id: studentDegree.id
                         }
-                    });
+                    };
+                    student.grades.push(gradeObject);
+                    emptyGrades.push(gradeObject);
                 }
             }
             studentsTemp.push(student);
         }
-        return { studentsTemp, emptyGrades };
+        return {studentsTemp, emptyGrades};
     }
 
     sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(semester: number, groupId: number): void {
         this.loading = false;
         this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
-            this.groupService.getGroupStudents(`${groupId}`).subscribe((students: StudentDegree[]) => {
+            this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
                 this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
-                    this.checkForErrorsAfterQueryingDataFetches(courses, students, grades);
-                    const joinGrades = this.joinGradesForStudents(grades, students, courses);
-                    this.studentsDegree = joinGrades.studentsTemp || [];
-                    this.insertEmptyGradesList = joinGrades.emptyGrades || [];
-                    this.courses = courses || [];
-                    this.loading = true;
-                    console.log(this.studentsDegree);
+                    this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courses);
                 });
             });
         });
+    }
+
+    updateGradesAndStudentsAndCourses(grades, studentsDegree, courses) {
+        this.checkForErrorsAfterQueryingDataFetches(courses, studentsDegree, grades);
+        const joinGrades = this.joinGradesForStudents(grades, studentsDegree, courses);
+        this.setStudentDegree(joinGrades.studentsTemp || []);
+        this.setEmptyGradesList(joinGrades.emptyGrades || []);
+        this.setCourses(courses || []);
+        this.clearUpdateGrades();
+        this.loading = true;
+    }
+
+    setStudentDegree(studentsDegree): void {
+        this.studentsDegree = studentsDegree;
+    }
+
+    setEmptyGradesList(grades): void {
+        this.emptyGradesList = grades;
+    }
+
+    setCourses(courses): void {
+        this.courses = courses;
+    }
+
+    addErrorMessage(err, clear) {
+        if(clear) this.errorsMessage = [];
+        this.errorsMessage.push(err);
     }
 
     checkForErrorsAfterQueryingDataFetches(courses: any, students: any, grades: any): void {
@@ -103,19 +127,40 @@ export class GradeComponent implements OnInit {
         } else {
             this.errorsMessage = [];
             if (!courses[0]) {
-                this.errorsMessage.push('Немає предметів для обраної групи студентів, в даному семестрі.');
+                this.addErrorMessage('Немає предметів для обраної групи студентів, в даному семестрі.', false);
             }
             if (!grades[0]) {
-                this.errorsMessage.push('Немає оцінок для обраної групи студентів, в даному семестрі.');
+                this.addErrorMessage('Немає оцінок для обраної групи студентів, в даному семестрі.', false);
             }
             if (!students[0]) {
-                this.errorsMessage.push('Не знайдено студентів в обраній групі.');
+                this.addErrorMessage('Не знайдено студентів в обраній групі.', false);
             }
         }
     }
 
-    addEmtyGrades() {
-        console.log(this.insertEmptyGradesList);
+    setErrorsFromTable(error) {
+        error ? this.errorsMessage.push(error) : this.errorsMessage = [];
     }
 
+    addGradesForUpdate(grades) {
+        this.gradesUpdate = grades;
+    }
+
+    clearUpdateGrades() {
+        this.gradesUpdate = [];
+    }
+
+    updateGradesForGroup() {
+        this.gradeService.updateGrades(this.gradesUpdate).subscribe(grades => {
+            console.log(grades);
+            this.getGrades();
+        })
+    }
+
+    fillInWithZerosGrades() {
+        this.gradeService.updateGrades(this.emptyGradesList).subscribe(grades => {
+            console.log(this.emptyGradesList);
+            this.getGrades();
+        });
+    }
 }

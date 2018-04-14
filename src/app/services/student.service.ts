@@ -6,36 +6,41 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class StudentService {
-  private url = `${environment.apiUrl}/students`;
+    private url = `${environment.apiUrl}/students`;
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  getInitialStudents(): Observable<StudentDegree[]> {
-    return this.http.get<StudentDegree[]>(`${this.url}/degrees`);
-  }
+    getStudentsByGroupId(groupId: number): Observable<StudentDegree[]> {
+        const url = `${this.url}/${groupId}/students`;
+        return this.http.get<StudentDegree[]>(url);
+    }
 
-  getStudents(): Observable<StudentDegree[]> {
-    return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
-  }
+    getInitialStudents(): Observable<StudentDegree[]> {
+        return this.http.get<StudentDegree[]>(`${this.url}/degrees`);
+    }
 
-  addStudentDegree(studentDegree): Observable<StudentDegree> {
-    const params = !studentDegree.student.id
-      ? { params: { new_student: 'true' }}
-      : {};
-    return this.http.post<StudentDegree>(`${this.url}/degrees`, studentDegree, params);
-  }
+    getStudents(): Observable<StudentDegree[]> {
+        return this.http.get<StudentDegree[]>(`${this.url}/degrees/more-detail`);
+    }
 
-  search(fullName: string = ''): Observable<StudentDegree[]> {
-    console.log('search', fullName);
-    const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
-    return this.http.get<StudentDegree[]>(`${this.url}/search`, {
-      params: {
-        surname,
-        name,
-        patronimic,
-      }
-    });
-  }
+    addStudentDegree(studentDegree): Observable<StudentDegree> {
+        const params = !studentDegree.student.id
+            ? {params: {new_student: 'true'}}
+            : {};
+        return this.http.post<StudentDegree>(`${this.url}/degrees`, studentDegree, params);
+    }
+
+    search(fullName: string = ''): Observable<StudentDegree[]> {
+        console.log('search', fullName);
+        const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
+        return this.http.get<StudentDegree[]>(`${this.url}/search`, {
+            params: {
+                surname,
+                name,
+                patronimic,
+            }
+        });
+    }
 
 }

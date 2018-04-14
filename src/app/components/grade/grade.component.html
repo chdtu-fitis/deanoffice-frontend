@@ -1,13 +1,19 @@
 <div class="container-fluid h-100">
     <div class="row h-100 flex-nowrap">
         <div class="content py-1 col-10">
-            <div class="card-body" *ngIf="selectGroup">
-                Группа: {{selectGroup?.name}}
-                Семестр: {{ selectSemester }}
-                <button class="btn btn-success float-right"
-                        *ngIf="insertEmptyGradesList.length"
-                        (click)="addEmtyGrades()">Заповнити нулями
-                </button>
+            <div class="card-body">
+                <button class="btn btn-link">Меню</button>
+
+                <div class="btn-group float-right" role="group">
+                    <button class="btn btn-success"
+                            *ngIf="emptyGradesList.length && selectGroup"
+                            (click)="fillInWithZerosGrades()">Заповнити нулями
+                    </button>
+
+                    <button class="btn btn-success" *ngIf="gradesUpdate.length && selectGroup"
+                            (click)="updateGradesForGroup()">Виставити оцiнки
+                    </button>
+                </div>
             </div>
 
             <ng-container *ngIf="errorsMessage.length && loading">
@@ -19,17 +25,24 @@
             <div class="alert alert-primary" role="alert" *ngIf="!loading && !selectGroup">
                 Оберiть группу
             </div>
-            <grades-table [studentsDegree]="studentsDegree" [courses]="courses"></grades-table>
-        </div>
 
+            <grades-table [studentsDegree]="studentsDegree"
+                          [courses]="courses"
+                          (gradesUpdate)="addGradesForUpdate($event)"
+                          (errors)="setErrorsFromTable($event)"
+                          [selectGroup]="selectGroup"
+                          [selectSemester]="selectSemester">
+            </grades-table>
+
+        </div>
         <app-sidebar class="sidebar">
             <aside class="Sidebar bg-light">
                 <grades-panel [groups]="groups"
-                              (setGroup)="setStudentGroup($event)"
-                              (setSemester)="setSemester($event)">
+                              (changeGroup)="setStudentGroup($event)"
+                              (changeSemester)="setSemester($event)"
+                              (sendRequestGetGrades)="getGrades()">
                 </grades-panel>
             </aside>
         </app-sidebar>
-
     </div>
 </div>

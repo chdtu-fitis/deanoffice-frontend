@@ -7,32 +7,57 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class GradesPanelComponent {
     @Input() groups;
-    @Output() setGroup = new EventEmitter();
-    @Output() setSemester = new EventEmitter();
+    @Output() changeGroup = new EventEmitter();
+    @Output() changeSemester = new EventEmitter();
+    @Output() sendRequestGetGrades = new EventEmitter();
     autoSemesterSelect = true;
     selectGroup: any = [];
     studySemesters = 10;
     selectSemester = 1;
 
-    getSelectGroup(group) {
-        if (this.selectGroup.id === group.id) return;
-        this.studySemesters = group.studySemesters;
-        this.selectGroup = group;
-        if (this.autoSemesterSelect) this.selectSemester = this.getCurrentSemester(this.selectGroup.creationYear);
-        this.getSelectedSemester();
-        this.setGroup.emit(group);
+    toggleSemester(): void {
+        this.setSelectedSemester();
+        this.getGrades();
     }
 
-    setCurrentSemester() {
+    setSelectedSemester(): void {
+        this.changeSemester.emit(this.selectSemester);
+    }
+
+    getGrades(): void {
+        this.sendRequestGetGrades.emit();
+    }
+
+    checkAutoSelectSemester() {
+        this.setCurrentSemester();
+        this.toggleSemester();
+    }
+
+    setCurrentSemester(): void {
         const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
         if (currentSemester !== this.selectSemester) {
             this.selectSemester = currentSemester;
-            this.getSelectedSemester();
         }
     }
 
-    getSelectedSemester() {
-        this.setSemester.emit(this.selectSemester);
+    getSelectGroup(group) {
+        if (this.selectGroup.id === group.id) return;
+        this.setGroups(group);
+        this.setStudySemester(group.studySemesters);
+        if (this.autoSemesterSelect) {
+            this.selectSemester = this.getCurrentSemester(this.selectGroup.creationYear);
+            this.setSelectedSemester();
+        }
+        this.changeGroup.emit(group);
+        this.getGrades();
+    }
+
+    setStudySemester(studySemesters): void {
+        this.studySemesters = studySemesters;
+    }
+
+    setGroups(group) {
+        this.selectGroup = group;
     }
 
     getCurrentSemester(year: number): number {
