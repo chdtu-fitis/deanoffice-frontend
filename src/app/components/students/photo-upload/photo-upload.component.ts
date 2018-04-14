@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
-import { maxFileSize } from '../constants';
+import { maxFileSize } from '../constants.js';
 
 @Component({
     selector: 'app-photo-upload',
