@@ -1,19 +1,16 @@
 <div class="container-fluid h-100">
     <div class="row h-100 flex-nowrap">
         <div class="content py-1 col-10">
-            <div class="card-body">
-                <button class="btn btn-link">Меню</button>
+            <div class="btn-group btn-group-sm d-block-button-group" role="group" *ngIf="selectGroup">
+                <button class="btn btn-success"
+                        *ngIf="emptyGradesList.length"
+                        (click)="fillInWithZerosGrades()">Заповнити нулями
+                </button>
 
-                <div class="btn-group float-right" role="group">
-                    <button class="btn btn-success"
-                            *ngIf="emptyGradesList.length && selectGroup"
-                            (click)="fillInWithZerosGrades()">Заповнити нулями
-                    </button>
-
-                    <button class="btn btn-success" *ngIf="gradesUpdate.length && selectGroup"
-                            (click)="updateGradesForGroup()">Виставити оцiнки
-                    </button>
-                </div>
+                <button class="btn btn-success"
+                        *ngIf="gradesUpdate.length"
+                        (click)="updateGradesForGroup()">Виставити оцiнки
+                </button>
             </div>
 
             <ng-container *ngIf="errorsMessage.length && loading">

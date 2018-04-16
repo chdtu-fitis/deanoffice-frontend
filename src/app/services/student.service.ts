@@ -12,7 +12,7 @@ export class StudentService {
     }
 
     getStudentsByGroupId(groupId: number): Observable<StudentDegree[]> {
-        const url = `${this.url}/${groupId}/students`;
+        const url = `${environment.apiUrl}/groups/${groupId}/students`;
         return this.http.get<StudentDegree[]>(url);
     }
 

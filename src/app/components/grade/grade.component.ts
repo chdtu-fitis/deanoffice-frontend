@@ -45,7 +45,7 @@ export class GradeComponent implements OnInit {
 
     getGrades(): void {
         if (!this.selectGroup) return;
-        this.sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(this.selectSemester, this.selectGroup.id);
+        this.sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(this.selectSemester || 1, this.selectGroup.id);
     }
 
     joinGradesForStudents(grades: any, students: any, courses: any) {
@@ -59,6 +59,7 @@ export class GradeComponent implements OnInit {
                 for (const grade of grades) {
                     if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                         check = true;
+                        if (!grade.points) { grade.points = 0; }
                         student.grades.push(grade);
                         break;
                     }
@@ -102,6 +103,8 @@ export class GradeComponent implements OnInit {
         this.setCourses(courses || []);
         this.clearUpdateGrades();
         this.loading = true;
+
+        console.log(this.studentsDegree);
     }
 
     setStudentDegree(studentsDegree): void {
@@ -152,14 +155,12 @@ export class GradeComponent implements OnInit {
 
     updateGradesForGroup() {
         this.gradeService.updateGrades(this.gradesUpdate).subscribe(grades => {
-            console.log(grades);
             this.getGrades();
         })
     }
 
     fillInWithZerosGrades() {
         this.gradeService.updateGrades(this.emptyGradesList).subscribe(grades => {
-            console.log(this.emptyGradesList);
             this.getGrades();
         });
     }

@@ -10,10 +10,11 @@ export class GradesPanelComponent {
     @Output() changeGroup = new EventEmitter();
     @Output() changeSemester = new EventEmitter();
     @Output() sendRequestGetGrades = new EventEmitter();
-    autoSemesterSelect = true;
-    selectGroup: any = [];
+    autoSemesterSelect = false;
+    selectGroup: any = false;
     studySemesters = 10;
     selectSemester = 1;
+    degree = 1;
 
     toggleSemester(): void {
         this.setSelectedSemester();
@@ -29,11 +30,13 @@ export class GradesPanelComponent {
     }
 
     checkAutoSelectSemester() {
-        this.setCurrentSemester();
-        this.toggleSemester();
+        if (this.selectGroup) {
+            this.setCurrentSemester();
+            this.toggleSemester();
+        }
     }
 
-    setCurrentSemester(): void {
+    setCurrentSemester() {
         const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
         if (currentSemester !== this.selectSemester) {
             this.selectSemester = currentSemester;

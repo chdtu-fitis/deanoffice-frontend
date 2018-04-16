@@ -19,23 +19,30 @@
     </select>
 </div>
 
+<select class="form-control form-control-sm mb-3" [(ngModel)]="degree">
+    <option value="1">Бакалавр</option>
+    <option value="3">Магiстр</option>
+</select>
+
 <div class="mb-3">
     <label>
-    <input type="checkbox"
-           [(ngModel)]="autoSemesterSelect"
-           (click)="checkAutoSelectSemester()"
-           name="autoSelectSemester"
-           id="autoSelectSemester"/>
+        <input type="checkbox"
+               [(ngModel)]="autoSemesterSelect"
+               (click)="checkAutoSelectSemester()"
+               name="autoSelectSemester"
+               id="autoSelectSemester"/>
         Автоматично обрати семестр
     </label>
 </div>
 
 <div class="groups">
     <div *ngIf="groups" class="list-group">
-        <button *ngFor="let group of groups" class="list-group-item list-group-item-action"
-                [class.active]="selectGroup.id === group.id"
-                (click)="getSelectGroup(group)">
-            {{ group.name }}
-        </button>
+        <ng-container *ngFor="let group of groups">
+            <button *ngIf="group.specialization.degree.id == degree" class="list-group-item list-group-item-action"
+                    [class.active]="selectGroup.id === group.id"
+                    (click)="getSelectGroup(group)">
+                {{ group.name }}
+            </button>
+        </ng-container>
     </div>
 </div>
