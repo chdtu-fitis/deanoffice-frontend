@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentDegree} from '../../../models/StudentDegree';
-import {months} from '../constants';
+import {months} from '../constants.js';
 
 @Component({
     selector: 'app-students-filters',

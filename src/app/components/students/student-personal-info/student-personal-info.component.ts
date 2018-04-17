@@ -22,7 +22,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, private studentService: StudentService, private sanitizer: DomSanitizer) {
     super();
   }
 

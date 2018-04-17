@@ -1,5 +1,5 @@
 import {Component, EventEmitter, ViewChild, Output} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from 'ngx-bootstrap';
 
 import {IAppModal} from '../../shared/modal.interface';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
-import { defaultColumns } from './constants';
+import { defaultColumns } from './constants.js';
 import { StudentDegree } from '../../models/StudentDegree';
 import { GroupService } from '../../services/group.service';
 import { StudentGroup } from '../../models/StudentGroup';
