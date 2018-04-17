@@ -87,26 +87,20 @@ export class CoursesForGroupsComponent implements OnInit {
 
   deleteCoursesFromCoursesForGroups(){
     console.log(this.coursesForDelete);
-    for (let course of this.coursesForGroup){
-      if (this.coursesForGroup.length>0)
-        for (let courseForDelete of this.coursesForDelete){
-          if (this.coursesForAdd.length>0)
-            for (let addedCourse of this.coursesForAdd){
-              if (course.id === courseForDelete.id&&addedCourse.id!=courseForDelete.id){
-                this.deleteCoursesIds.push(course.id);
-                this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-              }
-              else {
-                this.coursesForAdd.splice(this.coursesForGroup.indexOf(course), 1);
-              }
-            }
-          else if (course.id === courseForDelete.id){
-            this.deleteCoursesIds.push(course.id);
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-          }
+    for (let deletedCourse of this.coursesForDelete){
+      for (let course of this.coursesForGroup)
+        if (deletedCourse.id==course.id && deletedCourse.id!=undefined){
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
+          this.deleteCoursesIds.push(deletedCourse.id);
+          this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
+        for (let addedCourse of this.coursesForAdd)
+          if (addedCourse.course.id === deletedCourse.course.id){
+            this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
+            this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
+          }
     }
-    this.child.deleteFromCoursesForGroup();
+    console.log(this.deleteCoursesIds);
   }
 
   changeSelectedCourses(event) {
@@ -142,8 +136,11 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   cancelChanges(){
+    this.coursesForDelete = [];
+    this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
+    this.child.addedCoursesForGroup = [];
     this.updatedCourses = [];
     this.onSemesterChange();
   }
