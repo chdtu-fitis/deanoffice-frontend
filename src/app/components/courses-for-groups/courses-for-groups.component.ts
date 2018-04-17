@@ -122,8 +122,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   saveCoursesForGroup() {
-    let newCourses = [];
-    let updatedCourses = [];
+    class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
+    class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; dateOfExam: Date}
+    let newCourses: courseForGroupNewCoursesType[] = [];
+    let updatedCourses: courseForGroupUpdateCoursesType[] = [];
     for (let newCourse of this.coursesForAdd){
       newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate})
     }
@@ -136,7 +138,6 @@ export class CoursesForGroupsComponent implements OnInit {
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
     });
-    console.log(this.coursesForAdd, this.updatedCourses, this.deleteCoursesIds);
     this.onSemesterChange();
   }
 

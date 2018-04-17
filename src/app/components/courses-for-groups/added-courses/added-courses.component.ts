@@ -39,7 +39,7 @@ export class AddedCoursesComponent implements OnInit {
     }
   }
 
-  getNameWithInitials(surname: String, name:String, patronimic:String){
+  getNameWithInitials(surname:String, name:String, patronimic:String){
     if (surname==""||surname==undefined||surname==null) return "";
     else if (name==""||name==undefined||name==null) return new String(surname);
     else if (patronimic==""||patronimic==undefined||patronimic==null) return new String (surname+" "+name.substring(0, 1)+".");
