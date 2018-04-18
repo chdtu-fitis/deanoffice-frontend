@@ -51,6 +51,7 @@ export class CoursesForGroupsComponent implements OnInit {
     setTimeout(() => {
       this.child.getCoursesForGroup();
     }, 0);
+    this.cancelChanges();
   }
 
   onSemesterChange(){
@@ -66,12 +67,13 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
   }
 
-  private addSelectedCoursesToCoursesForGroup () {
-    this.coursesForGroup = [];
+  private addSelectedCoursesToCoursesForAdd () {
+    this.coursesForAdd = [];
     for (let course of this.selectedCourses){
       let courseForGroup = new CourseForGroup();
       courseForGroup.course = course;
-      this.coursesForGroup.push(courseForGroup);
+      courseForGroup.studentGroup = this.selectedGroup;
+      this.coursesForAdd.push(courseForGroup);
     }
   }
 
@@ -87,8 +89,10 @@ export class CoursesForGroupsComponent implements OnInit {
 
   deleteCoursesFromCoursesForGroups(){
     console.log(this.coursesForDelete);
+    console.log(this.coursesForGroup);
+    console.log(this.coursesForAdd);
     for (let deletedCourse of this.coursesForDelete){
-      for (let course of this.coursesForGroup)
+      for (let course of this.coursesForGroup){
         if (deletedCourse.id==course.id && deletedCourse.id!=undefined){
           this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.deleteCoursesIds.push(deletedCourse.id);
@@ -96,20 +100,24 @@ export class CoursesForGroupsComponent implements OnInit {
         }
         for (let addedCourse of this.coursesForAdd)
           if (addedCourse.course.id === deletedCourse.course.id){
+            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
             this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
             this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
           }
+      }
     }
     console.log(this.deleteCoursesIds);
   }
 
   changeSelectedCourses(event) {
     this.selectedCourses = event;
-    this.addSelectedCoursesToCoursesForGroup();
+    this.addSelectedCoursesToCoursesForAdd();
   }
 
   addCoursesToCoursesForGroup() {
-    this.coursesForAdd = this.coursesForGroup;
+    for (let courseForAdd of this.coursesForAdd){
+      this.coursesForGroup.push(courseForAdd);
+    }
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
     }, 0);
@@ -140,7 +148,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
-    this.child.addedCoursesForGroup = [];
+    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.onSemesterChange();
   }
