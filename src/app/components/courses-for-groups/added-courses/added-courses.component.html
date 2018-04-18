@@ -12,7 +12,7 @@
       <td>Викладач</td>
       <td>Дата екзамену</td>
       </thead>
-      <tr *ngFor="let course of coursesForGroup; let i = index">
+      <tr *ngFor="let course of coursesForGroup">
         <td><input type="checkbox" (change)="changeCoursesForDelete($event.target.checked, course)"></td>
         <td>{{ course.course.courseName.name }}</td>
         <td>{{ course.course.knowledgeControl.name}}</td>

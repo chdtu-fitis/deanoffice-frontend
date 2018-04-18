@@ -89,8 +89,6 @@ export class CoursesForGroupsComponent implements OnInit {
 
   deleteCoursesFromCoursesForGroups(){
     console.log(this.coursesForDelete);
-    console.log(this.coursesForGroup);
-    console.log(this.coursesForAdd);
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
         if (deletedCourse.id==course.id && deletedCourse.id!=undefined){
@@ -148,7 +146,6 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
-    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.onSemesterChange();
   }

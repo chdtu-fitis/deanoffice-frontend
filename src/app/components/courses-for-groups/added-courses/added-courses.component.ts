@@ -53,7 +53,6 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   addNewCoursesForGroup(){
-    console.log(this.selectedCoursesForGroups);
     for (let courseForGroup of this.selectedCoursesForGroups) {
       this.coursesForGroup.push(courseForGroup);
     }
