@@ -73,7 +73,10 @@ export class CoursesForGroupsComponent implements OnInit {
       let courseForGroup = new CourseForGroup();
       courseForGroup.course = course;
       courseForGroup.studentGroup = this.selectedGroup;
-      this.coursesForAdd.push(courseForGroup);
+      for (let courseForAdd of this.coursesForAdd) {
+        if (courseForAdd.course.id != courseForGroup.course.id)
+          this.coursesForAdd.push(courseForGroup);
+      }
     }
   }
 
