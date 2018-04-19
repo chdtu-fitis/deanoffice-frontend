@@ -67,19 +67,6 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
   }
 
-  private addSelectedCoursesToCoursesForAdd () {
-    this.coursesForAdd = [];
-    for (let course of this.selectedCourses){
-      let courseForGroup = new CourseForGroup();
-      courseForGroup.course = course;
-      courseForGroup.studentGroup = this.selectedGroup;
-      for (let courseForAdd of this.coursesForAdd) {
-        if (courseForAdd.course.id != courseForGroup.course.id)
-          this.coursesForAdd.push(courseForGroup);
-      }
-    }
-  }
-
   changeCoursesForGroup(event){
     for(let i = 0; i<event.length; i++){
       this.coursesForGroup.push(event[i])
@@ -112,12 +99,26 @@ export class CoursesForGroupsComponent implements OnInit {
 
   changeSelectedCourses(event) {
     this.selectedCourses = event;
-    this.addSelectedCoursesToCoursesForAdd();
   }
 
   addCoursesToCoursesForGroup() {
-    for (let courseForAdd of this.coursesForAdd){
-      this.coursesForGroup.push(courseForAdd);
+    for (let course of this.selectedCourses){
+      let courseForGroup = new CourseForGroup();
+      courseForGroup.course = course;
+      courseForGroup.studentGroup = this.selectedGroup;
+      console.log(this.coursesForAdd);
+      console.log(this.coursesForAdd.length);
+      if (this.coursesForAdd.length>0)
+        for (let courseForAdd of this.coursesForAdd){
+          if (courseForGroup.course.id!=courseForAdd.course.id){
+            this.coursesForAdd.push(courseForGroup);
+            this.coursesForGroup.push(courseForGroup);
+          }
+        }
+      else{
+        this.coursesForAdd.push(courseForGroup);
+        this.coursesForGroup.push(courseForGroup);
+      }
     }
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
