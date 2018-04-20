@@ -6,6 +6,7 @@ import {CourseService} from "../../services/course.service";
 import {CourseForGroup} from "../../models/CourseForGroup";
 import {AddedCoursesComponent} from "./added-courses/added-courses.component";
 import {CourseForGroupService} from "../../services/course-for-group.service";
+import {Teacher} from "../../models/Teacher";
 
 @Component({
   selector: 'courses-for-groups',
@@ -78,7 +79,6 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   deleteCoursesFromCoursesForGroups(){
-    console.log(this.coursesForDelete);
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
         if (deletedCourse.id==course.id && deletedCourse.id!=undefined){
@@ -94,7 +94,7 @@ export class CoursesForGroupsComponent implements OnInit {
           }
       }
     }
-    console.log(this.deleteCoursesIds);
+    this.coursesForDelete = [];
   }
 
   changeSelectedCourses(event) {
@@ -102,27 +102,35 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCoursesToCoursesForGroup() {
-    for (let course of this.selectedCourses){
-      let courseForGroup = new CourseForGroup();
-      courseForGroup.course = course;
-      courseForGroup.studentGroup = this.selectedGroup;
-      console.log(this.coursesForAdd);
-      console.log(this.coursesForAdd.length);
-      if (this.coursesForAdd.length>0)
-        for (let courseForAdd of this.coursesForAdd){
-          if (courseForGroup.course.id!=courseForAdd.course.id){
+    if (this.selectedCourses.length > 0){
+      for (let course of this.selectedCourses) {
+        let courseForGroup = new CourseForGroup();
+        let teacher = new Teacher();
+        courseForGroup.course = course;
+        courseForGroup.studentGroup = this.selectedGroup;
+        courseForGroup.teacher = teacher;
+        courseForGroup.teacher.id = 0;
+        if (this.coursesForAdd.length > 0) {
+          let courseIsAdded = false;
+          for (let courseForAdd of this.coursesForAdd) {
+            if (courseForGroup.course.id === courseForAdd.course.id) {
+              courseIsAdded = true;
+            }
+          }
+          if (!courseIsAdded) {
             this.coursesForAdd.push(courseForGroup);
             this.coursesForGroup.push(courseForGroup);
           }
         }
-      else{
-        this.coursesForAdd.push(courseForGroup);
-        this.coursesForGroup.push(courseForGroup);
+        else {
+          this.coursesForAdd.push(courseForGroup);
+          this.coursesForGroup.push(courseForGroup);
+        }
       }
-    }
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
     }, 0);
+    }
   }
 
   saveCoursesForGroup() {

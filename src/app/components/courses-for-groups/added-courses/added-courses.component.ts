@@ -30,7 +30,6 @@ export class AddedCoursesComponent implements OnInit {
       let month = '' + (date.getMonth() + 1);
       let day = '' + date.getDate();
       let year = date.getFullYear();
-
       if (month.length < 2) month = '0' + month;
       if (day.length < 2) day = '0' + day;
 
@@ -53,8 +52,20 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   addNewCoursesForGroup(){
-    for (let courseForGroup of this.selectedCoursesForGroups) {
-      this.coursesForGroup.push(courseForGroup);
+    console.log(this.coursesForGroup);
+    for (let courseForAdd of this.selectedCoursesForGroups) {
+      if (this.selectedCoursesForGroups.length > 0) {
+        let courseIsAdded = false;
+        for (let courseForGroup of this.coursesForGroup) {
+          if (courseForGroup.course.id === courseForAdd.course.id) {
+            courseIsAdded = true;
+          }
+        }
+        if (!courseIsAdded) {
+          this.coursesForGroup.push(courseForAdd);
+        }
+      }
+      else this.coursesForGroup.push(courseForAdd);
     }
   }
 
