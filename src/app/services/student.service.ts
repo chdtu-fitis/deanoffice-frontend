@@ -61,8 +61,12 @@ export class StudentService {
   updatePhoto(id: number, photo) {
     return this.http.put(`${this.url}/${id}/photo`, photo);
   }
+
   expelStudents(studentDegrees: any[]) {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }
 
+  startAcademicVacation(vacationData) {
+    return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
+  }
 }

@@ -44,6 +44,12 @@
         >
           Редагувати навчальну інформацію
         </button>
+        <button
+          class="btn btn-info w-100 mt-3"
+          (click)="academicVacationModal.openModal(selected[0]?.id)"
+        >
+          Направити в академ. відпустку
+        </button>
       </div>
       <button
         *ngIf="selected.length"
@@ -68,7 +74,7 @@
 ></app-add-student>
 
 <app-student-expel
-  (onSubmit)="onExpel($event)"
+  (onSubmit)="onRemove($event)"
   #studentExpelModal
 ></app-student-expel>
 
@@ -82,3 +88,8 @@
   (onSubmit)="getStudents()"
   #degreeInfoModal
 ></app-student-degree-info>
+
+<app-student-academic-vacation
+  #academicVacationModal
+  (onSubmit)="onRemove($event)"
+></app-student-academic-vacation>
