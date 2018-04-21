@@ -18,39 +18,37 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
 import {CourseForGroupService} from '../../services/course-for-group.service';
-import { GradeComponent } from '../grade/grade.component';
-import { GradesTableComponent } from '../grade/grades-table/grades-table.component';
-import { GradesPanelComponent } from '../grade/grades-panel/grades-panel.component';
+import {GradeModule} from '../grade/grade.module';
+import {GradeService} from '../../services/grade.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    GroupComponent,
-    SpecialityComponent,
-    DiplomaSupplementComponent,
-    ExamReportComponent,
-    GradeComponent,
-    GradesTableComponent,
-    GradesPanelComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    GridModule,
-    StudentsModule,
-    SharedModule,
-  ],
-  providers: [
-    DegreeService,
-    GroupService,
-    StudentService,
-    CourseForGroupService,
-    DiplomaSupplementService
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        GroupComponent,
+        SpecialityComponent,
+        DiplomaSupplementComponent,
+        ExamReportComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        GridModule,
+        StudentsModule,
+        SharedModule,
+        GradeModule
+    ],
+    providers: [
+        DegreeService,
+        GroupService,
+        StudentService,
+        CourseForGroupService,
+        DiplomaSupplementService,
+        GradeService
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule {
 }

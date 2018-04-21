@@ -3,3 +3,30 @@
 .d-block-button-group {
   padding: 5px 0;
 }
+
+.grade-is-mobile .grade-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+.mat-sidenav {
+  padding-right: 10px;
+}
+
+.grade-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.grade-sidenav-container {
+  flex: 1;
+}
+
+.grade-sidenav-container {
+  flex: 1 0 auto;
+}

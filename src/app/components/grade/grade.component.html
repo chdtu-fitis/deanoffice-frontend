@@ -1,14 +1,18 @@
-<div class="container-fluid h-100">
-    <div class="row h-100 flex-nowrap">
-        <div class="content py-1 col-10">
-            <div class="btn-group btn-group-sm d-block-button-group" role="group" *ngIf="selectGroup">
+<div class="container-fluid grade-container">
+    <mat-toolbar color="primary" class="example-toolbar"></mat-toolbar>
+    <mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 50 : 0" class="grade-sidenav-container">
+        <mat-sidenav-content>
+            <div class="btn-group btn-group-sm d-block-button-group" role="group">
+
+                <button class="btn btn-primary" (click)="snav.toggle()">Меню</button>
+
                 <button class="btn btn-success"
-                        *ngIf="emptyGradesList.length"
+                        [disabled]="!emptyGradesList.length"
                         (click)="fillInWithZerosGrades()">Заповнити нулями
                 </button>
 
                 <button class="btn btn-success"
-                        *ngIf="gradesUpdate.length"
+                        [disabled]="!gradesUpdate.length"
                         (click)="updateGradesForGroup()">Виставити оцiнки
                 </button>
             </div>
@@ -30,16 +34,18 @@
                           [selectGroup]="selectGroup"
                           [selectSemester]="selectSemester">
             </grades-table>
+        </mat-sidenav-content>
 
-        </div>
-        <app-sidebar class="sidebar">
-            <aside class="Sidebar bg-light">
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                     [fixedInViewport]="mobileQuery.matches" fixedTopGap="50">
+            <mat-nav-list>
                 <grades-panel [groups]="groups"
                               (changeGroup)="setStudentGroup($event)"
                               (changeSemester)="setSemester($event)"
                               (sendRequestGetGrades)="getGrades()">
                 </grades-panel>
-            </aside>
-        </app-sidebar>
-    </div>
+            </mat-nav-list>
+        </mat-sidenav>
+
+    </mat-sidenav-container>
 </div>

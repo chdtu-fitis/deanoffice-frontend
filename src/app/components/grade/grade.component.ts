@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {MediaMatcher} from '@angular/cdk/layout';
 import {GradeService} from '../../services/grade.service';
 import {GroupService} from '../../services/group.service';
 import {StudentGroup} from '../../models/StudentGroup';
@@ -15,6 +16,7 @@ import {StudentService} from '../../services/student.service';
     providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
+    mobileQuery: MediaQueryList;
     groups: StudentGroup[];
     selectGroup: StudentGroup;
     selectSemester = 1;
@@ -24,11 +26,17 @@ export class GradeComponent implements OnInit {
     errorsMessage = [];
     emptyGradesList = [];
     gradesUpdate = [];
+    private _mobileQueryListener: () => void;
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
                 private studentService: StudentService,
-                private courseForGroupService: CourseForGroupService) {
+                private courseForGroupService: CourseForGroupService,
+                changeDetectorRef: ChangeDetectorRef,
+                media: MediaMatcher) {
+        this.mobileQuery = media.matchMedia('(max-width: 600px)');
+        this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+        this.mobileQuery.addListener(this._mobileQueryListener);
     }
 
     ngOnInit() {
@@ -103,8 +111,6 @@ export class GradeComponent implements OnInit {
         this.setCourses(courses || []);
         this.clearUpdateGrades();
         this.loading = true;
-
-        console.log(this.studentsDegree);
     }
 
     setStudentDegree(studentsDegree): void {
