@@ -31,6 +31,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   ) {
     super();
     this.form = fb.group({
+      id: '',
       student: '',
       studentGroupId: ['', Validators.required],
       payment: ['', Validators.required],
@@ -73,6 +74,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   setStudentFormGroup() {
     const controls = this.activeTab === Tabs.New
       ? {
+        id: '',
         name: ['', Validators.required],
         surname: ['', Validators.required],
         patronimic: ['', Validators.required],

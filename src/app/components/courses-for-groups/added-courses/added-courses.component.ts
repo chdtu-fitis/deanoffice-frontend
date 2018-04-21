@@ -2,7 +2,6 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
-import {Course} from "../../../models/Course";
 
 @Component({
   selector: 'added-courses',
@@ -51,10 +50,6 @@ export class AddedCoursesComponent implements OnInit {
       this.coursesForGroupForDelete.push(selectedCourse);
     }
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
-  }
-
-  changeAddedCourses(){
-    this.onAddedCoursesForGroup.emit(this.addedCoursesForGroup);
   }
 
   deleteFromCoursesForGroup() {

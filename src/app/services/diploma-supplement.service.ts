@@ -11,7 +11,7 @@ export class DiplomaSupplementService {
   }
 
   buildGradePercent(groupId: string): void {
-    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}`;
+    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
     window.open(url, '_blank');
   }
 }
