@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
@@ -23,32 +23,26 @@ export class StudentsTableComponent {
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate') dateTemplate: TemplateRef<any>;
   cols: Object[];
+  templatesMap = {
+    'student.sex': { cellTemplate: this.sexTemplate },
+    'payment': { cellTemplate: this.paymentTemplate },
+    'selected': {
+      name: '',
+      sortable: false,
+      canAutoResize: false,
+      draggable: false,
+      resizable: false,
+      headerCheckboxable: true,
+      checkboxable: true,
+      width: 30
+    },
+  };
 
   private transformArrayToColumns(array: string[]): Object[] {
     return ['selected', ...array].map(prop => {
-      let col = {};
-      switch (prop) {
-        case 'student.sex':
-          col = { cellTemplate: this.sexTemplate }; break;
-        case 'student.birthDate':
-        case 'diplomaDate':
-        case 'supplementDate':
-        case 'previousDiplomaDate':
-        case 'protocolDate':
-          col = { cellTemplate: this.dateTemplate }; break;
-        case 'payment':
-          col = { cellTemplate: this.paymentTemplate }; break;
-        case 'selected':
-          col = {
-            name: '',
-            sortable: false,
-            canAutoResize: false,
-            draggable: false,
-            resizable: false,
-            headerCheckboxable: true,
-            checkboxable: true,
-            width: 30
-          };
+      let col = this.templatesMap[prop];
+      if (prop.match(/Date/)) {
+        col = {cellTemplate: this.dateTemplate};
       }
       return { prop, name: translations[prop], ...col };
     });

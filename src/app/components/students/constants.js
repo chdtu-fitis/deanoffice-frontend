@@ -29,6 +29,16 @@ export const allColumns = defaultColumns.concat(
   'protocolDate'
 );
 
+export const expelledStudentsColumns = [
+  'studentDegree.student.surname',
+  'studentDegree.student.name',
+  'studentDegree.student.patronimic',
+  'applicationDate',
+  'expelDate',
+  'orderDate',
+  'orderReason.name',
+];
+
 export const months = [
   'Січень',
   'Лютий',

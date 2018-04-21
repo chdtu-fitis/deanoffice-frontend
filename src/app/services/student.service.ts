@@ -32,6 +32,10 @@ export class StudentService {
     return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
   }
 
+  getExpelledStudents(): Observable<StudentDegree[]> {
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees/expels`);
+  }
+
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
       ? { params: { new_student: 'true' }}
@@ -61,6 +65,7 @@ export class StudentService {
   updatePhoto(id: number, photo) {
     return this.http.put(`${this.url}/${id}/photo`, photo);
   }
+
   expelStudents(studentDegrees: any[]) {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }

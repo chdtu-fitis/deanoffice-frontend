@@ -18,6 +18,7 @@ import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
 import {StudentExpelComponent} from './student-expel/student-expel.component';
 import {StudentsListComponent} from './students-list/students-list.component';
 import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-info.component';
+import {ExpelledStudentsComponent} from './expelled-students/expelled-students.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-i
     StudentPersonalInfoComponent,
     PhotoUploadComponent,
     StudentDegreeInfoComponent,
+    ExpelledStudentsComponent,
   ],
   imports: [
     CommonModule,
