@@ -36,6 +36,10 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/expels`);
   }
 
+  getStudentsInAcademicVacation(): Observable<StudentDegree[]> {
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees/academic-vacations`);
+  }
+
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
       ? { params: { new_student: 'true' }}

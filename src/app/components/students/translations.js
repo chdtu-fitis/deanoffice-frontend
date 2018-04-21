@@ -29,5 +29,7 @@ export const translations = {
   'applicationDate': 'Дата заяви',
   'expelDate': 'Дата відрахування',
   'orderDate': 'Дата наказу',
-  'orderReason.name': 'Причина відрахування',
+  'orderReason.name': 'Причина',
+  'vacationStartDate': 'Дата початку',
+  'vacationEndDate': 'Дата закінчення',
 };

@@ -39,6 +39,17 @@ export const expelledStudentsColumns = [
   'orderReason.name',
 ];
 
+export const academicVacationColumns = [
+  'studentDegree.student.surname',
+  'studentDegree.student.name',
+  'studentDegree.student.patronimic',
+  'vacationStartDate',
+  'vacationEndDate',
+  'applicationDate',
+  'orderDate',
+  'orderReason.name',
+];
+
 export const months = [
   'Січень',
   'Лютий',
