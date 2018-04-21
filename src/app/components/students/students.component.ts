@@ -52,17 +52,7 @@ export class StudentsComponent implements OnInit {
   }
 
   onSelect(students: StudentDegree[]) {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...students);
-  }
-
-  toggleSelect(student: StudentDegree) {
-    const index = this.selected.findIndex(entry => entry.id === student.id);
-    if (index > -1) {
-      this.selected.splice(index, 1);
-    } else {
-      this.onSelect([...this.selected, student]);
-    }
+    this.selected = students;
   }
 
   getStudents() {

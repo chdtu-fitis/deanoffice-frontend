@@ -57,13 +57,25 @@ export class StudentsTableComponent {
   }
 
   select({ selected }) {
-    this.onSelect.emit(selected);
+    this.handleSelect(selected)
   }
 
   activate({ type, row, column }) {
     if (type !== 'click' || column.prop === 'selected') {
       return;
     }
-    this.onToggleSelect.emit(row);
+    const index = this.selected.findIndex(entry => entry.id === row.id);
+    if (index > -1) {
+      this.selected.splice(index, 1);
+      this.onSelect.emit(this.selected);
+    } else {
+      this.handleSelect([...this.selected, row]);
+    }
+  }
+
+  handleSelect(students: StudentDegree[]) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...students);
+    this.onSelect.emit(this.selected);
   }
 }
