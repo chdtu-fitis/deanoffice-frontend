@@ -45,6 +45,8 @@ export class StudentsComponent implements OnInit {
 
   prependStudent(student) {
     this.students = [student, ...this.students];
+    this.setRows(this.students);
+    this.onSelect([student]);
   };
 
   setRows(rows: StudentDegree[]) {

@@ -70,7 +70,7 @@
 <app-add-student
   #addStudentModal
   [groups]="groups"
-  (newStudent)="prependStudent($event)"
+  (onSubmit)="prependStudent($event)"
 ></app-add-student>
 
 <app-student-expel
