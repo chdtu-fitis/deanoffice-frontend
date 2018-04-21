@@ -20,6 +20,7 @@ import {SharedModule} from '../shared/shared.module';
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {GeneralService} from '../../services/general.service'
 import {ExamReportService} from "../../services/exam-report.service";
+import {SpecialityService} from '../../services/speciality.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {ExamReportService} from "../../services/exam-report.service";
     StudentService,
     CourseForGroupService,
     DiplomaSupplementService,
-    ExamReportService
+    ExamReportService,
+    SpecialityService
   ],
   bootstrap: [AppComponent],
 })

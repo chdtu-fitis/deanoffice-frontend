@@ -1,3 +1,21 @@
-<p>
-  speciality works!
-</p>
+<div class="mb-4 mt-3 d-flex">
+  <button class="btn btn-info" (click)="actual()">{{ buttonText }}</button>
+</div>
+<div>
+  <ngx-datatable
+          #table_speciality
+          class="material"
+          [rows]="rows"
+          [sortType]="'multi'"
+          [loadingIndicator]="loadingIndicator"
+          [columns]="columns"
+          [columnMode]="'force'"
+          [headerHeight]="40"
+          [footerHeight]="40"
+          [limit]="10"
+          [selected]="selected"
+          [selectionType]="'multi'"
+          [messages]="{ emptyMessage: 'Дані відсутні.' }"
+          (select)='onSelect($event)'>
+  </ngx-datatable>
+</div>
