@@ -83,9 +83,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   deleteCoursesFromCoursesForGroups(){
+    console.log(this.coursesForDelete);
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
-        if (deletedCourse.id==course.id && deletedCourse.id!=undefined){
+        if (deletedCourse.course.id==course.course.id && deletedCourse.id!=undefined){
           this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.deleteCoursesIds.push(deletedCourse.id);
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
@@ -166,7 +167,9 @@ export class CoursesForGroupsComponent implements OnInit {
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
     this.updatedCourses = [];
-    this.onSemesterChange();
+    setTimeout(() => {
+      this.onSemesterChange();
+    }, 0);
   }
 
 }
