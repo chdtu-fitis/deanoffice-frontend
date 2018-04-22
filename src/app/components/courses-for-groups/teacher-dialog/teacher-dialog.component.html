@@ -1,8 +1,8 @@
 <div [@dialog] *ngIf="visible" class="dialog">
   <ng-content></ng-content>
-  <li>
-    <ul *ngFor="let teacher of teachers">{{teacher.name}} {{teacher.patronimic}}</ul>
-  </li>
+  <ul>
+    <li *ngFor="let teacher of teachers">{{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}</li>
+  </ul>
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 </div>
 <div *ngIf="visible" class="overlay" (click)="close()"></div>
