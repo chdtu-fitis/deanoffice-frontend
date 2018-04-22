@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {Teacher} from '../../../models/Teacher';
 import {TeacherService} from '../../../services/teacher.service';
+import {CourseForGroup} from '../../../models/CourseForGroup';
 
 @Component({
   selector: 'teacher-dialog',
@@ -24,6 +25,9 @@ export class TeacherDialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() coursesForGroups: CourseForGroup[] = [];
+  @Input() cfgIndex: number;
+  @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
   constructor(private teacherService: TeacherService) { }
 
@@ -31,6 +35,11 @@ export class TeacherDialogComponent implements OnInit {
     this.teacherService.getTeachers().subscribe(teachers => {
       this.teachers = teachers
     })
+  }
+
+  selectTeacher(teacher: Teacher){
+    this.coursesForGroups[this.cfgIndex].teacher = teacher;
+    this.onTeacherSelect.emit(this.coursesForGroups);
   }
 
   close() {

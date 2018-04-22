@@ -15,6 +15,7 @@ import {Teacher} from "../../models/Teacher";
   providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
+  indexForTeacher: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -174,7 +175,13 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  changeTeacher(event){
-    this.showDialog = event;
+  changeTeacher(event) {
+    if (event.show && event.index) {
+      this.showDialog = event.show;
+      this.indexForTeacher = event.index;
+    }
+    else {
+      this.coursesForAdd = event;
+    }
   }
 }

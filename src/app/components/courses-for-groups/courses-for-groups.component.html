@@ -3,7 +3,7 @@
     <loading [size]="40"></loading>
   </div>
 
-  <teacher-dialog [(visible)]="showDialog">
+  <teacher-dialog [(visible)]="showDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup">
     <h1>Hello World</h1>
     <button (click)="showDialog = !showDialog" class="btn">Close</button>
   </teacher-dialog>
