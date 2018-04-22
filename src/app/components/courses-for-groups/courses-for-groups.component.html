@@ -2,6 +2,11 @@
   <div *ngIf="!showPage">
     <loading [size]="40"></loading>
   </div>
+
+  <teacher-dialog [(visible)]="showDialog">
+    <h1>Hello World</h1>
+    <button (click)="showDialog = !showDialog" class="btn">Close</button>
+  </teacher-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <div class="row">

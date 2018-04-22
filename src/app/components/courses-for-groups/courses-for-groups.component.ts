@@ -30,6 +30,7 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
   studiedCoursesLoading = false;
   showPage = false;
+  showDialog = false;
 
   constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
 
