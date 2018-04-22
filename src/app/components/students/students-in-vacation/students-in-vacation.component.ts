@@ -27,4 +27,13 @@ export class StudentsInVacationComponent implements OnInit {
   onSelect(students: StudentDegree[]) {
     this.selected = students;
   }
+
+  onRenew(id) {
+    this.rows = this.rows.map(row => {
+      if (row.id === id) {
+        row['studentDegree'].active = true;
+      }
+      return row;
+    });
+  }
 }

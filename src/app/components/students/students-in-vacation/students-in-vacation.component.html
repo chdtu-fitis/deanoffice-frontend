@@ -29,4 +29,7 @@
   </div>
 </div>
 
-<app-stop-academic-vacation #stopAcademicVacationModal></app-stop-academic-vacation>
+<app-stop-academic-vacation
+  #stopAcademicVacationModal
+  (onSubmit)="onRenew($event)"
+></app-stop-academic-vacation>

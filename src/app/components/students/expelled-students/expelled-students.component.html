@@ -5,7 +5,7 @@
         <app-students-search class="mr-auto" [rows]="rows" (searchResult)="onSelect($event)"></app-students-search>
         <button
           *ngIf="selected.length === 1 && !selected[0].studentDegree.active"
-          class="btn btn-info w-100 mt-3"
+          class="btn btn-info"
           (click)="renewStudentModal.openModal(selected[0])"
         >
           Поновити студента
