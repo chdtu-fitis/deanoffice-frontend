@@ -21,7 +21,15 @@
     </div>
 
     <app-sidebar class="sidebar">
-
+      <button
+        *ngIf="selected.length"
+        class="btn btn-info w-100 mt-3"
+        (click)="stopAcademicVacationModal.openModal(selected[0])"
+      >
+        Поновити студента
+      </button>
     </app-sidebar>
   </div>
 </div>
+
+<app-stop-academic-vacation #stopAcademicVacationModal></app-stop-academic-vacation>
