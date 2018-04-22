@@ -10,6 +10,7 @@ import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
 import {LoadingComponent} from "../loading/loading.component";
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CourseCreationComponent,
     CoursesSearchPipe,
     LoadingComponent,
-    TeacherDialogComponent
+    TeacherDialogComponent,
+    CopyCoursesDialogComponent
   ],
   exports: [
     CoursesForGroupsComponent
