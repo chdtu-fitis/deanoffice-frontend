@@ -34,9 +34,9 @@ a { color: inherit; }
 	background-color: #1A5CAB;
 	color: #fff;
 	padding-bottom: 10px;
-	-webkit-box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
+	box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
 	cursor: pointer;
 }
 .logo {
@@ -70,11 +70,11 @@ a { color: inherit; }
 	display: inline-block;
 }
 .header-nav li a:hover {
-	text-decoration: none;	
+	text-decoration: none;
 }
 .header-nav li a:hover .check-icon {
-	visibility: visible;	
-}		
+	visibility: visible;
+}
 .check-icon {
 	display: block;
 	float: left;
@@ -120,8 +120,8 @@ a { color: inherit; }
 	transition: 0.3s;
 	border: 2px solid #fff;
 	border-radius: 50%;
-}	
-.user-add {	
+}
+.user-add {
 	background: url(assets/img/userAdd.png) no-repeat;
 	background-size: 100% 100%;
 }
@@ -147,9 +147,9 @@ a { color: inherit; }
 .content table {
 	width: 100%;
 	text-transform: uppercase;
-	-webkit-box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);
-	box-shadow: 2px 5px 16px 0px rgba(0,0,0,0.75);	
+	-webkit-box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
+	box-shadow: 2px 5px 16px 0 rgba(0,0,0,0.75);
 	margin-bottom: 60px;
 }
 .content table thead {
@@ -180,7 +180,7 @@ a { color: inherit; }
 	background-color: #212121;
 	text-align: center;
 	color: #fff;
-	-webkit-box-shadow: -2px -3px 10px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: -2px -3px 10px 0px rgba(0,0,0,0.75);
-	box-shadow: -2px -3px 10px 0px rgba(0,0,0,0.75);
+	-webkit-box-shadow: -2px -3px 10px 0 rgba(0,0,0,0.75);
+	-moz-box-shadow: -2px -3px 10px 0 rgba(0,0,0,0.75);
+	box-shadow: -2px -3px 10px 0 rgba(0,0,0,0.75);
 }

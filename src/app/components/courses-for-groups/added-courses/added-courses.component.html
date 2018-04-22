@@ -1,3 +1,25 @@
-<p>
-  added-courses works!
-</p>
+<div class="card">
+  <div class="card-header">
+    Призначені предмети
+  </div>
+  <div class="div-table">
+    <table class="table table-striped">
+      <thead>
+      <td></td>
+      <td>Назва</td>
+      <td>Вид</td>
+      <td>Години</td>
+      <td>Викладач</td>
+      <td>Дата екзамену</td>
+      </thead>
+      <tr *ngFor="let course of coursesForGroup">
+        <td><input type="checkbox" (change)="changeCoursesForDelete($event.target.checked, course)"></td>
+        <td>{{ course.course.courseName.name }}</td>
+        <td>{{ course.course.knowledgeControl.name}}</td>
+        <td>{{ course.course.hours }}</td>
+        <td>{{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) }}</td>
+        <td>{{ parseToDate(course?.examDate) }}</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,19 +1,45 @@
-<nav class="Header navbar navbar-expand-lg navbar-light fixed-top">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <nav class="Header navbar navbar-expand-lg navbar-light fixed-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a routerLink="diplsuppl" class="nav-link">Додаток до диплому</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a routerLink="examreport" class="nav-link">Exam report</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a routerLink="students" class="nav-link">Студенти</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <nav class="main-nav">
+      <ul>
+        <li>
+          Початок року
+          <ul class="sub-nav">
+            <li>Спеціальності</li>
+            <li>Спеціалізації</li>
+            <li>Групи</li>
+            <li>Предмети</li>
+            <li><a routerLink="courses-for-groups">Предмети для груп</a></li>
+          </ul>
+        </li>
+        <li>
+          Впродовж року
+          <ul class="sub-nav">
+            <li><a routerLink="students">Студенти</a></li>
+            <li>Відраховані студенти</li>
+          </ul>
+        </li>
+        <li>
+          Кінець року
+          <ul class="sub-nav">
+            <li>Закінчити навчальний рік</li>
+          </ul>
+        </li>
+        <li>
+          Документи
+          <ul class="sub-nav">
+            <li><a routerLink="examreport">Відомості</a></li>
+            <li>Зведені відомості</li>
+            <li><a routerLink="diploma-supplement">Додатки до диплому</a></li>
+            <li>Виписки в особові справи</li>
+            <li>Виписки в журнали</li>
+            <li>Академічні довідки</li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+  </nav>
