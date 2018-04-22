@@ -8,6 +8,7 @@ import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
 import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
 import {LoadingComponent} from "../loading/loading.component";
+import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {LoadingComponent} from "../loading/loading.component";
     AddedCoursesComponent,
     CourseCreationComponent,
     CoursesSearchPipe,
-    LoadingComponent
+    LoadingComponent,
+    TeacherDialogComponent
   ],
   exports: [
     CoursesForGroupsComponent
