@@ -21,6 +21,18 @@
     </div>
 
     <app-sidebar class="sidebar">
+      <button
+        *ngIf="selected.length === 1"
+        class="btn btn-info w-100 mt-3"
+        (click)="renewStudentModal.openModal(selected[0])"
+      >
+        Поновити студента
+      </button>
     </app-sidebar>
   </div>
 </div>
+
+<app-renew-student
+  #renewStudentModal
+  (onSubmit)="onRenewStudent($event)">
+</app-renew-student>
