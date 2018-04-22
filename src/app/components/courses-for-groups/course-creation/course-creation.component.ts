@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
@@ -18,6 +18,7 @@ export class CourseCreationComponent implements OnInit {
   success = false;
   failCreated = undefined;
   fail = undefined;
+  @Output() onCourseCreation = new EventEmitter();
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
     this.course.hoursPerCredit = 30;
   }
@@ -49,10 +50,11 @@ export class CourseCreationComponent implements OnInit {
     this.courseService.createCourse(this.course).subscribe(() => {
       this.success = true;
       this.failCreated = false;
-      this.fail = false
-    },
+      this.fail = false;
+      this.onCourseCreation.emit();
+      },
         error => {
-      console.log(error)
+      console.log(error);
       if (error.status === 422) {
         this.failCreated = true;
         this.success = false;
@@ -61,7 +63,7 @@ export class CourseCreationComponent implements OnInit {
         this.success = false;
         this.fail = true;
       }
-    })
+    });
   }
 
   get courseName() { return this.form.get('courseName'); }

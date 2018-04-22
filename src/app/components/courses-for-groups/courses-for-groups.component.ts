@@ -15,6 +15,7 @@ import {Teacher} from "../../models/Teacher";
   providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
+  indexForTeacher: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -30,6 +31,7 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
   studiedCoursesLoading = false;
   showPage = false;
+  showDialog = false;
 
   constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
 
@@ -171,4 +173,24 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
   }
 
+
+  onCourseCreation(){
+    if (this.selectedSemester) {
+      this.studiedCoursesLoading = true;
+      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+        this.courses = cfg;
+        this.studiedCoursesLoading = false;
+      })
+    }
+  }
+
+  changeTeacher(event) {
+    if (event.show && event.index) {
+      this.showDialog = event.show;
+      this.indexForTeacher = event.index;
+    }
+    else {
+      this.coursesForAdd = event;
+    }
+  }
 }

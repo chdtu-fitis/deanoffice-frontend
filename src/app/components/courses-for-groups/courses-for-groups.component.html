@@ -2,6 +2,10 @@
   <div *ngIf="!showPage">
     <loading [size]="40"></loading>
   </div>
+
+  <teacher-dialog [(visible)]="showDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup">
+    <!--<button (click)="showDialog = !showDialog" class="btn">Close</button>-->
+  </teacher-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <div class="row">
@@ -28,7 +32,7 @@
           <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
         </div>
         <div class="col-5">
-          <course-creation></course-creation>
+          <course-creation (onCourseCreation)="onCourseCreation()"></course-creation>
         </div>
       </div>
   <div class="row">
@@ -38,7 +42,7 @@
       <button type="button" class="btn btn-info copy">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
   <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
   <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
 </div>
