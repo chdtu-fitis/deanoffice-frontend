@@ -9,6 +9,7 @@ import { CourseCreationComponent } from './course-creation/course-creation.compo
 import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
 import {LoadingComponent} from "../loading/loading.component";
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     CoursesForGroupsComponent,
