@@ -28,7 +28,7 @@
           <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
         </div>
         <div class="col-5">
-          <course-creation></course-creation>
+          <course-creation (onCourseCreation)="onCourseCreation()"></course-creation>
         </div>
       </div>
   <div class="row">

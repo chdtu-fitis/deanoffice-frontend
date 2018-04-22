@@ -162,4 +162,14 @@ export class CoursesForGroupsComponent implements OnInit {
     this.onSemesterChange();
   }
 
+
+  onCourseCreation(){
+    if (this.selectedSemester) {
+      this.studiedCoursesLoading = true;
+      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+        this.courses = cfg;
+        this.studiedCoursesLoading = false;
+      })
+    }
+  }
 }
