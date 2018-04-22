@@ -173,4 +173,8 @@ export class CoursesForGroupsComponent implements OnInit {
       })
     }
   }
+
+  changeTeacher(event){
+    this.showDialog = event;
+  }
 }
