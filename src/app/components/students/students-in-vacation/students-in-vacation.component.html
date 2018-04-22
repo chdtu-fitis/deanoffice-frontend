@@ -3,6 +3,13 @@
     <div class="col content py-3">
       <div class="mb-4 mt-3 d-flex">
         <app-students-search class="mr-auto" [rows]="rows" (searchResult)="onSelect($event)"></app-students-search>
+        <button
+          *ngIf="selected.length === 1 && !selected[0].studentDegree.active"
+          class="btn btn-info"
+          (click)="stopAcademicVacationModal.openModal(selected[0])"
+        >
+          Поновити студента
+        </button>
       </div>
 
       <div class="students-table">
@@ -19,16 +26,6 @@
         Всього: {{rows.length || '0'}}
       </div>
     </div>
-
-    <app-sidebar class="sidebar">
-      <button
-        *ngIf="selected.length"
-        class="btn btn-info w-100 mt-3"
-        (click)="stopAcademicVacationModal.openModal(selected[0])"
-      >
-        Поновити студента
-      </button>
-    </app-sidebar>
   </div>
 </div>
 
