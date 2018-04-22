@@ -23,24 +23,25 @@ export class StudentsTableComponent {
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate') dateTemplate: TemplateRef<any>;
   cols: Object[];
-  templatesMap = {
-    'student.sex': { cellTemplate: this.sexTemplate },
-    'payment': { cellTemplate: this.paymentTemplate },
-    'selected': {
-      name: '',
-      sortable: false,
-      canAutoResize: false,
-      draggable: false,
-      resizable: false,
-      headerCheckboxable: true,
-      checkboxable: true,
-      width: 30
-    },
-  };
 
   private transformArrayToColumns(array: string[]): Object[] {
+    const templatesMap = {
+      'student.sex': { cellTemplate: this.sexTemplate },
+      'payment': { cellTemplate: this.paymentTemplate },
+      'selected': {
+        name: '',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
+      },
+    };
+
     return ['selected', ...array].map(prop => {
-      let col = this.templatesMap[prop];
+      let col = templatesMap[prop];
       if (prop.match(/Date/)) {
         col = {cellTemplate: this.dateTemplate};
       }
