@@ -52,7 +52,11 @@ export class CoursesForGroupsComponent implements OnInit {
     setTimeout(() => {
       this.child.getCoursesForGroup();
     }, 0);
-    this.cancelChanges();
+    this.coursesForDelete = [];
+    this.child.coursesForGroupForDelete = [];
+    this.deleteCoursesIds = [];
+    this.coursesForAdd = [];
+    this.updatedCourses = [];
   }
 
   onSemesterChange(){
@@ -109,7 +113,6 @@ export class CoursesForGroupsComponent implements OnInit {
         courseForGroup.course = course;
         courseForGroup.studentGroup = this.selectedGroup;
         courseForGroup.teacher = teacher;
-        courseForGroup.teacher.id = 0;
         if (this.coursesForAdd.length > 0) {
           let courseIsAdded = false;
           for (let courseForAdd of this.coursesForAdd) {
@@ -132,6 +135,10 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
     }
   }
+
+  // openVerticallyCentered(content) {
+  //   this.modalService.open(content, { centered: true });
+  // }
 
   saveCoursesForGroup() {
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
