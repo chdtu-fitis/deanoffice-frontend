@@ -1,32 +1,35 @@
-.btn { cursor: pointer; }
-
-.d-block-button-group {
-  padding: 5px 0;
-}
-
-.grade-is-mobile .grade-toolbar {
-  position: fixed;
-  z-index: 2;
-}
-
-.mat-sidenav {
-  padding-right: 10px;
-}
+@import "../../../styles";
 
 .grade-container {
+  @extend .container-fluid;
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  height: 100%;
 }
 
-.grade-sidenav-container {
+mat-sidenav-container {
   flex: 1;
 }
 
-.grade-sidenav-container {
-  flex: 1 0 auto;
+.btn {
+  cursor: pointer;
+}
+
+mat-sidenav {
+  padding-right: 10px;
+}
+
+.alert-primary {
+  @extend .alert;
+  @extend .alert-primary;
+}
+
+.alert-danger {
+  @extend .alert;
+  @extend .alert-danger;
+}
+
+.group-buttons {
+  @extend .btn-group;
+  @extend .btn-group-sm;
+  padding: 5px 0;
 }

@@ -1,18 +1,18 @@
-td>input {
+@import "../../../../styles";
+
+table {
+  @extend table;
+  @extend .table-bordered;
+  @extend .table-striped;
+  @extend .table-responsive;
+  @extend .table-sm;
+}
+
+td > input {
   background: none;
   border: none;
   text-align: center;
   width: 100%;
-}
-
-td {
-  min-width: 100px;
-}
-
-.page-count {
-  max-width: 30px;
-  min-width: 30px;
-  text-align: center;
 }
 
 input::-webkit-outer-spin-button,

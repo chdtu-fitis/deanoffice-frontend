@@ -1,10 +1,10 @@
-<table *ngIf="courses.length && studentsDegree.length"
-       class="table table-bordered table-striped table-responsive table-sm">
+<table *ngIf="courses.length && studentsDegree.length">
     <thead>
     <tr>
-        <td class="page-count">#</td>
+        <td>№</td>
         <td>{{selectGroup?.name}}<br>
-            Семестр: {{ selectSemester }}</td>
+            Семестр: {{ selectSemester }}
+        </td>
         <td *ngFor="let course of courses" scope="row">
             {{course.course.courseName?.name}}
         </td>
@@ -13,17 +13,16 @@
 
     <tbody>
     <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
-        <td  class="page-count">{{studentId + 1}}</td>
+        <td>{{studentId + 1}}</td>
         <td class="td-student">{{studentDegree.student.surname}}
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-            <td class="text-center align-middle" [ngClass]="{ 'bg-danger text-white' : grade?.empty }"
+            <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}"
                 id="grade{{studentId}}{{gradeId}}">
-
                 <ng-container *ngIf="!grade?.empty">
                     <input type="number" [(ngModel)]="grade.points"
-                           (change)="editGrade(grade, 'grade' + studentId + '' + gradeId)"
+                           (change)="editGrade(grade, studentId, gradeId)"
                            max="100" min="0"/>
                 </ng-container>
             </td>

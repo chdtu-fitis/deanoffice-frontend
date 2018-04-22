@@ -56,7 +56,7 @@ export class GradeComponent implements OnInit {
         this.sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(this.selectSemester || 1, this.selectGroup.id);
     }
 
-    joinGradesForStudents(grades: any, students: any, courses: any) {
+    joinGradesForStudents(grades: any, students: any, courses: any): any {
         const studentsTemp = [];
         const emptyGrades = [];
         for (const studentDegree of students) {
@@ -67,7 +67,9 @@ export class GradeComponent implements OnInit {
                 for (const grade of grades) {
                     if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                         check = true;
-                        if (!grade.points) { grade.points = 0; }
+                        if (!grade.points) {
+                            grade.points = 0;
+                        }
                         student.grades.push(grade);
                         break;
                     }
@@ -103,7 +105,7 @@ export class GradeComponent implements OnInit {
         });
     }
 
-    updateGradesAndStudentsAndCourses(grades, studentsDegree, courses) {
+    updateGradesAndStudentsAndCourses(grades, studentsDegree, courses): void {
         this.checkForErrorsAfterQueryingDataFetches(courses, studentsDegree, grades);
         const joinGrades = this.joinGradesForStudents(grades, studentsDegree, courses);
         this.setStudentDegree(joinGrades.studentsTemp || []);
@@ -125,8 +127,8 @@ export class GradeComponent implements OnInit {
         this.courses = courses;
     }
 
-    addErrorMessage(err, clear) {
-        if(clear) this.errorsMessage = [];
+    addErrorMessage(err, clear): void {
+        if (clear) this.errorsMessage = [];
         this.errorsMessage.push(err);
     }
 
@@ -147,25 +149,25 @@ export class GradeComponent implements OnInit {
         }
     }
 
-    setErrorsFromTable(error) {
-        error ? this.errorsMessage.push(error) : this.errorsMessage = [];
+    setErrorsFromTable(error: string): void {
+        error ? this.addErrorMessage(error, true) : this.errorsMessage = [];
     }
 
-    addGradesForUpdate(grades) {
+    addGradesForUpdate(grades): void {
         this.gradesUpdate = grades;
     }
 
-    clearUpdateGrades() {
+    clearUpdateGrades(): void {
         this.gradesUpdate = [];
     }
 
-    updateGradesForGroup() {
+    updateGradesForGroup(): void {
         this.gradeService.updateGrades(this.gradesUpdate).subscribe(grades => {
             this.getGrades();
         })
     }
 
-    fillInWithZerosGrades() {
+    fillInWithZerosGrades(): void {
         this.gradeService.updateGrades(this.emptyGradesList).subscribe(grades => {
             this.getGrades();
         });

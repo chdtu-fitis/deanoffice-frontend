@@ -23,7 +23,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         MatToolbarModule
     ]
 })
-export class GradeMaterialModule {}
+export class GradeMaterialModule {
+}
 
 @NgModule({
     declarations: [
@@ -37,4 +38,5 @@ export class GradeMaterialModule {}
         FormsModule
     ]
 })
-export class GradeModule {}
+export class GradeModule {
+}

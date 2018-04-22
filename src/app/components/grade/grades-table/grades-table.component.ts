@@ -14,33 +14,39 @@ export class GradesTableComponent {
     @Output() errors = new EventEmitter();
     grades = [];
 
-    constructor() {}
-
-    editGrade(grade, id) {
-        if(grade.points > 100 || grade.points < 0) {
-            this.errors.emit('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
+    editGrade(grade, studentId, gradeId): void {
+        const id = `grade${studentId}${gradeId}`;
+        if (grade.points > 100 || grade.points < 0) {
+            this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
             this.updateVisible(id, 'bg-danger');
-            return;
+        } else {
+            this.setError('');
+            this.addGradeForUpdate(grade);
+            this.updateVisible(id, 'bg-warning');
         }
+    }
 
-        this.errors.emit(false);
-        const gradeId = this.findGradeOfGrades(grade);
-        if (gradeId >= 0) {
-            this.grades[gradeId] = grade;
+    addGradeForUpdate(grade): void {
+        const updateGradeId = this.findGradeOfGrades(grade);
+        if (updateGradeId >= 0) {
+            this.grades[updateGradeId] = grade;
         } else {
             this.grades.push(grade);
         }
         this.gradesUpdate.emit(this.grades);
-        this.updateVisible(id, 'bg-warning');
     }
 
-    updateVisible(id, style) {
+    setError(error: string): void {
+        this.errors.emit(error);
+    }
+
+    updateVisible(id, style): void {
         const element = document.getElementById(id);
         const styles = 'text-center align-middle';
         element.setAttribute('class', `${styles} ${style}`);
     }
 
-    findGradeOfGrades(grade) {
+    findGradeOfGrades(grade): number {
         if (!this.grades.length) return -1;
         for (let i = 0; i < this.grades.length; i++) {
             if (this.grades[i].id === grade.id) {
