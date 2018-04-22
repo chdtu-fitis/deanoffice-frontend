@@ -40,5 +40,5 @@
   </div>
   <added-courses (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
   <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
-  <button type="button" class="btn btn-danger" (click)="cancelChanges()">Відмінити зміни</button>
+  <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
 </div>

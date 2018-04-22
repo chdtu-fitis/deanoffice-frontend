@@ -83,7 +83,6 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   deleteCoursesFromCoursesForGroups(){
-    console.log(this.coursesForDelete);
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
         if (deletedCourse.course.id==course.course.id && deletedCourse.id!=undefined){
@@ -158,10 +157,10 @@ export class CoursesForGroupsComponent implements OnInit {
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
     });
-    this.onSemesterChange();
+    this.refresh();
   }
 
-  cancelChanges(){
+  refresh(){
     this.coursesForDelete = [];
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
