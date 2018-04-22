@@ -8,7 +8,6 @@ import {environment} from '../../environments/environment';
 export class GeneralService {
   private apiUrl = environment.apiUrl;
   private expelReasons;
-  private renewReasons;
 
   constructor(private http: HttpClient) {
   }
@@ -19,13 +18,5 @@ export class GeneralService {
     }
     return this.http.get(`${this.apiUrl}/reasons/fired-students`)
       .do(res => this.expelReasons = res);
-  }
-
-  getStudentRenewReasons() {
-    if (this.renewReasons) {
-      return of(this.renewReasons);
-    }
-    return this.http.get(`${this.apiUrl}/reasons/zarah`)
-      .do(res => this.renewReasons = res);
   }
 }
