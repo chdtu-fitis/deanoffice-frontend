@@ -59,6 +59,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
     this.updatedCourses = [];
+    this.coursesForGroup = [];
   }
 
   onSemesterChange(){
@@ -90,6 +91,7 @@ export class CoursesForGroupsComponent implements OnInit {
         if (deletedCourse.course.id==course.course.id && deletedCourse.id!=undefined){
           this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.deleteCoursesIds.push(deletedCourse.id);
+          this.updatedCourses.splice(this.updatedCourses.indexOf(course),1);
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
         for (let addedCourse of this.coursesForAdd)
@@ -168,11 +170,11 @@ export class CoursesForGroupsComponent implements OnInit {
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
     this.updatedCourses = [];
+    this.coursesForGroup = [];
     setTimeout(() => {
       this.onSemesterChange();
-    }, 0);
+    }, 10);
   }
-
 
   onCourseCreation(){
     if (this.selectedSemester) {
@@ -185,12 +187,24 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   changeTeacher(event) {
+    let isAdded: boolean;
+    isAdded = false;
     if (event.show && event.index) {
       this.showDialog = event.show;
       this.indexForTeacher = event.index;
     }
     else {
-      this.coursesForAdd = event;
+      for (let updatedCourse of event){
+        if (event.indexOf(updatedCourse)==this.indexForTeacher){
+          for (let addedCourse of this.coursesForAdd){
+            if (updatedCourse.course.id===addedCourse.course.id){
+              addedCourse.teacher = updatedCourse.teacher;
+              isAdded = true;
+            }
+          }
+          if (!isAdded) this.updatedCourses.push(updatedCourse);
+        }
+      }
     }
   }
 }

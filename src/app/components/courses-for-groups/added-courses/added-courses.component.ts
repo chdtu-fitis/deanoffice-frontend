@@ -53,7 +53,6 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   addNewCoursesForGroup(){
-    console.log(this.coursesForGroup);
     for (let courseForAdd of this.selectedCoursesForGroups) {
       if (this.selectedCoursesForGroups.length > 0) {
         let courseIsAdded = false;
