@@ -1,7 +1,7 @@
 <div [@dialog] *ngIf="visible" class="dialog">
-  <ng-content></ng-content>
-  <ul>
-    <li *ngFor="let teacher of teachers" (click)="selectTeacher(teacher)">{{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}</li>
+  <h1 class="h1">Викладачі</h1>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action" *ngFor="let teacher of teachers" (click)="selectTeacher(teacher)">{{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}</li>
   </ul>
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 </div>

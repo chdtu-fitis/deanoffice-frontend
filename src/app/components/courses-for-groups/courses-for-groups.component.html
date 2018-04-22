@@ -4,8 +4,7 @@
   </div>
 
   <teacher-dialog [(visible)]="showDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup">
-    <h1>Hello World</h1>
-    <button (click)="showDialog = !showDialog" class="btn">Close</button>
+    <!--<button (click)="showDialog = !showDialog" class="btn">Close</button>-->
   </teacher-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
