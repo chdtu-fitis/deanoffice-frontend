@@ -10,7 +10,7 @@ export class TeacherService {
   constructor(private http: HttpClient) {
   }
 
-  getTeachers(): Observable<Teacher> {
-    return this.http.get<Teacher>(`${this.url}/teachers`);
+  getTeachers(): Observable<Teacher[]> {
+    return this.http.get<Teacher[]>(`${this.url}/teachers`);
   }
 }
