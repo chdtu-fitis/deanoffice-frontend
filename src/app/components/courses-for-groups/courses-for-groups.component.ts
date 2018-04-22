@@ -54,7 +54,11 @@ export class CoursesForGroupsComponent implements OnInit {
     setTimeout(() => {
       this.child.getCoursesForGroup();
     }, 0);
-    this.cancelChanges();
+    this.coursesForDelete = [];
+    this.child.coursesForGroupForDelete = [];
+    this.deleteCoursesIds = [];
+    this.coursesForAdd = [];
+    this.updatedCourses = []
   }
 
   onSemesterChange(){
