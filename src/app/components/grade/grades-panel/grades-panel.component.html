@@ -19,7 +19,6 @@
                 <option value="10">10 Семестр</option>
             </select>
         </div>
-
         <select [(ngModel)]="degree">
             <option value="1">Бакалавр</option>
             <option value="3">Магiстр</option>
@@ -34,7 +33,6 @@
             Автоматично обрати семестр
         </label>
     </div>
-
     <div class="groups">
         <div *ngIf="groups" class="list-group">
             <ng-container *ngFor="let group of groups">

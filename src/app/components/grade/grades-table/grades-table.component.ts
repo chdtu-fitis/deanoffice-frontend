@@ -16,7 +16,7 @@ export class GradesTableComponent {
 
     editGrade(grade, studentId, gradeId): void {
         const id = `grade${studentId}${gradeId}`;
-        if (grade.points > 100 || grade.points < 0) {
+        if (grade.points > 100 || grade.points < 0 || !grade.points) {
             this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
             this.updateVisible(id, 'bg-danger');
         } else {
