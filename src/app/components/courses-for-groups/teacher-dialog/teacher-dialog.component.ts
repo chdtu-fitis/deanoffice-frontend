@@ -41,6 +41,7 @@ export class TeacherDialogComponent implements OnInit {
   selectTeacher(teacher: Teacher){
     this.coursesForGroups[this.cfgIndex].teacher = teacher;
     this.onTeacherSelect.emit(this.coursesForGroups);
+    this.close();
   }
 
   close() {
