@@ -1,3 +1,5 @@
+export const maxFileSize = 1572864;
+
 export const defaultColumns = [
   'student.surname',
   'student.name',
@@ -24,7 +26,7 @@ export const allColumns = defaultColumns.concat(
   'previousDiplomaNumber',
   'previousDiplomaDate',
   'protocolNumber',
-  'protocolDate',
+  'protocolDate'
 );
 
 export const months = [

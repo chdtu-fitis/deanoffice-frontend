@@ -21,5 +21,5 @@ export const translations = {
   'diplomaDate': 'Дата диплому',
   'supplementDate': 'Дата додатку до диплому',
   'protocolDate': 'Дата протоколу захисту диплому',
-  'previousDiplomaDate': 'Дата попереднього диплому',
+  'previousDiplomaDate': 'Дата попереднього диплому'
 };

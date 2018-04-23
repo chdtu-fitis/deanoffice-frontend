@@ -6,12 +6,12 @@ export class DiplomaSupplementService {
   private documentsUrl = `${environment.apiUrl}/documents`;
 
   buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.documentsUrl}/diplomas/supplements/studentdegrees/${studentId}`;
+    const url = `${this.documentsUrl}/supplements/degrees/${studentId}/docx`;
     window.open(url, '_blank');
   }
 
   buildGradePercent(groupId: string): void {
-    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}`;
+    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
     window.open(url, '_blank');
   }
 }
