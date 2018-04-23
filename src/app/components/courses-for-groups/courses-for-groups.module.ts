@@ -12,6 +12,8 @@ import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.componen
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
 import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     CoursesForGroupsComponent,
