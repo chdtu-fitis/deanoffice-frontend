@@ -53,7 +53,7 @@ export class GradeComponent implements OnInit {
 
     getGrades(): void {
         if (!this.selectGroup) return;
-        this.sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(this.selectSemester || 1, this.selectGroup.id);
+        this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
     }
 
     joinGradesForStudents(grades: any, students: any, courses: any): any {
@@ -63,38 +63,44 @@ export class GradeComponent implements OnInit {
             const student = studentDegree;
             student.grades = [];
             for (const course of courses) {
-                let check = false;
-                for (const grade of grades) {
-                    if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
-                        check = true;
-                        if (!grade.points) {
-                            grade.points = 0;
-                        }
-                        student.grades.push(grade);
-                        break;
-                    }
+                const grade = this.joinGrades(studentDegree, grades, course);
+                if (grade.empty) {
+                    emptyGrades.push(grade)
                 }
-                if (!check) {
-                    const gradeObject = {
-                        points: 0,
-                        empty: true,
-                        course: {
-                            id: course.course.id
-                        },
-                        studentDegree: {
-                            id: studentDegree.id
-                        }
-                    };
-                    student.grades.push(gradeObject);
-                    emptyGrades.push(gradeObject);
-                }
+                student.grades.push(grade);
             }
             studentsTemp.push(student);
         }
         return {studentsTemp, emptyGrades};
     }
 
-    sendRequestForSelectionOfStudentsAssessmentsCoursesForGroup(semester: number, groupId: number): void {
+    joinGrades(studentDegree: any, grades: any, course: any): any {
+        let check = false;
+        for (const grade of grades) {
+            if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
+                check = true;
+                if (!grade.points) {
+                    grade.points = 0;
+                }
+                return grade;
+            }
+        }
+        if (!check) {
+            const grade = {
+                points: 0,
+                empty: true,
+                course: {
+                    id: course.course.id
+                },
+                studentDegree: {
+                    id: studentDegree.id
+                }
+            };
+            return grade;
+        }
+    }
+
+    updateRequest(semester: number, groupId: number): void {
         this.loading = false;
         this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
             this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {

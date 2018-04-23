@@ -4,22 +4,23 @@ import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {of} from 'rxjs/observable/of';
 import {Grade} from '../models/Grade';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class GradeService {
-    private gradesUrl = `http://localhost:8080/grades`;
+    private url = `${environment.apiUrl}/grades`;
 
     constructor(private http: HttpClient) {
     }
 
     public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {
-        return this.http.get<Grade[]>(`${this.gradesUrl}/${groupId}/${semester}`).pipe(
+        return this.http.get<Grade[]>(`${this.url}/${groupId}/${semester}`).pipe(
             catchError(this.handleError('getGradesByGroupIdAndBySemester', []))
         );
     }
 
     public updateGrades(grades): Observable<Grade[]> {
-        return this.http.put<Grade[]>(`${this.gradesUrl}/`, grades).pipe(
+        return this.http.put<Grade[]>(`${this.url}/`, grades).pipe(
             catchError(this.handleError('updateGrades', []))
         );
     }
