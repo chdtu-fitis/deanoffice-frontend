@@ -5,6 +5,7 @@ import {ExamReportComponent} from '../components/exam-report/exam-report.compone
 import {StudentsComponent} from '../components/students/students.component';
 import {CoursesForGroupsModule} from '../components/courses-for-groups/courses-for-groups.module';
 import {CoursesForGroupsComponent} from '../components/courses-for-groups/courses-for-groups.component';
+import {GradeComponent} from '../components/grade/grade.component';
 
 const routes: Routes = [
   {path: 'diploma-supplement', component: DiplomaSupplementComponent},
