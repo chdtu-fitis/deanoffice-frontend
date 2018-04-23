@@ -42,7 +42,7 @@
       <button type="button" class="btn btn-info copy">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
   <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
   <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
 </div>

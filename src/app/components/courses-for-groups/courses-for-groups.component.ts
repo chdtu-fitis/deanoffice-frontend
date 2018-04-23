@@ -16,6 +16,7 @@ import {Teacher} from "../../models/Teacher";
 })
 export class CoursesForGroupsComponent implements OnInit {
   indexForTeacher: number;
+  indexForDate: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -145,6 +146,7 @@ export class CoursesForGroupsComponent implements OnInit {
   // }
 
   saveCoursesForGroup() {
+    console.log(this.coursesForGroup);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; dateOfExam: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
@@ -207,4 +209,26 @@ export class CoursesForGroupsComponent implements OnInit {
       }
     }
   }
+
+  changeDate(event) {
+    let isAdded: boolean;
+    isAdded = false;
+    if (event.index) {
+      this.indexForTeacher = event.index;
+    }
+    else {
+      for (let updatedCourse of event){
+        if (event.indexOf(updatedCourse)==this.indexForTeacher){
+          for (let addedCourse of this.coursesForAdd){
+            if (updatedCourse.course.id===addedCourse.course.id){
+              addedCourse.examDate = updatedCourse.examDate;
+              isAdded = true;
+            }
+          }
+          if (!isAdded) this.updatedCourses.push(updatedCourse);
+        }
+      }
+    }
+  }
+
 }
