@@ -10,6 +10,6 @@ export class StudentAcademicVacation extends BaseEntity {
   orderNumber: String;
   orderDate: Date;
   group: StudentGroup;
-  reason: OrderReason;
+  orderReason: OrderReason;
   applicationDate: Date;
 }
