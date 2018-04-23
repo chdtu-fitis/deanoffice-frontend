@@ -29,6 +29,7 @@ export class TeacherDialogComponent implements OnInit {
   @Input() cfgIndex: number;
   @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
+  searchText = '';
   constructor(private teacherService: TeacherService) { }
 
   ngOnInit() {

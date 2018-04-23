@@ -11,6 +11,7 @@ import {LoadingComponent} from "../loading/loading.component";
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
+import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-d
     AddedCoursesComponent,
     CourseCreationComponent,
     CoursesSearchPipe,
+    TeacherSearchPipe,
     LoadingComponent,
     TeacherDialogComponent,
     CopyCoursesDialogComponent
