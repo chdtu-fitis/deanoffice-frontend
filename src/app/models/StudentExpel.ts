@@ -9,6 +9,6 @@ export class StudentExpel extends BaseEntity {
   orderNumber: string;
   orderDate: Date;
   group: StudentGroup;
-  reason: OrderReason;
+  orderReason: OrderReason;
   applicationDate: Date;
 }

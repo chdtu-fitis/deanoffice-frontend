@@ -7,6 +7,7 @@ import { StudiedCoursesComponent } from './studied-courses/studied-courses.compo
 import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
 import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
+import {LoadingComponent} from "../loading/loading.component";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
     StudiedCoursesComponent,
     AddedCoursesComponent,
     CourseCreationComponent,
-    CoursesSearchPipe
+    CoursesSearchPipe,
+    LoadingComponent
   ],
   exports: [
     CoursesForGroupsComponent

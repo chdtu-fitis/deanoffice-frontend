@@ -1,20 +1,31 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-7 scrollable mt-4">
-      <div class="selection">
-        <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
-          <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-        </select>
-        <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
-          <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-        </select>
-        <input [(ngModel)]="searchText" placeholder="Пошук за предметом..." class="search">
-      </div>
-      <studied-courses [courses]="courses" [searchText]="searchText"></studied-courses>
-    </div>
-    <div  class="col-5 scrollable mt-4">
-      <course-creation></course-creation>
-    </div>
+  <div *ngIf="!showPage">
+    <loading [size]="40"></loading>
   </div>
-  <added-courses></added-courses>
+      <div *ngIf="showPage" class="selection row">
+        <div class="col-7">
+          Група:
+          <select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
+            <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+          </select>
+          Семестр:
+          <select [(ngModel)]="selectedSemester" (change)="onSemesterChange()">
+            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+          </select>
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом..." class="search">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7 ">
+          <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
+        </div>
+        <div class="col-5">
+          <course-creation></course-creation>
+        </div>
+      </div>
+  <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
+  <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
+  <added-courses (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" (onAddedCoursesForGroup)="changeAddedCourses($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
+  <button type="button" class="btn btn-danger" (click)="cancelChanges()">Відмінити зміни</button>
 </div>

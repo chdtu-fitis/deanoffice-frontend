@@ -44,21 +44,21 @@ export class DiplomaSupplementComponent implements OnInit {
   onGroupChange(groupId: string): void {
     this.currentGroup = this.groups.find(x => x.id == Number(groupId));
     this.students = this.currentGroup.studentDegrees;
-    for (var student of this.students) {student.selected = true;}
+    for (let student of this.students) {student.selected = true;}
     this.studentsSelected = true;
   }
 
   onSelectAllStudents(checked: boolean): void {
-    for (var student of this.students) {
+    for (let student of this.students) {
       student.selected = checked;
     }
   }
 
   onFormSupplement(): void {
     this.message = '';
-    for (var student of this.students) {
-      if (student.selected) {
-        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id);
+    for (let student of this.students) {
+      if (student.selected){
+        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id);
       }
     }
   }

@@ -13,4 +13,8 @@ export class CourseService {
     return this.http.get<Course[]>(`http://localhost:8080/courses?semester=${semester}`);
   }
 
+  createCourse(course: Course){
+    return this.http.post(`http://localhost:8080/courses`, course);
+  }
+
 }
