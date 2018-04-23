@@ -10,7 +10,8 @@ const routes: Routes = [
   {path: 'diploma-supplement', component: DiplomaSupplementComponent},
   {path: 'examreport', component: ExamReportComponent},
   {path: 'students', component: StudentsComponent},
-  {path: 'courses-for-groups', component: CoursesForGroupsComponent}
+  {path: 'courses-for-groups', component: CoursesForGroupsComponent},
+  {path: 'speciality', component: SpecialityComponent},
 ];
 
 @NgModule({
