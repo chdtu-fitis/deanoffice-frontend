@@ -17,4 +17,8 @@ export class CourseService {
     return this.http.post(`http://localhost:8080/courses`, course);
   }
 
+  getCourseNames() {
+    return this.http.get(`http://localhost:8080/courses/names`);
+  }
+
 }

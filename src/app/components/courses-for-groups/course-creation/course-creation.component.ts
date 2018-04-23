@@ -4,6 +4,7 @@ import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CourseName} from '../../../models/CourseName';
 
 @Component({
   selector: 'course-creation',
@@ -18,7 +19,9 @@ export class CourseCreationComponent implements OnInit {
   success = false;
   failCreated = undefined;
   fail = undefined;
+  courseNames: CourseName[];
   @Output() onCourseCreation = new EventEmitter();
+
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
     this.course.hoursPerCredit = 30;
   }
@@ -26,6 +29,9 @@ export class CourseCreationComponent implements OnInit {
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
+    });
+    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) =>{
+      this.courseNames = courseNames;
     });
 
     this.form = new FormGroup({
