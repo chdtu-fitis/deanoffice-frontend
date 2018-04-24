@@ -74,6 +74,13 @@ export class StudentService {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }
 
+  renewStudent(expelledStudent) {
+    return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent);
+  }
+
+  stopAcademicVacation(student) {
+    return this.http.post(`${this.url}/degrees/academic-vacations/renewed`, student);
+
   startAcademicVacation(vacationData) {
     return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
   }
