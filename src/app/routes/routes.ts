@@ -15,7 +15,6 @@ const routes: Routes = [
   {path: 'students', component: StudentsComponent},
   {path: 'expelled', component: ExpelledStudentsComponent},
   {path: 'in-vacation', component: StudentsInVacationComponent},
-  {path: 'courses-for-groups', component: CoursesForGroupsComponent}
   {path: 'courses-for-groups', component: CoursesForGroupsComponent},
   {path: 'specialities', component: SpecialityComponent}
 ];
