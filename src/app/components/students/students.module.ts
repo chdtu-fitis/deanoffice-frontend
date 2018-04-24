@@ -20,6 +20,8 @@ import {StudentsListComponent} from './students-list/students-list.component';
 import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-info.component';
 import {ExpelledStudentsComponent} from './expelled-students/expelled-students.component';
 import {StudentsInVacationComponent} from './students-in-vacation/students-in-vacation.component';
+import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import {StudentsInVacationComponent} from './students-in-vacation/students-in-va
     StudentDegreeInfoComponent,
     ExpelledStudentsComponent,
     StudentsInVacationComponent,
+    StudentAcademicVacationComponent
   ],
   imports: [
     CommonModule,
