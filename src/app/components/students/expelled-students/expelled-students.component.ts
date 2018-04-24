@@ -23,7 +23,7 @@ export class ExpelledStudentsComponent implements OnInit {
     this.loading = true;
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
       this.rows = students;
-      // this.loading = false;
+      this.loading = false;
     });
   }
 
