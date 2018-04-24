@@ -73,6 +73,18 @@ export class CourseCreationComponent implements OnInit {
       .map(term => term === '' ? []
         : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
+  checkCourseName(name){
+    if (name instanceof CourseName) {
+      console.dir(name);
+      return;
+    }
+    else {
+      let courseName = new CourseName();
+      courseName.name = name;
+      this.course.courseName = courseName;
+      console.dir(this.course);
+    }
+  }
 
   createCourse(){
     this.setCredits();
