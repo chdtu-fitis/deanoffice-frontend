@@ -20,6 +20,8 @@ import {ExamReportService} from "../../services/exam-report.service";
 import {GridModule} from '../grid/grid.module';
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
+import {GradeModule} from '../grade/grade.module';
+import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 
 @NgModule({
@@ -39,6 +41,7 @@ import {SpecialityService} from '../../services/speciality.service';
     GridModule,
     StudentsModule,
     SharedModule,
+    GradeModule
   ],
   providers: [
     DegreeService,
@@ -48,6 +51,7 @@ import {SpecialityService} from '../../services/speciality.service';
     GeneralService,
     CourseForGroupService,
     ExamReportService,
+    GradeService,
     SpecialityService
   ],
   bootstrap: [AppComponent]

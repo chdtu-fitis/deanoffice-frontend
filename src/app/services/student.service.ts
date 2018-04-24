@@ -74,6 +74,11 @@ export class StudentService {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }
 
+  getStudentsByGroupId(groupId: number): Observable<StudentDegree[]> {
+      const url = `${environment.apiUrl}/groups/${groupId}/students`;
+      return this.http.get<StudentDegree[]>(url);
+  }
+
   renewStudent(expelledStudent) {
     return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent);
   }

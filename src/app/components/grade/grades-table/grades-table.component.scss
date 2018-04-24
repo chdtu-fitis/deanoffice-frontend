@@ -1,0 +1,25 @@
+@import "../../../../styles";
+
+table {
+  @extend table;
+  @extend .table-bordered;
+  @extend .table-striped;
+  @extend .table-responsive;
+  @extend .table-sm;
+}
+
+td > input {
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.td-student {
+  white-space: nowrap;
+}
