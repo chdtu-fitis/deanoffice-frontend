@@ -7,6 +7,7 @@ import {CoursesForGroupsModule} from '../components/courses-for-groups/courses-f
 import {CoursesForGroupsComponent} from '../components/courses-for-groups/courses-for-groups.component';
 import {ExpelledStudentsComponent} from '../components/students/expelled-students/expelled-students.component';
 import {StudentsInVacationComponent} from '../components/students/students-in-vacation/students-in-vacation.component';
+import {SpecialityComponent} from '../components/speciality/speciality.component';
 
 const routes: Routes = [
   {path: 'diploma-supplement', component: DiplomaSupplementComponent},
@@ -15,6 +16,8 @@ const routes: Routes = [
   {path: 'expelled', component: ExpelledStudentsComponent},
   {path: 'in-vacation', component: StudentsInVacationComponent},
   {path: 'courses-for-groups', component: CoursesForGroupsComponent}
+  {path: 'courses-for-groups', component: CoursesForGroupsComponent},
+  {path: 'specialities', component: SpecialityComponent}
 ];
 
 @NgModule({

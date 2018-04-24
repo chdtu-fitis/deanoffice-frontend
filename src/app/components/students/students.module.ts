@@ -22,6 +22,7 @@ import {ExpelledStudentsComponent} from './expelled-students/expelled-students.c
 import {StudentsInVacationComponent} from './students-in-vacation/students-in-vacation.component';
 import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
+import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-acade
     StudentsInVacationComponent,
     RenewStudentComponent,
     StopAcademicVacationComponent,
+    StudentAcademicVacationComponent
   ],
   imports: [
     CommonModule,

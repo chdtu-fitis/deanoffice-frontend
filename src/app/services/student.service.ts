@@ -80,5 +80,8 @@ export class StudentService {
 
   stopAcademicVacation(student) {
     return this.http.post(`${this.url}/degrees/academic-vacations/renewed`, student);
+
+  startAcademicVacation(vacationData) {
+    return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
   }
 }
