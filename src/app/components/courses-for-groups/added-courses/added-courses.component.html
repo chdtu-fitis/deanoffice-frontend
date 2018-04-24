@@ -18,17 +18,7 @@
         <td>{{ course.course.knowledgeControl.name}}</td>
         <td>{{ course.course.hours }}</td>
         <td (click)="changeTeacher(i)">{{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) }}</td>
-        <td><form class="form-inline">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" placeholder={{parseToDate(course.examDate)}}
-                     name="dp" [(ngModel)]="course.examDate" onchange="dateChange(i)" ngbDatepicker #d="ngbDatepicker">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"></button>
-              </div>
-            </div>
-          </div>
-        </form>
+        <td><input type="date" [(ngModel)]="course.examDate" (change)="dateChange(i)">
         </td>
       </tr>
     </table>

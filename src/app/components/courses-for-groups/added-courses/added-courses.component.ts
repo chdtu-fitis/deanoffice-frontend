@@ -11,7 +11,6 @@ import {CourseForGroupService} from '../../../services/course-for-group.service'
 })
 export class AddedCoursesComponent implements OnInit {
 
-  dateForAdd: Date;
   coursesForGroup: CourseForGroup[] = [];
   coursesForGroupForDelete: CourseForGroup[] = [];
   @Input() selectedCoursesForGroups: CourseForGroup[];
@@ -89,10 +88,6 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   dateChange(index){
-    // let day = this.dateForAdd.getDay();
-    // let month = this.dateForAdd.getMonth();
-    // let year = this.dateForAdd.getFullYear();
-    // this.coursesForGroup[index].examDate = [year, month, day].join('-');
     this.onDateChange.emit({index: index});
   }
 }

@@ -111,7 +111,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCoursesToCoursesForGroup() {
-    if (this.selectedCourses.length > 0){
+    if (this.selectedCourses.length > 0) {
       for (let course of this.selectedCourses) {
         let courseForGroup = new CourseForGroup();
         let teacher = new Teacher();
@@ -135,10 +135,10 @@ export class CoursesForGroupsComponent implements OnInit {
           this.coursesForGroup.push(courseForGroup);
         }
       }
+    }
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
-    }, 0);
-    }
+    });
   }
 
   // openVerticallyCentered(content) {
@@ -146,7 +146,7 @@ export class CoursesForGroupsComponent implements OnInit {
   // }
 
   saveCoursesForGroup() {
-    console.log(this.coursesForGroup);
+    console.dir(this.updatedCourses);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; dateOfExam: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
@@ -162,8 +162,8 @@ export class CoursesForGroupsComponent implements OnInit {
       updatedCourses: updatedCourses,
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
+      this.refresh();
     });
-    this.refresh();
   }
 
   refresh(){
@@ -213,22 +213,21 @@ export class CoursesForGroupsComponent implements OnInit {
   changeDate(event) {
     let isAdded: boolean;
     isAdded = false;
-    if (event.index) {
-      this.indexForTeacher = event.index;
-    }
-    else {
-      for (let updatedCourse of event){
-        if (event.indexOf(updatedCourse)==this.indexForTeacher){
+    this.indexForDate = event.index;
+      for (let course of this.coursesForGroup){
+        if (this.coursesForGroup.indexOf(course)==this.indexForDate){
           for (let addedCourse of this.coursesForAdd){
-            if (updatedCourse.course.id===addedCourse.course.id){
-              addedCourse.examDate = updatedCourse.examDate;
+            if (course.course.id===addedCourse.course.id){
+              addedCourse.examDate = course.examDate;
               isAdded = true;
             }
           }
-          if (!isAdded) this.updatedCourses.push(updatedCourse);
+          if (!isAdded){
+            let teacher = new Teacher();
+            course.teacher = teacher;
+            this.updatedCourses.push(course);
+          }
         }
       }
-    }
   }
-
 }

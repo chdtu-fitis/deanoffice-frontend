@@ -17,7 +17,7 @@
             </div>
             <div class="col-1 col-name-semester">Семестр:</div>
             <div class="col-2">
-              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()&&cancelChanges()">
+              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()&&refresh()">
                 <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
               </select>
             </div>
