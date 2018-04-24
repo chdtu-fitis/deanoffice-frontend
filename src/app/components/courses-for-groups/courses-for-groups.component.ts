@@ -191,7 +191,7 @@ export class CoursesForGroupsComponent implements OnInit {
   changeTeacher(event) {
     let isAdded: boolean;
     isAdded = false;
-    if (event.show && event.index) {
+    if (event.show) {
       this.showDialog = event.show;
       this.indexForTeacher = event.index;
     }
