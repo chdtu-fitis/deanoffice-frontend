@@ -1,5 +1,8 @@
+<loading *ngIf="loading"></loading>
+
 <ngx-datatable
   #table
+  *ngIf="!loading"
   class="material"
   [columns]="cols"
   [rows]="rows"

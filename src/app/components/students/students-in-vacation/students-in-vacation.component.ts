@@ -13,14 +13,17 @@ export class StudentsInVacationComponent implements OnInit {
   columns: string[] = academicVacationColumns;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
+  loading: boolean;
 
   constructor(
     private studentService: StudentService,
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]) => {
       this.rows = students;
+      this.loading = false;
     });
   }
 
