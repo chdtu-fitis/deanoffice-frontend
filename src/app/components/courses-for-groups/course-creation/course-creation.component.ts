@@ -1,9 +1,18 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CourseName} from '../../../models/CourseName';
+import {Subject} from 'rxjs/Subject';
+import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'course-creation',
@@ -18,31 +27,52 @@ export class CourseCreationComponent implements OnInit {
   success = false;
   failCreated = undefined;
   fail = undefined;
+  courseNames: CourseName[];
   @Output() onCourseCreation = new EventEmitter();
+  @ViewChild('instance') instance: NgbTypeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
+
   constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService) {
     this.course.hoursPerCredit = 30;
   }
+
 
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
     });
-
-    this.form = new FormGroup({
-      'courseName': new FormControl(this.course.courseName.name, [
-        Validators.required,
-      ]),
-      'semester': new FormControl(this.course.semester, [
-        Validators.required,
-      ]),
-      'hours': new FormControl(this.course.hours, [
-        Validators.required,
-      ]),
-      'kc': new FormControl(this.course.knowledgeControl.name, [
-        Validators.required,
-      ]),
+    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) =>{
+      this.courseNames = courseNames;
     });
+
+    // this.form = new FormGroup({
+    //   'courseName': new FormControl(this.course.courseName.name, [
+    //     Validators.required,
+    //   ]),
+    //   'semester': new FormControl(this.course.semester, [
+    //     Validators.required,
+    //   ]),
+    //   'hours': new FormControl(this.course.hours, [
+    //     Validators.required,
+    //   ]),
+    //   'kc': new FormControl(this.course.knowledgeControl.name, [
+    //     Validators.required,
+    //   ]),
+    // });
   }
+
+  formatter = (result: CourseName) => result.name;
+
+
+  search = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200).distinctUntilChanged()
+      .merge(this.focus$)
+      .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
+      .map(term => term === '' ? []
+        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+
 
   createCourse(){
     this.setCredits();
