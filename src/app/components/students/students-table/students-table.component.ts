@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { translations } from '../translations.js';
+import { translations } from '../translations';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
@@ -25,30 +25,25 @@ export class StudentsTableComponent {
   cols: Object[];
 
   private transformArrayToColumns(array: string[]): Object[] {
+    const templatesMap = {
+      'student.sex': { cellTemplate: this.sexTemplate },
+      'payment': { cellTemplate: this.paymentTemplate },
+      'selected': {
+        name: '',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
+      },
+    };
+
     return ['selected', ...array].map(prop => {
-      let col = {};
-      switch (prop) {
-        case 'student.sex':
-          col = { cellTemplate: this.sexTemplate }; break;
-        case 'student.birthDate':
-        case 'diplomaDate':
-        case 'supplementDate':
-        case 'previousDiplomaDate':
-        case 'protocolDate':
-          col = { cellTemplate: this.dateTemplate }; break;
-        case 'payment':
-          col = { cellTemplate: this.paymentTemplate }; break;
-        case 'selected':
-          col = {
-            name: '',
-            sortable: false,
-            canAutoResize: false,
-            draggable: false,
-            resizable: false,
-            headerCheckboxable: true,
-            checkboxable: true,
-            width: 30
-          };
+      let col = templatesMap[prop];
+      if (prop.match(/Date/)) {
+        col = {cellTemplate: this.dateTemplate};
       }
       return { prop, name: translations[prop], ...col };
     });
@@ -63,13 +58,25 @@ export class StudentsTableComponent {
   }
 
   select({ selected }) {
-    this.onSelect.emit(selected);
+    this.handleSelect(selected)
   }
 
   activate({ type, row, column }) {
     if (type !== 'click' || column.prop === 'selected') {
       return;
     }
-    this.onToggleSelect.emit(row);
+    const index = this.selected.findIndex(entry => entry.id === row.id);
+    if (index > -1) {
+      this.selected.splice(index, 1);
+      this.onSelect.emit(this.selected);
+    } else {
+      this.handleSelect([...this.selected, row]);
+    }
+  }
+
+  handleSelect(students: StudentDegree[]) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...students);
+    this.onSelect.emit(this.selected);
   }
 }
