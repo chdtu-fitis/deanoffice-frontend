@@ -147,15 +147,15 @@ export class CoursesForGroupsComponent implements OnInit {
 
   saveCoursesForGroup() {
     console.dir(this.updatedCourses);
-    class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
-    class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; dateOfExam: Date}
+    class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
+    class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
     let updatedCourses: courseForGroupUpdateCoursesType[] = [];
     for (let newCourse of this.coursesForAdd){
-      newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate})
+      newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, examDate: newCourse.examDate})
     }
     for (let updateCourse of this.updatedCourses){
-      updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, dateOfExam: updateCourse.examDate})
+      updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, examDate: updateCourse.examDate})
     }
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
       newCourses: newCourses,
