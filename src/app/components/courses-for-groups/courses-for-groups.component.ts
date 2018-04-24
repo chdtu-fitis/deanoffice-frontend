@@ -16,6 +16,7 @@ import {Teacher} from "../../models/Teacher";
 })
 export class CoursesForGroupsComponent implements OnInit {
   indexForTeacher: number;
+  indexForDate: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -110,7 +111,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCoursesToCoursesForGroup() {
-    if (this.selectedCourses.length > 0){
+    if (this.selectedCourses.length > 0) {
       for (let course of this.selectedCourses) {
         let courseForGroup = new CourseForGroup();
         let teacher = new Teacher();
@@ -134,10 +135,10 @@ export class CoursesForGroupsComponent implements OnInit {
           this.coursesForGroup.push(courseForGroup);
         }
       }
+    }
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
-    }, 0);
-    }
+    });
   }
 
   // openVerticallyCentered(content) {
@@ -145,23 +146,24 @@ export class CoursesForGroupsComponent implements OnInit {
   // }
 
   saveCoursesForGroup() {
-    class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; dateOfExam: Date}
-    class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; dateOfExam: Date}
+    console.dir(this.updatedCourses);
+    class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
+    class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
     let updatedCourses: courseForGroupUpdateCoursesType[] = [];
     for (let newCourse of this.coursesForAdd){
-      newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, dateOfExam: newCourse.examDate})
+      newCourses.push({course: {id: newCourse.course.id}, teacher: {id: newCourse.teacher.id}, examDate: newCourse.examDate})
     }
     for (let updateCourse of this.updatedCourses){
-      updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, dateOfExam: updateCourse.examDate})
+      updatedCourses.push({id: updateCourse.id, course: {id: updateCourse.course.id}, teacher: {id: updateCourse.teacher.id}, examDate: updateCourse.examDate})
     }
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
       newCourses: newCourses,
       updatedCourses: updatedCourses,
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
+      this.refresh();
     });
-    this.refresh();
   }
 
   refresh(){
@@ -189,7 +191,7 @@ export class CoursesForGroupsComponent implements OnInit {
   changeTeacher(event) {
     let isAdded: boolean;
     isAdded = false;
-    if (event.show && event.index) {
+    if (event.show) {
       this.showDialog = event.show;
       this.indexForTeacher = event.index;
     }
@@ -206,5 +208,26 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
+  }
+
+  changeDate(event) {
+    let isAdded: boolean;
+    isAdded = false;
+    this.indexForDate = event.index;
+      for (let course of this.coursesForGroup){
+        if (this.coursesForGroup.indexOf(course)==this.indexForDate){
+          for (let addedCourse of this.coursesForAdd){
+            if (course.course.id===addedCourse.course.id){
+              addedCourse.examDate = course.examDate;
+              isAdded = true;
+            }
+          }
+          if (!isAdded){
+            let teacher = new Teacher();
+            course.teacher = teacher;
+            this.updatedCourses.push(course);
+          }
+        }
+      }
   }
 }

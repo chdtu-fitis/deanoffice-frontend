@@ -17,7 +17,7 @@
             </div>
             <div class="col-1 col-name-semester">Семестр:</div>
             <div class="col-2">
-              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()&&cancelChanges()">
+              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()&&refresh()">
                 <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
               </select>
             </div>
@@ -42,7 +42,7 @@
       <button type="button" class="btn btn-info copy">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
   <button type="button" class="btn btn-info" (click)="saveCoursesForGroup()">Зберегти</button>
   <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
 </div>

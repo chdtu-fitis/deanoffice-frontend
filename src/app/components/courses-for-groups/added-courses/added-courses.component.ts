@@ -19,6 +19,7 @@ export class AddedCoursesComponent implements OnInit {
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
+  @Output() onDateChange = new EventEmitter();
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -34,7 +35,7 @@ export class AddedCoursesComponent implements OnInit {
       if (month.length < 2) month = '0' + month;
       if (day.length < 2) day = '0' + day;
 
-      return [day, month, year].join('.');
+      return [year, month, day].join('-');
     }
   }
 
@@ -84,5 +85,9 @@ export class AddedCoursesComponent implements OnInit {
 
   changeTeacher(index){
     this.onTeacherChange.emit({show: true, index: index});
+  }
+
+  dateChange(index){
+    this.onDateChange.emit({index: index});
   }
 }
