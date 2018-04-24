@@ -18,6 +18,11 @@ import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
 import {StudentExpelComponent} from './student-expel/student-expel.component';
 import {StudentsListComponent} from './students-list/students-list.component';
 import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-info.component';
+import {ExpelledStudentsComponent} from './expelled-students/expelled-students.component';
+import {StudentsInVacationComponent} from './students-in-vacation/students-in-vacation.component';
+import {RenewStudentComponent} from './renew-student/renew-student.component';
+import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
+import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,11 @@ import {StudentDegreeInfoComponent} from './student-degree-info/student-degree-i
     StudentPersonalInfoComponent,
     PhotoUploadComponent,
     StudentDegreeInfoComponent,
+    ExpelledStudentsComponent,
+    StudentsInVacationComponent,
+    RenewStudentComponent,
+    StopAcademicVacationComponent,
+    StudentAcademicVacationComponent
   ],
   imports: [
     CommonModule,

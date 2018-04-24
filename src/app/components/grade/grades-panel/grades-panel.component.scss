@@ -1,0 +1,29 @@
+@import "../../../../styles";
+
+.panel {
+  display: flex;
+  height: 550px;
+  flex-direction: column;
+}
+
+select {
+  @extend .form-control;
+  @extend .form-control-sm;
+  @extend .mb-2;
+  display: block;
+}
+
+.groups {
+  overflow: auto;
+}
+
+.groups > * button {
+  @extend .list-group-item;
+  @extend .list-group-item-action;
+  padding: 1px 3px;
+  cursor: pointer;
+}
+
+.groups > * .active {
+  cursor: auto;
+}

@@ -20,6 +20,8 @@ import {ExamReportService} from "../../services/exam-report.service";
 import {GridModule} from '../grid/grid.module';
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
+import {GradeModule} from '../grade/grade.module';
+import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
@@ -42,6 +44,7 @@ import {FileService} from '../../services/file-service';
     StudentsModule,
     SharedModule,
     AuthenticationModule,
+    GradeModule
   ],
   providers: [
     DegreeService,
@@ -53,6 +56,8 @@ import {FileService} from '../../services/file-service';
     ExamReportService,
     SpecialityService,
     FileService,
+    GradeService,
+    SpecialityService
   ],
   bootstrap: [AppComponent]
 })

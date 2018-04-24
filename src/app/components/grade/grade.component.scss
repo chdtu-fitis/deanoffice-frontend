@@ -1,0 +1,35 @@
+@import "../../../styles";
+
+.grade-container {
+  @extend .container-fluid;
+  display: flex;
+  height: 100%;
+}
+
+mat-sidenav-container {
+  flex: 1;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+mat-sidenav {
+  padding-right: 10px;
+}
+
+.alert-primary {
+  @extend .alert;
+  @extend .alert-primary;
+}
+
+.alert-danger {
+  @extend .alert;
+  @extend .alert-danger;
+}
+
+.group-buttons {
+  @extend .btn-group;
+  @extend .btn-group-sm;
+  padding: 5px 0;
+}

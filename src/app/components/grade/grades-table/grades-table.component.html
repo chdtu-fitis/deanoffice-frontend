@@ -1,0 +1,31 @@
+<table *ngIf="courses.length && studentsDegree.length">
+    <thead>
+    <tr>
+        <td>№</td>
+        <td>{{selectGroup?.name}}<br>
+            Семестр: {{ selectSemester }}
+        </td>
+        <td *ngFor="let course of courses" scope="row">
+            {{course.course.courseName?.name}}
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
+        <td>{{studentId + 1}}</td>
+        <td class="td-student">{{studentDegree.student.surname}}
+            {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
+        </td>
+        <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
+            <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}"
+                id="grade{{studentId}}{{gradeId}}">
+                <ng-container *ngIf="!grade?.empty">
+                    <input type="number" [(ngModel)]="grade.points"
+                           (change)="editGrade(grade, studentId, gradeId)"
+                           max="100" min="0"/>
+                </ng-container>
+            </td>
+        </ng-container>
+    </tr>
+    </tbody>
+</table>
