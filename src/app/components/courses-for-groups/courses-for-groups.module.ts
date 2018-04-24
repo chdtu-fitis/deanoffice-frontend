@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CoursesForGroupsComponent } from './courses-for-groups.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
 import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
