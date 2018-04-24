@@ -13,14 +13,17 @@ export class ExpelledStudentsComponent implements OnInit {
   columns: string[] = expelledStudentsColumns;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
+  loading: boolean;
 
   constructor(
     private studentService: StudentService,
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
       this.rows = students;
+      // this.loading = false;
     });
   }
 

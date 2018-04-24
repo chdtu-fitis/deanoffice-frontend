@@ -3,7 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { translations } from '../translations';
+import { translations } from '../translations.js';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
@@ -16,6 +16,7 @@ export class StudentsTableComponent {
     this.cols = this.transformArrayToColumns(cols);
   }
   @Input() rows: StudentDegree[];
+  @Input() loading: boolean;
   @Input() selected: StudentDegree[] = [];
   @Output() onSelect = new EventEmitter<StudentDegree[]>();
   @Output() onToggleSelect = new EventEmitter<StudentDegree>();

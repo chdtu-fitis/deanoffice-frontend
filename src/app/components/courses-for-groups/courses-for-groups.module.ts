@@ -7,7 +7,7 @@ import { StudiedCoursesComponent } from './studied-courses/studied-courses.compo
 import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
 import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
-import {LoadingComponent} from "../loading/loading.component";
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,6 +15,7 @@ import {LoadingComponent} from "../loading/loading.component";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedModule,
   ],
   declarations: [
     CoursesForGroupsComponent,
@@ -22,7 +23,6 @@ import {LoadingComponent} from "../loading/loading.component";
     AddedCoursesComponent,
     CourseCreationComponent,
     CoursesSearchPipe,
-    LoadingComponent
   ],
   exports: [
     CoursesForGroupsComponent

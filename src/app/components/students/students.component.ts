@@ -18,6 +18,7 @@ export class StudentsComponent implements OnInit {
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
+  loading: boolean;
 
   constructor(
     private studentService: StudentService,
@@ -33,10 +34,12 @@ export class StudentsComponent implements OnInit {
 
   setColumns(columns: string[]) {
     if (!this.isAllDataLoaded) {
+      this.loading = true;
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
           this.students = students;
           this.rows = students;
+          this.loading = false;
           this.isAllDataLoaded = true;
         });
     }
@@ -58,12 +61,14 @@ export class StudentsComponent implements OnInit {
   }
 
   getStudents() {
+    this.loading = true;
     const stream = this.isAllDataLoaded
       ? this.studentService.getStudents()
       : this.studentService.getInitialStudents();
     stream.subscribe((students: StudentDegree[]) => {
       this.students = students;
       this.rows = students;
+      this.loading = false;
     });
   }
 

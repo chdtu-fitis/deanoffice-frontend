@@ -1,0 +1,28 @@
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  height: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  display: inline;
+  position: relative;
+  top: 50%;
+  -webkit-animation: spin 1.2s infinite ease-in-out;
+  animation: spin 1.2s infinite ease-in-out;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
