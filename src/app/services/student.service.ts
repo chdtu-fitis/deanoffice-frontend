@@ -32,6 +32,14 @@ export class StudentService {
     return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
   }
 
+  getExpelledStudents(): Observable<StudentDegree[]> {
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees/expels`);
+  }
+
+  getStudentsInAcademicVacation(): Observable<StudentDegree[]> {
+    return this.http.get<StudentDegree[]>(`${this.url}/degrees/academic-vacations`);
+  }
+
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
       ? { params: { new_student: 'true' }}
@@ -61,6 +69,7 @@ export class StudentService {
   updatePhoto(id: number, photo) {
     return this.http.put(`${this.url}/${id}/photo`, photo);
   }
+
   expelStudents(studentDegrees: any[]) {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }
@@ -70,4 +79,14 @@ export class StudentService {
       return this.http.get<StudentDegree[]>(url);
   }
 
+  renewStudent(expelledStudent) {
+    return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent);
+  }
+
+  stopAcademicVacation(student) {
+    return this.http.post(`${this.url}/degrees/academic-vacations/renewed`, student);
+
+  startAcademicVacation(vacationData) {
+    return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
+  }
 }
