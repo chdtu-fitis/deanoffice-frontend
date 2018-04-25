@@ -1,0 +1,41 @@
+<div class="grade-container">
+    <mat-sidenav-container>
+        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
+            <mat-nav-list>
+                <grades-panel [groups]="groups"
+                              (changeGroup)="setStudentGroup($event)"
+                              (changeSemester)="setSemester($event)"
+                              (sendRequestGetGrades)="getGrades()">
+                </grades-panel>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div class="group-buttons">
+                <button class="btn btn-primary" (click)="snav.toggle()">Меню</button>
+                <button class="btn btn-success"
+                        [disabled]="!emptyGradesList.length"
+                        (click)="fillInWithZerosGrades()">Заповнити нулями
+                </button>
+                <button class="btn btn-success"
+                        [disabled]="!gradesUpdate.length"
+                        (click)="updateGradesForGroup()">Виставити оцiнки
+                </button>
+            </div>
+            <ng-container *ngIf="errorsMessage.length && loading">
+                <div *ngFor="let error of errorsMessage" class="alert-danger">
+                    {{ error }}
+                </div>
+            </ng-container>
+            <div class="alert-primary" *ngIf="!loading && !selectGroup">
+                Оберiть группу
+            </div>
+            <grades-table [studentsDegree]="studentsDegree"
+                          [courses]="courses"
+                          (gradesUpdate)="addGradesForUpdate($event)"
+                          (errors)="setErrorsFromTable($event)"
+                          [selectGroup]="selectGroup"
+                          [selectSemester]="selectSemester">
+            </grades-table>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

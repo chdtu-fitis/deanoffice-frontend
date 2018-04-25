@@ -1,17 +1,21 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
+import {FileService} from './file-service';
 
 @Injectable()
 export class DiplomaSupplementService {
   private documentsUrl = `${environment.apiUrl}/documents`;
 
-  buildDiplomaSupplement(studentId: string): void {
-    const url = `${this.documentsUrl}/supplements/degrees/${studentId}/docx`;
-    window.open(url, '_blank');
+  constructor(private fileService: FileService) {
   }
 
-  buildGradePercent(groupId: string): void {
+  buildDiplomaSupplement(studentId: string): any {
+    const url = `${this.documentsUrl}/supplements/degrees/${studentId}/docx`;
+    return this.fileService.downloadFile(url)
+  }
+
+  buildGradePercent(groupId: string): any {
     const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
-    window.open(url, '_blank');
+    return this.fileService.downloadFile(url)
   }
 }

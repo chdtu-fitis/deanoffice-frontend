@@ -22,4 +22,14 @@ export const translations = {
   'supplementDate': 'Дата додатку до диплому',
   'protocolDate': 'Дата протоколу захисту диплому',
   'previousDiplomaDate': 'Дата попереднього диплому',
+
+  'studentDegree.student.surname': 'Прізвище',
+  'studentDegree.student.name': 'Ім\'я',
+  'studentDegree.student.patronimic': 'По-батькові',
+  'applicationDate': 'Дата заяви',
+  'expelDate': 'Дата відрахування',
+  'orderDate': 'Дата наказу',
+  'orderReason.name': 'Причина',
+  'vacationStartDate': 'Дата початку',
+  'vacationEndDate': 'Дата закінчення',
 };

@@ -1,0 +1,22 @@
+.container {
+  margin-top: 15px;
+}
+.btn.login {
+  background-color: #17a2b8;
+  border-color:  #17a2b8;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.form-container {
+  border: 2px solid #17a2b8;
+  padding: 5px 30px;
+  h2 {
+    padding-top: 6px;
+    padding-bottom: 10px;
+  }
+  .help-block {
+    padding-top: 5px;
+  }
+}

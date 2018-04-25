@@ -5,12 +5,25 @@
   <div class="creation-form">
     <div class="row">
       <div class="form-group col">
-        <input name="name" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.courseName.name" placeholder="Назва">
+        <input
+          name="name"
+          required
+          type="text"
+          class="form-control mr-2 ng-pristine ng-valid ng-touched"
+          [ngbTypeahead]="search"
+          [(ngModel)] = "course.courseName"
+          [inputFormatter]="formatter"
+          [resultFormatter]="formatter"
+          (change)="checkCourseName($event.target.value)"
+          (focus)="focus$.next($event.target.value)"
+          (click)="click$.next($event.target.value)"
+          #instance="ngbTypeahead"
+          placeholder="Назва">
       </div>
     </div>
     <div class="row">
       <div class="form-group col-2">
-        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.hours"  placeholder="Годин" >
+        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched " [(ngModel)] = "course.hours"  placeholder="Годин" >
       </div>
       <div class="form-group col-3">
         <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.semester"  placeholder="Семестр" >

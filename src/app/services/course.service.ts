@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Course} from "../models/Course";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
-import {KnowledgeControl} from '../models/KnowlegeControl';
 
 @Injectable()
 export class CourseService {
@@ -16,6 +15,10 @@ export class CourseService {
 
   createCourse(course: Course){
     return this.http.post(`http://localhost:8080/courses`, course);
+  }
+
+  getCourseNames() {
+    return this.http.get(`http://localhost:8080/courses/names`);
   }
 
 }

@@ -9,6 +9,7 @@ import {SidebarComponent} from '../app/sidebar/sidebar.component';
 import {ValidationDirective} from './validation.directive';
 import {ValidationErrorsComponent} from './validation-errors/validation-errors.component';
 import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
+import {LoadingComponent} from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form
     ValidationDirective,
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form
     ValidationDirective,
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
+    LoadingComponent,
   ]
 })
 

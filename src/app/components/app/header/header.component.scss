@@ -1,6 +1,11 @@
 .Header {
   max-height: 54px;
+  min-height: 38px;
   background: #678;
+}
+
+.user-logout {
+  cursor: pointer;
 }
 
 ul,ol {
@@ -45,7 +50,7 @@ ul,ol {
   width: 200px;
   background-color: #678;
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 50px;
   display: none;
   border-top: 1px solid #fff;

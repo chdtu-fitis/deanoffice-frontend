@@ -26,8 +26,29 @@ export const allColumns = defaultColumns.concat(
   'previousDiplomaNumber',
   'previousDiplomaDate',
   'protocolNumber',
-  'protocolDate',
+  'protocolDate'
 );
+
+export const expelledStudentsColumns = [
+  'studentDegree.student.surname',
+  'studentDegree.student.name',
+  'studentDegree.student.patronimic',
+  'applicationDate',
+  'expelDate',
+  'orderDate',
+  'orderReason.name',
+];
+
+export const academicVacationColumns = [
+  'studentDegree.student.surname',
+  'studentDegree.student.name',
+  'studentDegree.student.patronimic',
+  'vacationStartDate',
+  'vacationEndDate',
+  'applicationDate',
+  'orderDate',
+  'orderReason.name',
+];
 
 export const months = [
   'Січень',

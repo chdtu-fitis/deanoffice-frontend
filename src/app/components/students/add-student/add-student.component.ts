@@ -22,7 +22,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   tabs = Tabs;
   activeTab: Tabs = Tabs.Existing;
   @Input() groups: StudentGroup[];
-  @Output() newStudent = new EventEmitter<StudentDegree>();
+  @Output() onSubmit = new EventEmitter<StudentDegree>();
   @ViewChild('modal') modal: ModalDirective;
 
   constructor(
@@ -31,6 +31,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   ) {
     super();
     this.form = fb.group({
+      id: '',
       student: '',
       studentGroupId: ['', Validators.required],
       payment: ['', Validators.required],
@@ -59,7 +60,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     }
     this.studentService.addStudentDegree(this.form.value)
       .subscribe((student: StudentDegree) => {
-        this.newStudent.emit(student);
+        this.onSubmit.emit(student);
         this.hideModal();
       });
   }
@@ -73,6 +74,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   setStudentFormGroup() {
     const controls = this.activeTab === Tabs.New
       ? {
+        id: '',
         name: ['', Validators.required],
         surname: ['', Validators.required],
         patronimic: ['', Validators.required],
