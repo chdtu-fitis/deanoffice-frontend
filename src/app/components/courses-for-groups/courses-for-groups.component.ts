@@ -224,8 +224,10 @@ export class CoursesForGroupsComponent implements OnInit {
             }
           }
           if (!isAdded){
-            let teacher = new Teacher();
-            course.teacher = teacher;
+            if (course.teacher == undefined){
+              let teacher = new Teacher();
+              course.teacher = teacher;
+            }
             this.updatedCourses.push(course);
           }
         }
