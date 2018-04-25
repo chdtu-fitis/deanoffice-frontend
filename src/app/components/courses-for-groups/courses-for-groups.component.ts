@@ -136,6 +136,7 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
+    this.coursesForGroup.sort();
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
     });
