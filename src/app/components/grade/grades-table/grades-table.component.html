@@ -17,11 +17,12 @@
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-            <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}"
-                id="grade{{studentId}}{{gradeId}}">
+            <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}">
                 <ng-container *ngIf="!grade?.empty">
                     <input type="number" [(ngModel)]="grade.points"
                            (change)="editGrade(grade, studentId, gradeId)"
+                           (keyup)="nextCell($event, studentId, gradeId, grade)"
+                           id="grade{{studentId}}{{gradeId}}"
                            max="100" min="0"/>
                 </ng-container>
             </td>

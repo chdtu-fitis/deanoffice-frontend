@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Grade} from '../../../models/Grade';
 
 @Component({
     selector: 'grades-table',
@@ -14,8 +15,29 @@ export class GradesTableComponent {
     @Output() errors = new EventEmitter();
     grades = [];
 
-    editGrade(grade, studentId, gradeId): void {
-        const id = `grade${studentId}${gradeId}`;
+    nextCell(e: any, studentId: number, gradeId: number, grade): void {
+        if (e.keyCode === 13) {
+            this.focusElement(studentId + 1, gradeId, true);
+        }
+    }
+
+    focusElement(studentId: number, gradeId: number, vertically: boolean): any {
+        const id = this.getElementId(studentId, gradeId);
+        try {
+            const input = document.getElementById(id);
+            input.focus();
+        } catch (err) {
+            if (!vertically) { return; }
+            this.focusElement(0, gradeId + 1, false);
+        }
+    }
+
+    getElementId(studentId: number, gradeId: number): string {
+        return `grade${studentId}${gradeId}`;
+    }
+
+    editGrade(grade: Grade, studentId: number, gradeId: number): void {
+        const id = this.getElementId(studentId, gradeId);
         if (grade.points > 100 || grade.points < 0 || !grade.points) {
             this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
             this.updateVisible(id, 'bg-danger');
@@ -41,7 +63,7 @@ export class GradesTableComponent {
     }
 
     updateVisible(id, style): void {
-        const element = document.getElementById(id);
+        const element = document.getElementById(id).parentElement;
         const styles = 'text-center align-middle';
         element.setAttribute('class', `${styles} ${style}`);
     }

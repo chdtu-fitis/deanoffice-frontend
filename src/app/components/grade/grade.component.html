@@ -1,6 +1,6 @@
 <div class="grade-container">
     <mat-sidenav-container>
-        <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'">
+        <mat-sidenav #snav mode="side" opened="true">
             <mat-nav-list>
                 <grades-panel [groups]="groups"
                               (changeGroup)="setStudentGroup($event)"
@@ -11,14 +11,16 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="group-buttons">
-                <button class="btn btn-primary" (click)="snav.toggle()">Меню</button>
+                <button class="btn btn-primary" (click)="snav.toggle()">Групи і семестри</button>
                 <button class="btn btn-success"
                         [disabled]="!emptyGradesList.length"
+                        [ngClass]="{'btn-outline-secondary': !emptyGradesList.length}"
                         (click)="fillInWithZerosGrades()">Заповнити нулями
                 </button>
                 <button class="btn btn-success"
                         [disabled]="!gradesUpdate.length"
-                        (click)="updateGradesForGroup()">Виставити оцiнки
+                        [ngClass]="{'btn-outline-secondary': !gradesUpdate.length}"
+                        (click)="updateGradesForGroup()">Зберегти зміни
                 </button>
             </div>
             <ng-container *ngIf="errorsMessage.length && loading">

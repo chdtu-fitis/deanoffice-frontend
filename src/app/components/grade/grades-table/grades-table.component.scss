@@ -6,6 +6,7 @@ table {
   @extend .table-striped;
   @extend .table-responsive;
   @extend .table-sm;
+  font-size: 14px;
 }
 
 td > input {
