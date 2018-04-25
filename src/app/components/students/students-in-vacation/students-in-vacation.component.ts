@@ -13,14 +13,17 @@ export class StudentsInVacationComponent implements OnInit {
   columns: string[] = academicVacationColumns;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
+  loading: boolean;
 
   constructor(
     private studentService: StudentService,
   ) { }
 
   ngOnInit() {
+    this.loading = true;
     this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]) => {
       this.rows = students;
+      this.loading = false;
     });
   }
 
@@ -29,11 +32,6 @@ export class StudentsInVacationComponent implements OnInit {
   }
 
   onRenew(id) {
-    this.rows = this.rows.map(row => {
-      if (row.id === id) {
-        row['studentDegree'].active = true;
-      }
-      return row;
-    });
+    this.rows = this.rows.filter(row => row.id !== id);
   }
 }
