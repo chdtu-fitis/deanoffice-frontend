@@ -5,22 +5,16 @@ import {GradesPanelComponent} from './grades-panel/grades-panel.component';
 import {GradesTableComponent} from './grades-table/grades-table.component';
 
 import {
-    MatInputModule,
     MatListModule,
     MatSidenavModule,
-    MatSnackBarModule,
-    MatToolbarModule
 } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     exports: [
-        MatInputModule,
         MatListModule,
-        MatSidenavModule,
-        MatSnackBarModule,
-        MatToolbarModule
+        MatSidenavModule
     ]
 })
 export class GradeMaterialModule {

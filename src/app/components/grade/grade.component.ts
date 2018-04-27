@@ -16,7 +16,6 @@ import {StudentService} from '../../services/student.service';
     providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
-    mobileQuery: MediaQueryList;
     groups: StudentGroup[];
     selectGroup: StudentGroup;
     selectSemester = 1;
@@ -26,20 +25,18 @@ export class GradeComponent implements OnInit {
     errorsMessage = [];
     emptyGradesList = [];
     gradesUpdate = [];
-    private _mobileQueryListener: () => void;
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
                 private studentService: StudentService,
-                private courseForGroupService: CourseForGroupService,
-                changeDetectorRef: ChangeDetectorRef,
-                media: MediaMatcher) {
-        this.mobileQuery = media.matchMedia('(max-width: 600px)');
-        this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-        this.mobileQuery.addListener(this._mobileQueryListener);
+                private courseForGroupService: CourseForGroupService) {
     }
 
     ngOnInit() {
+        this.getGroups();
+    }
+
+    getGroups(): void {
         this.groupService.getGroups().subscribe((groups: StudentGroup[]) => this.groups = groups);
     }
 
@@ -80,14 +77,14 @@ export class GradeComponent implements OnInit {
             if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                 check = true;
                 if (!grade.points) {
-                    grade.points = 0;
+                    grade.points = null;
                 }
                 return grade;
             }
         }
         if (!check) {
             const grade = {
-                points: 0,
+                points: null,
                 empty: true,
                 course: {
                     id: course.course.id
