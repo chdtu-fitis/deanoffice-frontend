@@ -77,14 +77,14 @@ export class GradeComponent implements OnInit {
             if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                 check = true;
                 if (!grade.points) {
-                    grade.points = 0;
+                    grade.points = null;
                 }
                 return grade;
             }
         }
         if (!check) {
             const grade = {
-                points: 0,
+                points: null,
                 empty: true,
                 course: {
                     id: course.course.id
