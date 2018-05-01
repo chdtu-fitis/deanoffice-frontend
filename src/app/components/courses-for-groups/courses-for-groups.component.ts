@@ -32,7 +32,8 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
   studiedCoursesLoading = false;
   showPage = false;
-  showDialog = false;
+  showTeacherDialog = false;
+  showCopyDialog = false;
 
   constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
 
@@ -192,7 +193,7 @@ export class CoursesForGroupsComponent implements OnInit {
     let isAdded: boolean;
     isAdded = false;
     if (event.show) {
-      this.showDialog = event.show;
+      this.showTeacherDialog = event.show;
       this.indexForTeacher = event.index;
     }
     else {
@@ -230,4 +231,8 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
   }
+  copyCourses(){
+    this.showCopyDialog = true;
+  }
+
 }

@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {CourseForGroup} from '../../../models/CourseForGroup';
+import {Teacher} from "../../../models/Teacher";
+import {StudentGroup} from "../../../models/StudentGroup";
 
 @Component({
   selector: 'copy-courses-dialog',
@@ -23,11 +25,17 @@ export class CopyCoursesDialogComponent implements OnInit {
   @Input() closable = true;
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input() coursesForGroups: CourseForGroup[] = [];
+  @Input() groups: StudentGroup[];
+  selectedGroup: StudentGroup;
+  searchText = '';
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  selectGroup(group: StudentGroup){
+    this.close();
   }
 
   close() {

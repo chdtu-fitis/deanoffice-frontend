@@ -1,3 +1,11 @@
-<p>
-  copy-courses-dialog works!
-</p>
+<div [@dialog] *ngIf="visible" class="dialog">
+  <h4 class="h4">Виберіть групу для копіювання</h4>
+  <div>
+    <input [(ngModel)]="searchText" placeholder="Пошук за групою" class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action" *ngFor="let group of groups" (click)="selectGroup(group)">{{group.name}}</li>
+  </ul>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>
