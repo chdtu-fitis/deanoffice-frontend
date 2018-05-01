@@ -3,6 +3,7 @@ import {animate, style, transition, trigger} from '@angular/animations';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Teacher} from "../../../models/Teacher";
 import {StudentGroup} from "../../../models/StudentGroup";
+import {CourseForGroupService} from "../../../services/course-for-group.service";
 
 @Component({
   selector: 'copy-courses-dialog',
@@ -26,16 +27,52 @@ export class CopyCoursesDialogComponent implements OnInit {
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() groups: StudentGroup[];
+  @Input() semester: number;
+  @Input() coursesForGroups: CourseForGroup[] = [];
+  @Input() addedCoursesForGroups: CourseForGroup[] = [];
+  copiedCoursesForGroup: CourseForGroup[];
   selectedGroup: StudentGroup;
   searchText = '';
 
-  constructor() { }
+  constructor(private courseForGroupService: CourseForGroupService) { }
 
   ngOnInit() {
   }
 
   selectGroup(group: StudentGroup){
+    this.selectedGroup = group;
+    this.getCoursesForGroup();
+    this.addSelectedCourses();
     this.close();
+  }
+
+  addSelectedCourses(){
+    if (this.copiedCoursesForGroup !== undefined) {
+      for (let course of this.copiedCoursesForGroup) {
+        if (this.addedCoursesForGroups !== undefined) {
+          let courseIsAdded = false;
+          for (let courseForAdd of this.addedCoursesForGroups) {
+            if (course.course.id === courseForAdd.course.id) {
+              courseIsAdded = true;
+            }
+          }
+          if (!courseIsAdded) {
+            this.addedCoursesForGroups.push(course);
+            this.coursesForGroups.push(course);
+          }
+        }
+        else {
+          this.addedCoursesForGroups.push(course);
+          this.coursesForGroups.push(course);
+        }
+      }
+    }
+  }
+
+  getCoursesForGroup() {
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.semester).subscribe(courses => {
+      this.copiedCoursesForGroup = courses;
+    });
   }
 
   close() {

@@ -4,7 +4,7 @@
     <input [(ngModel)]="searchText" placeholder="Пошук за групою" class="form-control mr-2 ng-pristine ng-valid ng-touched search">
   </div>
   <ul class="list-group">
-    <li class="list-group-item list-group-item-action" *ngFor="let group of groups" (click)="selectGroup(group)">{{group.name}}</li>
+    <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText" (click)="selectGroup(group)">{{group.name}}</li>
   </ul>
   <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 </div>

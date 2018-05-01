@@ -13,6 +13,7 @@ import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-d
 import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
+import {GroupSearchPipe} from "../../pipes/group-search.pipe";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import {SharedModule} from '../shared/shared.module';
     CourseCreationComponent,
     CoursesSearchPipe,
     TeacherSearchPipe,
+    GroupSearchPipe,
     TeacherDialogComponent,
     CopyCoursesDialogComponent
   ],
