@@ -54,7 +54,9 @@ export class CoursesForGroupsComponent implements OnInit {
   onGroupChange(){
     this.changeSemesters();
     setTimeout(() => {
-      this.child.getCoursesForGroup();
+      if (this.selectedSemester){
+        this.child.getCoursesForGroup();
+      }
     }, 0);
     this.coursesForDelete = [];
     this.child.coursesForGroupForDelete = [];
