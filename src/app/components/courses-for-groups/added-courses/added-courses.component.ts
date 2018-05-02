@@ -25,20 +25,6 @@ export class AddedCoursesComponent implements OnInit {
 
   ngOnInit() {}
 
-  parseToDate(timestamp: number) {
-    if (timestamp==0||timestamp==undefined||timestamp==null) return "";
-    else {
-      let date = new Date(timestamp);
-      let month = '' + (date.getMonth() + 1);
-      let day = '' + date.getDate();
-      let year = date.getFullYear();
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
-
-      return [year, month, day].join('-');
-    }
-  }
-
   getNameWithInitials(surname:String, name:String, patronimic:String){
     if (surname==""||surname==undefined||surname==null) return "";
     else if (name==""||name==undefined||name==null) return new String(surname);
@@ -68,6 +54,7 @@ export class AddedCoursesComponent implements OnInit {
       }
       else this.coursesForGroup.push(courseForAdd);
     }
+    this.coursesForGroup.sort();
   }
 
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
