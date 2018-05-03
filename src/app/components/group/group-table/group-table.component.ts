@@ -1,4 +1,4 @@
-import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, TemplateRef, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
 
 import { translations } from '../translations.js';
@@ -28,10 +28,20 @@ export class GroupTableComponent {
 
     const templatesMap = {
       'tuitionForm': {cellTemplate: this.tuitionFormTemplate},
-      'tuitionTerm': {cellTemplate: this.tuitionTermTemplate}
+      'tuitionTerm': {cellTemplate: this.tuitionTermTemplate},
+      'selected': {
+        name: '',
+        sortable: false,
+        canAutoResize: false,
+        draggable: false,
+        resizable: false,
+        headerCheckboxable: true,
+        checkboxable: true,
+        width: 30
+      }
     };
 
-    return columns.map(prop => {
+    return ['selected', ...columns].map(prop => {
       const column = templatesMap[prop];
       return { prop, name: translations[prop], ...column };
     });
