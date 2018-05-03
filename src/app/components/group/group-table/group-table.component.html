@@ -1,0 +1,16 @@
+<ngx-datatable
+  #table
+  class="material"
+  [columns]="getColumns()"
+  [rows]="rows"
+  [rowIdentity]="getRowIdentity"
+  [messages]="{ emptyMessage: 'Дані відсутні.' }"
+  [sortType]="'multi'"
+  [trackByProp]="'id'"
+  [columnMode]="'force'"
+></ngx-datatable>
+
+<ng-template #sexTemplate let-value="value">
+  {{value === 'MALE' ? 'Чол.' : ''}}
+  {{value === 'FEMALE' ? 'Жін.' : ''}}
+</ng-template>
