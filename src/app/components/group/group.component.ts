@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {StudentGroup} from '../../models/StudentGroup';
+import {GroupService} from '../../services/group.service';
 
 @Component({
   selector: 'group',
@@ -7,10 +9,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class GroupComponent implements OnInit {
 
-  constructor() {
-  }
+  groups: StudentGroup[] = [];
+
+  constructor(private groupService: GroupService) { }
 
   ngOnInit() {
+    this.groupService.getGroups()
+      .subscribe((groups: StudentGroup[]) => this.groups = groups);
   }
 
 
