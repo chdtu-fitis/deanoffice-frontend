@@ -10,11 +10,27 @@ import {GroupService} from '../../services/group.service';
 export class GroupComponent implements OnInit {
 
   groups: StudentGroup[] = [];
+  actualGroups: boolean | true;
 
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    this.groupService.getGroups()
-      .subscribe((groups: StudentGroup[]) => this.groups = groups);
+    this.getActualGroups();
+  }
+
+  getActualGroups(): void {
+    this.getGroups();
+  }
+
+  getAllGroups(): void {
+    this.getGroups(false)
+  }
+
+  private getGroups(onlyActual: boolean = true): void {
+    this.groupService.getGroups(onlyActual)
+      .subscribe((groups: StudentGroup[]) => {
+        this.groups = groups;
+        this.actualGroups = onlyActual;
+      });
   }
 }

@@ -11,5 +11,13 @@
         Всього: {{groups.length || '0'}}
       </div>
     </div>
+
+    <app-sidebar class="sidebar">
+      <div class="card">
+        <h4 class="card-title">Показати групи:</h4>
+        <button type="button" (click)="getActualGroups()" [disabled]="actualGroups">Актуальні</button>
+        <button type="button" (click)="getAllGroups()" [disabled]="!actualGroups">Всі</button>
+      </div>
+    </app-sidebar>
   </div>
 </div>
