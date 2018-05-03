@@ -41,23 +41,32 @@ export class CopyCoursesDialogComponent implements OnInit {
 
   selectGroup(group: StudentGroup){
     this.selectedGroup = group;
-    this.getCoursesForGroup();
-    this.addSelectedCourses();
+    this.addCoursesForGroup();
     this.close();
   }
 
   addSelectedCourses(){
     if (this.copiedCoursesForGroup){
-      for (let course of this.copiedCoursesForGroup){
-        this.addedCoursesForGroups.push(course);
-        this.coursesForGroups.push(course);
+      for (let copiedCourse of this.copiedCoursesForGroup){
+        let courseIsAdded = false;
+        if (this.coursesForGroups){
+          for (let course of this.coursesForGroups){
+            if (course.course.id === copiedCourse.course.id) courseIsAdded = true;
+          }
+        }
+        if (!courseIsAdded){
+          copiedCourse.examDate = null;
+          this.coursesForGroups.push(copiedCourse);
+          this.addedCoursesForGroups.push(copiedCourse);
+        }
       }
     }
   }
 
-  getCoursesForGroup() {
+  addCoursesForGroup() {
     this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.semester).subscribe(courses => {
       this.copiedCoursesForGroup = courses;
+      this.addSelectedCourses();
     });
   }
 

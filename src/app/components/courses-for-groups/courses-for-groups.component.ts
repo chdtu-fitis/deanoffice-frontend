@@ -145,10 +145,6 @@ export class CoursesForGroupsComponent implements OnInit {
     });
   }
 
-  // openVerticallyCentered(content) {
-  //   this.modalService.open(content, { centered: true });
-  // }
-
   saveCoursesForGroup() {
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
@@ -238,5 +234,4 @@ export class CoursesForGroupsComponent implements OnInit {
   copyCourses(){
     this.showCopyDialog = true;
   }
-
 }
