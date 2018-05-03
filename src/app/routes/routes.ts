@@ -10,18 +10,32 @@ import {ExpelledStudentsComponent} from '../components/students/expelled-student
 import {StudentsInVacationComponent} from '../components/students/students-in-vacation/students-in-vacation.component';
 import {SpecialityComponent} from '../components/speciality/speciality.component';
 import {LoginComponent} from '../components/login/login.component';
-import {AuthGuard} from '../services/auth/auth.guard';
+import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'diploma-supplement', component: DiplomaSupplementComponent, canActivate: [AuthGuard]},
-  {path: 'examreport', component: ExamReportComponent, canActivate: [AuthGuard]},
-  {path: 'students', component: StudentsComponent, canActivate: [AuthGuard]},
-  {path: 'grades', component: GradeComponent, canActivate: [AuthGuard]},
-  {path: 'expelled', component: ExpelledStudentsComponent, canActivate: [AuthGuard]},
-  {path: 'in-vacation', component: StudentsInVacationComponent, canActivate: [AuthGuard]},
-  {path: 'courses-for-groups', component: CoursesForGroupsComponent, canActivate: [AuthGuard]},
-  {path: 'specialities', component: SpecialityComponent, canActivate: [AuthGuard]}
+  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+  {
+    path: 'dashboard', canActivate: [DashboardGuard], children: [
+      {
+        path: 'documents', children: [
+          {path: 'diploma-supplement', component: DiplomaSupplementComponent},
+          {path: 'exam-report', component: ExamReportComponent}
+        ]
+      },
+      {
+        path: 'students', children: [
+          {path: 'active', component: StudentsComponent},
+          {path: 'expelled', component: ExpelledStudentsComponent},
+          {path: 'in-vacation', component: StudentsInVacationComponent}
+        ]
+      },
+      {path: 'grades', component: GradeComponent},
+      {path: 'courses-for-groups', component: CoursesForGroupsComponent},
+      {path: 'specialities', component: SpecialityComponent}
+    ]
+  },
+  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
 
 @NgModule({
