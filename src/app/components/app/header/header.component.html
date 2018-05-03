@@ -1,28 +1,29 @@
 <nav class="Header navbar navbar-expand-lg navbar-light fixed-top">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="loggedIn">
-  <nav class="main-nav">
+    <nav class="main-nav">
       <ul>
         <li>
           Початок року
           <ul class="sub-nav">
-            <li><a routerLink="specialities">Спеціальності</a></li>
+            <li><a routerLink="/dashboard/specialities">Спеціальності</a></li>
             <li>Спеціалізації</li>
             <li>Групи</li>
             <li>Предмети</li>
-            <li><a routerLink="courses-for-groups">Предмети для груп</a></li>
+            <li><a routerLink="/dashboard/courses-for-groups">Предмети для груп</a></li>
           </ul>
         </li>
         <li>
           Впродовж року
           <ul class="sub-nav">
-            <li><a routerLink="students">Студенти</a></li>
-            <li><a routerLink="grades">Оцінки</a></li>
-            <li><a routerLink="expelled">Відраховані студенти</a></li>
-            <li><a routerLink="in-vacation">Студенти в академ. відпустці</a></li>
+            <li><a routerLink="/dashboard/grades">Оцінки</a></li>
+            <li><a routerLink="/dashboard/students/active">Активні студенти</a></li>
+            <li><a routerLink="/dashboard/students/expelled">Відраховані студенти</a></li>
+            <li><a routerLink="/dashboard/students/in-vacation">Студенти в академ. відпустці</a></li>
           </ul>
         </li>
         <li>
@@ -34,9 +35,9 @@
         <li>
           Документи
           <ul class="sub-nav">
-            <li><a routerLink="examreport">Відомості</a></li>
+            <li><a routerLink="/dashboard/documents/exam-report">Відомості</a></li>
             <li>Зведені відомості</li>
-            <li><a routerLink="diploma-supplement">Додатки до диплому</a></li>
+            <li><a routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a></li>
             <li>Виписки в особові справи</li>
             <li>Виписки в журнали</li>
             <li>Академічні довідки</li>
@@ -45,9 +46,9 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link user-logout" (click)="logout()" title="Logout">Logout</a>
+          <a class="nav-link user-logout" (click)="logout()" title="Вийти">Вийти</a>
         </li>
       </ul>
     </nav>
   </div>
-  </nav>
+</nav>
