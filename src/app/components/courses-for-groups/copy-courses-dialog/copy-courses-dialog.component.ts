@@ -47,24 +47,10 @@ export class CopyCoursesDialogComponent implements OnInit {
   }
 
   addSelectedCourses(){
-    if (this.copiedCoursesForGroup !== undefined) {
-      for (let course of this.copiedCoursesForGroup) {
-        if (this.addedCoursesForGroups !== undefined) {
-          let courseIsAdded = false;
-          for (let courseForAdd of this.addedCoursesForGroups) {
-            if (course.course.id === courseForAdd.course.id) {
-              courseIsAdded = true;
-            }
-          }
-          if (!courseIsAdded) {
-            this.addedCoursesForGroups.push(course);
-            this.coursesForGroups.push(course);
-          }
-        }
-        else {
-          this.addedCoursesForGroups.push(course);
-          this.coursesForGroups.push(course);
-        }
+    if (this.copiedCoursesForGroup){
+      for (let course of this.copiedCoursesForGroup){
+        this.addedCoursesForGroups.push(course);
+        this.coursesForGroups.push(course);
       }
     }
   }

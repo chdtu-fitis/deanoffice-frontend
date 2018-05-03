@@ -114,14 +114,14 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCoursesToCoursesForGroup() {
-    if (this.selectedCourses.length > 0) {
+    if (this.selectedCourses) {
       for (let course of this.selectedCourses) {
         let courseForGroup = new CourseForGroup();
         let teacher = new Teacher();
         courseForGroup.course = course;
         courseForGroup.studentGroup = this.selectedGroup;
         courseForGroup.teacher = teacher;
-        if (this.coursesForAdd.length > 0) {
+        if (this.coursesForAdd) {
           let courseIsAdded = false;
           for (let courseForAdd of this.coursesForAdd) {
             if (courseForGroup.course.id === courseForAdd.course.id) {
@@ -150,7 +150,6 @@ export class CoursesForGroupsComponent implements OnInit {
   // }
 
   saveCoursesForGroup() {
-    console.dir(this.updatedCourses);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
