@@ -1,6 +1,6 @@
 export const translations = {
   'name': 'Назва',
-  'degree.name': 'Ступінь',
+  'specialization.degree.name': 'Ступінь',
   'specialization.name': 'Спеціалізація',
   'creationYear': 'Рік створення',
   'tuitionForm': 'Форма навчання',

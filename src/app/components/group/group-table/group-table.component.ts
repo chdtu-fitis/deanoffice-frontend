@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
 
 import { translations } from '../translations.js';
@@ -10,11 +10,13 @@ import { translations } from '../translations.js';
 })
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
+  @ViewChild('tuitionFormTemplate') tuitionFormTemplate: TemplateRef<any>;
+  @ViewChild('tuitionTermTemplate') tuitionTermTemplate: TemplateRef<any>;
 
   getColumns(): Object[] {
     const columns = [
       'name',
-      'degree.name',
+      'specialization.degree.name',
       'specialization.name',
       'creationYear',
       'tuitionForm',
@@ -24,8 +26,14 @@ export class GroupTableComponent {
       'beginYears'
     ];
 
+    const templatesMap = {
+      'tuitionForm': {cellTemplate: this.tuitionFormTemplate},
+      'tuitionTerm': {cellTemplate: this.tuitionTermTemplate}
+    };
+
     return columns.map(prop => {
-      return { prop, name: translations[prop] };
+      const column = templatesMap[prop];
+      return { prop, name: translations[prop], ...column };
     });
   }
 

@@ -8,9 +8,18 @@
   [sortType]="'multi'"
   [trackByProp]="'id'"
   [columnMode]="'force'"
+  [rowHeight]="'auto'"
+  [headerHeight]="33"
+  [selectionType]="'checkbox'"
+  [selectAllRowsOnPage]="false"
 ></ngx-datatable>
 
-<ng-template #sexTemplate let-value="value">
-  {{value === 'MALE' ? 'Чол.' : ''}}
-  {{value === 'FEMALE' ? 'Жін.' : ''}}
+<ng-template #tuitionFormTemplate let-value="value">
+  {{value === 'FULL_TIME' ? 'Денна' : ''}}
+  {{value === 'EXTRAMURAL' ? 'Заочна' : ''}}
+</ng-template>
+
+<ng-template #tuitionTermTemplate let-value="value">
+  {{value === 'REGULAR' ? 'Повний' : ''}}
+  {{value === 'SHORTENED' ? 'Скорочений' : ''}}
 </ng-template>
