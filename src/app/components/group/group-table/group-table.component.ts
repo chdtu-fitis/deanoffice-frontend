@@ -8,4 +8,26 @@ import {StudentGroup} from '../../../models/StudentGroup';
 })
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
+
+  getTutionForm(form) {
+    switch (form) {
+      case 'FULL_TIME':
+        return 'Денна';
+      case 'EXTRAMURAL':
+        return 'Заочна';
+      default :
+          return '';
+    }
+  }
+
+  getTutionTerm(term) {
+    switch (term) {
+      case 'REGULAR':
+        return 'Звичайна';
+      case 'SHORTENED':
+        return 'Скорочена';
+      default :
+        return '';
+    }
+  }
 }
