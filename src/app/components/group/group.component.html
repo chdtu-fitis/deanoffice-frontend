@@ -2,9 +2,9 @@
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
       <div class="groups-table h-100">
-        <app-group-table
+        <group-table
           [rows]="groups"
-        ></app-group-table>
+        ></group-table>
       </div>
 
       <div class="bg-light fixed-bottom p-3">
@@ -14,9 +14,11 @@
 
     <app-sidebar class="sidebar">
       <div class="card">
-        <h4 class="card-title">Показати групи:</h4>
-        <button type="button" (click)="getActualGroups()" [disabled]="actualGroups">Актуальні</button>
-        <button type="button" (click)="getAllGroups()" [disabled]="!actualGroups">Всі</button>
+        <div class="card-body">
+          <h5 class="card-title">Показати групи:</h5>
+          <button class="btn btn-info" type="button" (click)="getActualGroups()" [disabled]="actualGroups">Актуальні</button>
+          <button class="btn btn-info" type="button" (click)="getAllGroups()" [disabled]="!actualGroups">Всі</button>
+        </div>
       </div>
     </app-sidebar>
   </div>

@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
 
 @Component({
-  selector: 'app-group-table',
+  selector: 'group-table',
   templateUrl: './group-table.component.html',
   styleUrls: ['./group-table.component.scss']
 })
