@@ -175,6 +175,8 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
+    this.child.coursesForGroup = [];
+    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
     setTimeout(() => {
