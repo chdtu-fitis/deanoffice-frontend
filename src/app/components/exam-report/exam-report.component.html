@@ -33,7 +33,7 @@
   </div>
 
   <div class="wrapp">
-    <h4>Список предметів</h4>
+    <h5>Список предметів</h5>
     <div class="table-wrapper">
       <table class="main-table">
         <thead>
@@ -64,10 +64,12 @@
         </tbody>
       </table>
     </div>
+    <button (click)="onExamReportBuild()">Сформувати відомість</button>
+    <button (click)="onExamReportJournalBuild()">Виписка в журнал</button>
   </div>
 
   <div class="wrapp-2">
-    <h4>Список студентів</h4>
+    <h5>Список студентів</h5>
     <div class="table-wrapper-2">
       <table class="student-table">
         <thead>
@@ -90,6 +92,4 @@
     </div>
   </div>
 
-  <button (click)="onExamReportBuild()">Сформувати відомість</button>
-  <button (click)="onExamReportJournalBuild()">Виписка в журнал</button>
 </div>
