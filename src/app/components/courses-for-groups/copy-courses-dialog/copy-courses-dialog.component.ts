@@ -4,6 +4,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Teacher} from "../../../models/Teacher";
 import {StudentGroup} from "../../../models/StudentGroup";
 import {CourseForGroupService} from "../../../services/course-for-group.service";
+import {CoursesForGroupsComponent} from "../courses-for-groups.component";
 
 @Component({
   selector: 'copy-courses-dialog',
@@ -56,11 +57,16 @@ export class CopyCoursesDialogComponent implements OnInit {
         }
         if (!courseIsAdded){
           copiedCourse.examDate = null;
+          if (!copiedCourse.teacher){
+            let teacher = new Teacher();
+            copiedCourse.teacher = teacher;
+          }
           this.coursesForGroups.push(copiedCourse);
           this.addedCoursesForGroups.push(copiedCourse);
         }
       }
     }
+    CoursesForGroupsComponent.prototype.showAddedCourses();
   }
 
   addCoursesForGroup() {

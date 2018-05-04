@@ -41,7 +41,7 @@
       <button type="button" class="btn btn-info copy" (click)="copyCourses()" *ngIf="selectedGroup!==undefined&&selectedSemester!==undefined">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd" ></added-courses>
   <div class="row">
     <div class="col-10">
       <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()">Зберегти</button>

@@ -92,7 +92,7 @@ export class CoursesForGroupsComponent implements OnInit {
   deleteCoursesFromCoursesForGroups(){
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
-        if (deletedCourse.course.id==course.course.id && deletedCourse.id!=undefined){
+        if (deletedCourse.course.id==course.course.id && deletedCourse.id){
           this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.deleteCoursesIds.push(deletedCourse.id);
           this.updatedCourses.splice(this.updatedCourses.indexOf(course),1);
@@ -106,6 +106,7 @@ export class CoursesForGroupsComponent implements OnInit {
           }
       }
     }
+    this.child.coursesForGroupForDelete = [];
     this.coursesForDelete = [];
   }
 
@@ -139,13 +140,17 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
-    this.coursesForGroup.sort();
+    this.showAddedCourses();
+  }
+
+  showAddedCourses(){
     setTimeout(() => {
       this.child.addNewCoursesForGroup();
     });
   }
 
   saveCoursesForGroup() {
+    console.dir (this.coursesForAdd);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
