@@ -11,26 +11,28 @@ export class AppComponent implements OnInit {
 
   feature: string | '';
 
-  private getUrlFromEvent = (event) => event['url'];
+  private getUrlFromEvent = (event) => event['url'] as string;
 
-  private urlIsExist = (url) => url;
+  private isExist = (url: string): boolean => Boolean(url);
 
   private getLastPath(url: string): string {
-    const paths = url.split('/');
+    const paths: string[] = url.split('/');
     return paths[paths.length - 1];
   }
 
   private routeChanges: Observable<string> = this.router.events
     .map(this.getUrlFromEvent)
-    .filter(this.urlIsExist)
+    .filter(this.isExist)
     .distinctUntilChanged()
     .map(this.getLastPath);
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.routeChanges.subscribe((path) => this.feature = features[path]);
+    this.routeChanges.subscribe(this.updateFeature);
   }
+
+  private updateFeature = (path: string): void => this.feature = features[path];
 }
 
 const features = {
