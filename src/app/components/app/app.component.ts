@@ -10,21 +10,26 @@ import {Observable} from 'rxjs/Observable';
 export class AppComponent implements OnInit {
 
   feature: string | '';
-  private routeChanges: Observable<string> = this.router.events
-    .map((event) => event['url'])
-    .filter((url) => url)
-    .distinctUntilChanged()
-    .map((url) => this.getLastPath(url));
 
-  constructor(private router: Router) { }
+  private getUrlFromEvent = (event) => event['url'];
 
-  ngOnInit() {
-    this.routeChanges .subscribe((feature) => this.feature = features[feature]);
-  }
+  private urlIsExist = (url) => url;
 
   private getLastPath(url: string): string {
     const paths = url.split('/');
     return paths[paths.length - 1];
+  }
+
+  private routeChanges: Observable<string> = this.router.events
+    .map(this.getUrlFromEvent)
+    .filter(this.urlIsExist)
+    .distinctUntilChanged()
+    .map(this.getLastPath);
+
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+    this.routeChanges.subscribe((path) => this.feature = features[path]);
   }
 }
 
