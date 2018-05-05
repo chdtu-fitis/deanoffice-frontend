@@ -16,8 +16,9 @@ export class AppComponent implements OnInit {
   private isExist = (url: string): boolean => Boolean(url);
 
   private getLastPath(url: string): string {
-    const paths: string[] = url.split('/');
-    return paths[paths.length - 1];
+    const f = url.split('/').reverse()[0]
+    console.log(f, url);
+    return f;
   }
 
   private routeChanges: Observable<string> = this.router.events
