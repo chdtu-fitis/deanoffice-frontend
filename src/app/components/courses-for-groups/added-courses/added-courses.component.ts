@@ -54,7 +54,13 @@ export class AddedCoursesComponent implements OnInit {
       }
       else this.coursesForGroup.push(courseForAdd);
     }
-    this.coursesForGroup.sort();
+    this.coursesForGroup.sort(function (a,b) {
+      if (a.course.courseName< b.course.courseName)
+        return -1;
+      if (a.course.courseName > b.course.courseName)
+        return 1;
+      return 0;
+    });
   }
 
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
