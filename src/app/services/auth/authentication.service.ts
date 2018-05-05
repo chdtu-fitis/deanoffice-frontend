@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map'
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class AuthenticationService {
@@ -17,7 +18,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post('http://localhost:8080/login', JSON.stringify({ username: username, password: password }))
+    return this.http.post(`${environment.apiUrl}/login`, JSON.stringify({ username: username, password: password }))
       .map((response:any) => {
         let token = response && response.token;
         if (token) {

@@ -31,21 +31,21 @@ table thead td {
   overflow: hidden;
 }
 .table-wrapper {
-  max-width: 90%;
+  max-width: 95%;
   float: left;
-  height: 340px;
+  height: 450px;
   overflow-y: auto;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 .table-wrapper-2 {
   max-width: 90%;
   float: left;
-  height: 340px;
+  height: 490px;
   overflow-y: auto;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
-.main-table td:firts-child {
+.main-table td:first-child {
   width: 30px;
 }
 .main-table td:nth-child(3) {

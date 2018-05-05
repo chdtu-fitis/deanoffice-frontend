@@ -18,7 +18,7 @@
         <td>{{ course.course.knowledgeControl.name}}</td>
         <td>{{ course.course.hours }}</td>
         <td (click)="changeTeacher(i)">{{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) }}</td>
-        <td><input type="date" [(ngModel)]="course.examDate" (change)="dateChange(i)">
+        <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate" (change)="dateChange(i)">
         </td>
       </tr>
     </table>

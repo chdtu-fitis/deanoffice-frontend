@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: '//is.chdtu.edu.ua:8080/api',
 };
