@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'students', children: [
-          {path: 'active', component: StudentsComponent},
+          {path: '', component: StudentsComponent},
           {path: 'expelled', component: ExpelledStudentsComponent},
           {path: 'in-vacation', component: StudentsInVacationComponent}
         ]

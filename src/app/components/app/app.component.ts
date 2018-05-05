@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {AuthenticationService} from '../../services/auth/authentication.service';
 
 @Component({
   selector: 'root',
@@ -7,5 +6,4 @@ import {AuthenticationService} from '../../services/auth/authentication.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
 }
