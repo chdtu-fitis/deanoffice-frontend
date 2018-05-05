@@ -11,6 +11,7 @@ import {StudentsInVacationComponent} from '../components/students/students-in-va
 import {SpecialityComponent} from '../components/speciality/speciality.component';
 import {LoginComponent} from '../components/login/login.component';
 import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
+import {SpecializationComponent} from '../components/specialization/specialization.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
@@ -31,7 +32,8 @@ const routes: Routes = [
       },
       {path: 'grades', component: GradeComponent},
       {path: 'courses-for-groups', component: CoursesForGroupsComponent},
-      {path: 'specialities', component: SpecialityComponent}
+      {path: 'specialities', component: SpecialityComponent},
+      {path: 'specializations', component: SpecializationComponent}
     ]
   },
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
