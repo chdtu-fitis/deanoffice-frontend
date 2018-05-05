@@ -6,20 +6,14 @@ import {AuthenticationService} from '../../../services/auth/authentication.servi
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public loggedIn: any;
 
-  public constructor(private auth: AuthenticationService){
-    this.auth.isLoggedIn.subscribe(islogged => {
-      this.loggedIn = islogged
-    })
+  public constructor(private auth: AuthenticationService) {
+    this.auth.isLoggedIn.subscribe(islogged => {this.loggedIn = islogged});
   }
 
-  logout(){
-    this.auth.logout()
+  logout() {
+    this.auth.logout();
   }
-
-  ngOnInit() {
-  }
-
 }
