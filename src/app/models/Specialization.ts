@@ -1,16 +1,28 @@
 import {NameWithEngAndActiveEntity} from './basemodels/NameWithEngAndActiveEntity';
 import {Speciality} from './Speciality';
 import {Degree} from './Degree';
-import {Faculty} from './Faculty';
 import {Department} from './Department';
 
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;
   degree: Degree;
-  faculty: Faculty;
   department: Department;
   qualification: string;
   qualificationEng: string;
   paymentFullTime: number;
-  paymentExtramural: string;
+  paymentExtramural: number;
+  educationalProgramHeadName: string;
+  educationalProgramHeadNameEng: string;
+  educationalProgramHeadInfo: string;
+  educationalProgramHeadInfoEng: string;
+  knowledgeAndUnderstandingOutcomes: string;
+  knowledgeAndUnderstandingOutcomesEng: string;
+  applyingKnowledgeAndUnderstandingOutcomes: string;
+  applyingKnowledgeAndUnderstandingOutcomesEng: string;
+  makingJudgementsOutcomes: string;
+  makingJudgementsOutcomesEng: string;
+
+  constructor() {
+    super();
+  }
 }
