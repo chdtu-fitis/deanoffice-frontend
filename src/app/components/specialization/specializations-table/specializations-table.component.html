@@ -4,7 +4,9 @@
       <table class="table table-sm fs-12">
         <thead>
         <tr>
-          <th><input type="checkbox" #selectedAll (change)="selectAll(selectedAll.checked)"></th>
+          <th>
+            <input type="checkbox" #selectedAll (change)="selectAll(selectedAll.checked)" [ngModel]="allRowsIsSelected">
+          </th>
           <th>Назва</th>
           <th>Назва англ.</th>
           <th>Код спеціальності</th>
@@ -15,7 +17,10 @@
         </thead>
         <tbody>
         <tr *ngFor="let row of rows">
-          <td><input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"></td>
+          <td>
+            <input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"
+                   [checked]="row.isSelected">
+          </td>
           <td>{{row.name}}</td>
           <td>{{row.nameEng}}</td>
           <td>{{row.speciality.code}}</td>
