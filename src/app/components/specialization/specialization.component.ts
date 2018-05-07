@@ -12,7 +12,11 @@ export class SpecializationComponent implements OnInit {
   constructor(private specializationService: SpecializationService) { }
 
   ngOnInit() {
-    this.specializationService.getSpecializations()
+    this.getSpecializations(true);
+  }
+
+  getSpecializations(actual: boolean): void {
+    this.specializationService.getSpecializations(actual)
       .subscribe((specializations: Specialization[]) => this.specializations = specializations);
   }
 }

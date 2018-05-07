@@ -6,7 +6,12 @@
       </div>
     </div>
     <app-sidebar class="sidebar position-relative">
-      <b class="mb-2">Фільтри</b>
+      <b class="mb-5">Фільтри</b>
+
+      <div>
+        <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
+        <label for="active">Актуальні спеціалізації</label>
+      </div>
 
       <div class="position-absolute p-3 row-count">
           Всього: {{specializations.length || '0'}}
