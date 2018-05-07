@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {Specialization} from '../../../models/Specialization';
 
 @Component({
-  selector: 'specializations-table',
+  selector: 'app-specializations-table',
   templateUrl: './specializations-table.component.html',
   styleUrls: ['./specializations-table.component.scss']
 })
