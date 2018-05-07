@@ -13,6 +13,10 @@ import {LoginComponent} from '../components/login/login.component';
 import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
 import {SpecializationComponent} from '../components/specialization/specialization.component';
 
+/**
+ * При изменении роутинга не забывайте приводить актуальное состояние асоциативный массив "features"
+ * в ../components/app/app.component.ts
+ */
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {
