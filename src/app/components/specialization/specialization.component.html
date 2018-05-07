@@ -1,16 +1,16 @@
 <div class="container-fluid h-100">
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
-      <div class="specializations-table">
+      <div class="specializations-table h-100">
         <app-specializations-table [rows]="specializations"></app-specializations-table>
       </div>
-      <div class="bg-light fixed-bottom p-3">
-        Всього: {{specializations.length || '0'}}
-      </div>
     </div>
+    <app-sidebar class="sidebar position-relative">
+      <b class="mb-2">Фільтри</b>
 
-    <app-sidebar class="sidebar">
-
+      <div class="position-absolute p-3 row-count">
+          Всього: {{specializations.length || '0'}}
+      </div>
     </app-sidebar>
   </div>
 </div>
