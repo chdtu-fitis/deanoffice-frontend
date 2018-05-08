@@ -8,6 +8,7 @@ import {Specialization} from '../../../models/Specialization';
 })
 export class SpecializationsTableComponent {
   @Input() rows: SpecializationWithSelected[] = [];
+  @Input() loading: boolean;
   @Output() selectedRows: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
   private selectedSpecializations: Specialization[] = [];
   allRowsIsSelected = false;

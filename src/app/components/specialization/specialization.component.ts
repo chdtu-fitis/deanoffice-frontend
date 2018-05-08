@@ -10,6 +10,7 @@ import {Specialization} from '../../models/Specialization';
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
   selectedSpecializations: Specialization[] = [];
+  loading: boolean;
   constructor(private specializationService: SpecializationService) { }
 
   ngOnInit() {
@@ -17,12 +18,14 @@ export class SpecializationComponent implements OnInit {
   }
 
   getSpecializations(actual: boolean): void {
-    this.specializationService.getSpecializations(actual)
-      .subscribe((specializations: Specialization[]) => this.specializations = specializations);
+    this.loading = true;
+    this.specializationService.getSpecializations(actual).subscribe((specializations: Specialization[]) => {
+      this.specializations = specializations;
+      this.loading = false;
+    });
   }
 
   selectSpecializations(specializations: Specialization[]): void {
     this.selectedSpecializations = specializations;
-    console.log(this.selectedSpecializations);
   }
 }

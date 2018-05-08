@@ -4,6 +4,7 @@
       <div class="specializations-table h-100">
         <app-specializations-table
           [rows]="specializations"
+          [loading]="loading"
           (selectedRows)="selectSpecializations($event)"
         ></app-specializations-table>
       </div>
