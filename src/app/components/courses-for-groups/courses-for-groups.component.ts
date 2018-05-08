@@ -140,13 +140,15 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
-    this.showAddedCourses();
+    this.showAddedCourses(true);
   }
 
-  showAddedCourses(){
-    setTimeout(() => {
-      this.child.addNewCoursesForGroup();
-    });
+  showAddedCourses(isShow: boolean){
+    if (isShow){
+      setTimeout(() => {
+        this.child.addNewCoursesForGroup();
+      });
+    }
   }
 
   saveCoursesForGroup() {
