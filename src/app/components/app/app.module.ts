@@ -27,6 +27,7 @@ import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
 import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
+import {DepartmentService} from '../../services/department.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {SpecializationService} from '../../services/specialization.service';
     FileService,
     GradeService,
     SpecialityService,
-    SpecializationService
+    SpecializationService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })
