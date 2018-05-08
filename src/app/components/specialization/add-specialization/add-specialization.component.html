@@ -10,135 +10,149 @@
       </div>
 
       <div class="modal-body">
-        <form [formGroup]="form" class="row">
-          <div class="form-group col-6">
-            <label for="name">Назва</label>
-            <input formControlName="name" type="text" class="form-control" id="name"
-                   [appValidation]="form.controls.name">
-            <app-validation-errors [control]="form.controls.name"></app-validation-errors>
-          </div>
+        <form [formGroup]="form">
+          <tabset>
+            <tab heading="Загальна інформація" (select)="selectTab(tabs.GENERAL)">
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="name">Назва</label>
+                  <input formControlName="name" type="text" class="form-control" id="name"
+                         [appValidation]="form.controls.name">
+                  <app-validation-errors [control]="form.controls.name"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="nameEng">Назва англ.</label>
-            <input formControlName="nameEng" type="text" class="form-control" id="nameEng">
-          </div>
+                <div class="form-group col-6">
+                  <label for="nameEng">Назва англ.</label>
+                  <input formControlName="nameEng" type="text" class="form-control" id="nameEng">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="specialityId">Спеціальність</label>
-            <select formControlName="specialityId" class="form-control" id="specialityId"
-                    [appValidation]="form.controls.specialityId">
-              <option *ngFor="let speciality of specialities" [ngValue]="speciality.id">
-                {{speciality.code + ' ' + speciality.name}}
-              </option>
-            </select>
-            <app-validation-errors [control]="form.controls.specialityId"></app-validation-errors>
-          </div>
+                <div class="form-group col-6">
+                  <label for="specialityId">Спеціальність</label>
+                  <select formControlName="specialityId" class="form-control" id="specialityId"
+                          [appValidation]="form.controls.specialityId">
+                    <option *ngFor="let speciality of specialities" [ngValue]="speciality.id">
+                      {{speciality.code + ' ' + speciality.name}}
+                    </option>
+                  </select>
+                  <app-validation-errors [control]="form.controls.specialityId"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="degreeId">Ступінь</label>
-            <select formControlName="degreeId" class="form-control" id="degreeId"
-                    [appValidation]="form.controls.degreeId">
-              <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
-            </select>
-            <app-validation-errors [control]="form.controls.degreeId"></app-validation-errors>
-          </div>
+                <div class="form-group col-6">
+                  <label for="degreeId">Ступінь</label>
+                  <select formControlName="degreeId" class="form-control" id="degreeId"
+                          [appValidation]="form.controls.degreeId">
+                    <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
+                  </select>
+                  <app-validation-errors [control]="form.controls.degreeId"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="departmentId">Кафедра</label>
-            <select formControlName="departmentId" class="form-control" id="departmentId">
-              <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
-            </select>
-          </div>
+                <div class="form-group col-6">
+                  <label for="departmentId">Кафедра</label>
+                  <select formControlName="departmentId" class="form-control" id="departmentId">
+                    <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
+                  </select>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="qualification">Кваліфікація</label>
-            <input formControlName="qualification" type="text" class="form-control" id="qualification">
-          </div>
+                <div class="form-group col-6">
+                  <label for="qualification">Кваліфікація</label>
+                  <input formControlName="qualification" type="text" class="form-control" id="qualification">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="qualificationEng">Кваліфікація англ.</label>
-            <input formControlName="qualificationEng" type="text" class="form-control" id="qualificationEng">
-          </div>
+                <div class="form-group col-6">
+                  <label for="qualificationEng">Кваліфікація англ.</label>
+                  <input formControlName="qualificationEng" type="text" class="form-control" id="qualificationEng">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="paymentFulltime">Вартість повної форми навчання</label>
-            <input formControlName="paymentFulltime" type="number" class="form-control" id="paymentFulltime">
-          </div>
+                <div class="form-group col-6">
+                  <label for="paymentFulltime">Вартість повної форми навчання</label>
+                  <input formControlName="paymentFulltime" type="number" class="form-control" id="paymentFulltime">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="paymentExtramural">Вартість скороченої форми навчання</label>
-            <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
-          </div>
+                <div class="form-group col-6">
+                  <label for="paymentExtramural">Вартість скороченої форми навчання</label>
+                  <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
+                </div>
+              </div>
+            </tab>
 
-          <div class="form-group col-6">
-            <label for="educationalProgramHeadName">Гарант програми</label>
-            <input formControlName="educationalProgramHeadName" type="text" class="form-control"
-                   id="educationalProgramHeadName" [appValidation]="form.controls.educationalProgramHeadName">
-            <app-validation-errors [control]="form.controls.educationalProgramHeadName"></app-validation-errors>
-          </div>
+            <tab heading="Гарант програми" (select)="selectTab(tabs.PROGRAM_HEAD)">
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="educationalProgramHeadName">Гарант програми</label>
+                  <input formControlName="educationalProgramHeadName" type="text" class="form-control"
+                         id="educationalProgramHeadName" [appValidation]="form.controls.educationalProgramHeadName">
+                  <app-validation-errors [control]="form.controls.educationalProgramHeadName"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="educationalProgramHeadNameEng">Гарант програми англ.</label>
-            <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
-                   id="educationalProgramHeadNameEng" [appValidation]="form.controls.educationalProgramHeadNameEng">
-            <app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>
-          </div>
+                <div class="form-group col-6">
+                  <label for="educationalProgramHeadNameEng">Гарант програми англ.</label>
+                  <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
+                         id="educationalProgramHeadNameEng" [appValidation]="form.controls.educationalProgramHeadNameEng">
+                  <app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="educationalProgramHeadInfo">Інформація про гаранта програми</label>
-            <input formControlName="educationalProgramHeadInfo" type="text" class="form-control"
-                   id="educationalProgramHeadInfo" [appValidation]="form.controls.educationalProgramHeadInfo">
-            <app-validation-errors [control]="form.controls.educationalProgramHeadInfo"></app-validation-errors>
-          </div>
+                <div class="form-group col-6">
+                  <label for="educationalProgramHeadInfo">Інформація про гаранта програми</label>
+                  <input formControlName="educationalProgramHeadInfo" type="text" class="form-control"
+                         id="educationalProgramHeadInfo" [appValidation]="form.controls.educationalProgramHeadInfo">
+                  <app-validation-errors [control]="form.controls.educationalProgramHeadInfo"></app-validation-errors>
+                </div>
 
-          <div class="form-group col-6">
-            <label for="educationalProgramHeadInfoEng">Інформація про гаранта програми англ.</label>
-            <input formControlName="educationalProgramHeadInfoEng" type="text" class="form-control"
-                   id="educationalProgramHeadInfoEng" [appValidation]="form.controls.educationalProgramHeadInfoEng">
-            <app-validation-errors [control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>
-          </div>
+                <div class="form-group col-6">
+                  <label for="educationalProgramHeadInfoEng">Інформація про гаранта програми англ.</label>
+                  <input formControlName="educationalProgramHeadInfoEng" type="text" class="form-control"
+                         id="educationalProgramHeadInfoEng" [appValidation]="form.controls.educationalProgramHeadInfoEng">
+                  <app-validation-errors [control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>
+                </div>
+              </div>
+            </tab>
 
-          <div class="form-group col-6">
-            <label for="knowledgeAndUnderstandingOutcomes">knowledgeAndUnderstandingOutcomes</label>
-            <input formControlName="knowledgeAndUnderstandingOutcomes" type="text" class="form-control"
-                   id="knowledgeAndUnderstandingOutcomes">
-          </div>
+            <tab heading="Знання та навички" (select)="selectTab(tabs.OUTCOMES)">
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="knowledgeAndUnderstandingOutcomes">Знання та розуміння</label>
+                  <input formControlName="knowledgeAndUnderstandingOutcomes" type="text" class="form-control"
+                         id="knowledgeAndUnderstandingOutcomes">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="knowledgeAndUnderstandingOutcomesEng">knowledgeAndUnderstandingOutcomesEng</label>
-            <input formControlName="knowledgeAndUnderstandingOutcomesEng" type="text" class="form-control"
-                   id="knowledgeAndUnderstandingOutcomesEng">
-          </div>
+                <div class="form-group col-6">
+                  <label for="knowledgeAndUnderstandingOutcomesEng">Знання та розуміння англ.</label>
+                  <input formControlName="knowledgeAndUnderstandingOutcomesEng" type="text" class="form-control"
+                         id="knowledgeAndUnderstandingOutcomesEng">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="applyingKnowledgeAndUnderstandingOutcomes">applyingKnowledgeAndUnderstandingOutcomes</label>
-            <input formControlName="applyingKnowledgeAndUnderstandingOutcomes" type="text" class="form-control"
-                   id="applyingKnowledgeAndUnderstandingOutcomes">
-          </div>
+                <div class="form-group col-6">
+                  <label for="applyingKnowledgeAndUnderstandingOutcomes">Застосування знань та розумінь</label>
+                  <input formControlName="applyingKnowledgeAndUnderstandingOutcomes" type="text" class="form-control"
+                         id="applyingKnowledgeAndUnderstandingOutcomes">
+                </div>
 
-          <div class="form-group col-6">
-            <label
-              for="applyingKnowledgeAndUnderstandingOutcomesEng">applyingKnowledgeAndUnderstandingOutcomesEng</label>
-            <input formControlName="applyingKnowledgeAndUnderstandingOutcomesEng" type="text" class="form-control"
-                   id="applyingKnowledgeAndUnderstandingOutcomesEng">
-          </div>
+                <div class="form-group col-6">
+                  <label
+                    for="applyingKnowledgeAndUnderstandingOutcomesEng">Застосування знань та розумінь англ.</label>
+                  <input formControlName="applyingKnowledgeAndUnderstandingOutcomesEng" type="text" class="form-control"
+                         id="applyingKnowledgeAndUnderstandingOutcomesEng">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="makingJudgementsOutcomes">makingJudgementsOutcomes</label>
-            <input formControlName="makingJudgementsOutcomes" type="text" class="form-control"
-                   id="makingJudgementsOutcomes">
-          </div>
+                <div class="form-group col-6">
+                  <label for="makingJudgementsOutcomes">Формування суджень</label>
+                  <input formControlName="makingJudgementsOutcomes" type="text" class="form-control"
+                         id="makingJudgementsOutcomes">
+                </div>
 
-          <div class="form-group col-6">
-            <label for="makingJudgementsOutcomesEng">makingJudgementsOutcomesEng</label>
-            <input formControlName="makingJudgementsOutcomesEng" type="text" class="form-control"
-                   id="makingJudgementsOutcomesEng">
-          </div>
+                <div class="form-group col-6">
+                  <label for="makingJudgementsOutcomesEng">Формування суджень</label>
+                  <input formControlName="makingJudgementsOutcomesEng" type="text" class="form-control"
+                         id="makingJudgementsOutcomesEng">
+                </div>
+              </div>
+            </tab>
+          </tabset>
         </form>
       </div>
       <div class="modal-footer">
         <button (click)="submit()" class="btn btn-success btn-submit">Створити</button>
-        <button (click)="hideModal()" class="btn btn-outline-info">Скасувати</button>
+        <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
       </div>
     </div>
   </div>

@@ -12,6 +12,11 @@ import {Department} from '../../../models/Department';
 import {SpecializationService} from '../../../services/specialization.service';
 import {Specialization} from '../../../models/Specialization';
 
+
+enum Tabs {
+  GENERAL = 0, PROGRAM_HEAD = 1, OUTCOMES = 2
+}
+
 @Component({
   selector: 'add-specialization',
   templateUrl: './add-specialization.component.html',
@@ -23,6 +28,8 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
+  tabs = Tabs;
+  currentTab = Tabs.GENERAL;
 
   constructor(
     formBuilder: FormBuilder,
@@ -63,18 +70,23 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
       .subscribe((departments: Department[]) => this.departments = departments);
   }
 
-  openModal() {
+  openModal(): void {
     this.modal.show();
   }
 
-  hideModal() {
+  selectTab(tab: Tabs): void {
+    this.currentTab = tab;
+  }
+
+  hideModal(): void {
     this.form.reset();
     this.modal.hide();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
+      alert('Перевірте правильність вводу даних');
       return;
     }
     this.specializationService.create(this.form.getRawValue() as Specialization)
