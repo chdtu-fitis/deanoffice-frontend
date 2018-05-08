@@ -28,4 +28,8 @@ export class SpecializationComponent implements OnInit {
   selectSpecializations(specializations: Specialization[]): void {
     this.selectedSpecializations = specializations;
   }
+
+  updateDatatable(): void {
+    this.getSpecializations(true);
+  }
 }

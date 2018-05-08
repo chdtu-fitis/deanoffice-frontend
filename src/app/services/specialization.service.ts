@@ -18,4 +18,8 @@ export class SpecializationService {
     return this.httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
       .pipe(catchError(HandleError.forObservable('Отримання спеціалізацій', [])));
   }
+
+  create(body: Specialization): Promise<any> {
+    return this.httpClient.post(SPECIALIZATION_URL, body).toPromise();
+  }
 }

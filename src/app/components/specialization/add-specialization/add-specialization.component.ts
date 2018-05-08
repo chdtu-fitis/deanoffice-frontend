@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {IAppModal} from '../../shared/modal.interface';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -9,6 +9,8 @@ import {Speciality} from '../../../models/Speciality';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Department} from '../../../models/Department';
+import {SpecializationService} from '../../../services/specialization.service';
+import {Specialization} from '../../../models/Specialization';
 
 @Component({
   selector: 'add-specialization',
@@ -16,6 +18,7 @@ import {Department} from '../../../models/Department';
   styleUrls: ['./add-specialization.component.scss']
 })
 export class AddSpecializationComponent extends BaseReactiveFormComponent implements IAppModal, OnInit {
+  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
@@ -25,7 +28,8 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
     formBuilder: FormBuilder,
     private degreeService: DegreeService,
     private specialityService: SpecialityService,
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private specializationService: SpecializationService
   ) {
     super();
     this.form = formBuilder.group({
@@ -64,6 +68,19 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
   }
 
   hideModal() {
+    this.form.reset();
     this.modal.hide();
+  }
+
+  submit() {
+    super.submit();
+    if (this.form.invalid) {
+      return;
+    }
+    this.specializationService.create(this.form.getRawValue() as Specialization)
+      .then(() => {
+        this.onSubmit.emit(null);
+        this.modal.hide();
+      });
   }
 }
