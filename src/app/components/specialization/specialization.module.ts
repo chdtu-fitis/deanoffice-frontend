@@ -5,6 +5,7 @@ import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { SpecializationsTableComponent } from './specializations-table/specializations-table.component';
+import { AddSpecializationComponent } from './add-specialization/add-specialization.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SpecializationsTableComponent } from './specializations-table/specializ
   ],
   declarations: [
     SpecializationComponent,
-    SpecializationsTableComponent
+    SpecializationsTableComponent,
+    AddSpecializationComponent
   ]
 })
 export class SpecializationModule { }
