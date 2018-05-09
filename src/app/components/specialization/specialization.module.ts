@@ -5,6 +5,8 @@ import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { SpecializationsTableComponent } from './specializations-table/specializations-table.component';
+import { AddSpecializationComponent } from './add-specialization/add-specialization.component';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 
 @NgModule({
   imports: [
@@ -12,11 +14,13 @@ import { SpecializationsTableComponent } from './specializations-table/specializ
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TabsModule.forRoot()
   ],
   declarations: [
     SpecializationComponent,
-    SpecializationsTableComponent
+    SpecializationsTableComponent,
+    AddSpecializationComponent
   ]
 })
 export class SpecializationModule { }
