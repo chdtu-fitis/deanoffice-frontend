@@ -12,12 +12,12 @@
       <td>Викладач</td>
       <td>Дата екзамену</td>
       </thead>
-      <tr *ngFor="let course of coursesForGroup; let i = index">
+      <tr *ngFor="let course of coursesForGroup; let i = index" >
         <td><input type="checkbox" (change)="changeCoursesForDelete($event.target.checked, course)"></td>
         <td>{{ course.course.courseName.name }}</td>
         <td>{{ course.course.knowledgeControl.name}}</td>
         <td>{{ course.course.hours }}</td>
-        <td (click)="changeTeacher(i)">{{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) }}</td>
+        <td class="btn-link" (click)="changeTeacher(i)">{{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) }}</td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate" (change)="dateChange(i)">
         </td>
       </tr>
