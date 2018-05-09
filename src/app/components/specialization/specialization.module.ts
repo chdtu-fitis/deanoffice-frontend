@@ -7,6 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { SpecializationsTableComponent } from './specializations-table/specializations-table.component';
 import { AddSpecializationComponent } from './add-specialization/add-specialization.component';
 import {TabsModule} from 'ngx-bootstrap/tabs';
+import { DeleteSpecializationComponent } from './delete-specialization/delete-specialization.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
   declarations: [
     SpecializationComponent,
     SpecializationsTableComponent,
-    AddSpecializationComponent
+    AddSpecializationComponent,
+    DeleteSpecializationComponent
   ]
 })
 export class SpecializationModule { }
