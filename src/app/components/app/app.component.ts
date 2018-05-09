@@ -16,9 +16,7 @@ export class AppComponent implements OnInit {
   private isExist = (url: string): boolean => Boolean(url);
 
   private getLastPath(url: string): string {
-    const f = url.split('/').reverse()[0]
-    console.log(f, url);
-    return f;
+    return url.split('/').reverse()[0];
   }
 
   private routeChanges: Observable<string> = this.router.events
@@ -43,6 +41,7 @@ const features = {
   'dashboard': 'Головна сторінка',
   // start year
   'specialities': 'Спеціальності',
+  'specializations': 'Спеціалізації',
   'courses-for-groups': 'Предмети для груп',
   // during year
   'students': 'Студенти',

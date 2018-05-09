@@ -1,0 +1,25 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-nowrap">
+    <div class="col content py-3">
+      <div class="specializations-table h-100">
+        <app-specializations-table
+          [rows]="specializations"
+          [loading]="loading"
+          (selectedRows)="selectSpecializations($event)"
+        ></app-specializations-table>
+      </div>
+    </div>
+    <app-sidebar class="sidebar position-relative">
+      <b class="mb-5">Фільтри</b>
+
+      <div>
+        <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
+        <label for="active">Актуальні спеціалізації</label>
+      </div>
+
+      <div class="position-absolute p-3 row-count">
+          Всього: {{specializations.length || '0'}}
+      </div>
+    </app-sidebar>
+  </div>
+</div>
