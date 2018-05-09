@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {IAppModal} from '../../shared/modal.interface';
 import {FormBuilder, Validators} from '@angular/forms';
@@ -14,7 +14,7 @@ import {Specialization} from '../../../models/Specialization';
 
 
 enum Tabs {
-  GENERAL = 0, PROGRAM_HEAD = 1, OUTCOMES = 2
+  GENERAL, PROGRAM_HEAD, OUTCOMES
 }
 
 @Component({
