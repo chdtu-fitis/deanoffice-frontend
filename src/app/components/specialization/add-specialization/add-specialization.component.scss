@@ -1,0 +1,37 @@
+.smart-scroll {
+  overflow: hidden;
+}
+
+@media all and (max-height: 670px) {
+  .smart-scroll {
+    overflow: auto;
+  }
+}
+
+tab {
+  padding-top: 3px;
+}
+
+.payment-title {
+  position: absolute;
+  top: -25px;
+}
+
+.ta-4l {
+  @extend .no-resizeable;
+  height: 110px;
+}
+
+.no-resizeable {
+  resize: none;
+}
+
+.ta-3l {
+  @extend .no-resizeable;
+  height: 86px;
+}
+
+.modal-size {
+  width: 800px;
+  min-height: 601px;
+}

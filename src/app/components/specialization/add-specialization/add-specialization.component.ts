@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ModalDirective, TabsetComponent} from 'ngx-bootstrap';
 import {IAppModal} from '../../shared/modal.interface';
 import {FormBuilder, Validators} from '@angular/forms';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -12,11 +12,6 @@ import {Department} from '../../../models/Department';
 import {SpecializationService} from '../../../services/specialization.service';
 import {Specialization} from '../../../models/Specialization';
 
-
-enum Tabs {
-  GENERAL, PROGRAM_HEAD, OUTCOMES
-}
-
 @Component({
   selector: 'add-specialization',
   templateUrl: './add-specialization.component.html',
@@ -28,8 +23,6 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
-  tabs = Tabs;
-  currentTab = Tabs.GENERAL;
 
   constructor(
     formBuilder: FormBuilder,
@@ -47,6 +40,7 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
       departmentId: '',
       qualification: '',
       qualificationEng: '',
+    // this.tabset.
       paymentFulltime: '',
       paymentExtramural: '',
       educationalProgramHeadName: ['', Validators.required],
@@ -74,10 +68,6 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
     this.modal.show();
   }
 
-  selectTab(tab: Tabs): void {
-    this.currentTab = tab;
-  }
-
   hideModal(): void {
     this.form.reset();
     this.modal.hide();
@@ -89,7 +79,8 @@ export class AddSpecializationComponent extends BaseReactiveFormComponent implem
       alert('Перевірте правильність вводу даних');
       return;
     }
-    this.specializationService.create(this.form.getRawValue() as Specialization)
+    this.specializationService
+      .create(this.form.getRawValue() as Specialization)
       .then(() => {
         this.onSubmit.emit(null);
         this.modal.hide();
