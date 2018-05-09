@@ -10,12 +10,14 @@
       </div>
 
       <div class="modal-body">
-
+        <div *ngFor="let item of selectedItems; let i = index">
+          {{i + 1}}. {{item?.name}} -- {{item?.speciality?.code + ' ' + item?.speciality?.name}} -- {{item?.degree?.name}}
+        </div>
       </div>
 
       <div class="modal-footer">
-        <button (click)="submit()" class="btn btn-danger">Видалити</button>
-        <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+        <button type="button" (click)="submit()" class="btn btn-danger">Видалити</button>
+        <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
       </div>
     </div>
   </div>

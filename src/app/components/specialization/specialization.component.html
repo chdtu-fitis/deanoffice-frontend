@@ -18,7 +18,7 @@
 
       <div class="specializations-table">
         <app-specializations-table
-          [rows]="specializations"
+          [setRows]="specializations"
           [loading]="loading"
           (selectedRows)="selectSpecializations($event)"
         ></app-specializations-table>
@@ -41,4 +41,5 @@
 
 <add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
 
-<delete-specialization #deleteSpecialization></delete-specialization>
+<delete-specialization #deleteSpecialization [selectedItems]="selectedSpecializations"
+                       (onSubmit)="updateDatatable()"></delete-specialization>

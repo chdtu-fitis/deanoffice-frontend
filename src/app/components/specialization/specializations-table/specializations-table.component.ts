@@ -7,9 +7,13 @@ import {Specialization} from '../../../models/Specialization';
   styleUrls: ['./specializations-table.component.scss']
 })
 export class SpecializationsTableComponent {
-  @Input() rows: SpecializationWithSelected[] = [];
+  @Input() set setRows(rows: SpecializationWithSelected[]) {
+    this.rows = rows;
+    this.selectedSpecializations = [];
+  };
   @Input() loading: boolean;
   @Output() selectedRows: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
+  rows: SpecializationWithSelected[];
   private selectedSpecializations: Specialization[] = [];
   allRowsIsSelected = false;
 
