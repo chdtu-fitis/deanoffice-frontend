@@ -14,8 +14,17 @@ mat-sidenav-container {
   cursor: pointer;
 }
 
+.mat-drawer-container, .mat-drawer-content {
+  z-index: auto;
+}
+
 mat-sidenav {
+  z-index: auto;
   padding-right: 10px;
+}
+
+mat-nav-list {
+  width: 200px;
 }
 
 .alert-primary {

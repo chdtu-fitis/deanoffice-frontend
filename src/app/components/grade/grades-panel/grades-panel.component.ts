@@ -10,7 +10,7 @@ export class GradesPanelComponent {
     @Output() changeGroup = new EventEmitter();
     @Output() changeSemester = new EventEmitter();
     @Output() sendRequestGetGrades = new EventEmitter();
-    autoSemesterSelect = false;
+    autoSemesterSelect = true;
     selectGroup: any = false;
     studySemesters = 10;
     selectSemester = 1;

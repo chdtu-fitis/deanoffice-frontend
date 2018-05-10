@@ -14,7 +14,7 @@ export class GradeService {
     }
 
     public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {
-        return this.http.get<Grade[]>(`${this.url}/${groupId}/${semester}`).pipe(
+        return this.http.get<Grade[]>(`${this.url}/${groupId}?semester=${semester}`).pipe(
             catchError(this.handleError('getGradesByGroupIdAndBySemester', []))
         );
     }
