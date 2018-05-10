@@ -2,8 +2,11 @@
 
 .panel {
   display: flex;
-  height: 550px;
-  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 0;
+  flex-flow: column;
 }
 
 select {
@@ -14,6 +17,7 @@ select {
 }
 
 .groups {
+  flex: 1;
   overflow: auto;
 }
 
