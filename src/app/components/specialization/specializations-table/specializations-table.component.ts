@@ -15,11 +15,13 @@ export class SpecializationsTableComponent {
   @Input() set setRows(rows: SpecializationWithSelected[]) {
     this.rows = rows;
     this.selectedSpecializations = [];
+    this.emitSelectedSpecializations();
   };
+
   @Input() loading: boolean;
   @Output() selectedRows: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
-  rows: SpecializationWithSelected[];
   private selectedSpecializations: Specialization[] = [];
+  rows: SpecializationWithSelected[];
   allRowsIsSelected = false;
 
   selectAll(event: boolean): void {
