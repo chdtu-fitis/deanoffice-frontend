@@ -1,21 +1,35 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Specialization} from '../../../models/Specialization';
 
+
+class SpecializationWithSelected extends Specialization {
+  isSelected: boolean;
+}
+
 @Component({
   selector: 'app-specializations-table',
   templateUrl: './specializations-table.component.html',
   styleUrls: ['./specializations-table.component.scss']
 })
 export class SpecializationsTableComponent {
-  @Input() rows: SpecializationWithSelected[] = [];
+  @Input() set setRows(rows: SpecializationWithSelected[]) {
+    this.rows = rows;
+    this.selectedSpecializations = [];
+    this.emitSelectedSpecializations();
+  };
+
   @Input() loading: boolean;
   @Output() selectedRows: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
   private selectedSpecializations: Specialization[] = [];
+  rows: SpecializationWithSelected[];
   allRowsIsSelected = false;
 
   selectAll(event: boolean): void {
+    if (this.loading) {
+      return;
+    }
     if (event) {
-      this.selectedSpecializations = this.rows;
+      this.selectedSpecializations = [...this.rows];
     } else {
       this.selectedSpecializations = [];
     }
@@ -59,8 +73,8 @@ export class SpecializationsTableComponent {
     const selectedRowIds: number[] = this.selectedSpecializations.map(getIdFromSpecializations);
     return rowIds.length === selectedRowIds.length && rowIds.length !== 0;
   }
-}
 
-class SpecializationWithSelected extends Specialization {
-  isSelected: boolean;
+  getTableRowClass(isSelected: boolean) {
+    return (isSelected) ? 'table-success' : '';
+  }
 }

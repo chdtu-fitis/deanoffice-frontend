@@ -20,6 +20,12 @@ export class SpecializationService {
   }
 
   create(body: Specialization): Promise<any> {
-    return this.httpClient.post(SPECIALIZATION_URL, body).toPromise();
+    return this.httpClient.post(SPECIALIZATION_URL, body).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Створення нової спеціалізації'));
+  }
+
+  delete(itemIds: number[]): Promise<any> {
+    return this.httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
   }
 }

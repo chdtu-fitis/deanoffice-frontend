@@ -1,0 +1,13 @@
+.card:first-child {
+  margin-bottom: 0;
+}
+
+.modal-h {
+  height: calc(100% - 39px);
+}
+
+.scrollable-container {
+  position: absolute;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
+}
