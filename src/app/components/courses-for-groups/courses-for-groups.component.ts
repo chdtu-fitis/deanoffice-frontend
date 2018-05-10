@@ -93,8 +93,8 @@ export class CoursesForGroupsComponent implements OnInit {
     for (let deletedCourse of this.coursesForDelete){
       for (let course of this.coursesForGroup){
         if (deletedCourse.course.id==course.course.id && deletedCourse.id){
-          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.deleteCoursesIds.push(deletedCourse.id);
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
           this.updatedCourses.splice(this.updatedCourses.indexOf(course),1);
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
@@ -120,7 +120,6 @@ export class CoursesForGroupsComponent implements OnInit {
         let courseForGroup = new CourseForGroup();
         let teacher = new Teacher();
         courseForGroup.course = course;
-        courseForGroup.studentGroup = this.selectedGroup;
         courseForGroup.teacher = teacher;
         if (this.coursesForAdd) {
           let courseIsAdded = false;
@@ -140,17 +139,18 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
-    this.showAddedCourses();
+    this.showAddedCourses(true);
   }
 
-  showAddedCourses(){
-    setTimeout(() => {
-      this.child.addNewCoursesForGroup();
-    });
+  showAddedCourses(isShow: boolean){
+    if (isShow){
+      setTimeout(() => {
+        this.child.addNewCoursesForGroup();
+      });
+    }
   }
 
   saveCoursesForGroup() {
-    console.dir (this.coursesForAdd);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
@@ -175,6 +175,8 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
+    this.child.coursesForGroup = [];
+    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
     setTimeout(() => {
