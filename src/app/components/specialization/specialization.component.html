@@ -3,14 +3,22 @@
     <div class="col content py-3">
       <div class="mb-3 d-flex justify-content-between">
         <div></div>
-        <button type="button" class="btn btn-success mr-1" (click)="addSpecialization.openModal()">
-          Нова спеціалізація
-        </button>
+
+        <div>
+          <button type="button" class="btn btn-danger" (click)="deleteSpecialization.openModal(selectedSpecializations)"
+                  [disabled]="deleteIsDisabled()">
+            Видалити
+          </button>
+
+          <button type="button" class="btn btn-success mr-1" (click)="addSpecialization.openModal()">
+            Нова спеціалізація
+          </button>
+        </div>
       </div>
 
       <div class="specializations-table">
         <app-specializations-table
-          [rows]="specializations"
+          [setRows]="specializations"
           [loading]="loading"
           (selectedRows)="selectSpecializations($event)"
         ></app-specializations-table>
@@ -32,3 +40,5 @@
 </div>
 
 <add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
+
+<delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>

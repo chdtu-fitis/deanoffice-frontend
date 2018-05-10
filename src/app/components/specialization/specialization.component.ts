@@ -11,6 +11,7 @@ export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
   selectedSpecializations: Specialization[] = [];
   loading: boolean;
+  private actual: boolean;
   constructor(private specializationService: SpecializationService) { }
 
   ngOnInit() {
@@ -19,10 +20,15 @@ export class SpecializationComponent implements OnInit {
 
   getSpecializations(actual: boolean): void {
     this.loading = true;
+    this.actual = actual;
     this.specializationService.getSpecializations(actual).subscribe((specializations: Specialization[]) => {
       this.specializations = specializations;
       this.loading = false;
     });
+  }
+
+  deleteIsDisabled(): boolean {
+    return this.selectedSpecializations.length === 0 || !this.actual;
   }
 
   selectSpecializations(specializations: Specialization[]): void {
