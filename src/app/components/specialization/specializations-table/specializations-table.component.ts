@@ -1,6 +1,11 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Specialization} from '../../../models/Specialization';
 
+
+class SpecializationWithSelected extends Specialization {
+  isSelected: boolean;
+}
+
 @Component({
   selector: 'app-specializations-table',
   templateUrl: './specializations-table.component.html',
@@ -18,6 +23,9 @@ export class SpecializationsTableComponent {
   allRowsIsSelected = false;
 
   selectAll(event: boolean): void {
+    if (this.loading) {
+      return;
+    }
     if (event) {
       this.selectedSpecializations = [...this.rows];
     } else {
@@ -67,8 +75,4 @@ export class SpecializationsTableComponent {
   getTableRowClass(isSelected: boolean) {
     return (isSelected) ? 'border-success table-success' : '';
   }
-}
-
-class SpecializationWithSelected extends Specialization {
-  isSelected: boolean;
 }
