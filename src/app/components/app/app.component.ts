@@ -39,6 +39,7 @@ const features = {
   'login': 'Вхід',
   // main page
   'dashboard': 'Головна сторінка',
+  '': 'Головна сторінка',
   // start year
   'specialities': 'Спеціальності',
   'specializations': 'Спеціалізації',
