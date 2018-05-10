@@ -10,8 +10,23 @@
       </div>
 
       <div class="modal-body">
-        <div *ngFor="let item of selectedItems; let i = index">
-          {{i + 1}}. {{item?.name}} -- {{item?.speciality?.code + ' ' + item?.speciality?.name}} -- {{item?.degree?.name}}
+        <div *ngFor="let item of items; let i = index" class="card mb-2">
+          <div class="card-body">
+            <div>
+              <button class="close" (click)="remove(i)" *ngIf="items.length > 1">×</button>
+              <b>{{i + 1}}. {{item?.name}}</b>
+            </div>
+            <div>
+              <small>
+                <b>Спеціальність:</b> {{item?.speciality?.code + ' ' + item?.speciality?.name}}
+              </small>
+            </div>
+            <div>
+              <small>
+                <b>Ступінь:</b> {{item?.degree?.name}}
+              </small>
+            </div>
+          </div>
         </div>
       </div>
 

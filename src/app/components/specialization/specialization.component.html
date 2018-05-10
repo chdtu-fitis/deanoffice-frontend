@@ -5,7 +5,7 @@
         <div></div>
 
         <div>
-          <button type="button" class="btn btn-danger" (click)="deleteSpecialization.openModal()"
+          <button type="button" class="btn btn-danger" (click)="deleteSpecialization.openModal(selectedSpecializations)"
                   [disabled]="selectedSpecializations.length === 0">
             Видалити
           </button>
@@ -41,5 +41,4 @@
 
 <add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
 
-<delete-specialization #deleteSpecialization [selectedItems]="selectedSpecializations"
-                       (onSubmit)="updateDatatable()"></delete-specialization>
+<delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>

@@ -10,18 +10,23 @@ import {SpecializationService} from '../../../services/specialization.service';
   styleUrls: ['./delete-specialization.component.scss']
 })
 export class DeleteSpecializationComponent implements IAppModal {
-  @Input() selectedItems: Specialization[] = [];
+  items: Specialization[] = [];
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 
   constructor(private specializationService: SpecializationService) { }
 
-  openModal(): void {
+  openModal(items: Specialization[]): void {
+    this.items = items;
     this.modal.show();
   }
 
+  remove(itemIndex: number): void {
+    this.items.splice(itemIndex, 1);
+  }
+
   submit(): void {
-    const itemIds: number[] = this.selectedItems.map((item: Specialization) => item.id);
+    const itemIds: number[] = this.items.map((item: Specialization) => item.id);
     this.specializationService
       .delete(itemIds)
       .then(() => {
