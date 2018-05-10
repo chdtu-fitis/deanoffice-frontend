@@ -1,22 +1,10 @@
-<div class="modal fade smart-scroll" [config]="{backdrop: 'static'}" bsModal
-     #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content modal-size">
-      <div class="modal-header">
-        <div class="modal-title">Додати нову спеціалізацію</div>
-        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">x</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-        <specialization-form #specializationForm></specialization-form>
-      </div>
-
-      <div class="modal-footer">
-        <button (click)="submit()" class="btn btn-success btn-submit">Створити</button>
-        <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
-      </div>
-    </div>
+<specialization-modal #modal [title]="'Додати нову спеціалізацію'">
+  <div class="modal-body">
+    <specialization-form #form></specialization-form>
   </div>
-</div>
+
+  <div class="modal-footer">
+    <button (click)="submit()" class="btn btn-success btn-submit">Створити</button>
+    <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+  </div>
+</specialization-modal>

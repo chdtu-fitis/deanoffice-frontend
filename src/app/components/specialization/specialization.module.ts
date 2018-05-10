@@ -9,6 +9,7 @@ import { AddSpecializationComponent } from './add-specialization/add-specializat
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { DeleteSpecializationComponent } from './delete-specialization/delete-specialization.component';
 import { SpecializationFormComponent } from './specialization-form/specialization-form.component';
+import { SpecializationModalComponent } from './specialization-modal/specialization-modal.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { SpecializationFormComponent } from './specialization-form/specializatio
     SpecializationsTableComponent,
     AddSpecializationComponent,
     DeleteSpecializationComponent,
-    SpecializationFormComponent
+    SpecializationFormComponent,
+    SpecializationModalComponent
   ]
 })
 export class SpecializationModule { }

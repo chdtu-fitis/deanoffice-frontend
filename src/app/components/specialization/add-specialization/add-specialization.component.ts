@@ -1,18 +1,17 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
-import {IAppModal} from '../../shared/modal.interface';
 import {SpecializationService} from '../../../services/specialization.service';
 import {SpecializationFormComponent} from '../specialization-form/specialization-form.component';
+import {SpecializationModalComponent} from '../specialization-modal/specialization-modal.component';
 
 @Component({
   selector: 'add-specialization',
   templateUrl: './add-specialization.component.html',
   styleUrls: ['./add-specialization.component.scss']
 })
-export class AddSpecializationComponent implements IAppModal {
+export class AddSpecializationComponent {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalDirective;
-  @ViewChild('specializationForm') specializationForm: SpecializationFormComponent;
+  @ViewChild('modal') modal: SpecializationModalComponent;
+  @ViewChild('form') form: SpecializationFormComponent;
 
   constructor(private specializationService: SpecializationService) { }
 
@@ -21,16 +20,16 @@ export class AddSpecializationComponent implements IAppModal {
   }
 
   hideModal(): void {
-    this.specializationForm.reset();
+    this.form.reset();
     this.modal.hide();
   }
 
   submit(): void {
-    if (this.specializationForm.invalid()) {
+    if (this.form.invalid()) {
       return;
     }
     this.specializationService
-      .create(this.specializationForm.getValue())
+      .create(this.form.getValue())
       .then(() => {
         this.onSubmit.emit(null);
         this.modal.hide();
