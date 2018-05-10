@@ -20,6 +20,7 @@ export class DiplomaSupplementComponent implements OnInit {
   studentsSelected: boolean;
   message: string;
   gradePercentLoading: boolean;
+  fullGradesTableReportLoading: boolean;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
@@ -68,6 +69,14 @@ export class DiplomaSupplementComponent implements OnInit {
     this.gradePercentLoading = true;
     this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
         this.gradePercentLoading = false;
+      }
+    );
+  }
+
+  onFullGradesTableReport(): void {
+    this.fullGradesTableReportLoading = true;
+    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
+        this.fullGradesTableReportLoading = false;
       }
     );
   }
