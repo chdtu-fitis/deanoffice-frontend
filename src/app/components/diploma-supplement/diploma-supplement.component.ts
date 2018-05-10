@@ -19,8 +19,9 @@ export class DiplomaSupplementComponent implements OnInit {
   students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
-  gradePercentLoading: boolean;
-  fullGradesTableReportLoading: boolean;
+  supplementLoading = false;
+  gradePercentLoading = false;
+  gradesTableReportLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
@@ -57,10 +58,12 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onFormSupplement(): void {
     this.message = '';
+    this.supplementLoading = true;
     for (let student of this.students) {
       if (student.selected){
         this.diplomaSupplementService.buildDiplomaSupplement(''+student.id);
       }
+      this.supplementLoading = false;
     }
   }
 
@@ -74,9 +77,9 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onFullGradesTableReport(): void {
-    this.fullGradesTableReportLoading = true;
+    this.gradesTableReportLoading = true;
     this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
-        this.fullGradesTableReportLoading = false;
+        this.gradesTableReportLoading = false;
       }
     );
   }
