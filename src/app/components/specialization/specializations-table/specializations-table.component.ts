@@ -19,7 +19,7 @@ export class SpecializationsTableComponent {
 
   selectAll(event: boolean): void {
     if (event) {
-      this.selectedSpecializations = this.rows;
+      this.selectedSpecializations = [...this.rows];
     } else {
       this.selectedSpecializations = [];
     }
@@ -62,6 +62,10 @@ export class SpecializationsTableComponent {
     const rowIds: number[] = this.rows.map(getIdFromSpecializations);
     const selectedRowIds: number[] = this.selectedSpecializations.map(getIdFromSpecializations);
     return rowIds.length === selectedRowIds.length && rowIds.length !== 0;
+  }
+
+  getTableRowClass(isSelected: boolean) {
+    return (isSelected) ? 'border-success table-success' : '';
   }
 }
 

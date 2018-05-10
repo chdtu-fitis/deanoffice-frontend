@@ -17,7 +17,7 @@ export class DeleteSpecializationComponent implements IAppModal {
   constructor(private specializationService: SpecializationService) { }
 
   openModal(items: Specialization[]): void {
-    this.items = items;
+    this.items = [...items];
     this.modal.show();
   }
 
