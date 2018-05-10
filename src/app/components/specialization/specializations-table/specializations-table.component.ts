@@ -75,6 +75,6 @@ export class SpecializationsTableComponent {
   }
 
   getTableRowClass(isSelected: boolean) {
-    return (isSelected) ? 'border-success table-success' : '';
+    return (isSelected) ? 'table-success' : '';
   }
 }
