@@ -1,5 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {MediaMatcher} from '@angular/cdk/layout';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GradeService} from '../../services/grade.service';
 import {GroupService} from '../../services/group.service';
 import {StudentGroup} from '../../models/StudentGroup';
@@ -16,6 +15,7 @@ import {StudentService} from '../../services/student.service';
     providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
+    @ViewChild('gradeTable') gradeTable;
     groups: StudentGroup[];
     selectGroup: StudentGroup;
     selectSemester = 1;
@@ -42,6 +42,7 @@ export class GradeComponent implements OnInit {
 
     setStudentGroup(group: StudentGroup): void {
         this.selectGroup = group;
+        this.gradeTable.resetGrades();
     }
 
     setSemester(selectSemester: number): void {
@@ -62,7 +63,7 @@ export class GradeComponent implements OnInit {
             for (const course of courses) {
                 const grade = this.joinGrades(studentDegree, grades, course);
                 if (grade.empty) {
-                    emptyGrades.push(grade)
+                    emptyGrades.push(grade);
                 }
                 student.grades.push(grade);
             }
@@ -74,7 +75,7 @@ export class GradeComponent implements OnInit {
     joinGrades(studentDegree: any, grades: any, course: any): any {
         let check = false;
         for (const grade of grades) {
-            if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
+            if (studentDegree.id === grade.studentDegreeId && grade.courseId === course.course.id) {
                 check = true;
                 if (!grade.points) {
                     grade.points = null;
@@ -167,10 +168,12 @@ export class GradeComponent implements OnInit {
     updateGradesForGroup(): void {
         this.gradeService.updateGrades(this.gradesUpdate).subscribe(grades => {
             this.getGrades();
+            this.gradeTable.resetGrades();
         })
     }
 
     fillInWithZerosGrades(): void {
+        console.log(this.emptyGradesList);
         this.gradeService.updateGrades(this.emptyGradesList).subscribe(grades => {
             this.getGrades();
         });

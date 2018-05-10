@@ -15,7 +15,11 @@ export class GradesTableComponent {
     @Output() errors = new EventEmitter();
     grades = [];
 
-    nextCell(e: any, studentId: number, gradeId: number, grade): void {
+    resetGrades() {
+        this.grades = [];
+    };
+
+    nextCell(e: any, studentId: number, gradeId: number): void {
         if (e.keyCode === 13) {
             this.focusElement(studentId + 1, gradeId, true);
         }
@@ -24,8 +28,7 @@ export class GradesTableComponent {
     focusElement(studentId: number, gradeId: number, vertically: boolean): any {
         const id = this.getElementId(studentId, gradeId);
         try {
-            const input = document.getElementById(id);
-            input.focus();
+            document.getElementById(id).focus();
         } catch (err) {
             if (!vertically) { return; }
             this.focusElement(0, gradeId + 1, false);
@@ -51,15 +54,30 @@ export class GradesTableComponent {
     addGradeForUpdate(grade): void {
         const updateGradeId = this.findGradeOfGrades(grade);
         if (updateGradeId >= 0) {
-            this.grades[updateGradeId] = grade;
+            this.grades[updateGradeId].points = grade.points;
         } else {
-            this.grades.push(grade);
+            this.grades.push(this.gradeEntity(grade));
         }
         this.gradesUpdate.emit(this.grades);
     }
 
     setError(error: string): void {
         this.errors.emit(error);
+    }
+
+    gradeEntity(grade: any) {
+        const tempGgrade: any = {
+            studentDegree: {
+                id: grade.studentDegreeId || grade.studentDegree.id
+            },
+            course: {
+                id: grade.courseId || grade.course.id
+            },
+            points: grade.points
+        };
+        if (grade.id) tempGgrade.id = grade.id;
+
+        return tempGgrade;
     }
 
     updateVisible(id, style): void {
