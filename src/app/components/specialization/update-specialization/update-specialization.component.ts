@@ -25,7 +25,7 @@ export class UpdateSpecializationComponent {
 
   openModal(sourceId: number): void {
     this.specializationService.getById(sourceId)
-      .subscribe((source) => {
+      .subscribe((source: Specialization) => {
         this.source = source;
         this.form.setInitialData(this.source);
         this.modal.show();
@@ -41,11 +41,5 @@ export class UpdateSpecializationComponent {
     if (this.form.invalid()) {
       return;
     }
-    // this.specializationService
-    //   .create(this.form.getValue())
-    //   .then(() => {
-    //     this.onSubmit.emit(null);
-    //     this.modal.hide();
-    //   });
   }
 }

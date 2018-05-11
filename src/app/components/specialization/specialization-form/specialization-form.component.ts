@@ -18,41 +18,59 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
-  data: Specialization;
-  controlsConfig = {
-    name: ['', Validators.required],
-    nameEng: '',
-    specialityId: ['', Validators.required],
-    degreeId: ['', Validators.required],
-    departmentId: '',
-    qualification: '',
-    qualificationEng: '',
-    paymentFulltime: '',
-    paymentExtramural: '',
-    educationalProgramHeadName: ['', Validators.required],
-    educationalProgramHeadNameEng: ['', Validators.required],
-    educationalProgramHeadInfo: ['', Validators.required],
-    educationalProgramHeadInfoEng: ['', Validators.required],
-    knowledgeAndUnderstandingOutcomes: '',
-    knowledgeAndUnderstandingOutcomesEng: '',
-    applyingKnowledgeAndUnderstandingOutcomes: '',
-    applyingKnowledgeAndUnderstandingOutcomesEng: '',
-    makingJudgementsOutcomes: '',
-    makingJudgementsOutcomesEng: ''
-  };
 
   constructor(
-    formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private degreeService: DegreeService,
     private specialityService: SpecialityService,
     private departmentService: DepartmentService
   ) {
     super();
-    this.form = formBuilder.group(this.controlsConfig);
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required],
+      nameEng: '',
+      specialityId: ['', Validators.required],
+      degreeId: ['', Validators.required],
+      departmentId: '',
+      qualification: '',
+      qualificationEng: '',
+      paymentFulltime: '',
+      paymentExtramural: '',
+      educationalProgramHeadName: ['', Validators.required],
+      educationalProgramHeadNameEng: ['', Validators.required],
+      educationalProgramHeadInfo: ['', Validators.required],
+      educationalProgramHeadInfoEng: ['', Validators.required],
+      knowledgeAndUnderstandingOutcomes: '',
+      knowledgeAndUnderstandingOutcomesEng: '',
+      applyingKnowledgeAndUnderstandingOutcomes: '',
+      applyingKnowledgeAndUnderstandingOutcomesEng: '',
+      makingJudgementsOutcomes: '',
+      makingJudgementsOutcomesEng: ''
+    });
   }
 
   setInitialData(data: Specialization) {
-    this.data = data;
+    this.form = this.formBuilder.group({
+      name: [data.name, Validators.required],
+      nameEng: data.nameEng,
+      specialityId: [data.specialityId, Validators.required],
+      degreeId: [data.degreeId, Validators.required],
+      departmentId: data.departmentId,
+      qualification: data.qualification,
+      qualificationEng: data.qualificationEng,
+      paymentFulltime: data.paymentFullTime,
+      paymentExtramural: data.paymentExtramural,
+      educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
+      educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
+      educationalProgramHeadInfo: [data.educationalProgramHeadInfo, Validators.required],
+      educationalProgramHeadInfoEng: [data.educationalProgramHeadInfoEng, Validators.required],
+      knowledgeAndUnderstandingOutcomes: data.knowledgeAndUnderstandingOutcomes,
+      knowledgeAndUnderstandingOutcomesEng: data.knowledgeAndUnderstandingOutcomesEng,
+      applyingKnowledgeAndUnderstandingOutcomes: data.applyingKnowledgeAndUnderstandingOutcomes,
+      applyingKnowledgeAndUnderstandingOutcomesEng: data.applyingKnowledgeAndUnderstandingOutcomesEng,
+      makingJudgementsOutcomes: data.makingJudgementsOutcomes,
+      makingJudgementsOutcomesEng: data.makingJudgementsOutcomesEng
+    });
   }
 
   ngOnInit() {
