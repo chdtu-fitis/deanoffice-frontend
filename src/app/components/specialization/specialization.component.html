@@ -10,6 +10,11 @@
             Видалити
           </button>
 
+          <button type="button" class="btn btn-warning" [disabled]="updateIsDisabled()"
+                  (click)="updateSpecialization.openModal(selectedSpecializations[0].id)">
+            Оновити
+          </button>
+
           <button type="button" class="btn btn-success mr-1" (click)="addSpecialization.openModal()">
             Нова спеціалізація
           </button>
@@ -42,3 +47,5 @@
 <add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
 
 <delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>
+
+<update-specialization #updateSpecialization (onSubmit)="updateDatatable()"></update-specialization>

@@ -1,5 +1,3 @@
-@import "../../../../styles";
-
 .loader {
   position: absolute;
   margin-left: -20px;
@@ -8,6 +6,14 @@
   top: 50%;
 }
 
-.fs-12 {
-  font-size: 12px;
+.fs-13 {
+  font-size: 13px;
+}
+
+td {
+  padding: 2px;
+}
+
+input[type=checkbox] {
+  vertical-align: middle;
 }
