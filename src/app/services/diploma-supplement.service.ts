@@ -18,4 +18,9 @@ export class DiplomaSupplementService {
     const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
     return this.fileService.downloadFile(url)
   }
+
+  buildFullGradesTableReport(groupId: string): any {
+    const url = `${this.documentsUrl}/grouptablereport/groups/${groupId}`;
+    return this.fileService.downloadFile(url)
+  }
 }
