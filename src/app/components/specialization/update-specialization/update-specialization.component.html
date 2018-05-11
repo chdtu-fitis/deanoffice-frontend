@@ -1,0 +1,10 @@
+<specialization-modal #modal [title]="getTitle()">
+  <div class="modal-body">
+    <specialization-form #form></specialization-form>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="submit()" class="btn btn-success btn-submit">Оновити</button>
+    <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+  </div>
+</specialization-modal>

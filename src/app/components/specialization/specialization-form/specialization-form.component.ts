@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
@@ -18,7 +18,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
-
+  data: Specialization;
   controlsConfig = {
     name: ['', Validators.required],
     nameEng: '',
@@ -33,11 +33,11 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     educationalProgramHeadNameEng: ['', Validators.required],
     educationalProgramHeadInfo: ['', Validators.required],
     educationalProgramHeadInfoEng: ['', Validators.required],
-    knowledgeAndUnderstandingOutcomes:  '',
-    knowledgeAndUnderstandingOutcomesEng:  '',
-    applyingKnowledgeAndUnderstandingOutcomes:  '',
-    applyingKnowledgeAndUnderstandingOutcomesEng:  '',
-    makingJudgementsOutcomes:  '',
+    knowledgeAndUnderstandingOutcomes: '',
+    knowledgeAndUnderstandingOutcomesEng: '',
+    applyingKnowledgeAndUnderstandingOutcomes: '',
+    applyingKnowledgeAndUnderstandingOutcomesEng: '',
+    makingJudgementsOutcomes: '',
     makingJudgementsOutcomesEng: ''
   };
 
@@ -49,6 +49,10 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   ) {
     super();
     this.form = formBuilder.group(this.controlsConfig);
+  }
+
+  setInitialData(data: Specialization) {
+    this.data = data;
   }
 
   ngOnInit() {

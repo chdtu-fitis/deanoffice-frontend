@@ -40,8 +40,7 @@
           <div class="form-group">
             <label for="departmentId">Кафедра</label>
             <select formControlName="departmentId" class="form-control" id="departmentId">
-              <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}
-              </option>
+              <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
             </select>
           </div>
         </div>
@@ -55,8 +54,7 @@
 
           <div class="form-group ml-3">
             <label for="paymentExtramural">Скороченої форми</label>
-            <input formControlName="paymentExtramural" type="number" class="form-control"
-                   id="paymentExtramural">
+            <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
           </div>
         </div>
 
@@ -88,8 +86,7 @@
           <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
                  id="educationalProgramHeadNameEng"
                  [appValidation]="form.controls.educationalProgramHeadNameEng">
-          <app-validation-errors
-            [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>
+          <app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>
         </div>
 
         <div class="form-group col-6">
@@ -106,7 +103,8 @@
           </label>
           <textarea formControlName="educationalProgramHeadInfoEng" type="text" class="form-control ta-4l"
                     id="educationalProgramHeadInfoEng"
-                    [appValidation]="form.controls.educationalProgramHeadInfoEng"></textarea>
+                    [appValidation]="form.controls.educationalProgramHeadInfoEng">
+          </textarea>
           <app-validation-errors
             [control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>
         </div>
@@ -124,35 +122,37 @@
         <div class="form-group col-6">
           <label for="knowledgeAndUnderstandingOutcomesEng">Знання та розуміння англ.</label>
           <textarea formControlName="knowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l"
-                    id="knowledgeAndUnderstandingOutcomesEng"></textarea>
+                    class="form-control ta-3l" id="knowledgeAndUnderstandingOutcomesEng">
+          </textarea>
         </div>
 
         <div class="form-group col-6">
           <label for="applyingKnowledgeAndUnderstandingOutcomes">Застосування знань та розумінь</label>
           <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomes" type="text"
-                    class="form-control ta-3l"
-                    id="applyingKnowledgeAndUnderstandingOutcomes"></textarea>
+                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomes">
+          </textarea>
         </div>
 
         <div class="form-group col-6">
           <label
             for="applyingKnowledgeAndUnderstandingOutcomesEng">Застосування знань та розумінь англ.</label>
           <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l"
-                    id="applyingKnowledgeAndUnderstandingOutcomesEng"></textarea>
+                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomesEng">
+          </textarea>
         </div>
 
         <div class="form-group col-6">
           <label for="makingJudgementsOutcomes">Формування суджень</label>
           <textarea formControlName="makingJudgementsOutcomes" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomes"></textarea>
+                    id="makingJudgementsOutcomes">
+          </textarea>
         </div>
 
         <div class="form-group col-6">
           <label for="makingJudgementsOutcomesEng">Формування суджень англ.</label>
           <textarea formControlName="makingJudgementsOutcomesEng" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomesEng"></textarea>
+                    id="makingJudgementsOutcomesEng">
+          </textarea>
         </div>
       </div>
     </tab>

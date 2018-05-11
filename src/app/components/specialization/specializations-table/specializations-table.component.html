@@ -1,7 +1,7 @@
 <div class="position-relative w-100 h-100">
   <div class="position-absolute w-100 h-100">
     <div class="scrollable w-100 h-100" style="box-shadow: 0 0 5px gray">
-      <table class="table table-sm fs-12">
+      <table class="table table-sm fs-13">
         <thead>
         <tr>
           <th>
@@ -20,7 +20,7 @@
         </div>
         <tbody *ngIf="!loading">
         <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)">
-          <td>
+          <td style="text-align: center">
             <input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"
                    [checked]="row.isSelected">
           </td>
