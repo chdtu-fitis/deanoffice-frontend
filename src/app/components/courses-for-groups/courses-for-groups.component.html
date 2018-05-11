@@ -3,9 +3,8 @@
     <loading [size]="40"></loading>
   </div>
 
-  <teacher-dialog [(visible)]="showDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup">
-    <!--<button (click)="showDialog = !showDialog" class="btn">Close</button>-->
-  </teacher-dialog>
+  <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup"></teacher-dialog>
+  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd" (showCopied)="showAddedCourses($event)"></copy-courses-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <div class="row">
@@ -39,16 +38,16 @@
     <div class="col-7">
       <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
       <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
-      <button type="button" class="btn btn-info copy">Скопіювати з іншої групи</button>
+      <button type="button" class="btn btn-info copy" (click)="copyCourses()" *ngIf="selectedGroup!==undefined&&selectedSemester!==undefined">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd"></added-courses>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd" ></added-courses>
   <div class="row">
     <div class="col-10">
       <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()">Зберегти</button>
       <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
     </div>
-    <div class="col-2">
+    <div class="col-2 count-label">
       Всього: {{coursesForGroup.length || '0'}}
     </div>
   </div>

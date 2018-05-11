@@ -25,6 +25,9 @@ import {SpecialityService} from '../../services/speciality.service';
 import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
 import {GroupModule} from '../group/group.module';
+import {SpecializationModule} from '../specialization/specialization.module';
+import {SpecializationService} from '../../services/specialization.service';
+import {DepartmentService} from '../../services/department.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import {GroupModule} from '../group/group.module';
     SharedModule,
     AuthenticationModule,
     GradeModule,
-    GroupModule
+    GroupModule,
+    SpecializationModule
   ],
   providers: [
     DegreeService,
@@ -57,7 +61,9 @@ import {GroupModule} from '../group/group.module';
     SpecialityService,
     FileService,
     GradeService,
-    SpecialityService
+    SpecialityService,
+    SpecializationService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })

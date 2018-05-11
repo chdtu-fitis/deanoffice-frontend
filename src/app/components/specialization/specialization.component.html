@@ -1,0 +1,44 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-nowrap">
+    <div class="col content py-3">
+      <div class="mb-3 d-flex justify-content-between">
+        <div></div>
+
+        <div>
+          <button type="button" class="btn btn-danger" (click)="deleteSpecialization.openModal(selectedSpecializations)"
+                  [disabled]="deleteIsDisabled()">
+            Видалити
+          </button>
+
+          <button type="button" class="btn btn-success mr-1" (click)="addSpecialization.openModal()">
+            Нова спеціалізація
+          </button>
+        </div>
+      </div>
+
+      <div class="specializations-table">
+        <app-specializations-table
+          [setRows]="specializations"
+          [loading]="loading"
+          (selectedRows)="selectSpecializations($event)"
+        ></app-specializations-table>
+      </div>
+    </div>
+    <app-sidebar class="sidebar position-relative">
+      <b class="mb-5">Фільтри</b>
+
+      <div>
+        <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
+        <label for="active">Актуальні спеціалізації</label>
+      </div>
+
+      <div class="position-absolute p-3 row-count">
+        Всього: {{specializations.length || '0'}}
+      </div>
+    </app-sidebar>
+  </div>
+</div>
+
+<add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
+
+<delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>

@@ -12,7 +12,12 @@ import {SpecialityComponent} from '../components/speciality/speciality.component
 import {LoginComponent} from '../components/login/login.component';
 import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
 import {GroupComponent} from '../components/group/group.component';
+import {SpecializationComponent} from '../components/specialization/specialization.component';
 
+/**
+ * При изменении роутинга не забывайте приводить актуальное состояние асоциативный массив "features"
+ * в ../components/app/app.component.ts
+ */
 const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
   {
@@ -25,7 +30,7 @@ const routes: Routes = [
       },
       {
         path: 'students', children: [
-          {path: 'active', component: StudentsComponent},
+          {path: '', component: StudentsComponent},
           {path: 'expelled', component: ExpelledStudentsComponent},
           {path: 'in-vacation', component: StudentsInVacationComponent}
         ]
@@ -33,7 +38,8 @@ const routes: Routes = [
       {path: 'grades', component: GradeComponent},
       {path: 'courses-for-groups', component: CoursesForGroupsComponent},
       {path: 'specialities', component: SpecialityComponent},
-      {path: 'groups', component: GroupComponent}
+      {path: 'groups', component: GroupComponent},
+      {path: 'specializations', component: SpecializationComponent}
     ]
   },
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},

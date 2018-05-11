@@ -72,3 +72,8 @@ body {
   overflow-y: auto;
 }
 
+.required:after {
+  content: '*';
+  vertical-align: super;
+  color: red;
+}

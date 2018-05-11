@@ -32,7 +32,8 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
   studiedCoursesLoading = false;
   showPage = false;
-  showDialog = false;
+  showTeacherDialog = false;
+  showCopyDialog = false;
 
   constructor(
     private courseService: CourseService,
@@ -57,7 +58,9 @@ export class CoursesForGroupsComponent implements OnInit {
   onGroupChange() {
     this.changeSemesters();
     setTimeout(() => {
-      this.child.getCoursesForGroup();
+      if (this.selectedSemester){
+        this.child.getCoursesForGroup();
+      }
     }, 0);
     this.coursesForDelete = [];
     this.child.coursesForGroupForDelete = [];
@@ -90,13 +93,13 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForDelete = event;
   }
 
-  deleteCoursesFromCoursesForGroups() {
-    for (let deletedCourse of this.coursesForDelete) {
-      for (let course of this.coursesForGroup) {
-        if (deletedCourse.course.id == course.course.id && deletedCourse.id != undefined) {
-          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+  deleteCoursesFromCoursesForGroups(){
+    for (let deletedCourse of this.coursesForDelete){
+      for (let course of this.coursesForGroup){
+        if (deletedCourse.course.id==course.course.id && deletedCourse.id){
           this.deleteCoursesIds.push(deletedCourse.id);
-          this.updatedCourses.splice(this.updatedCourses.indexOf(course), 1);
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
+          this.updatedCourses.splice(this.updatedCourses.indexOf(course),1);
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
         for (let addedCourse of this.coursesForAdd)
@@ -107,6 +110,7 @@ export class CoursesForGroupsComponent implements OnInit {
           }
       }
     }
+    this.child.coursesForGroupForDelete = [];
     this.coursesForDelete = [];
   }
 
@@ -115,14 +119,13 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCoursesToCoursesForGroup() {
-    if (this.selectedCourses.length > 0) {
+    if (this.selectedCourses) {
       for (let course of this.selectedCourses) {
         let courseForGroup = new CourseForGroup();
         let teacher = new Teacher();
         courseForGroup.course = course;
-        courseForGroup.studentGroup = this.selectedGroup;
         courseForGroup.teacher = teacher;
-        if (this.coursesForAdd.length > 0) {
+        if (this.coursesForAdd) {
           let courseIsAdded = false;
           for (let courseForAdd of this.coursesForAdd) {
             if (courseForGroup.course.id === courseForAdd.course.id) {
@@ -140,18 +143,18 @@ export class CoursesForGroupsComponent implements OnInit {
         }
       }
     }
-    this.coursesForGroup.sort();
-    setTimeout(() => {
-      this.child.addNewCoursesForGroup();
-    });
+    this.showAddedCourses(true);
   }
 
-  // openVerticallyCentered(content) {
-  //   this.modalService.open(content, { centered: true });
-  // }
+  showAddedCourses(isShow: boolean){
+    if (isShow){
+      setTimeout(() => {
+        this.child.addNewCoursesForGroup();
+      });
+    }
+  }
 
   saveCoursesForGroup() {
-    console.dir(this.updatedCourses);
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
     class courseForGroupUpdateCoursesType {id: number; course: {id: number}; teacher: {id: number}; examDate: Date}
     let newCourses: courseForGroupNewCoursesType[] = [];
@@ -176,6 +179,8 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
+    this.child.coursesForGroup = [];
+    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
     setTimeout(() => {
@@ -197,7 +202,7 @@ export class CoursesForGroupsComponent implements OnInit {
     let isAdded: boolean;
     isAdded = false;
     if (event.show) {
-      this.showDialog = event.show;
+      this.showTeacherDialog = event.show;
       this.indexForTeacher = event.index;
     }
     else {
@@ -236,5 +241,8 @@ export class CoursesForGroupsComponent implements OnInit {
           }
         }
       }
+  }
+  copyCourses(){
+    this.showCopyDialog = true;
   }
 }

@@ -10,6 +10,8 @@ import {
 } from '@angular/material';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {StatementComponent} from './grade-statement/statement.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     exports: [
@@ -24,12 +26,14 @@ export class GradeMaterialModule {
     declarations: [
         GradeComponent,
         GradesPanelComponent,
-        GradesTableComponent
+        GradesTableComponent,
+        StatementComponent
     ],
     imports: [
         BrowserAnimationsModule,
         GradeMaterialModule,
-        FormsModule
+        FormsModule,
+        SharedModule
     ]
 })
 export class GradeModule {
