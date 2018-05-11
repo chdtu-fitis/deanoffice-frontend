@@ -1,3 +1,7 @@
+.modal-height {
+  height: calc(100% - 56px);
+}
+
 .card:first-child {
   margin-bottom: 0;
 }
@@ -13,3 +17,4 @@ $scrollable-container-size: calc(100% - 32px);
   width: $scrollable-container-size;
   height: $scrollable-container-size;
 }
+
