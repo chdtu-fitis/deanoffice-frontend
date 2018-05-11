@@ -34,4 +34,9 @@ export class SpecializationService {
       .pipe(catchError(HandleError.forObservable('Отриманная спеціалізації по Id', [])))
       .map(data => data as Specialization)
   }
+
+  update(body: Specialization): Promise<any> {
+    return this.httpClient.put(SPECIALIZATION_URL, body).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
+  }
 }
