@@ -11,6 +11,7 @@ export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
   selectedSpecializations: Specialization[] = [];
   loading: boolean;
+  searchField: string;
   private actual: boolean;
   constructor(private specializationService: SpecializationService) { }
 

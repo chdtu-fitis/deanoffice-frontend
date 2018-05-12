@@ -2,7 +2,7 @@
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
       <div class="mb-3 d-flex justify-content-between">
-        <div></div>
+        <input type="search" name="search" class="form-control" placeholder="Пошук за назвою" [(ngModel)]="searchField">
 
         <div>
           <button type="button" class="btn btn-danger" (click)="deleteSpecialization.openModal(selectedSpecializations)"
@@ -23,7 +23,7 @@
 
       <div class="specializations-table">
         <app-specializations-table
-          [setRows]="specializations"
+          [setRows]="specializations | searchSpecializations: searchField"
           [loading]="loading"
           (selectedRows)="selectSpecializations($event)"
         ></app-specializations-table>

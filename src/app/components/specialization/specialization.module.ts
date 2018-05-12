@@ -11,6 +11,7 @@ import { DeleteSpecializationComponent } from './delete-specialization/delete-sp
 import { SpecializationFormComponent } from './specialization-form/specialization-form.component';
 import { SpecializationModalComponent } from './specialization-modal/specialization-modal.component';
 import { UpdateSpecializationComponent } from './update-specialization/update-specialization.component';
+import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { UpdateSpecializationComponent } from './update-specialization/update-sp
     DeleteSpecializationComponent,
     SpecializationFormComponent,
     SpecializationModalComponent,
-    UpdateSpecializationComponent
+    UpdateSpecializationComponent,
+    SearchSpecializationsPipe
   ]
 })
 export class SpecializationModule { }
