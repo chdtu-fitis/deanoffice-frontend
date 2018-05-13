@@ -31,6 +31,10 @@ export class SpecializationComponent implements OnInit {
     return this.selectedSpecializations.length === 0 || !this.actual;
   }
 
+  updateIsDisabled(): boolean {
+    return this.selectedSpecializations.length !== 1 || !this.actual;
+  }
+
   selectSpecializations(specializations: Specialization[]): void {
     this.selectedSpecializations = specializations;
   }

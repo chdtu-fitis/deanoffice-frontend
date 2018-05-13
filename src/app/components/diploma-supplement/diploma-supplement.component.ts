@@ -58,12 +58,13 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onFormSupplement(): void {
     this.message = '';
-    this.supplementLoading = true;
     for (let student of this.students) {
+      this.supplementLoading = true;
       if (student.selected){
-        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id);
+        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
+          this.supplementLoading = false;
+        });
       }
-      this.supplementLoading = false;
     }
   }
 
