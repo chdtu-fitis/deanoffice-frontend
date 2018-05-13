@@ -12,7 +12,7 @@ export class GroupComponent implements OnInit {
   groups: StudentGroup[] = [];
   actualGroups: boolean | true;
   searchText: string;
-  loadingGroups = false;
+  loadingGroups = true;
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {

@@ -1,12 +1,12 @@
+  <loading *ngIf="loading"></loading>
   <ngx-datatable
+    *ngIf="!loading"
     class="bootstrap"
-    [rows]="rows"
+    [rows]="rows | groupSearch: searchText"
     [columnMode]="'force'"
     [rowHeight]="'auto'"
-    [loadingIndicator]="loading"
     [selectionType]="'checkbox'"
     [selectAllRowsOnPage]="false"
-
   >
     <ngx-datatable-column
       [width]="30"
