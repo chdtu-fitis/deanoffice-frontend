@@ -9,6 +9,19 @@ import {StudentGroup} from '../../../models/StudentGroup';
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
   @Input() searchText: string;
+  cols = [
+    {name: 'Назва', prop: 'name'},
+    {name: 'Спеціалізація', prop: 'specialization.name'},
+    {name: 'Ступінь', prop: 'specialization.degree.name'},
+    {name: 'Форма навчання', prop: 'tuitionForm'},
+    {name: 'Термін навчання', prop: 'tuitionTerm'},
+    {name: 'Рік створення', prop: 'creationYear'},
+    {name: 'Рік початку', prop: 'beginYears'},
+    {name: 'Років начання', prop: 'studyYears'},
+    {name: 'Семестрів', prop: 'studySemesters'},
+  ];
+
+
   getTutionForm(form) {
     switch (form) {
       case 'FULL_TIME':
@@ -30,4 +43,6 @@ export class GroupTableComponent {
         return '';
     }
   }
+
+
 }

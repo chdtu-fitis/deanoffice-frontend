@@ -1,28 +1,9 @@
-<table class="table table-sm table-striped position-relative w-100 h-100">
-  <div class="position-absolute h-100 w-100">
-    <div class="scrollable w-100 h-100 fs-12px box-shadow">
-      <tr>
-        <th>Назва</th>
-        <th>Спеціалізація</th>
-        <th>Ступінь</th>
-        <th>Форма навчання</th>
-        <th>Термін навчання</th>
-        <th>Рік створення</th>
-        <th>Рік початку навчання</th>
-        <th>Кількість років навчання</th>
-        <th>Кількість семестрів</th>
-      </tr>
-      <tr *ngFor="let group of rows | groupSearch: searchText">
-        <td>{{group.name}}</td>
-        <td>{{group.specialization.name}}</td>
-        <td>{{group.specialization.degree.name}}</td>
-        <td>{{getTutionForm(group.tuitionForm)}}</td>
-        <td>{{getTutionTerm(group.tuitionTerm)}}</td>
-        <td>{{group.creationYear}}</td>
-        <td>{{group.beginYears}}</td>
-        <td>{{group.studyYears}}</td>
-        <td>{{group.studySemesters}}</td>
-      </tr>
-    </div>
-  </div>
-</table>
+  <ngx-datatable
+    class="bootstrap"
+    [rows]="rows"
+    [columns]="cols"
+    [columnMode]="'force'"
+    [rowHeight]="'auto'"
+  >
+
+  </ngx-datatable>
