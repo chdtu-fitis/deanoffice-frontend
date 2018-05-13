@@ -16,11 +16,13 @@
 }
 
 .col-name{
+  font-size: 17px;
   margin-top: 6pt;
   padding-right: 0pt;
 }
 
 .col-name-semester{
+  font-size: 17px;
   margin-top: 6pt;
   padding-left: 0px;
   padding-right: 0px;
@@ -42,14 +44,19 @@
   margin-left: 10px;
 }
 
-.btn, .form-control {
-  height: 2rem;
-}
-
 .btn {
+  height: 2rem;
   margin: 7px;
 }
 
 .count-label{
   margin-top: 15px;
+}
+
+div {
+  font-size: 15px;
+}
+
+.div-table {
+  height: calc(100% - 38px - 16px);
 }

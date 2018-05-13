@@ -4,7 +4,7 @@
   </div>
 
   <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup"></teacher-dialog>
-  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd" (showCopied)="showAddedCourses($event)"></copy-courses-dialog>
+  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd"></copy-courses-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <div class="row">
@@ -41,14 +41,14 @@
       <button type="button" class="btn btn-info copy" (click)="copyCourses()" *ngIf="selectedGroup!==undefined&&selectedSemester!==undefined">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd" ></added-courses>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" ></added-courses>
   <div class="row">
     <div class="col-10">
       <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()">Зберегти</button>
       <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
     </div>
     <div class="col-2 count-label">
-      Всього: {{coursesForGroup.length || '0'}}
+      Всього: {{child.coursesForGroup.length || '0'}}
     </div>
   </div>
 </div>

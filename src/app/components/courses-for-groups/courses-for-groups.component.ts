@@ -53,17 +53,18 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onGroupChange(){
     this.changeSemesters();
-    setTimeout(() => {
-      if (this.selectedSemester){
-        this.child.getCoursesForGroup();
-      }
-    }, 0);
     this.coursesForDelete = [];
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
+    this.child.coursesForGroup = [];
+    setTimeout(() => {
+      if (this.selectedSemester){
+        this.child.getCoursesForGroup();
+      }
+    }, 0);
   }
 
   onSemesterChange(){
@@ -91,22 +92,23 @@ export class CoursesForGroupsComponent implements OnInit {
 
   deleteCoursesFromCoursesForGroups(){
     for (let deletedCourse of this.coursesForDelete){
-      for (let course of this.coursesForGroup){
-        if (deletedCourse.course.id==course.course.id && deletedCourse.id){
+      for (let course of this.coursesForGroup) {
+        if (deletedCourse.course.id == course.course.id && deletedCourse.id) {
           this.deleteCoursesIds.push(deletedCourse.id);
-          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
-          this.updatedCourses.splice(this.updatedCourses.indexOf(course),1);
+          this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
+          this.updatedCourses.splice(this.updatedCourses.indexOf(course), 1);
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
+      }
         for (let addedCourse of this.coursesForAdd)
           if (addedCourse.course.id === deletedCourse.course.id){
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
+            this.coursesForGroup.splice(this.coursesForGroup.indexOf(addedCourse),1);
             this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
             this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
           }
-      }
     }
     this.child.coursesForGroupForDelete = [];
+    this.child.allRowsIsSelected = false;
     this.coursesForDelete = [];
   }
 
@@ -131,24 +133,18 @@ export class CoursesForGroupsComponent implements OnInit {
           if (!courseIsAdded) {
             this.coursesForAdd.push(courseForGroup);
             this.coursesForGroup.push(courseForGroup);
+            this.child.coursesForGroup.push(courseForGroup);
           }
         }
         else {
           this.coursesForAdd.push(courseForGroup);
           this.coursesForGroup.push(courseForGroup);
+          this.child.coursesForGroup.push(courseForGroup);
         }
       }
     }
-    this.showAddedCourses(true);
   }
 
-  showAddedCourses(isShow: boolean){
-    if (isShow){
-      setTimeout(() => {
-        this.child.addNewCoursesForGroup();
-      });
-    }
-  }
 
   saveCoursesForGroup() {
     class courseForGroupNewCoursesType {course: {id: number}; teacher: {id: number}; examDate: Date}
@@ -176,7 +172,6 @@ export class CoursesForGroupsComponent implements OnInit {
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
     this.child.coursesForGroup = [];
-    this.child.selectedCoursesForGroups = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
     setTimeout(() => {
