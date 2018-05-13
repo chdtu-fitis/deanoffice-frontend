@@ -12,6 +12,7 @@ export class GroupComponent implements OnInit {
   groups: StudentGroup[] = [];
   actualGroups: boolean | true;
   searchText: string;
+  loadingGroups = false;
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {
@@ -19,10 +20,12 @@ export class GroupComponent implements OnInit {
   }
 
   getGroups(onlyActual: boolean = true): void {
+    this.loadingGroups = true;
     this.groupService.getGroups(onlyActual)
       .subscribe((groups: StudentGroup[]) => {
         this.groups = groups;
         this.actualGroups = onlyActual;
+        this.loadingGroups = false;
       });
   }
 

@@ -21,6 +21,7 @@ export class GroupTableComponent {
     {name: 'Семестрів', prop: 'studySemesters'},
   ];
 
+  @Input() loading: boolean;
 
   getTutionForm(form) {
     switch (form) {
