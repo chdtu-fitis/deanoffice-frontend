@@ -15,22 +15,15 @@ export class GroupComponent implements OnInit {
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    this.getActualGroups();
-  }
-
-  getActualGroups(): void {
     this.getGroups();
   }
 
-  getAllGroups(): void {
-    this.getGroups(false)
-  }
-
-  private getGroups(onlyActual: boolean = true): void {
+  getGroups(onlyActual: boolean = true): void {
     this.groupService.getGroups(onlyActual)
       .subscribe((groups: StudentGroup[]) => {
         this.groups = groups;
         this.actualGroups = onlyActual;
       });
   }
+
 }

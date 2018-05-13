@@ -17,9 +17,13 @@
     <app-sidebar class="sidebar">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Показати групи:</h5>
-          <button class="btn btn-info" type="button" (click)="getActualGroups()" [disabled]="actualGroups">Актуальні</button>
-          <button class="btn btn-info" type="button" (click)="getAllGroups()" [disabled]="!actualGroups">Всі</button>
+          <h5 class="card-title">Фільтр:</h5>
+          <label><input
+            type="checkbox"
+            [checked]="actualGroups"
+            (change)="actualGroups =!actualGroups; getGroups(actualGroups)">
+            Актуальні групи
+          </label>
         </div>
       </div>
     </app-sidebar>
