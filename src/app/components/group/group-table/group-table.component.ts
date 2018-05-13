@@ -23,7 +23,7 @@ export class GroupTableComponent {
   getTutionTerm(term) {
     switch (term) {
       case 'REGULAR':
-        return 'Звичайна';
+        return 'Повна';
       case 'SHORTENED':
         return 'Скорочена';
       default :
