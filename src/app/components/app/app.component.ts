@@ -8,7 +8,7 @@ const features = {
   'login': 'Вхід',
   // start year
   'specialities': 'Спеціальності',
-  'specializations': 'Спеціалізації',
+  'specializations': 'Спеціалізації (освітні програми)',
   'courses-for-groups': 'Предмети для груп',
   // during year
   'students': 'Студенти',
