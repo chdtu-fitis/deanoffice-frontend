@@ -12,7 +12,7 @@
         <th>Кількість років навчання</th>
         <th>Кількість семестрів</th>
       </tr>
-      <tr *ngFor="let group of rows">
+      <tr *ngFor="let group of rows | groupSearch: searchText">
         <td>{{group.name}}</td>
         <td>{{group.specialization.name}}</td>
         <td>{{group.specialization.degree.name}}</td>

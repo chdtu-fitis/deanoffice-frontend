@@ -11,7 +11,7 @@ export class GroupComponent implements OnInit {
 
   groups: StudentGroup[] = [];
   actualGroups: boolean | true;
-
+  searchText: string;
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {

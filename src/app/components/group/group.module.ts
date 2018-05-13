@@ -4,6 +4,7 @@ import { GroupTableComponent } from './group-table/group-table.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {GroupComponent} from './group.component';
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   imports: [
@@ -11,10 +12,15 @@ import {GroupComponent} from './group.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    PipeModule.forRoot(),
   ],
   declarations: [
     GroupTableComponent,
     GroupComponent
+  ],
+  exports: [
+    GroupComponent,
+    GroupTableComponent
   ]
 })
 export class GroupModule { }

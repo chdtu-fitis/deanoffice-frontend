@@ -8,7 +8,7 @@ import {StudentGroup} from '../../../models/StudentGroup';
 })
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
-
+  @Input() searchText: string;
   getTutionForm(form) {
     switch (form) {
       case 'FULL_TIME':

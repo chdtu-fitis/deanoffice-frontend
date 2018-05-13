@@ -28,6 +28,10 @@ import {GroupModule} from '../group/group.module';
 import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
+import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
+import {GroupSearchPipe} from '../../pipes/group-search.pipe';
+import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import {DepartmentService} from '../../services/department.service';
     AuthenticationModule,
     GradeModule,
     GroupModule,
-    SpecializationModule
+    SpecializationModule,
+    PipeModule,
   ],
   providers: [
     DegreeService,
