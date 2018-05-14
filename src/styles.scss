@@ -68,6 +68,28 @@ body {
   }
 }
 
+.ngx-datatable.bootstrap {
+  .datatable-body {
+    .datatable-body-row {
+      &.active {
+        background: #c0ffc0;
+        color: black;
+        .datatable-row-group {
+          background: none;
+        }
+
+        &:hover {
+          background: darken(#c0ffc0, 0.3);
+
+          .datatable-row-group {
+            background: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 .scrollable {
   overflow-y: auto;
 }
