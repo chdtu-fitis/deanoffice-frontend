@@ -1,3 +1,3 @@
 export enum TuitionForm {
-  FULL_TIME, EXTRAMURAL
+  FULL_TIME = 'Денна', EXTRAMURAL = 'Заочна'
 }

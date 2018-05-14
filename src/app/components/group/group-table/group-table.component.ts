@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
+import {TuitionTerm} from '../../../models/tuition-term.enum';
+import {TuitionForm} from '../../../models/tuition-form.enum';
 
 @Component({
   selector: 'group-table',
@@ -23,27 +25,7 @@ export class GroupTableComponent {
 
   @Input() loading: boolean;
 
-  getTutionForm(form) {
-    switch (form) {
-      case 'FULL_TIME':
-        return 'Денна';
-      case 'EXTRAMURAL':
-        return 'Заочна';
-      default :
-          return '';
-    }
-  }
 
-  getTutionTerm(term) {
-    switch (term) {
-      case 'REGULAR':
-        return 'Повна';
-      case 'SHORTENED':
-        return 'Скорочена';
-      default :
-        return '';
-    }
-  }
 
 
 }

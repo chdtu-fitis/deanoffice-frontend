@@ -1,3 +1,3 @@
 export enum TuitionTerm {
-  REGULAR, SHORTENED
+  REGULAR = 'Повна', SHORTENED = 'Скорочена'
 }
