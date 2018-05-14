@@ -119,27 +119,35 @@ export class CoursesForGroupsComponent implements OnInit {
   addCoursesToCoursesForGroup() {
     if (this.selectedCourses) {
       for (let course of this.selectedCourses) {
-        let courseForGroup = new CourseForGroup();
+        let newCourseForGroup = new CourseForGroup();
         let teacher = new Teacher();
-        courseForGroup.course = course;
-        courseForGroup.teacher = teacher;
+        newCourseForGroup.course = course;
+        newCourseForGroup.teacher = teacher;
+        let courseIsExist = false;
+        if (this.coursesForGroup){
+          for (let courseForGroup of this.coursesForGroup){
+            if (newCourseForGroup.course.id === courseForGroup.course.id) {
+              courseIsExist = true;
+            }
+          }
+        }
         if (this.coursesForAdd) {
           let courseIsAdded = false;
           for (let courseForAdd of this.coursesForAdd) {
-            if (courseForGroup.course.id === courseForAdd.course.id) {
+            if (newCourseForGroup.course.id === courseForAdd.course.id) {
               courseIsAdded = true;
             }
           }
-          if (!courseIsAdded) {
-            this.coursesForAdd.push(courseForGroup);
-            this.coursesForGroup.push(courseForGroup);
-            this.child.coursesForGroup.push(courseForGroup);
+          if (!courseIsAdded && !courseIsExist) {
+            this.coursesForAdd.push(newCourseForGroup);
+            this.coursesForGroup.push(newCourseForGroup);
+            this.child.coursesForGroup.push(newCourseForGroup);
           }
         }
-        else {
-          this.coursesForAdd.push(courseForGroup);
-          this.coursesForGroup.push(courseForGroup);
-          this.child.coursesForGroup.push(courseForGroup);
+        else if (!courseIsExist) {
+          this.coursesForAdd.push(newCourseForGroup);
+          this.coursesForGroup.push(newCourseForGroup);
+          this.child.coursesForGroup.push(newCourseForGroup);
         }
       }
     }

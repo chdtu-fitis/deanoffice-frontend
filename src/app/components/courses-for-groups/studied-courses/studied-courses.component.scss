@@ -17,10 +17,18 @@ table thead td{
   padding: 0px;
 }
 
+td{
+  padding: 0.1rem;
+}
+
 thead{
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: bold;
   font-size: 13px;
+}
+
+thead td{
+  padding: 0.3rem;
 }
 
 .empty{

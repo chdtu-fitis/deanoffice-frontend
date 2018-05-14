@@ -4,14 +4,14 @@
 }
 
 .btn {
-  padding: 0.1rem 0.75rem;
+  padding: 0.05rem 0.75rem;
   height: 1.5rem;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .form-control {
   height: 1.5rem;
-  font-size: 15px;
+  font-size: 12px;
 }
 
 .btn-outline-secondary {
@@ -20,6 +20,14 @@
 
 .card-body{
   padding: 0px;
+}
+
+td{
+  padding: 0.1rem;
+}
+
+thead td{
+  padding: 0.3rem;
 }
 
 thead {
