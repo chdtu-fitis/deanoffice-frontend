@@ -1,7 +1,7 @@
 @import "../../../../styles.scss";
 
 .div-table{
-  height: 200px;
+  height: 230px;
   overflow: auto;
 }
 
@@ -13,7 +13,19 @@ table thead td{
   padding: 5px;
 }
 
-.card-header{
+.card-body{
+  padding: 0px;
+}
+
+thead{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.empty{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
-  padding: 0.5rem 0.75rem;
+  margin-top: 10px;
+  margin-left: 3px;
 }
