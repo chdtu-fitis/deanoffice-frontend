@@ -16,14 +16,12 @@
 }
 
 .col-name{
-  font-size: 17px;
-  margin-top: 6pt;
+  font-size: 15px;
   padding-right: 0pt;
 }
 
 .col-name-semester{
-  font-size: 17px;
-  margin-top: 6pt;
+  font-size: 15px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -66,10 +64,20 @@ div {
   height: 100%;
 }
 
-added-courses{
-  height: 100%;
+.form-control .mr-2 .ng-pristine .ng-valid .ng-touched{
+  height: 1.5rem;
+  font-size: 15px;
 }
 
-studied-courses{
-  height: 100%;
+.form-control {
+  height: 1.5rem;
+  font-size: 15px;
+}
+
+select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
+  height: 1.5rem;
+}
+
+.form-control[_ngcontent-c2] {
+  padding: 0rem 0.75rem;
 }
