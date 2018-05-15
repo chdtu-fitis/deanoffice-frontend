@@ -55,6 +55,7 @@ export class SpecializationsTableComponent {
       this.selectedSpecializations.splice(itemIndex, 1);
     }
     this.changeIsSelected(id, event);
+    console.log(this.selectedSpecializations, event, id);
     this.emitSelectedSpecializations();
   }
 

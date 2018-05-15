@@ -21,10 +21,9 @@
           <loading *ngIf="loading"></loading>
         </div>
         <tbody *ngIf="!loading">
-        <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)">
+        <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)" (click)="selectItem(!selectedItem.checked, row.id)" class="item">
           <td style="text-align: center">
-            <input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"
-                   [checked]="row.isSelected">
+            <input #selectedItem type="checkbox" [checked]="row.isSelected" disabled>
           </td>
           <td>{{row.name}}</td>
           <td>{{row.nameEng}}</td>
