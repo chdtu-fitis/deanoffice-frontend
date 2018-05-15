@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
@@ -27,7 +27,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   ) {
     super();
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      // name: ['', Validators.required],
+      name: '',
       nameEng: '',
       specialityId: ['', Validators.required],
       degreeId: ['', Validators.required],
@@ -36,10 +37,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       qualificationEng: '',
       paymentFulltime: '',
       paymentExtramural: '',
-      educationalProgramHeadName: ['', Validators.required],
-      educationalProgramHeadNameEng: ['', Validators.required],
-      educationalProgramHeadInfo: ['', Validators.required],
-      educationalProgramHeadInfoEng: ['', Validators.required],
+      // educationalProgramHeadName: ['', Validators.required],
+      // educationalProgramHeadNameEng: ['', Validators.required],
+      // educationalProgramHeadInfo: ['', Validators.required],
+      // educationalProgramHeadInfoEng: ['', Validators.required],
+      educationalProgramHeadName: '',
+      educationalProgramHeadNameEng: '',
+      educationalProgramHeadInfo: '',
+      educationalProgramHeadInfoEng: '',
       knowledgeAndUnderstandingOutcomes: '',
       knowledgeAndUnderstandingOutcomesEng: '',
       applyingKnowledgeAndUnderstandingOutcomes: '',
@@ -51,7 +56,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   setInitialData(data: Specialization) {
     this.form = this.formBuilder.group({
-      name: [data.name, Validators.required],
+      // name: [data.name, Validators.required],
+      name: data.name,
       nameEng: data.nameEng,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
@@ -60,10 +66,15 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       qualificationEng: data.qualificationEng,
       paymentFulltime: data.paymentFullTime,
       paymentExtramural: data.paymentExtramural,
-      educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
-      educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
-      educationalProgramHeadInfo: [data.educationalProgramHeadInfo, Validators.required],
-      educationalProgramHeadInfoEng: [data.educationalProgramHeadInfoEng, Validators.required],
+      // educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
+      // educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
+      // educationalProgramHeadInfo: [data.educationalProgramHeadInfo, Validators.required],
+      // educationalProgramHeadInfoEng: [data.educationalProgramHeadInfoEng, Validators.required],
+      educationalProgramHeadName: data.educationalProgramHeadName,
+      educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
+      educationalProgramHeadInfo: data.educationalProgramHeadInfo,
+      educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
+
       knowledgeAndUnderstandingOutcomes: data.knowledgeAndUnderstandingOutcomes,
       knowledgeAndUnderstandingOutcomesEng: data.knowledgeAndUnderstandingOutcomesEng,
       applyingKnowledgeAndUnderstandingOutcomes: data.applyingKnowledgeAndUnderstandingOutcomes,
@@ -94,6 +105,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   getValue(): Specialization {
-    return this.form.getRawValue() as Specialization;
+    return this.form.getRawValue()
   }
 }

@@ -4,10 +4,9 @@
       <div class="row">
         <div class="col-6">
           <div class="form-group">
-            <label for="name" class="required">Назва</label>
-            <input formControlName="name" type="text" class="form-control" id="name"
-                   [appValidation]="form.controls.name">
-            <app-validation-errors [control]="form.controls.name"></app-validation-errors>
+            <label for="name">Назва</label>
+            <input formControlName="name" type="text" class="form-control" id="name">
+            <!--<app-validation-errors [control]="form.controls.name"></app-validation-errors>-->
           </div>
 
           <div class="form-group">
@@ -75,38 +74,36 @@
     <tab heading="Гарант програми">
       <div class="row">
         <div class="form-group col-6">
-          <label for="educationalProgramHeadName" class="required">Гарант програми</label>
+          <label for="educationalProgramHeadName">Гарант програми</label>
           <input formControlName="educationalProgramHeadName" type="text" class="form-control"
-                 id="educationalProgramHeadName" [appValidation]="form.controls.educationalProgramHeadName">
-          <app-validation-errors [control]="form.controls.educationalProgramHeadName"></app-validation-errors>
+                 id="educationalProgramHeadName">
+          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadName"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
-          <label for="educationalProgramHeadNameEng" class="required">Гарант програми англ.</label>
+          <label for="educationalProgramHeadNameEng">Гарант програми англ.</label>
           <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
-                 id="educationalProgramHeadNameEng"
-                 [appValidation]="form.controls.educationalProgramHeadNameEng">
-          <app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>
+                 id="educationalProgramHeadNameEng">
+          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
-          <label for="educationalProgramHeadInfo" class="required">Інформація про гаранта програми</label>
+          <label for="educationalProgramHeadInfo">Інформація про гаранта програми</label>
           <textarea formControlName="educationalProgramHeadInfo" type="text" class="form-control ta-4l"
-                    id="educationalProgramHeadInfo" [appValidation]="form.controls.educationalProgramHeadInfo">
-                  </textarea>
-          <app-validation-errors [control]="form.controls.educationalProgramHeadInfo"></app-validation-errors>
+                    id="educationalProgramHeadInfo">
+          </textarea>
+          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadInfo"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
-          <label for="educationalProgramHeadInfoEng" class="required">
+          <label for="educationalProgramHeadInfoEng">
             Інформація про гаранта програми англ.
           </label>
           <textarea formControlName="educationalProgramHeadInfoEng" type="text" class="form-control ta-4l"
-                    id="educationalProgramHeadInfoEng"
-                    [appValidation]="form.controls.educationalProgramHeadInfoEng">
+                    id="educationalProgramHeadInfoEng">
           </textarea>
-          <app-validation-errors
-            [control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>
+          <!--<app-validation-errors-->
+            <!--[control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>-->
         </div>
       </div>
     </tab>

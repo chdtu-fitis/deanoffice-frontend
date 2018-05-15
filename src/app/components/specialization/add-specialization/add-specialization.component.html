@@ -1,4 +1,4 @@
-<specialization-modal #modal [title]="'Додати нову спеціалізацію'">
+<specialization-modal #modal [title]="'Додати нову спеціалізацію'" (hideModal)="hideModal()">
   <div class="modal-body">
     <specialization-form #form></specialization-form>
   </div>
