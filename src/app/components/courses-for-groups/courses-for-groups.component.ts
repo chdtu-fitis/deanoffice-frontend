@@ -35,10 +35,14 @@ export class CoursesForGroupsComponent implements OnInit {
   showTeacherDialog = false;
   showCopyDialog = false;
 
-  constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
+  constructor(
+    private courseService: CourseService,
+    private courseForGroupService: CourseForGroupService,
+    private groupService: GroupService
+  ) {}
 
   ngOnInit() {
-    this.groupService.getGroupsByFaculty().subscribe(groups => {
+    this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
     })
@@ -51,7 +55,7 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  onGroupChange(){
+  onGroupChange() {
     this.changeSemesters();
     setTimeout(() => {
       if (this.selectedSemester){
@@ -66,7 +70,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForGroup = [];
   }
 
-  onSemesterChange(){
+  onSemesterChange() {
     this.studiedCoursesLoading = true;
     if (this.selectedSemester) {
       this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
@@ -79,8 +83,8 @@ export class CoursesForGroupsComponent implements OnInit {
     }, 0);
   }
 
-  changeCoursesForGroup(event){
-    for(let i = 0; i<event.length; i++){
+  changeCoursesForGroup(event) {
+    for(let i = 0; i < event.length; i++) {
       this.coursesForGroup.push(event[i])
     }
   }
@@ -99,8 +103,8 @@ export class CoursesForGroupsComponent implements OnInit {
           this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
         }
         for (let addedCourse of this.coursesForAdd)
-          if (addedCourse.course.id === deletedCourse.course.id){
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course),1);
+          if (addedCourse.course.id === deletedCourse.course.id) {
+            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
             this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
             this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
           }
