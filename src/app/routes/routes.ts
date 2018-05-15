@@ -28,7 +28,7 @@ export const appRoutes: Routes = [
       },
       {path: 'students', loadChildren: '../students/students.module#StudentsModule'},
       {path: 'grades', loadChildren: '../grade/grade.module#GradeModule'},
-      {path: 'courses-for-groups', component: CoursesForGroupsComponent},
+      {path: 'courses-for-groups', loadChildren: '../courses-for-groups/courses-for-groups.module#CoursesForGroupsModule'},
       {path: 'specialities', component: SpecialityComponent},
       {path: 'groups', component: GroupComponent},
       {path: 'specializations', component: SpecializationComponent}
@@ -51,3 +51,7 @@ export const studentRoutes: Routes = [
 export const gradeRoutes: Routes = [
   {path: '', component: GradeComponent}
 ];
+
+export const coursesForGroupsRoutes: Routes = [
+  {path: '', component: CoursesForGroupsComponent}
+]

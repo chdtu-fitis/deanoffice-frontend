@@ -25,11 +25,11 @@ import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
 import {PipeModule} from '../../pipes/pipe.module';
-import {CoursesForGroupsModule} from '../courses-for-groups/courses-for-groups.module';
 import {RouterModule} from '@angular/router';
 import {AuthenticationService} from '../../services/auth/authentication.service';
 import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
 import {TokenInterceptor} from '../../services/auth/token.interceptor';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,14 +41,14 @@ import {TokenInterceptor} from '../../services/auth/token.interceptor';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     SharedModule,
     GroupModule,
     SpecializationModule,
     PipeModule,
-    RouterModule.forRoot(appRoutes),
-    CoursesForGroupsModule
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     DegreeService,
