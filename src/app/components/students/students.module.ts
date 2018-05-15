@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
@@ -49,10 +48,8 @@ import {studentRoutes} from '../../routes/routes';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FormsModule,
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
@@ -61,6 +58,4 @@ import {studentRoutes} from '../../routes/routes';
   ],
   exports: [RouterModule]
 })
-
-export class StudentsModule {
-}
+export class StudentsModule {}

@@ -16,9 +16,7 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {GeneralService} from '../../services/general.service'
 import {ExamReportService} from '../../services/exam-report.service';
-import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
-import {GradeModule} from '../grade/grade.module';
 import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {FileService} from '../../services/file-service';
@@ -46,7 +44,6 @@ import {TokenInterceptor} from '../../services/auth/token.interceptor';
     FormsModule,
     HttpClientModule,
     SharedModule,
-    GradeModule,
     GroupModule,
     SpecializationModule,
     PipeModule,
@@ -78,5 +75,4 @@ import {TokenInterceptor} from '../../services/auth/token.interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
