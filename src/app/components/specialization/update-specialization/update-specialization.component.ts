@@ -41,7 +41,7 @@ export class UpdateSpecializationComponent {
     if (this.form.invalid()) {
       return;
     }
-    const specialization = {...this.form.getValue(), active: this.source.active};
+    const specialization = {...this.form.getValue(), active: this.source.active, id: this.source.id};
     this.specializationService
       .update(specialization)
       .then(() => {
