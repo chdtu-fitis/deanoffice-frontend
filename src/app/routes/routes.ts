@@ -1,9 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
 import {DiplomaSupplementComponent} from '../components/diploma-supplement/diploma-supplement.component';
 import {ExamReportComponent} from '../components/exam-report/exam-report.component';
 import {StudentsComponent} from '../components/students/students.component';
-import {CoursesForGroupsModule} from '../components/courses-for-groups/courses-for-groups.module';
 import {CoursesForGroupsComponent} from '../components/courses-for-groups/courses-for-groups.component';
 import {GradeComponent} from '../components/grade/grade.component';
 import {ExpelledStudentsComponent} from '../components/students/expelled-students/expelled-students.component';
@@ -13,13 +10,14 @@ import {LoginComponent} from '../components/login/login.component';
 import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
 import {GroupComponent} from '../components/group/group.component';
 import {SpecializationComponent} from '../components/specialization/specialization.component';
+import {Routes} from '@angular/router';
 
 /**
  * При изменении роутинга не забывайте приводить актуальное состояние асоциативный массив "features"
  * в ../components/app/app.component.ts
  */
-const routes: Routes = [
-  {path: 'login', component: LoginComponent, canActivate: [LoginGuard]},
+export const appRoutes: Routes = [
+  {path: 'login', loadChildren: '../login/authentication.module#AuthenticationModule', canActivate: [LoginGuard]},
   {
     path: 'dashboard', canActivate: [DashboardGuard], children: [
       {
@@ -46,12 +44,6 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
 
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-    CoursesForGroupsModule
-  ],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {
-}
+export const authRoutes: Routes = [
+  {path: '', component: LoginComponent},
+];

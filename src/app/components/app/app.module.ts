@@ -1,9 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
-import {AppRoutingModule} from '../../routes/routes';
+import {appRoutes} from '../../routes/routes';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
@@ -22,16 +22,17 @@ import {SharedModule} from '../shared/shared.module';
 import {GradeModule} from '../grade/grade.module';
 import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
-import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
 import {GroupModule} from '../group/group.module';
 import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
-import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
-import {GroupSearchPipe} from '../../pipes/group-search.pipe';
-import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
 import {PipeModule} from '../../pipes/pipe.module';
+import {CoursesForGroupsModule} from '../courses-for-groups/courses-for-groups.module';
+import {RouterModule} from '@angular/router';
+import {AuthenticationService} from '../../services/auth/authentication.service';
+import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
+import {TokenInterceptor} from '../../services/auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -44,16 +45,17 @@ import {PipeModule} from '../../pipes/pipe.module';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     HttpClientModule,
     GridModule,
     StudentsModule,
     SharedModule,
-    AuthenticationModule,
+   // AuthenticationModule,
     GradeModule,
     GroupModule,
     SpecializationModule,
     PipeModule,
+    RouterModule.forRoot(appRoutes),
+    CoursesForGroupsModule
   ],
   providers: [
     DegreeService,
@@ -68,7 +70,15 @@ import {PipeModule} from '../../pipes/pipe.module';
     GradeService,
     SpecialityService,
     SpecializationService,
-    DepartmentService
+    DepartmentService,
+    AuthenticationService,
+    DashboardGuard,
+    LoginGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
