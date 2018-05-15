@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {GroupComponent} from './group.component';
 import {PipeModule} from '../../pipes/pipe.module';
+import {RouterModule} from '@angular/router';
+import {groupRoutes} from '../../routes/routes';
 
 @NgModule({
   imports: [
@@ -13,14 +15,12 @@ import {PipeModule} from '../../pipes/pipe.module';
     ReactiveFormsModule,
     SharedModule,
     PipeModule.forRoot(),
+    RouterModule.forChild(groupRoutes)
   ],
   declarations: [
     GroupTableComponent,
     GroupComponent
   ],
-  exports: [
-    GroupComponent,
-    GroupTableComponent
-  ]
+  exports: [RouterModule]
 })
 export class GroupModule { }

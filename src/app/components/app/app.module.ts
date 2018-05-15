@@ -44,7 +44,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     HttpClientModule,
     SharedModule,
-    GroupModule,
     PipeModule,
     RouterModule.forRoot(appRoutes)
   ],
