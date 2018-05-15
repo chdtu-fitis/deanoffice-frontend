@@ -2,7 +2,15 @@
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
       <div class="groups-table h-100">
-        <input class="search" type="text" placeholder="Пошук за ім'ям" [(ngModel)]="searchText">
+        <div class="row">
+          <input class="selection-panel search" type="text" placeholder="Пошук за ім'ям" [(ngModel)]="searchText">
+          <label class="selection-panel active-group"><input
+            type="checkbox"
+            [checked]="actualGroups"
+            (change)="actualGroups =!actualGroups; getGroups(actualGroups)">
+            Актуальні групи
+          </label>
+        </div>
         <group-table
           [rows]="groups"
           [searchText]="searchText"
@@ -14,19 +22,5 @@
         Всього: {{groups.length || '0'}}
       </div>
     </div>
-
-    <app-sidebar class="sidebar">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Фільтр:</h5>
-          <label><input
-            type="checkbox"
-            [checked]="actualGroups"
-            (change)="actualGroups =!actualGroups; getGroups(actualGroups)">
-            Актуальні групи
-          </label>
-        </div>
-      </div>
-    </app-sidebar>
   </div>
 </div>
