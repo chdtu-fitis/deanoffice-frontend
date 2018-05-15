@@ -16,7 +16,6 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {GeneralService} from '../../services/general.service'
 import {ExamReportService} from '../../services/exam-report.service';
-import {GridModule} from '../grid/grid.module';
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
 import {GradeModule} from '../grade/grade.module';
@@ -46,10 +45,8 @@ import {TokenInterceptor} from '../../services/auth/token.interceptor';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    GridModule,
     StudentsModule,
     SharedModule,
-   // AuthenticationModule,
     GradeModule,
     GroupModule,
     SpecializationModule,
