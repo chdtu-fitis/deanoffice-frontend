@@ -1,4 +1,4 @@
-<specialization-modal #modal [title]="getTitle()">
+<specialization-modal #modal [title]="getTitle()" (hideModal)="hideModal()">
   <div class="modal-body">
     <specialization-form #form></specialization-form>
   </div>

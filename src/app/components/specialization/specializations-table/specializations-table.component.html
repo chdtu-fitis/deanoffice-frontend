@@ -1,28 +1,29 @@
 <div class="position-relative w-100 h-100">
   <div class="position-absolute w-100 h-100">
     <div class="scrollable w-100 h-100" style="box-shadow: 0 0 5px gray">
-      <table class="table table-sm fs-13">
+      <table class="table table-sm fs-14">
         <thead>
         <tr>
           <th>
             <input type="checkbox" #selectedAll (change)="selectAll(selectedAll.checked)" [ngModel]="allRowsIsSelected">
           </th>
-          <th>Назва</th>
-          <th>Назва англ.</th>
-          <th>Код спеціальності</th>
-          <th>Спеціальність</th>
-          <th>Ступінь</th>
-          <th>Гарант програми</th>
+          <th><span>Назва</span></th>
+          <th><span>Назва англійською</span></th>
+          <th><span>Шифр спеціальності</span></th>
+          <th><span>Спеціальність (освітня програма)</span></th>
+          <th><span>Ступінь</span></th>
+          <th><span>Гарант програми</span></th>
+          <th><span>Вартість навчання денної форми</span></th>
+          <th><span>Вартість навчання заочної форми</span></th>
         </tr>
         </thead>
         <div class="loader">
           <loading *ngIf="loading"></loading>
         </div>
         <tbody *ngIf="!loading">
-        <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)">
+        <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)" (click)="selectItem(!selectedItem.checked, row.id)" class="item">
           <td style="text-align: center">
-            <input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"
-                   [checked]="row.isSelected">
+            <input #selectedItem type="checkbox" [checked]="row.isSelected" disabled>
           </td>
           <td>{{row.name}}</td>
           <td>{{row.nameEng}}</td>
@@ -30,6 +31,8 @@
           <td>{{row.speciality.name}}</td>
           <td>{{row.degree.name}}</td>
           <td>{{row.educationalProgramHeadName}}</td>
+          <td>{{row.paymentFullTime}}</td>
+          <td>{{row.paymentExtramural}}</td>
         </tr>
         </tbody>
       </table>
