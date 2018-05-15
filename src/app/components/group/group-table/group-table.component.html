@@ -18,12 +18,15 @@
       [headerCheckboxable]="true"
       [checkboxable]="true">
     </ngx-datatable-column>
-    <ngx-datatable-column
-    *ngFor="let col of cols"
-    [name]="col.name"
-    [prop]="col.prop"
-    >
+    <ngx-datatable-column [name]="'Назва'" [prop]="'name'" [maxWidth]="80" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Спеціалізація'" [prop]="'specialization.name'" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Ступінь'" [prop]="'specialization.degree.name'" [maxWidth]="70" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Форма'" [prop]="'tuitionForm'" [maxWidth]="60" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Термін'" [prop]="'tuitionTerm'" [maxWidth]="80" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Створено'" [prop]="'creationYear'" [maxWidth]="70" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Курс початку'" [prop]="'beginYears'" [maxWidth]="100" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Років начання'" [prop]="'studyYears'" [maxWidth]="100" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Семестрів'" [prop]="'studySemesters'" [maxWidth]="71" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
 
-    </ngx-datatable-column>
   </ngx-datatable>
 </div>
