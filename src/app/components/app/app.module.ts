@@ -45,7 +45,6 @@ import {TokenInterceptor} from '../../services/auth/token.interceptor';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StudentsModule,
     SharedModule,
     GradeModule,
     GroupModule,

@@ -24,6 +24,8 @@ import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 import {PipeModule} from '../../pipes/pipe.module';
+import {RouterModule} from '@angular/router';
+import {studentRoutes} from '../../routes/routes';
 
 @NgModule({
   declarations: [
@@ -54,8 +56,10 @@ import {PipeModule} from '../../pipes/pipe.module';
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
+    RouterModule.forChild(studentRoutes),
     PipeModule
   ],
+  exports: [RouterModule]
 })
 
 export class StudentsModule {

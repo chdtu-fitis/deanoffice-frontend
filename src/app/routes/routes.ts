@@ -26,13 +26,7 @@ export const appRoutes: Routes = [
           {path: 'exam-report', component: ExamReportComponent}
         ]
       },
-      {
-        path: 'students', children: [
-          {path: '', component: StudentsComponent},
-          {path: 'expelled', component: ExpelledStudentsComponent},
-          {path: 'in-vacation', component: StudentsInVacationComponent}
-        ]
-      },
+      {path: 'students', loadChildren: '../students/students.module#StudentsModule'},
       {path: 'grades', component: GradeComponent},
       {path: 'courses-for-groups', component: CoursesForGroupsComponent},
       {path: 'specialities', component: SpecialityComponent},
@@ -45,5 +39,11 @@ export const appRoutes: Routes = [
 ];
 
 export const authRoutes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', component: LoginComponent}
+];
+
+export const studentRoutes: Routes = [
+  {path: '', component: StudentsComponent},
+  {path: 'expelled', component: ExpelledStudentsComponent},
+  {path: 'in-vacation', component: StudentsInVacationComponent}
 ];
