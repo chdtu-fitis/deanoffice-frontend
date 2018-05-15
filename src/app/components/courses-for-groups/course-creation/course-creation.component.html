@@ -1,3 +1,4 @@
+<simple-notifications></simple-notifications>
 <div class="card">
   <div class="card-header">
     Створити предмет
@@ -48,15 +49,6 @@
       <div class="col">
         <button class="btn btn-success" (click)="createCourse()">Створити</button>
       </div>
-    </div>
-    <div *ngIf="success" class="alert alert-success">
-      Створено
-    </div>
-    <div *ngIf="failCreated" class="alert alert-danger">
-      Такий предмет вже створено
-    </div>
-    <div *ngIf="fail" class="alert alert-danger">
-      Невідома помилка
     </div>
   </div>
 </div>
