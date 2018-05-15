@@ -23,6 +23,7 @@ import {StudentsInVacationComponent} from './students-in-vacation/students-in-va
 import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {StudentAcademicVacationComponent} from './student-academic-vacation/stud
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
+    PipeModule
   ],
 })
 

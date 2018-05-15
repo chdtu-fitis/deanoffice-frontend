@@ -38,7 +38,7 @@ export class CoursesForGroupsComponent implements OnInit {
   constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService) {}
 
   ngOnInit() {
-    this.groupService.getGroupsByFaculty().subscribe(groups => {
+    this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
     })

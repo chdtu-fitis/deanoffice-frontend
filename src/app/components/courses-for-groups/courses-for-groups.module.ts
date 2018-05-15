@@ -14,6 +14,7 @@ import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
 import {GroupSearchPipe} from "../../pipes/group-search.pipe";
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   imports: [
@@ -23,21 +24,22 @@ import {GroupSearchPipe} from "../../pipes/group-search.pipe";
     ReactiveFormsModule,
     SharedModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    PipeModule
   ],
   declarations: [
     CoursesForGroupsComponent,
     StudiedCoursesComponent,
     AddedCoursesComponent,
     CourseCreationComponent,
-    CoursesSearchPipe,
-    TeacherSearchPipe,
-    GroupSearchPipe,
     TeacherDialogComponent,
     CopyCoursesDialogComponent
   ],
   exports: [
-    CoursesForGroupsComponent
+    CoursesForGroupsComponent,
+    StudiedCoursesComponent,
+    TeacherDialogComponent,
+    CopyCoursesDialogComponent
   ]
 })
 export class CoursesForGroupsModule {
