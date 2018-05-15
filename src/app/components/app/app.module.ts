@@ -21,7 +21,6 @@ import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {FileService} from '../../services/file-service';
 import {GroupModule} from '../group/group.module';
-import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
 import {PipeModule} from '../../pipes/pipe.module';
@@ -46,7 +45,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HttpClientModule,
     SharedModule,
     GroupModule,
-    SpecializationModule,
     PipeModule,
     RouterModule.forRoot(appRoutes)
   ],
