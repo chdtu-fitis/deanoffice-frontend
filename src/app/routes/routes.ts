@@ -11,6 +11,7 @@ import {StudentsInVacationComponent} from '../components/students/students-in-va
 import {SpecialityComponent} from '../components/speciality/speciality.component';
 import {LoginComponent} from '../components/login/login.component';
 import {DashboardGuard, LoginGuard} from '../services/auth/auth.guard';
+import {GroupComponent} from '../components/group/group.component';
 import {SpecializationComponent} from '../components/specialization/specialization.component';
 
 /**
@@ -37,6 +38,7 @@ const routes: Routes = [
       {path: 'grades', component: GradeComponent},
       {path: 'courses-for-groups', component: CoursesForGroupsComponent},
       {path: 'specialities', component: SpecialityComponent},
+      {path: 'groups', component: GroupComponent},
       {path: 'specializations', component: SpecializationComponent}
     ]
   },

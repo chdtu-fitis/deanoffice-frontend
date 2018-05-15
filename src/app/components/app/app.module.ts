@@ -6,7 +6,6 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from '../../routes/routes';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {GroupComponent} from '../group/group.component';
 import {SpecialityComponent} from '../speciality/speciality.component';
 import {DiplomaSupplementComponent} from '../diploma-supplement/diploma-supplement.component';
 import {ExamReportComponent} from '../exam-report/exam-report.component';
@@ -25,15 +24,19 @@ import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
+import {GroupModule} from '../group/group.module';
 import {SpecializationModule} from '../specialization/specialization.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
+import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
+import {GroupSearchPipe} from '../../pipes/group-search.pipe';
+import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    GroupComponent,
     SpecialityComponent,
     DiplomaSupplementComponent,
     ExamReportComponent,
@@ -48,7 +51,9 @@ import {DepartmentService} from '../../services/department.service';
     SharedModule,
     AuthenticationModule,
     GradeModule,
-    SpecializationModule
+    GroupModule,
+    SpecializationModule,
+    PipeModule,
   ],
   providers: [
     DegreeService,
