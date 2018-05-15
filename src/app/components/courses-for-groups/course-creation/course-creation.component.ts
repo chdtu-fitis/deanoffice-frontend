@@ -105,16 +105,16 @@ export class CourseCreationComponent implements OnInit {
 
   showAlert() {
     if (this.success)
-      this._service.success('Предмет створено!',
-        'Some Content',
+      this._service.success('Предмет створено',
+        '',
         this.alertOptions);
     if (this.failCreated)
-      this._service.error('Предмет вже існує!',
-        'Some Content',
+      this._service.error('Предмет вже існує або поля заповнені невірно!!',
+        '',
         this.alertOptions);
     if (this.fail)
       this._service.error('Невідома помилка',
-        'Some Content',
+        '',
         this.alertOptions);
   }
 
