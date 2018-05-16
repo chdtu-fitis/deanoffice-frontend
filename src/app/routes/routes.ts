@@ -22,7 +22,10 @@ export const appRoutes: Routes = [
     path: 'dashboard', canActivate: [DashboardGuard], children: [
       {
         path: 'documents', children: [
-          {path: 'diploma-supplement', component: DiplomaSupplementComponent},
+          {
+            path: 'diploma-supplement',
+            loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule'
+          },
           {path: 'exam-report', component: ExamReportComponent}
         ]
       },
@@ -43,6 +46,10 @@ export const appRoutes: Routes = [
 
 export const authRoutes: Routes = [
   {path: '', component: LoginComponent}
+];
+
+export const diplomaSupplementRoutes: Routes = [
+  {path: '', component: DiplomaSupplementComponent}
 ];
 
 export const studentRoutes: Routes = [
