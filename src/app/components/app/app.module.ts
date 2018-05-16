@@ -33,17 +33,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    ExamReportComponent
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule,
     SharedModule,
-    PipeModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    PipeModule
   ],
   providers: [
     DegreeService,

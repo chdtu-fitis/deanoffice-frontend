@@ -26,7 +26,7 @@ export const appRoutes: Routes = [
             path: 'diploma-supplement',
             loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule'
           },
-          {path: 'exam-report', component: ExamReportComponent}
+          {path: 'exam-report', loadChildren: '../exam-report/exam-report.module#ExamReportModule'}
         ]
       },
       {path: 'students', loadChildren: '../students/students.module#StudentsModule'},
@@ -50,6 +50,10 @@ export const authRoutes: Routes = [
 
 export const diplomaSupplementRoutes: Routes = [
   {path: '', component: DiplomaSupplementComponent}
+];
+
+export const examReportRoutes: Routes = [
+  {path: '', component: ExamReportComponent}
 ];
 
 export const studentRoutes: Routes = [
