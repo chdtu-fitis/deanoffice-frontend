@@ -5,8 +5,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {GroupComponent} from './group.component';
 import {PipeModule} from '../../pipes/pipe.module';
-import {RouterModule} from '@angular/router';
-import {groupRoutes} from '../../routes/routes';
+import {RouterModule, Routes} from '@angular/router';
+
+export const groupRoutes: Routes = [
+  {path: '', component: GroupComponent}
+];
 
 @NgModule({
   imports: [

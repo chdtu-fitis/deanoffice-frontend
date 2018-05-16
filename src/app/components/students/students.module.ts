@@ -23,8 +23,13 @@ import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 import {PipeModule} from '../../pipes/pipe.module';
-import {RouterModule} from '@angular/router';
-import {studentRoutes} from '../../routes/routes';
+import {RouterModule, Routes} from '@angular/router';
+
+export const studentRoutes: Routes = [
+  {path: '', component: StudentsComponent},
+  {path: 'expelled', component: ExpelledStudentsComponent},
+  {path: 'in-vacation', component: StudentsInVacationComponent}
+];
 
 @NgModule({
   declarations: [

@@ -11,8 +11,11 @@ import { SpecializationFormComponent } from './specialization-form/specializatio
 import { SpecializationModalComponent } from './specialization-modal/specialization-modal.component';
 import { UpdateSpecializationComponent } from './update-specialization/update-specialization.component';
 import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
-import {RouterModule} from '@angular/router';
-import {specializationRoutes} from '../../routes/routes';
+import {RouterModule, Routes} from '@angular/router';
+
+export const specializationRoutes: Routes = [
+  {path: '', component: SpecializationComponent}
+];
 
 @NgModule({
   imports: [

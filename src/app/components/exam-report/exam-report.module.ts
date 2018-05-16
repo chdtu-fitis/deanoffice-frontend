@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ExamReportComponent} from './exam-report.component';
-import {RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
-import {appRoutes, examReportRoutes} from '../../routes/routes';
+
+export const examReportRoutes: Routes = [
+  {path: '', component: ExamReportComponent}
+];
 
 @NgModule({
   imports: [

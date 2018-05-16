@@ -8,9 +8,13 @@ import {MatListModule, MatSidenavModule} from '@angular/material';
 
 import {StatementComponent} from './grade-statement/statement.component';
 import {SharedModule} from '../shared/shared.module';
-import {RouterModule} from '@angular/router';
-import {gradeRoutes} from '../../routes/routes';
+import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
+
+export const gradeRoutes: Routes = [
+  {path: '', component: GradeComponent}
+];
+
 
 @NgModule({
   exports: [

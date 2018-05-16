@@ -3,12 +3,9 @@ import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
-import {appRoutes} from '../../routes/routes';
+import {appRoutes} from './routes';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {SpecialityComponent} from '../speciality/speciality.component';
-import {DiplomaSupplementComponent} from '../diploma-supplement/diploma-supplement.component';
-import {ExamReportComponent} from '../exam-report/exam-report.component';
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
 import {StudentService} from '../../services/student.service';
