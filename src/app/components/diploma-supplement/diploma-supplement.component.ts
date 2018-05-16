@@ -5,7 +5,7 @@ import {GroupService} from '../../services/group.service';
 import {StudentGroup} from '../../models/StudentGroup';
 import {StudentService} from '../../services/student.service';
 import {StudentDegree} from '../../models/StudentDegree';
-import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
+import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 
 @Component({
   selector: 'diploma-supplement',
