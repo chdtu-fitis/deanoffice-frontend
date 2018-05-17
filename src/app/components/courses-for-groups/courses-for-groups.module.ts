@@ -15,6 +15,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
 import {GroupSearchPipe} from "../../pipes/group-search.pipe";
 import {PipeModule} from '../../pipes/pipe.module';
+import {SimpleNotificationsModule} from "angular2-notifications";
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import {PipeModule} from '../../pipes/pipe.module';
     SharedModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
+    SimpleNotificationsModule.forRoot(),
     PipeModule
   ],
   declarations: [

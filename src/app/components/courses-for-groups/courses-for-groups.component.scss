@@ -16,12 +16,12 @@
 }
 
 .col-name{
-  margin-top: 6pt;
+  font-size: 15px;
   padding-right: 0pt;
 }
 
 .col-name-semester{
-  margin-top: 6pt;
+  font-size: 15px;
   padding-left: 0px;
   padding-right: 0px;
 }
@@ -38,18 +38,54 @@
   margin-left: 0px;
 }
 
+.btn-success[_ngcontent-c2] {
+  margin-left: 0px;
+}
+
 .copy[_ngcontent-c2] {
   margin-left: 10px;
 }
 
-.btn, .form-control {
-  height: 2rem;
-}
-
 .btn {
+  height: 2rem;
   margin: 7px;
+  padding: 0.2rem 0.75rem;
 }
 
 .count-label{
   margin-top: 15px;
+}
+
+div {
+  font-size: 13px;
+}
+
+.div-table {
+  height: 100%;
+}
+
+.form-control .mr-2 .ng-pristine .ng-valid .ng-touched{
+  height: 1.5rem;
+  font-size: 15px;
+}
+
+.form-control {
+  height: 1.5rem;
+  font-size: 15px;
+}
+
+select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
+  height: 1.5rem;
+}
+
+.form-control[_ngcontent-c2] {
+  padding: 0rem 0.75rem;
+}
+
+.count-label{
+  font-size: 15px;
+}
+
+.bottom-row{
+  padding-left: 14px;
 }

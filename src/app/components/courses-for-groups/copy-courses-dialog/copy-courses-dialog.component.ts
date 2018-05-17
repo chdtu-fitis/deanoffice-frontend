@@ -30,7 +30,8 @@ export class CopyCoursesDialogComponent implements OnInit {
   @Input() semester: number;
   @Input() coursesForGroups: CourseForGroup[] = [];
   @Input() addedCoursesForGroups: CourseForGroup[] = [];
-  @Output() showCopied: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() copiedCourse: EventEmitter<CourseForGroup> = new EventEmitter<CourseForGroup>();
+  @Output() alertMessage: EventEmitter<String> = new EventEmitter<String>();
   copiedCoursesForGroup: CourseForGroup[];
   selectedGroup: StudentGroup;
   searchText = '';
@@ -61,12 +62,11 @@ export class CopyCoursesDialogComponent implements OnInit {
             let teacher = new Teacher();
             copiedCourse.teacher = teacher;
           }
-          this.coursesForGroups.push(copiedCourse);
-          this.addedCoursesForGroups.push(copiedCourse);
+          this.copiedCourse.emit(copiedCourse);
         }
+        else this.alertMessage.emit('Предмет "' + copiedCourse.course.courseName.name + '" не було додано, тому що він існує');
       }
     }
-    this.showCopied.emit(true);
   }
 
   addCoursesForGroup() {

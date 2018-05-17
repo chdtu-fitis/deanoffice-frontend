@@ -2,6 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
+import {consoleTestResultHandler} from "tslint/lib/test";
 
 @Component({
   selector: 'added-courses',
@@ -13,13 +14,13 @@ export class AddedCoursesComponent implements OnInit {
 
   coursesForGroup: CourseForGroup[] = [];
   coursesForGroupForDelete: CourseForGroup[] = [];
-  @Input() selectedCoursesForGroups: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
+  allRowsIsSelected = false;
 
   constructor(private courseForGroupService: CourseForGroupService) { }
 
@@ -39,30 +40,9 @@ export class AddedCoursesComponent implements OnInit {
     });
   }
 
-  addNewCoursesForGroup(){
-    for (let courseForAdd of this.selectedCoursesForGroups) {
-      if (this.selectedCoursesForGroups.length > 0) {
-        let courseIsAdded = false;
-        for (let courseForGroup of this.coursesForGroup) {
-          if (courseForGroup.course.id === courseForAdd.course.id) {
-            courseIsAdded = true;
-          }
-        }
-        if (!courseIsAdded) {
-          this.coursesForGroup.push(courseForAdd);
-        }
-      }
-      else this.coursesForGroup.push(courseForAdd);
-    }
-    console.dir(this.coursesForGroup);
-    this.coursesForGroup.sort(function (a,b) {
-      if (a.course.courseName < b.course.courseName)
-        return -1;
-      if (a.course.courseName > b.course.courseName)
-        return 1;
-      return 0;
-    });
-    console.dir(this.coursesForGroup);
+  changeAllIsSelected(isSelected: boolean): void {
+    this.coursesForGroup.forEach((item) => this.changeCoursesForDelete(isSelected, item));
+    this.allRowsIsSelected = isSelected;
   }
 
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
