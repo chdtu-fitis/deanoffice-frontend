@@ -31,7 +31,6 @@ export const gradeRoutes: Routes = [
     MatListModule,
     MatSidenavModule
   ],
-  providers: [AppModule.tokenInterceptor()],
-  exports: [RouterModule]
+  providers: [AppModule.tokenInterceptor()]
 })
 export class GradeModule {}

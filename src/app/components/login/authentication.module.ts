@@ -18,8 +18,7 @@ export const authRoutes: Routes = [
     FormsModule,
     HttpClientModule,
     RouterModule.forChild(authRoutes)
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class AuthenticationModule {
 }

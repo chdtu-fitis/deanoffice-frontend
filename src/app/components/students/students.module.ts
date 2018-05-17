@@ -60,7 +60,6 @@ export const studentRoutes: Routes = [
     TypeaheadModule.forRoot(),
     RouterModule.forChild(studentRoutes),
     PipeModule
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class StudentsModule {}

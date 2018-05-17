@@ -16,7 +16,6 @@ export const specialityRoutes: Routes = [
     SharedModule,
     RouterModule.forChild(specialityRoutes)
   ],
-  declarations: [SpecialityComponent],
-  exports: [RouterModule]
+  declarations: [SpecialityComponent]
 })
 export class SpecialityModule { }

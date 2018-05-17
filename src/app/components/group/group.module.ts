@@ -23,7 +23,6 @@ export const groupRoutes: Routes = [
   declarations: [
     GroupTableComponent,
     GroupComponent
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class GroupModule { }

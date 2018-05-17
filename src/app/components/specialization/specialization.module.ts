@@ -35,7 +35,6 @@ export const specializationRoutes: Routes = [
     SpecializationModalComponent,
     UpdateSpecializationComponent,
     SearchSpecializationsPipe
-  ],
-  exports: [RouterModule]
+  ]
 })
 export class SpecializationModule { }

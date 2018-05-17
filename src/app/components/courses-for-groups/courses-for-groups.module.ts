@@ -35,8 +35,7 @@ const coursesForGroupsRoutes: Routes = [
     TeacherDialogComponent,
     CopyCoursesDialogComponent
   ],
-  providers: [AppModule.tokenInterceptor()],
-  exports: [RouterModule]
+  providers: [AppModule.tokenInterceptor()]
 })
 export class CoursesForGroupsModule {
 }
