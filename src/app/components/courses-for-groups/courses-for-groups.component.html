@@ -3,52 +3,71 @@
     <loading [size]="40"></loading>
   </div>
 
-  <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup"></teacher-dialog>
-  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd" (showCopied)="showAddedCourses($event)"></copy-courses-dialog>
-      <div *ngIf="showPage" class="selection row">
-        <div class="col-7">
-          <div class="row">
-            <div class="col-1 col-name">Група:</div>
-            <div class="col-3">
-              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedGroup" (change)="onGroupChange()">
-                <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-              </select>
-            </div>
-            <div class="col-1 col-name-semester">Семестр:</div>
-            <div class="col-2">
-              <select class="form-control mr-2 ng-pristine ng-valid ng-touched"  [(ngModel)]="selectedSemester" (change)="onSemesterChange()&&refresh()">
-                <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-              </select>
-            </div>
-            <div class="col-5">
-              <input [(ngModel)]="searchText" placeholder="Пошук за предметом" class="form-control mr-2 ng-pristine ng-valid ng-touched search">
-            </div>
-          </div>
-        </div>
-      </div>
+  <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher"
+                  [coursesForGroups]="coursesForGroup"></teacher-dialog>
+  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester"
+                       [coursesForGroups]="coursesForGroup"
+                       [addedCoursesForGroups]="coursesForAdd"
+                       (copiedCourse)="addCourse(true, $event)"
+                       (alertMessage)="showErrorAlert($event)"></copy-courses-dialog>
+  <div *ngIf="showPage" class="selection row">
+    <div class="col-7">
       <div class="row">
-        <div class="col-7">
-          <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses" [searchText]="searchText"></studied-courses>
+        <div class="col-1 col-name">Група:</div>
+        <div class="col-3">
+          <select id="group" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedGroup"
+                  (change)="onGroupChange()">
+            <option value="">Виберіть</option>
+            <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+          </select>
+        </div>
+        <div class="col-1 col-name-semester">Семестр:</div>
+        <div class="col-2">
+          <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
+                  (change)="onSemesterChange()&&refresh()">
+            <option value="">Виберіть</option>
+            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+          </select>
         </div>
         <div class="col-5">
-          <course-creation (onCourseCreation)="onCourseCreation()"></course-creation>
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
+                 class="form-control mr-2 ng-pristine ng-valid ng-touched search">
         </div>
       </div>
-  <div class="row">
-    <div class="col-7">
-      <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()">Призначити</button>
-      <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()">Видалити</button>
-      <button type="button" class="btn btn-info copy" (click)="copyCourses()" *ngIf="selectedGroup!==undefined&&selectedSemester!==undefined">Скопіювати з іншої групи</button>
     </div>
   </div>
-  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)" (onCoursesForGroup)="changeCoursesForGroup($event)" (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester" [selectedGroup]="selectedGroup" [selectedCoursesForGroups]="coursesForAdd" ></added-courses>
   <div class="row">
-    <div class="col-10">
-      <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()">Зберегти</button>
-      <button type="button" class="btn btn-danger" (click)="refresh()">Відмінити зміни</button>
+    <div class="col-7">
+      <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                       [courses]="courses" [searchText]="searchText"></studied-courses>
     </div>
-    <div class="col-2 count-label">
-      Всього: {{coursesForGroup.length || '0'}}
+    <div class="col-5">
+      <course-creation (onCourseCreation)="onCourseCreation()"></course-creation>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-7">
+      <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()" [disabled]="!selectedGroup||!selectedSemester">Призначити</button>
+      <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()" [disabled]="!selectedGroup||!selectedSemester">Видалити</button>
+      <button type="button" class="btn btn-info copy" (click)="copyCourses()"
+              *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи
+      </button>
+    </div>
+  </div>
+  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)"
+                 (onCoursesForGroup)="changeCoursesForGroup($event)"
+                 (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester"
+                 [selectedGroup]="selectedGroup"></added-courses>
+  <div class="bg-white fixed-bottom p-1">
+    <simple-notifications></simple-notifications>
+    <div class="row bottom-row">
+      <div class="col-11">
+        <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()" [disabled]="!selectedGroup||!selectedSemester">Зберегти</button>
+        <button type="button" class="btn btn-danger" (click)="refresh()" [disabled]="!selectedGroup||!selectedSemester">Відмінити зміни</button>
+      </div>
+      <div class="col-1 count-label">
+        Всього: {{child.coursesForGroup.length || '0'}}
+      </div>
     </div>
   </div>
 </div>

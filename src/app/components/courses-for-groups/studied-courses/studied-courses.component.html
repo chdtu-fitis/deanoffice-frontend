@@ -1,16 +1,16 @@
-<div>
-  <div class="card">
-    <div class="card-header">
-      Предмети
-    </div>
+<div class="card">
+  <div class="card-body">
     <div class="div-table">
-      <table *ngIf="!loading" class="table table-striped">
+      <table *ngIf="!loading" class="table table-striped table-sm fs-13">
         <thead>
-        <td></td>
-        <td>Назва</td>
-        <td>Контроль</td>
-        <td>Години</td>
+        <div *ngIf="courses">
+          <th></th>
+        </div>
+        <th>Назва</th>
+        <th>Контроль</th>
+        <th>Години</th>
         </thead>
+        <div class="empty" *ngIf="!courses">Виберіть групу та семестр</div>
         <tr *ngFor="let course of courses | coursesSearch : searchText; let i = index">
           <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course, i)"></td>
           <td>{{ course.courseName.name }}</td>

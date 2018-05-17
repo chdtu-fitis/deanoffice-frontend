@@ -12,6 +12,7 @@ import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import {RouterModule, Routes} from '@angular/router';
 import {AppModule} from '../app/app.module';
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 const coursesForGroupsRoutes: Routes = [
   {path: '', component: CoursesForGroupsComponent}
@@ -25,7 +26,8 @@ const coursesForGroupsRoutes: Routes = [
     SharedModule,
     NgbModule.forRoot(),
     PipeModule,
-    RouterModule.forChild(coursesForGroupsRoutes)
+    RouterModule.forChild(coursesForGroupsRoutes),
+    SimpleNotificationsModule.forRoot()
   ],
   declarations: [
     CoursesForGroupsComponent,

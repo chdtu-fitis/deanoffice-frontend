@@ -10,7 +10,7 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
   providers: [GroupService, CourseForGroupService]
 })
 export class StudiedCoursesComponent implements OnInit {
-  @Input() courses: Course[];
+  @Input() courses: Course[] = [];
   @Input() searchText: string;
   selectedCourses: Course[] = [];
   @Output() onSelectedCoursesChange = new EventEmitter();
