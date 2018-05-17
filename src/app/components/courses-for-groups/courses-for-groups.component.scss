@@ -89,3 +89,11 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
 .bottom-row{
   padding-left: 14px;
 }
+
+teacher-dialog, copy-courses-dialog{
+  z-index: initial;
+}
+
+added-courses{
+  height: 100%
+}

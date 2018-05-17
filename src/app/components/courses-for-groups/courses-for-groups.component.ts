@@ -159,6 +159,20 @@ export class CoursesForGroupsComponent implements OnInit {
       }
     }
     else this.showErrorAlert('Предмети для призначення не були обрані');
+    this.sortCoursesForGroup();
+  }
+
+  sortCoursesForGroup(){
+    this.child.coursesForGroup.sort((a,b)=>{
+      if (a.course.courseName.name > b.course.courseName.name) {
+        return 1;
+      }
+      if (a.course.courseName.name < b.course.courseName.name) {
+        return -1;
+      }
+      // a должно быть равным b
+      return 0;
+    })
   }
 
   addCourse(add: boolean, newCourseForGroup: CourseForGroup) {
