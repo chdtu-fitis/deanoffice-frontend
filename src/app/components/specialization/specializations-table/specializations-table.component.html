@@ -1,0 +1,38 @@
+<div class="position-relative w-100 h-100">
+  <div class="position-absolute w-100 h-100">
+    <div class="scrollable w-100 h-100" style="box-shadow: 0 0 5px gray">
+      <table class="table table-sm fs-12">
+        <thead>
+        <tr>
+          <th>
+            <input type="checkbox" #selectedAll (change)="selectAll(selectedAll.checked)" [ngModel]="allRowsIsSelected">
+          </th>
+          <th>Назва</th>
+          <th>Назва англ.</th>
+          <th>Код спеціальності</th>
+          <th>Спеціальність</th>
+          <th>Ступінь</th>
+          <th>Гарант програми</th>
+        </tr>
+        </thead>
+        <div class="loader">
+          <loading *ngIf="loading"></loading>
+        </div>
+        <tbody *ngIf="!loading">
+        <tr *ngFor="let row of rows" [ngClass]="getTableRowClass(row.isSelected)">
+          <td>
+            <input #selectedItem (change)="selectItem(selectedItem.checked, row.id)" type="checkbox"
+                   [checked]="row.isSelected">
+          </td>
+          <td>{{row.name}}</td>
+          <td>{{row.nameEng}}</td>
+          <td>{{row.speciality.code}}</td>
+          <td>{{row.speciality.name}}</td>
+          <td>{{row.degree.name}}</td>
+          <td>{{row.educationalProgramHeadName}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

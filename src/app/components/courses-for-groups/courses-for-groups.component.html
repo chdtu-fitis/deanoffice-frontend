@@ -4,7 +4,7 @@
   </div>
 
   <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher" [coursesForGroups]="coursesForGroup"></teacher-dialog>
-  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd"></copy-courses-dialog>
+  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester" [coursesForGroups]="coursesForGroup" [addedCoursesForGroups]="coursesForAdd" (showCopied)="showAddedCourses($event)"></copy-courses-dialog>
       <div *ngIf="showPage" class="selection row">
         <div class="col-7">
           <div class="row">

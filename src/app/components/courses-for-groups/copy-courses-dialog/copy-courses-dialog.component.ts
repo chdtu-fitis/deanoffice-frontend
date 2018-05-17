@@ -4,7 +4,6 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Teacher} from "../../../models/Teacher";
 import {StudentGroup} from "../../../models/StudentGroup";
 import {CourseForGroupService} from "../../../services/course-for-group.service";
-import {CoursesForGroupsComponent} from "../courses-for-groups.component";
 
 @Component({
   selector: 'copy-courses-dialog',
@@ -31,6 +30,7 @@ export class CopyCoursesDialogComponent implements OnInit {
   @Input() semester: number;
   @Input() coursesForGroups: CourseForGroup[] = [];
   @Input() addedCoursesForGroups: CourseForGroup[] = [];
+  @Output() showCopied: EventEmitter<boolean> = new EventEmitter<boolean>();
   copiedCoursesForGroup: CourseForGroup[];
   selectedGroup: StudentGroup;
   searchText = '';
@@ -66,7 +66,7 @@ export class CopyCoursesDialogComponent implements OnInit {
         }
       }
     }
-    CoursesForGroupsComponent.prototype.showAddedCourses();
+    this.showCopied.emit(true);
   }
 
   addCoursesForGroup() {

@@ -16,7 +16,7 @@ import {StudentService} from '../../services/student.service';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {GeneralService} from '../../services/general.service'
-import {ExamReportService} from "../../services/exam-report.service";
+import {ExamReportService} from '../../services/exam-report.service';
 import {GridModule} from '../grid/grid.module';
 import {StudentsModule} from '../students/students.module';
 import {SharedModule} from '../shared/shared.module';
@@ -25,6 +25,9 @@ import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {AuthenticationModule} from '../login/authentication.module';
 import {FileService} from '../../services/file-service';
+import {SpecializationModule} from '../specialization/specialization.module';
+import {SpecializationService} from '../../services/specialization.service';
+import {DepartmentService} from '../../services/department.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import {FileService} from '../../services/file-service';
     StudentsModule,
     SharedModule,
     AuthenticationModule,
-    GradeModule
+    GradeModule,
+    SpecializationModule
   ],
   providers: [
     DegreeService,
@@ -57,7 +61,9 @@ import {FileService} from '../../services/file-service';
     SpecialityService,
     FileService,
     GradeService,
-    SpecialityService
+    SpecialityService,
+    SpecializationService,
+    DepartmentService
   ],
   bootstrap: [AppComponent]
 })
