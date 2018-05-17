@@ -17,7 +17,6 @@ import {SharedModule} from '../shared/shared.module';
 import {GradeService} from '../../services/grade.service';
 import {SpecialityService} from '../../services/speciality.service';
 import {FileService} from '../../services/file-service';
-import {GroupModule} from '../group/group.module';
 import {SpecializationService} from '../../services/specialization.service';
 import {DepartmentService} from '../../services/department.service';
 import {PipeModule} from '../../pipes/pipe.module';
@@ -58,12 +57,16 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AuthenticationService,
     DashboardGuard,
     LoginGuard,
-    {
+    AppModule.tokenInterceptor()
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+  public static tokenInterceptor() {
+    return {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
-  ],
-  bootstrap: [AppComponent]
-})
-export class AppModule {}
+  }
+}

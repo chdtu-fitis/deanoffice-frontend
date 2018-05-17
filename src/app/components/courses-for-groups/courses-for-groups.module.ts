@@ -11,6 +11,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import {RouterModule, Routes} from '@angular/router';
+import {AppModule} from '../app/app.module';
 
 const coursesForGroupsRoutes: Routes = [
   {path: '', component: CoursesForGroupsComponent}
@@ -34,6 +35,7 @@ const coursesForGroupsRoutes: Routes = [
     TeacherDialogComponent,
     CopyCoursesDialogComponent
   ],
+  providers: [AppModule.tokenInterceptor()],
   exports: [RouterModule]
 })
 export class CoursesForGroupsModule {

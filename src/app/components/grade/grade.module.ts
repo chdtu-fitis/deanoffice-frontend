@@ -10,20 +10,11 @@ import {StatementComponent} from './grade-statement/statement.component';
 import {SharedModule} from '../shared/shared.module';
 import {RouterModule, Routes} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {AppModule} from '../app/app.module';
 
 export const gradeRoutes: Routes = [
   {path: '', component: GradeComponent}
 ];
-
-
-@NgModule({
-  exports: [
-    MatListModule,
-    MatSidenavModule
-  ]
-})
-export class GradeMaterialModule {
-}
 
 @NgModule({
   declarations: [
@@ -34,11 +25,13 @@ export class GradeMaterialModule {
   ],
   imports: [
     CommonModule,
-    GradeMaterialModule,
     FormsModule,
     SharedModule,
-    RouterModule.forChild(gradeRoutes)
+    RouterModule.forChild(gradeRoutes),
+    MatListModule,
+    MatSidenavModule
   ],
+  providers: [AppModule.tokenInterceptor()],
   exports: [RouterModule]
 })
 export class GradeModule {}
