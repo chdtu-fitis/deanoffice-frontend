@@ -1,0 +1,15 @@
+.modal-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-body>div {
+  margin: 5px;
+  flex: 1;
+}
+
+@media(max-width: 1000px) {
+  .modal-body {
+    flex-direction: column;
+  }
+}

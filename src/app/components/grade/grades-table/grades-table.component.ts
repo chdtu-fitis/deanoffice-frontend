@@ -1,23 +1,31 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Grade} from '../../../models/Grade';
 
 @Component({
-    selector: 'grades-table',
+    selector: 'app-grades-table',
     templateUrl: './grades-table.component.html',
     styleUrls: ['./grades-table.component.scss']
 })
 export class GradesTableComponent {
+    @ViewChild('statement') statement;
     @Input() studentsDegree;
     @Input() courses;
     @Input() selectGroup;
     @Input() selectSemester;
     @Output() gradesUpdate = new EventEmitter();
     @Output() errors = new EventEmitter();
+    @Output() sendUpdateGrades = new EventEmitter();
     grades = [];
 
     resetGrades() {
         this.grades = [];
     };
+
+    openModalStatement(courseId: number): void {
+        this.resetGrades();
+        this.statement.setCourse(courseId);
+        this.statement.modal.show();
+    }
 
     nextCell(e: any, studentId: number, gradeId: number): void {
         if (e.keyCode === 13) {
@@ -30,13 +38,15 @@ export class GradesTableComponent {
         try {
             document.getElementById(id).focus();
         } catch (err) {
-            if (!vertically) { return; }
+            if (!vertically) {
+                return;
+            }
             this.focusElement(0, gradeId + 1, false);
         }
     }
 
     getElementId(studentId: number, gradeId: number): string {
-        return `grade${studentId}${gradeId}`;
+        return `grade${studentId}${gradeId}id`;
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number): void {
@@ -51,12 +61,17 @@ export class GradesTableComponent {
         }
     }
 
+    updateGradesByStatement(grades: Grade[]) {
+        this.gradesUpdate.emit(grades);
+        this.sendUpdateGrades.emit();
+    }
+
     addGradeForUpdate(grade): void {
-        const updateGradeId = this.findGradeOfGrades(grade);
+        const updateGradeId = this.statement.findGrade(this.grades, grade);
         if (updateGradeId >= 0) {
             this.grades[updateGradeId].points = grade.points;
         } else {
-            this.grades.push(this.gradeEntity(grade));
+            this.grades.push(grade);
         }
         this.gradesUpdate.emit(this.grades);
     }
@@ -65,35 +80,9 @@ export class GradesTableComponent {
         this.errors.emit(error);
     }
 
-    gradeEntity(grade: any) {
-        const tempGgrade: any = {
-            studentDegree: {
-                id: grade.studentDegreeId || grade.studentDegree.id
-            },
-            course: {
-                id: grade.courseId || grade.course.id
-            },
-            points: grade.points
-        };
-        if (grade.id) tempGgrade.id = grade.id;
-
-        return tempGgrade;
-    }
-
     updateVisible(id, style): void {
         const element = document.getElementById(id).parentElement;
         const styles = 'text-center align-middle';
         element.setAttribute('class', `${styles} ${style}`);
     }
-
-    findGradeOfGrades(grade): number {
-        if (!this.grades.length) return -1;
-        for (let i = 0; i < this.grades.length; i++) {
-            if (this.grades[i].id === grade.id) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
 }

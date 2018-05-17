@@ -44,5 +44,7 @@
                 </button>
             </ng-container>
         </div>
+        <button *ngIf="!groups" (click)="reloadGroups()"
+                class="btn btn-danger btn-block">Оновити список груп</button>
     </div>
 </div>

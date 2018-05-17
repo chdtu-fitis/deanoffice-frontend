@@ -9,7 +9,7 @@ import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentService} from '../../services/student.service';
 
 @Component({
-    selector: 'grade',
+    selector: 'app-grade',
     templateUrl: './grade.component.html',
     styleUrls: ['./grade.component.scss'],
     providers: [GradeService, GroupService, StudentService, CourseForGroupService]
@@ -37,7 +37,9 @@ export class GradeComponent implements OnInit {
     }
 
     getGroups(): void {
-        this.groupService.getGroups().subscribe((groups: StudentGroup[]) => this.groups = groups);
+        this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+            this.groups = groups;
+        });
     }
 
     setStudentGroup(group: StudentGroup): void {
@@ -75,7 +77,7 @@ export class GradeComponent implements OnInit {
     joinGrades(studentDegree: any, grades: any, course: any): any {
         let check = false;
         for (const grade of grades) {
-            if (studentDegree.id === grade.studentDegreeId && grade.courseId === course.course.id) {
+            if (studentDegree.id === grade.studentDegree.id && grade.course.id === course.course.id) {
                 check = true;
                 if (!grade.points) {
                     grade.points = null;
@@ -83,19 +85,21 @@ export class GradeComponent implements OnInit {
                 return grade;
             }
         }
-        if (!check) {
-            const grade = {
-                points: null,
-                empty: true,
-                course: {
-                    id: course.course.id
-                },
-                studentDegree: {
-                    id: studentDegree.id
-                }
-            };
-            return grade;
-        }
+        if (!check) return this.getEmptyGrade(course.course.id, studentDegree.id);
+    }
+
+    getEmptyGrade(courseId, studentDegreeId) {
+        return {
+            points: null,
+            empty: true,
+            course: {
+                id: courseId
+            },
+            studentDegree: {
+                id: studentDegreeId
+            },
+            onTime: false
+        };
     }
 
     updateRequest(semester: number, groupId: number): void {
@@ -103,6 +107,7 @@ export class GradeComponent implements OnInit {
         this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
             this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
                 this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
+                    grades = this.fixEntytyGrades(grades);
                     this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courses);
                 });
             });
@@ -173,9 +178,35 @@ export class GradeComponent implements OnInit {
     }
 
     fillInWithZerosGrades(): void {
-        console.log(this.emptyGradesList);
         this.gradeService.updateGrades(this.emptyGradesList).subscribe(grades => {
             this.getGrades();
         });
+    }
+
+    //// Отрефакторить backend
+
+    fixEntytyGrades(grades) {
+        if (!grades.length) return [];
+        const tempGrades = [];
+        for (const grade of grades) {
+            tempGrades.push(this.gradeEntity(grade));
+        }
+        return tempGrades;
+    }
+
+    gradeEntity(grade: any) {
+        const tempGgrade: any = {
+            studentDegree: {
+                id: grade.studentDegreeId || grade.studentDegree.id
+            },
+            course: {
+                id: grade.courseId || grade.course.id
+            },
+            points: grade.points,
+            onTime: grade.onTime || false
+        };
+        if (grade.id) tempGgrade.id = grade.id;
+
+        return tempGgrade;
     }
 }

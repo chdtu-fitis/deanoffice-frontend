@@ -3,7 +3,6 @@ import {FormsModule} from '@angular/forms';
 import {GradeComponent} from './grade.component';
 import {GradesPanelComponent} from './grades-panel/grades-panel.component';
 import {GradesTableComponent} from './grades-table/grades-table.component';
-
 import {
     MatListModule,
     MatSidenavModule,
@@ -12,6 +11,7 @@ import {
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StatementComponent} from './grade-statement/statement.component';
 import {SharedModule} from '../shared/shared.module';
+import { GradeStatementTableComponent } from './grade-statement/grade-statement-table/grade-statement-table.component';
 
 @NgModule({
     exports: [
@@ -27,7 +27,8 @@ export class GradeMaterialModule {
         GradeComponent,
         GradesPanelComponent,
         GradesTableComponent,
-        StatementComponent
+        StatementComponent,
+        GradeStatementTableComponent
     ],
     imports: [
         BrowserAnimationsModule,
