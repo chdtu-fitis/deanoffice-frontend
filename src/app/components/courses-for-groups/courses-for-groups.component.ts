@@ -190,8 +190,8 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   showErrorAlert(alertString: String) {
-    this._service.error(alertString,
-      '',
+    this._service.error('Помилка',
+      alertString,
       this.alertOptions);
   }
 
