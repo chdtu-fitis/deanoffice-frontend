@@ -42,7 +42,9 @@ export class CourseCreationComponent implements OnInit {
     maxStack: 3,
   };
 
-  constructor(private courseService: CourseService, private knowledgeControlService: KnowledgeControlService, private _service: NotificationsService) {
+  constructor(private courseService: CourseService,
+              private knowledgeControlService: KnowledgeControlService,
+              private _service: NotificationsService) {
     this.course.hoursPerCredit = 30;
   }
 
