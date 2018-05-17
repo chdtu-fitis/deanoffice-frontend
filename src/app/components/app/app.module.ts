@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 
-import {appRoutes} from './routes';
+import {appRoutes} from './app-routes';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {DegreeService} from '../../services/degree.service';

@@ -7,7 +7,10 @@ import {Routes} from '@angular/router';
  */
 
 /**
- * Для подгрузки модулей используется Lazy Loading (Детские роуты находятся внутри файлов .module.ts)
+ * Для подгрузки модулей используется Lazy Loading (Детские роуты находятся внутри файлов .module.ts).
+ *
+ * В случае, если после подключения нового модуля не будет работать Http interceptor для этого модуля, то нужно внутри
+ * этого модуля вручную указать в провайдерах AppModule.tokenInterceptor()
  */
 
 export const appRoutes: Routes = [
