@@ -64,7 +64,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       departmentId: data.departmentId,
       qualification: data.qualification,
       qualificationEng: data.qualificationEng,
-      paymentFulltime: data.paymentFullTime,
+      paymentFulltime: data.paymentFulltime,
       paymentExtramural: data.paymentExtramural,
       // educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
       // educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
@@ -105,6 +105,27 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   getValue(): Specialization {
-    return this.form.getRawValue()
+    const s: Specialization = this.form.getRawValue() as Specialization;
+    return {
+      ...s,
+      paymentExtramural: this.numberValue(s.paymentExtramural),
+      paymentFulltime: this.numberValue(s.paymentFulltime),
+      educationalProgramHeadName: this.stringValue(s.educationalProgramHeadName),
+      educationalProgramHeadNameEng: this.stringValue(s.educationalProgramHeadNameEng),
+      educationalProgramHeadInfo: this.stringValue(s.educationalProgramHeadInfo),
+      educationalProgramHeadInfoEng: this.stringValue(s.educationalProgramHeadInfoEng)
+    }
+  }
+
+  private numberValue(value: number): number {
+    return this.value(value, 0) as number
+  }
+
+  private value(value: number | string, defaultValue: number | string): number | string {
+    return (value) ? value : defaultValue;
+  }
+
+  private stringValue(value: string): string {
+    return this.value(value, '') as string
   }
 }
