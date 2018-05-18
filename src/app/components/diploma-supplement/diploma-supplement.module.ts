@@ -16,7 +16,6 @@ const diplomaSupplementRoutes: Routes = [
     SharedModule,
     RouterModule.forChild(diplomaSupplementRoutes)
   ],
-  declarations: [DiplomaSupplementComponent],
-  exports: [RouterModule]
+  declarations: [DiplomaSupplementComponent]
 })
 export class DiplomaSupplementModule { }
