@@ -41,8 +41,7 @@ export class SpecializationsTableComponent {
     };
 
     return ['selected', ...columns].map(prop => {
-      const col = templatesMap[prop];
-      return {prop, name: translations[prop], ...col};
+      return {prop, name: translations[prop], ...templatesMap[prop]};
     });
   }
 
@@ -52,6 +51,11 @@ export class SpecializationsTableComponent {
 
   select({selected}) {
     this.handleSelect(selected)
+  }
+
+  handleSelect(specializations: Specialization[]) {
+    this.selected = [...specializations];
+    this.onSelect.emit(this.selected);
   }
 
   activate({ type, row, column }) {
@@ -65,11 +69,5 @@ export class SpecializationsTableComponent {
     } else {
       this.handleSelect([...this.selected, row]);
     }
-  }
-
-  handleSelect(specializations: Specialization[]) {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...specializations);
-    this.onSelect.emit(this.selected);
   }
 }
