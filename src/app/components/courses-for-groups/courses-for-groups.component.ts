@@ -170,7 +170,6 @@ export class CoursesForGroupsComponent implements OnInit {
       if (a.course.courseName.name < b.course.courseName.name) {
         return -1;
       }
-      // a должно быть равным b
       return 0;
     })
   }

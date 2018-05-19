@@ -8,6 +8,7 @@
         <th>Назва</th>
         <th>Вид</th>
         <th>Години</th>
+        <th>Кредити</th>
         <th>Викладач</th>
         <th>Дата іспиту</th>
         </thead>
@@ -18,6 +19,7 @@
           <td>{{ course.course.courseName.name }}</td>
           <td>{{ course.course.knowledgeControl.name}}</td>
           <td>{{ course.course.hours }}</td>
+          <td>{{ course.course.credits }}</td>
           <td (click)="changeTeacher(i)">
             <button class="btn btn-outline-secondary">
               {{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) ||
