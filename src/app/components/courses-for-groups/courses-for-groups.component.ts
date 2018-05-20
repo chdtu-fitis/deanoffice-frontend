@@ -18,6 +18,7 @@ import {NotificationsService} from "angular2-notifications";
 export class CoursesForGroupsComponent implements OnInit {
   indexForTeacher: number;
   indexForDate: number;
+  indexForChange: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -35,6 +36,7 @@ export class CoursesForGroupsComponent implements OnInit {
   showPage = false;
   showTeacherDialog = false;
   showCopyDialog = false;
+  showChangeDialog = false;
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,
@@ -63,13 +65,7 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onGroupChange() {
     this.changeSemesters();
-    this.coursesForDelete = [];
-    this.child.coursesForGroupForDelete = [];
-    this.deleteCoursesIds = [];
-    this.coursesForAdd = [];
-    this.updatedCourses = [];
-    this.coursesForGroup = [];
-    this.child.coursesForGroup = [];
+    this.refresh();
     setTimeout(() => {
       if (this.selectedSemester) {
         this.child.getCoursesForGroup();
@@ -247,9 +243,10 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
     this.coursesForAdd = [];
-    this.child.coursesForGroup = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
+    this.child.coursesForGroup = [];
+    this.selectedCourses= [];
     setTimeout(() => {
       this.onSemesterChange();
     }, 10);
@@ -312,5 +309,9 @@ export class CoursesForGroupsComponent implements OnInit {
 
   copyCourses() {
     this.showCopyDialog = true;
+  }
+
+  changeCourseForGroup(index){
+    this.showChangeDialog = true;
   }
 }

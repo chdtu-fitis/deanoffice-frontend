@@ -20,6 +20,7 @@ export class AddedCoursesComponent implements OnInit {
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
+  @Output() onCourseChange = new EventEmitter();
   allRowsIsSelected = false;
 
   constructor(private courseForGroupService: CourseForGroupService) { }
@@ -56,6 +57,10 @@ export class AddedCoursesComponent implements OnInit {
       this.coursesForGroupForDelete.push(selectedCourse);
     }
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
+  }
+
+  changeCourseForGroup(index){
+    this.onCourseChange.emit({index: index});
   }
 
   changeTeacher(index){

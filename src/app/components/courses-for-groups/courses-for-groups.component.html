@@ -54,9 +54,12 @@
       </button>
     </div>
   </div>
-  <added-courses (onDateChange)="changeDate($event)" (onTeacherChange)="changeTeacher($event)"
+  <added-courses (onDateChange)="changeDate($event)"
+                 (onTeacherChange)="changeTeacher($event)"
                  (onCoursesForGroup)="changeCoursesForGroup($event)"
-                 (onCoursesForDeleteChange)="changeCoursesForDelete($event)" [selectedSemester]="selectedSemester"
+                 (onCoursesForDeleteChange)="changeCoursesForDelete($event)"
+                 (onCourseChange)="changeCourseForGroup($event)"
+                 [selectedSemester]="selectedSemester"
                  [selectedGroup]="selectedGroup"></added-courses>
   <div class="bg-white fixed-bottom p-1">
     <simple-notifications></simple-notifications>
