@@ -108,13 +108,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     const s: Specialization = this.form.getRawValue() as Specialization;
     return {
       ...s,
+      name: this.stringValue(s.name),
       paymentExtramural: this.numberValue(s.paymentExtramural),
       paymentFulltime: this.numberValue(s.paymentFulltime),
       educationalProgramHeadName: this.stringValue(s.educationalProgramHeadName),
       educationalProgramHeadNameEng: this.stringValue(s.educationalProgramHeadNameEng),
       educationalProgramHeadInfo: this.stringValue(s.educationalProgramHeadInfo),
       educationalProgramHeadInfoEng: this.stringValue(s.educationalProgramHeadInfoEng)
-    }
+    } as Specialization;
   }
 
   private numberValue(value: number): number {
