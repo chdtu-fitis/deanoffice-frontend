@@ -16,6 +16,7 @@ import {SharedModule} from '../shared/shared.module';
 import {GroupSearchPipe} from "../../pipes/group-search.pipe";
 import {PipeModule} from '../../pipes/pipe.module';
 import {SimpleNotificationsModule} from "angular2-notifications";
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @NgModule({
   imports: [
@@ -35,13 +36,18 @@ import {SimpleNotificationsModule} from "angular2-notifications";
     AddedCoursesComponent,
     CourseCreationComponent,
     TeacherDialogComponent,
-    CopyCoursesDialogComponent
+    CopyCoursesDialogComponent,
+    EditDialogComponent
   ],
   exports: [
     CoursesForGroupsComponent,
     StudiedCoursesComponent,
     TeacherDialogComponent,
-    CopyCoursesDialogComponent
+    CopyCoursesDialogComponent,
+    EditDialogComponent
+  ],
+  entryComponents: [
+    EditDialogComponent
   ]
 })
 export class CoursesForGroupsModule {

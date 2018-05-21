@@ -18,7 +18,6 @@ import {NotificationsService} from "angular2-notifications";
 export class CoursesForGroupsComponent implements OnInit {
   indexForTeacher: number;
   indexForDate: number;
-  indexForChange: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
@@ -36,7 +35,6 @@ export class CoursesForGroupsComponent implements OnInit {
   showPage = false;
   showTeacherDialog = false;
   showCopyDialog = false;
-  showChangeDialog = false;
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,
@@ -309,9 +307,5 @@ export class CoursesForGroupsComponent implements OnInit {
 
   copyCourses() {
     this.showCopyDialog = true;
-  }
-
-  changeCourseForGroup(index){
-    this.showChangeDialog = true;
   }
 }

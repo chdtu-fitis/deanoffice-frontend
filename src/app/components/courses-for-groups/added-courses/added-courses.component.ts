@@ -3,6 +3,8 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
 import {consoleTestResultHandler} from "tslint/lib/test";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 
 @Component({
   selector: 'added-courses',
@@ -20,10 +22,10 @@ export class AddedCoursesComponent implements OnInit {
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
-  @Output() onCourseChange = new EventEmitter();
   allRowsIsSelected = false;
 
-  constructor(private courseForGroupService: CourseForGroupService) { }
+  constructor(private courseForGroupService: CourseForGroupService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {}
 
@@ -59,15 +61,16 @@ export class AddedCoursesComponent implements OnInit {
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
   }
 
-  changeCourseForGroup(index){
-    this.onCourseChange.emit({index: index});
-  }
-
   changeTeacher(index){
     this.onTeacherChange.emit({show: true, index: index});
   }
 
   dateChange(index){
     this.onDateChange.emit({index: index});
+  }
+
+  open() {
+    const modalRef = this.modalService.open(EditDialogComponent);
+    modalRef.componentInstance.name = 'World';
   }
 }
