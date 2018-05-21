@@ -5,11 +5,11 @@
 
   <teacher-dialog [(visible)]="showTeacherDialog" (onTeacherSelect)="changeTeacher($event)" [cfgIndex]="indexForTeacher"
                   [coursesForGroups]="coursesForGroup"></teacher-dialog>
-  <copy-courses-dialog [(visible)]="showCopyDialog" [groups]="groups" [semester]="selectedSemester"
-                       [coursesForGroups]="coursesForGroup"
-                       [addedCoursesForGroups]="coursesForAdd"
-                       (copiedCourse)="addCourse(true, $event)"
-                       (alertMessage)="showErrorAlert($event)"></copy-courses-dialog>
+  <!--<copy-courses-dialog [groups]="groups" [semester]="selectedSemester"-->
+                       <!--[coursesForGroups]="coursesForGroup"-->
+                       <!--[addedCoursesForGroups]="coursesForAdd"-->
+                       <!--(copiedCourse)="addCourse(true, $event)"-->
+                       <!--(alertMessage)="showErrorAlert($event)"></copy-courses-dialog>-->
   <div *ngIf="showPage" class="selection row">
     <div class="col-7">
       <div class="row">

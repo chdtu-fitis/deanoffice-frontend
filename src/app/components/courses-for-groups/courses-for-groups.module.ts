@@ -47,7 +47,8 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
     EditDialogComponent
   ],
   entryComponents: [
-    EditDialogComponent
+    EditDialogComponent,
+    CopyCoursesDialogComponent
   ]
 })
 export class CoursesForGroupsModule {

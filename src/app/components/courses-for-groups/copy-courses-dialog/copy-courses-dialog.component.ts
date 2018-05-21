@@ -4,6 +4,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Teacher} from "../../../models/Teacher";
 import {StudentGroup} from "../../../models/StudentGroup";
 import {CourseForGroupService} from "../../../services/course-for-group.service";
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'copy-courses-dialog',
@@ -23,9 +24,6 @@ import {CourseForGroupService} from "../../../services/course-for-group.service"
 })
 export class CopyCoursesDialogComponent implements OnInit {
 
-  @Input() closable = true;
-  @Input() visible: boolean;
-  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() groups: StudentGroup[];
   @Input() semester: number;
   @Input() coursesForGroups: CourseForGroup[] = [];
@@ -36,7 +34,7 @@ export class CopyCoursesDialogComponent implements OnInit {
   selectedGroup: StudentGroup;
   searchText = '';
 
-  constructor(private courseForGroupService: CourseForGroupService) { }
+  constructor(private courseForGroupService: CourseForGroupService, public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
   }
@@ -44,7 +42,7 @@ export class CopyCoursesDialogComponent implements OnInit {
   selectGroup(group: StudentGroup){
     this.selectedGroup = group;
     this.addCoursesForGroup();
-    this.close();
+    this.activeModal.close('Close click')
   }
 
   addSelectedCourses(){
@@ -74,10 +72,5 @@ export class CopyCoursesDialogComponent implements OnInit {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });
-  }
-
-  close() {
-    this.visible = false;
-    this.visibleChange.emit(this.visible);
   }
 }

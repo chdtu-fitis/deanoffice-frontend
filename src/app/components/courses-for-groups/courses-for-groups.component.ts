@@ -8,6 +8,8 @@ import {AddedCoursesComponent} from "./added-courses/added-courses.component";
 import {CourseForGroupService} from "../../services/course-for-group.service";
 import {Teacher} from "../../models/Teacher";
 import {NotificationsService} from "angular2-notifications";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CopyCoursesDialogComponent} from "./copy-courses-dialog/copy-courses-dialog.component";
 
 @Component({
   selector: 'courses-for-groups',
@@ -44,7 +46,11 @@ export class CoursesForGroupsComponent implements OnInit {
     maxStack: 3
   };
 
-  constructor(private courseService: CourseService, private courseForGroupService: CourseForGroupService, private groupService: GroupService, private _service: NotificationsService) {
+  constructor(private courseService: CourseService,
+              private courseForGroupService: CourseForGroupService,
+              private groupService: GroupService,
+              private _service: NotificationsService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -306,6 +312,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   copyCourses() {
-    this.showCopyDialog = true;
+    const modalRef = this.modalService.open(CopyCoursesDialogComponent);
+    modalRef.componentInstance.groups = this.groups;
+    modalRef.componentInstance.semester = this.selectedSemester;
+    modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
+    modalRef.componentInstance.addedCoursesForGroups = this.coursesForAdd;
   }
 }
