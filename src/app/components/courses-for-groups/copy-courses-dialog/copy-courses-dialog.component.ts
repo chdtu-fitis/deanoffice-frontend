@@ -9,18 +9,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'copy-courses-dialog',
   templateUrl: './copy-courses-dialog.component.html',
-  styleUrls: ['./copy-courses-dialog.component.scss'],
-  animations: [
-    trigger('dialog', [
-      transition('void => *', [
-        style({ transform: 'scale3d(.3, .3, .3)' }),
-        animate(100)
-      ]),
-      transition('* => void', [
-        animate(100, style({ transform: 'scale3d(.0, .0, .0)' }))
-      ])
-    ])
-  ],
+  styleUrls: ['./copy-courses-dialog.component.scss']
 })
 export class CopyCoursesDialogComponent implements OnInit {
 

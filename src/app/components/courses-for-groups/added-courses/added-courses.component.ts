@@ -5,6 +5,8 @@ import {CourseForGroupService} from '../../../services/course-for-group.service'
 import {consoleTestResultHandler} from "tslint/lib/test";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
+import {CopyCoursesDialogComponent} from "../copy-courses-dialog/copy-courses-dialog.component";
+import {TeacherDialogComponent} from "../teacher-dialog/teacher-dialog.component";
 
 @Component({
   selector: 'added-courses',
@@ -62,7 +64,7 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   changeTeacher(index){
-    this.onTeacherChange.emit({show: true, index: index});
+    this.onTeacherChange.emit(index);
   }
 
   dateChange(index){
