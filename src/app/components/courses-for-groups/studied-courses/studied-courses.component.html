@@ -9,6 +9,7 @@
         <th>Назва</th>
         <th>Контроль</th>
         <th>Години</th>
+        <th>Кредити</th>
         </thead>
         <div class="empty" *ngIf="!courses">Виберіть групу та семестр</div>
         <tr *ngFor="let course of courses | coursesSearch : searchText; let i = index">
@@ -16,6 +17,7 @@
           <td>{{ course.courseName.name }}</td>
           <td>{{ course.knowledgeControl.name }}</td>
           <td>{{ course.hours }}</td>
+          <td>{{ course.credits }}</td>
         </tr>
       </table>
       <loading *ngIf="loading"></loading>

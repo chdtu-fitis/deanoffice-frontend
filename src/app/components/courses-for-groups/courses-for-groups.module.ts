@@ -17,6 +17,8 @@ import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
+
 
 const coursesForGroupsRoutes: Routes = [
   {path: '', component: CoursesForGroupsComponent}
@@ -39,7 +41,13 @@ const coursesForGroupsRoutes: Routes = [
     AddedCoursesComponent,
     CourseCreationComponent,
     TeacherDialogComponent,
-    CopyCoursesDialogComponent
+    CopyCoursesDialogComponent,
+    EditDialogComponent
+  ],
+  entryComponents: [
+    EditDialogComponent,
+    CopyCoursesDialogComponent,
+    TeacherDialogComponent
   ],
   providers: [AuthenticationModule.tokenInterceptor()]
 })

@@ -17,8 +17,7 @@
                 <app-student-typeahead
                   formControlName="id"
                   [control]="form.controls.student.controls.id"
-                  (onValueChange)="onSelectStudent($event)"
-                >
+                  (onValueChange)="onSelectStudent($event)">
                 </app-student-typeahead>
               </div>
               <ng-container *ngTemplateOutlet="commonFields"></ng-container>
