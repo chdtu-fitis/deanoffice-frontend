@@ -63,8 +63,8 @@ export class AddedCoursesComponent implements OnInit {
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
   }
 
-  changeTeacher(index){
-    this.onTeacherChange.emit(index);
+  changeTeacher(course){
+    this.onTeacherChange.emit(course);
   }
 
   dateChange(index){

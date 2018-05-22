@@ -20,7 +20,7 @@
           <td>{{ course.course.knowledgeControl.name}}</td>
           <td>{{ course.course.hours }}</td>
           <td>{{ course.course.credits }}</td>
-          <td (click)="changeTeacher(i)">
+          <td (click)="changeTeacher(course)">
             <button class="btn btn-outline-secondary">
               {{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) ||
               'Вибрати' }}

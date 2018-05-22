@@ -20,7 +20,6 @@ import {TeacherDialogComponent} from "./teacher-dialog/teacher-dialog.component"
   providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
-  indexForTeacher: number;
   indexForDate: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
@@ -70,7 +69,7 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  getCoursesForGroup(){
+  getCoursesForGroup() {
     setTimeout(() => {
       this.child.getCoursesForGroup();
     }, 0);
@@ -274,28 +273,24 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   changeTeacher(event) {
-    this.indexForTeacher = event;
     const modalRef = this.modalService.open(TeacherDialogComponent);
-    modalRef.componentInstance.cfgIndex = this.indexForTeacher;
-    modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
+    modalRef.componentInstance.courseForGroups = event;
     modalRef.componentInstance.onTeacherSelect.subscribe(($event) => {
       this.updateCoursesForGroupWithNewTeacher($event);
     });
   }
 
-  updateCoursesForGroupWithNewTeacher(event){
-    let isAdded: boolean;
-    isAdded = false;
-    for (let updatedCourse of event) {
-      if (event.indexOf(updatedCourse) == this.indexForTeacher) {
-        for (let addedCourse of this.coursesForAdd) {
-          if (updatedCourse.course.id === addedCourse.course.id) {
-            addedCourse.teacher = updatedCourse.teacher;
-            isAdded = true;
-          }
-        }
-        if (!isAdded) this.updatedCourses.push(updatedCourse);
+  updateCoursesForGroupWithNewTeacher(event) {
+    let isAdded = false;
+    for (let addedCourse of this.coursesForAdd) {
+      if (event.course.id === addedCourse.course.id) {
+        addedCourse.teacher = event.teacher;
+        isAdded = true;
       }
+    }
+    if (!isAdded) this.updatedCourses.push(event);
+    for (let course of this.coursesForGroup){
+      if (course.course.id === event.course.id) course.teacher = event.teacher;
     }
   }
 

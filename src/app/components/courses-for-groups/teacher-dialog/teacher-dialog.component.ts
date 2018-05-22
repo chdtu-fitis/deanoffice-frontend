@@ -12,8 +12,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
   providers: [TeacherService]
 })
 export class TeacherDialogComponent implements OnInit {
-  @Input() coursesForGroups: CourseForGroup[] = [];
-  @Input() cfgIndex: number;
+  @Input() courseForGroups: CourseForGroup;
   @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
   searchText = '';
@@ -26,8 +25,8 @@ export class TeacherDialogComponent implements OnInit {
   }
 
   selectTeacher(teacher: Teacher){
-    this.coursesForGroups[this.cfgIndex].teacher = teacher;
-    this.onTeacherSelect.emit(this.coursesForGroups);
+    this.courseForGroups.teacher = teacher;
+    this.onTeacherSelect.emit(this.courseForGroups);
     this.activeModal.close('Close click')
   }
 }
