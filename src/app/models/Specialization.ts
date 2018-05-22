@@ -9,7 +9,7 @@ export class Specialization extends NameWithEngAndActiveEntity {
   department?: Department;
   qualification?: string;
   qualificationEng?: string;
-  paymentFullTime?: number;
+  paymentFulltime?: number;
   paymentExtramural?: number;
   educationalProgramHeadName: string;
   educationalProgramHeadNameEng: string;

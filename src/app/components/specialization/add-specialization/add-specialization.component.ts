@@ -30,9 +30,9 @@ export class AddSpecializationComponent {
     }
     this.specializationService
       .create(this.form.getValue())
-      .then(() => {
-        this.onSubmit.emit(null);
-        this.modal.hide();
-      });
+      .then(() => this.onSubmit.emit(null))
+      .then(() => this.form.reset())
+      .then(() => this.modal.hide())
+      .catch(null);
   }
 }

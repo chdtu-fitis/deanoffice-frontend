@@ -35,9 +35,9 @@
 
       <div class="specializations-table">
         <app-specializations-table
-          [setRows]="specializations | searchSpecializations: searchField"
+          [rows]="specializations | searchSpecializations: searchField"
           [loading]="loading"
-          (selectedRows)="selectSpecializations($event)"
+          (onSelect)="selectSpecializations($event)"
         ></app-specializations-table>
       </div>
 
