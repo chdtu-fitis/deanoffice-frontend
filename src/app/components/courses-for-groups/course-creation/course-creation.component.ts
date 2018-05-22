@@ -71,7 +71,6 @@ export class CourseCreationComponent implements OnInit {
 
   checkCourseName(name) {
     if (name instanceof CourseName) {
-      console.dir(name);
       return;
     }
     else {

@@ -33,12 +33,11 @@ export class CoursesForGroupsComponent implements OnInit {
   searchText = '';
   coursesForGroup: CourseForGroup[] = [];
   deleteCoursesIds: number[] = [];
+  deleteCoursesIdsForCheck: number[] = [];
   @ViewChild(AddedCoursesComponent) child: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
   studiedCoursesLoading = false;
   showPage = false;
-  showTeacherDialog = false;
-  showCopyDialog = false;
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,
@@ -110,6 +109,7 @@ export class CoursesForGroupsComponent implements OnInit {
         for (let course of this.coursesForGroup) {
           if (deletedCourse.course.id == course.course.id && deletedCourse.id) {
             this.deleteCoursesIds.push(deletedCourse.id);
+            this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
             this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
             this.updatedCourses.splice(this.updatedCourses.indexOf(course), 1);
             this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
@@ -133,6 +133,16 @@ export class CoursesForGroupsComponent implements OnInit {
     this.selectedCourses = event;
   }
 
+  checkIfAddedCourseIsInDeleted(addedCourse){
+    let courseIsDeleted = false;
+    for (let deletedCourseId of this.deleteCoursesIdsForCheck) {
+      if (deletedCourseId === addedCourse.id) {
+        courseIsDeleted = true;
+      }
+    }
+    return courseIsDeleted;
+  }
+
   addCoursesToCoursesForGroup() {
     if (this.selectedCourses) {
       for (let course of this.selectedCourses) {
@@ -153,11 +163,11 @@ export class CoursesForGroupsComponent implements OnInit {
             }
           }
           if (!courseIsAdded && !courseIsExist) {
-            this.addCourse(true, newCourseForGroup);
+            this.addCourse(true, newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
           }
         }
         else if (!courseIsExist) {
-          this.addCourse(true, newCourseForGroup);
+          this.addCourse(true, newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
         }
         if (courseIsExist) this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
       }
@@ -179,8 +189,12 @@ export class CoursesForGroupsComponent implements OnInit {
     })
   }
 
-  addCourse(add: boolean, newCourseForGroup: CourseForGroup) {
-    this.coursesForAdd.push(newCourseForGroup);
+  addCourse(add: boolean, newCourseForGroup: CourseForGroup, isDeleted: boolean) {
+    if (isDeleted){
+      let id = newCourseForGroup.id;
+      this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id),1)
+    }
+    else this.coursesForAdd.push(newCourseForGroup);
     this.coursesForGroup.push(newCourseForGroup);
     this.child.coursesForGroup.push(newCourseForGroup);
   }
@@ -254,6 +268,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForDelete = [];
     this.child.coursesForGroupForDelete = [];
     this.deleteCoursesIds = [];
+    this.deleteCoursesIdsForCheck = [];
     this.coursesForAdd = [];
     this.updatedCourses = [];
     this.coursesForGroup = [];
@@ -289,7 +304,7 @@ export class CoursesForGroupsComponent implements OnInit {
       }
     }
     if (!isAdded) this.updatedCourses.push(event);
-    for (let course of this.coursesForGroup){
+    for (let course of this.coursesForGroup) {
       if (course.course.id === event.course.id) course.teacher = event.teacher;
     }
   }
@@ -324,7 +339,7 @@ export class CoursesForGroupsComponent implements OnInit {
     modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
     modalRef.componentInstance.addedCoursesForGroups = this.coursesForAdd;
     modalRef.componentInstance.copiedCourse.subscribe(($event) => {
-      this.addCourse(true, $event);
+      this.addCourse(true, $event, this.checkIfAddedCourseIsInDeleted($event.course));
     });
     modalRef.componentInstance.alertMessage.subscribe(($event) => {
       this.showErrorAlert($event);

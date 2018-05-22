@@ -1,9 +1,53 @@
 <div class="modal-header">
-  <h4 class="modal-title">Редагувати предмет {{name}}</h4>
+  <h4 class="modal-title">Редагувати предмет</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <p></p>
+  <div class="modal-body">
+    <div class="creation-form">
+      <div class="row">
+        <div class="form-group col">
+          <input
+            name="name"
+            required
+            type="text"
+            class="form-control mr-2 ng-pristine ng-valid ng-touched"
+            [ngbTypeahead]="search"
+            [(ngModel)]="course.courseName"
+            [inputFormatter]="formatter"
+            [resultFormatter]="formatter"
+            (change)="checkCourseName($event.target.value)"
+            (focus)="focus$.next($event.target.value)"
+            (click)="click$.next($event.target.value)"
+            #instance="ngbTypeahead">
+        </div>
+      </div>
+  <div class="row">
+    <div class="form-group col-2">
+      <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched "
+             [(ngModel)]="course.hours">
+    </div>
+    <div class="form-group col-3">
+      <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+             [(ngModel)]="course.semester">
+    </div>
+    <div class="form-group col-3">
+      <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="course.hoursPerCredit">
+        <option [ngValue]="30">30</option>
+        <option [ngValue]="36">36</option>
+      </select>
+    </div>
+    <div class="form-group col-4">
+      <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+              [(ngModel)]="course.knowledgeControl.name">
+        <option value="">Виберіть</option>
+        <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="activeModal.close('Close click')">Зберегти</button>
+  <button type="button" class="btn btn-outline-fail" (click)="activeModal.close('Close click')">Відмініти</button>
 </div>
