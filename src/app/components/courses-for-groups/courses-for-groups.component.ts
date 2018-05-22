@@ -70,15 +70,17 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
+  getCoursesForGroup(){
+    setTimeout(() => {
+      this.child.getCoursesForGroup();
+    }, 0);
+  }
+
   onGroupChange() {
     this.changeSemesters();
     this.refresh();
     if (this.selectedSemester) {
-      setTimeout(() => {
-        if (this.selectedSemester) {
-          this.child.getCoursesForGroup();
-        }
-      }, 0);
+      this.onSemesterChange();
     }
   }
 
@@ -90,9 +92,7 @@ export class CoursesForGroupsComponent implements OnInit {
         this.studiedCoursesLoading = false;
       })
     }
-    setTimeout(() => {
-      this.child.getCoursesForGroup();
-    }, 0);
+    this.getCoursesForGroup();
   }
 
   changeCoursesForGroup(event) {
@@ -261,9 +261,6 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroup = [];
     this.selectedCourses = [];
     this.studiedCoursesChild.selectedCourses = [];
-    setTimeout(() => {
-      this.child.getCoursesForGroup();
-    }, 0);
   }
 
   onCourseCreation() {

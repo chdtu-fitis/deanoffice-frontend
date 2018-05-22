@@ -12,6 +12,3 @@
     <li class="list-group-item list-group-item-action" *ngFor="let teacher of teachers | teacherSearch : searchText" (click)="selectTeacher(teacher)">{{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}</li>
   </ul>
 </div>
-<div class="modal-footer">
-  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close('Close click')">Close</button>
-</div>

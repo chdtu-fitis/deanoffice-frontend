@@ -57,7 +57,7 @@
     <div class="row bottom-row">
       <div class="col-11">
         <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()" [disabled]="!selectedGroup||!selectedSemester">Зберегти</button>
-        <button type="button" class="btn btn-danger" (click)="refresh()" [disabled]="!selectedGroup||!selectedSemester">Відмінити зміни</button>
+        <button type="button" class="btn btn-danger" (click)="onGroupChange()" [disabled]="!selectedGroup||!selectedSemester">Відмінити зміни</button>
       </div>
       <div class="col-1 count-label">
         Всього: {{child.coursesForGroup.length || '0'}}
