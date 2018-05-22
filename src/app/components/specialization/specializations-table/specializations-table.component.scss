@@ -1,11 +1,10 @@
 @import "../../../../styles";
 
-.loader {
+.center-a {
   position: absolute;
-  margin-left: -20px;
   left: 50%;
-  margin-top: -30px;
   top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fs-14 {
