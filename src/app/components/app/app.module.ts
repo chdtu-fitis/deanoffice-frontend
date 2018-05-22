@@ -1,14 +1,25 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {AppRoutingModule} from '../../routes/routes';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {SpecialityComponent} from '../speciality/speciality.component';
-import {DiplomaSupplementComponent} from '../diploma-supplement/diploma-supplement.component';
-import {ExamReportComponent} from '../exam-report/exam-report.component';
+
+import {PipeModule} from '../../pipes/pipe.module';
+import {AuthenticationModule} from '../login/authentication.module';
+import {SharedModule} from '../shared/shared.module';
+
+import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
+
+import {SpecializationService} from '../../services/specialization.service';
+import {DepartmentService} from '../../services/department.service';
+import {GradeService} from '../../services/grade.service';
+import {SpecialityService} from '../../services/speciality.service';
+import {FileService} from '../../services/file-service';
+import {AuthenticationService} from '../../services/auth/authentication.service';
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
 import {StudentService} from '../../services/student.service';
@@ -16,44 +27,22 @@ import {DiplomaSupplementService} from '../../services/diploma-supplement.servic
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {GeneralService} from '../../services/general.service'
 import {ExamReportService} from '../../services/exam-report.service';
-import {GridModule} from '../grid/grid.module';
-import {StudentsModule} from '../students/students.module';
-import {SharedModule} from '../shared/shared.module';
-import {GradeModule} from '../grade/grade.module';
-import {GradeService} from '../../services/grade.service';
-import {SpecialityService} from '../../services/speciality.service';
-import {AuthenticationModule} from '../login/authentication.module';
-import {FileService} from '../../services/file-service';
-import {GroupModule} from '../group/group.module';
-import {SpecializationModule} from '../specialization/specialization.module';
-import {SpecializationService} from '../../services/specialization.service';
-import {DepartmentService} from '../../services/department.service';
-import {TeacherSearchPipe} from '../../pipes/teacher-search.pipe';
-import {GroupSearchPipe} from '../../pipes/group-search.pipe';
-import {CoursesSearchPipe} from '../../pipes/courses-search.pipe';
-import {PipeModule} from '../../pipes/pipe.module';
+
+import {appRoutes} from './app-routes';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    SpecialityComponent,
-    DiplomaSupplementComponent,
-    ExamReportComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    GridModule,
-    StudentsModule,
     SharedModule,
-    AuthenticationModule,
-    GradeModule,
-    GroupModule,
-    SpecializationModule,
-    PipeModule,
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    PipeModule
   ],
   providers: [
     DegreeService,
@@ -68,9 +57,12 @@ import {PipeModule} from '../../pipes/pipe.module';
     GradeService,
     SpecialityService,
     SpecializationService,
-    DepartmentService
+    DepartmentService,
+    AuthenticationService,
+    DashboardGuard,
+    LoginGuard,
+    AuthenticationModule.tokenInterceptor()
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}
