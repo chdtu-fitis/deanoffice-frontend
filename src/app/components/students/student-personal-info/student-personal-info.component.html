@@ -13,10 +13,7 @@
         <form [formGroup]="form" *ngIf="model">
           <h6 class="mb-3">Особиста інформація</h6>
           <div class="row">
-            <div class="col-3">
-              <app-photo-upload [photo]="photo" (onLoad)="onLoadPhoto($event)"></app-photo-upload>
-            </div>
-            <div class="col-9">
+            <div class="col-12">
               <div class="row">
                 <div class="form-group col">
                   <label for="surname">Прізвище</label>

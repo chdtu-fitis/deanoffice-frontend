@@ -17,12 +17,13 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   form: FormGroup;
   model: Student;
   id: string;
-  photo;
-  newPhoto;
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private studentService: StudentService, private sanitizer: DomSanitizer) {
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+  ) {
     super();
   }
 
@@ -32,14 +33,11 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       this.buildForm();
       this.modal.show();
     });
-    this.studentService.getPhoto(id).subscribe(photo => {
-      this.photo = photo;
-    })
   }
 
   buildForm() {
     this.form = this.fb.group({
-      photo: '',
+      photoUrl: this.model.photoUrl,
       name: [this.model.name, Validators.required],
       surname: [this.model.surname, Validators.required],
       patronimic: [this.model.patronimic, Validators.required],
@@ -64,12 +62,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     });
   }
 
-  onLoadPhoto(photo: File) {
-    this.newPhoto = photo;
-  }
-
   hideModal() {
-    this.photo = null;
     this.modal.hide();
   }
 
@@ -79,9 +72,6 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       return;
     }
     const { id } = this.model;
-    if (this.newPhoto) {
-      this.studentService.updatePhoto(id, this.newPhoto).subscribe();
-    }
     this.studentService.updateStudent(Object.assign(this.form.value, { id }))
       .subscribe(() => {
         this.onSubmit.emit();
