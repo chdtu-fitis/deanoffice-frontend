@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DomSanitizer} from '@angular/platform-browser';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';

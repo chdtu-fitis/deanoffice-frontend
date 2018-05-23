@@ -36,6 +36,18 @@
             <app-validation-errors [control]="form.controls.studentGroupId"></app-validation-errors>
           </div>
           <div class="form-group col-6">
+            <label for="orderNumber">Номер наказу</label>
+            <input formControlName="orderNumber" class="form-control" id="orderNumber"
+                   [appValidation]="form.controls.orderNumber">
+            <app-validation-errors [control]="form.controls.orderNumber"></app-validation-errors>
+          </div>
+          <div class="form-group col-6">
+            <label for="orderDate">Дата наказу</label>
+            <input type="date" formControlName="orderDate" class="form-control" id="orderDate"
+                   [appValidation]="form.controls.orderDate">
+            <app-validation-errors [control]="form.controls.orderDate"></app-validation-errors>
+          </div>
+          <div class="form-group col-6">
             <label for="renewDate">Дата поновлення</label>
             <input type="date" formControlName="renewDate" class="form-control" id="renewDate"
                    [appValidation]="form.controls.renewDate">
