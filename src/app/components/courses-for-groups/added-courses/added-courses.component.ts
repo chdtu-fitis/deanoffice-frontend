@@ -20,6 +20,7 @@ export class AddedCoursesComponent implements OnInit {
   coursesForGroupForDelete: CourseForGroup[] = [];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
+  @Input() changesExistence: boolean;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();

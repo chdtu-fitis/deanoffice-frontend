@@ -20,6 +20,7 @@ import {TeacherDialogComponent} from "./teacher-dialog/teacher-dialog.component"
   providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
+  cnangesExistence: boolean = false;
   indexForDate: number;
   groups: StudentGroup[];
   selectedGroup: StudentGroup;
@@ -108,6 +109,7 @@ export class CoursesForGroupsComponent implements OnInit {
       for (let deletedCourse of this.coursesForDelete) {
         for (let course of this.coursesForGroup) {
           if (deletedCourse.course.id == course.course.id && deletedCourse.id) {
+            this.cnangesExistence = true;
             this.deleteCoursesIds.push(deletedCourse.id);
             this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
             this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
@@ -133,7 +135,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.selectedCourses = event;
   }
 
-  checkIfAddedCourseIsInDeleted(addedCourse){
+  checkIfAddedCourseIsInDeleted(addedCourse) {
     let courseIsDeleted = false;
     for (let deletedCourseId of this.deleteCoursesIdsForCheck) {
       if (deletedCourseId === addedCourse.id) {
@@ -190,9 +192,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   addCourse(add: boolean, newCourseForGroup: CourseForGroup, isDeleted: boolean) {
-    if (isDeleted){
+    this.cnangesExistence = true;
+    if (isDeleted) {
       let id = newCourseForGroup.id;
-      this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id),1)
+      this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id), 1)
     }
     else this.coursesForAdd.push(newCourseForGroup);
     this.coursesForGroup.push(newCourseForGroup);
@@ -262,6 +265,7 @@ export class CoursesForGroupsComponent implements OnInit {
           this.showErrorAlert('Невідома помилка при сбереженні');
         }
       });
+    this.cnangesExistence = false;
   }
 
   refresh() {
@@ -275,6 +279,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.child.coursesForGroup = [];
     this.selectedCourses = [];
     this.studiedCoursesChild.selectedCourses = [];
+    this.cnangesExistence = false;
   }
 
   onCourseCreation() {
@@ -303,7 +308,10 @@ export class CoursesForGroupsComponent implements OnInit {
         isAdded = true;
       }
     }
-    if (!isAdded) this.updatedCourses.push(event);
+    if (!isAdded){
+      this.cnangesExistence = true;
+      this.updatedCourses.push(event);
+    }
     for (let course of this.coursesForGroup) {
       if (course.course.id === event.course.id) course.teacher = event.teacher;
     }
@@ -322,6 +330,7 @@ export class CoursesForGroupsComponent implements OnInit {
           }
         }
         if (!isAdded) {
+          this.cnangesExistence = true;
           if (course.teacher == undefined) {
             let teacher = new Teacher();
             course.teacher = teacher;
@@ -333,6 +342,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   copyCourses() {
+    this.cnangesExistence = true;
     const modalRef = this.modalService.open(CopyCoursesDialogComponent);
     modalRef.componentInstance.groups = this.groups;
     modalRef.componentInstance.semester = this.selectedSemester;

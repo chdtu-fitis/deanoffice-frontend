@@ -19,8 +19,7 @@ export class StudiedCoursesComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
     if (!checked) {
