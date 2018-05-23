@@ -9,7 +9,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body" *ngIf="model">
+      <div class="modal-body" *ngIf="model && form">
         <h5 class="mb-3">Студент: {{model.surname}} {{model.name}} {{model.patronimic}}</h5>
         <form [formGroup]="form" novalidate>
           <tabset formArrayName="degrees">
@@ -26,7 +26,12 @@
                       {{group.name}}
                     </option>
                   </select>
-                  <input *ngIf="!model.degrees[i].active" class="form-control" [value]="model.degrees[i].studentGroup.name" [disabled]="true">
+                  <input
+                    *ngIf="!model.degrees[i].active"
+                    class="form-control"
+                    [value]="getStudentGroup(i)?.name"
+                    [disabled]="true"
+                  >
                   <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
                 <div class="form-group col">
