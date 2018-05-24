@@ -43,7 +43,7 @@ export class StudentsTableComponent {
 
     return ['selected', ...array].map(prop => {
       let col = templatesMap[prop];
-      if (prop.match(/Date/)) {
+      if (prop.match(/date/i)) {
         col = {cellTemplate: this.dateTemplate};
       }
       return { prop, name: translations[prop], ...col };
