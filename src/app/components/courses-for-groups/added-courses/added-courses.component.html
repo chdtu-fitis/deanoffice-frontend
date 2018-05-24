@@ -29,7 +29,7 @@
           <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"
                      (change)="dateChange(i)" *ngIf="course.course.knowledgeControl.name==='іспит'">
           </td>
-          <td (click)="changeCourse(course.course)">
+          <td (click)="changeCourse(course)">
             <button type="button" class="btn btn-outline-info" [disabled]="changesExistence">Редагувати курс</button>
           </td>
         </tr>
