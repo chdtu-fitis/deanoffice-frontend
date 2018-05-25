@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
@@ -8,6 +8,7 @@ import {DegreeService} from '../../../services/degree.service';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
+import {TabDirective, TabsetComponent} from "ngx-bootstrap";
 
 @Component({
   selector: 'specialization-form',
@@ -18,6 +19,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
+  @ViewChild('tabset') tabset: TabsetComponent;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,12 +47,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadNameEng: '',
       educationalProgramHeadInfo: '',
       educationalProgramHeadInfoEng: '',
-      knowledgeAndUnderstandingOutcomes: '',
-      knowledgeAndUnderstandingOutcomesEng: '',
-      applyingKnowledgeAndUnderstandingOutcomes: '',
-      applyingKnowledgeAndUnderstandingOutcomesEng: '',
-      makingJudgementsOutcomes: '',
-      makingJudgementsOutcomesEng: ''
     });
   }
 
@@ -93,13 +89,18 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   reset() {
+    this.selectTap(0);
     this.form.reset();
+  }
+
+  selectTap(tabIndex: number): void {
+    this.tabset.tabs[tabIndex].active = true;
   }
 
   invalid(): boolean {
     super.submit();
     if (this.form.invalid) {
-      alert('Перевірте правильність вводу даних');
+      alert('Перевірте введені дані на правильність');
     }
     return this.form.invalid;
   }

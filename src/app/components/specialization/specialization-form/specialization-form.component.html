@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <tabset>
+  <tabset #tabset>
     <tab heading="Загальна інформація">
       <div class="row">
         <div class="col-6">
@@ -104,52 +104,6 @@
           </textarea>
           <!--<app-validation-errors-->
             <!--[control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>-->
-        </div>
-      </div>
-    </tab>
-
-    <tab heading="Знання та навички">
-      <div class="row">
-        <div class="form-group col-6">
-          <label for="knowledgeAndUnderstandingOutcomes">Знання та розуміння</label>
-          <textarea formControlName="knowledgeAndUnderstandingOutcomes" type="text" class="form-control ta-3l"
-                    id="knowledgeAndUnderstandingOutcomes"></textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="knowledgeAndUnderstandingOutcomesEng">Знання та розуміння англ.</label>
-          <textarea formControlName="knowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l" id="knowledgeAndUnderstandingOutcomesEng">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="applyingKnowledgeAndUnderstandingOutcomes">Застосування знань та розумінь</label>
-          <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomes" type="text"
-                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomes">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label
-            for="applyingKnowledgeAndUnderstandingOutcomesEng">Застосування знань та розумінь англ.</label>
-          <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomesEng">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="makingJudgementsOutcomes">Формування суджень</label>
-          <textarea formControlName="makingJudgementsOutcomes" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomes">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="makingJudgementsOutcomesEng">Формування суджень англ.</label>
-          <textarea formControlName="makingJudgementsOutcomesEng" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomesEng">
-          </textarea>
         </div>
       </div>
     </tab>
