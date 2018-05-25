@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Grade} from '../../../../models/Grade';
 
 @Component({
@@ -6,39 +6,71 @@ import {Grade} from '../../../../models/Grade';
     templateUrl: './grade-statement-table.component.html',
     styleUrls: ['./grade-statement-table.component.scss']
 })
-export class GradeStatementTableComponent implements OnInit {
-    @Input() studentsDegree: any;
-    @Input() courseId = 0;
-    @Input() onTime: boolean;
+export class GradeStatementTableComponent {
+    @Input() studentsDegree;
+    @Input() selectedCourse: any;
+    @Input() onTime = false;
     @Output() setGrade = new EventEmitter();
     @Output() error = new EventEmitter();
 
-    ngOnInit() {
+    isCorrectGrade(studentDegree: any): any {
+        return {
+            'notCorrect': !studentDegree.grade.empty &&
+            (studentDegree.grade.points < 60 || studentDegree.grade.points > 100)
+        };
     }
 
-    setUpdateGrades(grade: Grade): void {
-        this.setGrade.emit(grade);
+    setUpdateGrades(studentDegree: any): any {
+        return this.setGrade.emit({studentDegree, onTime: this.onTime});
     }
 
     changeOnTime(studentId: number) {
-        this.studentsDegree[studentId].grades[this.courseId].onTime = !this.studentsDegree[studentId].grades[this.courseId].onTime;
-        this.setUpdateGrades(this.studentsDegree[studentId].grades[this.courseId]);
+        this.studentsDegree[studentId].grade.onTime = !this.studentsDegree[studentId].grade.onTime;
+        this.setUpdateGrades(this.studentsDegree[studentId]);
     }
 
-    getElementId(studentId: number): string {
-        return `grade${studentId}id`;
+    nextCell(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {
+        if (e.keyCode === 13) {
+            const studentDegreeIndex = this.studentsDegree.findIndex(studentDegree => {
+                return studentDegree.id === studentDegreeId;
+            });
+            this.editGrade(studentDegreeId, studentId, grade, e);
+            if (this.studentsDegree.length > studentDegreeIndex + 1) {
+                this.focusElement(this.studentsDegree[studentDegreeIndex + 1].id);
+            }
+        }
     }
 
-    editGrade(studentId: number): void {
-        const id = this.getElementId(studentId);
-        const grade = this.studentsDegree[studentId].grades[this.courseId];
-        if (grade.points > 100 || grade.points < 0 || !grade.points) {
-            this.updateVisible(id, 'bg-danger');
+    focusElement(studentDegreeId: number): any {
+        const id = this.getElementId(studentDegreeId);
+        try {
+            document.getElementById(id).focus();
+        } catch (e) {
+        }
+    }
+
+    getElementId(studentDegreeId: number): string {
+        return `id${studentDegreeId}${this.selectedCourse.course.id}`;
+    }
+
+    editGrade(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {
+        const elementId = this.getElementId(studentDegreeId);
+        const studentDegree = this.studentsDegree[studentId];
+        const points = Number(e.srcElement.value);
+        if (points > 100 || points < 0 || !points) {
+            this.updateVisible(elementId, 'bg-danger');
             this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
         } else {
             this.setError('');
-            this.setUpdateGrades(grade);
-            this.updateVisible(id, 'bg-warning');
+            if (studentDegree.grade.points !== points) {
+                if (!studentDegree.grade.points) {
+                    studentDegree.grade.onTime = true;
+                }
+                studentDegree.grade.points = points;
+                delete studentDegree.grade.empty;
+                this.setUpdateGrades(studentDegree);
+                this.updateVisible(elementId, 'bg-warning');
+            }
         }
     }
 

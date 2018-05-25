@@ -21,10 +21,10 @@ export class GradesTableComponent {
         this.grades = [];
     };
 
-    openModalStatement(courseId: number): void {
+    openStatement(selectedCourse: any): void {
         this.resetGrades();
-        this.statement.setCourse(courseId);
-        this.statement.modal.show();
+        this.statement.setSelectedCourse(selectedCourse);
+        this.statement.openModalAndUpdateGradesForCourse();
     }
 
     nextCell(e: any, studentId: number, gradeId: number): void {
@@ -49,13 +49,15 @@ export class GradesTableComponent {
         return `grade${studentId}${gradeId}id`;
     }
 
-    editGrade(grade: Grade, studentId: number, gradeId: number): void {
+    editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
         const id = this.getElementId(studentId, gradeId);
-        if (grade.points > 100 || grade.points < 0 || !grade.points) {
+        const points = Number(e.srcElement.value);
+        if (points > 100 || points < 0 || !points) {
             this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
             this.updateVisible(id, 'bg-danger');
         } else {
             this.setError('');
+            grade.points = points;
             this.addGradeForUpdate(grade);
             this.updateVisible(id, 'bg-warning');
         }
@@ -67,12 +69,17 @@ export class GradesTableComponent {
     }
 
     addGradeForUpdate(grade): void {
-        const updateGradeId = this.statement.findGrade(this.grades, grade);
+        const findGrade = g => {
+            return g.studentDegreeId === grade.studentDegreeId &&
+                g.courseId === grade.courseId
+        };
+        const updateGradeId = this.grades.findIndex(findGrade);
         if (updateGradeId >= 0) {
             this.grades[updateGradeId].points = grade.points;
         } else {
             this.grades.push(grade);
         }
+        console.log(this.grades);
         this.gradesUpdate.emit(this.grades);
     }
 

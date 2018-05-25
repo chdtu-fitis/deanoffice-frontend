@@ -10,16 +10,11 @@ export class GradesPanelComponent {
     @Output() changeGroup = new EventEmitter();
     @Output() changeSemester = new EventEmitter();
     @Output() sendRequestGetGrades = new EventEmitter();
-    @Output() reloadGroupList = new EventEmitter();
     autoSemesterSelect = true;
     selectGroup: any = false;
     studySemesters = 10;
     selectSemester = 1;
     degree = 1;
-
-    reloadGroups(): void {
-        this.reloadGroupList.emit();
-    }
 
     toggleSemester(): void {
         this.setSelectedSemester();

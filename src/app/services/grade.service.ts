@@ -19,6 +19,12 @@ export class GradeService {
         );
     }
 
+    public getGradesByGroupIdAndCourseId(groupId: number, courseId: number): Observable<Grade[]> {
+        return this.http.get<Grade[]>(`${this.url}/${groupId}/${courseId}`).pipe(
+            catchError(this.handleError('getGradesByGroupIdAndCourseId', []))
+        );
+    }
+
     public updateGrades(grades): Observable<Grade[]> {
         return this.http.put<Grade[]>(`${this.url}/`, grades).pipe(
             catchError(this.handleError('updateGrades', []))

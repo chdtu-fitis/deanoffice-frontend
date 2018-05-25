@@ -4,7 +4,10 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{courses[selectedCourseId]?.course.courseName.name || 'Не було обрано предмет!'}}</h5>
+                <h6 class="modal-title">
+                    {{selectedCourse?.course.courseName.name || 'Не було обрано предмет!'}}
+                    ({{selectedCourse?.course.knowledgeControl.name}})
+                </h6>
                 <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,27 +16,29 @@
                 {{ error }}
             </div>
             <div class="modal-body">
-                <div>
-                    <h5 class="card-title">Вiдомiсть</h5>
-                    <app-grade-statement-table [studentsDegree]="studentsDegree"
-                                               [courseId]="selectedCourseId"
+                <div *ngIf="statement.length && loadingGrades">
+                    <h6 class="card-title">Вiдомiсть</h6>
+                    <app-grade-statement-table [studentsDegree]="statement"
+                                               [selectedCourse]="selectedCourse"
                                                [onTime]="true"
-                                               (setGrade)="setUpdateGrade($event);"
+                                               (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
-                <div>
-                    <h5 class="card-title">Зведена вiдомiсть</h5>
-                    <app-grade-statement-table [studentsDegree]="studentsDegree"
-                                               [courseId]="selectedCourseId"
-                                               [onTime]="false"
-                                               (setGrade)="setUpdateGrade($event);"
+                <div *ngIf="passedOnTime.length && loadingGrades">
+                    <h6 class="card-title">{{!statement.length ? 'Вiдомiсть': 'Здали невчасно'}}</h6>
+                    <app-grade-statement-table [studentsDegree]="passedOnTime"
+                                               [selectedCourse]="selectedCourse"
+                                               (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger float-left" (click)="closeModal()">Закрити</button>
+                <button class="btn btn-outline-danger float-left"
+                        [disabled]="!updateGrades.length"
+                        (click)="cancelChanges()">Вiдмiнити змiни
+                </button>
                 <button class="btn btn-success float-right"
                         [disabled]="!updateGrades.length"
                         [ngClass]="{'btn-outline-secondary': !updateGrades.length}"

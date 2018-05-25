@@ -6,21 +6,20 @@
     </thead>
     <tbody>
     <ng-container *ngFor="let studentDegree of studentsDegree; let studentId=index">
-        <tr *ngIf="studentDegree.grades[courseId]?.onTime === onTime">
-
+        <tr>
             <td class="td-student">{{studentDegree.student.surname}}
                 {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
             </td>
-            <td [ngClass]="{ 'bg-danger' : studentDegree.grades[courseId]?.empty}">
-                <input type="number" [(ngModel)]="studentDegree.grades[courseId].points"
-                       [ngClass]="{'notCorrect': !studentDegree.grades[courseId]?.empty &&
-                                               (studentDegree.grades[courseId].points < 60 ||
-                                               studentDegree.grades[courseId].points >100),
-                                               'text-center align-middle': true}"
-                       (change)="editGrade(studentId, courseId)"
-                       id="grade{{studentId}}id"/>
+            <td [ngClass]="{ 'bg-danger' : studentDegree.grade?.empty}">
+                <input type="number"
+                       [ngClass]="isCorrectGrade(studentDegree)"
+                       class="text-center align-middle"
+                       [value] ="studentDegree.grade.points"
+                       (change)="editGrade(studentDegree.id, studentId, studentDegree.grade, $event)"
+                       (keyup)="nextCell(studentDegree.id, studentId, studentDegree.grade, $event)"
+                       id="id{{studentDegree.id}}{{selectedCourse.course.id}}"/>
             </td>
-            <td>
+            <td *ngIf="studentDegree.grade.points || studentDegree.grade.onTime">
                 <button class="btn btn-sm float-right" (click)="changeOnTime(studentId)" [ngClass]="{'btn-danger' : onTime,
                 'btn-success': !onTime}">{{ onTime? 'Невчасно':'Вчасно' }}
                 </button>

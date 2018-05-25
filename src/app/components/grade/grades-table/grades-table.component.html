@@ -1,5 +1,6 @@
 <app-grades-statement #statement
                       [courses]="courses"
+                      [selectGroup]="selectGroup"
                       [studentsDegree]="studentsDegree"
                       (sendGrades)="updateGradesByStatement($event)"
                       (resetGradesForTable)="resetGrades()">
@@ -12,8 +13,8 @@
         <td>{{selectGroup?.name}}<br>
             Семестр: {{ selectSemester }}
         </td>
-        <td *ngFor="let course of courses; let courseId = index" scope="row" class="btn-courses"
-            (click)="openModalStatement(courseId)">
+        <td *ngFor="let course of courses" scope="row" class="btn-courses"
+            (click)="openStatement(course)">
             {{course.course.courseName?.name}} ({{ course.course.knowledgeControl.name }})
         </td>
     </tr>
@@ -26,9 +27,9 @@
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
             <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}">
-                <input type="number" [(ngModel)]="grade.points"
-                       (change)="editGrade(grade, studentId, gradeId)"
-                       (keyup)="nextCell($event, studentId, gradeId)"
+                <input type="number" [value]="grade.points"
+                       (change)="editGrade(grade, studentId, gradeId, $event)"
+                       (keyup)="nextCell($event, studentId, gradeId);"
                        id="grade{{studentId}}{{gradeId}}id"
                        [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
             </td>
