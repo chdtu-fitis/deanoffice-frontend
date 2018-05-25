@@ -2,10 +2,9 @@ import {Injectable} from '@angular/core';
 import {StudentGroup} from '../models/StudentGroup';
 import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs/observable/of';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {StudentDegree} from "../models/StudentDegree";
+import {HandleError} from '../components/shared/httpErrors';
 
 @Injectable()
 export class GroupService {
@@ -15,42 +14,21 @@ export class GroupService {
   constructor(private http: HttpClient) {
   }
 
-  getGroups(): Observable<StudentGroup[]> {
-    return this.http.get<StudentGroup[]>(`${this.groupsUrl}`);
+  getGroups(onlyActual: boolean = true): Observable<StudentGroup[]> {
+    const params = new HttpParams().set('only-active', onlyActual.toString());
+    return this.http.get<StudentGroup[]>(`${this.groupsUrl}`, {params: params})
+      .pipe(catchError(HandleError.forObservable('Отримання груп', [])));
   }
 
   getGroupsByDegree(degreeId: string): Observable<StudentGroup[]> {
     const url = `${this.groupsByDegreeUrl}?degreeId=${degreeId}`;
     return this.http.get<StudentGroup[]>(url)
-      .pipe(
-        catchError(this.handleError('getGroupsByDegree', []))
-      );
+      .pipe(catchError(HandleError.forObservable('Отримання груп за освітньо-кваліфікаційним рівнем', [])));
   }
 
   getGroupsByDegreeAndYear(degreeId: number, year: number): Observable<StudentGroup[]> {
     const url = `${this.groupsUrl}/filter?degreeId=${degreeId}&year=${year}`;
     return this.http.get<StudentGroup[]>(url)
-      .pipe(
-        catchError(this.handleError('getGroupsByDegree', []))
-      );
+      .pipe(catchError(HandleError.forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
   }
-
-  getGroupsByFaculty(): Observable<StudentGroup[]> {
-    return this.http.get<StudentGroup[]>(`${environment.apiUrl}/groups`)
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
-      return of(result as T);
-    }
-  }
-
 }

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
@@ -23,6 +22,14 @@ import {StudentsInVacationComponent} from './students-in-vacation/students-in-va
 import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
+import {PipeModule} from '../../pipes/pipe.module';
+import {RouterModule, Routes} from '@angular/router';
+
+export const studentRoutes: Routes = [
+  {path: '', component: StudentsComponent},
+  {path: 'expelled', component: ExpelledStudentsComponent},
+  {path: 'in-vacation', component: StudentsInVacationComponent}
+];
 
 @NgModule({
   declarations: [
@@ -46,15 +53,13 @@ import {StudentAcademicVacationComponent} from './student-academic-vacation/stud
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FormsModule,
     SharedModule,
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
-  ],
+    RouterModule.forChild(studentRoutes),
+    PipeModule
+  ]
 })
-
-export class StudentsModule {
-}
+export class StudentsModule {}

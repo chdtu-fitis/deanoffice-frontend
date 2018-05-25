@@ -11,7 +11,7 @@
           type="text"
           class="form-control mr-2 ng-pristine ng-valid ng-touched"
           [ngbTypeahead]="search"
-          [(ngModel)] = "course.courseName"
+          [(ngModel)]="course.courseName"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
           (change)="checkCourseName($event.target.value)"
@@ -23,10 +23,12 @@
     </div>
     <div class="row">
       <div class="form-group col-2">
-        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched " [(ngModel)] = "course.hours"  placeholder="Годин" >
+        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched "
+               [(ngModel)]="course.hours" placeholder="Годин">
       </div>
       <div class="form-group col-3">
-        <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.semester"  placeholder="Семестр" >
+        <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+               [(ngModel)]="course.semester" placeholder="Семестр">
       </div>
       <div class="form-group col-3">
         <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="course.hoursPerCredit">
@@ -35,7 +37,9 @@
         </select>
       </div>
       <div class="form-group col-4">
-        <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)] = "course.knowledgeControl">
+        <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="course.knowledgeControl">
+          <option value="">Виберіть</option>
           <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
         </select>
       </div>
@@ -44,15 +48,6 @@
       <div class="col">
         <button class="btn btn-success" (click)="createCourse()">Створити</button>
       </div>
-    </div>
-    <div *ngIf="success" class="alert alert-success">
-      Створено
-    </div>
-    <div *ngIf="failCreated" class="alert alert-danger">
-      Такий предмет вже створено
-    </div>
-    <div *ngIf="fail" class="alert alert-danger">
-      Невідома помилка
     </div>
   </div>
 </div>

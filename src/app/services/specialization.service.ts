@@ -28,4 +28,15 @@ export class SpecializationService {
     return this.httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
   }
+
+  getById(sourceId: number): Observable<Specialization> {
+    return this.httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
+      .pipe(catchError(HandleError.forObservable('Отриманная спеціалізації по Id', [])))
+      .map(data => data as Specialization)
+  }
+
+  update(body: Specialization): Promise<any> {
+    return this.httpClient.put(SPECIALIZATION_URL, body).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
+  }
 }
