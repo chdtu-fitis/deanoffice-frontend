@@ -7,9 +7,10 @@ import {CourseName} from "../../../models/CourseName";
 import {StudentGroup} from '../../../models/StudentGroup';
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
-import {Course} from "../../../models/Course";
 import {CourseForGroupService} from "../../../services/course-for-group.service";
 import {CourseForGroup} from "../../../models/CourseForGroup";
+import {FormGroup} from "@angular/forms";
+import {Course} from "../../../models/Course";
 
 @Component({
   selector: 'edit-dialog',
@@ -18,10 +19,9 @@ import {CourseForGroup} from "../../../models/CourseForGroup";
   providers: [CourseService, KnowledgeControlService, CourseForGroupService]
 })
 export class EditDialogComponent implements OnInit {
-  @Input() selectedGroup: StudentGroup;
-  @Input() oldCourse: CourseForGroup;
-  newCourse: CourseForGroup;
-  form;
+  @Input() selectedGroup: StudentGroup = new StudentGroup();
+  @Input() course: CourseForGroup = new CourseForGroup();
+  form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
   @ViewChild('instance') instance: NgbTypeahead;
@@ -31,14 +31,15 @@ export class EditDialogComponent implements OnInit {
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
-              public activeModal: NgbActiveModal) {}
+              public activeModal: NgbActiveModal) {
+  }
 
   ngOnInit() {
-    this.knowledgeControlService.getAll().subscribe(kc => {
-      this.knowledgeControl = kc;
-    });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+    });
+    this.knowledgeControlService.getAll().subscribe(kc => {
+      this.knowledgeControl = kc;
     });
   }
 
@@ -59,23 +60,32 @@ export class EditDialogComponent implements OnInit {
     else {
       let courseName = new CourseName();
       courseName.name = name;
-      this.newCourse.course.courseName = courseName;
+      this.course.course.courseName = courseName;
     }
   }
 
-  canselChanges(){
-    console.log(this.newCourse);
-    this.newCourse = new CourseForGroup();
+  canselChanges() {
     this.activeModal.close('Close click')
   }
 
-  saveChanges(){
-    console.log(this.newCourse);
+  saveChanges() {
+    let newCourse = new Course();
+    newCourse.courseName = this.course.course.courseName;
+    newCourse.semester = this.course.course.semester;
+    newCourse.hours = this.course.course.hours;
+    newCourse.hoursPerCredit = this.course.course.hoursPerCredit;
+    newCourse.credits = newCourse.hours/newCourse.hoursPerCredit;
+    console.log(this.selectedGroup.id, {
+      courseForGroupId: this.course.id,
+      oldCourseId: this.course.course.id,
+      newCourse: newCourse
+    });
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
-      oldCourse: this.oldCourse,
-      newCourse: this.newCourse
+      courseForGroupId: this.course.id,
+      oldCourseId: this.course.course.id,
+      newCourse: newCourse
     }).subscribe(() => {
-      this.newCourse = new CourseForGroup();
+      this.course = new CourseForGroup();
     });
     this.activeModal.close('Close click')
   }

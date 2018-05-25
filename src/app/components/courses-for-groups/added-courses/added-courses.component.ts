@@ -71,6 +71,7 @@ export class AddedCoursesComponent implements OnInit {
 
   changeCourse(course) {
     const modalRef = this.modalService.open(EditDialogComponent, { centered: true });
-    modalRef.componentInstance.oldCourse = course;
+    modalRef.componentInstance.course = course;
+    modalRef.componentInstance.selectedGroup = this.selectedGroup;
   }
 }
