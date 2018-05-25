@@ -13,23 +13,20 @@
         <form [formGroup]="form" *ngIf="model">
           <h6 class="mb-3">Особиста інформація</h6>
           <div class="row">
-            <div class="col-3">
-              <app-photo-upload [photo]="photo" (onLoad)="onLoadPhoto($event)"></app-photo-upload>
-            </div>
-            <div class="col-9">
+            <div class="col-12">
               <div class="row">
                 <div class="form-group col">
-                  <label for="surname">Прізвище</label>
+                  <label for="surname" class="required">Прізвище</label>
                   <input formControlName="surname" class="form-control" id="surname" [appValidation]="form.controls.surname">
                   <app-validation-errors [control]="form.controls.surname"></app-validation-errors>
                 </div>
                 <div class="form-group col">
-                  <label for="name">Ім'я</label>
+                  <label for="name" class="required">Ім'я</label>
                   <input formControlName="name" class="form-control" id="name" [appValidation]="form.controls.name">
                   <app-validation-errors [control]="form.controls.name"></app-validation-errors>
                 </div>
                 <div class="form-group col">
-                  <label for="patronimic">По-батькові</label>
+                  <label for="patronimic" class="required">По-батькові</label>
                   <input formControlName="patronimic" class="form-control" id="patronimic" [appValidation]="form.controls.patronimic">
                   <app-validation-errors [control]="form.controls.patronimic"></app-validation-errors>
                 </div>
@@ -53,7 +50,7 @@
               </div>
               <div class="row">
                 <div class="form-group col" *ngIf="form.controls.sex">
-                  <label>Стать</label>
+                  <label class="required">Стать</label>
                   <div class="form-check">
                     <input formControlName="sex" [appValidation]="form.controls.sex"
                            class="form-check-input" type="radio" value="MALE" id="sex1">
@@ -67,7 +64,7 @@
                   <app-validation-errors [control]="form.controls.sex"></app-validation-errors>
                 </div>
                 <div class="form-group col">
-                  <label for="birthDate">Дата народження</label>
+                  <label for="birthDate" class="required">Дата народження</label>
                   <input formControlName="birthDate" type="date" class="form-control" id="birthDate" [appValidation]="form.controls.birthDate">
                   <app-validation-errors [control]="form.controls.birthDate"></app-validation-errors>
                 </div>
@@ -79,7 +76,7 @@
               </div>
             </div>
           </div>
-          <div class="row mt-4">
+          <div class="row">
             <div class="col">
               <h6 class="mb-3">Інформація про батьків</h6>
               <div class="row">
@@ -141,7 +138,7 @@
               </div>
             </div>
           </div>
-          <div class="form-group mt-4">
+          <div class="form-group">
             <label for="notes">Примітки</label>
             <input formControlName="notes" class="form-control" id="notes" [appValidation]="form.controls.notes">
             <app-validation-errors [control]="form.controls.notes"></app-validation-errors>

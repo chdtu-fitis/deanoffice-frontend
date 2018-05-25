@@ -24,10 +24,6 @@ export class StudentService {
     return this.http.get<Student>(`${this.url}/${id}`);
   }
 
-  getPhoto(id: number) {
-    return this.http.get(`${this.url}/${id}/photo`, { responseType: 'blob' });
-  }
-
   getDegreesByStudentId(id: number): Observable<StudentDegree> {
     return this.http.get<StudentDegree>(`${this.url}/${id}/degrees/`);
   }
@@ -64,10 +60,6 @@ export class StudentService {
 
   updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]) {
     return this.http.put(`${this.url}/${id}/degrees/`, degrees);
-  }
-
-  updatePhoto(id: number, photo) {
-    return this.http.put(`${this.url}/${id}/photo`, photo);
   }
 
   expelStudents(studentDegrees: any[]) {

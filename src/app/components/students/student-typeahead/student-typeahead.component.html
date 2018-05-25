@@ -1,20 +1,17 @@
-<div class="form-group">
-  <label for="typeahead">ПІБ студента</label>
-  <input [(ngModel)]="val"
-         [typeahead]="dataSource"
-         (typeaheadOnSelect)="onSelect($event)"
-         [typeaheadScrollable]="true"
-         [typeaheadOptionsInScrollableView]="5"
-         [typeaheadWaitMs]="500"
-         [typeaheadMinLength]="3"
-         [typeaheadItemTemplate]="template"
-         class="form-control"
-         id="typeahead"
-         [appValidation]="control"
-         autocomplete="off"
-  >
-  <app-validation-errors [control]="control" [messages]="errorMessages"></app-validation-errors>
-</div>
+<input [(ngModel)]="val"
+       [typeahead]="dataSource"
+       (typeaheadOnSelect)="onSelect($event)"
+       [typeaheadScrollable]="true"
+       [typeaheadOptionsInScrollableView]="5"
+       [typeaheadWaitMs]="500"
+       [typeaheadMinLength]="3"
+       [typeaheadItemTemplate]="template"
+       class="form-control"
+       [id]="id"
+       [appValidation]="control"
+       autocomplete="off"
+>
+<app-validation-errors [control]="control" [messages]="errorMessages"></app-validation-errors>
 
 <ng-template #template let-model="item" let-index="index">
   <div class="py-2">

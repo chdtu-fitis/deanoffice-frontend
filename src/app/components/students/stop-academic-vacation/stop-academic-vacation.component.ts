@@ -26,6 +26,8 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
   ) {
     super();
     this.form = this.fb.group({
+      orderNumber: ['', Validators.required],
+      orderDate: ['', Validators.required],
       payment: ['', Validators.required],
       renewDate: ['', Validators.required],
       applicationDate: ['', Validators.required],
