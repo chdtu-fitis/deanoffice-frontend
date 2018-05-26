@@ -15,6 +15,7 @@
         </h5>
         <form [formGroup]="form" novalidate class="row">
           <div class="form-group col-6">
+            <label class="required">Форма навчання</label>
             <div class="form-check">
               <input formControlName="payment" [appValidation]="form.controls.payment"
                      class="form-check-input" type="radio" value="BUDGET" id="payment1">
@@ -28,7 +29,7 @@
             <app-validation-errors [control]="form.controls.payment"></app-validation-errors>
           </div>
           <div class="form-group col-6">
-            <label for="group">Група</label>
+            <label for="group" class="required">Група</label>
             <select formControlName="studentGroupId" class="form-control" id="group"
                     [appValidation]="form.controls.studentGroupId">
               <option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>
@@ -36,13 +37,25 @@
             <app-validation-errors [control]="form.controls.studentGroupId"></app-validation-errors>
           </div>
           <div class="form-group col-6">
-            <label for="renewDate">Дата поновлення</label>
+            <label for="orderNumber" class="required">Номер наказу</label>
+            <input formControlName="orderNumber" class="form-control" id="orderNumber"
+                   [appValidation]="form.controls.orderNumber">
+            <app-validation-errors [control]="form.controls.orderNumber"></app-validation-errors>
+          </div>
+          <div class="form-group col-6">
+            <label for="orderDate" class="required">Дата наказу</label>
+            <input type="date" formControlName="orderDate" class="form-control" id="orderDate"
+                   [appValidation]="form.controls.orderDate">
+            <app-validation-errors [control]="form.controls.orderDate"></app-validation-errors>
+          </div>
+          <div class="form-group col-6">
+            <label for="renewDate" class="required">Дата поновлення</label>
             <input type="date" formControlName="renewDate" class="form-control" id="renewDate"
                    [appValidation]="form.controls.renewDate">
             <app-validation-errors [control]="form.controls.renewDate"></app-validation-errors>
           </div>
           <div class="form-group col-6">
-            <label for="applicationDate">Дата заяви</label>
+            <label for="applicationDate" class="required">Дата заяви</label>
             <input type="date" formControlName="applicationDate" class="form-control" id="applicationDate"
                    [appValidation]="form.controls.applicationDate">
             <app-validation-errors [control]="form.controls.applicationDate"></app-validation-errors>

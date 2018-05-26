@@ -1,0 +1,22 @@
+<div class="position-relative w-100 h-100">
+  <loading class="center-a" *ngIf="loading"></loading>
+
+  <ngx-datatable
+    #table
+    *ngIf="!loading"
+    [rows]="rows"
+    class="material"
+    [columns]="columns"
+    [columnMode]="'force'"
+    [rowHeight]="'auto'"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="false"
+    [rowIdentity]="getRowIdentity"
+    [messages]="{ emptyMessage: 'Дані відсутні.' }"
+    (select)="select($event)"
+    (activate)="activate($event)"
+    [selected]="selected"
+    [sortType]="'multi'"
+    [trackByProp]="'id'"
+  ></ngx-datatable>
+</div>

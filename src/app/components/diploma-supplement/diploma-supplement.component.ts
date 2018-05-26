@@ -5,7 +5,7 @@ import {GroupService} from '../../services/group.service';
 import {StudentGroup} from '../../models/StudentGroup';
 import {StudentService} from '../../services/student.service';
 import {StudentDegree} from '../../models/StudentDegree';
-import {DiplomaSupplementService} from "../../services/diploma-supplement.service";
+import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 
 @Component({
   selector: 'diploma-supplement',
@@ -19,7 +19,9 @@ export class DiplomaSupplementComponent implements OnInit {
   students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
-  gradePercentLoading: boolean;
+  supplementLoading = false;
+  gradePercentLoading = false;
+  gradesTableReportLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
@@ -57,8 +59,11 @@ export class DiplomaSupplementComponent implements OnInit {
   onFormSupplement(): void {
     this.message = '';
     for (let student of this.students) {
+      this.supplementLoading = true;
       if (student.selected){
-        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id);
+        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
+          this.supplementLoading = false;
+        });
       }
     }
   }
@@ -68,6 +73,14 @@ export class DiplomaSupplementComponent implements OnInit {
     this.gradePercentLoading = true;
     this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
         this.gradePercentLoading = false;
+      }
+    );
+  }
+
+  onFullGradesTableReport(): void {
+    this.gradesTableReportLoading = true;
+    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
+        this.gradesTableReportLoading = false;
       }
     );
   }

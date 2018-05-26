@@ -13,12 +13,13 @@
         <tabset>
           <tab heading="Зарахувати існуючого" (select)="selectTab(tabs.Existing)">
             <form class="mt-3" [formGroup]="form" novalidate *ngIf="activeTab === tabs.Existing">
-              <div formGroupName="student">
+              <div formGroupName="student" class="form-group">
+                <label for="typeahead" class="required">ПІБ студента</label>
                 <app-student-typeahead
+                  id="typeahead"
                   formControlName="id"
                   [control]="form.controls.student.controls.id"
-                  (onValueChange)="onSelectStudent($event)"
-                >
+                  (onValueChange)="onSelectStudent($event)">
                 </app-student-typeahead>
               </div>
               <ng-container *ngTemplateOutlet="commonFields"></ng-container>
@@ -29,19 +30,19 @@
             <form [formGroup]="form" class="mt-3" novalidate *ngIf="activeTab === tabs.New">
               <div formGroupName="student">
                 <div class="form-group">
-                  <label for="surname">Прізвище</label>
+                  <label for="surname" class="required">Прізвище</label>
                   <input formControlName="surname" class="form-control" id="surname"
                          [appValidation]="form.controls.student.controls.surname">
                   <app-validation-errors [control]="form.controls.student.controls.surname"></app-validation-errors>
                 </div>
                 <div class="form-group">
-                  <label for="name">Ім'я</label>
+                  <label for="name" class="required">Ім'я</label>
                   <input formControlName="name" class="form-control" id="name"
                          [appValidation]="form.controls.student.controls.name">
                   <app-validation-errors [control]="form.controls.student.controls.name"></app-validation-errors>
                 </div>
                 <div class="form-group">
-                  <label for="patronimic">По-батькові</label>
+                  <label for="patronimic" class="required">По-батькові</label>
                   <input formControlName="patronimic" class="form-control" id="patronimic"
                          [appValidation]="form.controls.student.controls.patronimic">
                   <app-validation-errors [control]="form.controls.student.controls.patronimic"></app-validation-errors>
@@ -64,7 +65,7 @@
   <div [formGroup]="form">
     <div class="row" formGroupName="student">
       <div class="form-group col-6" *ngIf="form.controls.student.controls.sex">
-        <label>Стать</label>
+        <label class="required">Стать</label>
         <div class="form-check">
           <input formControlName="sex" [appValidation]="form.controls.student.controls.sex"
                  class="form-check-input" type="radio" value="MALE" id="sex1">
@@ -78,7 +79,7 @@
         <app-validation-errors [control]="form.controls.student.controls.sex"></app-validation-errors>
       </div>
       <div class="form-group col-6">
-        <label for="birthDate">Дата народження</label>
+        <label for="birthDate" class="required">Дата народження</label>
         <input type="date" formControlName="birthDate" class="form-control" id="birthDate"
                [appValidation]="form.controls.student.controls.birthDate">
         <app-validation-errors [control]="form.controls.student.controls.birthDate"></app-validation-errors>
@@ -86,7 +87,7 @@
     </div>
     <div class="row">
       <div class="form-group col-6">
-        <label>Форма навчання</label>
+        <label class="required">Форма навчання</label>
         <div class="form-check">
           <input formControlName="payment" [appValidation]="form.controls.payment"
                  class="form-check-input" type="radio" value="BUDGET" id="payment1">
@@ -100,7 +101,7 @@
         <app-validation-errors [control]="form.controls.payment"></app-validation-errors>
       </div>
       <div class="form-group col-6">
-        <label for="group">Група</label>
+        <label for="group" class="required">Група</label>
         <select formControlName="studentGroupId" class="form-control" id="group"
                 [appValidation]="form.controls.studentGroupId">
           <option *ngFor="let group of groups" [ngValue]="group.id">{{group.name}}</option>

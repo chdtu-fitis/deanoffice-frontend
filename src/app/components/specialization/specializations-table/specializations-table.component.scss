@@ -1,0 +1,28 @@
+@import "../../../../styles";
+
+.center-a {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.item {
+  cursor: pointer;
+}
+.item:hover {
+  @extend .table-success;
+  filter: brightness(110%);
+}
+
+td {
+  padding: 2px;
+}
+
+input[type=checkbox] {
+  vertical-align: middle;
+}

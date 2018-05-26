@@ -1,11 +1,17 @@
-<div [@dialog] *ngIf="visible" class="dialog">
-  <h4 class="h4">Виберіть групу для копіювання</h4>
+<div class="modal-header">
+  <h4 class="modal-title">Виберіть групу для копіювання</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
   <div>
-    <input [(ngModel)]="searchText" placeholder="Пошук за групою" class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+    <input [(ngModel)]="searchText" placeholder="Пошук за групою"
+           class="form-control mr-2 ng-pristine ng-valid ng-touched search">
   </div>
   <ul class="list-group">
-    <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText" (click)="selectGroup(group)">{{group.name}}</li>
+    <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText"
+        (click)="selectGroup(group)">{{group.name}}
+    </li>
   </ul>
-  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 </div>
-<div *ngIf="visible" class="overlay" (click)="close()"></div>

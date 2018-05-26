@@ -34,10 +34,13 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
 
   buildForm() {
     this.form = this.fb.group({
-      degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) =>
-        this.fb.group({
+      degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) => {
+        return this.fb.group({
           id: [degree.id],
-          studentGroupId: [{value: degree.studentGroup.id, disabled: !degree.active}, Validators.required],
+          studentGroupId: [{
+            value: degree.studentGroup ? degree.studentGroup.id : '',
+            disabled: !degree.active
+          }, Validators.required],
           recordBookNumber: [this.getValue('recordBookNumber', degree)],
           studentCardNumber: [this.getValue('studentCardNumber', degree)],
           diplomaNumber: [this.getValue('diplomaNumber', degree)],
@@ -54,8 +57,12 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           payment: [this.getValue('payment', degree)],
           active: [degree.active],
         })
-      ))
+      }))
     });
+  }
+
+  getStudentGroup(i) {
+    return (this.model as any).degrees[i].studentGroup;
   }
 
   getValue(name: string, degree: StudentDegree) {

@@ -1,11 +1,14 @@
-<div [@dialog] *ngIf="visible" class="dialog">
-  <h1 class="h1">Викладачі</h1>
+<div class="modal-header">
+  <h4 class="modal-title">Викладачі</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
   <div>
     <input [(ngModel)]="searchText" placeholder="Пошук за викладачем" class="form-control mr-2 ng-pristine ng-valid ng-touched search">
   </div>
   <ul class="list-group">
     <li class="list-group-item list-group-item-action" *ngFor="let teacher of teachers | teacherSearch : searchText" (click)="selectTeacher(teacher)">{{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}</li>
   </ul>
-  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
 </div>
-<div *ngIf="visible" class="overlay" (click)="close()"></div>

@@ -2,11 +2,14 @@
 
 .panel {
   display: flex;
-  height: 550px;
-  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 0;
+  flex-flow: column;
 }
 
-select {
+select, input[type="text"] {
   @extend .form-control;
   @extend .form-control-sm;
   @extend .mb-2;
@@ -14,6 +17,7 @@ select {
 }
 
 .groups {
+  flex: 1;
   overflow: auto;
 }
 
@@ -26,6 +30,12 @@ select {
 
 .groups > * .active {
   cursor: auto;
+}
+
+loading {
+  top: 50%;
+  left: 50%;
+  position: absolute;
 }
 
 label { font-size: 14px; }
