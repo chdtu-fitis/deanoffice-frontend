@@ -103,8 +103,15 @@
                     id="educationalProgramHeadInfoEng">
           </textarea>
           <!--<app-validation-errors-->
-            <!--[control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>-->
+          <!--[control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>-->
         </div>
+      </div>
+    </tab>
+
+    <tab heading="Компетенції" (select)="getCompetencies()">
+      <div class="competencies">
+        <loading class="competencies-loading" *ngIf="competenciesIsLoading"></loading>
+        <textarea class="form-control ta-15l" *ngIf="!competenciesIsLoading"></textarea>
       </div>
     </tab>
   </tabset>

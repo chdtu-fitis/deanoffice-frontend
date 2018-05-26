@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
@@ -8,7 +8,9 @@ import {DegreeService} from '../../../services/degree.service';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
-import {TabDirective, TabsetComponent} from "ngx-bootstrap";
+import {TabsetComponent} from 'ngx-bootstrap';
+import {SpecializationService} from '../../../services/specialization.service';
+import "rxjs/add/operator/do";
 
 @Component({
   selector: 'specialization-form',
@@ -16,19 +18,23 @@ import {TabDirective, TabsetComponent} from "ngx-bootstrap";
   styleUrls: ['./specialization-form.component.scss']
 })
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
+  @ViewChild('tabset') tabset: TabsetComponent;
+  private _updateForm = false;
+  private _initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
-  @ViewChild('tabset') tabset: TabsetComponent;
+  competenciesIsLoading = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private degreeService: DegreeService,
-    private specialityService: SpecialityService,
-    private departmentService: DepartmentService
+    private _formBuilder: FormBuilder,
+    private _degreeService: DegreeService,
+    private _specialityService: SpecialityService,
+    private _departmentService: DepartmentService,
+    private _specializationService: SpecializationService
   ) {
     super();
-    this.form = this.formBuilder.group({
+    this.form = this._formBuilder.group({
       // name: ['', Validators.required],
       name: '',
       nameEng: '',
@@ -51,7 +57,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   setInitialData(data: Specialization) {
-    this.form = this.formBuilder.group({
+    this._updateForm = true;
+    this._initialData = data;
+    this.form = this._formBuilder.group({
       // name: [data.name, Validators.required],
       name: data.name,
       nameEng: data.nameEng,
@@ -70,22 +78,35 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
       educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
-
-      knowledgeAndUnderstandingOutcomes: data.knowledgeAndUnderstandingOutcomes,
-      knowledgeAndUnderstandingOutcomesEng: data.knowledgeAndUnderstandingOutcomesEng,
-      applyingKnowledgeAndUnderstandingOutcomes: data.applyingKnowledgeAndUnderstandingOutcomes,
-      applyingKnowledgeAndUnderstandingOutcomesEng: data.applyingKnowledgeAndUnderstandingOutcomesEng,
-      makingJudgementsOutcomes: data.makingJudgementsOutcomes,
-      makingJudgementsOutcomesEng: data.makingJudgementsOutcomesEng
     });
   }
 
   ngOnInit() {
-    this.degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
-    this.specialityService.getSpecialities()
+    this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
+    this._specialityService.getSpecialities()
       .subscribe((specialities: Speciality[]) => this.specialities = specialities);
-    this.departmentService.getDepartments()
+    this._departmentService.getDepartments()
       .subscribe((departments: Department[]) => this.departments = departments);
+  }
+
+  getCompetencies() {
+    if (this._updateForm) {
+      const rawValue: Specialization = this.form.getRawValue() as Specialization;
+      const hasCompetencies: boolean = Boolean(rawValue.competencies);
+      if (!hasCompetencies) {
+        this.competenciesIsLoading = true;
+        this._specializationService.getCompetencies(this._initialData.id)
+          .do(() => this.competenciesIsLoading = false)
+          .subscribe(
+            (competencies) => this._setCompetencies(competencies['value'] as string),
+            () => this._setCompetencies('')
+          );
+      }
+    }
+  }
+
+  private _setCompetencies(competencies: string): void {
+    console.log(competencies);
   }
 
   reset() {
@@ -109,25 +130,27 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     const s: Specialization = this.form.getRawValue() as Specialization;
     return {
       ...s,
-      name: this.stringValue(s.name),
-      paymentExtramural: this.numberValue(s.paymentExtramural),
-      paymentFulltime: this.numberValue(s.paymentFulltime),
-      educationalProgramHeadName: this.stringValue(s.educationalProgramHeadName),
-      educationalProgramHeadNameEng: this.stringValue(s.educationalProgramHeadNameEng),
-      educationalProgramHeadInfo: this.stringValue(s.educationalProgramHeadInfo),
-      educationalProgramHeadInfoEng: this.stringValue(s.educationalProgramHeadInfoEng)
+      id: this._initialData.id,
+      name: this._stringValue(s.name),
+      active: this._initialData.active,
+      paymentExtramural: this._numberValue(s.paymentExtramural),
+      paymentFulltime: this._numberValue(s.paymentFulltime),
+      educationalProgramHeadName: this._stringValue(s.educationalProgramHeadName),
+      educationalProgramHeadNameEng: this._stringValue(s.educationalProgramHeadNameEng),
+      educationalProgramHeadInfo: this._stringValue(s.educationalProgramHeadInfo),
+      educationalProgramHeadInfoEng: this._stringValue(s.educationalProgramHeadInfoEng)
     } as Specialization;
   }
 
-  private numberValue(value: number): number {
-    return this.value(value, 0) as number
+  private _numberValue(value: number): number {
+    return this._value(value, 0) as number
   }
 
-  private value(value: number | string, defaultValue: number | string): number | string {
+  private _value(value: number | string, defaultValue: number | string): number | string {
     return (value) ? value : defaultValue;
   }
 
-  private stringValue(value: string): string {
-    return this.value(value, '') as string
+  private _stringValue(value: string): string {
+    return this._value(value, '') as string
   }
 }

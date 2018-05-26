@@ -15,12 +15,7 @@ export class Specialization extends NameWithEngAndActiveEntity {
   educationalProgramHeadNameEng: string;
   educationalProgramHeadInfo: string;
   educationalProgramHeadInfoEng: string;
-  knowledgeAndUnderstandingOutcomes?: string;
-  knowledgeAndUnderstandingOutcomesEng?: string;
-  applyingKnowledgeAndUnderstandingOutcomes?: string;
-  applyingKnowledgeAndUnderstandingOutcomesEng?: string;
-  makingJudgementsOutcomes?: string;
-  makingJudgementsOutcomesEng?: string;
+  competencies: string;
 
   specialityId?: number;
   degreeId?: number;

@@ -11,32 +11,36 @@ const SPECIALIZATION_URL = API_URL + '/specializations';
 
 @Injectable()
 export class SpecializationService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
   public getSpecializations(actual: boolean = true): Observable<Specialization[]> {
     const params = new HttpParams().set('active', actual.toString());
-    return this.httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
+    return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
       .pipe(catchError(HandleError.forObservable('Отримання спеціалізацій', [])));
   }
 
   create(body: Specialization): Promise<any> {
-    return this.httpClient.post(SPECIALIZATION_URL, body).toPromise()
+    return this._httpClient.post(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Створення нової спеціалізації'));
   }
 
   delete(itemIds: number[]): Promise<any> {
-    return this.httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
+    return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
   }
 
   getById(sourceId: number): Observable<Specialization> {
-    return this.httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
+    return this._httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
       .pipe(catchError(HandleError.forObservable('Отриманная спеціалізації по Id', [])))
       .map(data => data as Specialization)
   }
 
+  getCompetencies(specializationId: number): Observable<any> {
+    return this._httpClient.get(`${SPECIALIZATION_URL}/${specializationId}/competencies`);
+  }
+
   update(body: Specialization): Promise<any> {
-    return this.httpClient.put(SPECIALIZATION_URL, body).toPromise()
+    return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
   }
 }
