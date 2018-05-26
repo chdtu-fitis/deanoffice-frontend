@@ -1,4 +1,5 @@
-<table>
+<loading *ngIf="!loadingGrades" [size]="40"></loading>
+<table *ngIf="loadingGrades">
     <thead>
     <th>Студент</th>
     <th>Оцiнка</th>

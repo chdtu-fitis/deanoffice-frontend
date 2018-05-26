@@ -10,6 +10,7 @@ export class GradeStatementTableComponent {
     @Input() studentsDegree;
     @Input() selectedCourse: any;
     @Input() onTime = false;
+    @Input() loadingGrades = false;
     @Output() setGrade = new EventEmitter();
     @Output() error = new EventEmitter();
 

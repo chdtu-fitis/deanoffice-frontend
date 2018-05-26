@@ -29,8 +29,9 @@ export class GradesPanelComponent {
         this.sendRequestGetGrades.emit();
     }
 
-    checkAutoSelectSemester() {
-        if (this.selectGroup) {
+    checkAutoSelectSemester(e: any) {
+        const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
+        if (this.selectGroup && this.selectSemester !== currentSemester && e.srcElement.checked) {
             this.setCurrentSemester();
             this.toggleSemester();
         }

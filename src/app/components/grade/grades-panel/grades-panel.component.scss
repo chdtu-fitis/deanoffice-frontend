@@ -32,4 +32,10 @@ select {
   cursor: auto;
 }
 
+loading {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
 label { font-size: 14px; }

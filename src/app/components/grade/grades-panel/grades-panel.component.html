@@ -27,7 +27,7 @@
         <label>
             <input type="checkbox"
                    [(ngModel)]="autoSemesterSelect"
-                   (click)="checkAutoSelectSemester()"
+                   (click)="checkAutoSelectSemester($event)"
                    name="autoSelectSemester"
                    id="autoSelectSemester"/>
             Обрати поточний семестр
@@ -44,5 +44,6 @@
                 </button>
             </ng-container>
         </div>
+        <loading *ngIf="!groups" [size]="50"></loading>
     </div>
 </div>

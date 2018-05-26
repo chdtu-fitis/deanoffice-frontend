@@ -31,13 +31,16 @@ export class StatementComponent implements IAppModal {
     }
 
     updateGradesByGroupIdAndCourseId() {
+        this.loadingGrades = false;
         return this.gradeService.getGradesByGroupIdAndCourseId(this.selectGroup.id, this.selectedCourse.course.id)
             .subscribe(grades => {
-            this.grades = grades;
-            this.students = this.joinGradeForStudentsDegree();
-            this.updateStatementAndPassedOnTime();
-            this.loadingGrades = true;
-        });
+                if (grades.length) {
+                    this.grades = grades;
+                    this.students = this.joinGradeForStudentsDegree();
+                    this.updateStatementAndPassedOnTime();
+                    this.loadingGrades = true;
+                }
+            });
     }
 
     joinGradeForStudentsDegree() {
@@ -60,7 +63,6 @@ export class StatementComponent implements IAppModal {
     }
 
     openModalAndUpdateGradesForCourse() {
-        this.loadingGrades = false;
         this.updateGradesByGroupIdAndCourseId();
         this.modal.show();
     }
@@ -154,6 +156,7 @@ export class StatementComponent implements IAppModal {
 
     sendUpdateGrades() {
         this.sendGrades.emit(this.updateGrades);
-        this.closeModal();
+        this.resetGrades();
+        this.modal.hide();
     }
 }

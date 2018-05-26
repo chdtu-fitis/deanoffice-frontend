@@ -16,6 +16,7 @@ export class GradesTableComponent {
     @Output() errors = new EventEmitter();
     @Output() sendUpdateGrades = new EventEmitter();
     grades = [];
+    @Input() loadingGrades = false;
 
     resetGrades() {
         this.grades = [];

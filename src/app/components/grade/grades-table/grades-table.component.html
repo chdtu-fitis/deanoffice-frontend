@@ -5,8 +5,9 @@
                       (sendGrades)="updateGradesByStatement($event)"
                       (resetGradesForTable)="resetGrades()">
 </app-grades-statement>
+<loading *ngIf="!loadingGrades && selectGroup" [size]="100"></loading>
 
-<table *ngIf="courses.length && studentsDegree.length">
+<table *ngIf="courses.length && studentsDegree.length && loadingGrades">
     <thead>
     <tr>
         <td>№</td>

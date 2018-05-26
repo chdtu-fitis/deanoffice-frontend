@@ -34,6 +34,7 @@
             </div>
             <app-grades-table [studentsDegree]="studentsDegree"
                               [courses]="courses"
+                              [loadingGrades]="loading"
                               (gradesUpdate)="addGradesForUpdate($event)"
                               (errors)="setErrorsFromTable($event)"
                               [selectGroup]="selectGroup"

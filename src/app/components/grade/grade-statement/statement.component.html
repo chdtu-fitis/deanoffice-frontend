@@ -16,27 +16,30 @@
                 {{ error }}
             </div>
             <div class="modal-body">
-                <div *ngIf="statement.length && loadingGrades">
+                <div *ngIf="statement.length">
                     <h6 class="card-title">Вiдомiсть</h6>
                     <app-grade-statement-table [studentsDegree]="statement"
                                                [selectedCourse]="selectedCourse"
                                                [onTime]="true"
+                                               [loadingGrades]="loadingGrades"
                                                (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
-                <div *ngIf="passedOnTime.length && loadingGrades">
+                <div *ngIf="passedOnTime.length">
                     <h6 class="card-title">{{!statement.length ? 'Вiдомiсть': 'Здали невчасно'}}</h6>
                     <app-grade-statement-table [studentsDegree]="passedOnTime"
                                                [selectedCourse]="selectedCourse"
+                                               [loadingGrades]="loadingGrades"
                                                (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline-danger float-left"
+                <button class="btn btn-danger float-left"
                         [disabled]="!updateGrades.length"
+                        [ngClass]="{'btn-outline-danger': !updateGrades.length}"
                         (click)="cancelChanges()">Вiдмiнити змiни
                 </button>
                 <button class="btn btn-success float-right"
