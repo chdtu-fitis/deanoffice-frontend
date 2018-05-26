@@ -15,6 +15,7 @@ export class GradesPanelComponent {
     studySemesters = 10;
     selectSemester = 1;
     degree = 1;
+    searchText: string;
 
     toggleSemester(): void {
         this.setSelectedSemester();
