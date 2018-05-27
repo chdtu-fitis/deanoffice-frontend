@@ -1,0 +1,31 @@
+<loading *ngIf="!loadingGrades" [size]="40"></loading>
+<table *ngIf="loadingGrades">
+    <thead>
+    <th>Студент</th>
+    <th>Оцiнка</th>
+    <th class="th-buttons"></th>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let studentDegree of studentsDegree; let studentId=index">
+        <tr>
+            <td class="td-student">{{studentDegree.student.surname}}
+                {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
+            </td>
+            <td [ngClass]="{ 'bg-danger' : studentDegree.grade?.empty}">
+                <input type="number"
+                       [ngClass]="isCorrectGrade(studentDegree)"
+                       class="text-center align-middle"
+                       [value] ="studentDegree.grade.points"
+                       (change)="editGrade(studentDegree.id, studentId, studentDegree.grade, $event)"
+                       (keyup)="nextCell(studentDegree.id, studentId, studentDegree.grade, $event)"
+                       id="id{{studentDegree.id}}{{selectedCourse.course.id}}"/>
+            </td>
+            <td *ngIf="studentDegree.grade.points || studentDegree.grade.onTime">
+                <button class="btn btn-sm float-right" (click)="changeOnTime(studentId)" [ngClass]="{'btn-danger' : onTime,
+                'btn-success': !onTime}">{{ onTime? 'Невчасно':'Вчасно' }}
+                </button>
+            </td>
+        </tr>
+    </ng-container>
+    </tbody>
+</table>

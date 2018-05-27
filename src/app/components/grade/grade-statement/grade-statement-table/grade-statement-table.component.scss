@@ -1,0 +1,12 @@
+@import '../../grades-table/grades-table.component';
+
+.th-buttons {
+  width: 100%;
+  border: none;
+}
+
+.btn-sm {
+  @extend .btn-sm;
+  padding: 0.15rem 0.3rem;
+  font-size: 0.875rem;
+}

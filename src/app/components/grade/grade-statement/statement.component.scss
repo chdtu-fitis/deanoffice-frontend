@@ -1,0 +1,32 @@
+@import "../../../../styles";
+
+.modal-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.modal-body>div {
+  margin: 5px;
+  flex: 1;
+}
+
+.modal-content {
+  @extend .modal-content;
+  max-height: 90vh;
+}
+
+.modal-body {
+  @extend .modal-body;
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.modal {
+  overflow: hidden;
+}
+
+@media(max-width: 1000px) {
+  .modal-body {
+    flex-direction: column;
+  }
+}

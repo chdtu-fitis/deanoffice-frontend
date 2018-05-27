@@ -2,11 +2,12 @@
     <mat-sidenav-container>
         <mat-sidenav #snav mode="side" opened="true">
             <mat-nav-list>
-                <grades-panel [groups]="groups"
-                              (changeGroup)="setStudentGroup($event)"
-                              (changeSemester)="setSemester($event)"
-                              (sendRequestGetGrades)="getGrades()">
-                </grades-panel>
+                <app-grades-panel [groups]="groups"
+                                  (changeGroup)="setStudentGroup($event)"
+                                  (changeSemester)="setSemester($event)"
+                                  (sendRequestGetGrades)="getGrades()"
+                                  (reloadGroupList)="getGroups()">
+                </app-grades-panel>
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
@@ -31,13 +32,15 @@
             <div class="alert-primary" *ngIf="!loading && !selectGroup">
                 Оберiть группу
             </div>
-            <grades-table [studentsDegree]="studentsDegree"
-                          [courses]="courses"
-                          (gradesUpdate)="addGradesForUpdate($event)"
-                          (errors)="setErrorsFromTable($event)"
-                          [selectGroup]="selectGroup"
-                          [selectSemester]="selectSemester" #gradeTable>
-            </grades-table>
+            <app-grades-table [studentsDegree]="studentsDegree"
+                              [courses]="courses"
+                              [loadingGrades]="loading"
+                              (gradesUpdate)="addGradesForUpdate($event)"
+                              (errors)="setErrorsFromTable($event)"
+                              [selectGroup]="selectGroup"
+                              (sendUpdateGrades)="updateGradesForGroup()"
+                              [selectSemester]="selectSemester" #gradeTable>
+            </app-grades-table>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>

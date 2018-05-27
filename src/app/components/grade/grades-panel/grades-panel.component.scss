@@ -9,7 +9,7 @@
   flex-flow: column;
 }
 
-select {
+select, input[type="text"] {
   @extend .form-control;
   @extend .form-control-sm;
   @extend .mb-2;
@@ -30,6 +30,12 @@ select {
 
 .groups > * .active {
   cursor: auto;
+}
+
+loading {
+  top: 50%;
+  left: 50%;
+  position: absolute;
 }
 
 label { font-size: 14px; }

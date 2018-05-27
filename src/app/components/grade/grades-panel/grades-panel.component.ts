@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-    selector: 'grades-panel',
+    selector: 'app-grades-panel',
     templateUrl: './grades-panel.component.html',
     styleUrls: ['./grades-panel.component.scss']
 })
@@ -15,6 +15,7 @@ export class GradesPanelComponent {
     studySemesters = 10;
     selectSemester = 1;
     degree = 1;
+    searchText: string;
 
     toggleSemester(): void {
         this.setSelectedSemester();
@@ -29,8 +30,9 @@ export class GradesPanelComponent {
         this.sendRequestGetGrades.emit();
     }
 
-    checkAutoSelectSemester() {
-        if (this.selectGroup) {
+    checkAutoSelectSemester(e: any) {
+        const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
+        if (this.selectGroup && this.selectSemester !== currentSemester && e.srcElement.checked) {
             this.setCurrentSemester();
             this.toggleSemester();
         }

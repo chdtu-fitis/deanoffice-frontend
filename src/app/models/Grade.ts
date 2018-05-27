@@ -1,10 +1,11 @@
 import {BaseEntity} from './basemodels/BaseEntity';
 import {Course} from './Course';
-import {Student} from './Student';
+import {StudentDegree} from './StudentDegree';
 
 export class Grade extends BaseEntity {
   course: Course;
-  student: Student;
+  studentDegree: StudentDegree;
+  onTime: boolean;
   grade: number;
   points: number;
   ects: string;
