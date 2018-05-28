@@ -16,7 +16,7 @@
         </td>
         <td *ngFor="let course of courses" scope="row" class="btn-courses"
             (click)="openStatement(course)">
-            {{course.course.courseName?.name}} ({{ course.course.knowledgeControl.name }})
+            {{course.course.courseName?.name}} (<b>{{ course.course.knowledgeControl.name }}</b>)
         </td>
     </tr>
     </thead>

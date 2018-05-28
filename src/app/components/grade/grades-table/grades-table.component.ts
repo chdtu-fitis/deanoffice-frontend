@@ -52,7 +52,7 @@ export class GradesTableComponent {
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
         const id = this.getElementId(studentId, gradeId);
-        const points = Number(e.srcElement.value);
+        const points = Number(e.target.valueAsNumber || e.target.value);
         if (points > 100 || points < 0 || !points) {
             this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
             this.updateVisible(id, 'bg-danger');
@@ -80,7 +80,6 @@ export class GradesTableComponent {
         } else {
             this.grades.push(grade);
         }
-        console.log(this.grades);
         this.gradesUpdate.emit(this.grades);
     }
 

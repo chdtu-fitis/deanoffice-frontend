@@ -34,12 +34,10 @@ export class StatementComponent implements IAppModal {
         this.loadingGrades = false;
         return this.gradeService.getGradesByGroupIdAndCourseId(this.selectGroup.id, this.selectedCourse.course.id)
             .subscribe(grades => {
-                if (grades.length) {
-                    this.grades = grades;
-                    this.students = this.joinGradeForStudentsDegree();
-                    this.updateStatementAndPassedOnTime();
-                    this.loadingGrades = true;
-                }
+                this.grades = grades;
+                this.students = this.joinGradeForStudentsDegree();
+                this.updateStatementAndPassedOnTime();
+                this.loadingGrades = true;
             });
     }
 
