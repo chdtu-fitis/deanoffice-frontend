@@ -1,12 +1,12 @@
 import {Student} from './Student';
 import {StudentGroup} from './StudentGroup';
-import {Degree} from './Degree';
 import {BaseEntity} from './basemodels/BaseEntity';
+import {Specialization} from './Specialization';
 
 export class StudentDegree extends BaseEntity {
   student: Student;
-  studentGroup: StudentGroup;
-  degree?: Degree;
+  studentGroup?: StudentGroup;
+  specialization?: Specialization;
   recordBookNumber?: string;
   admissionOrderNumber?: string;
   admissionOrderDate?: Date;
@@ -23,6 +23,7 @@ export class StudentDegree extends BaseEntity {
   previousDiplomaType?: string;
   previousDiplomaNumber?: string;
   previousDiplomaDate?: Date;
+  previousDiplomaIssuedBy?: Date;
   payment?: string;
   active?: boolean;
   selected?: boolean;

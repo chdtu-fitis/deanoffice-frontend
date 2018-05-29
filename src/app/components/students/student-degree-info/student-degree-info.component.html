@@ -102,10 +102,12 @@
                     <app-validation-errors [control]="degree.controls.protocolNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
-                    <label for="protocolDate">Дата диплому</label>
+                    <label for="protocolDate">Дата протоколу</label>
                     <input type="date" formControlName="protocolDate" class="form-control" id="protocolDate" [appValidation]="degree.controls.protocolDate">
                     <app-validation-errors [control]="degree.controls.protocolDate"></app-validation-errors>
                   </div>
+                </div>
+                <div class="row">
                   <div class="form-group col">
                     <label for="previousDiplomaNumber">Номер попереднього диплому</label>
                     <input formControlName="previousDiplomaNumber" class="form-control" id="previousDiplomaNumber"
@@ -113,10 +115,16 @@
                     <app-validation-errors [control]="degree.controls.previousDiplomaNumber"></app-validation-errors>
                   </div>
                   <div class="form-group col">
-                    <label for="previousDiplomaDate">Дата попереднього диплому</label>
+                    <label for="previousDiplomaDate">Дата видачі попереднього диплому</label>
                     <input type="date" formControlName="previousDiplomaDate" class="form-control" id="previousDiplomaDate"
                            [appValidation]="degree.controls.previousDiplomaDate">
                     <app-validation-errors [control]="degree.controls.previousDiplomaDate"></app-validation-errors>
+                  </div>
+                  <div class="form-group col">
+                    <label for="previousDiplomaIssuedBy">Ким виданий попередній диплом</label>
+                    <input formControlName="previousDiplomaIssuedBy" class="form-control" id="previousDiplomaIssuedBy"
+                           [appValidation]="degree.controls.previousDiplomaIssuedBy">
+                    <app-validation-errors [control]="degree.controls.previousDiplomaIssuedBy"></app-validation-errors>
                   </div>
                 </div>
               </div>
