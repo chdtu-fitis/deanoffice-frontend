@@ -8,8 +8,10 @@ export class StudentDegree extends BaseEntity {
   studentGroup?: StudentGroup;
   specialization?: Specialization;
   recordBookNumber?: string;
+  studentCardNumber?: string;
   admissionOrderNumber?: string;
   admissionOrderDate?: Date;
+  admissionDate: Date;
   contractNumber?: string;
   contractDate?: Date;
   diplomaNumber?: string;
