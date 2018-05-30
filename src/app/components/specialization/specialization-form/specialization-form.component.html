@@ -109,10 +109,7 @@
     </tab>
 
     <tab heading="Компетенції" (select)="getCompetencies()">
-      <div class="competencies">
-        <loading class="competencies-loading" *ngIf="competenciesIsLoading"></loading>
-        <textarea class="form-control ta-15l" *ngIf="!competenciesIsLoading"></textarea>
-      </div>
+      <specialization-competencies #specializationCompetencies [specializationId]="initialData.id"></specialization-competencies>
     </tab>
   </tabset>
 </form>

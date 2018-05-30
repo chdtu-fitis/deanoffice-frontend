@@ -36,7 +36,7 @@ export class SpecializationService {
   }
 
   getCompetencies(specializationId: number): Observable<any> {
-    return this._httpClient.get(`${SPECIALIZATION_URL}/${specializationId}/competencies`);
+    return this._httpClient.get(`${SPECIALIZATION_URL}/${specializationId}/competencies/ukr`);
   }
 
   update(body: Specialization): Promise<any> {

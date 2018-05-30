@@ -1,0 +1,4 @@
+<div class="competencies">
+  <loading class="competencies-loading" *ngIf="competenciesIsLoading"></loading>
+  <textarea class="form-control ta-15l" [(ngModel)]="competencies" *ngIf="!competenciesIsLoading"></textarea>
+</div>

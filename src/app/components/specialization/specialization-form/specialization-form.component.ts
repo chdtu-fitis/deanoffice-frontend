@@ -9,8 +9,7 @@ import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
-import {SpecializationService} from '../../../services/specialization.service';
-import "rxjs/add/operator/do";
+import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 
 @Component({
   selector: 'specialization-form',
@@ -18,20 +17,19 @@ import "rxjs/add/operator/do";
   styleUrls: ['./specialization-form.component.scss']
 })
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
+  @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-  private _updateForm = false;
-  private _initialData: Specialization = new Specialization();
+  @ViewChild('specializationCompetencies') specializationCompetencies: SpecializationCompetenciesComponent;
+  initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
-  competenciesIsLoading = false;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
-    private _departmentService: DepartmentService,
-    private _specializationService: SpecializationService
+    private _departmentService: DepartmentService
   ) {
     super();
     this.form = this._formBuilder.group({
@@ -57,8 +55,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   setInitialData(data: Specialization) {
-    this._updateForm = true;
-    this._initialData = data;
+    this.initialData = data;
     this.form = this._formBuilder.group({
       // name: [data.name, Validators.required],
       name: data.name,
@@ -89,24 +86,10 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       .subscribe((departments: Department[]) => this.departments = departments);
   }
 
-  getCompetencies() {
-    if (this._updateForm) {
-      const rawValue: Specialization = this.form.getRawValue() as Specialization;
-      const hasCompetencies: boolean = Boolean(rawValue.competencies);
-      if (!hasCompetencies) {
-        this.competenciesIsLoading = true;
-        this._specializationService.getCompetencies(this._initialData.id)
-          .do(() => this.competenciesIsLoading = false)
-          .subscribe(
-            (competencies) => this._setCompetencies(competencies['value'] as string),
-            () => this._setCompetencies('')
-          );
-      }
+  getCompetencies(): void {
+    if (this.updateForm) {
+      this.specializationCompetencies.getCompetencies();
     }
-  }
-
-  private _setCompetencies(competencies: string): void {
-    console.log(competencies);
   }
 
   reset() {
@@ -130,9 +113,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     const s: Specialization = this.form.getRawValue() as Specialization;
     return {
       ...s,
-      id: this._initialData.id,
+      id: this.initialData.id,
       name: this._stringValue(s.name),
-      active: this._initialData.active,
+      active: this.initialData.active,
       paymentExtramural: this._numberValue(s.paymentExtramural),
       paymentFulltime: this._numberValue(s.paymentFulltime),
       educationalProgramHeadName: this._stringValue(s.educationalProgramHeadName),
