@@ -73,8 +73,9 @@ export class EditDialogComponent implements OnInit {
     newCourse.courseName = this.course.course.courseName;
     newCourse.semester = this.course.course.semester;
     newCourse.hours = this.course.course.hours;
+    newCourse.knowledgeControl = this.course.course.knowledgeControl;
     newCourse.hoursPerCredit = this.course.course.hoursPerCredit;
-    newCourse.credits = newCourse.hours/newCourse.hoursPerCredit;
+    newCourse.credits = this.calculateCredits(this.course.course);
     console.log(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
@@ -88,6 +89,18 @@ export class EditDialogComponent implements OnInit {
       this.course = new CourseForGroup();
     });
     this.activeModal.close('Close click')
+  }
+
+  calculateCredits(course: Course){
+    return course.hours/course.hoursPerCredit;
+  }
+
+  setCredits(){
+    this.course.course.credits = this.calculateCredits(this.course.course);
+  }
+
+  roundCredits(){
+    this.course.course.credits = Math.round(this.course.course.credits);
   }
 
   get courseName() {
