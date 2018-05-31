@@ -1,12 +1,9 @@
-export const translations = {
+export const tableColumnTranslations = {
   'name': 'Назва',
   'nameEng': 'Назва англійською',
-  'speciality.code': 'Шифр спеціальності',
-  'speciality.name': 'Спеціальність (освітня програма)',
+  'speciality': 'Спеціальність',
   'degree.name': 'Ступінь',
-  'educationalProgramHeadName': 'Гарант програми',
-  'paymentFulltime': 'Вартість навчання денної форми',
-  'paymentExtramural': 'Вартість навчання заочної форми'
+  'educationalProgramHeadName': 'Гарант програми'
 };
 
 
