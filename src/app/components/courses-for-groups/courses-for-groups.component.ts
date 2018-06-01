@@ -129,6 +129,7 @@ export class CoursesForGroupsComponent implements OnInit {
       this.coursesForDelete = [];
     }
     else this.showErrorAlert('Предмети для видалення не були обрані');
+    this.sortCoursesForGroup();
   }
 
   changeSelectedCourses(event) {
@@ -217,6 +218,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   saveCoursesForGroup() {
+
     class courseForGroupNewCoursesType {
       course: { id: number };
       teacher: { id: number };
