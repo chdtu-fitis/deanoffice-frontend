@@ -69,22 +69,15 @@ export class EditDialogComponent implements OnInit {
   }
 
   saveChanges() {
-    let newCourse = new Course();
-    newCourse.courseName = this.course.course.courseName;
-    newCourse.semester = this.course.course.semester;
-    newCourse.hours = this.course.course.hours;
-    newCourse.knowledgeControl = this.course.course.knowledgeControl;
-    newCourse.hoursPerCredit = this.course.course.hoursPerCredit;
-    newCourse.credits = this.calculateCredits(this.course.course);
     console.log(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
-      newCourse: newCourse
+      newCourse: this.course.course
     });
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
-      newCourse: newCourse
+      newCourse: this.course.course
     }).subscribe(() => {
       this.course = new CourseForGroup();
     });
