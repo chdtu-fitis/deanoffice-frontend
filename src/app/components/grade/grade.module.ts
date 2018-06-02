@@ -11,26 +11,31 @@ import {GradeComponent} from './grade.component';
 import {GradesPanelComponent} from './grades-panel/grades-panel.component';
 import {GradesTableComponent} from './grades-table/grades-table.component';
 import {StatementComponent} from './grade-statement/statement.component';
+import {GradeStatementTableComponent} from './grade-statement/grade-statement-table/grade-statement-table.component';
+import {PipeModule} from '../../pipes/pipe.module';
 
 export const gradeRoutes: Routes = [
-  {path: '', component: GradeComponent}
+    {path: '', component: GradeComponent}
 ];
 
 @NgModule({
-  declarations: [
-    GradeComponent,
-    GradesPanelComponent,
-    GradesTableComponent,
-    StatementComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    RouterModule.forChild(gradeRoutes),
-    MatListModule,
-    MatSidenavModule
-  ],
-  providers: [AuthenticationModule.tokenInterceptor()]
+    declarations: [
+        GradeComponent,
+        GradesPanelComponent,
+        GradesTableComponent,
+        StatementComponent,
+        GradeStatementTableComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        RouterModule.forChild(gradeRoutes),
+        MatListModule,
+        MatSidenavModule,
+        PipeModule
+    ],
+    providers: [AuthenticationModule.tokenInterceptor()]
 })
-export class GradeModule {}
+export class GradeModule {
+}

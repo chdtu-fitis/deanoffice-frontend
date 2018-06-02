@@ -2,11 +2,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
-import {consoleTestResultHandler} from "tslint/lib/test";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
-import {CopyCoursesDialogComponent} from "../copy-courses-dialog/copy-courses-dialog.component";
-import {TeacherDialogComponent} from "../teacher-dialog/teacher-dialog.component";
 
 @Component({
   selector: 'added-courses',
@@ -20,6 +17,7 @@ export class AddedCoursesComponent implements OnInit {
   coursesForGroupForDelete: CourseForGroup[] = [];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
+  @Input() changesExistence: boolean;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
@@ -71,8 +69,9 @@ export class AddedCoursesComponent implements OnInit {
     this.onDateChange.emit({index: index});
   }
 
-  open(index) {
-    const modalRef = this.modalService.open(EditDialogComponent, { centered: true });
-    modalRef.componentInstance.name = this.coursesForGroup[index].course.courseName.name;
+  changeCourse(course) {
+    const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
+    modalRef.componentInstance.course = course;
+    modalRef.componentInstance.selectedGroup = this.selectedGroup;
   }
 }

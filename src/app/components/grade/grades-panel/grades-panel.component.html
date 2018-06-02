@@ -24,19 +24,21 @@
             <option value="3">Магiстр</option>
         </select>
 
+        <input type="text" [(ngModel)]="searchText" placeholder="Пошук..."/>
+
         <label>
             <input type="checkbox"
                    [(ngModel)]="autoSemesterSelect"
-                   (click)="checkAutoSelectSemester()"
+                   (click)="checkAutoSelectSemester($event)"
                    name="autoSelectSemester"
                    id="autoSelectSemester"/>
-            Вибирати поточний семестр
+            Обрати поточний семестр
         </label>
     </div>
     <div class="dropdown-divider"></div>
     <div class="groups">
         <div *ngIf="groups" class="list-group">
-            <ng-container *ngFor="let group of groups">
+            <ng-container *ngFor="let group of groups | groupSearch : searchText">
                 <button *ngIf="group.specialization.degree.id == degree"
                         [ngClass]="{'active': selectGroup.id === group.id}"
                         (click)="getSelectGroup(group)">
@@ -44,5 +46,6 @@
                 </button>
             </ng-container>
         </div>
+        <loading *ngIf="!groups" [size]="50"></loading>
     </div>
 </div>

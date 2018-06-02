@@ -11,9 +11,9 @@
         <th>Години</th>
         <th>Кредити</th>
         </thead>
-        <div class="empty" *ngIf="!courses">Виберіть групу та семестр</div>
-        <tr *ngFor="let course of courses | coursesSearch : searchText; let i = index">
-          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course, i)"></td>
+        <label class="empty" *ngIf="!courses">Виберіть групу та семестр</label>
+        <tr *ngFor="let course of courses | coursesSearch : searchText">
+          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
           <td>{{ course.courseName.name }}</td>
           <td>{{ course.knowledgeControl.name }}</td>
           <td>{{ course.hours }}</td>

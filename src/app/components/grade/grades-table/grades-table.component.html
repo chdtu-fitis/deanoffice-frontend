@@ -1,14 +1,22 @@
-<app-grades-statement #statement [courses]="courses" [studentsDegree]="studentsDegree"></app-grades-statement>
-<table *ngIf="courses.length && studentsDegree.length">
+<app-grades-statement #statement
+                      [courses]="courses"
+                      [selectGroup]="selectGroup"
+                      [studentsDegree]="studentsDegree"
+                      (sendGrades)="updateGradesByStatement($event)"
+                      (resetGradesForTable)="resetGrades()">
+</app-grades-statement>
+<loading *ngIf="!loadingGrades && selectGroup" [size]="100"></loading>
+
+<table *ngIf="courses.length && studentsDegree.length && loadingGrades">
     <thead>
     <tr>
         <td>№</td>
         <td>{{selectGroup?.name}}<br>
             Семестр: {{ selectSemester }}
         </td>
-        <td *ngFor="let course of courses; let courseId = index" scope="row" class="btn-courses"
-            (click)="statement.setCourse(courseId); statement.modal.show()">
-            {{course.course.courseName?.name}}
+        <td *ngFor="let course of courses" scope="row" class="btn-courses"
+            (click)="openStatement(course)">
+            {{course.course.courseName?.name}} (<b>{{ course.course.knowledgeControl.name }}</b>)
         </td>
     </tr>
     </thead>
@@ -20,12 +28,11 @@
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
             <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}">
-                <input type="number" [(ngModel)]="grade.points"
-                       (change)="editGrade(grade, studentId, gradeId)"
-                       (keyup)="nextCell($event, studentId, gradeId)"
-                       id="grade{{studentId}}{{gradeId}}"
-                       [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"
-                       max="100" min="0"/>
+                <input type="number" [value]="grade.points"
+                       (change)="editGrade(grade, studentId, gradeId, $event)"
+                       (keyup)="nextCell($event, studentId, gradeId);"
+                       id="grade{{studentId}}{{gradeId}}id"
+                       [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
             </td>
         </ng-container>
     </tr>
