@@ -7,7 +7,8 @@ import {catchError} from 'rxjs/operators';
 import {HandleError} from '../components/shared/httpErrors';
 
 const API_URL: string = environment.apiUrl;
-const SPECIALIZATION_URL = API_URL + '/specializations';
+const SPECIALIZATION_URL: string = API_URL + '/specializations';
+const ACQUIRED_COMPETENCIES_URL: string = API_URL + '/acquired-competencies';
 
 @Injectable()
 export class SpecializationService {
@@ -42,5 +43,10 @@ export class SpecializationService {
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
+  }
+
+  updateCompetenciesUkr(competenciesId: number, competencies: string): Promise<any> {
+    return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/ukr`, competencies).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення компетенцій спеціалізації (українською)'));
   }
 }

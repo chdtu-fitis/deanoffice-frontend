@@ -19,7 +19,7 @@ import {SpecializationCompetenciesComponent} from './specialization-competencies
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-  @ViewChild('specializationCompetencies') specializationCompetencies: SpecializationCompetenciesComponent;
+  @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
@@ -88,7 +88,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   getCompetencies(): void {
     if (this.updateForm) {
-      this.specializationCompetencies.getCompetencies();
+      this.competencies.getCompetencies();
     }
   }
 
@@ -135,5 +135,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   private _stringValue(value: string): string {
     return this._value(value, '') as string
+  }
+
+  saveCompetencies() {
+    this.competencies.save();
   }
 }

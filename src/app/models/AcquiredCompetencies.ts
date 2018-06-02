@@ -1,5 +1,12 @@
-export class AcquiredCompetencies {
-  id: number;
-  competencies?: string;
-  competenciesEng?: string;
+import {BaseEntity} from './basemodels/BaseEntity';
+
+export class AcquiredCompetencies extends BaseEntity{
+  competencies;
+  competenciesEng;
+
+  constructor() {
+    super();
+    this.competencies = '';
+    this.competenciesEng = '';
+  }
 }

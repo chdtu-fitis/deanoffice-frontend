@@ -12,6 +12,7 @@ export class SpecializationCompetenciesComponent {
   @Input() specializationId: number;
   competenciesIsLoading = false;
   competencies: AcquiredCompetencies;
+  edit = false;
 
   constructor(private _specializationService: SpecializationService) {
   }
@@ -21,15 +22,19 @@ export class SpecializationCompetenciesComponent {
     if (!hasCompetencies) {
       this.competenciesIsLoading = true;
       this._specializationService.getCompetencies(this.specializationId)
-        .do(() => this.competenciesIsLoading = false)
-        .subscribe(
-          (competencies: AcquiredCompetencies) => this._setCompetencies(competencies),
-          () => this._setCompetencies()
-        );
+        .subscribe((competencies: AcquiredCompetencies) => {
+          this.competencies = competencies;
+          this.competenciesIsLoading = false;
+        });
     }
   }
 
-  private _setCompetencies(competencies?: AcquiredCompetencies): void {
-    this.competencies = competencies;
+  enableEdit(): void {
+    this.edit = true;
+  }
+
+  save() {
+    const {id, competencies} = this.competencies;
+    this._specializationService.updateCompetenciesUkr(id, competencies);
   }
 }
