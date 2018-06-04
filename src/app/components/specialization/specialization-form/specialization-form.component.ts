@@ -35,10 +35,10 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.setInitialData();
   }
 
+  // TODO Return validation for name (only ukr), programHead, certificate
   setInitialData(data: Specialization = new Specialization()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
-      // name: [data.name, Validators.required],
       name: data.name,
       nameEng: data.nameEng,
       specialityId: [data.specialityId, Validators.required],
@@ -48,12 +48,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       qualificationEng: data.qualificationEng,
       paymentFulltime: data.paymentFulltime,
       paymentExtramural: data.paymentExtramural,
-      // certificateNumber: [data.certificateNumber, Validators.required],
-      // certificateDate: [data.certificateDate, Validators.required],
-      // educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
-      // educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
-      // educationalProgramHeadInfo: [data.educationalProgramHeadInfo, Validators.required],
-      // educationalProgramHeadInfoEng: [data.educationalProgramHeadInfoEng, Validators.required],
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
       educationalProgramHeadName: data.educationalProgramHeadName,
