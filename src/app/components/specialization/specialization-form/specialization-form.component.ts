@@ -32,33 +32,10 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     private _departmentService: DepartmentService
   ) {
     super();
-    this.form = this._formBuilder.group({
-      // name: ['', Validators.required],
-      name: '',
-      nameEng: '',
-      specialityId: ['', Validators.required],
-      degreeId: ['', Validators.required],
-      departmentId: '',
-      qualification: '',
-      qualificationEng: '',
-      paymentFulltime: '',
-      paymentExtramural: '',
-      // certificateNumber: ['', Validators.required],
-      // certificateDate: ['', Validators.required],
-      // educationalProgramHeadName: ['', Validators.required],
-      // educationalProgramHeadNameEng: ['', Validators.required],
-      // educationalProgramHeadInfo: ['', Validators.required],
-      // educationalProgramHeadInfoEng: ['', Validators.required],
-      certificateNumber: '',
-      certificateDate: '',
-      educationalProgramHeadName: '',
-      educationalProgramHeadNameEng: '',
-      educationalProgramHeadInfo: '',
-      educationalProgramHeadInfoEng: '',
-    });
+    this.setInitialData();
   }
 
-  setInitialData(data: Specialization) {
+  setInitialData(data: Specialization = new Specialization()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
       // name: [data.name, Validators.required],
