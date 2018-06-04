@@ -11,6 +11,11 @@ import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 
+const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
+const DEFAULT_NUMBER = 0;
+const DEFAULT_STRING = '';
+
+
 @Component({
   selector: 'specialization-form',
   templateUrl: './specialization-form.component.html',
@@ -93,33 +98,17 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     return {
       ...s,
       id: this.initialData.id,
-      name: this._stringValue(s.name),
+      name: s.name || DEFAULT_STRING,
       active: this.initialData.active,
-      paymentExtramural: this._numberValue(s.paymentExtramural),
-      paymentFulltime: this._numberValue(s.paymentFulltime),
-      certificateNumber: this._stringValue(s.certificateNumber),
-      certificateDate: this._dateValue(s.certificateDate),
-      educationalProgramHeadName: this._stringValue(s.educationalProgramHeadName),
-      educationalProgramHeadNameEng: this._stringValue(s.educationalProgramHeadNameEng),
-      educationalProgramHeadInfo: this._stringValue(s.educationalProgramHeadInfo),
-      educationalProgramHeadInfoEng: this._stringValue(s.educationalProgramHeadInfoEng)
+      paymentExtramural: s.paymentExtramural || DEFAULT_NUMBER,
+      paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
+      certificateNumber: s.certificateNumber || DEFAULT_STRING,
+      certificateDate: s.certificateDate || DEFAULT_DATE,
+      educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
+      educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
+      educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
+      educationalProgramHeadInfoEng: s.educationalProgramHeadInfoEng || DEFAULT_STRING
     } as Specialization;
-  }
-
-  private _numberValue(value: number): number {
-    return this._value(value, 0) as number
-  }
-
-  private _value(value, defaultValue): number | string | Date {
-    return (value) ? value : defaultValue;
-  }
-
-  private _stringValue(value: string): string {
-    return this._value(value, '') as string
-  }
-
-  private _dateValue(value: Date): Date {
-    return this._value(value, new Date(Date.parse('1980-01-01'))) as Date;
   }
 
   saveCompetencies() {
