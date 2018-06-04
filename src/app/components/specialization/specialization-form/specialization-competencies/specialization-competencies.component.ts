@@ -34,7 +34,9 @@ export class SpecializationCompetenciesComponent {
   }
 
   save() {
-    const {id, competencies} = this.competencies;
-    this._specializationService.updateCompetenciesUkr(id, competencies);
+    if (this.competencies) {
+      const {id, competencies} = this.competencies;
+      this._specializationService.updateCompetenciesUkr(id, competencies);
+    }
   }
 }

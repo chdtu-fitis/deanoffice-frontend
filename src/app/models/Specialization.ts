@@ -15,6 +15,8 @@ export class Specialization extends NameWithEngAndActiveEntity {
   educationalProgramHeadNameEng: string;
   educationalProgramHeadInfo: string;
   educationalProgramHeadInfoEng: string;
+  certificateNumber: string;
+  certificateDate: Date;
 
   specialityId?: number;
   degreeId?: number;

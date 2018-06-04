@@ -43,10 +43,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       qualificationEng: '',
       paymentFulltime: '',
       paymentExtramural: '',
+      // certificateNumber: ['', Validators.required],
+      // certificateDate: ['', Validators.required],
       // educationalProgramHeadName: ['', Validators.required],
       // educationalProgramHeadNameEng: ['', Validators.required],
       // educationalProgramHeadInfo: ['', Validators.required],
       // educationalProgramHeadInfoEng: ['', Validators.required],
+      certificateNumber: '',
+      certificateDate: '',
       educationalProgramHeadName: '',
       educationalProgramHeadNameEng: '',
       educationalProgramHeadInfo: '',
@@ -67,10 +71,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       qualificationEng: data.qualificationEng,
       paymentFulltime: data.paymentFulltime,
       paymentExtramural: data.paymentExtramural,
+      // certificateNumber: [data.certificateNumber, Validators.required],
+      // certificateDate: [data.certificateDate, Validators.required],
       // educationalProgramHeadName: [data.educationalProgramHeadName, Validators.required],
       // educationalProgramHeadNameEng: [data.educationalProgramHeadNameEng, Validators.required],
       // educationalProgramHeadInfo: [data.educationalProgramHeadInfo, Validators.required],
       // educationalProgramHeadInfoEng: [data.educationalProgramHeadInfoEng, Validators.required],
+      certificateNumber: data.certificateNumber,
+      certificateDate: data.certificateDate,
       educationalProgramHeadName: data.educationalProgramHeadName,
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
@@ -104,7 +112,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   invalid(): boolean {
     super.submit();
     if (this.form.invalid) {
-      alert('Перевірте введені дані на правильність');
+      alert('Перевірте введені дані на правильність!');
     }
     return this.form.invalid;
   }
@@ -118,6 +126,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       active: this.initialData.active,
       paymentExtramural: this._numberValue(s.paymentExtramural),
       paymentFulltime: this._numberValue(s.paymentFulltime),
+      certificateNumber: this._stringValue(s.certificateNumber),
+      certificateDate: this._dateValue(s.certificateDate),
       educationalProgramHeadName: this._stringValue(s.educationalProgramHeadName),
       educationalProgramHeadNameEng: this._stringValue(s.educationalProgramHeadNameEng),
       educationalProgramHeadInfo: this._stringValue(s.educationalProgramHeadInfo),
@@ -129,12 +139,16 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     return this._value(value, 0) as number
   }
 
-  private _value(value: number | string, defaultValue: number | string): number | string {
+  private _value(value, defaultValue): number | string | Date {
     return (value) ? value : defaultValue;
   }
 
   private _stringValue(value: string): string {
     return this._value(value, '') as string
+  }
+
+  private _dateValue(value: Date): Date {
+    return this._value(value, new Date(Date.parse('1980-01-01'))) as Date;
   }
 
   saveCompetencies() {
