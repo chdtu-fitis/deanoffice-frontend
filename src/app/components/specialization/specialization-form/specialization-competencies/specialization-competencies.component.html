@@ -1,0 +1,10 @@
+<div class="d-flex justify-content-end mt-1">
+  <button class="btn btn-info" (click)="enableEdit()" [disabled]="edit">Редагувати поточні компетенції</button>
+  <button class="btn btn-info ml-1">Створити нові для цього року</button>
+</div>
+<div class="competencies mt-2">
+  <loading class="competencies-loading" *ngIf="competenciesIsLoading"></loading>
+  <textarea class="form-control ta-15l" [(ngModel)]="competencies.competencies" *ngIf="!competenciesIsLoading && competencies"
+            [disabled]="!edit"
+  ></textarea>
+</div>

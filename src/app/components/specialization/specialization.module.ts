@@ -12,6 +12,7 @@ import { SpecializationModalComponent } from './specialization-modal/specializat
 import { UpdateSpecializationComponent } from './update-specialization/update-specialization.component';
 import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
 import {RouterModule, Routes} from '@angular/router';
+import { SpecializationCompetenciesComponent } from './specialization-form/specialization-competencies/specialization-competencies.component';
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -34,7 +35,8 @@ export const specializationRoutes: Routes = [
     SpecializationFormComponent,
     SpecializationModalComponent,
     UpdateSpecializationComponent,
-    SearchSpecializationsPipe
+    SearchSpecializationsPipe,
+    SpecializationCompetenciesComponent
   ]
 })
 export class SpecializationModule { }

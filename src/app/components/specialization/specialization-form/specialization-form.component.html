@@ -1,12 +1,11 @@
 <form [formGroup]="form">
-  <tabset>
+  <tabset #tabset>
     <tab heading="Загальна інформація">
       <div class="row">
         <div class="col-6">
           <div class="form-group">
             <label for="name">Назва</label>
             <input formControlName="name" type="text" class="form-control" id="name">
-            <!--<app-validation-errors [control]="form.controls.name"></app-validation-errors>-->
           </div>
 
           <div class="form-group">
@@ -45,27 +44,33 @@
         </div>
 
         <div class="col-6 position-relative">
-          <div class="h6 payment-title">Вартість навчання:</div>
-          <div class="form-group ml-3">
-            <label for="paymentFulltime">Повної форми</label>
-            <input formControlName="paymentFulltime" type="number" class="form-control" id="paymentFulltime">
-          </div>
+          <div class="h6 input-group-title">Вартість навчання:</div>
 
-          <div class="form-group ml-3">
-            <label for="paymentExtramural">Скороченої форми</label>
-            <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
+          <div class="ml-3">
+            <div class="form-group ml-3">
+              <label for="paymentFulltime">Повної форми</label>
+              <input formControlName="paymentFulltime" type="number" class="form-control" id="paymentFulltime">
+            </div>
+
+            <div class="form-group ml-3">
+              <label for="paymentExtramural">Скороченої форми</label>
+              <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
+            </div>
           </div>
         </div>
 
         <div class="col-6">
-          <div class="form-group">
-            <label for="qualification">Кваліфікація</label>
-            <input formControlName="qualification" type="text" class="form-control" id="qualification">
-          </div>
+          <div class="h6">Сертифікат:</div>
+          <div class="ml-3">
+            <div class="form-group d-flex align-items-center">
+              <label style="width: 65px" for="certificateNumber">Номер</label>
+              <input formControlName="certificateNumber" type="text" class="form-control" id="certificateNumber">
+            </div>
 
-          <div class="form-group">
-            <label for="qualificationEng">Кваліфікація англ.</label>
-            <input formControlName="qualificationEng" type="text" class="form-control" id="qualificationEng">
+            <div class="form-group d-flex align-items-center">
+              <label style="width: 65px" for="certificateDate">Дата</label>
+              <input formControlName="certificateDate" type="date" class="form-control" id="certificateDate">
+            </div>
           </div>
         </div>
       </div>
@@ -77,14 +82,12 @@
           <label for="educationalProgramHeadName">Гарант програми</label>
           <input formControlName="educationalProgramHeadName" type="text" class="form-control"
                  id="educationalProgramHeadName">
-          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadName"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
           <label for="educationalProgramHeadNameEng">Гарант програми англ.</label>
           <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
                  id="educationalProgramHeadNameEng">
-          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadNameEng"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
@@ -92,7 +95,6 @@
           <textarea formControlName="educationalProgramHeadInfo" type="text" class="form-control ta-4l"
                     id="educationalProgramHeadInfo">
           </textarea>
-          <!--<app-validation-errors [control]="form.controls.educationalProgramHeadInfo"></app-validation-errors>-->
         </div>
 
         <div class="form-group col-6">
@@ -102,56 +104,12 @@
           <textarea formControlName="educationalProgramHeadInfoEng" type="text" class="form-control ta-4l"
                     id="educationalProgramHeadInfoEng">
           </textarea>
-          <!--<app-validation-errors-->
-            <!--[control]="form.controls.educationalProgramHeadInfoEng"></app-validation-errors>-->
         </div>
       </div>
     </tab>
 
-    <tab heading="Знання та навички">
-      <div class="row">
-        <div class="form-group col-6">
-          <label for="knowledgeAndUnderstandingOutcomes">Знання та розуміння</label>
-          <textarea formControlName="knowledgeAndUnderstandingOutcomes" type="text" class="form-control ta-3l"
-                    id="knowledgeAndUnderstandingOutcomes"></textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="knowledgeAndUnderstandingOutcomesEng">Знання та розуміння англ.</label>
-          <textarea formControlName="knowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l" id="knowledgeAndUnderstandingOutcomesEng">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="applyingKnowledgeAndUnderstandingOutcomes">Застосування знань та розумінь</label>
-          <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomes" type="text"
-                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomes">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label
-            for="applyingKnowledgeAndUnderstandingOutcomesEng">Застосування знань та розумінь англ.</label>
-          <textarea formControlName="applyingKnowledgeAndUnderstandingOutcomesEng" type="text"
-                    class="form-control ta-3l" id="applyingKnowledgeAndUnderstandingOutcomesEng">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="makingJudgementsOutcomes">Формування суджень</label>
-          <textarea formControlName="makingJudgementsOutcomes" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomes">
-          </textarea>
-        </div>
-
-        <div class="form-group col-6">
-          <label for="makingJudgementsOutcomesEng">Формування суджень англ.</label>
-          <textarea formControlName="makingJudgementsOutcomesEng" type="text" class="form-control ta-3l"
-                    id="makingJudgementsOutcomesEng">
-          </textarea>
-        </div>
-      </div>
+    <tab *ngIf="updateForm" heading="Компетенції" (select)="getCompetencies()">
+      <specialization-competencies #competencies [specializationId]="initialData.id"></specialization-competencies>
     </tab>
   </tabset>
 </form>

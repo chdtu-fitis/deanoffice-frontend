@@ -2,7 +2,7 @@ tab {
   padding-top: 3px;
 }
 
-.payment-title {
+.input-group-title {
   position: absolute;
   top: -25px;
 }
@@ -14,9 +14,4 @@ tab {
 
 .no-resizeable {
   resize: none;
-}
-
-.ta-3l {
-  @extend .no-resizeable;
-  height: 86px;
 }

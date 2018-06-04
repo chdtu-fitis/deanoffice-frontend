@@ -1,6 +1,6 @@
-<specialization-modal #modal [title]="getTitle()" (hideModal)="hideModal()">
+<specialization-modal *ngIf="modalIsOpen" #modal [title]=" getTitle()" (hideModal)="hideModal()">
   <div class="modal-body">
-    <specialization-form #form></specialization-form>
+    <specialization-form [updateForm]="true" #form></specialization-form>
   </div>
 
   <div class="modal-footer">
