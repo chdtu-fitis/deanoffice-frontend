@@ -8,6 +8,7 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentService} from '../../services/student.service';
 import {EmptyGrade} from './EmptyGrade';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-grade',
@@ -26,6 +27,8 @@ export class GradeComponent implements OnInit {
     errorsMessage = [];
     emptyGradesList = [];
     gradesUpdate = [];
+    isDeleteMode = false;
+    selectGradeForDelete: Grade;
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
@@ -35,6 +38,10 @@ export class GradeComponent implements OnInit {
 
     ngOnInit() {
         this.getGroups();
+    }
+
+    changeMode() {
+        this.isDeleteMode = !this.isDeleteMode;
     }
 
     getGroups(): void {
@@ -54,6 +61,7 @@ export class GradeComponent implements OnInit {
 
     getGrades(): void {
         if (!this.selectGroup) return;
+        this.resetSelectGradeForDelete();
         this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
     }
 
@@ -167,6 +175,45 @@ export class GradeComponent implements OnInit {
         this.gradeService.updateGrades(this.fixEntytyGrades(this.emptyGradesList)).subscribe(grades => {
             this.getGrades();
         });
+    }
+
+    setSelectGradeForDelete(grade: Grade): void {
+        if (this.selectGradeForDelete && this.selectGradeForDelete.id === grade.id) {
+            this.resetSelectGradeForDelete();
+        } else {
+            this.selectGradeForDelete = grade;
+        }
+    }
+
+    resetSelectGradeForDelete(): void {
+        this.gradeTable.resetSelectGradeForDelete();
+        this.selectGradeForDelete = null;
+    }
+
+    deleteSelectedGrade(): void {
+        if (!this.isConfirmToDeleteGrade(this.selectGradeForDelete)) return;
+        this.gradeService.deleteGradeById(this.selectGradeForDelete.id).subscribe(res => {
+            this.getGrades();
+        });
+    }
+
+    isConfirmToDeleteGrade(grade: any) {
+        const st = this.studentsDegree.find(student => {
+            return student.id === grade.studentDegreeId;
+        });
+        const c = this.courses.find(course => {
+            return course.course.id === grade.courseId;
+        });
+        const value = 'Оцiнку не мсжна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
+        try {
+            let str = `Видалення оцiнки для студента: ${st.student.surname} ${st.student.name[0]}.${st.student.patronimic[0]}.\n`;
+            str += `Предмет: ${c.course.courseName.name}\n`;
+            str += `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
+            return confirm(str + value);
+        } catch (e) {
+            return confirm(value);
+        }
+
     }
 
     fixEntytyGrades(grades) {
