@@ -25,8 +25,8 @@ export class SpecializationService {
       .catch((error: Error) => HandleError.forPromise(error, 'Створення нової спеціалізації'));
   }
 
-  delete(itemIds: number[]): Promise<any> {
-    return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
+  delete(itemId: number): Promise<any> {
+    return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemId}`).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
   }
 
