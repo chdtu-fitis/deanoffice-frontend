@@ -1,0 +1,32 @@
+<div>
+  <loading *ngIf="loading"></loading>
+  <ngx-datatable
+    *ngIf="!loading"
+    class="bootstrap"
+    [rows]="rows | groupSearch: searchText"
+    [columnMode]="'force'"
+    [rowHeight]="'auto'"
+    [selectionType]="'checkbox'"
+    [selectAllRowsOnPage]="false"
+  >
+    <ngx-datatable-column
+      [width]="30"
+      [sortable]="false"
+      [canAutoResize]="false"
+      [draggable]="false"
+      [resizeable]="false"
+      [headerCheckboxable]="true"
+      [checkboxable]="true">
+    </ngx-datatable-column>
+    <ngx-datatable-column [name]="'Назва'" [prop]="'name'" [minWidth]="80" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Спеціалізація'" [prop]="'specialization.name'" [minWidth]="350"  [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Ступінь'" [prop]="'specialization.degree.name'" [minWidth]="75" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Форма'" [prop]="'tuitionForm'" [minWidth]="65" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Термін'" [prop]="'tuitionTerm'" [minWidth]="85" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Створено'" [prop]="'creationYear'" [minWidth]="75" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Курс початку'" [prop]="'beginYears'" [minWidth]="105" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Років начання'" [prop]="'studyYears'" [minWidth]="105" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+    <ngx-datatable-column [name]="'Семестрів'" [prop]="'studySemesters'" [minWidth]="76" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

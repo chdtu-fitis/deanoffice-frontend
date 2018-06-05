@@ -1,0 +1,9 @@
+.specializations-table {
+  height: calc(100% - 108px);
+}
+
+.align-middle {
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}

@@ -10,10 +10,10 @@ import {ValidationDirective} from './validation.directive';
 import {ValidationErrorsComponent} from './validation-errors/validation-errors.component';
 import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
 import {LoadingComponent} from './loading/loading.component';
+import {PipeModule} from '../../pipes/pipe.module';
 
 @NgModule({
   declarations: [
-    EntriesPipe,
     SidebarComponent,
     ValidationDirective,
     ValidationErrorsComponent,
@@ -25,12 +25,12 @@ import {LoadingComponent} from './loading/loading.component';
     HttpClientModule,
     NgxDatatableModule,
     ModalModule.forRoot(),
+    PipeModule
   ],
   exports: [
     CommonModule,
     ModalModule,
     NgxDatatableModule,
-    EntriesPipe,
     SidebarComponent,
     ValidationDirective,
     ValidationErrorsComponent,

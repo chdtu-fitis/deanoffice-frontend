@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <h4 class="modal-title">Редагувати предмет</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="creation-form">
+    <div class="row">
+      <div class="form-group col">
+        <label for="name" class="col-form-label">Назва курсу</label>
+        <input
+          name="name"
+          id="name"
+          required
+          type="text"
+          class="form-control mr-2 ng-pristine ng-valid ng-touched"
+          [(ngModel)]="course.course.courseName"
+          [ngbTypeahead]="search"
+          [inputFormatter]="formatter"
+          [resultFormatter]="formatter"
+          (change)="checkCourseName($event.target.value)"
+          (focus)="focus$.next($event.target.value)"
+          (click)="click$.next($event.target.value)"
+          #instance="ngbTypeahead">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-2">
+        <label for="hours" class="col-form-label">Години</label>
+        <input name="hours" id="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+               [(ngModel)]="course.course.hours" (change)="setCredits()">
+      </div>
+      <div class="form-group col-3">
+        <label for="hoursPerCredit" class="col-form-label">Години за кредит</label>
+        <select name="hoursPerCredit" id="hoursPerCredit" class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="course.course.hoursPerCredit" (change)="setCredits()">
+          <option [ngValue]="30">30</option>
+          <option [ngValue]="36">36</option>
+        </select>
+      </div>
+      <div class="form-group col-2">
+        <label for="credits" class="col-form-label">Кредити</label>
+        <input
+          disabled
+          id="credits"
+          class="form-control mr-2 ng-pristine ng-valid ng-touched"
+          [ngModel]="course.course.credits">
+      </div>
+      <div class="form-group col-5">
+        <label for="kc" class="col-form-label">Тип контролю</label>
+        <select name="kc" id="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="course.course.knowledgeControl">
+          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="saveChanges()">Зберегти</button>
+      <button type="button" class="btn btn-outline-danger" (click)="canselChanges()">Відмініти зміни</button>
+    </div>
+  </div>
+</div>

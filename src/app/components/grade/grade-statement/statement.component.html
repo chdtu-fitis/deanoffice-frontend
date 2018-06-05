@@ -1,0 +1,53 @@
+<div class="modal fade"
+     bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">
+                    {{selectedCourse?.course.courseName.name || 'Не було обрано предмет!'}}
+                    ({{selectedCourse?.course.knowledgeControl.name}})
+                </h6>
+                <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="error.length" class="alert alert-danger">
+                {{ error }}
+            </div>
+            <div class="modal-body">
+                <div *ngIf="statement.length">
+                    <h6 class="card-title">Вiдомiсть</h6>
+                    <app-grade-statement-table [studentsDegree]="statement"
+                                               [selectedCourse]="selectedCourse"
+                                               [onTime]="true"
+                                               [loadingGrades]="loadingGrades"
+                                               (setGrade)="toUpdateGrades($event);"
+                                               (error)="setError($event)">
+                    </app-grade-statement-table>
+                </div>
+                <div *ngIf="passedOnTime.length">
+                    <h6 class="card-title">{{!statement.length ? 'Вiдомiсть': 'Здали невчасно'}}</h6>
+                    <app-grade-statement-table [studentsDegree]="passedOnTime"
+                                               [selectedCourse]="selectedCourse"
+                                               [loadingGrades]="loadingGrades"
+                                               (setGrade)="toUpdateGrades($event);"
+                                               (error)="setError($event)">
+                    </app-grade-statement-table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger float-left"
+                        [disabled]="!updateGrades.length"
+                        [ngClass]="{'btn-outline-danger': !updateGrades.length}"
+                        (click)="cancelChanges()">Вiдмiнити змiни
+                </button>
+                <button class="btn btn-success float-right"
+                        [disabled]="!updateGrades.length"
+                        [ngClass]="{'btn-outline-secondary': !updateGrades.length}"
+                        (click)="sendUpdateGrades()">Зберегти зміни
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

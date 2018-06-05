@@ -1,12 +1,14 @@
 import {NameWithActiveEntity} from './basemodels/NameWithActiveEntity';
 import {Specialization} from './Specialization';
-import {StudentDegree} from "./StudentDegree";
+import {StudentDegree} from './StudentDegree';
+import {TuitionForm} from './tuition-form.enum';
+import {TuitionTerm} from './tuition-term.enum';
 
 export class StudentGroup extends NameWithActiveEntity {
   specialization: Specialization;
   creationYear: number;
-  tuitionForm: string;
-  tuitionTerm: string;
+  tuitionForm: TuitionForm | TuitionForm.FULL_TIME;
+  tuitionTerm: TuitionTerm | TuitionTerm.REGULAR;
   studySemesters: number;
   studyYears: number;
   beginYears: number;
@@ -14,7 +16,5 @@ export class StudentGroup extends NameWithActiveEntity {
 
   constructor() {
     super();
-    this.tuitionForm = 't'; // f - fulltime, e - extramural
-    this.tuitionTerm = 'r'; // r - regular, s - shortened
   }
 }

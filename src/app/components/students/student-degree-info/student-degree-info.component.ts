@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -16,6 +16,7 @@ import {StudentGroup} from '../../../models/StudentGroup';
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
   model: StudentDegree;
+  tabValidity: Array<boolean> = [];
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
   @Input() groups: StudentGroup[];
@@ -34,40 +35,59 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
 
   buildForm() {
     this.form = this.fb.group({
-      degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) =>
-        this.fb.group({
+      degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) => {
+        return this.fb.group({
           id: [degree.id],
-          studentGroupId: [{value: degree.studentGroup.id, disabled: !degree.active}, Validators.required],
-          recordBookNumber: [this.getValue('recordBookNumber', degree)],
-          studentCardNumber: [this.getValue('studentCardNumber', degree)],
-          diplomaNumber: [this.getValue('diplomaNumber', degree)],
-          diplomaDate: [this.getValue('diplomaDate', degree)],
-          supplementNumber: [this.getValue('supplementNumber', degree)],
-          supplementDate: [this.getValue('supplementDate', degree)],
-          thesisName: [this.getValue('thesisName', degree)],
-          thesisNameEng: [this.getValue('thesisNameEng', degree)],
-          protocolNumber: [this.getValue('protocolNumber', degree)],
-          protocolDate: [this.getValue('protocolDate', degree)],
-          previousDiplomaType: [this.getValue('previousDiplomaType', degree)],
-          previousDiplomaNumber: [this.getValue('previousDiplomaNumber', degree)],
-          previousDiplomaDate: [this.getValue('previousDiplomaDate', degree)],
-          payment: [this.getValue('payment', degree)],
-          active: [degree.active],
+          studentGroupId: [
+            degree.studentGroup ? degree.studentGroup.id : null,
+            degree.active ? Validators.required : null,
+          ],
+          recordBookNumber: degree.recordBookNumber,
+          studentCardNumber: degree.studentCardNumber,
+          diplomaNumber: degree.diplomaNumber,
+          diplomaDate: degree.diplomaDate,
+          supplementNumber: degree.supplementNumber,
+          supplementDate: degree.supplementDate,
+          thesisName: degree.thesisName,
+          thesisNameEng: degree.thesisNameEng,
+          protocolNumber: degree.protocolNumber,
+          protocolDate: degree.protocolDate,
+          previousDiplomaType: degree.previousDiplomaType,
+          previousDiplomaNumber: degree.previousDiplomaNumber,
+          previousDiplomaDate: degree.previousDiplomaDate,
+          previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
+          admissionOrderDate: degree.admissionOrderDate,
+          admissionOrderNumber: degree.admissionOrderNumber,
+          contractDate: degree.contractDate,
+          contractNumber: degree.contractNumber,
+          admissionDate: degree.admissionDate,
+          payment: degree.payment,
+          active: degree.active,
         })
-      ))
+      }))
     });
   }
 
-  getValue(name: string, degree: StudentDegree) {
-    return {
-      value: degree[name],
-      disabled: !degree.active,
-    }
+  getStudentGroup(i) {
+    return (this.model as any).degrees[i].studentGroup;
+  }
+
+  getTabHeader(i) {
+    const specialization = (this.model as any).degrees[i].specialization;
+    const specialityAbbr = specialization.speciality.name
+      .split(' ')
+      .map(str => str.charAt(0))
+      .join('')
+      .toUpperCase();
+    return `${specialityAbbr} ${specialization.degree.name}`;
   }
 
   submit() {
     super.submit();
     if (this.form.invalid) {
+      this.tabValidity = (this.form.controls.degrees as FormArray).controls.map(
+        control => control.invalid
+      );
       return;
     }
     const degrees = this.form.value.degrees.filter(degree => degree.active);

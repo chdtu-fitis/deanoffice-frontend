@@ -24,3 +24,12 @@ input::-webkit-inner-spin-button {
 .td-student {
   white-space: nowrap;
 }
+
+.btn-courses {
+  @extend .btn-light;
+  cursor: pointer;
+}
+
+.notCorrect {
+  outline: 1px solid #FF5722;
+}

@@ -2,6 +2,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 
 @Component({
   selector: 'added-courses',
@@ -13,15 +15,17 @@ export class AddedCoursesComponent implements OnInit {
 
   coursesForGroup: CourseForGroup[] = [];
   coursesForGroupForDelete: CourseForGroup[] = [];
-  @Input() selectedCoursesForGroups: CourseForGroup[];
   @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
+  @Input() changesExistence: boolean;
   @Output() onCoursesForDeleteChange = new EventEmitter();
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
+  allRowsIsSelected = false;
 
-  constructor(private courseForGroupService: CourseForGroupService) { }
+  constructor(private courseForGroupService: CourseForGroupService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {}
 
@@ -39,28 +43,9 @@ export class AddedCoursesComponent implements OnInit {
     });
   }
 
-  addNewCoursesForGroup(){
-    for (let courseForAdd of this.selectedCoursesForGroups) {
-      if (this.selectedCoursesForGroups.length > 0) {
-        let courseIsAdded = false;
-        for (let courseForGroup of this.coursesForGroup) {
-          if (courseForGroup.course.id === courseForAdd.course.id) {
-            courseIsAdded = true;
-          }
-        }
-        if (!courseIsAdded) {
-          this.coursesForGroup.push(courseForAdd);
-        }
-      }
-      else this.coursesForGroup.push(courseForAdd);
-    }
-    this.coursesForGroup.sort(function (a,b) {
-      if (a.course.courseName< b.course.courseName)
-        return -1;
-      if (a.course.courseName > b.course.courseName)
-        return 1;
-      return 0;
-    });
+  changeAllIsSelected(isSelected: boolean): void {
+    this.coursesForGroup.forEach((item) => this.changeCoursesForDelete(isSelected, item));
+    this.allRowsIsSelected = isSelected;
   }
 
   changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
@@ -76,11 +61,17 @@ export class AddedCoursesComponent implements OnInit {
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
   }
 
-  changeTeacher(index){
-    this.onTeacherChange.emit({show: true, index: index});
+  changeTeacher(course){
+    this.onTeacherChange.emit(course);
   }
 
   dateChange(index){
     this.onDateChange.emit({index: index});
+  }
+
+  changeCourse(course) {
+    const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
+    modalRef.componentInstance.course = course;
+    modalRef.componentInstance.selectedGroup = this.selectedGroup;
   }
 }

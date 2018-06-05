@@ -1,0 +1,17 @@
+tab {
+  padding-top: 3px;
+}
+
+.input-group-title {
+  position: absolute;
+  top: -25px;
+}
+
+.ta-4l {
+  @extend .no-resizeable;
+  height: 110px;
+}
+
+.no-resizeable {
+  resize: none;
+}

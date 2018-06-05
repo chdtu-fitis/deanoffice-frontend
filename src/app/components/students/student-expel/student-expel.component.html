@@ -17,31 +17,31 @@
           <div class="col-6">
             <form [formGroup]="form" novalidate>
               <div class="form-group">
-                <label for="orderNumber">Номер наказу</label>
+                <label for="orderNumber" class="required">Номер наказу</label>
                 <input formControlName="orderNumber" class="form-control" id="orderNumber"
                        [appValidation]="form.controls.orderNumber">
                 <app-validation-errors [control]="form.controls.orderNumber"></app-validation-errors>
               </div>
               <div class="form-group">
-                <label for="orderDate">Дата наказу</label>
+                <label for="orderDate" class="required">Дата наказу</label>
                 <input type="date" formControlName="orderDate" class="form-control" id="orderDate"
                        [appValidation]="form.controls.orderDate">
                 <app-validation-errors [control]="form.controls.orderDate"></app-validation-errors>
               </div>
               <div class="form-group">
-                <label for="applicationDate">Дата заяви</label>
+                <label for="applicationDate" class="required">Дата заяви</label>
                 <input type="date" formControlName="applicationDate" class="form-control" id="applicationDate"
                        [appValidation]="form.controls.applicationDate">
                 <app-validation-errors [control]="form.controls.applicationDate"></app-validation-errors>
               </div>
               <div class="form-group">
-                <label for="expelDate">Дата відрахування</label>
+                <label for="expelDate" class="required">Дата відрахування</label>
                 <input type="date" formControlName="expelDate" class="form-control" id="expelDate"
                        [appValidation]="form.controls.expelDate">
                 <app-validation-errors [control]="form.controls.expelDate"></app-validation-errors>
               </div>
               <div class="form-group">
-                <label for="reason">Причина відрахування</label>
+                <label for="reason" class="required">Причина відрахування</label>
                 <select formControlName="orderReasonId" class="form-control" id="reason" [appValidation]="form.controls.orderReasonId">
                   <option *ngFor="let reason of reasons" [ngValue]="reason.id">{{reason.name}}</option>
                 </select>
