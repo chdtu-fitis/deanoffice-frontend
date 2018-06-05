@@ -32,4 +32,5 @@ export class GradeService {
         return this.http.delete<Grade[]>(`${this.url}?gradeId=${gradeId}`)
             .pipe(catchError(HandleError.forObservable('Видалення оцiнок', [])));
     }
+}
 
