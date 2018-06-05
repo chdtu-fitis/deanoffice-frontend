@@ -7,36 +7,46 @@ import {catchError} from 'rxjs/operators';
 import {HandleError} from '../components/shared/httpErrors';
 
 const API_URL: string = environment.apiUrl;
-const SPECIALIZATION_URL = API_URL + '/specializations';
+const SPECIALIZATION_URL: string = API_URL + '/specializations';
+const ACQUIRED_COMPETENCIES_URL: string = API_URL + '/acquired-competencies';
 
 @Injectable()
 export class SpecializationService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
   public getSpecializations(actual: boolean = true): Observable<Specialization[]> {
     const params = new HttpParams().set('active', actual.toString());
-    return this.httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
+    return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
       .pipe(catchError(HandleError.forObservable('Отримання спеціалізацій', [])));
   }
 
   create(body: Specialization): Promise<any> {
-    return this.httpClient.post(SPECIALIZATION_URL, body).toPromise()
+    return this._httpClient.post(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Створення нової спеціалізації'));
   }
 
-  delete(itemIds: number[]): Promise<any> {
-    return this.httpClient.delete(`${SPECIALIZATION_URL}/${itemIds}`).toPromise()
+  delete(itemId: number): Promise<any> {
+    return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemId}`).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
   }
 
   getById(sourceId: number): Observable<Specialization> {
-    return this.httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
+    return this._httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
       .pipe(catchError(HandleError.forObservable('Отриманная спеціалізації по Id', [])))
       .map(data => data as Specialization)
   }
 
+  getCompetencies(specializationId: number): Observable<any> {
+    return this._httpClient.get(`${SPECIALIZATION_URL}/${specializationId}/competencies/ukr`);
+  }
+
   update(body: Specialization): Promise<any> {
-    return this.httpClient.put(SPECIALIZATION_URL, body).toPromise()
+    return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
+  }
+
+  updateCompetenciesUkr(competenciesId: number, competencies: string): Promise<any> {
+    return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/ukr`, competencies).toPromise()
+      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення компетенцій спеціалізації (українською)'));
   }
 }

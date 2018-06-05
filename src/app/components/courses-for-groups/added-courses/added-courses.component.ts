@@ -70,7 +70,7 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   changeCourse(course) {
-    const modalRef = this.modalService.open(EditDialogComponent, { centered: true });
+    const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
     modalRef.componentInstance.course = course;
     modalRef.componentInstance.selectedGroup = this.selectedGroup;
   }

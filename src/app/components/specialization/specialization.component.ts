@@ -9,7 +9,7 @@ import {Specialization} from '../../models/Specialization';
 })
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
-  selectedSpecializations: Specialization[] = [];
+  selectedSpecialization: Specialization;
   loading: boolean;
   searchField: string;
   private actual: boolean;
@@ -30,16 +30,12 @@ export class SpecializationComponent implements OnInit {
     );
   }
 
-  deleteIsDisabled(): boolean {
-    return this.selectedSpecializations.length === 0 || !this.actual;
+  buttonIsDisabled(): boolean {
+    return !this.selectedSpecialization || !this.actual;
   }
 
-  updateIsDisabled(): boolean {
-    return this.selectedSpecializations.length !== 1 || !this.actual;
-  }
-
-  selectSpecializations(specializations: Specialization[]): void {
-    this.selectedSpecializations = specializations;
+  selectSpecializations(selected: Specialization): void {
+    this.selectedSpecialization = selected;
   }
 
   updateDatatable(): void {

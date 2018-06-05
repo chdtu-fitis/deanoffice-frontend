@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-base-reactive-form',
@@ -12,12 +12,12 @@ export class BaseReactiveFormComponent {
     this.validateAllFormFields(this.form);
   }
 
-  protected validateAllFormFields(formGroup: FormGroup) {
+  protected validateAllFormFields(formGroup: FormGroup|FormArray) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
         this.validateAllFormFields(control);
       }
     });

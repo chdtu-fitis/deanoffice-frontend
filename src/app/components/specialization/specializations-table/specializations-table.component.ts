@@ -1,17 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {Specialization} from '../../../models/Specialization';
 
-import {translations} from '../transtations';
+import {tableColumnTranslations} from '../transtations';
 
 const columns: string[] = [
   'name',
   'nameEng',
-  'speciality.code',
-  'speciality.name',
+  'speciality',
   'degree.name',
-  'educationalProgramHeadName',
-  'paymentFulltime',
-  'paymentExtramural'
+  'educationalProgramHeadName'
 ];
 
 @Component({
@@ -19,15 +16,28 @@ const columns: string[] = [
   templateUrl: './specializations-table.component.html',
   styleUrls: ['./specializations-table.component.scss']
 })
-export class SpecializationsTableComponent {
+export class SpecializationsTableComponent implements OnInit {
   @Input() rows: Specialization[];
   @Input() loading: boolean;
-  @Output() onSelect: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
-  selected: Specialization[] = [];
-  columns = this.transformArrayToColumns();
+  @Output() onSelect: EventEmitter<Specialization> = new EventEmitter<Specialization>();
+  @ViewChild('specialityTemplate') specialityTemplate: TemplateRef<any>;
+  selected: Specialization;
+  columns = [];
 
-  private transformArrayToColumns(): Object[] {
+  ngOnInit() {
+    this.columns = this._transformArrayToColumns();
+  }
+
+  private _transformArrayToColumns(): Object[] {
     const templatesMap = {
+      'speciality': {
+        cellTemplate: this.specialityTemplate
+      },
+      'degree.name': {
+        width: 100,
+        resizable: false,
+        canAutoResize: false
+      },
       'selected': {
         name: '',
         sortable: false,
@@ -37,11 +47,11 @@ export class SpecializationsTableComponent {
         headerCheckboxable: true,
         checkboxable: true,
         width: 30
-      },
+      }
     };
 
     return ['selected', ...columns].map(prop => {
-      return {prop, name: translations[prop], ...templatesMap[prop]};
+      return {prop, name: tableColumnTranslations[prop], ...templatesMap[prop]};
     });
   }
 
@@ -50,11 +60,11 @@ export class SpecializationsTableComponent {
   }
 
   select({selected}) {
-    this.handleSelect(selected)
+    this.handleSelect([...selected].pop())
   }
 
-  handleSelect(specializations: Specialization[]) {
-    this.selected = [...specializations];
+  handleSelect(specialization: Specialization) {
+    this.selected = specialization;
     this.onSelect.emit(this.selected);
   }
 
@@ -62,12 +72,15 @@ export class SpecializationsTableComponent {
     if (type !== 'click' || column.prop === 'selected') {
       return;
     }
-    const index = this.selected.findIndex(entry => entry.id === row.id);
-    if (index > -1) {
-      this.selected.splice(index, 1);
+    if (this.selected === row) {
+      this.selected = null;
       this.onSelect.emit(this.selected);
     } else {
-      this.handleSelect([...this.selected, row]);
+      this.handleSelect(row);
     }
+  }
+
+  getSelected() {
+    return (this.selected) ? [this.selected] : [];
   }
 }

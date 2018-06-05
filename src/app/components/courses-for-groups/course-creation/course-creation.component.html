@@ -39,7 +39,6 @@
       <div class="form-group col-4">
         <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
                 [(ngModel)]="course.knowledgeControl">
-          <option value="">Виберіть</option>
           <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
         </select>
       </div>

@@ -15,8 +15,12 @@
     [messages]="{ emptyMessage: 'Дані відсутні.' }"
     (select)="select($event)"
     (activate)="activate($event)"
-    [selected]="selected"
+    [selected]="getSelected()"
     [sortType]="'multi'"
     [trackByProp]="'id'"
   ></ngx-datatable>
 </div>
+
+<ng-template #specialityTemplate let-value="value">
+  {{value?.code}} {{value?.name}}
+</ng-template>

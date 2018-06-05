@@ -1,0 +1,21 @@
+.no-resizeable {
+  resize: none;
+}
+
+.ta-15l {
+  @extend .no-resizeable;
+  height: 374px;
+}
+
+.competencies {
+  position: relative;
+  width: 766px;
+  height: 374px;
+}
+
+.competencies-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
