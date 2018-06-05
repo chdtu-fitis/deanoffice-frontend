@@ -52,8 +52,7 @@ export class CoursesForGroupsComponent implements OnInit {
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
               private _service: NotificationsService,
-              private modalService: NgbModal) {
-  }
+              private modalService: NgbModal) {}
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(groups => {
@@ -78,9 +77,7 @@ export class CoursesForGroupsComponent implements OnInit {
   onGroupChange() {
     this.changeSemesters();
     this.refresh();
-    if (this.selectedSemester) {
-      this.onSemesterChange();
-    }
+    if (this.selectedSemester) this.onSemesterChange();
   }
 
   onSemesterChange() {
@@ -104,32 +101,34 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForDelete = event;
   }
 
-  deleteCoursesFromCoursesForGroups() {
+  checkAddedCoursesForDeleting() {
     if (this.coursesForDelete) {
       for (let deletedCourse of this.coursesForDelete) {
-        for (let course of this.coursesForGroup) {
-          if (deletedCourse.course.id == course.course.id && deletedCourse.id) {
-            this.cnangesExistence = true;
-            this.deleteCoursesIds.push(deletedCourse.id);
-            this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-            this.updatedCourses.splice(this.updatedCourses.indexOf(course), 1);
-            this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
-          }
-        }
+        let coursesIsAdded = false;
         for (let addedCourse of this.coursesForAdd)
-          if (addedCourse.course.id === deletedCourse.course.id) {
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(addedCourse), 1);
-            this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
-            this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
-          }
+          if (addedCourse.course.id === deletedCourse.course.id) coursesIsAdded = true;
+        this.deleteCourseFromCoursesForGroups(coursesIsAdded, deletedCourse);
       }
+      this.cnangesExistence = true;
       this.child.coursesForGroupForDelete = [];
       this.child.allRowsIsSelected = false;
       this.coursesForDelete = [];
     }
     else this.showErrorAlert('Предмети для видалення не були обрані');
     this.sortCoursesForGroup();
+  }
+
+  private deleteCourseFromCoursesForGroups(courseIsAdded: boolean, deletedCourse){
+    this.coursesForGroup.splice(this.coursesForGroup.indexOf(deletedCourse), 1);
+    this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(deletedCourse), 1);
+    if (courseIsAdded){
+      this.coursesForAdd.splice(this.coursesForAdd.indexOf(deletedCourse), 1);
+    }
+    else {
+      this.deleteCoursesIds.push(deletedCourse.id);
+      this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
+      this.updatedCourses.splice(this.updatedCourses.indexOf(deletedCourse), 1);
+    }
   }
 
   changeSelectedCourses(event) {
@@ -139,9 +138,7 @@ export class CoursesForGroupsComponent implements OnInit {
   checkIfAddedCourseIsInDeleted(addedCourse) {
     let courseIsDeleted = false;
     for (let deletedCourseId of this.deleteCoursesIdsForCheck) {
-      if (deletedCourseId === addedCourse.id) {
-        courseIsDeleted = true;
-      }
+      if (deletedCourseId === addedCourse.id) courseIsDeleted = true;
     }
     return courseIsDeleted;
   }
@@ -153,25 +150,18 @@ export class CoursesForGroupsComponent implements OnInit {
         let courseIsExist = false;
         if (this.coursesForGroup) {
           for (let courseForGroup of this.coursesForGroup) {
-            if (newCourseForGroup.course.id === courseForGroup.course.id) {
-              courseIsExist = true;
-            }
+            if (newCourseForGroup.course.id === courseForGroup.course.id) courseIsExist = true;
           }
         }
         if (this.coursesForAdd) {
           let courseIsAdded = false;
-          for (let courseForAdd of this.coursesForAdd) {
-            if (newCourseForGroup.course.id === courseForAdd.course.id) {
-              courseIsAdded = true;
-            }
-          }
-          if (!courseIsAdded && !courseIsExist) {
+          for (let courseForAdd of this.coursesForAdd)
+            if (newCourseForGroup.course.id === courseForAdd.course.id) courseIsAdded = true;
+          if (!courseIsAdded && !courseIsExist)
             this.addCourse(true, newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
-          }
         }
-        else if (!courseIsExist) {
+        else if (!courseIsExist)
           this.addCourse(true, newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
-        }
         if (courseIsExist) this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
       }
       this.sortCoursesForGroup();
@@ -182,12 +172,8 @@ export class CoursesForGroupsComponent implements OnInit {
 
   sortCoursesForGroup() {
     this.child.coursesForGroup.sort((a, b) => {
-      if (a.course.courseName.name > b.course.courseName.name) {
-        return 1;
-      }
-      if (a.course.courseName.name < b.course.courseName.name) {
-        return -1;
-      }
+      if (a.course.courseName.name > b.course.courseName.name) return 1;
+      if (a.course.courseName.name < b.course.courseName.name) return -1;
       return 0;
     })
   }
