@@ -104,25 +104,13 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForDelete = event;
   }
 
-  deleteCoursesFromCoursesForGroups() {
+  checkAddedCoursesForDeleting() {
     if (this.coursesForDelete) {
       for (let deletedCourse of this.coursesForDelete) {
-        for (let course of this.coursesForGroup) {
-          if (deletedCourse.course.id == course.course.id && deletedCourse.id) {
-            this.cnangesExistence = true;
-            this.deleteCoursesIds.push(deletedCourse.id);
-            this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(course), 1);
-            this.updatedCourses.splice(this.updatedCourses.indexOf(course), 1);
-            this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(course), 1);
-          }
-        }
+        let coursesIsAdded = false;
         for (let addedCourse of this.coursesForAdd)
-          if (addedCourse.course.id === deletedCourse.course.id) {
-            this.coursesForGroup.splice(this.coursesForGroup.indexOf(addedCourse), 1);
-            this.coursesForAdd.splice(this.coursesForAdd.indexOf(addedCourse), 1);
-            this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(addedCourse), 1);
-          }
+          if (addedCourse.course.id === deletedCourse.course.id) coursesIsAdded = true;
+        this.deleteCourseFromCoursesForGroups(coursesIsAdded, deletedCourse);
       }
       this.child.coursesForGroupForDelete = [];
       this.child.allRowsIsSelected = false;
@@ -130,6 +118,20 @@ export class CoursesForGroupsComponent implements OnInit {
     }
     else this.showErrorAlert('Предмети для видалення не були обрані');
     this.sortCoursesForGroup();
+  }
+
+  private deleteCourseFromCoursesForGroups(courseIsAdded: boolean, deletedCourse){
+    this.coursesForGroup.splice(this.coursesForGroup.indexOf(deletedCourse), 1);
+    this.child.coursesForGroup.splice(this.child.coursesForGroup.indexOf(deletedCourse), 1);
+    if (courseIsAdded){
+      this.coursesForAdd.splice(this.coursesForAdd.indexOf(deletedCourse), 1);
+    }
+    else {
+      this.cnangesExistence = true;
+      this.deleteCoursesIds.push(deletedCourse.id);
+      this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
+      this.updatedCourses.splice(this.updatedCourses.indexOf(deletedCourse), 1);
+    }
   }
 
   changeSelectedCourses(event) {
