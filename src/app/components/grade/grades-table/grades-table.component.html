@@ -27,12 +27,16 @@
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-            <td [ngClass]="{ 'bg-danger' : grade?.empty, 'text-center align-middle': true}">
-                <input type="number" [value]="grade.points"
+            <td [ngClass]="{ 'bg-danger' : grade?.empty && !isDeleteMode, 'text-center align-middle': true}">
+                <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                        (change)="editGrade(grade, studentId, gradeId, $event)"
                        (keyup)="nextCell($event, studentId, gradeId);"
                        id="grade{{studentId}}{{gradeId}}id"
                        [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
+
+                <input type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
+                       [checked]="selectedGradeForDelete?.id === grade.id" (click)="selectGradeForDelete(grade)"
+                       title="{{grade.points}}">
             </td>
         </ng-container>
     </tr>

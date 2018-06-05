@@ -15,8 +15,11 @@ export class GradesTableComponent {
     @Output() gradesUpdate = new EventEmitter();
     @Output() errors = new EventEmitter();
     @Output() sendUpdateGrades = new EventEmitter();
+    @Output() setGradeForDelete = new EventEmitter();
     grades = [];
     @Input() loadingGrades = false;
+    @Input() isDeleteMode = false;
+    selectedGradeForDelete: any;
 
     resetGrades() {
         this.grades = [];
@@ -91,5 +94,18 @@ export class GradesTableComponent {
         const element = document.getElementById(id).parentElement;
         const styles = 'text-center align-middle';
         element.setAttribute('class', `${styles} ${style}`);
+    }
+
+    sendSelectGrade(): void {
+        this.setGradeForDelete.emit(this.selectedGradeForDelete);
+    }
+
+    selectGradeForDelete(grade: Grade): void {
+        this.selectedGradeForDelete = grade;
+        this.sendSelectGrade();
+    }
+
+    resetSelectGradeForDelete(): void {
+        this.selectedGradeForDelete = null;
     }
 }

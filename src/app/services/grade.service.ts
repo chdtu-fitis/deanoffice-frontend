@@ -23,8 +23,14 @@ export class GradeService {
             .pipe(catchError(HandleError.forObservable('Отримання оцінок для обраної групи, за обраним предметом', [])));
     }
 
-    public updateGrades(grades): Observable<Grade[]> {
+    public updateGrades(grades: Grade[]): Observable<Grade[]> {
         return this.http.put<Grade[]>(`${this.url}/`, grades)
             .pipe(catchError(HandleError.forObservable('Відправка оновлених оцінок', [])));
     }
+
+    public deleteGradeById(gradeId: number): Observable<Grade[]> {
+        return this.http.delete<Grade[]>(`${this.url}?gradeId=${gradeId}`)
+            .pipe(catchError(HandleError.forObservable('Видалення оцiнок', [])));
+    }
 }
+
