@@ -11,8 +11,8 @@ import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetencies} from '../../../models/AcquiredCompetencies';
-import {SpecializationService} from '../../../services/specialization.service';
-import {AcquiredCompetenciesService} from "./services/acquired-competencies.service";
+import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
+import {Lang} from './enums/lang.enum';
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -34,6 +34,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   specialities: Speciality[] = [];
   departments: Department[] = [];
   isShow = true;
+  lang = Lang;
 
   constructor(
     private _formBuilder: FormBuilder,

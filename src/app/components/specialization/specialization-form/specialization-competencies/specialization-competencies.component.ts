@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SpecializationService} from '../../../../services/specialization.service';
 import 'rxjs/add/operator/do';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
-import {AcquiredCompetenciesService} from "../services/acquired-competencies.service";
+import {AcquiredCompetenciesService} from '../services/acquired-competencies.service';
+import {Lang} from '../enums/lang.enum';
 
 @Component({
   selector: 'specialization-competencies',
@@ -12,6 +12,7 @@ import {AcquiredCompetenciesService} from "../services/acquired-competencies.ser
 export class SpecializationCompetenciesComponent implements OnInit {
   @Input() specializationId: number;
   @Input() onlyCreating: boolean;
+  @Input() lang: Lang;
   private _id: number;
   private _isLoaded = false;
   isLoading = false;
@@ -27,10 +28,11 @@ export class SpecializationCompetenciesComponent implements OnInit {
   getCompetencies() {
     if (!this._isLoaded && !this.onlyCreating) {
       this.isLoading = true;
-      this._acquiredCompetenciesService.getCompetencies(this.specializationId)
+      this._acquiredCompetenciesService.getCompetencies(this.specializationId, this.lang)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
-          this.competencies = competencies['competencies'];
+          const filedName: string = (this.lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
+          this.competencies = competencies[filedName];
           this.isLoading = false;
           this._isLoaded = true;
         });
@@ -43,7 +45,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
 
   save() {
     if (this.competencies && !this.onlyCreating) {
-      this._acquiredCompetenciesService.updateCompetenciesUkr(this._id, this.competencies)
+      this._acquiredCompetenciesService.updateCompetencies(this._id, this.competencies, this.lang)
         .then(() => this._isLoaded = false, null);
       return;
     }
