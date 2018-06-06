@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SpecializationService} from '../../../../services/specialization.service';
 import 'rxjs/add/operator/do';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
@@ -8,23 +8,30 @@ import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
   templateUrl: './specialization-competencies.component.html',
   styleUrls: ['./specialization-competencies.component.scss']
 })
-export class SpecializationCompetenciesComponent {
+export class SpecializationCompetenciesComponent implements OnInit {
   @Input() specializationId: number;
-  competenciesIsLoading = false;
-  competencies: AcquiredCompetencies;
-  edit = false;
+  @Input() onlyCreating: boolean;
+  private _id: number;
+  private _isLoaded = false;
+  isLoading = false;
+  competencies: string;
+  edit: boolean;
 
-  constructor(private _specializationService: SpecializationService) {
+  constructor(private _specializationService: SpecializationService) {}
+
+  ngOnInit() {
+    this.edit = this.onlyCreating;
   }
 
   getCompetencies() {
-    const hasCompetencies: boolean = Boolean(this.competencies);
-    if (!hasCompetencies) {
-      this.competenciesIsLoading = true;
+    if (!this._isLoaded && !this.onlyCreating) {
+      this.isLoading = true;
       this._specializationService.getCompetencies(this.specializationId)
         .subscribe((competencies: AcquiredCompetencies) => {
-          this.competencies = competencies;
-          this.competenciesIsLoading = false;
+          this._id = competencies.id;
+          this.competencies = competencies['competencies'];
+          this.isLoading = false;
+          this._isLoaded = true;
         });
     }
   }
@@ -34,9 +41,18 @@ export class SpecializationCompetenciesComponent {
   }
 
   save() {
-    if (this.competencies) {
-      const {id, competencies} = this.competencies;
-      this._specializationService.updateCompetenciesUkr(id, competencies);
+    if (this.competencies && !this.onlyCreating) {
+      this._specializationService.updateCompetenciesUkr(this._id, this.competencies)
+        .then(() => this._isLoaded = false, null);
+      return;
     }
+  }
+
+  isShowField(): boolean {
+    return !this.isLoading || this.onlyCreating;
+  }
+
+  getValue(): string {
+    return this.competencies;
   }
 }

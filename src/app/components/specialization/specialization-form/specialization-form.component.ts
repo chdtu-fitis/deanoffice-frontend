@@ -10,6 +10,8 @@ import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
+import {AcquiredCompetencies} from '../../../models/AcquiredCompetencies';
+import {SpecializationService} from '../../../services/specialization.service';
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -25,16 +27,19 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
   @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
+  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
+  isShow = true;
 
   constructor(
     private _formBuilder: FormBuilder,
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
-    private _departmentService: DepartmentService
+    private _departmentService: DepartmentService,
+    private _specializationService: SpecializationService
   ) {
     super();
     this.setInitialData();
@@ -70,15 +75,15 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       .subscribe((departments: Department[]) => this.departments = departments);
   }
 
-  getCompetencies(): void {
-    if (this.updateForm) {
-      this.competencies.getCompetencies();
-    }
-  }
-
   reset() {
     this.selectTap(0);
     this.form.reset();
+    this._destroyCompetenciesTabs();
+  }
+
+  private _destroyCompetenciesTabs() {
+    this.isShow = false;
+    setTimeout(() => this.isShow = true, 0);
   }
 
   selectTap(tabIndex: number): void {
@@ -111,7 +116,20 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     } as Specialization;
   }
 
-  saveCompetencies() {
-    this.competencies.save();
+  saveCompetencies(specializationId?: number) {
+    if (this.updateForm) {
+      this.competencies.save();
+      return;
+    }
+    const competencies: string = this.competencies.getValue();
+    const competenciesEng: string = this.competenciesEng.getValue();
+    if (competencies) {
+      const acquiredCompetencies: AcquiredCompetencies = {
+        competencies: competencies || '',
+        competenciesEng: competenciesEng || '',
+        specializationId
+      } as AcquiredCompetencies;
+      this._specializationService.createCompetencies(acquiredCompetencies);
+    }
   }
 }
