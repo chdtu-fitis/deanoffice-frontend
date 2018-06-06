@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import 'rxjs/add/operator/do';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
 import {AcquiredCompetenciesService} from '../services/acquired-competencies.service';
 import {Lang} from '../enums/lang.enum';
+import 'rxjs/add/operator/do';
 
 @Component({
   selector: 'specialization-competencies',
@@ -50,10 +50,10 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   save() {
-    if (this.competencies && !this.onlyCreating) {
+    const canSave: boolean = !this.onlyCreating && (this._isLoaded || Boolean(this.competencies));
+    if (canSave) {
       this._acquiredCompetenciesService.updateCompetencies(this._id, this.competencies, this.lang)
         .then(() => this._isLoaded = false, null);
-      return;
     }
   }
 

@@ -121,6 +121,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   saveCompetencies(specializationId?: number) {
     if (this.updateForm) {
       this.competencies.save();
+      this.competenciesEng.save();
       return;
     }
     const competencies: string = this.competencies.getValue();
