@@ -57,7 +57,7 @@ export class StudentsFiltersComponent {
 
   private filter(entry: StudentDegree): Boolean {
     const { group, payment, birthDate, birthMonth } = this.form.value;
-    const isGroupMatch = !group || entry.studentGroup.name === group;
+    const isGroupMatch = !group || (entry.studentGroup && entry.studentGroup.name === group);
 
     let isBirthDateMatch = true;
     if (birthDate) {
