@@ -22,12 +22,12 @@ export class SpecializationService {
 
   create(body: Specialization): Promise<any> {
     return this._httpClient.post(SPECIALIZATION_URL, body).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Створення нової спеціалізації'));
+      .catch(HandleError.forPromise('Створення нової спеціалізації'));
   }
 
   delete(itemId: number): Promise<any> {
     return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemId}`).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Видалення спеціалізацій'));
+      .catch(HandleError.forPromise('Видалення спеціалізацій'));
   }
 
   getById(sourceId: number): Observable<Specialization> {
@@ -38,6 +38,6 @@ export class SpecializationService {
 
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
+      .catch(HandleError.forPromise('Оновлення спеціалізації'));
   }
 }

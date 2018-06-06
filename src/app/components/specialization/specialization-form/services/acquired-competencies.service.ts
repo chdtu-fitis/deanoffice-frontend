@@ -33,11 +33,11 @@ export class AcquiredCompetenciesService {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain');
     return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/${lang}`, competencies, {headers})
       .toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, `Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
+      .catch(HandleError.forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
   }
 
   createCompetencies(competencies: AcquiredCompetencies): Promise<any> {
     return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Створення компетенцій для спеціалізації'));
+      .catch(HandleError.forPromise('Створення компетенцій для спеціалізації'));
   }
 }
