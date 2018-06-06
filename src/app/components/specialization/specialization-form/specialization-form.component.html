@@ -112,5 +112,9 @@
       <specialization-competencies #competencies [specializationId]="initialData.id" [onlyCreating]="!updateForm">
       </specialization-competencies>
     </tab>
+    <tab heading="Компетенції англ." (select)="competenciesEng.getCompetencies()">
+      <specialization-competencies #competenciesEng [specializationId]="initialData.id" [onlyCreating]="!updateForm">
+      </specialization-competencies>
+    </tab>
   </tabset>
 </form>

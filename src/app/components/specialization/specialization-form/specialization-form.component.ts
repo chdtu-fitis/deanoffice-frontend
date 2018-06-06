@@ -10,8 +10,8 @@ import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
-import {AcquiredCompetencies} from "../../../models/AcquiredCompetencies";
-import {SpecializationService} from "../../../services/specialization.service";
+import {AcquiredCompetencies} from '../../../models/AcquiredCompetencies';
+import {SpecializationService} from '../../../services/specialization.service';
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -27,6 +27,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
   @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
+  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
@@ -114,13 +115,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       return;
     }
     const competencies: string = this.competencies.getValue();
+    const competenciesEng: string = this.competenciesEng.getValue();
     if (competencies) {
       const acquiredCompetencies: AcquiredCompetencies = {
         competencies: competencies || '',
-        competenciesEng: competencies || '',
+        competenciesEng: competenciesEng || '',
         specializationId
       } as AcquiredCompetencies;
-       this._specializationService.createCompetencies(acquiredCompetencies);
+      this._specializationService.createCompetencies(acquiredCompetencies);
     }
   }
 }
