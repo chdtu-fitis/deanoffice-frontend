@@ -41,8 +41,8 @@ export const specializationRoutes: Routes = [
     SpecializationCompetenciesComponent
   ],
   providers: [
-    AcquiredCompetenciesService,
-    AuthenticationModule.tokenInterceptor()
+    // AcquiredCompetenciesService,
+    // AuthenticationModule.tokenInterceptor()
   ]
 })
 export class SpecializationModule { }

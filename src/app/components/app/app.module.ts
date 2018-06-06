@@ -29,6 +29,7 @@ import {GeneralService} from '../../services/general.service'
 import {ExamReportService} from '../../services/exam-report.service';
 
 import {appRoutes} from './app-routes';
+import {AcquiredCompetenciesService} from '../specialization/specialization-form/services/acquired-competencies.service';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import {appRoutes} from './app-routes';
     AuthenticationService,
     DashboardGuard,
     LoginGuard,
+    AcquiredCompetenciesService,
     AuthenticationModule.tokenInterceptor()
   ],
   bootstrap: [AppComponent]

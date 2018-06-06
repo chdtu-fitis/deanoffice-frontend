@@ -40,7 +40,13 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   enableEdit(): void {
-    this.edit = true;
+    this._acquiredCompetenciesService.isExist(this.specializationId)
+      .subscribe((isExist) => {
+        this.edit = isExist;
+        if (!isExist) {
+          alert('Компетенції для цієї спеціалізації відсутні. Потрібно створити нові!');
+        }
+      });
   }
 
   save() {
