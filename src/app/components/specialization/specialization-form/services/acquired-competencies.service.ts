@@ -32,7 +32,7 @@ export class AcquiredCompetenciesService {
   }
 
   isExist(specializationId: number): Observable<boolean> {
-    return this._httpClient.options(specializationIdCompetencies(specializationId), {observe: 'response'})
+    return this._httpClient.head(specializationIdCompetencies(specializationId), {observe: 'response'})
       .map((response: HttpResponse<null>) => response.status === 200);
   }
 
