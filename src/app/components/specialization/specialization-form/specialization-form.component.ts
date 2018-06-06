@@ -32,6 +32,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
+  isShow = true;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -77,6 +78,12 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   reset() {
     this.selectTap(0);
     this.form.reset();
+    this._destroyCompetenciesTabs();
+  }
+
+  private _destroyCompetenciesTabs() {
+    this.isShow = false;
+    setTimeout(() => this.isShow = true, 0);
   }
 
   selectTap(tabIndex: number): void {

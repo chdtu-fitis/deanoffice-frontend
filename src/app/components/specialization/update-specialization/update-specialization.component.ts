@@ -14,7 +14,6 @@ export class UpdateSpecializationComponent {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: SpecializationModalComponent;
   @ViewChild('form') form: SpecializationFormComponent;
-  modalIsOpen = false;
 
   constructor(private specializationService: SpecializationService) { }
 
@@ -25,7 +24,6 @@ export class UpdateSpecializationComponent {
   }
 
   openModal(sourceId: number): void {
-    this.modalIsOpen = true;
     this.specializationService.getById(sourceId)
       .subscribe((source: Specialization) => {
         this.source = source;
@@ -36,7 +34,7 @@ export class UpdateSpecializationComponent {
 
   hideModal(): void {
     this.modal.hide();
-    this.modalIsOpen = false;
+    this.form.reset();
   }
 
   submit(): void {
@@ -48,7 +46,7 @@ export class UpdateSpecializationComponent {
       .update(specialization)
       .then(() => this.form.saveCompetencies())
       .then(() => this.onSubmit.emit(null))
-      .then(() => this.modal.hide())
+      .then(() => this.hideModal())
       .catch(null);
   }
 }

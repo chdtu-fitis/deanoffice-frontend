@@ -20,8 +20,8 @@ export class AddSpecializationComponent {
   }
 
   hideModal(): void {
-    this.form.reset();
     this.modal.hide();
+    this.form.reset();
   }
 
   submit(): void {
@@ -32,8 +32,7 @@ export class AddSpecializationComponent {
       .create(this.form.getValue())
       .then((res) => this.form.saveCompetencies(res['id'] as number))
       .then(() => this.onSubmit.emit(null))
-      .then(() => this.form.reset())
-      .then(() => this.modal.hide())
+      .then(() => this.hideModal())
       .catch(null);
   }
 }

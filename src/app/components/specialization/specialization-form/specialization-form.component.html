@@ -109,12 +109,17 @@
     </tab>
 
     <tab heading="Компетенції" (select)="competencies.getCompetencies()">
-      <specialization-competencies #competencies [specializationId]="initialData.id" [onlyCreating]="!updateForm">
-      </specialization-competencies>
+      <div *ngIf="isShow">
+        <specialization-competencies #competencies [specializationId]="initialData.id" [onlyCreating]="!updateForm">
+        </specialization-competencies>
+      </div>
     </tab>
+
     <tab heading="Компетенції англ." (select)="competenciesEng.getCompetencies()">
-      <specialization-competencies #competenciesEng [specializationId]="initialData.id" [onlyCreating]="!updateForm">
-      </specialization-competencies>
+      <div *ngIf="isShow">
+        <specialization-competencies #competenciesEng [specializationId]="initialData.id" [onlyCreating]="!updateForm">
+        </specialization-competencies>
+      </div>
     </tab>
   </tabset>
 </form>
