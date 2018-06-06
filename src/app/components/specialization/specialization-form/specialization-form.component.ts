@@ -70,12 +70,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       .subscribe((departments: Department[]) => this.departments = departments);
   }
 
-  getCompetencies(): void {
-    if (this.updateForm) {
-      this.competencies.getCompetencies();
-    }
-  }
-
   reset() {
     this.selectTap(0);
     this.form.reset();

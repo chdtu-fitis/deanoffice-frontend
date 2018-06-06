@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SpecializationService} from '../../../../services/specialization.service';
 import 'rxjs/add/operator/do';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
@@ -8,24 +8,30 @@ import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
   templateUrl: './specialization-competencies.component.html',
   styleUrls: ['./specialization-competencies.component.scss']
 })
-export class SpecializationCompetenciesComponent {
+export class SpecializationCompetenciesComponent implements OnInit {
   @Input() specializationId: number;
+  @Input() onlyCreating: boolean;
   competenciesIsLoading = false;
   competencies: AcquiredCompetencies;
-  edit = false;
+  edit: boolean;
 
-  constructor(private _specializationService: SpecializationService) {
+  constructor(private _specializationService: SpecializationService) {}
+
+  ngOnInit() {
+    this.edit = this.onlyCreating;
   }
 
   getCompetencies() {
     const hasCompetencies: boolean = Boolean(this.competencies);
-    if (!hasCompetencies) {
+    if (!hasCompetencies && !this.onlyCreating) {
       this.competenciesIsLoading = true;
       this._specializationService.getCompetencies(this.specializationId)
         .subscribe((competencies: AcquiredCompetencies) => {
           this.competencies = competencies;
           this.competenciesIsLoading = false;
         });
+    } else {
+      this.competencies = new AcquiredCompetencies();
     }
   }
 
@@ -34,9 +40,16 @@ export class SpecializationCompetenciesComponent {
   }
 
   save() {
-    if (this.competencies) {
+    if (this.competencies && !this.onlyCreating) {
       const {id, competencies} = this.competencies;
       this._specializationService.updateCompetenciesUkr(id, competencies);
+      return;
+    } else {
+      alert('Create!')
     }
+  }
+
+  isShowField(): boolean {
+    return (!this.competenciesIsLoading || this.onlyCreating) && Boolean(this.competencies);
   }
 }
