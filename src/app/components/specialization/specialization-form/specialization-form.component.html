@@ -108,8 +108,9 @@
       </div>
     </tab>
 
-    <tab *ngIf="updateForm" heading="Компетенції" (select)="getCompetencies()">
-      <specialization-competencies #competencies [specializationId]="initialData.id"></specialization-competencies>
+    <tab heading="Компетенції" (select)="competencies.getCompetencies()">
+      <specialization-competencies #competencies [specializationId]="initialData.id" [onlyCreating]="!updateForm">
+      </specialization-competencies>
     </tab>
   </tabset>
 </form>

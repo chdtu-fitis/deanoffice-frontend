@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Specialization} from '../models/Specialization';
 import {catchError} from 'rxjs/operators';
@@ -46,7 +46,8 @@ export class SpecializationService {
   }
 
   updateCompetenciesUkr(competenciesId: number, competencies: string): Promise<any> {
-    return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/ukr`, competencies).toPromise()
+    const headers = new HttpHeaders().set('Content-Type', 'text/plain');
+    return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/ukr`, competencies, {headers}).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Оновлення компетенцій спеціалізації (українською)'));
   }
 }
