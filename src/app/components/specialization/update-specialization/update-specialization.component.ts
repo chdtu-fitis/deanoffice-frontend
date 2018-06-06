@@ -47,9 +47,8 @@ export class UpdateSpecializationComponent {
     this.specializationService
       .update(specialization)
       .then(() => this.form.saveCompetencies())
-      .then(() => {
-        this.onSubmit.emit(null);
-        this.modal.hide();
-      });
+      .then(() => this.onSubmit.emit(null))
+      .then(() => this.modal.hide())
+      .catch(null);
   }
 }
