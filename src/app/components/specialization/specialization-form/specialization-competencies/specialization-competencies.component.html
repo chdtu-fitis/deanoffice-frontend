@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="competencies mt-2">
-  <loading class="competencies-loading" *ngIf="competenciesIsLoading"></loading>
+  <loading class="competencies-loading" *ngIf="isLoading"></loading>
   <textarea class="form-control ta-15l" [(ngModel)]="competencies" *ngIf="isShowField()"
             [disabled]="!edit"
   ></textarea>

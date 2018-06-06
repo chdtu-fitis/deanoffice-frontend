@@ -12,7 +12,8 @@ export class SpecializationCompetenciesComponent implements OnInit {
   @Input() specializationId: number;
   @Input() onlyCreating: boolean;
   private _id: number;
-  competenciesIsLoading = false;
+  private _isLoaded = false;
+  isLoading = false;
   competencies: string;
   edit: boolean;
 
@@ -23,14 +24,14 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   getCompetencies() {
-    const hasCompetencies: boolean = Boolean(this.competencies);
-    if (!hasCompetencies && !this.onlyCreating) {
-      this.competenciesIsLoading = true;
+    if (!this._isLoaded && !this.onlyCreating) {
+      this.isLoading = true;
       this._specializationService.getCompetencies(this.specializationId)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
           this.competencies = competencies['competencies'];
-          this.competenciesIsLoading = false;
+          this.isLoading = false;
+          this._isLoaded = true;
         });
     }
   }
@@ -41,13 +42,14 @@ export class SpecializationCompetenciesComponent implements OnInit {
 
   save() {
     if (this.competencies && !this.onlyCreating) {
-      this._specializationService.updateCompetenciesUkr(this._id, this.competencies);
+      this._specializationService.updateCompetenciesUkr(this._id, this.competencies)
+        .then(() => this._isLoaded = false, null);
       return;
     }
   }
 
   isShowField(): boolean {
-    return !this.competenciesIsLoading || this.onlyCreating;
+    return !this.isLoading || this.onlyCreating;
   }
 
   getValue(): string {
