@@ -8,8 +8,7 @@ import {HandleError} from '../components/shared/httpErrors';
 import {AcquiredCompetencies} from '../models/AcquiredCompetencies';
 
 const API_URL: string = environment.apiUrl;
-const SPECIALIZATION_URL: string = API_URL + '/specializations';
-const ACQUIRED_COMPETENCIES_URL: string = API_URL + '/acquired-competencies';
+export const SPECIALIZATION_URL: string = API_URL + '/specializations';
 
 @Injectable()
 export class SpecializationService {
@@ -37,23 +36,8 @@ export class SpecializationService {
       .map(data => data as Specialization)
   }
 
-  getCompetencies(specializationId: number): Observable<any> {
-    return this._httpClient.get(`${SPECIALIZATION_URL}/${specializationId}/competencies/ukr`);
-  }
-
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch((error: Error) => HandleError.forPromise(error, 'Оновлення спеціалізації'));
-  }
-
-  updateCompetenciesUkr(competenciesId: number, competencies: string): Promise<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'text/plain');
-    return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/ukr`, competencies, {headers}).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Оновлення компетенцій для спеціалізації (українською)'));
-  }
-
-  createCompetencies(competencies: AcquiredCompetencies): Promise<any> {
-    return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
-      .catch((error: Error) => HandleError.forPromise(error, 'Створення компетенцій для спеціалізації'));
   }
 }

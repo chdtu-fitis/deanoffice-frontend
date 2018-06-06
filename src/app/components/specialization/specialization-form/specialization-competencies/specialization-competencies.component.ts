@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {SpecializationService} from '../../../../services/specialization.service';
 import 'rxjs/add/operator/do';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
+import {AcquiredCompetenciesService} from "../services/acquired-competencies.service";
 
 @Component({
   selector: 'specialization-competencies',
@@ -17,7 +18,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
   competencies: string;
   edit: boolean;
 
-  constructor(private _specializationService: SpecializationService) {}
+  constructor(private _acquiredCompetenciesService: AcquiredCompetenciesService) {}
 
   ngOnInit() {
     this.edit = this.onlyCreating;
@@ -26,7 +27,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
   getCompetencies() {
     if (!this._isLoaded && !this.onlyCreating) {
       this.isLoading = true;
-      this._specializationService.getCompetencies(this.specializationId)
+      this._acquiredCompetenciesService.getCompetencies(this.specializationId)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
           this.competencies = competencies['competencies'];
@@ -42,7 +43,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
 
   save() {
     if (this.competencies && !this.onlyCreating) {
-      this._specializationService.updateCompetenciesUkr(this._id, this.competencies)
+      this._acquiredCompetenciesService.updateCompetenciesUkr(this._id, this.competencies)
         .then(() => this._isLoaded = false, null);
       return;
     }
