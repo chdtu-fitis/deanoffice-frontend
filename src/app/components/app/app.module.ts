@@ -62,7 +62,6 @@ import {AcquiredCompetenciesService} from '../specialization/specialization-form
     AuthenticationService,
     DashboardGuard,
     LoginGuard,
-    AcquiredCompetenciesService,
     AuthenticationModule.tokenInterceptor()
   ],
   bootstrap: [AppComponent]
