@@ -88,7 +88,8 @@ export class StatementComponent implements IAppModal {
         const studentDegree = options.studentDegree;
         const onTime = options.onTime;
         const grade = options.studentDegree.grade;
-        if (onTime !== studentDegree.grade.onTime) this.changeOnTimeForGrade(options.studentDegree, options.onTime);
+        if (onTime !== studentDegree.grade.onTime && this.statement.length)
+            this.changeOnTimeForGrade(options.studentDegree, options.onTime);
         const findGrade = g => {
             return g.studentDegreeId === grade.studentDegreeId &&
                 g.courseId === grade.courseId

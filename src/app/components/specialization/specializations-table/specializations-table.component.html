@@ -15,7 +15,7 @@
     [messages]="{ emptyMessage: 'Дані відсутні.' }"
     (select)="select($event)"
     (activate)="activate($event)"
-    [selected]="selected"
+    [selected]="getSelected()"
     [sortType]="'multi'"
     [trackByProp]="'id'"
   ></ngx-datatable>

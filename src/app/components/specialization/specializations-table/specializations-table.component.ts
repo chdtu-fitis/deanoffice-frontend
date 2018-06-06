@@ -16,12 +16,12 @@ const columns: string[] = [
   templateUrl: './specializations-table.component.html',
   styleUrls: ['./specializations-table.component.scss']
 })
-export class SpecializationsTableComponent implements OnInit{
+export class SpecializationsTableComponent implements OnInit {
   @Input() rows: Specialization[];
   @Input() loading: boolean;
-  @Output() onSelect: EventEmitter<Specialization[]> = new EventEmitter<Specialization[]>();
+  @Output() onSelect: EventEmitter<Specialization> = new EventEmitter<Specialization>();
   @ViewChild('specialityTemplate') specialityTemplate: TemplateRef<any>;
-  selected: Specialization[] = [];
+  selected: Specialization;
   columns = [];
 
   ngOnInit() {
@@ -60,11 +60,11 @@ export class SpecializationsTableComponent implements OnInit{
   }
 
   select({selected}) {
-    this.handleSelect(selected)
+    this.handleSelect([...selected].pop())
   }
 
-  handleSelect(specializations: Specialization[]) {
-    this.selected = [...specializations];
+  handleSelect(specialization: Specialization) {
+    this.selected = specialization;
     this.onSelect.emit(this.selected);
   }
 
@@ -72,12 +72,15 @@ export class SpecializationsTableComponent implements OnInit{
     if (type !== 'click' || column.prop === 'selected') {
       return;
     }
-    const index = this.selected.findIndex(entry => entry.id === row.id);
-    if (index > -1) {
-      this.selected.splice(index, 1);
+    if (this.selected === row) {
+      this.selected = null;
       this.onSelect.emit(this.selected);
     } else {
-      this.handleSelect([...this.selected, row]);
+      this.handleSelect(row);
     }
+  }
+
+  getSelected() {
+    return (this.selected) ? [this.selected] : [];
   }
 }

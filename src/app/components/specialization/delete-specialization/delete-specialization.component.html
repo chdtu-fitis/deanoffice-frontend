@@ -1,39 +1,14 @@
-<div class="modal fade" [config]="{backdrop: 'static'}" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
-     aria-hidden="true">
-  <div class="modal-dialog modal-lg w-100 position-relative modal-h">
-    <div class="modal-content position-absolute w-100 h-100">
-      <div class="modal-header">
-        <div class="modal-title">Ви дійсно бажаєте видалити вибрані спеціалізації?</div>
-        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">x</span>
-        </button>
-      </div>
-
-      <div class="modal-body scrollable modal-body-h">
-        <div *ngFor="let item of items; let i = index" class="card mb-2">
-          <div class="card-body">
-            <div>
-              <button class="close" (click)="remove(i)" *ngIf="items.length > 1">×</button>
-              <b>{{i + 1}}. {{item?.name}}</b>
-            </div>
-            <div>
-              <small>
-                <b>Спеціальність:</b> {{item?.speciality?.code + ' ' + item?.speciality?.name}}
-              </small>
-            </div>
-            <div>
-              <small>
-                <b>Ступінь:</b> {{item?.degree?.name}}
-              </small>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" (click)="submit()" class="btn btn-danger">Видалити</button>
-        <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
-      </div>
+<specialization-modal #modal title="Видалення спеціалізації" (hideModal)="hideModal()">
+  <div class="modal-body" *ngIf="specialization">
+    <h5>{{specialization?.name}}</h5>
+    <div>
+      <div><b>Ступінь:</b> {{specialization?.degree?.name}}</div>
+      <div><b>Спеціалізація:</b> {{specialization?.speciality?.code}} {{specialization?.speciality?.name}}</div>
+      <div *ngIf="specialization.educationalProgramHeadName"><b>Гарант програми:</b> {{specialization?.educationalProgramHeadName}}</div>
     </div>
   </div>
-</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="submit()">Видалити</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
+  </div>
+</specialization-modal>

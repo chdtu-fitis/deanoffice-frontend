@@ -33,3 +33,13 @@ input::-webkit-inner-spin-button {
 .notCorrect {
   outline: 1px solid #FF5722;
 }
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: auto;
+}

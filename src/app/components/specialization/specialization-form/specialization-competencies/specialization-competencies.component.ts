@@ -11,8 +11,9 @@ import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
 export class SpecializationCompetenciesComponent implements OnInit {
   @Input() specializationId: number;
   @Input() onlyCreating: boolean;
+  private _id: number;
   competenciesIsLoading = false;
-  competencies: AcquiredCompetencies;
+  competencies: string;
   edit: boolean;
 
   constructor(private _specializationService: SpecializationService) {}
@@ -27,11 +28,10 @@ export class SpecializationCompetenciesComponent implements OnInit {
       this.competenciesIsLoading = true;
       this._specializationService.getCompetencies(this.specializationId)
         .subscribe((competencies: AcquiredCompetencies) => {
-          this.competencies = competencies;
+          this._id = competencies.id;
+          this.competencies = competencies['competencies'];
           this.competenciesIsLoading = false;
         });
-    } else {
-      this.competencies = new AcquiredCompetencies();
     }
   }
 
@@ -41,15 +41,16 @@ export class SpecializationCompetenciesComponent implements OnInit {
 
   save() {
     if (this.competencies && !this.onlyCreating) {
-      const {id, competencies} = this.competencies;
-      this._specializationService.updateCompetenciesUkr(id, competencies);
+      this._specializationService.updateCompetenciesUkr(this._id, this.competencies);
       return;
-    } else {
-      alert('Create!')
     }
   }
 
   isShowField(): boolean {
-    return (!this.competenciesIsLoading || this.onlyCreating) && Boolean(this.competencies);
+    return !this.competenciesIsLoading || this.onlyCreating;
+  }
+
+  getValue(): string {
+    return this.competencies;
   }
 }

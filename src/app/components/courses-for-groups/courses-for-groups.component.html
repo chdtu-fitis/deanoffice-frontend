@@ -39,7 +39,7 @@
     <div class="col-12">
       <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()"
               [disabled]="!selectedGroup||!selectedSemester">Призначити</button>
-      <button type="button" class="btn btn-danger" (click)="deleteCoursesFromCoursesForGroups()"
+      <button type="button" class="btn btn-danger" (click)="checkAddedCoursesForDeleting()"
               [disabled]="!selectedGroup||!selectedSemester">Видалити</button>
       <button type="button" class="btn btn-info copy" (click)="copyCourses()"
               *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи

@@ -10,6 +10,8 @@ import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
+import {AcquiredCompetencies} from "../../../models/AcquiredCompetencies";
+import {SpecializationService} from "../../../services/specialization.service";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -34,7 +36,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     private _formBuilder: FormBuilder,
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
-    private _departmentService: DepartmentService
+    private _departmentService: DepartmentService,
+    private _specializationService: SpecializationService
   ) {
     super();
     this.setInitialData();
@@ -105,7 +108,19 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     } as Specialization;
   }
 
-  saveCompetencies() {
-    this.competencies.save();
+  saveCompetencies(specializationId?: number) {
+    if (this.updateForm) {
+      this.competencies.save();
+      return;
+    }
+    const competencies: string = this.competencies.getValue();
+    if (competencies) {
+      const acquiredCompetencies: AcquiredCompetencies = {
+        competencies: competencies || '',
+        competenciesEng: competencies || '',
+        specializationId
+      } as AcquiredCompetencies;
+       this._specializationService.createCompetencies(acquiredCompetencies);
+    }
   }
 }

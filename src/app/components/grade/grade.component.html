@@ -13,15 +13,28 @@
         <mat-sidenav-content>
             <div class="group-buttons">
                 <button class="btn btn-primary" (click)="snav.toggle()">Групи і семестри</button>
-                <button class="btn btn-success"
-                        [disabled]="!emptyGradesList.length"
-                        [ngClass]="{'btn-outline-secondary': !emptyGradesList.length}"
+                <button class="btn btn-success" *ngIf="selectGroup"
+                        [disabled]="!emptyGradesList.length || isDeleteMode"
+                        [ngClass]="{'btn-outline-secondary': !emptyGradesList.length || isDeleteMode}"
                         (click)="fillInWithZerosGrades()">Заповнити нулями
                 </button>
                 <button class="btn btn-success"
+                        *ngIf="!isDeleteMode && selectGroup"
                         [disabled]="!gradesUpdate.length"
                         [ngClass]="{'btn-outline-secondary': !gradesUpdate.length}"
                         (click)="updateGradesForGroup()">Зберегти зміни
+                </button>
+                <button class="btn btn-danger"
+                        *ngIf="isDeleteMode"
+                        [disabled]="!selectGradeForDelete"
+                        [ngClass]="{'btn-outline-danger': !selectGradeForDelete}"
+                        (click)="deleteSelectedGrade()"
+                        >Видалити обрану оцiнку
+                </button>
+                <button class="btn" [disabled]="!loading"
+                        [ngClass]="{ 'btn-primary': isDeleteMode, 'btn-danger': !isDeleteMode }"
+                        (click)="changeMode()" *ngIf="selectGroup">
+                    {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
             </div>
             <ng-container *ngIf="errorsMessage.length && loading">
@@ -34,11 +47,13 @@
             </div>
             <app-grades-table [studentsDegree]="studentsDegree"
                               [courses]="courses"
+                              [isDeleteMode]="isDeleteMode"
                               [loadingGrades]="loading"
                               (gradesUpdate)="addGradesForUpdate($event)"
                               (errors)="setErrorsFromTable($event)"
                               [selectGroup]="selectGroup"
                               (sendUpdateGrades)="updateGradesForGroup()"
+                              (setGradeForDelete)="setSelectGradeForDelete($event)"
                               [selectSemester]="selectSemester" #gradeTable>
             </app-grades-table>
         </mat-sidenav-content>
