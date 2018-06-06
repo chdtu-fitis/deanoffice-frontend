@@ -24,6 +24,11 @@ export class StudentsTableComponent {
   @ViewChild('paymentTemplate') paymentTemplate: TemplateRef<any>;
   @ViewChild('dateTemplate') dateTemplate: TemplateRef<any>;
   cols: Object[];
+  focusedRowId: string;
+
+  constructor() {
+    this.getRowClass = this.getRowClass.bind(this);
+  }
 
   private transformArrayToColumns(array: string[]): Object[] {
     const templatesMap = {
@@ -58,20 +63,26 @@ export class StudentsTableComponent {
     return row.id;
   }
 
-  select({ selected }) {
-    this.handleSelect(selected)
+  getRowClass(row) {
+    return {
+      'row-focused': row.id === this.focusedRowId,
+    }
   }
 
-  activate({ type, row, column }) {
-    if (type !== 'click' || column.prop === 'selected') {
-      return;
-    }
+  select({ selected: row }) {
+    this.focusedRowId = null;
     const index = this.selected.findIndex(entry => entry.id === row.id);
     if (index > -1) {
       this.selected.splice(index, 1);
       this.onSelect.emit(this.selected);
     } else {
       this.handleSelect([...this.selected, row]);
+    }
+  }
+
+  activate({ type, row, column }) {
+    if (type === 'click' && column.prop !== 'selected') {
+      this.focusedRowId = this.focusedRowId === row.id ? null : row.id;
     }
   }
 
