@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HandleError} from '../../../shared/httpErrors';
+import {forObservable, forPromise} from '../../../shared/httpErrors';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
 import {environment} from '../../../../../environments/environment';
@@ -19,7 +19,7 @@ export class AcquiredCompetenciesService {
 
   getCompetencies(specializationId: number, lang: Lang): Observable<any> {
     return this._httpClient.get(`${specializationIdCompetencies(specializationId)}/${lang}`)
-      .pipe(catchError(HandleError.forObservable(`Отримання компетенцій для спеціалізації (${this.getFullValue(lang)})`, [])));
+      .pipe(catchError(forObservable(`Отримання компетенцій для спеціалізації (${this.getFullValue(lang)})`, [])));
   }
 
   getFullValue(lang: Lang): string {
@@ -40,11 +40,11 @@ export class AcquiredCompetenciesService {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain');
     return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/${lang}`, competencies, {headers})
       .toPromise()
-      .catch(HandleError.forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
+      .catch(forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
   }
 
   createCompetencies(competencies: AcquiredCompetencies): Promise<any> {
     return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
-      .catch(HandleError.forPromise('Створення компетенцій для спеціалізації'));
+      .catch(forPromise('Створення компетенцій для спеціалізації'));
   }
 }

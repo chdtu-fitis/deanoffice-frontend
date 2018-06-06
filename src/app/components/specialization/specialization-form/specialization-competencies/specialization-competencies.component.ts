@@ -31,8 +31,8 @@ export class SpecializationCompetenciesComponent implements OnInit {
       this._acquiredCompetenciesService.getCompetencies(this.specializationId, this.lang)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
-          const filedName: string = (this.lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
-          this.competencies = competencies[filedName];
+          const fieldName: string = (this.lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
+          this.competencies = competencies[fieldName];
           this.isLoading = false;
           this._isLoaded = true;
         });
