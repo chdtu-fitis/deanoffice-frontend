@@ -13,6 +13,8 @@ import { UpdateSpecializationComponent } from './update-specialization/update-sp
 import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
 import {RouterModule, Routes} from '@angular/router';
 import { SpecializationCompetenciesComponent } from './specialization-form/specialization-competencies/specialization-competencies.component';
+import {AcquiredCompetenciesService} from './specialization-form/services/acquired-competencies.service';
+import {AuthenticationModule} from '../login/authentication.module';
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -37,6 +39,10 @@ export const specializationRoutes: Routes = [
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
     SpecializationCompetenciesComponent
+  ],
+  providers: [
+    AcquiredCompetenciesService,
+    AuthenticationModule.tokenInterceptor()
   ]
 })
 export class SpecializationModule { }

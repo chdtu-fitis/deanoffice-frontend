@@ -1,20 +1,19 @@
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
 
-export class HandleError {
-  public static forObservable<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      HandleError.forPromise(error, operation);
-      return of(result as T);
-    }
+export function forObservable<T>(operation = 'operation', result?: T) {
+  return function (error: any): Observable<T> {
+    forPromise(operation)(error);
+    return of(result as T);
   }
+}
 
-  public static forPromise = (error: any, operation = 'operation') => {
+export function forPromise(operation = 'operation'): (error: any) => void {
+  return function (error: any) {
     const httpError: HttpError = new HttpError(operation, error.status);
     console.error(httpError);
     alert(`${httpError.operation}: ${httpError.message}`);
-  };
-
+  }
 }
 
 const ERRORS = {
