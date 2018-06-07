@@ -79,6 +79,7 @@ export class StudentsTableComponent {
   activate({ type, row, column }) {
     if (type === 'click' && column.prop !== 'selected') {
       this.focusedRowId = row.id;
+      this.onSelect.emit([row]);
     }
   }
 }
