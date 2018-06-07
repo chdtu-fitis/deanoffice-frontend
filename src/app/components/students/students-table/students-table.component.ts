@@ -60,12 +60,13 @@ export class StudentsTableComponent {
   }
 
   getRowIdentity(row) {
-    return row.id;
+    return row && row.id;
   }
 
   getRowClass(row) {
     return {
       'row-focused': row.id === this.focusedRowId,
+      [`row-id-${row.id}`]: !!row.id,
     }
   }
 

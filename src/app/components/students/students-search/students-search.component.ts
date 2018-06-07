@@ -43,7 +43,9 @@ export class StudentsSearchComponent {
       return isSurnameMatch && isPatronimicMatch && isNameMatch;
     });
 
-    const elem = document.querySelectorAll(`[ng-reflect-row-index="${index}"]`);
+    const elem = this.rows[index]
+      ? document.getElementsByClassName(`row-id-${this.rows[index].id}`)
+      : null;
     if (elem && elem[0]) {
       elem[0].scrollIntoView();
     }
