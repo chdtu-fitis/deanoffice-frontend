@@ -44,7 +44,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
     this._service.isExist(this.specializationId)
       .subscribe((isExist) => {
         if (!isExist) {
-          alert('Компетенції для цієї спеціалізації відсутні. Потрібно створити нові!');
+          alert('Компетентності для цієї спеціалізації відсутні. Потрібно створити нові!');
         } else {
           this.editing = isExist;
           this.creating = !isExist;
@@ -72,7 +72,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
     this._service.isNotExistForCurrentYear(this.specializationId)
       .subscribe((isNotExist) => {
         if (!isNotExist) {
-          alert('Компетенції для цієї спеціалізації вже існують. Дозволяється редагувати лише поточні!');
+          alert('Компетентності для цієї спеціалізації вже існують. Дозволяється редагувати лише поточні!');
         } else {
           this.editing = !isNotExist;
           this.creating = isNotExist;
