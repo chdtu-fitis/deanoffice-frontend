@@ -28,6 +28,7 @@ export class StudentsTableComponent {
 
   constructor() {
     this.getRowClass = this.getRowClass.bind(this);
+    console.log(this.selected);
   }
 
   private transformArrayToColumns(array: string[]): Object[] {
@@ -69,26 +70,16 @@ export class StudentsTableComponent {
     }
   }
 
-  select({ selected: row }) {
+  select({ selected }) {
     this.focusedRowId = null;
-    const index = this.selected.findIndex(entry => entry.id === row.id);
-    if (index > -1) {
-      this.selected.splice(index, 1);
-      this.onSelect.emit(this.selected);
-    } else {
-      this.handleSelect([...this.selected, row]);
-    }
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+    this.onSelect.emit(this.selected);
   }
 
   activate({ type, row, column }) {
     if (type === 'click' && column.prop !== 'selected') {
       this.focusedRowId = row.id;
     }
-  }
-
-  handleSelect(students: StudentDegree[]) {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...students);
-    this.onSelect.emit(this.selected);
   }
 }
