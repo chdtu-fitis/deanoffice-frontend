@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
 import {AcquiredCompetenciesService} from '../services/acquired-competencies.service';
 import {Lang} from '../enums/lang.enum';
@@ -17,18 +17,19 @@ export class SpecializationCompetenciesComponent implements OnInit {
   private _isLoaded = false;
   isLoading = false;
   competencies: string;
-  edit: boolean;
+  editing: boolean;
+  creating: boolean;
 
-  constructor(private _acquiredCompetenciesService: AcquiredCompetenciesService) {}
+  constructor(private _service: AcquiredCompetenciesService) {}
 
   ngOnInit() {
-    this.edit = this.onlyCreating;
+    this.editing = this.creating = this.onlyCreating;
   }
 
   getCompetencies() {
     if (!this._isLoaded && !this.onlyCreating) {
       this.isLoading = true;
-      this._acquiredCompetenciesService.getCompetencies(this.specializationId, this.lang)
+      this._service.getCompetencies(this.specializationId, this.lang)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
           const fieldName: string = (this.lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
@@ -40,19 +41,21 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   enableEdit(): void {
-    this._acquiredCompetenciesService.isExist(this.specializationId)
+    this._service.isExist(this.specializationId)
       .subscribe((isExist) => {
-        this.edit = isExist;
         if (!isExist) {
           alert('Компетенції для цієї спеціалізації відсутні. Потрібно створити нові!');
+        } else {
+          this.editing = isExist;
+          this.creating = !isExist;
         }
       });
   }
 
   save() {
-    const canSave: boolean = !this.onlyCreating && (this._isLoaded || Boolean(this.competencies));
-    if (canSave) {
-      this._acquiredCompetenciesService.updateCompetencies(this._id, this.competencies, this.lang)
+    const hasData: boolean = (this._isLoaded || Boolean(this.competencies));
+    if (hasData && this.editing) {
+      this._service.updateCompetencies(this._id, this.competencies, this.lang)
         .then(() => this._isLoaded = false, null);
     }
   }
@@ -63,5 +66,17 @@ export class SpecializationCompetenciesComponent implements OnInit {
 
   getValue(): string {
     return this.competencies;
+  }
+
+  enableCreating() {
+    this._service.isNotExistForCurrentYear(this.specializationId)
+      .subscribe((isNotExist) => {
+        if (!isNotExist) {
+          alert('Компетенції для цієї спеціалізації вже існують. Дозволяється редагувати лише поточні!');
+        } else {
+          this.editing = !isNotExist;
+          this.creating = isNotExist;
+        }
+      });
   }
 }

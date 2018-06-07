@@ -118,7 +118,8 @@
 
     <tab heading="Компетенції англ." (select)="competenciesEng.getCompetencies()">
       <div *ngIf="isShow">
-        <specialization-competencies #competenciesEng [specializationId]="initialData.id" [lang]="lang.ENG" [onlyCreating]="!updateForm">
+        <specialization-competencies #competenciesEng [specializationId]="initialData.id" [lang]="lang.ENG"
+                                     [onlyCreating]="!updateForm">
         </specialization-competencies>
       </div>
     </tab>
