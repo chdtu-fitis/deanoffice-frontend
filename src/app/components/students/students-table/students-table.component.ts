@@ -28,7 +28,6 @@ export class StudentsTableComponent {
 
   constructor() {
     this.getRowClass = this.getRowClass.bind(this);
-    console.log(this.selected);
   }
 
   private transformArrayToColumns(array: string[]): Object[] {
