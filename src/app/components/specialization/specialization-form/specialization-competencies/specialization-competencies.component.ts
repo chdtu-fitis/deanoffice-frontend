@@ -14,7 +14,7 @@ export class SpecializationCompetenciesComponent implements OnInit {
   @Input() onlyCreating: boolean;
   @Input() lang: Lang;
   private _id: number;
-  private _isLoaded = false;
+  isLoaded = false;
   isLoading = false;
   competencies: string;
   editing: boolean;
@@ -27,15 +27,15 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   getCompetencies() {
-    if (!this._isLoaded && !this.onlyCreating) {
+    if (!this.isLoaded && !this.onlyCreating) {
       this.isLoading = true;
-      this._service.getCompetencies(this.specializationId, this.lang)
+      this._service.getBySpecializationAndLang(this.specializationId, this.lang)
         .subscribe((competencies: AcquiredCompetencies) => {
           this._id = competencies.id;
           const fieldName: string = (this.lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
           this.competencies = competencies[fieldName];
           this.isLoading = false;
-          this._isLoaded = true;
+          this.isLoaded = true;
         });
     }
   }
@@ -53,10 +53,10 @@ export class SpecializationCompetenciesComponent implements OnInit {
   }
 
   save() {
-    const hasData: boolean = (this._isLoaded || Boolean(this.competencies));
+    const hasData: boolean = (this.isLoaded || Boolean(this.competencies));
     if (hasData && this.editing) {
       this._service.updateCompetencies(this._id, this.competencies, this.lang)
-        .then(() => this._isLoaded = false, null);
+        .then(() => this.isLoaded = false, null);
     }
   }
 

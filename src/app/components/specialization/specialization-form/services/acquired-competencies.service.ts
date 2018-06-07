@@ -18,7 +18,7 @@ const specializationIdCompetencies: (id: number) => string = (id: number) => `${
 export class AcquiredCompetenciesService {
   constructor(private _httpClient: HttpClient) { }
 
-  getCompetencies(specializationId: number, lang: Lang): Observable<any> {
+  getBySpecializationAndLang(specializationId: number, lang: Lang): Observable<any> {
     return this._httpClient.get(`${specializationIdCompetencies(specializationId)}/${lang}`)
       .pipe(catchError(forObservable(`Отримання компетенцій для спеціалізації (${this.getFullValue(lang)})`, [])));
   }
@@ -53,7 +53,7 @@ export class AcquiredCompetenciesService {
       .catch(forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
   }
 
-  createCompetencies(competencies: AcquiredCompetencies): Promise<any> {
+  create(competencies: AcquiredCompetencies): Promise<any> {
     return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
       .catch(forPromise('Створення компетенцій для спеціалізації'));
   }
