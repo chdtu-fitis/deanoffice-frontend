@@ -13,6 +13,10 @@ import {SpecializationCompetenciesComponent} from './specialization-competencies
 import {AcquiredCompetencies} from '../../../models/AcquiredCompetencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
+import {flatMap} from 'rxjs/operators';
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -120,10 +124,56 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   saveCompetencies(specializationId?: number) {
     if (this.updateForm) {
+      if (this.competenciesEng.creating || this.competencies.creating) {
+        this._createCompetencies();
+        return;
+      }
       this.competencies.save();
       this.competenciesEng.save();
       return;
     }
+    this._createNewCompetencies(specializationId);
+  }
+
+  private _createCompetencies(): void {
+    const acquiredCompetencies: AcquiredCompetencies = {
+      specializationId: this.initialData.id
+    } as AcquiredCompetencies;
+    Observable.of(acquiredCompetencies).pipe(
+      flatMap(this.setCompetencies(Lang.UKR)),
+      flatMap(this.setCompetencies(Lang.ENG))
+    ).subscribe((ac: AcquiredCompetencies) => {
+      this._acquiredCompetenciesService.create(ac);
+    });
+  }
+
+  private setCompetencies(lang: Lang): (ac: AcquiredCompetencies) => Observable<AcquiredCompetencies> {
+    return (ac: AcquiredCompetencies) => {
+      const fieldName: string = (lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
+      const competencies: SpecializationCompetenciesComponent = this.getCompetenciesByLang(lang);
+      if (competencies.isLoaded) {
+        return Observable.of({
+          ...ac,
+          [fieldName]: competencies.getValue() || ''
+        } as AcquiredCompetencies);
+      } else {
+        return this._acquiredCompetenciesService.getBySpecializationAndLang(this.initialData.id, lang)
+          .map((_ac: AcquiredCompetencies) => {
+            console.log(_ac, fieldName);
+            return {
+              ...ac,
+              [fieldName]: _ac[fieldName] || ''
+            } as AcquiredCompetencies;
+          })
+      }
+    }
+  }
+
+  private getCompetenciesByLang(lang: Lang): SpecializationCompetenciesComponent {
+    return (lang === Lang.UKR) ? this.competencies : this.competenciesEng;
+  }
+
+  private _createNewCompetencies(specializationId: number): void {
     const competencies: string = this.competencies.getValue();
     const competenciesEng: string = this.competenciesEng.getValue();
     if (competencies) {
@@ -132,7 +182,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
         competenciesEng: competenciesEng || '',
         specializationId
       } as AcquiredCompetencies;
-      this._acquiredCompetenciesService.createCompetencies(acquiredCompetencies);
+      this._acquiredCompetenciesService.create(acquiredCompetencies);
     }
   }
 }

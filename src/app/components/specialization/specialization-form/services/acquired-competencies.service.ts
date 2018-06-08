@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {forObservable, forPromise} from '../../../shared/httpErrors';
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
 import {environment} from '../../../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
@@ -8,6 +8,7 @@ import {SPECIALIZATION_URL} from '../../../../services/specialization.service';
 import {Lang} from '../enums/lang.enum';
 import {catchError} from 'rxjs/operators';
 import 'rxjs/add/operator/map';
+import {ResponseStatus} from '../enums/response-status.enum';
 
 const API_URL: string = environment.apiUrl;
 const ACQUIRED_COMPETENCIES_URL: string = API_URL + '/acquired-competencies';
@@ -17,7 +18,7 @@ const specializationIdCompetencies: (id: number) => string = (id: number) => `${
 export class AcquiredCompetenciesService {
   constructor(private _httpClient: HttpClient) { }
 
-  getCompetencies(specializationId: number, lang: Lang): Observable<any> {
+  getBySpecializationAndLang(specializationId: number, lang: Lang): Observable<any> {
     return this._httpClient.get(`${specializationIdCompetencies(specializationId)}/${lang}`)
       .pipe(catchError(forObservable(`Отримання компетенцій для спеціалізації (${this.getFullValue(lang)})`, [])));
   }
@@ -32,8 +33,17 @@ export class AcquiredCompetenciesService {
   }
 
   isExist(specializationId: number): Observable<boolean> {
-    return this._httpClient.head(specializationIdCompetencies(specializationId), {observe: 'response'})
-      .map((response: HttpResponse<null>) => response.status === 200);
+    return this.checkCompetencies(specializationId, ResponseStatus.OK);
+  }
+
+  private checkCompetencies(specializationId: number, status: ResponseStatus, forCurrentYear = false): Observable<boolean> {
+    const params: HttpParams = new HttpParams().set('for-current-year', forCurrentYear.toString());
+    return this._httpClient.head(specializationIdCompetencies(specializationId), {observe: 'response', params})
+      .map((response: HttpResponse<null>) => response.status === status);
+  }
+
+  isNotExistForCurrentYear(specializationId: number): Observable<boolean> {
+    return this.checkCompetencies(specializationId, ResponseStatus.NO_CONTENT, true);
   }
 
   updateCompetencies(competenciesId: number, competencies: string, lang: Lang): Promise<any> {
@@ -43,7 +53,7 @@ export class AcquiredCompetenciesService {
       .catch(forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
   }
 
-  createCompetencies(competencies: AcquiredCompetencies): Promise<any> {
+  create(competencies: AcquiredCompetencies): Promise<any> {
     return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
       .catch(forPromise('Створення компетенцій для спеціалізації'));
   }
