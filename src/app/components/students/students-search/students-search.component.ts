@@ -12,7 +12,7 @@ export class StudentsSearchComponent {
   searchForm;
   @Input() studentField: string;
   @Input() rows: StudentDegree[];
-  @Output() searchResult = new EventEmitter();
+  @Output() searchResult = new EventEmitter<Array<StudentDegree>>();
 
   constructor(private fb: FormBuilder) {
     this.searchForm = this.fb.group({
@@ -54,7 +54,9 @@ export class StudentsSearchComponent {
       : null;
     if (elem && elem[0]) {
       elem[0].scrollIntoView();
+      this.searchResult.emit([this.rows[index]]);
+    } else {
+      this.searchResult.emit([]);
     }
-    this.searchResult.emit([this.rows[index]]);
   }
 }
