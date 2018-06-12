@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentDegree} from '../../../models/StudentDegree';
@@ -22,8 +22,12 @@ export class StudentsFiltersComponent {
   };
   form: FormGroup;
   months: string[] = months;
+  private rows: StudentDegree[];
   @Input() groups: StudentGroup[];
-  @Input() students: StudentDegree[];
+  @Input() set students(data: StudentDegree[]) {
+    this.rows = data;
+    this.setFilters();
+  };
   @Output() applyFilters = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
@@ -35,13 +39,15 @@ export class StudentsFiltersComponent {
   }
 
   setFilters() {
-    const students = this.students.filter(entry => this.filter(entry));
-    this.applyFilters.emit(students);
+    setTimeout(() => {
+      const students = this.rows.filter(entry => this.filter(entry));
+      this.applyFilters.emit(students);
+    }, 0)
   }
 
   resetFilters() {
     this.buildForm();
-    this.applyFilters.emit(this.students);
+    this.applyFilters.emit(this.rows);
   }
 
   private buildForm() {
