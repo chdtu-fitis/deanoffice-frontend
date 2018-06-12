@@ -37,42 +37,49 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     this.form = this.fb.group({
       degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) => {
         return this.fb.group({
-          id: [degree.id],
+          id: degree.id,
           studentGroupId: [
-            degree.studentGroup ? degree.studentGroup.id : null,
+            {
+              value: degree.studentGroup ? degree.studentGroup.id : null,
+              disabled: !degree.active
+            },
             degree.active ? Validators.required : null,
           ],
-          recordBookNumber: degree.recordBookNumber,
-          studentCardNumber: degree.studentCardNumber,
-          diplomaNumber: degree.diplomaNumber,
-          diplomaDate: degree.diplomaDate,
-          supplementNumber: degree.supplementNumber,
-          supplementDate: degree.supplementDate,
-          thesisName: degree.thesisName,
-          thesisNameEng: degree.thesisNameEng,
-          protocolNumber: degree.protocolNumber,
-          protocolDate: degree.protocolDate,
-          previousDiplomaType: degree.previousDiplomaType,
-          previousDiplomaNumber: degree.previousDiplomaNumber,
-          previousDiplomaDate: degree.previousDiplomaDate,
-          previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
-          admissionOrderDate: degree.admissionOrderDate,
-          admissionOrderNumber: degree.admissionOrderNumber,
-          contractDate: degree.contractDate,
-          contractNumber: degree.contractNumber,
-          admissionDate: degree.admissionDate,
-          payment: degree.payment,
-          active: degree.active,
+          recordBookNumber: this.getFormField(degree, 'recordBookNumber'),
+          studentCardNumber: this.getFormField(degree, 'studentCardNumber'),
+          diplomaNumber: this.getFormField(degree, 'diplomaNumber'),
+          diplomaDate: this.getFormField(degree, 'diplomaDate'),
+          supplementNumber: this.getFormField(degree, 'supplementNumber'),
+          supplementDate: this.getFormField(degree, 'supplementDate'),
+          thesisName: this.getFormField(degree, 'thesisName'),
+          thesisNameEng: this.getFormField(degree, 'thesisNameEng'),
+          protocolNumber: this.getFormField(degree, 'protocolNumber'),
+          protocolDate: this.getFormField(degree, 'protocolDate'),
+          previousDiplomaType: this.getFormField(degree, 'previousDiplomaType'),
+          previousDiplomaNumber: this.getFormField(degree, 'previousDiplomaNumber'),
+          previousDiplomaDate: this.getFormField(degree, 'previousDiplomaDate'),
+          previousDiplomaIssuedBy: this.getFormField(degree, 'previousDiplomaIssuedBy'),
+          admissionOrderDate: this.getFormField(degree, 'admissionOrderDate'),
+          admissionOrderNumber: this.getFormField(degree, 'admissionOrderNumber'),
+          contractDate: this.getFormField(degree, 'contractDate'),
+          contractNumber: this.getFormField(degree, 'contractNumber'),
+          admissionDate: this.getFormField(degree, 'admissionDate'),
+          payment: this.getFormField(degree, 'payment'),
+          active: degree.active
         })
       }))
     });
   }
 
-  getStudentGroup(i) {
+  getFormField(degree: StudentDegree, field: string) {
+    return [{value: degree[field], disabled: !degree.active}]
+  }
+
+  getStudentGroup(i: number) {
     return (this.model as any).degrees[i].studentGroup;
   }
 
-  getTabHeader(i) {
+  getTabHeader(i: number) {
     const specialization = (this.model as any).degrees[i].specialization;
     const specialityAbbr = specialization.speciality.name
       .split(' ')

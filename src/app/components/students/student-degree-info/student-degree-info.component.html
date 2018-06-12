@@ -23,7 +23,7 @@
                 <b class="d-block">Спеціалізація: {{model.degrees[i].specialization.name}}</b>
                 <div class="row mt-2">
                   <div class="form-group col">
-                    <label for="studentGroup" class="required">Група</label>
+                    <label for="studentGroup" [class]="degree.controls.active.value && 'required'">Група</label>
                     <select formControlName="studentGroupId" class="form-control"
                             id="studentGroup" [appValidation]="degree.controls.studentGroupId">
                       <option *ngFor="let group of groups" [ngValue]="group.id"

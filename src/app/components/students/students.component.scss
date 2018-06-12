@@ -26,6 +26,9 @@
   .modal-body {
     .form-group {
       margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     .form-group label {
