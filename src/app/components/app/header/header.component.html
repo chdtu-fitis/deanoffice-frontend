@@ -22,9 +22,12 @@
           Впродовж року
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-year-middle">
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students">Студенти</a>
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/expelled">Відраховані студенти</a>
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/in-vacation">Студенти в академ. відпустці</a>
+          <a class="dropdown-item" routerLinkActive="active"
+             routerLink="/dashboard/students" [routerLinkActiveOptions]="{exact: true}">Студенти</a>
+          <a class="dropdown-item" routerLinkActive="active"
+             routerLink="/dashboard/students/expelled" [routerLinkActiveOptions]="{exact: true}">Відраховані студенти</a>
+          <a class="dropdown-item" routerLinkActive="active"
+             routerLink="/dashboard/students/in-vacation" [routerLinkActiveOptions]="{exact: true}">Студенти в академ. відпустці</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/grades">Оцінки</a>
         </div>
       </li>
@@ -43,9 +46,11 @@
           Документи
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-documents">
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/documents/exam-report">Відомості</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/documents/exam-report">Відомості</a>
           <a class="dropdown-item" routerLinkActive="active" href="#">Зведені відомості</a>
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
           <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в особові справи</a>
           <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в журнали</a>
           <a class="dropdown-item" routerLinkActive="active" href="#">Академічні довідки</a>

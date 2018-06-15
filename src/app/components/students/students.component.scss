@@ -15,6 +15,7 @@
 @media (max-width: 767px) {
   .sidebar {
     width: 0;
+    transition: width 0.2s ease;
 
     &.open {
       width: 100%;
