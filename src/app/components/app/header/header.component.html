@@ -1,56 +1,61 @@
-<nav class="Header navbar navbar-expand-lg navbar-light fixed-top">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="Header navbar navbar-expand-lg navbar-light position-fixed w-100 py-2">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="loggedIn">
-    <nav class="w-100">
-      <div class="main-nav">
-        <ul>
-          <li>
-            Початок року
-            <ul class="sub-nav">
-              <li><a routerLink="/dashboard/specialities">Спеціальності</a></li>
-              <li><a routerLink="/dashboard/specializations">Спеціалізації (освітні програми)</a></li>
-              <li><a routerLink="/dashboard/groups">Групи</a></li>
-              <li>Предмети</li>
-              <li><a routerLink="/dashboard/courses-for-groups">Предмети для груп</a></li>
-            </ul>
-          </li>
-          <li>
-            Впродовж року
-            <ul class="sub-nav">
-              <li><a routerLink="/dashboard/students">Студенти</a></li>
-              <li><a routerLink="/dashboard/students/expelled">Відраховані студенти</a></li>
-              <li><a routerLink="/dashboard/students/in-vacation">Студенти в академ. відпустці</a></li>
-              <li><a routerLink="/dashboard/grades">Оцінки</a></li>
-            </ul>
-          </li>
-          <li>
-            Кінець року
-            <ul class="sub-nav">
-              <li>Закінчити навчальний рік</li>
-            </ul>
-          </li>
-          <li>
-            Документи
-            <ul class="sub-nav">
-              <li><a routerLink="/dashboard/documents/exam-report">Відомості</a></li>
-              <li>Зведені відомості</li>
-              <li><a routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a></li>
-              <li>Виписки в особові справи</li>
-              <li>Виписки в журнали</li>
-              <li>Академічні довідки</li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link user-logout" (click)="logout()" title="Вийти">Вийти</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-year-start" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Початок року
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-year-start">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/specialities">Спеціальності</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/specializations">Спеціалізації (освітні програми)</a>
+          <a class="dropdown-item" routerLinkActive="active" href="#">Предмети</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/courses-for-groups">Предмети для груп</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-year-middle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Впродовж року
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-year-middle">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students">Студенти</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/expelled">Відраховані студенти</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/in-vacation">Студенти в академ. відпустці</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/grades">Оцінки</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-year-end" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Кінець року
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-year-end">
+          <a class="dropdown-item" routerLinkActive="active" href="#">Закінчити навчальний рік</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-documents" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Документи
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-documents">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/documents/exam-report">Відомості</a>
+          <a class="dropdown-item" routerLinkActive="active" href="#">Зведені відомості</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
+          <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в особові справи</a>
+          <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в журнали</a>
+          <a class="dropdown-item" routerLinkActive="active" href="#">Академічні довідки</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link user-logout" (click)="logout()" title="Вийти">Вийти</a>
+      </li>
+    </ul>
   </div>
 </nav>
