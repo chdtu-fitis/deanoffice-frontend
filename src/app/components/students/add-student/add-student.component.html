@@ -64,7 +64,7 @@
 <ng-template #commonFields>
   <div [formGroup]="form">
     <div class="row" formGroupName="student">
-      <div class="form-group col-6" *ngIf="form.controls.student.controls.sex">
+      <div class="form-group col-12 col-sm-6" *ngIf="form.controls.student.controls.sex">
         <label class="required">Стать</label>
         <div class="form-check">
           <input formControlName="sex" [appValidation]="form.controls.student.controls.sex"
@@ -78,7 +78,7 @@
         </div>
         <app-validation-errors [control]="form.controls.student.controls.sex"></app-validation-errors>
       </div>
-      <div class="form-group col-6">
+      <div class="form-group col-12 col-sm-6">
         <label for="birthDate" class="required">Дата народження</label>
         <input type="date" formControlName="birthDate" class="form-control" id="birthDate"
                [appValidation]="form.controls.student.controls.birthDate">
@@ -86,7 +86,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-6">
+      <div class="form-group col-12 col-sm-6">
         <label class="required">Форма навчання</label>
         <div class="form-check">
           <input formControlName="payment" [appValidation]="form.controls.payment"
@@ -100,7 +100,7 @@
         </div>
         <app-validation-errors [control]="form.controls.payment"></app-validation-errors>
       </div>
-      <div class="form-group col-6">
+      <div class="form-group col-12 col-sm-6">
         <label for="group" class="required">Група</label>
         <select formControlName="studentGroupId" class="form-control" id="group"
                 [appValidation]="form.controls.studentGroupId">

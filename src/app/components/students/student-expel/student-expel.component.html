@@ -11,10 +11,10 @@
       </div>
       <div class="modal-body">
         <div class="row content">
-          <div class="col-6 students-list">
+          <div class="col-12 col-lg-6 students-list">
             <app-students-list [students]="students" (onRemove)="onRemoveStudent($event)"></app-students-list>
           </div>
-          <div class="col-6">
+          <div class="col-12 col-lg-6">
             <form [formGroup]="form" novalidate>
               <div class="form-group">
                 <label for="orderNumber" class="required">Номер наказу</label>
