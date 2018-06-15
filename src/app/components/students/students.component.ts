@@ -19,6 +19,7 @@ export class StudentsComponent implements OnInit {
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
   loading: boolean;
+  isSidebarOpen: boolean;
 
   constructor(
     private studentService: StudentService,
