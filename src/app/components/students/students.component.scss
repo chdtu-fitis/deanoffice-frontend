@@ -16,6 +16,7 @@
   .sidebar {
     width: 0;
     transition: width 0.2s ease;
+    z-index: 2000;
 
     &.open {
       width: 100%;
