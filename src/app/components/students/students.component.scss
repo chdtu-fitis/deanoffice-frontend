@@ -10,3 +10,43 @@
 .students-table {
   height: calc(100% - 80px);
 }
+
+:host ::ng-deep {
+  .modal-header,
+  .modal-body {
+    padding: 0.25rem 1rem;
+  }
+
+  .close {
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+  }
+
+  .modal-body {
+    .form-group {
+      margin-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .form-group label {
+      margin-bottom: 0.25rem;
+    }
+
+    .form-control,
+    select.form-control:not([size]):not([multiple]) {
+      padding: 0.25rem 0.5rem;
+      height: 2rem;
+    }
+
+    .nav-link {
+      padding: 0.5rem;
+    }
+  }
+
+  .modal-footer {
+    padding: 0.75rem 1rem;
+  }
+}
