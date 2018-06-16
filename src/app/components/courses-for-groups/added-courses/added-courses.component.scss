@@ -1,6 +1,5 @@
 .div-table {
-  min-height: 225px;
-  overflow: auto;
+  height: 100%;
 }
 
 .btn {
@@ -23,8 +22,7 @@
 }
 
 table tr td{
-  padding: 0.05rem 0.3rem;
-  padding-top: 0.1rem;
+  padding: 0.05rem 0.3rem 0.1rem;
 }
 
 thead {
