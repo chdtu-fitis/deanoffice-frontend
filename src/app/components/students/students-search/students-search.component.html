@@ -1,4 +1,10 @@
 <div [formGroup]="searchForm" class="form-inline d-inline-flex">
-  <input formControlName="search" class="form-control mr-2" id="search" placeholder="ПIБ">
+  <input
+    formControlName="search"
+    class="form-control mr-2"
+    id="search"
+    placeholder="ПIБ"
+    (keypress)="onKeyPress($event)"
+  >
   <button class="btn btn-info" (click)="searchStudent()">Пошук</button>
 </div>
