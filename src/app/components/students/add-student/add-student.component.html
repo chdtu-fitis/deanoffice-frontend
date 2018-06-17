@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <tabset>
+        <tabset #tabset>
           <tab heading="Зарахувати існуючого студента" (select)="selectTab(tabs.Existing)">
             <form class="mt-3" [formGroup]="form" novalidate *ngIf="activeTab === tabs.Existing">
               <div formGroupName="student" class="form-group">

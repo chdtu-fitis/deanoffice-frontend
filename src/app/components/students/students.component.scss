@@ -52,11 +52,11 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .sidebar {
     width: 0;
     transition: width 0.2s ease;
-    z-index: 2000;
+    z-index: 1000;
 
     &.open {
       width: 100%;
