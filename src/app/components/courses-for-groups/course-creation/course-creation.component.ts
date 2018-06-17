@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
@@ -14,6 +14,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {NotificationsService} from "angular2-notifications";
+import {StudentGroup} from "../../../models/StudentGroup";
 
 @Component({
   selector: 'course-creation',
@@ -22,6 +23,10 @@ import {NotificationsService} from "angular2-notifications";
   providers: [CourseService, KnowledgeControlService]
 })
 export class CourseCreationComponent implements OnInit {
+  @Input() selectedGroup: StudentGroup;
+  @Input() selectedSemester: number;
+  @Output() onCourseAdding = new EventEmitter();
+  @Output() onCourseCreation = new EventEmitter();
   course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
   form;
@@ -29,7 +34,6 @@ export class CourseCreationComponent implements OnInit {
   failCreated = undefined;
   fail = undefined;
   courseNames: CourseName[];
-  @Output() onCourseCreation = new EventEmitter();
   @ViewChild('instance') instance: NgbTypeahead;
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
@@ -81,14 +85,17 @@ export class CourseCreationComponent implements OnInit {
     }
   }
 
-  createCourse() {
+  createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
     console.dir(this.course);
-    this.courseService.createCourse(this.course).subscribe(() => {
+    this.courseService.createCourse(this.course).subscribe((course: Course) => {
         this.success = true;
         this.failCreated = false;
         this.fail = false;
         this.onCourseCreation.emit();
+        if (isAddingToCourseForGroup){
+          this.onCourseAdding.emit(course);
+        }
       },
       error => {
         console.log(error);

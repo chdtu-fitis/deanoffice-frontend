@@ -4,17 +4,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Зарахувати студента</h4>
+        <h4 class="modal-title">Зарахувати особу</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <tabset>
-          <tab heading="Зарахувати існуючого" (select)="selectTab(tabs.Existing)">
+          <tab heading="Зарахувати існуючого студента" (select)="selectTab(tabs.Existing)">
             <form class="mt-3" [formGroup]="form" novalidate *ngIf="activeTab === tabs.Existing">
               <div formGroupName="student" class="form-group">
-                <label for="typeahead" class="required">ПІБ студента</label>
+                <label for="typeahead" class="required">ПІБ</label>
                 <app-student-typeahead
                   id="typeahead"
                   formControlName="id"
@@ -26,7 +26,7 @@
             </form>
           </tab>
 
-          <tab heading="Зарахувати нового" (select)="selectTab(tabs.New)">
+          <tab heading="Зарахувати нову особу" (select)="selectTab(tabs.New)">
             <form [formGroup]="form" class="mt-3" novalidate *ngIf="activeTab === tabs.New">
               <div formGroupName="student">
                 <div class="form-group">

@@ -39,7 +39,6 @@ export class StudentsComponent implements OnInit {
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
           this.students = students;
-          this.rows = students;
           this.loading = false;
           this.isAllDataLoaded = true;
         });
@@ -68,7 +67,6 @@ export class StudentsComponent implements OnInit {
       : this.studentService.getInitialStudents();
     stream.subscribe((students: StudentDegree[]) => {
       this.students = students;
-      this.rows = students;
       this.loading = false;
     });
   }
