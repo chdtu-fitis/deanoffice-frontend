@@ -8,8 +8,9 @@
           studentField="student"
           (searchResult)="onSelect($event)"
         ></app-students-search>
-        <button class="btn btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
-        <button class="btn ml-2 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+        <button class="btn btn-info d-none d-lg-inline-block" (click)="columnsModal.modal.show()">Вибір колонок</button>
+        <button class="btn ml-2 btn-success d-none d-lg-inline-block" (click)="addStudentModal.modal.show()">Зарахувати</button>
+        <button class="btn ml-2 d-inline-block d-lg-none" (click)="isSidebarOpen = !isSidebarOpen">Меню</button>
       </div>
 
       <div class="students-table">
@@ -28,7 +29,12 @@
       </div>
     </div>
 
-    <app-sidebar class="sidebar">
+    <app-sidebar class="{{isSidebarOpen ? 'sidebar open' : 'sidebar'}}">
+      <div class="d-lg-none mb-3">
+        <button class="btn btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
+        <button class="btn ml-2 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+        <button class="btn ml-auto close" (click)="isSidebarOpen = !isSidebarOpen">×</button>
+      </div>
       <b class="mb-2">Фільтри:</b>
       <app-students-filters
         [groups]="groups"

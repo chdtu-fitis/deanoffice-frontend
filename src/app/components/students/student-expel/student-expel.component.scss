@@ -1,5 +1,9 @@
 .content {
   max-height: 520px;
+
+  @media(max-width: 991px) {
+    max-height: initial;
+  }
 }
 
 .students-list {

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, ViewChild, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective, TabsetComponent} from 'ngx-bootstrap';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';
@@ -24,6 +24,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter<StudentDegree>();
   @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('tabset') tabset: TabsetComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +70,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.modal.hide();
     this.form.reset();
     this.activeTab = Tabs.Existing;
+    this.tabset.tabs[0].active = true;
   }
 
   setStudentFormGroup() {

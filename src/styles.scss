@@ -10,6 +10,7 @@ $color-table-row-selection-hover: darken($color-table-row-selection, 5%);
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
 }
 
 .resize-handle {

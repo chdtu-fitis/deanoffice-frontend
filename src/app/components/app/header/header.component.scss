@@ -1,67 +1,62 @@
+$color-background: #678;
+$color-background-active: lighten($color-background, 10%);
+$color-text: rgba(255, 255, 255, 0.8);
+$color-text-active: #fff;
+
 .Header {
   max-height: 54px;
   min-height: 38px;
-  background: #678;
+  background: $color-background;
+  z-index: 100;
 }
 
 .user-logout {
   cursor: pointer;
 }
 
-ul,ol {
-  margin: 0;
-  padding: 0;
-}
 .navbar-nav .nav-item {
+  padding: 0.5em 1em;
+
   .nav-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: $color-text;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  &.active .nav-link {
+    background: $color-background-active;
   }
 
   &:hover,
   &.active {
     .nav-link {
-      color: #fff;
+      color: $color-text-active;
+    }
+  }
+
+  &.dropdown {
+    padding: 0;
+
+    .nav-link {
+      padding: 1em;
     }
   }
 }
-.navbar-collapse-flex {
-  display: flex;
-  justify-content: space-around;
+
+.dropdown-item {
+  color: $color-text;
+  padding: 0.5em 1em;
+
+  &:hover,
+  &.active {
+    background: $color-background-active;
+    color: $color-text-active;
+  }
 }
 
-.main-nav ul li {
-  float: left;
-  list-style: none;
-  margin-right: 30px;
-  color: #fff;
-  font-size: 16px;
-  position: relative;
-  padding: 15px;
-}
-
-.main-nav ul li a {
-  color: #fff;
-}
-
-.main-nav ul li:hover .sub-nav {
-  display: block;
-}
-.sub-nav {
-  width: 200px;
-  background-color: #678;
-  position: absolute;
-  left: 0;
-  top: 50px;
-  display: none;
-  border-top: 1px solid #fff;
-  cursor: pointer;
-}
-.sub-nav li {
-  width: 100%;
-  text-align: center;
-}
-
-.main-nav {
-  display: flex;
-  justify-content: space-between;
+.navbar .dropdown-menu,
+.navbar-collapse {
+  background: $color-background;
 }
