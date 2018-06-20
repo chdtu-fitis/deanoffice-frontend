@@ -78,7 +78,8 @@ export class EditDialogComponent implements OnInit {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
       newCourse: this.course.course
-    }).subscribe(() => {
+    }).subscribe((course: Course) => {
+      this.course.course = course;
       this.course = new CourseForGroup();
     });
     this.activeModal.close('Close click')
