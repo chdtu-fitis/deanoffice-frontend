@@ -64,7 +64,7 @@ export class CoursesForGroupsComponent implements OnInit {
   private changeSemesters() {
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
-      this.semesters.push(i + 1);
+      this.semesters.push(i + this.selectedGroup.beginYears*2-1);
     }
   }
 
