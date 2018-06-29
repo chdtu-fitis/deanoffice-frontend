@@ -4,19 +4,25 @@
   </div>
 
   <div class="q-info">
-    <div>
-      <b>Назва українською:</b>
-       {{qualification?.name}}
+    <div *ngIf="!hasData()" class="m-auto">
+      <b>Для цієї спеціалізації ще не були обрані кваліфікацї</b>
     </div>
 
-    <div>
-      <b>Назва англійською:</b>
-      {{qualification?.nameEng}}
-    </div>
+    <div *ngIf="hasData()">
+      <div>
+        <b>Назва українською:</b>
+        {{qualification?.name}}
+      </div>
 
-    <div>
-      <b>Код:</b>
-      {{qualification?.code}}
+      <div>
+        <b>Назва англійською:</b>
+        {{qualification?.nameEng}}
+      </div>
+
+      <div>
+        <b>Код:</b>
+        {{qualification?.code}}
+      </div>
     </div>
   </div>
 </main>
