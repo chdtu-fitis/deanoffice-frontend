@@ -17,6 +17,7 @@ import {AcquiredCompetenciesService} from './specialization-form/services/acquir
 import {AuthenticationModule} from '../login/authentication.module';
 import { SpecializationQualificationComponent } from './specialization-form/specialization-qualification/specialization-qualification.component';
 import {QualificationService} from "./specialization-form/services/qualification.service";
+import { ChangeQualificationComponent } from './specialization-form/specialization-qualification/change-qualification/change-qualification.component';
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -41,10 +42,12 @@ export const specializationRoutes: Routes = [
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
     SpecializationCompetenciesComponent,
-    SpecializationQualificationComponent
+    SpecializationQualificationComponent,
+    ChangeQualificationComponent
   ],
   providers: [
     AcquiredCompetenciesService,
+    QualificationService,
     AuthenticationModule.tokenInterceptor()
   ]
 })

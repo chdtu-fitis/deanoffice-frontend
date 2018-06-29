@@ -5,8 +5,7 @@ import {ProfessionalQualification} from '../models/professional-qualification';
 @Component({
   selector: 'specialization-qualification',
   templateUrl: './specialization-qualification.component.html',
-  styleUrls: ['./specialization-qualification.component.scss'],
-  providers: [QualificationService]
+  styleUrls: ['./specialization-qualification.component.scss']
 })
 export class SpecializationQualificationComponent {
   qualification: ProfessionalQualification;
@@ -23,5 +22,9 @@ export class SpecializationQualificationComponent {
       return false;
     }
     return Object.keys(this.qualification).length > 0;
+  }
+
+  changeQualification(qualification: ProfessionalQualification) {
+    this.qualification = qualification;
   }
 }

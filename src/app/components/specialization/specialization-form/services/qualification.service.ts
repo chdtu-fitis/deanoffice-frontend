@@ -5,7 +5,11 @@ import {ProfessionalQualification} from '../models/professional-qualification';
 import {SPECIALIZATION_URL} from '../../../../services/specialization.service';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../../../shared/httpErrors';
+import {environment} from '../../../../../environments/environment';
+
 import 'rxjs/operator/map';
+
+const QUALIFACATIONS_URL = `${environment.apiUrl}/professional-qualifications`;
 
 @Injectable()
 export class QualificationService {
@@ -15,5 +19,10 @@ export class QualificationService {
     return this._http.get<ProfessionalQualification>(`${SPECIALIZATION_URL}/${specializationId}/professional-qualification`)
       .pipe(catchError(forObservable('Отримання кваліфікацій для спеціалізації', [])))
       .map(data => data as ProfessionalQualification);
+  }
+
+  getAll(): Observable<ProfessionalQualification[]> {
+    return this._http.get<ProfessionalQualification[]>(QUALIFACATIONS_URL)
+      .pipe(catchError(forObservable('Отримання списку кваліфікацій', [])));
   }
 }

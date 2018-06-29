@@ -1,0 +1,30 @@
+@import "../../../../../../styles";
+
+.qualifications {
+  @extend .modal-body, .list-group, .list-group-flush;
+  margin-left: 0;
+  margin-right: 0;
+  max-height: 55vh;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.qualification {
+  @extend .list-group-item;
+  padding: 10px 15px;
+  cursor: pointer;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 5px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 5px;
+  }
+
+  &:hover, &.selected {
+    @extend .bg-light;
+  }
+}

@@ -1,0 +1,12 @@
+<specialization-modal #modal [title]="'Вибір кваліфікації'" [padding]="{left: '10px', right: '10px'}" (hideModal)="hide()">
+  <ul class="qualifications">
+    <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)" (click)="select(qualification)">
+      {{qualification?.name}}
+    </li>
+  </ul>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!hasSelected()">Обрати</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hide()">Скасувати</button>
+  </div>
+</specialization-modal>

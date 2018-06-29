@@ -1,6 +1,6 @@
 <main>
   <div class="toolbar">
-    <button type="button" class="btn btn-info">Обрати</button>
+    <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
   </div>
 
   <div class="q-info">
@@ -11,12 +11,12 @@
     <div *ngIf="hasData()">
       <div>
         <b>Назва українською:</b>
-        {{qualification?.name}}
+        <div>{{qualification?.name}}</div>
       </div>
 
       <div>
         <b>Назва англійською:</b>
-        {{qualification?.nameEng}}
+        <div>{{qualification?.nameEng}}</div>
       </div>
 
       <div>
@@ -26,3 +26,5 @@
     </div>
   </div>
 </main>
+
+<change-qualification #changeModal (onSubmit)="changeQualification($event)"></change-qualification>
