@@ -15,6 +15,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { SpecializationCompetenciesComponent } from './specialization-form/specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetenciesService} from './specialization-form/services/acquired-competencies.service';
 import {AuthenticationModule} from '../login/authentication.module';
+import { SpecializationQualificationComponent } from './specialization-form/specialization-qualification/specialization-qualification.component';
+import {QualificationService} from "./specialization-form/services/qualification.service";
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -38,7 +40,8 @@ export const specializationRoutes: Routes = [
     SpecializationModalComponent,
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
-    SpecializationCompetenciesComponent
+    SpecializationCompetenciesComponent,
+    SpecializationQualificationComponent
   ],
   providers: [
     AcquiredCompetenciesService,

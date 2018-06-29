@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-  <tabset #tabset>
+  <tabset #tabset id="specialization-form-tabset">
     <tab heading="Загальна інформація">
       <div class="row">
         <div class="col-6">
@@ -122,6 +122,10 @@
                                      [onlyCreating]="!updateForm">
         </specialization-competencies>
       </div>
+    </tab>
+
+    <tab heading="Кваліфікації" (select)="qualification.loadData(initialData.id)">
+      <specialization-qualification #qualification></specialization-qualification>
     </tab>
   </tabset>
 </form>

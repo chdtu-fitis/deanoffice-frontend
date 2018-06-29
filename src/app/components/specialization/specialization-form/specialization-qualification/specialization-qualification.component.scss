@@ -1,0 +1,16 @@
+main {
+  display: flex;
+  flex-direction: column;
+  height: 55vh;
+  min-height: 375px;
+
+  .toolbar {
+    flex-basis: max-content;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .q-info {
+
+  }
+}
