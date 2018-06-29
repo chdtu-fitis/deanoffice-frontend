@@ -1,5 +1,6 @@
 <main>
   <div class="toolbar">
+    <!--<button type="button" class="btn btn-success mr-1" (click)="save()" *ngIf="hasData()">Зберегти</button>-->
     <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
   </div>
 
@@ -20,7 +21,7 @@
       </div>
 
       <div>
-        <b>Код:</b>
+        <b>Шифр:</b>
         {{qualification?.code}}
       </div>
     </div>

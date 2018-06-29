@@ -12,9 +12,11 @@ export class SpecializationQualificationComponent {
 
   constructor(private _service: QualificationService) {}
 
-  loadData(specializationId: number = 0): void {
-    this._service.getLast(specializationId)
-      .subscribe((qualification: ProfessionalQualification) => this.qualification = qualification);
+  loadData(specializationId: number): void {
+    if (specializationId) {
+      this._service.getLast(specializationId)
+        .subscribe((qualification: ProfessionalQualification) => this.qualification = qualification);
+    }
   }
 
   hasData(): boolean {
@@ -26,5 +28,9 @@ export class SpecializationQualificationComponent {
 
   changeQualification(qualification: ProfessionalQualification) {
     this.qualification = qualification;
+  }
+
+  save(specializationId: number): void {
+    this._service.setQualificationForSpecialization(specializationId, this.qualification.id);
   }
 }
