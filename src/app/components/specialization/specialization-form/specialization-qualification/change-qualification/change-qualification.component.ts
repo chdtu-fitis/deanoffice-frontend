@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
 
+import 'rxjs/add/operator/map';
+
 @Component({
   selector: 'change-qualification',
   templateUrl: './change-qualification.component.html',
@@ -17,9 +19,19 @@ export class ChangeQualificationComponent {
 
   constructor(private _service: QualificationService) { }
 
-  open(): void {
-    this.qualifications = this._service.getAll();
+  open(currentQualification: ProfessionalQualification): void {
+    this.qualifications = this._service.getAll()
+      .map(this.deleteCurrQual(currentQualification));
     this.modal.show();
+  }
+
+  private deleteCurrQual(currQual: ProfessionalQualification): (quals: ProfessionalQualification[]) => ProfessionalQualification[] {
+    return (quals: ProfessionalQualification[]) => {
+      if (currQual) {
+        return quals.filter((qual) => currQual.id !== qual.id);
+      }
+      return quals;
+    }
   }
 
   hide(): void {

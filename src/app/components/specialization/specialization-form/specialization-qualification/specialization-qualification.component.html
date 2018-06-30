@@ -37,7 +37,7 @@
 
   <main>
     <div class="toolbar">
-      <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
+      <button type="button" class="btn btn-info" (click)="changeModal.open(qualification)">Обрати</button>
       <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="updateForm">Зберегти</button>
     </div>
 
@@ -66,4 +66,4 @@
   </main>
 </div>
 
-<change-qualification #changeModal (onSubmit)="changeQualification($event)"></change-qualification>
+<change-qualification #changeModal (onSubmit)="changeData($event)"></change-qualification>

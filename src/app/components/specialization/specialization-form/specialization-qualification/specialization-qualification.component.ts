@@ -14,6 +14,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this.updateForm = updateForm;
     this.createBtnText = (updateForm) ? 'Створити та обрати' : 'Створити';
   }
+  private _alreadySaved = false;
   updateForm = false;
   specializationId: number;
   qualification: ProfessionalQualification;
@@ -46,13 +47,10 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     return Object.keys(this.qualification).length > 0;
   }
 
-  changeQualification(qualification: ProfessionalQualification) {
-    this.qualification = qualification;
-  }
-
   save(specializationId: number): void {
-    if (this.hasData()) {
+    if (this.hasData() && !this._alreadySaved) {
       this._service.setQualificationForSpecialization(specializationId, this.qualification.id);
+      this._alreadySaved = true;
     }
   }
 
@@ -62,11 +60,16 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
       return;
     }
     this._service.create(this.form.getRawValue())
-      .then((res: ProfessionalQualification) => this.qualification = res)
+      .then(this.changeData)
       .then(() => {
         if (this.updateForm) {
           this.save(this.specializationId);
         }
       });
+  }
+
+  changeData(qualification: ProfessionalQualification) {
+    this.qualification = qualification;
+    this._alreadySaved = false;
   }
 }
