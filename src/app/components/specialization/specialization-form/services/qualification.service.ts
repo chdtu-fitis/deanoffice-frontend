@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../models/professional-qualification';
 import {SPECIALIZATION_URL} from '../../../../services/specialization.service';
@@ -30,5 +30,22 @@ export class QualificationService {
     return this._http
       .post(`${SPECIALIZATION_URL}/${specializationId}/professional-qualifications/${qualificationId}`, {})
       .toPromise().catch(forPromise('Зміна кваліфікацій для спеціалізації'));
+  }
+
+  create(body: ProfessionalQualification, andSet: boolean = false, specializationId?: number): Promise<ProfessionalQualification> {
+    const params = this.getParamsForCreate(andSet, specializationId);
+    return this._http.post(QUALIFACATIONS_URL, body, {params}).toPromise()
+      .catch(forPromise('Створення та зміна кваліфікації'))
+      .then(data => data as ProfessionalQualification);
+  }
+
+  private getParamsForCreate(andSet: boolean, specializationId: number): HttpParams {
+    if (andSet) {
+      return new HttpParams()
+        .set('and-set', andSet.toString())
+        .set('specialization-id', specializationId.toString());
+    } else {
+      return new HttpParams();
+    }
   }
 }

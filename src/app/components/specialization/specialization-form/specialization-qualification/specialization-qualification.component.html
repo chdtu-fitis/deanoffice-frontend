@@ -1,31 +1,69 @@
-<main>
-  <div class="toolbar">
-    <!--<button type="button" class="btn btn-success mr-1" (click)="save()" *ngIf="hasData()">Зберегти</button>-->
-    <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
-  </div>
+<div class="form-layout">
+  <form [formGroup]="form">
+    <h6 style="text-align: center">Нова кваліфікація</h6>
 
-  <div class="q-info">
-    <div *ngIf="!hasData()" class="m-auto">
-      <b>Для цієї спеціалізації ще не були обрані кваліфікацї</b>
+    <div class="all-free-height">
+      <label for="ukr">Українською:</label>
+      <div class="input-group">
+        <textarea id="ukr" class="form-control" formControlName="name" [appValidation]="form.controls.name">
+        </textarea>
+      </div>
+      <app-validation-errors [control]="form.controls.name"></app-validation-errors>
     </div>
 
-    <div *ngIf="hasData()">
-      <div>
-        <b>Назва українською:</b>
-        <div>{{qualification?.name}}</div>
+    <div class="all-free-height">
+      <label for="eng">Англійською:</label>
+      <div class="input-group">
+        <textarea id="eng" class="form-control" formControlName="nameEng" [appValidation]="form.controls.nameEng">
+        </textarea>
+      </div>
+      <app-validation-errors [control]="form.controls.nameEng"></app-validation-errors>
+    </div>
+
+    <div>
+      <label for="code">Шифр:</label>
+      <div class="form-btn&code">
+        <div class="input-group">
+          <input id="code" class="form-control" formControlName="code" type="text" [appValidation]="form.controls.code">
+        </div>
+
+        <div class="ml-2 form-btn" *ngIf="showSaveBtn">
+          <button class="btn btn-success" (click)="createAndSet()">Створити та обрати</button>
+        </div>
+      </div>
+      <app-validation-errors [control]="form.controls.code"></app-validation-errors>
+    </div>
+  </form>
+
+  <main>
+    <div class="toolbar">
+      <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
+      <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="showSaveBtn">Зберегти</button>
+    </div>
+
+    <div class="q-info">
+      <div *ngIf="!hasData()" class="m-auto">
+        <b>Для цієї спеціалізації ще не були обрані кваліфікацї</b>
       </div>
 
-      <div>
-        <b>Назва англійською:</b>
-        <div>{{qualification?.nameEng}}</div>
-      </div>
+      <div *ngIf="hasData()">
+        <div>
+          <b>Назва українською:</b>
+          <div>{{qualification?.name}}</div>
+        </div>
 
-      <div>
-        <b>Шифр:</b>
-        {{qualification?.code}}
+        <div>
+          <b>Назва англійською:</b>
+          <div>{{qualification?.nameEng}}</div>
+        </div>
+
+        <div>
+          <b>Шифр:</b>
+          {{qualification?.code}}
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>
 
 <change-qualification #changeModal (onSubmit)="changeQualification($event)"></change-qualification>

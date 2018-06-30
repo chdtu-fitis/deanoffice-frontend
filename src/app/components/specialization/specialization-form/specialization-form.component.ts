@@ -14,10 +14,11 @@ import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
 import {Observable} from 'rxjs/Observable';
+import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
+
+import {flatMap} from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import {flatMap} from 'rxjs/operators';
-import {SpecializationQualificationComponent} from "./specialization-qualification/specialization-qualification.component";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
