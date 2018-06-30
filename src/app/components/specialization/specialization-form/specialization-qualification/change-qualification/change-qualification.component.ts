@@ -53,4 +53,9 @@ export class ChangeQualificationComponent {
   hasSelected(): boolean {
     return Boolean(this._selected);
   }
+
+  selectAndSubmit(item: ProfessionalQualification) {
+    this.select(item);
+    this.submit();
+  }
 }

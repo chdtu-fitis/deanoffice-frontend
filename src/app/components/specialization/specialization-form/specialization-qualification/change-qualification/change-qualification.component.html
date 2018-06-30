@@ -1,6 +1,7 @@
 <specialization-modal #modal [title]="'Вибір кваліфікації'" [padding]="{left: '10px', right: '10px'}" (hideModal)="hide()">
   <ul class="qualifications">
-    <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)" (click)="select(qualification)">
+    <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
+        (click)="select(qualification)" (dblclick)="selectAndSubmit(qualification)">
       {{qualification?.name}}
     </li>
   </ul>

@@ -121,7 +121,7 @@
     </tab>
 
     <tab heading="Кваліфікації" (select)="qualification.loadData(initialData.id)" *ngIf="isShow">
-      <specialization-qualification #qualification [showSaveBtn]="updateForm"></specialization-qualification>
+      <specialization-qualification #qualification [setFormType]="updateForm"></specialization-qualification>
     </tab>
   </tabset>
 </form>

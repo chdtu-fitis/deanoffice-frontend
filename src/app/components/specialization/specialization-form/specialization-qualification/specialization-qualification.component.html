@@ -27,8 +27,8 @@
           <input id="code" class="form-control" formControlName="code" type="text" [appValidation]="form.controls.code">
         </div>
 
-        <div class="ml-2 form-btn" *ngIf="showSaveBtn">
-          <button class="btn btn-success" (click)="createAndSet()">Створити та обрати</button>
+        <div class="ml-2 form-btn">
+          <button class="btn btn-success" (click)="create()">{{createBtnText}}</button>
         </div>
       </div>
       <app-validation-errors [control]="form.controls.code"></app-validation-errors>
@@ -38,22 +38,22 @@
   <main>
     <div class="toolbar">
       <button type="button" class="btn btn-info" (click)="changeModal.open()">Обрати</button>
-      <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="showSaveBtn">Зберегти</button>
+      <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="updateForm">Зберегти</button>
     </div>
 
     <div class="q-info">
       <div *ngIf="!hasData()" class="m-auto">
-        <b>Для цієї спеціалізації ще не були обрані кваліфікацї</b>
+        <b>Кваліфікацї ще не були обрані</b>
       </div>
 
       <div *ngIf="hasData()">
         <div>
-          <b>Назва українською:</b>
+          <b>Українською:</b>
           <div>{{qualification?.name}}</div>
         </div>
 
         <div>
-          <b>Назва англійською:</b>
+          <b>Англійською:</b>
           <div>{{qualification?.nameEng}}</div>
         </div>
 

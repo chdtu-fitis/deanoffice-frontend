@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {QualificationService} from '../services/qualification.service';
 import {ProfessionalQualification} from '../models/professional-qualification';
 import {FormBuilder, Validators} from '@angular/forms';
-import {BaseReactiveFormComponent} from "../../../shared/base-reactive-form/base-reactive-form.component";
+import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base-reactive-form.component';
 
 @Component({
   selector: 'specialization-qualification',
@@ -10,9 +10,14 @@ import {BaseReactiveFormComponent} from "../../../shared/base-reactive-form/base
   styleUrls: ['./specialization-qualification.component.scss']
 })
 export class SpecializationQualificationComponent extends BaseReactiveFormComponent {
-  @Input() showSaveBtn = false;
+  @Input() set setFormType(updateForm: boolean) {
+    this.updateForm = updateForm;
+    this.createBtnText = (updateForm) ? 'Створити та обрати' : 'Створити';
+  }
+  updateForm = false;
   specializationId: number;
   qualification: ProfessionalQualification;
+  createBtnText: string;
 
   constructor(
     private _service: QualificationService,
@@ -46,15 +51,22 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   }
 
   save(specializationId: number): void {
-    this._service.setQualificationForSpecialization(specializationId, this.qualification.id);
+    if (this.hasData()) {
+      this._service.setQualificationForSpecialization(specializationId, this.qualification.id);
+    }
   }
 
-  createAndSet(): void {
+  create(): void {
     this.submit();
     if (this.form.invalid) {
       return;
     }
-    this._service.create(this.form.getRawValue(), true, this.specializationId)
-      .then((res: ProfessionalQualification) => this.qualification = res);
+    this._service.create(this.form.getRawValue())
+      .then((res: ProfessionalQualification) => this.qualification = res)
+      .then(() => {
+        if (this.updateForm) {
+          this.save(this.specializationId);
+        }
+      });
   }
 }
