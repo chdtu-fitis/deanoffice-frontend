@@ -1,21 +1,32 @@
-.no-resizeable {
-  resize: none;
+.column {
+  display: flex;
+  flex-direction: column;
+  min-height: 374px;
+  height: 55vh;
+  align-content: stretch;
 }
 
-.ta-15l {
-  @extend .no-resizeable;
-  height: 374px;
+.toolbox {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: max-content;
+  flex-shrink: 0;
+  margin-top: 10px;
 }
 
 .competencies {
-  position: relative;
-  width: 766px;
-  height: 374px;
+  flex-grow: 1;
+  display: flex;
+
+  textarea {
+    min-height: 100%;
+    resize: none;
+    flex-grow: 1;
+    align-self: stretch;
+  }
 }
 
 .competencies-loading {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  margin: auto;
 }
+
