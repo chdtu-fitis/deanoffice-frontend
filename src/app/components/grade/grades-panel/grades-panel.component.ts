@@ -12,7 +12,7 @@ export class GradesPanelComponent {
     @Output() sendRequestGetGrades = new EventEmitter();
     autoSemesterSelect = true;
     selectGroup: any = false;
-    studySemesters = 10;
+    studySemesters = 12;
     selectSemester = 1;
     degree = 1;
     searchText: string;
