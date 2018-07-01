@@ -1,6 +1,5 @@
-export class ProfessionalQualification {
-  id: number;
-  name: string;
-  nameEng: string;
+import {NameWithEngEntity} from '../../../../models/basemodels/NameWithEngEntity';
+
+export class ProfessionalQualification extends NameWithEngEntity {
   code: string;
 }

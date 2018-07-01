@@ -3,6 +3,7 @@ import {SpecializationModalComponent} from '../../../specialization-modal/specia
 import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
+import {getId} from '../../../../../models/basemodels/BaseEntity';
 
 import 'rxjs/add/operator/map';
 
@@ -12,31 +13,22 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./change-qualification.component.scss']
 })
 export class ChangeQualificationComponent {
-  @Output() onSubmit: EventEmitter<ProfessionalQualification> = new EventEmitter<ProfessionalQualification>();
+  @Output() onSubmit: EventEmitter<ProfessionalQualification[]> = new EventEmitter<ProfessionalQualification[]>();
   @ViewChild('modal') modal: SpecializationModalComponent;
-  private _selected: ProfessionalQualification;
+  private _selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
 
   constructor(private _service: QualificationService) { }
 
-  open(currentQualification: ProfessionalQualification): void {
-    this.qualifications = this._service.getAll()
-      .map(this.deleteCurrQual(currentQualification));
+  open(selected: ProfessionalQualification[]): void {
+    this.qualifications = this._service.getAll();
+    this._selected = [...selected];
     this.modal.show();
-  }
-
-  private deleteCurrQual(currQual: ProfessionalQualification): (quals: ProfessionalQualification[]) => ProfessionalQualification[] {
-    return (quals: ProfessionalQualification[]) => {
-      if (currQual) {
-        return quals.filter((qual) => currQual.id !== qual.id);
-      }
-      return quals;
-    }
   }
 
   hide(): void {
     this.modal.hide();
-    this._selected = null;
+    this._selected = [];
   }
 
   submit(): void {
@@ -45,29 +37,22 @@ export class ChangeQualificationComponent {
   }
 
   select(item: ProfessionalQualification): void {
-    if (!this.hasSelected()) {
-      this._selected = item;
-    } else if (item.id !== this._selected.id) {
-      this._selected = item;
+    if (this.isSelected(item.id)) {
+      const itemIndex: number = this._selected.map(getId).indexOf(item.id);
+      this._selected.splice(itemIndex, 1);
+    } else {
+      this._selected.push(item);
     }
+  }
+
+  private isSelected(itemId: number): boolean {
+    return this._selected.map(getId).includes(itemId);
   }
 
   getItemClass(itemId: number): string {
-    if (!this.hasSelected()) {
-      return 'qualification';
-    }
-    if (itemId === this._selected.id) {
+    if (this.isSelected(itemId)) {
       return 'qualification selected';
     }
     return 'qualification';
-  }
-
-  hasSelected(): boolean {
-    return Boolean(this._selected);
-  }
-
-  selectAndSubmit(item: ProfessionalQualification) {
-    this.select(item);
-    this.submit();
   }
 }

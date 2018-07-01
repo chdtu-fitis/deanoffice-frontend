@@ -37,7 +37,7 @@
 
   <main>
     <div class="toolbar">
-      <button type="button" class="btn btn-info" (click)="changeModal.open(qualification)">Обрати</button>
+      <button type="button" class="btn btn-info" (click)="changeModal.open(qualifications)">Обрати</button>
       <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="updateForm">Зберегти</button>
     </div>
 
@@ -46,24 +46,20 @@
         <b>Кваліфікацї ще не були обрані</b>
       </div>
 
-      <div *ngIf="hasData()">
-        <div>
-          <b>Українською:</b>
-          <div>{{qualification?.name}}</div>
-        </div>
-
-        <div>
-          <b>Англійською:</b>
-          <div>{{qualification?.nameEng}}</div>
-        </div>
-
-        <div>
-          <b>Шифр:</b>
-          {{qualification?.code}}
-        </div>
-      </div>
+      <table *ngIf="hasData()" class="table table-sm">
+        <tr>
+          <th>Українською</th>
+          <th>Англійською</th>
+          <th>Шифр</th>
+        </tr>
+        <tr *ngFor="let item of qualifications">
+          <td>{{item.name}}</td>
+          <td>{{item.nameEng}}</td>
+          <td>{{item.code}}</td>
+        </tr>
+      </table>
     </div>
   </main>
 </div>
 
-<change-qualification #changeModal (onSubmit)="changeData($event)"></change-qualification>
+<change-qualification #changeModal (onSubmit)="changeQualification($event)"></change-qualification>

@@ -6,6 +6,7 @@ import {SPECIALIZATION_URL} from '../../../../services/specialization.service';
 import {catchError} from 'rxjs/operators';
 import {forObservable, forPromise} from '../../../shared/httpErrors';
 import {environment} from '../../../../../environments/environment';
+import {QualificationEvents} from '../specialization-qualification/models/qualification-events';
 
 import 'rxjs/operator/map';
 
@@ -15,10 +16,9 @@ const QUALIFACATIONS_URL = `${environment.apiUrl}/professional-qualifications`;
 export class QualificationService {
   constructor(private _http: HttpClient) {}
 
-  public getLast(specializationId: number): Observable<ProfessionalQualification> {
-    return this._http.get<ProfessionalQualification>(`${SPECIALIZATION_URL}/${specializationId}/professional-qualification`)
-      .pipe(catchError(forObservable('Отримання кваліфікацій для спеціалізації', [])))
-      .map(data => data as ProfessionalQualification);
+  public getCurrent(specializationId: number): Observable<ProfessionalQualification[]> {
+    return this._http.get<ProfessionalQualification[]>(`${SPECIALIZATION_URL}/${specializationId}/professional-qualifications`)
+      .pipe(catchError(forObservable('Отримання кваліфікацій для спеціалізації', [])));
   }
 
   getAll(): Observable<ProfessionalQualification[]> {
@@ -26,9 +26,9 @@ export class QualificationService {
       .pipe(catchError(forObservable('Отримання списку кваліфікацій', [])));
   }
 
-  setQualificationForSpecialization(specializationId: number, qualificationId: number) {
+  save(events: QualificationEvents) {
     return this._http
-      .post(`${SPECIALIZATION_URL}/${specializationId}/professional-qualifications/${qualificationId}`, {})
+      .post(`${SPECIALIZATION_URL}/${events.specializationId}/professional-qualifications`, events)
       .toPromise().catch(forPromise('Зміна кваліфікацій для спеціалізації'));
   }
 

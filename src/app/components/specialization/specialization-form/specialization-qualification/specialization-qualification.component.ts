@@ -1,8 +1,10 @@
 import {Component, Input} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
 import {QualificationService} from '../services/qualification.service';
 import {ProfessionalQualification} from '../models/professional-qualification';
-import {FormBuilder, Validators} from '@angular/forms';
 import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base-reactive-form.component';
+import {QualificationEvents} from './models/qualification-events';
+import {getId} from '../../../../models/basemodels/BaseEntity';
 
 @Component({
   selector: 'specialization-qualification',
@@ -14,11 +16,11 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this.updateForm = updateForm;
     this.createBtnText = (updateForm) ? 'Створити та обрати' : 'Створити';
   }
-  private _alreadySaved = false;
-  updateForm = false;
-  specializationId: number;
-  qualification: ProfessionalQualification;
+
+  private _events: QualificationEvents;
+  qualifications: ProfessionalQualification[] = [];
   createBtnText: string;
+  updateForm = false;
 
   constructor(
     private _service: QualificationService,
@@ -28,29 +30,29 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this.form = formBuilder.group({
       name: ['', Validators.required],
       nameEng: ['', Validators.required],
-      code: ['', Validators.compose([Validators.required, Validators.maxLength(10)])]
+      code: ['', Validators.compose(
+        [Validators.required, Validators.maxLength(10)])
+      ]
     });
   }
 
   loadData(specializationId: number): void {
+    this._events = new QualificationEvents(specializationId);
     if (specializationId) {
-      this.specializationId = specializationId;
-      this._service.getLast(specializationId)
-        .subscribe((qualification: ProfessionalQualification) => this.qualification = qualification);
+      this._service.getCurrent(specializationId)
+        .subscribe((qualifications: ProfessionalQualification[]) => this.qualifications = qualifications);
     }
   }
 
   hasData(): boolean {
-    if (!this.qualification) {
-      return false;
-    }
-    return Object.keys(this.qualification).length > 0;
+    return this.qualifications.length > 0;
   }
 
-  save(specializationId: number): void {
-    if (this.hasData() && !this._alreadySaved) {
-      this._service.setQualificationForSpecialization(specializationId, this.qualification.id);
-      this._alreadySaved = true;
+  save(specializationId: number = this._events.specializationId): void {
+    this._events.specializationId = specializationId;
+    if (this._events.hasData()) {
+      this._service.save(this._events)
+        .then(() => this._events.clear());
     }
   }
 
@@ -60,16 +62,41 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
       return;
     }
     this._service.create(this.form.getRawValue())
-      .then(this.changeData)
+      .then((res: ProfessionalQualification) => this._events.addSelected(res.id))
       .then(() => {
         if (this.updateForm) {
-          this.save(this.specializationId);
+          this.save();
         }
       });
   }
 
-  changeData(qualification: ProfessionalQualification) {
-    this.qualification = qualification;
-    this._alreadySaved = false;
+  changeQualification(quals: ProfessionalQualification[]): void {
+    const qualIds = quals.map(getId);
+    const initialIds = this.qualifications.map(getId);
+    this.addSelected(qualIds, initialIds);
+    this.addDeleted(qualIds, initialIds);
+    this.qualifications = quals;
+  }
+
+  private addSelected(qualIds: number[], initialIds: number[]): void {
+    const selectedIds = qualIds.filter(this.isSelected(initialIds));
+    this._events.addSelected(...selectedIds);
+  }
+
+  private isSelected(initialIds: number[]) {
+    return (qualId: number) => {
+      return !initialIds.includes(qualId);
+    }
+  }
+
+  private addDeleted(qualIds: number[], initialIds: number[]): void {
+    const deletedIds = initialIds.filter(this.isDeleted(qualIds));
+    this._events.addDeleted(...deletedIds);
+  }
+
+  private isDeleted(qualIds: number[]) {
+    return (initialId: number) => {
+      return !qualIds.includes(initialId);
+    }
   }
 }

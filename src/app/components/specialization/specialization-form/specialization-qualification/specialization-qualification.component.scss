@@ -19,6 +19,8 @@ form {
   flex-direction: column;
   align-content: stretch;
   min-height: 45%;
+  max-height: 350px;
+  max-width: none;
 
   label {
     @extend .mt-1;
@@ -66,6 +68,7 @@ form {
   form {
     margin-top: 0.5rem;
     margin-left: 0;
+    max-width: 38%;
   }
 }
 
@@ -73,7 +76,6 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 120px;
-  min-width: 60%;
 
   .toolbar {
     flex-basis: max-content;
