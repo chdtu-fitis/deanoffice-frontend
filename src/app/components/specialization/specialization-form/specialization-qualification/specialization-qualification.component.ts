@@ -5,6 +5,7 @@ import {ProfessionalQualification} from '../models/professional-qualification';
 import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base-reactive-form.component';
 import {QualificationEvents} from './models/qualification-events';
 import {getId} from '../../../../models/basemodels/BaseEntity';
+import {QualificationForSpecialization, QualificationForSpecializationId} from '../models/QualificationForSpecialization';
 
 @Component({
   selector: 'specialization-qualification',
@@ -16,11 +17,12 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this.updateForm = updateForm;
     this.createBtnText = (updateForm) ? 'Створити та обрати' : 'Створити';
   }
-
   private _events: QualificationEvents;
+  private qualificationForSpecializationsIds: QualificationForSpecializationId[] = [];
   qualifications: ProfessionalQualification[] = [];
   createBtnText: string;
   updateForm = false;
+  qualificationsYear: number;
 
   constructor(
     private _service: QualificationService,
@@ -39,9 +41,32 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   loadData(specializationId: number): void {
     this._events = new QualificationEvents(specializationId);
     if (specializationId) {
-      this._service.getCurrent(specializationId)
-        .subscribe((qualifications: ProfessionalQualification[]) => this.qualifications = qualifications);
+      this._service.getCurrent(specializationId).subscribe(this.setInitialData.bind(this));
     }
+  }
+
+  private setInitialData(qualificationForSpecializations: QualificationForSpecialization[]): void {
+    this.qualificationForSpecializationsIds = qualificationForSpecializations.map(this.getQualificationForSpecializationId);
+    this.qualificationsYear = this.getYear(qualificationForSpecializations);
+      this.qualifications = qualificationForSpecializations
+      .map((qfs: QualificationForSpecialization) => qfs.professionalQualification);
+  }
+
+  private getYear(qualificationForSpecializations: QualificationForSpecialization[]): number {
+    const firstQualificationForSpecialization = qualificationForSpecializations[0];
+    if (firstQualificationForSpecialization) {
+      return firstQualificationForSpecialization.year;
+    }
+    return firstQualificationForSpecialization.year;
+  }
+
+  private getQualificationForSpecializationId(
+    qualificationForSpecialization: QualificationForSpecialization
+  ): QualificationForSpecializationId {
+    return {
+      id: qualificationForSpecialization.id,
+      professionalQualificationId: qualificationForSpecialization.professionalQualification.id
+    } as QualificationForSpecializationId;
   }
 
   hasData(): boolean {
@@ -52,7 +77,8 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this._events.specializationId = specializationId;
     if (this._events.hasData()) {
       this._service.save(this._events)
-        .then(() => this._events.clear());
+        .then(() => this._events.clear())
+        .then(() => this.loadData(this._events.specializationId));
     }
   }
 
@@ -72,13 +98,13 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
 
   changeQualification(quals: ProfessionalQualification[]): void {
     const qualIds = quals.map(getId);
-    const initialIds = this.qualifications.map(getId);
-    this.addSelected(qualIds, initialIds);
-    this.addDeleted(qualIds, initialIds);
+    this.addSelected(qualIds);
+    this.addDeleted(qualIds);
     this.qualifications = quals;
   }
 
-  private addSelected(qualIds: number[], initialIds: number[]): void {
+  private addSelected(qualIds: number[]): void {
+    const initialIds = this.qualifications.map(getId);
     const selectedIds = qualIds.filter(this.isSelected(initialIds));
     this._events.addSelected(...selectedIds);
   }
@@ -89,14 +115,16 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     }
   }
 
-  private addDeleted(qualIds: number[], initialIds: number[]): void {
-    const deletedIds = initialIds.filter(this.isDeleted(qualIds));
+  private addDeleted(qualIds: number[]): void {
+    const deletedIds = this.qualificationForSpecializationsIds
+      .filter(this.isDeleted(qualIds))
+      .map(getId);
     this._events.addDeleted(...deletedIds);
   }
 
   private isDeleted(qualIds: number[]) {
-    return (initialId: number) => {
-      return !qualIds.includes(initialId);
+    return (qfsId: QualificationForSpecializationId) => {
+      return !qualIds.includes(qfsId.professionalQualificationId);
     }
   }
 }
