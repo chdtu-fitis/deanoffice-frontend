@@ -1,5 +1,14 @@
 @import "../../../../../../styles";
 
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .qualifications {
   @extend .modal-body, .list-group, .list-group-flush;
   margin-left: 0;
@@ -12,7 +21,6 @@
 .qualification {
   @extend .list-group-item;
   padding: 10px 15px;
-  cursor: pointer;
 
   &:first-child {
     border-top: none;
@@ -24,7 +32,11 @@
     padding-bottom: 5px;
   }
 
-  &:hover, &.selected {
+  &.can-selected:hover, &.selected {
     @extend .bg-light;
+  }
+
+  &.can-selected, &.selected {
+    cursor: pointer;
   }
 }

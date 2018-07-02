@@ -10,10 +10,10 @@ import {forObservable} from '../components/shared/httpErrors';
 export class DegreeService {
   private degreesUrl = `${environment.apiUrl}/degrees`;
 
+  constructor(private http: HttpClient) {}
+
   getDegrees(): Observable<Degree[]> {
     return this.http.get<Degree[]>(this.degreesUrl)
       .pipe(catchError(forObservable('Отримання списку освітньо-кваліфікаційного рівня', [])));
   }
-
-  constructor(private http: HttpClient) {}
 }

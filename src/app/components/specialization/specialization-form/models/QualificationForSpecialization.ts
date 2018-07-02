@@ -7,5 +7,5 @@ export class QualificationForSpecialization extends BaseEntity {
 }
 
 export class QualificationForSpecializationId extends BaseEntity {
-  professionalQualificationId: number;
+  qid: number;
 }

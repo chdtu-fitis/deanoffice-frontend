@@ -3,7 +3,7 @@ import {FormBuilder, Validators} from '@angular/forms';
 import {QualificationService} from '../services/qualification.service';
 import {ProfessionalQualification} from '../models/professional-qualification';
 import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base-reactive-form.component';
-import {QualificationEvents} from './models/qualification-events';
+import {QualificationEvents} from '../models/qualification-events';
 import {getId} from '../../../../models/basemodels/BaseEntity';
 import {QualificationForSpecialization, QualificationForSpecializationId} from '../models/QualificationForSpecialization';
 
@@ -19,6 +19,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   }
   private _events: QualificationEvents;
   private qualificationForSpecializationsIds: QualificationForSpecializationId[] = [];
+  canEdit = true;
   qualifications: ProfessionalQualification[] = [];
   createBtnText: string;
   updateForm = false;
@@ -42,6 +43,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this._events = new QualificationEvents(specializationId);
     if (specializationId) {
       this._service.getCurrent(specializationId).subscribe(this.setInitialData.bind(this));
+      this._service.canEdit(specializationId).subscribe((canEdit: boolean) => this.canEdit = canEdit);
     }
   }
 
@@ -57,7 +59,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     if (firstQualificationForSpecialization) {
       return firstQualificationForSpecialization.year;
     }
-    return firstQualificationForSpecialization.year;
+    return 0;
   }
 
   private getQualificationForSpecializationId(
@@ -65,7 +67,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   ): QualificationForSpecializationId {
     return {
       id: qualificationForSpecialization.id,
-      professionalQualificationId: qualificationForSpecialization.professionalQualification.id
+      qid: qualificationForSpecialization.professionalQualification.id
     } as QualificationForSpecializationId;
   }
 
@@ -100,6 +102,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     const qualIds = quals.map(getId);
     this.addSelected(qualIds);
     this.addDeleted(qualIds);
+    this.canEdit = true;
     this.qualifications = quals;
   }
 
@@ -124,7 +127,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
 
   private isDeleted(qualIds: number[]) {
     return (qfsId: QualificationForSpecializationId) => {
-      return !qualIds.includes(qfsId.professionalQualificationId);
+      return !qualIds.includes(qfsId.qid);
     }
   }
 }
