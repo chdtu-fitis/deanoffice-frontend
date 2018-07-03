@@ -1,17 +1,19 @@
-<specialization-modal #modal [title]="'Вибір кваліфікації'" [padding]="{left: '10px', right: '10px'}" (hideModal)="hide()">
-  <div *ngIf="!_canEdit" class="modal-body p-1 qualification-alert">
-    <alert type="warning">
-      Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
-      <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
-    </alert>
-  </div>
+<specialization-modal #modal [title]="'Вибір кваліфікації'" [margin]="modalPadding" (hideModal)="hide()">
+  <div class="modal-body">
+    <div *ngIf="!_canEdit" class="p-1 qualification-alert">
+      <alert type="warning">
+        Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
+        <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
+      </alert>
+    </div>
 
-  <ul class="qualifications">
-    <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
-        (click)="select(qualification)">
-      {{qualification?.name}}
-    </li>
-  </ul>
+    <ul class="qualifications">
+      <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
+          (click)="select(qualification)">
+        {{qualification?.name}}
+      </li>
+    </ul>
+  </div>
 
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!_canEdit">Обрати</button>

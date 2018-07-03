@@ -23,7 +23,6 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   private selectionMode: SelectionMode;
   canEdit = true;
   qualifications: ProfessionalQualification[] = [];
-  updateForm = false;
   qualificationsYear: number;
 
   constructor(

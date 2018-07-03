@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {IAppModal} from '../../shared/modal.interface';
 import {ModalDirective} from 'ngx-bootstrap';
+import {ModalMargin} from './models/modal-margin';
 
 @Component({
   selector: 'specialization-modal',
@@ -9,7 +10,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 })
 export class SpecializationModalComponent implements IAppModal {
   @Input() title: string;
-  @Input() padding: {top: string, left: string, bottom: string, right: string} = {top: '0', left: '0', bottom: '0', right: '0'};
+  @Input() margin: ModalMargin = new ModalMargin();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 
@@ -23,14 +24,5 @@ export class SpecializationModalComponent implements IAppModal {
 
   hide(): void {
     this.modal.hide();
-  }
-
-  getPadding() {
-    return {
-      'padding-top': this.padding.top || '0',
-      'padding-left': this.padding.left || '0',
-      'padding-bottom': this.padding.bottom || '0',
-      'padding-right': this.padding.right || '0'
-    };
   }
 }

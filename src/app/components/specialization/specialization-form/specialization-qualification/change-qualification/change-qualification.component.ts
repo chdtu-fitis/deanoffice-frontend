@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SpecializationModalComponent} from '../../../specialization-modal/specialization-modal.component';
 import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
@@ -8,6 +8,7 @@ import {SelectionMode} from '../../enums/selection-mode.enum';
 import {SelectedQualification} from '../../models/selected-qualification';
 
 import 'rxjs/add/operator/map';
+import {ModalMargin} from '../../../specialization-modal/models/modal-margin';
 
 @Component({
   selector: 'change-qualification',
@@ -23,9 +24,9 @@ export class ChangeQualificationComponent {
   private _canEdit: boolean;
   private _selectionMode: SelectionMode = SelectionMode.ADD;
   qualifications: Observable<ProfessionalQualification[]>;
+  modalPadding = new ModalMargin('0', '10px', '0', '10px');
 
-  constructor(private _service: QualificationService) {
-  }
+  constructor(private _service: QualificationService) {}
 
   open(selected: ProfessionalQualification[]): void {
     this.qualifications = this._service.getAll();
@@ -66,7 +67,7 @@ export class ChangeQualificationComponent {
 
   getItemClass(itemId: number): string {
     if (this.isSelected(itemId)) {
-      return 'qualification selected';
+      return 'qualification selected can-selected';
     }
     if (this._canEdit) {
       return 'qualification can-selected';
