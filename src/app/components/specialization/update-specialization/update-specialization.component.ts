@@ -44,7 +44,7 @@ export class UpdateSpecializationComponent {
     const specialization = this.form.getValue();
     this.specializationService
       .update(specialization)
-      .then(() => this.form.saveCompetencies())
+      .then(() => this.form.saveCompetenciesAndQualification(this.source.id))
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);

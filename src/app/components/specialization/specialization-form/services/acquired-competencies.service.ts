@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {forObservable, forPromise} from '../../../shared/httpErrors';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
+import {AcquiredCompetencies} from '../models/acquired-competencies';
 import {environment} from '../../../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {SPECIALIZATION_URL} from '../../../../services/specialization.service';

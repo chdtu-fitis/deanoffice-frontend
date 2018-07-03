@@ -1,0 +1,23 @@
+<specialization-modal #modal [title]="'Вибір кваліфікації'" [margin]="modalPadding" (hideModal)="hide()">
+  <div class="modal-body">
+    <div *ngIf="!currentCanEdit" class="p-1 qualification-alert">
+      <alert type="warning">
+        Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
+        <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
+      </alert>
+    </div>
+
+    <ul class="qualifications">
+      <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
+          (click)="select(qualification)">
+        <input type="checkbox" [checked]="isSelected(qualification.id)" [disabled]="!currentCanEdit">
+        <span>{{qualification?.name}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!currentCanEdit">Обрати</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hide()">Скасувати</button>
+  </div>
+</specialization-modal>

@@ -1,0 +1,76 @@
+<div class="form-layout">
+  <form [formGroup]="form">
+    <h6 style="text-align: center; margin-bottom: 16px;">Нова кваліфікація</h6>
+
+    <div class="all-free-height">
+      <label for="ukr">Українською:</label>
+      <div class="input-group">
+        <textarea id="ukr" class="form-control" formControlName="name" [appValidation]="form.controls.name">
+        </textarea>
+      </div>
+      <app-validation-errors [control]="form.controls.name"></app-validation-errors>
+    </div>
+
+    <div class="all-free-height">
+      <label for="eng">Англійською:</label>
+      <div class="input-group">
+        <textarea id="eng" class="form-control" formControlName="nameEng" [appValidation]="form.controls.nameEng">
+        </textarea>
+      </div>
+      <app-validation-errors [control]="form.controls.nameEng"></app-validation-errors>
+    </div>
+
+    <div>
+      <label for="code">Шифр:</label>
+      <div class="form-btn&code">
+        <div class="input-group">
+          <input id="code" class="form-control" formControlName="code" type="text" [appValidation]="form.controls.code">
+        </div>
+
+        <div class="ml-2 form-btn">
+          <button class="btn btn-success" (click)="create()">{{getCreateBtnDesc()}}</button>
+        </div>
+      </div>
+      <app-validation-errors [control]="form.controls.code"></app-validation-errors>
+    </div>
+  </form>
+
+  <main>
+    <div class="toolbar">
+      <button type="button" class="btn btn-info" (click)="changeModal.open(qualifications)">Обрати</button>
+      <button class="btn btn-success ml-1" (click)="save(specializationId)" *ngIf="updateForm" [disabled]="!canEdit">
+        Зберегти
+      </button>
+    </div>
+
+    <div *ngIf="!canEdit" class="qualification-alert">
+      <alert type="warning">
+        Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
+        <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
+      </alert>
+    </div>
+
+    <div class="q-info">
+      <div *ngIf="!hasData()" class="m-auto">
+        <b>Кваліфікацї ще не були обрані</b>
+      </div>
+
+      <table *ngIf="hasData()" class="table table-sm qualifications">
+        <tr>
+          <th>Шифр</th>
+          <th>Українською</th>
+          <th>Англійською</th>
+        </tr>
+        <tr *ngFor="let item of qualifications">
+          <td>{{item.code}}</td>
+          <td>{{item.name}}</td>
+          <td>{{item.nameEng}}</td>
+        </tr>
+      </table>
+    </div>
+  </main>
+</div>
+
+<change-qualification #changeModal (onSubmit)="changeQualification($event)" [canEdit]="canEdit"
+                      [qualificationsYear]="qualificationsYear">
+</change-qualification>

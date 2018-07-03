@@ -8,6 +8,7 @@ import { AbstractControlDirective, AbstractControl } from '@angular/forms';
 export class ValidationErrorsComponent {
   errorMessages = {
     'required': 'Поле обов\'язкове',
+    'maxlength': 'Максимальна довжина ${requiredLength} символів'
   };
 
   @Input() private control: AbstractControlDirective | AbstractControl;
@@ -25,11 +26,16 @@ export class ValidationErrorsComponent {
 
   listOfErrors(): string[] {
     return Object.keys(this.control.errors)
-      .map(field => this.getMessage(field));
+      .map(this.replaceTemplate.bind(this))
   }
 
   private getMessage(type: string) {
     return Object.assign(this.errorMessages, this.messages)[type]
   }
 
+  private replaceTemplate(field: string): string {
+    const message: string = this.getMessage(field);
+    const requiredLength: string = this.control.errors[field]['requiredLength'];
+    return message.replace('${requiredLength}', requiredLength);
+  }
 }

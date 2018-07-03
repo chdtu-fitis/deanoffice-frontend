@@ -1,0 +1,52 @@
+@import "../../../../../../styles";
+
+.modal-body {
+  @extend .modal-body;
+  margin-left: 0;
+  margin-right: 0;
+  max-height: 55vh;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.qualifications {
+  @extend .list-group, .list-group-flush;
+}
+
+.qualification {
+  @extend .list-group-item;
+  padding: 10px;
+  display: flex;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 5px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 5px;
+  }
+
+  &.can-selected:hover, &.selected {
+    @extend .bg-light;
+  }
+
+  &.can-selected {
+    cursor: pointer;
+  }
+
+  input[type=checkbox] {
+    flex-shrink: 0;
+    flex-basis: max-content;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    height: 15px;
+    width: 15px;
+    align-self: center;
+  }
+
+  span {
+    flex-grow: 1;
+  }
+}

@@ -1,15 +1,17 @@
-<div *ngIf="!onlyCreating" class="d-flex justify-content-between mt-1">
-  <div>
-    <button class="btn btn-success" (click)="save()" *ngIf="editing">Зберегти</button>
+<div class="column">
+  <div *ngIf="!onlyCreating" class="toolbox">
+    <div>
+      <button class="btn btn-success" (click)="save()" *ngIf="editing">Зберегти</button>
+    </div>
+    <div>
+      <button class="btn btn-info" (click)="enableEdit()" [disabled]="editing">Редагувати поточні</button>
+      <button class="btn btn-info ml-1" (click)="enableCreating()" [disabled]="creating">Створити нові для цього року</button>
+    </div>
   </div>
-  <div>
-    <button class="btn btn-info" (click)="enableEdit()" [disabled]="editing">Редагувати поточні</button>
-    <button class="btn btn-info ml-1" (click)="enableCreating()" [disabled]="creating">Створити нові для цього року</button>
+  <div class="competencies mt-2">
+    <loading class="competencies-loading" *ngIf="isLoading"></loading>
+    <textarea class="form-control ta-15l" [(ngModel)]="competencies" *ngIf="isShowField()"
+              [disabled]="!editing && !creating"
+    ></textarea>
   </div>
-</div>
-<div class="competencies mt-2">
-  <loading class="competencies-loading" *ngIf="isLoading"></loading>
-  <textarea class="form-control ta-15l" [(ngModel)]="competencies" *ngIf="isShowField()"
-            [disabled]="!editing && !creating"
-  ></textarea>
 </div>

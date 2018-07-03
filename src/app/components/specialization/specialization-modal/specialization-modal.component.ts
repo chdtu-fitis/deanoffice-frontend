@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {IAppModal} from '../../shared/modal.interface';
 import {ModalDirective} from 'ngx-bootstrap';
+import {ModalMargin} from './models/modal-margin';
 
 @Component({
   selector: 'specialization-modal',
@@ -9,6 +10,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 })
 export class SpecializationModalComponent implements IAppModal {
   @Input() title: string;
+  @Input() margin: ModalMargin = new ModalMargin();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 

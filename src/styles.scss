@@ -109,3 +109,21 @@ body {
   content: '*';
   color: red;
 }
+
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+#specialization-form-tabset .nav {
+  font-size: 14px;
+}
+
+.qualification-alert .alert {
+  margin: 0;
+  padding: 10px;
+}

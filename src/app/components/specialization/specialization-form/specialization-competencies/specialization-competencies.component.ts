@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AcquiredCompetencies} from '../../../../models/AcquiredCompetencies';
+import {Component, Input, OnInit} from '@angular/core';
+import {AcquiredCompetencies} from '../models/acquired-competencies';
 import {AcquiredCompetenciesService} from '../services/acquired-competencies.service';
 import {Lang} from '../enums/lang.enum';
 import 'rxjs/add/operator/do';

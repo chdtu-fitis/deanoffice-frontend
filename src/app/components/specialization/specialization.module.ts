@@ -15,6 +15,10 @@ import {RouterModule, Routes} from '@angular/router';
 import { SpecializationCompetenciesComponent } from './specialization-form/specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetenciesService} from './specialization-form/services/acquired-competencies.service';
 import {AuthenticationModule} from '../login/authentication.module';
+import { SpecializationQualificationComponent } from './specialization-form/specialization-qualification/specialization-qualification.component';
+import {QualificationService} from './specialization-form/services/qualification.service';
+import { ChangeQualificationComponent } from './specialization-form/specialization-qualification/change-qualification/change-qualification.component';
+import {AlertModule} from 'ngx-bootstrap';
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -27,6 +31,7 @@ export const specializationRoutes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     TabsModule.forRoot(),
+    AlertModule.forRoot(),
     RouterModule.forChild(specializationRoutes)
   ],
   declarations: [
@@ -38,10 +43,13 @@ export const specializationRoutes: Routes = [
     SpecializationModalComponent,
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
-    SpecializationCompetenciesComponent
+    SpecializationCompetenciesComponent,
+    SpecializationQualificationComponent,
+    ChangeQualificationComponent
   ],
   providers: [
     AcquiredCompetenciesService,
+    QualificationService,
     AuthenticationModule.tokenInterceptor()
   ]
 })

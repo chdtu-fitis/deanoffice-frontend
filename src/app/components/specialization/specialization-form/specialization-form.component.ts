@@ -10,13 +10,15 @@ import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
-import {AcquiredCompetencies} from '../../../models/AcquiredCompetencies';
+import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
 import {Observable} from 'rxjs/Observable';
+import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
+
+import {flatMap} from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
-import {flatMap} from 'rxjs/operators';
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -33,6 +35,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   @ViewChild('tabset') tabset: TabsetComponent;
   @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
   @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
+  @ViewChild('qualification') qualification: SpecializationQualificationComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
@@ -122,7 +125,13 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     } as Specialization;
   }
 
-  saveCompetencies(specializationId?: number) {
+
+  saveCompetenciesAndQualification(specializationId: number) {
+    this._saveCompetencies(specializationId);
+    this._saveQualification(specializationId);
+  }
+
+  private _saveCompetencies(specializationId?: number) {
     if (this.updateForm) {
       if (this.competenciesEng.creating || this.competencies.creating) {
         this._createCompetencies();
@@ -159,7 +168,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       } else {
         return this._acquiredCompetenciesService.getBySpecializationAndLang(this.initialData.id, lang)
           .map((_ac: AcquiredCompetencies) => {
-            console.log(_ac, fieldName);
             return {
               ...ac,
               [fieldName]: _ac[fieldName] || ''
@@ -184,5 +192,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       } as AcquiredCompetencies;
       this._acquiredCompetenciesService.create(acquiredCompetencies);
     }
+  }
+
+  private _saveQualification(specializationId): void {
+    this.qualification.save(specializationId);
   }
 }
