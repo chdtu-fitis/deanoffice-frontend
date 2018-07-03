@@ -1,6 +1,6 @@
 <div class="form-layout">
   <form [formGroup]="form">
-    <h6 style="text-align: center">Нова кваліфікація</h6>
+    <h6 style="text-align: center; margin-bottom: 16px;">Нова кваліфікація</h6>
 
     <div class="all-free-height">
       <label for="ukr">Українською:</label>
@@ -28,7 +28,7 @@
         </div>
 
         <div class="ml-2 form-btn">
-          <button class="btn btn-success" (click)="create()">{{createBtnText}}</button>
+          <button class="btn btn-success" (click)="create()">{{getCreateBtnDesc()}}</button>
         </div>
       </div>
       <app-validation-errors [control]="form.controls.code"></app-validation-errors>
@@ -46,7 +46,7 @@
     <div *ngIf="!canEdit" class="qualification-alert">
       <alert type="warning">
         Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
-        <span (click)="createForNewYear()" class="link">створити нові для поточного року</span>
+        <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
       </alert>
     </div>
 
