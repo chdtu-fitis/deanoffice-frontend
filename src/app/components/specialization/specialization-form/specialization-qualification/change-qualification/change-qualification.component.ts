@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
 import {getId} from '../../../../../models/basemodels/BaseEntity';
+import {SelectionMode} from '../../enums/selection-mode.enum';
+import {SelectedQualification} from '../../models/selected-qualification';
 
 import 'rxjs/add/operator/map';
 
@@ -15,10 +17,11 @@ import 'rxjs/add/operator/map';
 export class ChangeQualificationComponent {
   @Input() canEdit: boolean;
   @Input() qualificationsYear: number;
-  @Output() onSubmit: EventEmitter<ProfessionalQualification[]> = new EventEmitter<ProfessionalQualification[]>();
+  @Output() onSubmit: EventEmitter<SelectedQualification> = new EventEmitter<SelectedQualification>();
   @ViewChild('modal') modal: SpecializationModalComponent;
   private _selected: ProfessionalQualification[] = [];
   private _canEdit: boolean;
+  private _selectionMode: SelectionMode = SelectionMode.ADD;
   qualifications: Observable<ProfessionalQualification[]>;
 
   constructor(private _service: QualificationService) {
@@ -37,7 +40,12 @@ export class ChangeQualificationComponent {
   }
 
   submit(): void {
-    this.onSubmit.emit(this._selected);
+    const selectedQualification: SelectedQualification = {
+      qualifications: this._selected,
+      selectionMode: this._selectionMode
+    } as SelectedQualification;
+    this.onSubmit.emit(selectedQualification);
+    this._selectionMode = SelectionMode.ADD;
     this.hide();
   }
 
@@ -67,6 +75,7 @@ export class ChangeQualificationComponent {
   }
 
   createForNewYear(): void {
+    this._selectionMode = SelectionMode.ALL;
     this._canEdit = true;
   }
 }

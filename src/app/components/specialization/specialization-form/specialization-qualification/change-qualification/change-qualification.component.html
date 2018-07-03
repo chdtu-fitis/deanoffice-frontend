@@ -1,5 +1,5 @@
 <specialization-modal #modal [title]="'Вибір кваліфікації'" [padding]="{left: '10px', right: '10px'}" (hideModal)="hide()">
-  <div *ngIf="!_canEdit" class="modal-body p-1" id="qualification-alert">
+  <div *ngIf="!_canEdit" class="modal-body p-1 qualification-alert">
     <alert type="warning">
       Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
       <span (click)="createForNewYear()" class="link">створити нові для поточного року</span>

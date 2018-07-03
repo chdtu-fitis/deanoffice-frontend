@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {QualificationService} from '../services/qualification.service';
 import {ProfessionalQualification} from '../models/professional-qualification';
@@ -6,6 +6,9 @@ import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base
 import {QualificationEvents} from '../models/qualification-events';
 import {getId} from '../../../../models/basemodels/BaseEntity';
 import {QualificationForSpecialization, QualificationForSpecializationId} from '../models/QualificationForSpecialization';
+import {SelectedQualification} from "../models/selected-qualification";
+import {SelectionMode} from "../enums/selection-mode.enum";
+import {ChangeQualificationComponent} from "./change-qualification/change-qualification.component";
 
 @Component({
   selector: 'specialization-qualification',
@@ -17,6 +20,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     this.updateForm = updateForm;
     this.createBtnText = (updateForm) ? 'Створити та обрати' : 'Створити';
   }
+  @ViewChild('changeModal') changeModal: ChangeQualificationComponent;
   private _events: QualificationEvents;
   private qualificationForSpecializationsIds: QualificationForSpecializationId[] = [];
   canEdit = true;
@@ -98,12 +102,17 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
       });
   }
 
-  changeQualification(quals: ProfessionalQualification[]): void {
-    const qualIds = quals.map(getId);
-    this.addSelected(qualIds);
-    this.addDeleted(qualIds);
+  changeQualification(selected: SelectedQualification): void {
+    const qualIds = selected.qualifications.map(getId);
+    if (selected.selectionMode === SelectionMode.ALL) {
+      const ids: number[] = selected.qualifications.map(getId);
+      this._events.addSelected(...ids);
+    } else {
+      this.addSelected(qualIds);
+      this.addDeleted(qualIds);
+    }
     this.canEdit = true;
-    this.qualifications = quals;
+    this.qualifications = selected.qualifications;
   }
 
   private addSelected(qualIds: number[]): void {
@@ -129,5 +138,11 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
     return (qfsId: QualificationForSpecializationId) => {
       return !qualIds.includes(qfsId.qid);
     }
+  }
+
+  createForNewYear(): void {
+    this.changeModal.open(this.qualifications);
+    this.changeModal.createForNewYear();
+    this.canEdit = true;
   }
 }

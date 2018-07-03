@@ -43,12 +43,19 @@
       </button>
     </div>
 
+    <div *ngIf="!canEdit" class="qualification-alert">
+      <alert type="warning">
+        Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
+        <span (click)="createForNewYear()" class="link">створити нові для поточного року</span>
+      </alert>
+    </div>
+
     <div class="q-info">
       <div *ngIf="!hasData()" class="m-auto">
         <b>Кваліфікацї ще не були обрані</b>
       </div>
 
-      <table *ngIf="hasData()" class="table table-sm">
+      <table *ngIf="hasData()" class="table table-sm qualifications">
         <tr>
           <th>Шифр</th>
           <th>Українською</th>

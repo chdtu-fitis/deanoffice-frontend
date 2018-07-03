@@ -8,7 +8,7 @@ import {forObservable, forPromise} from '../../../shared/httpErrors';
 import {environment} from '../../../../../environments/environment';
 import {QualificationEvents} from '../models/qualification-events';
 import {QualificationForSpecialization} from '../models/QualificationForSpecialization';
-import {ResponseStatus} from "../enums/response-status.enum";
+import {ResponseStatus} from '../enums/response-status.enum';
 
 const QUALIFICATIONS_URL = `${environment.apiUrl}/professional-qualifications`;
 
@@ -45,7 +45,7 @@ export class QualificationService {
       .head(`${SPECIALIZATION_URL}/${specializationId}/professional-qualifications`, {observe: 'response'})
       .pipe(
         map((response: HttpResponse<null>) => response.status === ResponseStatus.OK),
-        catchError(forObservable('Перевірка можливості видалення кваліфікації', []))
+        catchError(forObservable('Перевірка можливості видалення кваліфікації', null))
       );
   }
 }

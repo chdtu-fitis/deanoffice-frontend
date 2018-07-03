@@ -1,14 +1,5 @@
 @import "../../../../../../styles";
 
-.link {
-  cursor: pointer;
-  text-decoration: underline;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
 .qualifications {
   @extend .modal-body, .list-group, .list-group-flush;
   margin-left: 0;

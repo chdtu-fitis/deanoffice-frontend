@@ -91,3 +91,9 @@ main {
     flex-direction: column;
   }
 }
+
+table.qualifications {
+  th {
+    border-top: none;
+  }
+}
