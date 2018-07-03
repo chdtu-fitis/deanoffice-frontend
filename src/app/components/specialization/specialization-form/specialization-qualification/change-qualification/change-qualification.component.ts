@@ -21,8 +21,8 @@ export class ChangeQualificationComponent {
   @Output() onSubmit: EventEmitter<SelectedQualification> = new EventEmitter<SelectedQualification>();
   @ViewChild('modal') modal: SpecializationModalComponent;
   private _selected: ProfessionalQualification[] = [];
-  private _canEdit: boolean;
   private _selectionMode: SelectionMode = SelectionMode.ADD;
+  currentCanEdit: boolean;
   qualifications: Observable<ProfessionalQualification[]>;
   modalPadding = new ModalMargin('0', '10px', '0', '10px');
 
@@ -31,7 +31,7 @@ export class ChangeQualificationComponent {
   open(selected: ProfessionalQualification[]): void {
     this.qualifications = this._service.getAll();
     this._selected = [...selected];
-    this._canEdit = this.canEdit;
+    this.currentCanEdit = this.canEdit;
     this.modal.show();
   }
 
@@ -51,7 +51,7 @@ export class ChangeQualificationComponent {
   }
 
   select(item: ProfessionalQualification): void {
-    if (this._canEdit) {
+    if (this.currentCanEdit) {
       if (this.isSelected(item.id)) {
         const itemIndex: number = this._selected.map(getId).indexOf(item.id);
         this._selected.splice(itemIndex, 1);
@@ -69,7 +69,7 @@ export class ChangeQualificationComponent {
     if (this.isSelected(itemId)) {
       return 'qualification selected can-selected';
     }
-    if (this._canEdit) {
+    if (this.currentCanEdit) {
       return 'qualification can-selected';
     }
     return 'qualification'
@@ -77,6 +77,6 @@ export class ChangeQualificationComponent {
 
   createForNewYear(): void {
     this._selectionMode = SelectionMode.ALL;
-    this._canEdit = true;
+    this.currentCanEdit = true;
   }
 }

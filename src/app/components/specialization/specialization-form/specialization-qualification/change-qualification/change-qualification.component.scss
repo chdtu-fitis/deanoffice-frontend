@@ -15,7 +15,8 @@
 
 .qualification {
   @extend .list-group-item;
-  padding: 10px 15px;
+  padding: 10px;
+  display: flex;
 
   &:first-child {
     border-top: none;
@@ -33,5 +34,19 @@
 
   &.can-selected {
     cursor: pointer;
+  }
+
+  input[type=checkbox] {
+    flex-shrink: 0;
+    flex-basis: max-content;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    height: 15px;
+    width: 15px;
+    align-self: center;
+  }
+
+  span {
+    flex-grow: 1;
   }
 }
