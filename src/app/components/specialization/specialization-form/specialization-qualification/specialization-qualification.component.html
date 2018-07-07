@@ -72,5 +72,5 @@
 </div>
 
 <change-qualification #changeModal (onSubmit)="changeQualification($event)" [canEdit]="canEdit"
-                      [qualificationsYear]="qualificationsYear">
+                      [qualificationsYear]="qualificationsYear" (allowEditing)="createForNewYear()">
 </change-qualification>
