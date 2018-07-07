@@ -11,7 +11,7 @@
       <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
           (click)="select(qualification)">
         <input type="checkbox" [checked]="isSelected(qualification.id)" [disabled]="!canEdit">
-        <span>{{qualification?.name}}</span>
+        <span><b>{{qualification?.code}}</b> {{qualification?.name}}</span>
       </li>
     </ul>
   </div>

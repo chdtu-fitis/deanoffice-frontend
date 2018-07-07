@@ -21,7 +21,7 @@ export class ChangeQualificationComponent {
   @ViewChild('modal') modal: SpecializationModalComponent;
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
-  isOpen: boolean = false;
+  isOpen = false;
   modalPadding = new ModalMargin('0', '10px', '0', '10px');
 
   constructor(private _service: QualificationService) {}
