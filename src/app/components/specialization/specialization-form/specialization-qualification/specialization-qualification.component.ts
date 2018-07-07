@@ -19,7 +19,7 @@ import {
 export class SpecializationQualificationComponent extends BaseReactiveFormComponent {
   @Input() updateForm: boolean;
   @ViewChild('changeModal') changeModal: ChangeQualificationComponent;
-  private events: QualificationEvents;
+  private events: QualificationEvents = new QualificationEvents();
   private qualificationForSpecializationsIds: QualificationForSpecializationId[] = [];
   canEdit = true;
   qualifications: ProfessionalQualification[] = [];
