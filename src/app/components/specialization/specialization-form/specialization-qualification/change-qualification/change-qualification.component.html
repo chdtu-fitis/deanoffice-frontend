@@ -1,23 +1,35 @@
-<specialization-modal #modal [title]="'Вибір кваліфікації'" [margin]="modalPadding" (hideModal)="hide()">
-  <div class="modal-body">
-    <div *ngIf="!canEdit" class="p-1 qualification-alert">
-      <alert type="warning">
-        Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
-        <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
-      </alert>
+<div id="qualification-modal">
+  <specialization-modal #modal [title]="'Вибір кваліфікації'" [margin]="modalMargin" (hideModal)="hide()">
+    <div class="modal-body">
+      <div *ngIf="!canEdit" class="p-1 qualification-alert">
+        <alert type="warning">
+          Кваліфікації були обрані для {{qualificationsYear}} навчального року. Ви не можете їх редагувати. Ви можете
+          <span (click)="createForNewYear()" class="link">обрати нові для поточного року</span>
+        </alert>
+      </div>
+
+      <label class="d-flex input-group border-bottom">
+      <span class="input-group-prepend">
+        <span class="input-group-text label border-right">Пошук</span>
+      </span>
+        <input type="text" [(ngModel)]="searchedCode" placeholder="за кодом" class="form-control code border-right">
+        <input type="text" [(ngModel)]="searchedName" placeholder="за назвою" class="form-control name">
+      </label>
+
+      <ul class="qualifications">
+        <li *ngFor="let qualification of qualifications | async |
+            byStringFilter: 'name':searchedName |
+            byStringFilter: 'code':searchedCode"
+            [ngClass]="getItemClass(qualification.id)" (click)="select(qualification)">
+          <input type="checkbox" [checked]="isSelected(qualification.id)" [disabled]="!canEdit">
+          <span><b>{{qualification?.code}}</b> {{qualification?.name}}</span>
+        </li>
+      </ul>
     </div>
 
-    <ul class="qualifications">
-      <li *ngFor="let qualification of (qualifications | async)" [ngClass]="getItemClass(qualification.id)"
-          (click)="select(qualification)">
-        <input type="checkbox" [checked]="isSelected(qualification.id)" [disabled]="!canEdit">
-        <span><b>{{qualification?.code}}</b> {{qualification?.name}}</span>
-      </li>
-    </ul>
-  </div>
-
-  <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!canEdit">Обрати</button>
-    <button type="button" class="btn btn-outline-danger" (click)="hide()">Скасувати</button>
-  </div>
-</specialization-modal>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!canEdit">Обрати</button>
+      <button type="button" class="btn btn-outline-danger" (click)="hide()">Скасувати</button>
+    </div>
+  </specialization-modal>
+</div>

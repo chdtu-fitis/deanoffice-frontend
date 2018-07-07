@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {CoursesSearchPipe} from './courses-search.pipe';
 import {GroupSearchPipe} from './group-search.pipe';
 import {TeacherSearchPipe} from './teacher-search.pipe';
 import {EntriesPipe} from './entries.pipe';
+import { ByStringPipe } from './by-string.pipe';
 
 @NgModule({
   imports: [],
@@ -11,13 +11,15 @@ import {EntriesPipe} from './entries.pipe';
     CoursesSearchPipe,
     GroupSearchPipe,
     TeacherSearchPipe,
-    EntriesPipe
+    EntriesPipe,
+    ByStringPipe
   ],
   exports: [
     CoursesSearchPipe,
     GroupSearchPipe,
     TeacherSearchPipe,
-    EntriesPipe
+    EntriesPipe,
+    ByStringPipe
   ]
 })
  export class PipeModule {
@@ -28,7 +30,8 @@ import {EntriesPipe} from './entries.pipe';
         CoursesSearchPipe,
         GroupSearchPipe,
         TeacherSearchPipe,
-        EntriesPipe
+        EntriesPipe,
+        ByStringPipe
       ],
     };
   }

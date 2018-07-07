@@ -22,7 +22,9 @@ export class ChangeQualificationComponent {
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
   isOpen = false;
-  modalPadding = new ModalMargin('0', '10px', '0', '10px');
+  modalMargin = new ModalMargin('10px', '10px', '10px', '10px');
+  searchedName = '';
+  searchedCode = '';
 
   constructor(private _service: QualificationService) {}
 

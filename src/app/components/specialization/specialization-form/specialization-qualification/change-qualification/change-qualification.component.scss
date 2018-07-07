@@ -4,19 +4,54 @@
   @extend .modal-body;
   margin-left: 0;
   margin-right: 0;
-  max-height: 55vh;
+  height: max-content;
+  max-height: 60vh;
   padding: 0;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  label {
+    margin: 0;
+  }
+
+  .input-group {
+    flex-basis: max-content;
+    flex-shrink: 0;
+    display: flex;
+
+    .label {
+      @extend .input;
+    }
+
+    .input {
+      border-radius: 0;
+      border: none;
+    }
+
+    .code {
+      @extend .input;
+      max-width: 120px;
+      flex-shrink: 0;
+
+    }
+
+    .name {
+      @extend .input;
+      flex-grow: 1;
+    }
+  }
 }
 
 .qualifications {
   @extend .list-group, .list-group-flush;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .qualification {
   @extend .list-group-item;
   padding: 10px;
-  display: flex;
 
   &:first-child {
     border-top: none;
