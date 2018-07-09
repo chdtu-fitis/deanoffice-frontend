@@ -71,7 +71,7 @@ export class CourseCreationComponent implements OnInit {
       .merge(this.focus$)
       .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
       .map(term => term === '' ? []
-        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
+        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 16));
 
   checkCourseName(name) {
     if (name instanceof CourseName) {
