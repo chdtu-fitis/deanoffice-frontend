@@ -25,4 +25,8 @@ export class SpecializationModalComponent implements IAppModal {
   hide(): void {
     this.modal.hide();
   }
+
+  stopPropagation() {
+    event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+  }
 }

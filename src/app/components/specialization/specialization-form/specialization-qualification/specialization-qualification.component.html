@@ -57,7 +57,7 @@
 
       <table *ngIf="hasData()" class="table table-sm qualifications">
         <tr>
-          <th>Шифр</th>
+          <th>Код</th>
           <th>Українською</th>
           <th>Англійською</th>
         </tr>
@@ -72,5 +72,5 @@
 </div>
 
 <change-qualification #changeModal (onSubmit)="changeQualification($event)" [canEdit]="canEdit"
-                      [qualificationsYear]="qualificationsYear">
+                      [qualificationsYear]="qualificationsYear" (allowEditing)="createForNewYear()">
 </change-qualification>

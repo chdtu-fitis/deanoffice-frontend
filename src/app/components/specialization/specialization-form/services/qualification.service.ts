@@ -29,8 +29,9 @@ export class QualificationService {
   }
 
   save(events: QualificationEvents) {
+    const {selected, deleted} = events;
     return this._http
-      .post(`${SPECIALIZATION_URL}/${events.specializationId}/professional-qualifications`, events)
+      .post(`${SPECIALIZATION_URL}/${events.specializationId}/professional-qualifications`, {selected, deleted})
       .toPromise().catch(forPromise('Зміна кваліфікацій для спеціалізації'));
   }
 

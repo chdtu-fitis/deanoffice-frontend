@@ -1,5 +1,5 @@
 <div class="modal fade" [config]="{backdrop: 'static'}" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
-     aria-hidden="true" [ngStyle]="margin">
+     aria-hidden="true" [ngStyle]="margin" (onHide)="stopPropagation()">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

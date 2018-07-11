@@ -19,6 +19,7 @@ import { SpecializationQualificationComponent } from './specialization-form/spec
 import {QualificationService} from './specialization-form/services/qualification.service';
 import { ChangeQualificationComponent } from './specialization-form/specialization-qualification/change-qualification/change-qualification.component';
 import {AlertModule} from 'ngx-bootstrap';
+import {PipeModule} from "../../pipes/pipe.module";
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -32,7 +33,8 @@ export const specializationRoutes: Routes = [
     SharedModule,
     TabsModule.forRoot(),
     AlertModule.forRoot(),
-    RouterModule.forChild(specializationRoutes)
+    RouterModule.forChild(specializationRoutes),
+    PipeModule.forRoot()
   ],
   declarations: [
     SpecializationComponent,
