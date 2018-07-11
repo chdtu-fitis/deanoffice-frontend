@@ -4,6 +4,7 @@ import {GroupSearchPipe} from './group-search.pipe';
 import {TeacherSearchPipe} from './teacher-search.pipe';
 import {EntriesPipe} from './entries.pipe';
 import { ByStringPipe } from './by-string.pipe';
+import {NameWithInitialsPipe} from './name-with-initials.pipe';
 
 @NgModule({
   imports: [],
@@ -12,14 +13,16 @@ import { ByStringPipe } from './by-string.pipe';
     GroupSearchPipe,
     TeacherSearchPipe,
     EntriesPipe,
-    ByStringPipe
+    ByStringPipe,
+    NameWithInitialsPipe
   ],
   exports: [
     CoursesSearchPipe,
     GroupSearchPipe,
     TeacherSearchPipe,
     EntriesPipe,
-    ByStringPipe
+    ByStringPipe,
+    NameWithInitialsPipe
   ]
 })
  export class PipeModule {
@@ -31,7 +34,8 @@ import { ByStringPipe } from './by-string.pipe';
         GroupSearchPipe,
         TeacherSearchPipe,
         EntriesPipe,
-        ByStringPipe
+        ByStringPipe,
+        NameWithInitialsPipe
       ],
     };
   }

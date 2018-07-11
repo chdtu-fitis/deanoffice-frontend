@@ -58,7 +58,7 @@
           <td>{{courseForGroup.course.courseName.name}}</td>
           <td>{{courseForGroup.course.knowledgeControl.name}}</td>
           <td>{{courseForGroup.course.hours}}</td>
-          <td>{{courseForGroup.teacher?.surname}}</td>
+          <td>{{courseForGroup.teacher?.surname | nameWithInitials}}</td>
         </tr>
 
         </tbody>
