@@ -17,7 +17,8 @@ const features = {
   'grades': 'Оцінки',
   // documents
   'diploma-supplement': 'Додатки до диплому',
-  'exam-report': 'Відомості'
+  'exam-report': 'Відомості',
+  'personal-file-grades-statement': 'Виписка в особову справу'
 };
 
 

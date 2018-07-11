@@ -23,7 +23,11 @@ export const appRoutes: Routes = [
             path: 'diploma-supplement',
             loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule'
           },
-          {path: 'exam-report', loadChildren: '../exam-report/exam-report.module#ExamReportModule'}
+          {path: 'exam-report', loadChildren: '../exam-report/exam-report.module#ExamReportModule'},
+          {
+            path: 'personal-file-statement',
+            loadChildren: '../personal-file-grades-statement/personal-file-grades-statement.module#PersonalFileGradesStatementModule'
+          }
         ]
       },
       {path: 'students', loadChildren: '../students/students.module#StudentsModule'},
