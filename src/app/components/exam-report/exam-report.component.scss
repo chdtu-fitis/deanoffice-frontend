@@ -22,18 +22,19 @@ table thead td {
 }
 .wrapp {
   float: left;
-  width: 60%;
+  width: 75%;
+  height: 60%;
   overflow: hidden;
 }
 .wrapp-2 {
   float: left;
-  width: 40%;
+  width: 25%;
   overflow: hidden;
 }
 .table-wrapper {
   max-width: 95%;
   float: left;
-  height: 450px;
+  height: 60%;
   overflow-y: auto;
   margin: 10px 0;
 }
@@ -48,8 +49,8 @@ table thead td {
 .main-table td:first-child {
   width: 30px;
 }
-.main-table td:nth-child(3) {
-  width: 400px;
+.main-table td:nth-child(4) {
+  width: 140px;
 }
 .main-table td:nth-child(5) {
   width: 60px;
@@ -86,18 +87,13 @@ label {
   cursor: pointer;
   display: block;
 }
-button {
-  padding: 10px 30px;
-  background-color: #17a2b8;
-  color: #fff;
-  border-radius: 10px;
-  margin: 5px;
-  transition: 0.4s;
-  text-transform: uppercase;
-}
-button:hover {
-  background-color: #ccc;
-}
 .rating-btn {
   width: 505px;
+}
+h5 {
+  margin-bottom: 0px;
+}
+button {
+  float: left;
+  margin: 10px;
 }

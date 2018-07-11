@@ -64,8 +64,8 @@
         </tbody>
       </table>
     </div>
-    <button (click)="onExamReportBuild()">Сформувати відомість</button>
-    <button (click)="onExamReportJournalBuild()">Виписка в журнал</button>
+    <button class="btn btn-success w-25 mt-1" (click)="onExamReportBuild()">Сформувати відомість</button>
+    <button class="btn btn-info w-25 mt-1" (click)="onExamReportJournalBuild()">Виписка в журнал</button>
   </div>
 
   <div class="wrapp-2">
@@ -77,7 +77,6 @@
           <td>№</td>
           <td>Прізвище</td>
           <td>Ім'я</td>
-          <td>По батькові</td>
         </tr>
         </thead>
         <tbody>
@@ -85,7 +84,6 @@
           <td>{{ i+1 }}</td>
           <td>{{ studentDegree.student.surname }}</td>
           <td>{{ studentDegree.student.name }}</td>
-          <td>{{ studentDegree.student.patronimic }}</td>
         </tr>
         </tbody>
       </table>
