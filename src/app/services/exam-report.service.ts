@@ -8,8 +8,8 @@ export class ExamReportService {
 
   constructor(private fileService: FileService) { }
 
-  buildExamReport(groupId: number, courseId: number): void {
-      const url = `${this.documentsUrl}/exam-report/groups/${groupId}/courses/${courseId}/docx`;
+  buildExamReport(groupId: number, courseIds: number[]): void {
+      const url = `${this.documentsUrl}/exam-report/groups/${groupId}/docx?courseIds=${courseIds}`;
       this.fileService.downloadFile(url);
   }
 

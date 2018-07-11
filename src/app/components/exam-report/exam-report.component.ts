@@ -91,11 +91,13 @@ export class ExamReportComponent implements OnInit {
   }
 
   onExamReportBuild(): void {
+    let courseIds = [];
     for (let courseForGroup of this.coursesForGroup) {
       if (courseForGroup.selected){
-        this.examReportService.buildExamReport(this.currentGroup.id, courseForGroup.course.id);
+        courseIds.push(courseForGroup.course.id);
       }
     }
+    this.examReportService.buildExamReport(this.currentGroup.id, courseIds);
   }
 
   onExamReportJournalBuild(): void {
