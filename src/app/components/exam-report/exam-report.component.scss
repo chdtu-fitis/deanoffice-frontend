@@ -11,39 +11,38 @@ table {
 }
 table td {
   border: 2px solid #dee2e6;
-  padding: 5px 10px;
+  padding: 3px 4px;
   text-align: left;
 }
 table thead td {
   border: 2px solid #dee2e6;
-  padding: 5px 10px;
+  padding: 3px 4px;
   font-weight: bold;
   text-align: center;
 }
 .wrapp {
   float: left;
-  width: 75%;
+  width: 76%;
   height: 60%;
   overflow: hidden;
 }
 .wrapp-2 {
   float: left;
-  width: 25%;
+  width: 24%;
   overflow: hidden;
 }
 .table-wrapper {
-  max-width: 95%;
-  float: left;
+  max-width: 98%;
   height: 60%;
   overflow-y: auto;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .table-wrapper-2 {
-  max-width: 90%;
+  max-width: 98%;
   float: left;
   height: 490px;
   overflow-y: auto;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 .main-table td:first-child {
@@ -53,10 +52,13 @@ table thead td {
   width: 140px;
 }
 .main-table td:nth-child(5) {
-  width: 60px;
+  width: 45px;
 }
 .main-table td:nth-child(6) {
-  width: 150px;
+  width: 165px;
+}
+.main-table td:nth-child(7) {
+  width: 105px;
 }
 .main-table tbody td {
   text-align: left;
@@ -93,7 +95,4 @@ label {
 h5 {
   margin-bottom: 0px;
 }
-button {
-  float: left;
-  margin: 10px;
-}
+

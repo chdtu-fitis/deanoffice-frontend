@@ -46,6 +46,7 @@
           <td>Семестровий контроль</td>
           <td>Годин</td>
           <td>Викладач</td>
+          <td>Дата екзамену</td>
         </tr>
         </thead>
         <tbody>
@@ -58,7 +59,8 @@
           <td>{{courseForGroup.course.courseName.name}}</td>
           <td>{{courseForGroup.course.knowledgeControl.name}}</td>
           <td>{{courseForGroup.course.hours}}</td>
-          <td>{{courseForGroup.teacher?.surname | nameWithInitials}}</td>
+          <td>{{courseForGroup.teacher?.surname+' '+courseForGroup.teacher?.name+' '+courseForGroup.teacher?.patronimic | nameWithInitials}}</td>
+          <td>{{courseForGroup.examDate | date:"dd-MM-yyyy"}}</td>
         </tr>
 
         </tbody>
@@ -75,15 +77,15 @@
         <thead>
         <tr>
           <td>№</td>
-          <td>Прізвище</td>
-          <td>Ім'я</td>
+          <td>ПІБ</td>
+          <td>Заліковка</td>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let studentDegree of students; let i = index">
           <td>{{ i+1 }}</td>
-          <td>{{ studentDegree.student.surname }}</td>
-          <td>{{ studentDegree.student.name }}</td>
+          <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
+          <td>{{studentDegree.recordBookNumber}}</td>
         </tr>
         </tbody>
       </table>

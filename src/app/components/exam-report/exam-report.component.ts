@@ -7,7 +7,6 @@ import {CourseForGroupService} from "../../services/course-for-group.service";
 import {CourseForGroup} from "../../models/CourseForGroup";
 import {StudentDegree} from "../../models/StudentDegree";
 import {ExamReportService} from "../../services/exam-report.service";
-import {UtilService} from "../../services/util.service";
 
 @Component({
   selector: 'exam-report',
@@ -32,8 +31,7 @@ export class ExamReportComponent implements OnInit {
   students: StudentDegree[];
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
-              private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService,
-              private utilService: UtilService){ }
+              private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5];
