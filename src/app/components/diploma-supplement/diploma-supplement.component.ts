@@ -24,7 +24,7 @@ export class DiplomaSupplementComponent implements OnInit {
   gradesTableReportLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
-              private studentService: StudentService, private diplomaSupplementService: DiplomaSupplementService) {
+              private diplomaSupplementService: DiplomaSupplementService) {
   }
 
   ngOnInit() {

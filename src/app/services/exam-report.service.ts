@@ -8,9 +8,9 @@ export class ExamReportService {
 
   constructor(private fileService: FileService) { }
 
-  buildExamReport(groupId: number, courseIds: number[]): void {
+  buildExamReport(groupId: number, courseIds: number[]): any {
       const url = `${this.documentsUrl}/exam-report/groups/${groupId}/docx?courseIds=${courseIds}`;
-      this.fileService.downloadFile(url);
+      return this.fileService.downloadFile(url);
   }
 
   buildExamReportJournalDoc(groupId: number, semester: number): void {

@@ -19,6 +19,7 @@ export class ExamReportComponent implements OnInit {
 
   groups: StudentGroup[];
   currentGroup: StudentGroup;
+  students: StudentDegree[];
 
   coursesForGroup: CourseForGroup[];
   coursesSelected: boolean;
@@ -28,7 +29,7 @@ export class ExamReportComponent implements OnInit {
   semesters: Array<number>;
   selectedSemester: number;
 
-  students: StudentDegree[];
+  examReportLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
@@ -97,7 +98,11 @@ export class ExamReportComponent implements OnInit {
         courseIds.push(courseForGroup.course.id);
       }
     }
-    this.examReportService.buildExamReport(this.currentGroup.id, courseIds);
+    this.examReportLoading = true;
+    this.examReportService.buildExamReport(this.currentGroup.id, courseIds).subscribe(a => {
+        this.examReportLoading = false;
+      }
+    );
   }
 
   onExamReportJournalBuild(): void {
