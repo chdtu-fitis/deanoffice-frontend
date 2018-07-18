@@ -5,7 +5,6 @@ import { defaultColumns } from './constants';
 import { StudentDegree } from '../../models/StudentDegree';
 import { GroupService } from '../../services/group.service';
 import { StudentGroup } from '../../models/StudentGroup';
-import {AcademicCertificateService} from "../../services/academic-certificate.service";
 
 @Component({
   selector: 'app-students',
@@ -24,8 +23,7 @@ export class StudentsComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
-    private groupService: GroupService,
-    private academicCertificateService: AcademicCertificateService
+    private groupService: GroupService
   ) { }
 
   ngOnInit() {
@@ -79,11 +77,5 @@ export class StudentsComponent implements OnInit {
     this.selected = this.selected.filter(filterFn);
     this.students = this.students.filter(filterFn);
     this.setRows(this.students);
-  }
-
-  onFormAcademicCertificate() {
-    if (this.selected[0])
-      if (this.selected[0].student)
-        this.academicCertificateService.buildAcademicCertificate(this.selected[0].student.id);
   }
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import { expelledStudentsColumns } from './../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
+import {AcademicCertificateService} from "../../../services/academic-certificate.service";
 
 @Component({
   selector: 'app-expelled-students',
@@ -17,6 +18,7 @@ export class ExpelledStudentsComponent implements OnInit {
 
   constructor(
     private studentService: StudentService,
+    private academicCertificateService: AcademicCertificateService
   ) { }
 
   ngOnInit() {
@@ -33,5 +35,10 @@ export class ExpelledStudentsComponent implements OnInit {
 
   onRenew(id) {
     this.rows = this.rows.filter(row => row.id !== id);
+  }
+
+  onFormAcademicCertificate() {
+    if (this.selected[0])
+        this.academicCertificateService.buildAcademicCertificate(this.selected[0].id);
   }
 }

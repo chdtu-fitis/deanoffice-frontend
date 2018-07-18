@@ -15,6 +15,13 @@
         >
           Поновити
         </button>
+        <button
+          *ngIf="selected.length === 1"
+          class="btn btn-warning ml-3"
+          (click)="onFormAcademicCertificate()"
+        >
+          Сформувати академдовідку
+        </button>
       </div>
 
       <div class="students-table">

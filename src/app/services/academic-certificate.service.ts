@@ -9,8 +9,8 @@ export class AcademicCertificateService {
   constructor(private fileService: FileService) {
   }
 
-  buildAcademicCertificate(studentDegreeId: number): any {
-    const url = `${this.documentsUrl}/academic-certificate/${studentDegreeId}`;
+  buildAcademicCertificate(studentExpelId: number): any {
+    const url = `${this.documentsUrl}/academic-certificate/${studentExpelId}`;
     return this.fileService.downloadFile(url);
   }
 }
