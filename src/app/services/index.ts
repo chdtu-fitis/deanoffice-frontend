@@ -14,6 +14,7 @@ import {DegreeService} from './degree.service';
 
 import {DashboardGuard, LoginGuard} from './auth/auth.guard';
 import {PersonalFileGradesStatementService} from "./personal-file-grades-statement.service";
+import {AcademicCertificateService} from "./academic-certificate.service";
 
 export const SERVICES = [
   DegreeService,
@@ -30,6 +31,7 @@ export const SERVICES = [
   SpecializationService,
   DepartmentService,
   PersonalFileGradesStatementService,
+  AcademicCertificateService,
   AuthenticationService
 ];
 
