@@ -15,6 +15,7 @@ export class ExpelledStudentsComponent implements OnInit {
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   loading: boolean;
+  academicCertificateLoading: boolean;
 
   constructor(
     private studentService: StudentService,
@@ -38,7 +39,12 @@ export class ExpelledStudentsComponent implements OnInit {
   }
 
   onFormAcademicCertificate() {
-    if (this.selected[0])
-        this.academicCertificateService.buildAcademicCertificate(this.selected[0].id);
+    if (this.selected[0]) {
+      this.academicCertificateLoading = true;
+      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(a => {
+          this.academicCertificateLoading = false;
+        }
+      );
+    }
   }
 }
