@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {saveAs} from 'file-saver';
-import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class FileService {
