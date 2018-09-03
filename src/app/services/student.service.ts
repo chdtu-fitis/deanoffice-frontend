@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {StudentDegree} from '../models/StudentDegree';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
+import {forObservable} from '../components/shared/httpErrors';
 import {Student} from '../models/Student';
 
 @Injectable()
@@ -72,7 +74,7 @@ export class StudentService {
   }
 
   renewStudent(expelledStudent) {
-    return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent);
+    return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent).pipe(catchError(forObservable('Поновлення студента', [])));
   }
 
   stopAcademicVacation(student) {

@@ -12,7 +12,7 @@ export function forPromise(operation = 'operation'): (error: any) => void {
   return function (error: any) {
     const httpError: HttpError = new HttpError(operation, error.status);
     console.error(httpError);
-    alert(`${httpError.operation}: ${httpError.message}`);
+    alert(`${httpError.operation}: ${error.error}`);
   }
 }
 
