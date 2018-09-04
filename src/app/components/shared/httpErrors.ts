@@ -10,9 +10,15 @@ export function forObservable<T>(operation = 'operation', result?: T) {
 
 export function forPromise(operation = 'operation'): (error: any) => void {
   return function (error: any) {
-    const httpError: HttpError = new HttpError(operation, error.status);
-    console.error(httpError);
-    alert(`${httpError.operation}: ${error.error}`);
+    let english = /^[A-Za-z0-9]+$/;
+    let message;
+    if (error.error) {
+      if (english.test(error.error.substr(0,1)))
+        message = ERRORS[error.status];
+      else
+        message = error.error;
+    }
+    alert(`${operation}: ${message}`);
   }
 }
 
@@ -27,14 +33,3 @@ const ERRORS = {
   503: 'Служба тимчасово недоступна, будь-ласка, зачекайте або зверніться до адміністратора!'
 };
 
-class HttpError {
-  operation: string;
-  status: number;
-  message: string;
-
-  constructor(operation: string, status: number) {
-    this.operation = operation;
-    this.status = status;
-    this.message = ERRORS[status];
-  }
-}
