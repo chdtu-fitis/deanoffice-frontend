@@ -7,6 +7,7 @@ import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-re
 import {StudentService} from '../../../services/student.service';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
+import {forObservable} from "../../shared/httpErrors";
 
 @Component({
     selector: 'app-renew-student',
@@ -56,9 +57,13 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
     if (this.form.invalid) {
       return;
     }
-    this.studentService.renewStudent(this.form.value).subscribe(() => {
-      this.onSubmit.emit(this.form.value.studentExpelId);
-      this.modal.hide();
-    });
+    this.studentService.renewStudent(this.form.value).subscribe(
+      () => {
+        this.onSubmit.emit(this.form.value.studentExpelId);
+        this.modal.hide();
+      },
+      (error) => {
+        forObservable('Поновлення студента', [])(error);
+      });
   }
 }
