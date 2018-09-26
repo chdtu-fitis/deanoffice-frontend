@@ -16,8 +16,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   currentDegree: Degree;
 
   groups: StudentGroup[];
-  currentGroup: StudentGroup;
-  students: StudentDegree[];
+  currentGroups: StudentGroup[];
 
   years: Array<number>;
   selectedYear: number;
@@ -47,10 +46,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
         this.groups = groups;
-        if (this.groups) {
-          this.currentGroup = groups[0];
-          this.students = this.currentGroup.studentDegrees;
-        }
+        this.currentGroups = this.groups;
       });
   }
 
@@ -59,19 +55,20 @@ export class PersonalFileGradesStatementComponent implements OnInit {
       .subscribe(groups => {
         if (groups) {
           this.groups = groups;
-          this.currentGroup = groups[0];
-          this.students = this.currentGroup.studentDegrees;
         }
+        this.currentGroups = this.groups;
       });
   }
 
-  onGroupChange(): void {
-    this.students = this.currentGroup.studentDegrees;
+  onSelectAllGroups(): void {
+    this.currentGroups = this.groups;
   }
 
   onPersonalFileGradesStatementBuild(): void {
     let groupIds = [];
-    groupIds.push(this.currentGroup.id);
+    for(var currentGroup of this.currentGroups) {
+        groupIds.push(currentGroup.id);
+    }
     this.personalFileGradesStatementLoading = true;
     this.personalFileGradesStatementService.buildPersonalFileGradesStatement(2017, groupIds).subscribe(a => {
         this.personalFileGradesStatementLoading = false;

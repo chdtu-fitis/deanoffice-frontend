@@ -19,7 +19,8 @@
 
     <div class="select-wraper">
       <h4>Група</h4>
-      <select id="cmbGroup" [(ngModel)]="currentGroup" class="cmbGroup" (change)="onGroupChange()">
+      <button class="btn btn-primary mb-2" (click)="onSelectAllGroups()">Всі групи</button>
+      <select multiple id="cmbGroup" [(ngModel)]="currentGroups" class="cmbGroup">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
@@ -29,7 +30,7 @@
     <img class="pt-4" *ngIf="personalFileGradesStatementLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
   </div>
 
-  <div class="wrapp-2">
+  <div class="wrapp-2" *ngFor="let currentGroup of currentGroups; let i = index">
     <h5>Список студентів</h5>
     <div class="table-wrapper-2">
       <table class="student-table">
@@ -41,7 +42,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let studentDegree of students; let i = index">
+        <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
           <td>{{ i+1 }}</td>
           <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
           <td>{{studentDegree.recordBookNumber}}</td>
