@@ -18,6 +18,11 @@
     </div>
 
     <div class="select-wraper">
+      <label> <input type="checkbox" checked [(ngModel)]="fullTime" (change)="onFullTimeChange()"> Денна форма </label>
+      <label> <input type="checkbox" checked [(ngModel)]="partTime" (change)="onPartTimeChange()"> Заочна форма </label>
+    </div>
+
+    <div class="select-wraper">
       <h4>Група</h4>
       <button class="btn btn-primary mb-2" (click)="onSelectAllGroups()">Всі групи</button>
       <select multiple id="cmbGroup" [(ngModel)]="currentGroups" class="cmbGroup">

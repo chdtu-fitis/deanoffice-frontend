@@ -18,6 +18,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   groups: StudentGroup[];
   currentGroups: StudentGroup[];
 
+  fullTime: boolean;
+  partTime: boolean;
+
   years: Array<number>;
   selectedYear: number;
 
@@ -49,6 +52,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   ngOnInit() {
     this.initStudyYearsForDocument();
 
+    this.fullTime = true;
+    this.partTime = true;
+
     this.years = [1, 2, 3, 4, 5];
     this.selectedYear = 1;
 
@@ -79,6 +85,18 @@ export class PersonalFileGradesStatementComponent implements OnInit {
         }
         this.currentGroups = this.groups;
       });
+  }
+
+  onFullTimeChange(): void {
+    if(!this.partTime) {
+       this.partTime = true;
+    }
+  }
+
+  onPartTimeChange(): void {
+    if(!this.fullTime) {
+       this.fullTime = true;
+    }
   }
 
   onSelectAllGroups(): void {
