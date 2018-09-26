@@ -21,13 +21,34 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   years: Array<number>;
   selectedYear: number;
 
+  studyYearsForDocument: Array<number>;
+  selectedStudyYearForDocument: number;
+
   personalFileGradesStatementLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private personalFileGradesStatementService: PersonalFileGradesStatementService) {
   }
 
+  initStudyYearsForDocument() {
+    var year = (new Date()).getFullYear();
+    var month = (new Date()).getUTCMonth() + 1;
+
+    if(month > 6) {
+      this.selectedStudyYearForDocument = year - 1;
+    } else {
+      this.selectedStudyYearForDocument = year - 2;
+    }
+
+    this.studyYearsForDocument = [];
+    for(var i = 0; i < 6; i++ ) {
+      this.studyYearsForDocument.push(this.selectedStudyYearForDocument - i);
+    }
+  }
+
   ngOnInit() {
+    this.initStudyYearsForDocument();
+
     this.years = [1, 2, 3, 4, 5];
     this.selectedYear = 1;
 
@@ -70,7 +91,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
         groupIds.push(currentGroup.id);
     }
     this.personalFileGradesStatementLoading = true;
-    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(2017, groupIds).subscribe(a => {
+    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(this.selectedStudyYearForDocument, groupIds).subscribe(a => {
         this.personalFileGradesStatementLoading = false;
       }
     );
