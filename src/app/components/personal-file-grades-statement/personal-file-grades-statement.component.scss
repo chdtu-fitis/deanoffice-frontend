@@ -1,6 +1,7 @@
 
 .statement-wrapper {
   display: flex;
+  flex-direction: row-reverse;
   height: 100%;
 }
 
@@ -8,7 +9,7 @@
   flex-grow: 1;
   padding: 1.5rem 1rem 1rem 1rem;
   max-height: 100%;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .table-students {
@@ -35,9 +36,11 @@
 
 .form-groups {
   width: 600px;
+  max-height: 100%;
   padding: 15px 20px;
   background-color: #f8f9fa;
   flex-shrink: 0;
+  overflow-y: auto;
 }
 
 .form-group {
@@ -54,4 +57,40 @@
 .form-group.checkboxes input[type="checkbox"] {
   display: inline-block;
   height: 12px;
+}
+
+.form-group .btn-load {
+  width: 75%;
+}
+
+@media all and (max-width: 1000px) {
+  .statement-wrapper {
+    display: block;
+    height: auto;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .form-groups {
+    width: 100%;
+    max-height: none;
+  }
+
+  .students-groups {
+    max-height: none;
+  }
+
+  .table-students .col-recordBookNumber {
+    width: 120px;
+  }
+
+  .form-group .btn-load {
+    width: 100%;
+  }
+}
+
+@media all and (min-width: 1000px) and (max-width: 1100px) {
+  .table-students .col-recordBookNumber {
+    width: 160px;
+  }
 }
