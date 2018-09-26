@@ -1,7 +1,7 @@
 <div class="statement-wrapper">
 
-  <div class="groups">
-    <div class="group" *ngFor="let currentGroup of currentGroups; let i = index">
+  <div class="students-groups">
+    <div class="students-group" *ngFor="let currentGroup of currentGroups; let i = index">
       <h5>Група {{currentGroup.name}}</h5>
       <table class="table table-striped table-students mb-3">
         <thead>
@@ -23,45 +23,43 @@
   </div>
 
   <div class="form-groups">
-    <div class="fixed">
-      <div class="form-group">
-        <label for="cmbDegree">Ступінь:</label>
-        <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()" class="form-control w-100">
-          <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="cmbDegree">Ступінь:</label>
+      <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()" class="form-control w-100">
+        <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
+      </select>
+    </div>
 
-      <div class="form-group">
-        <label for="years">Курс:</label>
-        <select id="years" [(ngModel)]="selectedYear"  (change)="onYearChange()" class="form-control w-100">
-          <option  *ngFor="let i of years" [ngValue]="i">{{i}}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="years">Курс:</label>
+      <select id="years" [(ngModel)]="selectedYear"  (change)="onYearChange()" class="form-control w-100">
+        <option  *ngFor="let i of years" [ngValue]="i">{{i}}</option>
+      </select>
+    </div>
 
-      <div class="form-group checkboxes">
-        <label> <input type="checkbox" checked [(ngModel)]="fullTime" (change)="onFullTimeChange()"> Денна форма </label>
-        <label> <input type="checkbox" checked [(ngModel)]="partTime" (change)="onPartTimeChange()"> Заочна форма </label>
-      </div>
+    <div class="form-group checkboxes">
+      <label> <input type="checkbox" checked [(ngModel)]="fullTime" (change)="onFullTimeChange()"> Денна форма </label>
+      <label> <input type="checkbox" checked [(ngModel)]="partTime" (change)="onPartTimeChange()"> Заочна форма </label>
+    </div>
 
-      <div class="form-group">
-        <label for="cmbGroup">Група:</label><br>
-        <button class="btn btn-primary mb-2" (click)="onSelectAllGroups()">Всі групи</button>
-        <select multiple size="8" id="cmbGroup" [(ngModel)]="currentGroups" class="form-control w-100">
-          <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="cmbGroup">Група:</label><br>
+      <button class="btn btn-primary mb-2" (click)="onSelectAllGroups()">Всі групи</button>
+      <select multiple size="8" id="cmbGroup" [(ngModel)]="currentGroups" class="form-control w-100">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      </select>
+    </div>
 
-      <div class="form-group">
-        <label for="studyYearsForDocument">Рік навчання:</label>
-        <select id="studyYearsForDocument" [(ngModel)]="selectedStudyYearForDocument" class="form-control w-100">
-          <option *ngFor="let studyYearForDocument of studyYearsForDocument" [ngValue]="studyYearForDocument">{{studyYearForDocument}} - {{studyYearForDocument + 1}}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="studyYearsForDocument">Рік навчання:</label>
+      <select id="studyYearsForDocument" [(ngModel)]="selectedStudyYearForDocument" class="form-control w-100">
+        <option *ngFor="let studyYearForDocument of studyYearsForDocument" [ngValue]="studyYearForDocument">{{studyYearForDocument}} - {{studyYearForDocument + 1}}</option>
+      </select>
+    </div>
 
-      <div class="form-group pt-2">
-        <button class="btn btn-success w-75" (click)="onPersonalFileGradesStatementBuild()">Сформувати виписку в особову справу</button>
-        <img class="ml-2" *ngIf="personalFileGradesStatementLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-      </div>
+    <div class="form-group pt-2">
+      <button class="btn btn-success w-75" (click)="onPersonalFileGradesStatementBuild()">Сформувати виписку в особову справу</button>
+      <img class="ml-2" *ngIf="personalFileGradesStatementLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
     </div>
   </div>
 

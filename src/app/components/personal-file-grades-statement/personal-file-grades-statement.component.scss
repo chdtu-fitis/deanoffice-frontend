@@ -1,11 +1,14 @@
 
 .statement-wrapper {
   display: flex;
+  height: 100%;
 }
 
-.groups {
+.students-groups {
   flex-grow: 1;
   padding: 1.5rem 1rem 1rem 1rem;
+  max-height: 100%;
+  overflow: auto;
 }
 
 .table-students {
@@ -35,11 +38,6 @@
   padding: 15px 20px;
   background-color: #f8f9fa;
   flex-shrink: 0;
-}
-
-.fixed {
-  width: 560px;
-  position: fixed;
 }
 
 .form-group {
