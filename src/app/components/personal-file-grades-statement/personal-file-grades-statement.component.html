@@ -56,7 +56,7 @@
         <tbody>
         <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.checked" (change)="onCheckStudent()"></td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.checked" (change)="onCheckStudent(currentGroup)"></td>
           <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
           <td class="col-recordBookNumber">{{studentDegree.recordBookNumber}}</td>
         </tr>

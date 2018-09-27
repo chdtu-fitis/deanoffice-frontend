@@ -129,8 +129,21 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.updateButtonLoad();
   }
 
-  onCheckStudent(): void {
+  onCheckStudent(currentGroup): void {
+    currentGroup.checked = this.isAllStudentsChecked();
     this.updateButtonLoad();
+  }
+
+  isAllStudentsChecked(): void {
+    var result = true;
+    for(var currentGroup of this.currentGroups) {
+      for(var studentDegree of currentGroup.studentDegrees) {
+        if(!studentDegree.checked) {
+          result = false;
+        }
+      }
+    }
+    return result;
   }
 
   updateButtonLoad(): void {
