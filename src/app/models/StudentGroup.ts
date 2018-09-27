@@ -13,6 +13,7 @@ export class StudentGroup extends NameWithActiveEntity {
   studyYears: number;
   beginYears: number;
   studentDegrees: StudentDegree[];
+  checked?: boolean;
 
   constructor() {
     super();

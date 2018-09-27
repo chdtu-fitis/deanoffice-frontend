@@ -23,7 +23,7 @@
     <div class="form-group">
       <label for="cmbGroup">Група:</label><br>
       <button class="btn btn-primary mb-2" (click)="onSelectAllGroups()">Всі групи</button>
-      <select multiple size="8" id="cmbGroup" [(ngModel)]="currentGroups" class="form-control w-100">
+      <select multiple size="8" id="cmbGroup" [(ngModel)]="currentGroups" class="form-control w-100" (change)="onCurrentGroupsChange()">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group pt-2">
-      <button class="btn btn-success btn-load" (click)="onPersonalFileGradesStatementBuild()">Сформувати виписку в особову справу</button>
+      <button class="btn btn-success btn-load" (click)="onPersonalFileGradesStatementBuild()" [attr.disabled]="isButtonLoadDisabled ? '' : null" >Сформувати виписку в особову справу</button>
       <img class="ml-2" *ngIf="personalFileGradesStatementLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
     </div>
   </div>
@@ -48,6 +48,7 @@
         <thead>
         <tr>
           <td class="col-number">№</td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="currentGroup.checked" (change)="onCheckAllStudentsOfGroup($event.target.checked, currentGroup.studentDegrees)"></td>
           <td>ПІБ</td>
           <td class="col-recordBookNumber">Заліковка</td>
         </tr>
@@ -55,6 +56,7 @@
         <tbody>
         <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.checked" (change)="onCheckStudent()"></td>
           <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
           <td class="col-recordBookNumber">{{studentDegree.recordBookNumber}}</td>
         </tr>

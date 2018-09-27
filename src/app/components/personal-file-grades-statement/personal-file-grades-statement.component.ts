@@ -27,6 +27,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   studyYearsForDocument: Array<number>;
   selectedStudyYearForDocument: number;
 
+  isButtonLoadDisabled = false;
+
   personalFileGradesStatementLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
@@ -74,6 +76,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
       .subscribe(groups => {
         this.groups = groups;
         this.currentGroups = this.groups;
+        this.checkAllStudents();
       });
   }
 
@@ -84,7 +87,21 @@ export class PersonalFileGradesStatementComponent implements OnInit {
           this.groups = groups;
         }
         this.currentGroups = this.groups;
+        this.checkAllStudents();
       });
+  }
+
+  checkAllStudents(): void {
+    for(var currentGroup of this.currentGroups) {
+      currentGroup.checked = true;
+      for(var studentDegree of currentGroup.studentDegrees) {
+        studentDegree.checked = true;
+      }
+    }
+  }
+
+  onCurrentGroupsChange(): void {
+    this.updateButtonLoad();
   }
 
   onFullTimeChange(): void {
@@ -101,9 +118,47 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   onSelectAllGroups(): void {
     this.currentGroups = this.groups;
+    this.checkAllStudents();
+    this.updateButtonLoad();
+  }
+
+  onCheckAllStudentsOfGroup(checked, studentDegrees): void {
+    for(var studentDegree of studentDegrees) {
+      studentDegree.checked = checked;
+    }
+    this.updateButtonLoad();
+  }
+
+  onCheckStudent(): void {
+    this.updateButtonLoad();
+  }
+
+  updateButtonLoad(): void {
+    this.isButtonLoadDisabled = this.isBlankList();
+  }
+
+  isBlankList(): boolean {
+    var result = true;
+    for(var currentGroup of this.currentGroups) {
+      for(var studentDegree of currentGroup.studentDegrees) {
+        if(studentDegree.checked) {
+          result = false;
+        }
+      }
+    }
+    return result;
   }
 
   onPersonalFileGradesStatementBuild(): void {
+    let studentIds = [];
+    for(var currentGroup of this.currentGroups) {
+      for(var studentDegree of currentGroup.studentDegrees) {
+        if(studentDegree.checked) {
+          studentIds.push(studentDegree.student.id);
+        }
+      }
+    }
+    console.log(studentIds);
     let groupIds = [];
     for(var currentGroup of this.currentGroups) {
         groupIds.push(currentGroup.id);
