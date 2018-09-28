@@ -182,13 +182,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
         }
       }
     }
-    console.log(studentIds);
-    let groupIds = [];
-    for(var currentGroup of this.currentGroups) {
-        groupIds.push(currentGroup.id);
-    }
     this.personalFileGradesStatementLoading = true;
-    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(this.selectedStudyYearForDocument, groupIds).subscribe(a => {
+    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(this.selectedStudyYearForDocument, studentIds).subscribe(a => {
         this.personalFileGradesStatementLoading = false;
       }
     );
