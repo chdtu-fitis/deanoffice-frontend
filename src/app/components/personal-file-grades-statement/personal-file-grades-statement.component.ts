@@ -72,19 +72,19 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   onDegreeChange(): void {
     this.selectedYear = 1;
-    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
-      .subscribe(groups => {
-        this.groups = groups;
-        this.currentGroups = this.groups;
-        this.checkAllStudents();
-      });
+    this.updateGroups();
   }
 
   onYearChange(): void {
+    this.updateGroups();
+  }
+
+  updateGroups(): void {
     this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
         if (groups) {
           this.groups = groups;
+          this.filterGroups();
         }
         this.currentGroups = this.groups;
         this.checkAllStudents();
@@ -108,12 +108,25 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     if(!this.partTime) {
        this.partTime = true;
     }
+    this.updateGroups();
   }
 
   onPartTimeChange(): void {
     if(!this.fullTime) {
        this.fullTime = true;
     }
+    this.updateGroups();
+  }
+
+  filterGroups(): void {
+    this.groups = this.groups.filter(function (group) {
+      if(this.fullTime && group.tuitionForm == "FULL_TIME") {
+        return true;
+      }
+      if(this.partTime && group.tuitionForm == "EXTRAMURAL") {
+        return true;
+      }
+    }, this);
   }
 
   onSelectAllGroups(): void {
