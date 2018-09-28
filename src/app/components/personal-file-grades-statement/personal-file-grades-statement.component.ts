@@ -122,14 +122,14 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.updateButtonLoad();
   }
 
-  onCheckAllStudentsOfGroup(checked, studentDegrees): void {
+  onCheckAllStudentsOfGroup(checked: boolean, studentDegrees: StudentDegree[]): void {
     for(var studentDegree of studentDegrees) {
       studentDegree.checked = checked;
     }
     this.updateButtonLoad();
   }
 
-  onCheckStudent(currentGroup): void {
+  onCheckStudent(currentGroup: StudentGroup): void {
     currentGroup.checked = this.isStudentsOfGroupChecked(currentGroup);
     this.updateButtonLoad();
   }
@@ -145,19 +145,19 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   updateButtonLoad(): void {
-    this.isButtonLoadDisabled = this.isBlankList();
+    this.isButtonLoadDisabled = this.isAllStudentsUnchecked();
   }
 
-  isBlankList(): boolean {
-    var result = true;
+  isAllStudentsUnchecked(): boolean {
+    var unchecked = true;
     for(var currentGroup of this.currentGroups) {
       for(var studentDegree of currentGroup.studentDegrees) {
         if(studentDegree.checked) {
-          result = false;
+          unchecked = false;
         }
       }
     }
-    return result;
+    return unchecked;
   }
 
   onPersonalFileGradesStatementBuild(): void {
