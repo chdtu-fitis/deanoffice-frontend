@@ -65,17 +65,17 @@ export class PersonalFileGradesStatementComponent implements OnInit {
         this.degrees = degrees;
         if (this.degrees) {
           this.currentDegree = this.degrees[0];
-          this.onDegreeChange();
+          this.handleDegreeChange();
         }
       });
   }
 
-  onDegreeChange(): void {
+  handleDegreeChange(): void {
     this.selectedYear = 1;
     this.updateGroups();
   }
 
-  onYearChange(): void {
+  handleYearChange(): void {
     this.updateGroups();
   }
 
@@ -100,18 +100,18 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     }
   }
 
-  onCurrentGroupsChange(): void {
+  handleGroupsChange(): void {
     this.updateButtonLoad();
   }
 
-  onFullTimeChange(): void {
+  handleFullTimeChange(): void {
     if(!this.isCheckedPartTime) {
        this.isCheckedPartTime = true;
     }
     this.updateGroups();
   }
 
-  onPartTimeChange(): void {
+  handlePartTimeChange(): void {
     if(!this.isCheckedFullTime) {
        this.isCheckedFullTime = true;
     }
@@ -129,20 +129,20 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     }, this);
   }
 
-  onSelectAllGroups(): void {
+  selectAllGroups(): void {
     this.currentGroups = this.groups;
     this.checkAllStudents();
     this.updateButtonLoad();
   }
 
-  onCheckAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
+  checkAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
     for(let studentDegree of studentDegrees) {
       studentDegree.isChecked = isChecked;
     }
     this.updateButtonLoad();
   }
 
-  onCheckStudent(currentGroup: StudentGroup): void {
+  handleOnStudentCheckChange(currentGroup: StudentGroup): void {
     currentGroup.isChecked = this.isStudentsOfGroupChecked(currentGroup);
     this.updateButtonLoad();
   }
@@ -173,7 +173,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     return isUnchecked;
   }
 
-  onPersonalFileGradesStatementBuild(): void {
+  buildPersonalFileGradesStatement(): void {
     let studentIds = [];
     for(let currentGroup of this.currentGroups) {
       for(let studentDegree of currentGroup.studentDegrees) {
