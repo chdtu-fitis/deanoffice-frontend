@@ -36,8 +36,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   initStudyYearsForDocument() {
-    var year = (new Date()).getFullYear();
-    var month = (new Date()).getUTCMonth() + 1;
+    const year = (new Date()).getFullYear();
+    const month = (new Date()).getUTCMonth() + 1;
 
     if(month > 6) {
       this.selectedStudyYearForDocument = year - 1;
@@ -46,7 +46,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     }
 
     this.studyYearsForDocument = [];
-    for(var i = 0; i < 6; i++ ) {
+    for(let i = 0; i < 6; i++ ) {
       this.studyYearsForDocument.push(this.selectedStudyYearForDocument - i);
     }
   }
@@ -92,9 +92,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   checkAllStudents(): void {
-    for(var currentGroup of this.currentGroups) {
+    for(let currentGroup of this.currentGroups) {
       currentGroup.isChecked = true;
-      for(var studentDegree of currentGroup.studentDegrees) {
+      for(let studentDegree of currentGroup.studentDegrees) {
         studentDegree.isChecked = true;
       }
     }
@@ -136,7 +136,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   onCheckAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
-    for(var studentDegree of studentDegrees) {
+    for(let studentDegree of studentDegrees) {
       studentDegree.isChecked = isChecked;
     }
     this.updateButtonLoad();
@@ -148,8 +148,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   isStudentsOfGroupChecked(currentGroup: StudentGroup): boolean {
-    var isChecked = true;
-    for(var studentDegree of currentGroup.studentDegrees) {
+    let isChecked = true;
+    for(let studentDegree of currentGroup.studentDegrees) {
       if(!studentDegree.isChecked) {
         isChecked = false;
       }
@@ -162,9 +162,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   isAllStudentsUnchecked(): boolean {
-    var isUnchecked = true;
-    for(var currentGroup of this.currentGroups) {
-      for(var studentDegree of currentGroup.studentDegrees) {
+    let isUnchecked = true;
+    for(let currentGroup of this.currentGroups) {
+      for(let studentDegree of currentGroup.studentDegrees) {
         if(studentDegree.isChecked) {
           isUnchecked = false;
         }
@@ -175,8 +175,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   onPersonalFileGradesStatementBuild(): void {
     let studentIds = [];
-    for(var currentGroup of this.currentGroups) {
-      for(var studentDegree of currentGroup.studentDegrees) {
+    for(let currentGroup of this.currentGroups) {
+      for(let studentDegree of currentGroup.studentDegrees) {
         if(studentDegree.isChecked) {
           studentIds.push(studentDegree.student.id);
         }
