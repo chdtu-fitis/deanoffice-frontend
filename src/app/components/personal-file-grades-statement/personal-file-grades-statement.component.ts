@@ -119,14 +119,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   filterGroups(): void {
-    this.groups = this.groups.filter(function (group) {
-      if(this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME") {
-        return true;
-      }
-      if(this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL") {
-        return true;
-      }
-    }, this);
+    this.groups = this.groups.filter((group) => {
+      return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" || this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
+    });
   }
 
   selectAllGroups(): void {
