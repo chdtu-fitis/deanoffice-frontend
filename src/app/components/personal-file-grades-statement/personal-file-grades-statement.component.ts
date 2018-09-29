@@ -120,10 +120,10 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   filterGroups(): void {
     this.groups = this.groups.filter(function (group) {
-      if(this.fullTime && group.tuitionForm == "FULL_TIME") {
+      if(this.fullTime && group.tuitionForm.toString() == "FULL_TIME") {
         return true;
       }
-      if(this.partTime && group.tuitionForm == "EXTRAMURAL") {
+      if(this.partTime && group.tuitionForm.toString() == "EXTRAMURAL") {
         return true;
       }
     }, this);
