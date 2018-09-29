@@ -29,5 +29,5 @@ export class StudentDegree extends BaseEntity {
   payment?: string;
   active?: boolean;
   selected?: boolean;
-  checked?: boolean;
+  isChecked?: boolean;
 }

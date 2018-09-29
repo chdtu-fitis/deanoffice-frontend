@@ -18,8 +18,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   groups: StudentGroup[];
   currentGroups: StudentGroup[];
 
-  fullTime: boolean;
-  partTime: boolean;
+  isCheckedFullTime: boolean;
+  isCheckedPartTime: boolean;
 
   years: Array<number>;
   selectedYear: number;
@@ -54,8 +54,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   ngOnInit() {
     this.initStudyYearsForDocument();
 
-    this.fullTime = true;
-    this.partTime = true;
+    this.isCheckedFullTime = true;
+    this.isCheckedPartTime = true;
 
     this.years = [1, 2, 3, 4, 5];
     this.selectedYear = 1;
@@ -93,9 +93,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   checkAllStudents(): void {
     for(var currentGroup of this.currentGroups) {
-      currentGroup.checked = true;
+      currentGroup.isChecked = true;
       for(var studentDegree of currentGroup.studentDegrees) {
-        studentDegree.checked = true;
+        studentDegree.isChecked = true;
       }
     }
   }
@@ -105,25 +105,25 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   onFullTimeChange(): void {
-    if(!this.partTime) {
-       this.partTime = true;
+    if(!this.isCheckedPartTime) {
+       this.isCheckedPartTime = true;
     }
     this.updateGroups();
   }
 
   onPartTimeChange(): void {
-    if(!this.fullTime) {
-       this.fullTime = true;
+    if(!this.isCheckedFullTime) {
+       this.isCheckedFullTime = true;
     }
     this.updateGroups();
   }
 
   filterGroups(): void {
     this.groups = this.groups.filter(function (group) {
-      if(this.fullTime && group.tuitionForm.toString() == "FULL_TIME") {
+      if(this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME") {
         return true;
       }
-      if(this.partTime && group.tuitionForm.toString() == "EXTRAMURAL") {
+      if(this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL") {
         return true;
       }
     }, this);
@@ -135,26 +135,26 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.updateButtonLoad();
   }
 
-  onCheckAllStudentsOfGroup(checked: boolean, studentDegrees: StudentDegree[]): void {
+  onCheckAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
     for(var studentDegree of studentDegrees) {
-      studentDegree.checked = checked;
+      studentDegree.isChecked = isChecked;
     }
     this.updateButtonLoad();
   }
 
   onCheckStudent(currentGroup: StudentGroup): void {
-    currentGroup.checked = this.isStudentsOfGroupChecked(currentGroup);
+    currentGroup.isChecked = this.isStudentsOfGroupChecked(currentGroup);
     this.updateButtonLoad();
   }
 
   isStudentsOfGroupChecked(currentGroup: StudentGroup): boolean {
-    var checked = true;
+    var isChecked = true;
     for(var studentDegree of currentGroup.studentDegrees) {
-      if(!studentDegree.checked) {
-        checked = false;
+      if(!studentDegree.isChecked) {
+        isChecked = false;
       }
     }
-    return checked;
+    return isChecked;
   }
 
   updateButtonLoad(): void {
@@ -162,22 +162,22 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   isAllStudentsUnchecked(): boolean {
-    var unchecked = true;
+    var isUnchecked = true;
     for(var currentGroup of this.currentGroups) {
       for(var studentDegree of currentGroup.studentDegrees) {
-        if(studentDegree.checked) {
-          unchecked = false;
+        if(studentDegree.isChecked) {
+          isUnchecked = false;
         }
       }
     }
-    return unchecked;
+    return isUnchecked;
   }
 
   onPersonalFileGradesStatementBuild(): void {
     let studentIds = [];
     for(var currentGroup of this.currentGroups) {
       for(var studentDegree of currentGroup.studentDegrees) {
-        if(studentDegree.checked) {
+        if(studentDegree.isChecked) {
           studentIds.push(studentDegree.student.id);
         }
       }

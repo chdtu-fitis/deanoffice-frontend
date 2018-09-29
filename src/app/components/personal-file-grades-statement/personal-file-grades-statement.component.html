@@ -16,8 +16,8 @@
     </div>
 
     <div class="form-group checkboxes">
-      <label> <input type="checkbox" checked [(ngModel)]="fullTime" (change)="onFullTimeChange()"> Денна форма </label>
-      <label> <input type="checkbox" checked [(ngModel)]="partTime" (change)="onPartTimeChange()"> Заочна форма </label>
+      <label> <input type="checkbox" checked [(ngModel)]="isCheckedFullTime" (change)="onFullTimeChange()"> Денна форма </label>
+      <label> <input type="checkbox" checked [(ngModel)]="isCheckedPartTime" (change)="onPartTimeChange()"> Заочна форма </label>
     </div>
 
     <div class="form-group">
@@ -48,7 +48,7 @@
         <thead>
         <tr>
           <td class="col-number">№</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="currentGroup.checked" (change)="onCheckAllStudentsOfGroup($event.target.checked, currentGroup.studentDegrees)"></td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="currentGroup.isChecked" (change)="onCheckAllStudentsOfGroup($event.target.checked, currentGroup.studentDegrees)"></td>
           <td>ПІБ</td>
           <td class="col-recordBookNumber">Заліковка</td>
         </tr>
@@ -56,7 +56,7 @@
         <tbody>
         <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.checked" (change)="onCheckStudent(currentGroup)"></td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.isChecked" (change)="onCheckStudent(currentGroup)"></td>
           <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
           <td class="col-recordBookNumber">{{studentDegree.recordBookNumber}}</td>
         </tr>
