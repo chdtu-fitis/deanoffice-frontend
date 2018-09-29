@@ -3,7 +3,7 @@
   <div class="form-groups">
     <div class="form-group">
       <label for="cmbDegree">Ступінь:</label>
-      <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="handleDegreeChange()" class="form-control w-100">
+      <select id="cmbDegree" [(ngModel)]="selectedDegree" (change)="handleDegreeChange()" class="form-control w-100">
         <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
       </select>
     </div>
@@ -23,7 +23,7 @@
     <div class="form-group">
       <label for="cmbGroup">Група:</label><br>
       <button class="btn btn-primary mb-2" (click)="selectAllGroups()">Всі групи</button>
-      <select multiple size="8" id="cmbGroup" [(ngModel)]="currentGroups" class="form-control w-100" (change)="handleGroupsChange()">
+      <select multiple size="8" id="cmbGroup" [(ngModel)]="selectedGroups" class="form-control w-100" (change)="handleGroupsChange()">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
@@ -42,21 +42,21 @@
   </div>
 
   <div class="students-groups">
-    <div class="students-group" *ngFor="let currentGroup of currentGroups; let i = index">
-      <h5>Група {{currentGroup.name}}</h5>
+    <div class="students-group" *ngFor="let group of selectedGroups; let i = index">
+      <h5>Група {{group.name}}</h5>
       <table class="table table-striped table-students mb-3">
         <thead>
         <tr>
           <td class="col-number">№</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="currentGroup.isChecked" (change)="checkAllStudentsOfGroup($event.target.checked, currentGroup.studentDegrees)"></td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="group.isChecked" (change)="checkAllStudentsOfGroup($event.target.checked, group.studentDegrees)"></td>
           <td>ПІБ</td>
           <td class="col-recordBookNumber">Заліковка</td>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let studentDegree of currentGroup.studentDegrees; let i = index">
+        <tr *ngFor="let studentDegree of group.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.isChecked" (change)="handleOnStudentCheckChange(currentGroup)"></td>
+          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.isChecked" (change)="handleOnStudentCheckChange(group)"></td>
           <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
           <td class="col-recordBookNumber">{{studentDegree.recordBookNumber}}</td>
         </tr>
