@@ -15,6 +15,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   degrees: Degree[];
   selectedDegree: Degree;
 
+  uploadedGroups: StudentGroup[];
   groups: StudentGroup[];
   selectedGroups: StudentGroup[];
 
@@ -72,23 +73,33 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   handleDegreeChange(): void {
     this.selectedYear = 1;
-    this.updateGroups();
+    this.uploadGroups();
   }
 
   handleYearChange(): void {
-    this.updateGroups();
+    this.uploadGroups();
+  }
+
+  uploadGroups(): void {
+    this.groupService.getGroupsByDegreeAndYear(this.selectedDegree.id, this.selectedYear)
+      .subscribe(groups => {
+        if(groups) {
+          this.uploadedGroups = groups;
+        } else {
+          this.uploadedGroups = [];
+        }
+        this.updateGroups();
+      });
   }
 
   updateGroups(): void {
-    this.groupService.getGroupsByDegreeAndYear(this.selectedDegree.id, this.selectedYear)
-      .subscribe(groups => {
-        if (groups) {
-          this.groups = groups;
-          this.filterGroups();
-        }
-        this.selectedGroups = this.groups;
-        this.checkAllStudents();
-      });
+    this.groups = this.uploadedGroups.filter((group) => {
+      return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" ||
+             this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
+    });
+    this.selectedGroups = this.groups;
+    this.checkAllStudents();
+    this.updateButtonLoad();
   }
 
   checkAllStudents(): void {
@@ -116,12 +127,6 @@ export class PersonalFileGradesStatementComponent implements OnInit {
        this.isCheckedFullTime = true;
     }
     this.updateGroups();
-  }
-
-  filterGroups(): void {
-    this.groups = this.groups.filter((group) => {
-      return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" || this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
-    });
   }
 
   selectAllGroups(): void {
