@@ -183,7 +183,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
       }
     }
     this.personalFileGradesStatementLoading = true;
-    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(this.selectedStudyYearForDocument, studentIds).subscribe(a => {
+    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(
+      this.selectedStudyYearForDocument, studentIds
+    ).subscribe(a => {
         this.personalFileGradesStatementLoading = false;
       }
     );

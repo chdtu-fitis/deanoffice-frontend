@@ -2,41 +2,74 @@
 
   <div class="form-groups">
     <div class="form-group">
-      <label for="cmbDegree">Ступінь:</label>
-      <select id="cmbDegree" [(ngModel)]="selectedDegree" (change)="handleDegreeChange()" class="form-control w-100">
-        <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
+      <label for="cmbDegree">
+        Ступінь:
+      </label>
+      <select id="cmbDegree" class="form-control w-100"
+              [(ngModel)]="selectedDegree" (change)="handleDegreeChange()" >
+        <option *ngFor="let degree of degrees" [ngValue]="degree">
+          {{degree.name}}
+        </option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="years">Курс:</label>
-      <select id="years" [(ngModel)]="selectedYear"  (change)="handleYearChange()" class="form-control w-100">
-        <option  *ngFor="let i of years" [ngValue]="i">{{i}}</option>
+      <label for="years">
+        Курс:
+      </label>
+      <select id="years" class="form-control w-100"
+              [(ngModel)]="selectedYear"  (change)="handleYearChange()" >
+        <option  *ngFor="let i of years" [ngValue]="i">
+          {{i}}
+        </option>
       </select>
     </div>
 
     <div class="form-group checkboxes">
-      <label> <input type="checkbox" checked [(ngModel)]="isCheckedFullTime" (change)="handleFullTimeChange()"> Денна форма </label>
-      <label> <input type="checkbox" checked [(ngModel)]="isCheckedPartTime" (change)="handlePartTimeChange()"> Заочна форма </label>
+      <label>
+        <input type="checkbox" checked
+                [(ngModel)]="isCheckedFullTime" (change)="handleFullTimeChange()">
+        Денна форма
+      </label>
+      <label>
+        <input type="checkbox" checked
+                [(ngModel)]="isCheckedPartTime" (change)="handlePartTimeChange()">
+        Заочна форма
+      </label>
     </div>
 
     <div class="form-group">
-      <label for="cmbGroup">Група:</label><br>
-      <button class="btn btn-primary mb-2" (click)="selectAllGroups()">Всі групи</button>
-      <select multiple size="8" id="cmbGroup" [(ngModel)]="selectedGroups" class="form-control w-100" (change)="handleGroupsChange()">
-        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      <label for="cmbGroup">
+        Група:
+      </label><br>
+      <button class="btn btn-primary mb-2" (click)="selectAllGroups()">
+        Всі групи
+      </button>
+      <select multiple size="8" id="cmbGroup" class="form-control w-100"
+              [(ngModel)]="selectedGroups"  (change)="handleGroupsChange()">
+        <option *ngFor="let group of groups" [ngValue]="group">
+          {{group.name}}
+        </option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="studyYearsForDocument">Рік навчання:</label>
-      <select id="studyYearsForDocument" [(ngModel)]="selectedStudyYearForDocument" class="form-control w-100">
-        <option *ngFor="let studyYearForDocument of studyYearsForDocument" [ngValue]="studyYearForDocument">{{studyYearForDocument}} - {{studyYearForDocument + 1}}</option>
+      <label for="studyYearsForDocument">
+        Рік навчання:
+      </label>
+      <select id="studyYearsForDocument" class="form-control w-100"
+              [(ngModel)]="selectedStudyYearForDocument" >
+        <option *ngFor="let studyYearForDocument of studyYearsForDocument" [ngValue]="studyYearForDocument">
+          {{studyYearForDocument}} - {{studyYearForDocument + 1}}
+        </option>
       </select>
     </div>
 
     <div class="form-group pt-2">
-      <button class="btn btn-success btn-load" (click)="buildPersonalFileGradesStatement()" [attr.disabled]="isButtonLoadDisabled ? '' : null" >Сформувати виписку в особову справу</button>
+      <button class="btn btn-success btn-load" (click)="buildPersonalFileGradesStatement()"
+              [attr.disabled]="isButtonLoadDisabled ? '' : null" >
+        Сформувати виписку в особову справу
+      </button>
       <img class="ml-2" *ngIf="personalFileGradesStatementLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
     </div>
   </div>
@@ -48,7 +81,10 @@
         <thead>
         <tr>
           <td class="col-number">№</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="group.isChecked" (change)="checkAllStudentsOfGroup($event.target.checked, group.studentDegrees)"></td>
+          <td class="col-checkbox">
+            <input type="checkbox" checked [(ngModel)]="group.isChecked"
+                    (change)="checkAllStudentsOfGroup($event.target.checked, group.studentDegrees)">
+          </td>
           <td>ПІБ</td>
           <td class="col-recordBookNumber">Заліковка</td>
         </tr>
@@ -56,8 +92,17 @@
         <tbody>
         <tr *ngFor="let studentDegree of group.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
-          <td class="col-checkbox"><input type="checkbox" checked [(ngModel)]="studentDegree.isChecked" (change)="handleOnStudentCheckChange(group)"></td>
-          <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
+          <td class="col-checkbox">
+            <input type="checkbox" checked [(ngModel)]="studentDegree.isChecked"
+                    (change)="handleOnStudentCheckChange(group)">
+          </td>
+          <td>
+            {{
+              studentDegree.student.surname+' '+
+              studentDegree.student.name+' '+
+              studentDegree.student.patronimic | nameWithInitials
+            }}
+          </td>
           <td class="col-recordBookNumber">{{studentDegree.recordBookNumber}}</td>
         </tr>
         </tbody>
