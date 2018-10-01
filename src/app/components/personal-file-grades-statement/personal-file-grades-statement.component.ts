@@ -15,7 +15,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   degrees: Degree[];
   selectedDegree: Degree;
 
-  uploadedGroups: StudentGroup[];
+  loadedGroups: StudentGroup[];
   groups: StudentGroup[];
   selectedGroups: StudentGroup[];
 
@@ -28,7 +28,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   studyYearsForDocument: Array<number>;
   selectedStudyYearForDocument: number;
 
-  isButtonLoadDisabled = false;
+  isBuildDocumentButtonDisabled = false;
 
   personalFileGradesStatementLoading = false;
 
@@ -73,27 +73,27 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   handleDegreeChange(): void {
     this.selectedYear = 1;
-    this.uploadGroups();
+    this.loadGroups();
   }
 
   handleYearChange(): void {
-    this.uploadGroups();
+    this.loadGroups();
   }
 
-  uploadGroups(): void {
+  loadGroups(): void {
     this.groupService.getGroupsByDegreeAndYear(this.selectedDegree.id, this.selectedYear)
       .subscribe(groups => {
         if(groups) {
-          this.uploadedGroups = groups;
+          this.loadedGroups = groups;
         } else {
-          this.uploadedGroups = [];
+          this.loadedGroups = [];
         }
         this.updateGroups();
       });
   }
 
   updateGroups(): void {
-    this.groups = this.uploadedGroups.filter((group) => {
+    this.groups = this.loadedGroups.filter((group) => {
       return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" ||
              this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
     });
@@ -158,7 +158,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   }
 
   updateButtonLoad(): void {
-    this.isButtonLoadDisabled = this.isAllStudentsUnchecked();
+    this.isBuildDocumentButtonDisabled = this.isAllStudentsUnchecked();
   }
 
   isAllStudentsUnchecked(): boolean {
