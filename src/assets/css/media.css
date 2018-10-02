@@ -4,9 +4,9 @@
 
 /* Large devices Desktops  */
 @media (max-width: 1160px) {
-	.header-nav li {
-		width: 190px;
-	}
+  .header-nav li {
+    width: 190px;
+  }
 }
 
 /* Medium devices Desktops  */
