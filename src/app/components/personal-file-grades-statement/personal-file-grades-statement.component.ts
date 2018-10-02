@@ -13,14 +13,22 @@ import {PersonalFileGradesStatementService} from "../../services/personal-file-g
 })
 export class PersonalFileGradesStatementComponent implements OnInit {
   degrees: Degree[];
-  currentDegree: Degree;
+  selectedDegree: Degree;
 
+  loadedGroups: StudentGroup[];
   groups: StudentGroup[];
-  currentGroup: StudentGroup;
-  students: StudentDegree[];
+  selectedGroups: StudentGroup[];
+
+  isCheckedFullTime: boolean;
+  isCheckedPartTime: boolean;
 
   years: Array<number>;
   selectedYear: number;
+
+  studyYearsForDocument: Array<number>;
+  selectedStudyYearForDocument: number;
+
+  isBuildDocumentButtonDisabled = false;
 
   personalFileGradesStatementLoading = false;
 
@@ -28,7 +36,28 @@ export class PersonalFileGradesStatementComponent implements OnInit {
               private personalFileGradesStatementService: PersonalFileGradesStatementService) {
   }
 
+  initStudyYearsForDocument() {
+    const year = (new Date()).getFullYear();
+    const month = (new Date()).getUTCMonth() + 1;
+
+    if(month > 6) {
+      this.selectedStudyYearForDocument = year - 1;
+    } else {
+      this.selectedStudyYearForDocument = year - 2;
+    }
+
+    this.studyYearsForDocument = [];
+    for(let i = 0; i < 6; i++ ) {
+      this.studyYearsForDocument.push(this.selectedStudyYearForDocument - i);
+    }
+  }
+
   ngOnInit() {
+    this.initStudyYearsForDocument();
+
+    this.isCheckedFullTime = true;
+    this.isCheckedPartTime = true;
+
     this.years = [1, 2, 3, 4, 5];
     this.selectedYear = 1;
 
@@ -36,44 +65,127 @@ export class PersonalFileGradesStatementComponent implements OnInit {
       .subscribe(degrees => {
         this.degrees = degrees;
         if (this.degrees) {
-          this.currentDegree = this.degrees[0];
-          this.onDegreeChange();
+          this.selectedDegree = this.degrees[0];
+          this.handleDegreeChange();
         }
       });
   }
 
-  onDegreeChange(): void {
+  handleDegreeChange(): void {
     this.selectedYear = 1;
-    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
+    this.loadGroups();
+  }
+
+  handleYearChange(): void {
+    this.loadGroups();
+  }
+
+  loadGroups(): void {
+    this.groupService.getGroupsByDegreeAndYear(this.selectedDegree.id, this.selectedYear)
       .subscribe(groups => {
-        this.groups = groups;
-        if (this.groups) {
-          this.currentGroup = groups[0];
-          this.students = this.currentGroup.studentDegrees;
+        if(groups) {
+          this.loadedGroups = groups;
+        } else {
+          this.loadedGroups = [];
         }
+        this.updateGroups();
       });
   }
 
-  onYearChange(): void {
-    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
-      .subscribe(groups => {
-        if (groups) {
-          this.groups = groups;
-          this.currentGroup = groups[0];
-          this.students = this.currentGroup.studentDegrees;
+  updateGroups(): void {
+    this.groups = this.loadedGroups.filter((group) => {
+      return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" ||
+             this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
+    });
+    this.selectedGroups = this.groups;
+    this.checkAllStudents();
+    this.updateButtonLoad();
+  }
+
+  checkAllStudents(): void {
+    for(let group of this.selectedGroups) {
+      group.isChecked = true;
+      for(let studentDegree of group.studentDegrees) {
+        studentDegree.isChecked = true;
+      }
+    }
+  }
+
+  handleGroupsChange(): void {
+    this.updateButtonLoad();
+  }
+
+  handleFullTimeChange(): void {
+    if(!this.isCheckedPartTime) {
+       this.isCheckedPartTime = true;
+    }
+    this.updateGroups();
+  }
+
+  handlePartTimeChange(): void {
+    if(!this.isCheckedFullTime) {
+       this.isCheckedFullTime = true;
+    }
+    this.updateGroups();
+  }
+
+  selectAllGroups(): void {
+    this.selectedGroups = this.groups;
+    this.checkAllStudents();
+    this.updateButtonLoad();
+  }
+
+  checkAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
+    for(let studentDegree of studentDegrees) {
+      studentDegree.isChecked = isChecked;
+    }
+    this.updateButtonLoad();
+  }
+
+  handleOnStudentCheckChange(group: StudentGroup): void {
+    group.isChecked = this.isStudentsOfGroupChecked(group);
+    this.updateButtonLoad();
+  }
+
+  isStudentsOfGroupChecked(group: StudentGroup): boolean {
+    let isChecked = true;
+    for(let studentDegree of group.studentDegrees) {
+      if(!studentDegree.isChecked) {
+        isChecked = false;
+      }
+    }
+    return isChecked;
+  }
+
+  updateButtonLoad(): void {
+    this.isBuildDocumentButtonDisabled = this.isAllStudentsUnchecked();
+  }
+
+  isAllStudentsUnchecked(): boolean {
+    let isUnchecked = true;
+    for(let group of this.selectedGroups) {
+      for(let studentDegree of group.studentDegrees) {
+        if(studentDegree.isChecked) {
+          isUnchecked = false;
         }
-      });
+      }
+    }
+    return isUnchecked;
   }
 
-  onGroupChange(): void {
-    this.students = this.currentGroup.studentDegrees;
-  }
-
-  onPersonalFileGradesStatementBuild(): void {
-    let groupIds = [];
-    groupIds.push(this.currentGroup.id);
+  buildPersonalFileGradesStatement(): void {
+    let studentIds = [];
+    for(let group of this.selectedGroups) {
+      for(let studentDegree of group.studentDegrees) {
+        if(studentDegree.isChecked) {
+          studentIds.push(studentDegree.student.id);
+        }
+      }
+    }
     this.personalFileGradesStatementLoading = true;
-    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(2017, groupIds).subscribe(a => {
+    this.personalFileGradesStatementService.buildPersonalFileGradesStatement(
+      this.selectedStudyYearForDocument, studentIds
+    ).subscribe(a => {
         this.personalFileGradesStatementLoading = false;
       }
     );
