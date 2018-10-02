@@ -178,7 +178,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     for(let group of this.selectedGroups) {
       for(let studentDegree of group.studentDegrees) {
         if(studentDegree.isChecked) {
-          studentIds.push(studentDegree.student.id);
+          studentIds.push(studentDegree.id);
         }
       }
     }
