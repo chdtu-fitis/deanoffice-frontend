@@ -1,0 +1,24 @@
+<div class="modal fade"
+     bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Імпортувати файл</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group import">
+        <div class="custom-file">
+          <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
+          <label class="custom-file-label" for="importFile">{{fileName}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" type="button" (click)="onFileUpload()">Завантажити</button>
+    </div>
+  </div>
+</div>
+</div>
