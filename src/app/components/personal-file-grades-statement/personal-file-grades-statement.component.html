@@ -82,7 +82,7 @@
         <tr>
           <td class="col-number">№</td>
           <td class="col-checkbox">
-            <input type="checkbox" checked [(ngModel)]="group.isChecked"
+            <input type="checkbox" checked [(ngModel)]="group.selected"
                     (change)="checkAllStudentsOfGroup($event.target.checked, group.studentDegrees)">
           </td>
           <td>ПІБ</td>
@@ -93,7 +93,7 @@
         <tr *ngFor="let studentDegree of group.studentDegrees; let i = index">
           <td class="col-number">{{ i+1 }}</td>
           <td class="col-checkbox">
-            <input type="checkbox" checked [(ngModel)]="studentDegree.isChecked"
+            <input type="checkbox" checked [(ngModel)]="studentDegree.selected"
                     (change)="handleOnStudentCheckChange(group)">
           </td>
           <td>

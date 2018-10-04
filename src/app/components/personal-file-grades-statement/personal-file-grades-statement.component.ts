@@ -104,9 +104,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   checkAllStudents(): void {
     for(let group of this.selectedGroups) {
-      group.isChecked = true;
+      group.selected = true;
       for(let studentDegree of group.studentDegrees) {
-        studentDegree.isChecked = true;
+        studentDegree.selected = true;
       }
     }
   }
@@ -137,20 +137,20 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   checkAllStudentsOfGroup(isChecked: boolean, studentDegrees: StudentDegree[]): void {
     for(let studentDegree of studentDegrees) {
-      studentDegree.isChecked = isChecked;
+      studentDegree.selected = isChecked;
     }
     this.updateButtonLoad();
   }
 
   handleOnStudentCheckChange(group: StudentGroup): void {
-    group.isChecked = this.isStudentsOfGroupChecked(group);
+    group.selected = this.isStudentsOfGroupChecked(group);
     this.updateButtonLoad();
   }
 
   isStudentsOfGroupChecked(group: StudentGroup): boolean {
     let isChecked = true;
     for(let studentDegree of group.studentDegrees) {
-      if(!studentDegree.isChecked) {
+      if(!studentDegree.selected) {
         isChecked = false;
       }
     }
@@ -165,7 +165,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     let isUnchecked = true;
     for(let group of this.selectedGroups) {
       for(let studentDegree of group.studentDegrees) {
-        if(studentDegree.isChecked) {
+        if(studentDegree.selected) {
           isUnchecked = false;
         }
       }
@@ -177,7 +177,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     let studentIds = [];
     for(let group of this.selectedGroups) {
       for(let studentDegree of group.studentDegrees) {
-        if(studentDegree.isChecked) {
+        if(studentDegree.selected) {
           studentIds.push(studentDegree.id);
         }
       }
