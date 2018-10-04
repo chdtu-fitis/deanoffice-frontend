@@ -8,6 +8,7 @@
           studentField="student"
           (searchResult)="onSelect($event)"
         ></app-students-search>
+        <button class="btn mr-2 btn-warning d-none d-lg-inline-block text-white" (click)="synchronizeWithEdeboModal.modal.show()">Синхронізувати з ЄДЕБО</button>
         <button class="btn btn-info d-none d-lg-inline-block" (click)="columnsModal.modal.show()">Вибір колонок</button>
         <button class="btn ml-2 btn-success d-none d-lg-inline-block" (click)="addStudentModal.modal.show()">Зарахувати</button>
         <button class="btn ml-2 d-inline-block d-lg-none" (click)="isSidebarOpen = !isSidebarOpen">Меню</button>
@@ -77,7 +78,8 @@
   #columnsModal
   (setColumns)="setColumns($event)">
 </app-students-columns>
-
+<synchronize-with-edebo #synchronizeWithEdeboModal
+></synchronize-with-edebo>
 <app-add-student
   #addStudentModal
   [groups]="groups"
