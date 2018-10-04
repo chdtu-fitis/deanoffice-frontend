@@ -6,8 +6,7 @@ import {EdeboService} from '../../../services/edebo.service';
 @Component({
   selector: 'synchronize-with-edebo',
   templateUrl: './synchronize-with-edebo.component.html',
-  styleUrls: ['./synchronize-with-edebo.component.scss'],
-  providers: [EdeboService]
+  styleUrls: ['./synchronize-with-edebo.component.scss']
 })
 export class SynchronizeWithEdeboComponent implements IAppModal {
   @ViewChild('modal') modal: ModalDirective;
@@ -18,12 +17,13 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   }
 
   onFileSelected(event) {
-    this.selectedFile =  <File>event.target.files[0];
+    this.selectedFile = <File> event.target.files[0];
     this.fileName = this.selectedFile.name;
   }
+
   onFileUpload(): void {
     let formData = new FormData();
-    formData.append('file', this.selectedFile);
+    formData.append('uploadFile', this.selectedFile, this.selectedFile.name);
     this.fileUploader.uploadFile(formData).subscribe(res => {});
   }
 }
