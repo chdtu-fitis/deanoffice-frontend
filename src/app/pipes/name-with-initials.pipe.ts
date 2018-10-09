@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class NameWithInitialsPipe implements PipeTransform {
 
   transform(fullName: string): any {
-    if (!fullName || fullName.length === 0)
-      return '';
-    if (fullName.startsWith('null'))
-      return '';
+    if (!fullName || fullName.length === 0) {
+      return ''; }
+    if (fullName.startsWith('null')) {
+      return ''; }
     let parts = fullName.split(' ');
     let surname = parts[0], name = parts[1], patronimic = parts[2];
     if (!surname || surname.length === 0)
