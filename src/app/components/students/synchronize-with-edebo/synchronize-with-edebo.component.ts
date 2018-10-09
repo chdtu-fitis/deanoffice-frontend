@@ -16,7 +16,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   importView = true;
   modalName = 'Імпортувати файл';
   modalSize = '';
-  fileProcessingResult: StudentDegreeFullEdeboData;
+  synchronizedStudentDegreesGreen: StudentDegreeFullEdeboData;
 
   constructor(private fileUploader: EdeboService) {
   }
@@ -29,9 +29,12 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   onFileUpload(): void {
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    this.fileUploader.uploadFile(formData).subscribe(res => {this.fileProcessingResult = res});
-    alert(this.fileProcessingResult);
-    this.changeModal();
+    this.fileUploader.uploadFile(formData).subscribe(
+        res => {
+          this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
+          this.changeModal();
+        }
+    );
   }
 
   changeToImportModal(): void {
@@ -45,6 +48,5 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     this.importView = !this.importView;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
-
   }
 }

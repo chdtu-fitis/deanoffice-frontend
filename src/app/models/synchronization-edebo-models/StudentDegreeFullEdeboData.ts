@@ -15,4 +15,5 @@ export class StudentDegreeFullEdeboData {
   admissionOrderNumber: string;
   admissionOrderDate: string;
   payment: string;
+  selected?: boolean;
 }

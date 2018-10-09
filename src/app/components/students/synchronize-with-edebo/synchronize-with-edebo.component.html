@@ -10,7 +10,33 @@
     </div>
     <div class="modal-body">
       <tabset #tabset *ngIf="!(importView)">
-        <tab heading="Green" ></tab>
+        <tab heading="Green">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td><input type="checkbox" [(ngModel)]="studentsSelected" (click)="onSelectAllStudents($event.target.checked)"
+                       checked></td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            </thead>
+            <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index">
+              <td>{{ i+1 }}</td>
+              <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+              <td>{{ student.lastName }}</td>
+              <td>{{ student.firstName }}</td>
+              <td>{{ student.middleName }}</td>
+              <td>{{ student.birthday }}</td>
+              <td>{{ student.degreeName }}</td>
+              <td>{{ student.fullSpecialityName }}</td>
+              <td>{{ student.fullSpecializationName }}</td>
+            </tr>
+          </table>
+        </tab>
         <tab heading="Yellow"></tab>
         <tab heading="Orange">
         </tab>
