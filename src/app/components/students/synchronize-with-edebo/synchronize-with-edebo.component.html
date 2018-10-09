@@ -1,22 +1,29 @@
-<div class="modal fade"
+<div class="modal"
      bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-<div class="modal-dialog">
+<div class="modal-dialog {{modalSize}}" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title">Імпортувати файл</h4>
+      <h4 class="modal-title">{{modalName}}</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <div class="input-group import">
+      <tabset #tabset *ngIf="!(importView)">
+        <tab heading="Green" ></tab>
+        <tab heading="Yellow"></tab>
+        <tab heading="Orange">
+        </tab>
+        <tab heading="Blue"></tab>
+      </tabset>
+      <div class="input-group import" *ngIf="importView">
         <div class="custom-file">
           <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" *ngIf="importView">
       <button class="btn btn-success" type="button" (click)="onFileUpload()">Завантажити</button>
     </div>
   </div>

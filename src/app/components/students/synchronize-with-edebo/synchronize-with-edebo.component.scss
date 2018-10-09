@@ -1,3 +1,11 @@
 .import{
   margin:100px auto;
 }
+.modal-full {
+  min-width: 95%;
+  margin:0 auto;
+}
+
+.modal-full .modal-content {
+  min-height: 98vh;
+}
