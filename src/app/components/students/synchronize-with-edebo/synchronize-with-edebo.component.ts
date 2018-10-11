@@ -17,6 +17,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   modalName = 'Імпортувати файл';
   modalSize = '';
   synchronizedStudentDegreesGreen: StudentDegreeFullEdeboData;
+  noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData;
 
   constructor(private fileUploader: EdeboService) {
   }
@@ -32,6 +33,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     this.fileUploader.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
+          this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
           this.changeModal();
         }
     );
@@ -45,8 +47,14 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   }
 
   changeModal(): void {
-    this.importView = !this.importView;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
+    this.importView = !this.importView;
+  }
+  convertDate(miliseconds): Date {
+    let date = new Date(miliseconds);
+    date = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+    return date;
   }
 }
+
