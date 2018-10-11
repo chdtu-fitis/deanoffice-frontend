@@ -51,10 +51,10 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
   }
-  convertDate(miliseconds): Date {
+  convertDate(miliseconds): String {
     let date = new Date(miliseconds);
-    date = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
-    return date;
+    let stringDate = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+    return stringDate;
   }
 }
 

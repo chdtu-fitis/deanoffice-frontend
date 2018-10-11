@@ -7,5 +7,8 @@
 }
 
 .modal-full .modal-content {
-  min-height: 98vh;
+  height: 98vh;
+  overflow: auto;
 }
+
+
