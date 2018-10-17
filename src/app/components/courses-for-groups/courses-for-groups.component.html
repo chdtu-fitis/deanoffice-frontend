@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid courses-for-groups">
   <div *ngIf="!showPage">
     <loading [size]="40"></loading>
   </div>
@@ -26,10 +26,12 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row courses">
     <div class="col-7">
-      <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
-                       [courses]="courses" [searchText]="searchText"></studied-courses>
+      <div class="studied-courses">
+        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                         [courses]="courses" [searchText]="searchText"></studied-courses>
+      </div>
     </div>
     <div class="col-5">
       <course-creation (onCourseCreation)="onCourseCreation()" (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
