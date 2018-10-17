@@ -1,35 +1,31 @@
 <div class="table-wrapper">
   <loading *ngIf="loading"></loading>
-    <table *ngIf="!loading">
-      <thead>
-        <tr>
-          <th class="checkbox"></th>
-          <th class="name">Назва</th>
-          <th class="specialization">Спеціалізація</th>
-          <th class="speciality">Спеціальність</th>
-          <th class="degree">Ступінь</th>
-          <th class="tuitionForm">Форма</th>
-          <th class="tuitionTerm">Термін</th>
-          <th class="creationYear">Створено</th>
-          <th class="beginYears">Курс початку</th>
-          <th class="studyYears">Років начання</th>
-          <th class="studySemesters">Семестрів</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of rows">
-          <td class="checkbox"><input type="checkbox"></td>
-          <td class="name">{{row.name}}</td>
-          <td class="specialization">{{row.specialization.name}}</td>
-          <td class="speciality">{{row.specialization.speciality.code}} {{row.specialization.speciality.name}}</td>
-          <td class="degree">{{row.specialization.degree.name}}</td>
-          <td class="tuitionForm">{{row.tuitionForm}}</td>
-          <td class="tuitionTerm">{{row.tuitionTerm}}</td>
-          <td class="creationYear">{{row.creationYear}}</td>
-          <td class="beginYears">{{row.beginYears}}</td>
-          <td class="studyYears">{{row.studyYears}}</td>
-          <td class="studySemesters">{{row.studySemesters}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table" *ngIf="!loading">
+      <div class="table-tr table-tr-fixed">
+        <div class="table-th checkbox"><input type="checkbox"></div>
+        <div class="table-th name">Назва</div>
+        <div class="table-th specialization">Спеціалізація</div>
+        <div class="table-th speciality">Спеціальність</div>
+        <div class="table-th degree">Ступінь</div>
+        <div class="table-th tuitionForm">Форма</div>
+        <div class="table-th tuitionTerm">Термін</div>
+        <div class="table-th creationYear">Створено</div>
+        <div class="table-th beginYears">Курс початку</div>
+        <div class="table-th studyYears">Років начання</div>
+        <div class="table-th studySemesters">Семестрів</div>
+      </div>
+      <label class="table-tr" *ngFor="let row of rows">
+        <div class="table-td checkbox"><input type="checkbox"></div>
+        <div class="table-td name">{{row.name}}</div>
+        <div class="table-td specialization">{{row.specialization.name}}</div>
+        <div class="table-td speciality">{{row.specialization.speciality.code}} {{row.specialization.speciality.name}}</div>
+        <div class="table-td degree">{{row.specialization.degree.name}}</div>
+        <div class="table-td tuitionForm">{{row.tuitionForm}}</div>
+        <div class="table-td tuitionTerm">{{row.tuitionTerm}}</div>
+        <div class="table-td creationYear">{{row.creationYear}}</div>
+        <div class="table-td beginYears">{{row.beginYears}}</div>
+        <div class="table-td studyYears">{{row.studyYears}}</div>
+        <div class="table-td studySemesters">{{row.studySemesters}}</div>
+      </label>
+    </div>
 </div>
