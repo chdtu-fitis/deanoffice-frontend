@@ -6,6 +6,7 @@
           <th class="checkbox"></th>
           <th class="name">Назва</th>
           <th class="specialization">Спеціалізація</th>
+          <th class="speciality">Спеціальність</th>
           <th class="degree">Ступінь</th>
           <th class="tuitionForm">Форма</th>
           <th class="tuitionTerm">Термін</th>
@@ -20,6 +21,7 @@
           <td class="checkbox"><input type="checkbox"></td>
           <td class="name">{{row.name}}</td>
           <td class="specialization">{{row.specialization.name}}</td>
+          <td class="speciality">{{row.specialization.speciality.code}} {{row.specialization.speciality.name}}</td>
           <td class="degree">{{row.specialization.degree.name}}</td>
           <td class="tuitionForm">{{row.tuitionForm}}</td>
           <td class="tuitionTerm">{{row.tuitionTerm}}</td>
