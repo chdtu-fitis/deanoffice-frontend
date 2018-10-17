@@ -1,32 +1,33 @@
-<div>
+<div class="table-wrapper">
   <loading *ngIf="loading"></loading>
-  <ngx-datatable
-    *ngIf="!loading"
-    class="bootstrap"
-    [rows]="rows | groupSearch: searchText"
-    [columnMode]="'force'"
-    [rowHeight]="'auto'"
-    [selectionType]="'checkbox'"
-    [selectAllRowsOnPage]="false"
-  >
-    <ngx-datatable-column
-      [width]="30"
-      [sortable]="false"
-      [canAutoResize]="false"
-      [draggable]="false"
-      [resizeable]="false"
-      [headerCheckboxable]="true"
-      [checkboxable]="true">
-    </ngx-datatable-column>
-    <ngx-datatable-column [name]="'Назва'" [prop]="'name'" [minWidth]="80" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Спеціалізація'" [prop]="'specialization.name'" [minWidth]="350"  [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Ступінь'" [prop]="'specialization.degree.name'" [minWidth]="75" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Форма'" [prop]="'tuitionForm'" [minWidth]="65" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Термін'" [prop]="'tuitionTerm'" [minWidth]="85" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Створено'" [prop]="'creationYear'" [minWidth]="75" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Курс початку'" [prop]="'beginYears'" [minWidth]="105" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Років начання'" [prop]="'studyYears'" [minWidth]="105" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-    <ngx-datatable-column [name]="'Семестрів'" [prop]="'studySemesters'" [minWidth]="76" [draggable]="false" [resizeable]="false"></ngx-datatable-column>
-
-  </ngx-datatable>
+    <table *ngIf="!loading">
+      <thead>
+        <tr>
+          <th class="checkbox"></th>
+          <th class="name">Назва</th>
+          <th class="specialization">Спеціалізація</th>
+          <th class="degree">Ступінь</th>
+          <th class="tuitionForm">Форма</th>
+          <th class="tuitionTerm">Термін</th>
+          <th class="creationYear">Створено</th>
+          <th class="beginYears">Курс початку</th>
+          <th class="studyYears">Років начання</th>
+          <th class="studySemesters">Семестрів</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <td class="checkbox"><input type="checkbox"></td>
+          <td class="name">{{row.name}}</td>
+          <td class="specialization">{{row.specialization.name}}</td>
+          <td class="degree">{{row.specialization.degree.name}}</td>
+          <td class="tuitionForm">{{row.tuitionForm}}</td>
+          <td class="tuitionTerm">{{row.tuitionTerm}}</td>
+          <td class="creationYear">{{row.creationYear}}</td>
+          <td class="beginYears">{{row.beginYears}}</td>
+          <td class="studyYears">{{row.studyYears}}</td>
+          <td class="studySemesters">{{row.studySemesters}}</td>
+        </tr>
+      </tbody>
+    </table>
 </div>

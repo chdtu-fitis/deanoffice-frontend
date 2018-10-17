@@ -1,13 +1,79 @@
-@import "../../../../styles";
 
-.box-shadow {
-  box-shadow: 0 0 5px grey;
+.table-wrapper {
+  height: calc(100% - 55px) ;
 }
 
-.fs-12px {
-  font-size: 12px;
-}
+table {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  color: rgba(0, 0, 0, 0.54);
+  border-collapse: collapse;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1em;
+  border-bottom: 1px solid #ddd;
 
-.datatable-header-cell-label {
-  font-size: 9pt
+  td, th {
+    padding: 5px 0 0 10px;
+  }
+
+  tr {
+    display: flex;
+  }
+
+  thead {
+    display: block;
+    position: sticky;
+    top: 0;
+    background: white;
+
+    th {
+      border: 1px solid #ddd;
+      border-right: none;
+    }
+  }
+
+  tbody {
+    display: block;
+    border-left: 1px solid #ddd;
+  }
+
+  .checkbox {
+    flex: 0 0 30px;
+  }
+
+  .name {
+    flex: 0 0 100px;
+  }
+
+  .specialization {
+    flex: 1 0 200px;
+  }
+  .degree {
+    flex: 0 0 100px;
+  }
+  .tuitionForm {
+    flex: 0 0 80px;
+  }
+
+  .tuitionTerm {
+    flex: 0 0 100px;
+  }
+
+  .creationYear {
+    flex: 0 0 90px;
+  }
+
+  .beginYears {
+    flex: 0 0 120px;
+  }
+
+  .studyYears {
+    flex: 0 0 130px;
+  }
+
+  .studySemesters {
+    flex: 0 0 100px;
+  }
 }
