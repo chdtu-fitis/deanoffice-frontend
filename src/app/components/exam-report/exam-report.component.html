@@ -59,7 +59,7 @@
           <td>{{courseForGroup.course.courseName.name}}</td>
           <td>{{courseForGroup.course.knowledgeControl.name}}</td>
           <td>{{courseForGroup.course.hours}}</td>
-          <td>{{courseForGroup.teacher?.surname+' '+courseForGroup.teacher?.name+' '+courseForGroup.teacher?.patronimic | nameWithInitials}}</td>
+          <td>{{courseForGroup.teacher | nameWithInitials}}</td>
           <td>{{courseForGroup.examDate | date:"dd-MM-yyyy"}}</td>
         </tr>
 
@@ -85,7 +85,7 @@
         <tbody>
         <tr *ngFor="let studentDegree of students; let i = index">
           <td>{{ i+1 }}</td>
-          <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
+          <td>{{studentDegree.student | nameWithInitials}}</td>
           <td>{{studentDegree.recordBookNumber}}</td>
         </tr>
         </tbody>

@@ -25,8 +25,7 @@
         <td>{{ course.course.credits }}</td>
         <td (click)="changeTeacher(course)">
           <button class="btn btn-outline-secondary">
-            {{ getNameWithInitials(course?.teacher?.surname, course?.teacher?.name, course?.teacher?.patronimic) ||
-            'Вибрати' }}
+            {{ (course.teacher | nameWithInitials) || 'Вибрати' }}
           </button>
         </td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"

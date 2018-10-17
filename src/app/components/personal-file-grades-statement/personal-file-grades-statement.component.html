@@ -43,7 +43,7 @@
         <tbody>
         <tr *ngFor="let studentDegree of students; let i = index">
           <td>{{ i+1 }}</td>
-          <td>{{studentDegree.student.surname+' '+studentDegree.student.name+' '+studentDegree.student.patronimic | nameWithInitials}}</td>
+          <td>{{studentDegree.student | nameWithInitials}}</td>
           <td>{{studentDegree.recordBookNumber}}</td>
         </tr>
         </tbody>
