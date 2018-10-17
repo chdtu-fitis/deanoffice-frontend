@@ -58,7 +58,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.isCheckedFullTime = true;
     this.isCheckedPartTime = true;
 
-    this.years = [1, 2, 3, 4, 5];
+    this.years = [1, 2, 3, 4, 5, 6];
     this.selectedYear = 1;
 
     this.degreeService.getDegrees()
