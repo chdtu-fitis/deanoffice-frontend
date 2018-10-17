@@ -10,7 +10,7 @@
     </div>
     <div class="modal-body">
       <tabset #tabset *ngIf="!(importView)">
-        <tab heading="Повне співпадіння">
+        <tab heading="Повне співпадіння" class="tab-body">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -34,8 +34,8 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Немає в ЄДЕБО"></tab>
-        <tab heading="Немає в базі">
+        <tab heading="Немає в ЄДЕБО" class="tab-body"></tab>
+        <tab heading="Немає в базі" class="tab-body">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -62,8 +62,8 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Часткове співпадінння"></tab>
-        <tab heading="Некоректна інформація"></tab>
+        <tab heading="Часткове співпадінння" class="tab-body"></tab>
+        <tab heading="Некоректна інформація" class="tab-body"></tab>
       </tabset>
       <div class="input-group import" *ngIf="importView">
         <div class="custom-file">

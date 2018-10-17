@@ -16,8 +16,9 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   importView = true;
   modalName = 'Імпортувати файл';
   modalSize = '';
-  synchronizedStudentDegreesGreen: StudentDegreeFullEdeboData;
-  noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData;
+  synchronizedStudentDegreesGreen: StudentDegreeFullEdeboData[];
+  noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
+  studentsSelected: boolean;
 
   constructor(private fileUploader: EdeboService) {
   }
@@ -51,10 +52,21 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
   }
+
   convertDate(miliseconds): String {
-    let date = new Date(miliseconds);
-    let stringDate = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+    let fullDate = new Date(miliseconds);
+    let month , date;
+    fullDate.getMonth() < 10 ? month = '0' + fullDate.getMonth() : month = fullDate.getMonth();
+    fullDate.getDate() < 10 ? date = '0' + fullDate.getDate() : month = fullDate.getDate();
+    let stringDate = date + '.' + month + '.' + fullDate.getFullYear();
     return stringDate;
   }
+
+  onSelectAllStudents(checked: boolean): void {
+    for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
+      student.selected = checked;
+    }
+}
+
 }
 
