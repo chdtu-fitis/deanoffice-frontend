@@ -10,7 +10,7 @@ export class CoursesSearchPipe implements PipeTransform {
       return items;
     searchText = searchText.toLowerCase();
     return items.filter( course => {
-      return course.courseName.name.toLowerCase().includes(searchText);
+      return course.courseName.name.toLowerCase().startsWith(searchText);
     });
   }
 }
