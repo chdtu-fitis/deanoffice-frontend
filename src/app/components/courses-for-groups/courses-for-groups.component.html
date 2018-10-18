@@ -65,10 +65,10 @@
     <div class="row bottom-row">
       <div class="col-11">
         <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()"
-                [disabled]="!selectedGroup||!selectedSemester||!cnangesExistence">Зберегти
+                [disabled]="!cnangesExistence">Зберегти
         </button>
         <button type="button" class="btn btn-danger" (click)="onGroupChange()"
-                [disabled]="!selectedGroup||!selectedSemester||!cnangesExistence">Відмінити зміни
+                [disabled]="!cnangesExistence">Відмінити зміни
         </button>
       </div>
       <div class="col-1 count-label">
