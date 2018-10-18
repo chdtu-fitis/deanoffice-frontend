@@ -59,9 +59,8 @@
     z-index: 2;
   }
 
-  .checkbox {
-    flex: 0 0 35px;
-    cursor: default;
+  .table-td.checkbox {
+    cursor: pointer;
     margin: 0;
 
     input[type=checkbox] {
@@ -102,6 +101,11 @@
       background: #fff;
       cursor: pointer;
     }
+  }
+
+  .checkbox {
+    flex: 0 0 35px;
+    cursor: default;
   }
 
   .name {
