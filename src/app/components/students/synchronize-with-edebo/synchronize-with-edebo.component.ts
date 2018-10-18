@@ -26,7 +26,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   ngOnInit() {
   }
-  constructor(private fileUploader: EdeboService) {
+  constructor(private edeboService: EdeboService) {
   }
 
   onFileSelected(event) {
@@ -39,7 +39,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.fileField = false;
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    this.fileUploader.uploadFile(formData).subscribe(
+    this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
           this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
@@ -78,7 +78,23 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
       student.selected = checked;
     }
-}
 
+}
+  сhooseSelectedStudentsFromOrangeList(): StudentDegreeFullEdeboData[] {
+    let chosenStudents = [];
+    for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
+        if (student.selected) {
+          chosenStudents.push(student);
+        }
+    }
+    return chosenStudents;
+  }
+
+  saveChanges(): void {
+    let newAndUpdatedStudentDegreesDTO = {};
+    newAndUpdatedStudentDegreesDTO['createNewStudents'] = this.сhooseSelectedStudentsFromOrangeList();
+    newAndUpdatedStudentDegreesDTO['updateSecondaryData'] = [];
+    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
+  }
 }
 

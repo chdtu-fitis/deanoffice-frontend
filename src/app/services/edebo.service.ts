@@ -5,11 +5,15 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class EdeboService {
-  private url = `${environment.apiUrl}/students/edebo-synchronization/read`;
+  private url = `${environment.apiUrl}/students/edebo-synchronization`;
   constructor(private _http: HttpClient) { }
 
   uploadFile(formData: any): Observable<any> {
-    return this._http.post(this.url, formData)
+    return this._http.post(`${this.url}/process-file`, formData)
+      .catch(this._errorHandler);
+  }
+  updateDb(data: any): Observable<any> {
+    return this._http.post(`${this.url}/save`, data)
       .catch(this._errorHandler);
   }
 

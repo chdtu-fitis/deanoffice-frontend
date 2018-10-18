@@ -100,8 +100,8 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
-      <button class="btn btn-success" *ngIf="!(importView)" type="button">Зберегти</button>
-      <button class="btn btn-primary" *ngIf="!(importView)" type="button">Відмінити</button>
+      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
+      <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="modal.hide()">Відмінити</button>
     </div>
   </div>
 </div>
