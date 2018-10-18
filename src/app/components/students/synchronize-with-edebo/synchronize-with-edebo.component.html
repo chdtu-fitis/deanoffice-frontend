@@ -34,7 +34,7 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Немає в ЄДЕБО" class="tab-body"></tab>
+        <tab heading="Часткове співпадінння" class="tab-body"></tab>
         <tab heading="Немає в базі" class="tab-body">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
@@ -62,7 +62,6 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Часткове співпадінння" class="tab-body"></tab>
         <tab heading="Некоректна інформація" class="tab-body">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
@@ -89,6 +88,7 @@
             </tr>
           </table>
         </tab>
+        <tab heading="Немає в ЄДЕБО" class="tab-body"></tab>
       </tabset>
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
@@ -100,7 +100,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
-      <button class="btn btn-success" *ngIf="!(importView)" type="button">Завантажити</button>
+      <button class="btn btn-success" *ngIf="!(importView)" type="button">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button">Відмінити</button>
     </div>
   </div>

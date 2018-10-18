@@ -25,3 +25,12 @@
   -webkit-animation: spin 1s linear infinite;
 }
 
+[heading = 'Повне співпадіння'] table{
+  border:2px solid green;
+}
+[heading = 'Немає в базі'] table{
+  border:2px solid orange;
+}
+[heading = 'Некоректна інформація'] table{
+  border:2px solid red;
+}
