@@ -63,9 +63,35 @@
           </table>
         </tab>
         <tab heading="Часткове співпадінння" class="tab-body"></tab>
-        <tab heading="Некоректна інформація" class="tab-body"></tab>
+        <tab heading="Некоректна інформація" class="tab-body">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            <td>Повідомлення</td>
+            </thead>
+            <tr *ngFor="let student of missingPrimaryDataRed; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ student.studentDegreePrimaryData?.firstName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.lastName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
+              <td>{{ convertDate(student.studentDegreePrimaryData?.birthday) }}</td>
+              <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.fullSpecialityName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.fullSpecializationName }}</td>
+              <td>{{ student?.message }}</td>
+            </tr>
+          </table>
+        </tab>
       </tabset>
-      <div class="input-group import" *ngIf="importView">
+      <div class="loader" *ngIf="uploadInProgress"></div>
+      <div class="input-group import" *ngIf="fileField">
         <div class="custom-file">
           <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
@@ -73,7 +99,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()">Завантажити</button>
+      <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button">Завантажити</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button">Відмінити</button>
     </div>
