@@ -1,7 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {TuitionTerm} from '../../../models/tuition-term.enum';
-import {TuitionForm} from '../../../models/tuition-form.enum';
+import {translations} from '../translations.js'
 
 const SORTING_TO_THE_TOP = '1';
 const SORTING_TO_THE_BOTTOM = '2';
@@ -19,6 +18,7 @@ export class GroupTableComponent {
 
   sortingToTheTop: string;
   sortingToTheBottom: string;
+  translations = [];
 
   sortInfo = [
     {field: null, direction: null},
@@ -28,6 +28,7 @@ export class GroupTableComponent {
   constructor() {
     this.sortingToTheTop = SORTING_TO_THE_TOP;
     this.sortingToTheBottom = SORTING_TO_THE_BOTTOM;
+    this.translations = translations;
   }
 
   handleClickHeader(field): void {
@@ -119,11 +120,7 @@ export class GroupTableComponent {
         if (this.sortInfo[i].direction === SORTING_TO_THE_TOP) {
           if (firstValues[i] < secondValues[i]) { return -1; }
           if (firstValues[i] > secondValues[i]) { return 1; }
-        }
-      }
-
-      for (let i = 0; i < firstValues.length; i++) {
-        if (this.sortInfo[i].direction === SORTING_TO_THE_BOTTOM) {
+        } else if (this.sortInfo[i].direction === SORTING_TO_THE_BOTTOM) {
           if (firstValues[i] < secondValues[i]) { return 1; }
           if (firstValues[i] > secondValues[i]) { return -1; }
         }
