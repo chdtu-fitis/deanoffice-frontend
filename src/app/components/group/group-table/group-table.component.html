@@ -1,31 +1,97 @@
 <div class="table-wrapper">
   <loading *ngIf="loading"></loading>
-    <div class="table" *ngIf="!loading">
-      <div class="table-tr-fixed">
-        <label class="table-th checkbox"><input type="checkbox"></label>
-        <div class="table-th name">Назва</div>
-        <div class="table-th specialization">Спеціалізація</div>
-        <div class="table-th speciality">Спеціальність</div>
-        <div class="table-th degree">Ступінь</div>
-        <div class="table-th tuitionForm">Форма</div>
-        <div class="table-th tuitionTerm">Термін</div>
-        <div class="table-th creationYear">Створено</div>
-        <div class="table-th beginYears">Курс початку</div>
-        <div class="table-th studyYears">Років начання</div>
-        <div class="table-th studySemesters">Семестрів</div>
+  <div class="table" *ngIf="!loading">
+    <div class="table-tr-fixed">
+      <label class="table-th checkbox"><input type="checkbox"></label>
+      <div class="table-th name" (click)="handleClickHeader('name')">
+        Назва
+        <span *ngIf="isActiveDirectionOfSorting('name', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('name', sortingToTheBottom)">⭣</span>
       </div>
-      <label class="table-tr" *ngFor="let row of rows">
-        <div class="table-td checkbox"><input type="checkbox"></div>
-        <div class="table-td name">{{row.name}}</div>
-        <div class="table-td specialization">{{row.specialization.name}}</div>
-        <div class="table-td speciality">{{row.specialization.speciality.code}} {{row.specialization.speciality.name}}</div>
-        <div class="table-td degree">{{row.specialization.degree.name}}</div>
-        <div class="table-td tuitionForm">{{row.tuitionForm}}</div>
-        <div class="table-td tuitionTerm">{{row.tuitionTerm}}</div>
-        <div class="table-td creationYear">{{row.creationYear}}</div>
-        <div class="table-td beginYears">{{row.beginYears}}</div>
-        <div class="table-td studyYears">{{row.studyYears}}</div>
-        <div class="table-td studySemesters">{{row.studySemesters}}</div>
-      </label>
+      <div class="table-th specialization" (click)="handleClickHeader('specialization.name')">
+        Спеціалізація
+        <span *ngIf="isActiveDirectionOfSorting('specialization.name', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('specialization.name', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th speciality"
+           (click)="handleClickHeader('specialization.speciality.code specialization.speciality.name')">
+        Спеціальність
+        <span
+          *ngIf="isActiveDirectionOfSorting('specialization.speciality.code specialization.speciality.name', sortingToTheTop)">⭡</span>
+        <span
+          *ngIf="isActiveDirectionOfSorting('specialization.speciality.code specialization.speciality.name', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th degree" (click)="handleClickHeader('specialization.degree.name')">
+        Ступінь
+        <span *ngIf="isActiveDirectionOfSorting('specialization.degree.name', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('specialization.degree.name', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th tuitionForm" (click)="handleClickHeader('tuitionForm')">
+        Форма
+        <span *ngIf="isActiveDirectionOfSorting('tuitionForm', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('tuitionForm', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th tuitionTerm" (click)="handleClickHeader('tuitionTerm')">
+        Термін
+        <span *ngIf="isActiveDirectionOfSorting('tuitionTerm', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('tuitionTerm', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th creationYear" (click)="handleClickHeader('creationYear')">
+        Створено
+        <span *ngIf="isActiveDirectionOfSorting('creationYear', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('creationYear', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th beginYears" (click)="handleClickHeader('beginYears')">
+        Курс початку
+        <span *ngIf="isActiveDirectionOfSorting('beginYears', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('beginYears', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th studyYears" (click)="handleClickHeader('studyYears')">
+        Років навчання
+        <span *ngIf="isActiveDirectionOfSorting('studyYears', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('studyYears', sortingToTheBottom)">⭣</span>
+      </div>
+      <div class="table-th studySemesters" (click)="handleClickHeader('studySemesters')">
+        Семестрів
+        <span *ngIf="isActiveDirectionOfSorting('studySemesters', sortingToTheTop)">⭡</span>
+        <span *ngIf="isActiveDirectionOfSorting('studySemesters', sortingToTheBottom)">⭣</span>
+      </div>
     </div>
+    <label class="table-tr" *ngFor="let row of rows">
+      <div class="table-td checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="table-td name">
+        {{row.name}}
+      </div>
+      <div class="table-td specialization">
+        {{row.specialization.name}}
+      </div>
+      <div class="table-td speciality">
+        {{row.specialization.speciality.code}}
+        {{row.specialization.speciality.name}}
+      </div>
+      <div class="table-td degree">
+        {{row.specialization.degree.name}}
+      </div>
+      <div class="table-td tuitionForm">
+        {{row.tuitionForm}}
+      </div>
+      <div class="table-td tuitionTerm">
+        {{row.tuitionTerm}}
+      </div>
+      <div class="table-td creationYear">
+        {{row.creationYear}}
+      </div>
+      <div class="table-td beginYears">
+        {{row.beginYears}}
+      </div>
+      <div class="table-td studyYears">
+        {{row.studyYears}}
+      </div>
+      <div class="table-td studySemesters">
+        {{row.studySemesters}}
+      </div>
+    </label>
+  </div>
 </div>
