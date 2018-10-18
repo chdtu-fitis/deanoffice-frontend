@@ -13,24 +13,19 @@ const SORTING_TO_THE_BOTTOM = '2';
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
   @Input() searchText: string;
-
   @Input() loading: boolean;
 
-  sortingToTheTop: string;
-  sortingToTheBottom: string;
-  translations = [];
-
+  sortingToTheTop: string = SORTING_TO_THE_TOP;
+  sortingToTheBottom: string = SORTING_TO_THE_BOTTOM;
+  translations = translations;
   sortInfo = [
     {field: null, direction: null},
     {field: null, direction: null}
   ];
 
-  constructor() {
-    this.sortingToTheTop = SORTING_TO_THE_TOP;
-    this.sortingToTheBottom = SORTING_TO_THE_BOTTOM;
-    this.translations = translations;
-  }
-
+  /**
+   * handle click on th in the table
+   */
   handleClickHeader(field): void {
     this.checkSortInfo(field);
     if (this.sortInfo[0].field) {
@@ -38,19 +33,28 @@ export class GroupTableComponent {
     }
   }
 
+  /**
+   * change state of sortInfo property by the clicked field
+   */
   checkSortInfo(field) {
+    // if first element empty
     if (!this.sortInfo[0].field) {
+      // set 'field' as first element
       this.sortInfo[0].field = field;
       this.sortInfo[0].direction = SORTING_TO_THE_TOP;
       return;
     }
 
+    // if first element equals 'field'
     if (this.sortInfo[0].field === field) {
+      // if direction equals 'top' change direction
       if (this.sortInfo[0].direction === SORTING_TO_THE_TOP) {
         this.sortInfo[0].direction = SORTING_TO_THE_BOTTOM;
         return;
       }
+      // if direction equals 'bottom'
       if (this.sortInfo[0].direction === SORTING_TO_THE_BOTTOM) {
+        // if exist second element set it as first element
         if (this.sortInfo[1].field) {
           this.sortInfo[0].field = this.sortInfo[1].field;
           this.sortInfo[0].direction = this.sortInfo[1].direction;
@@ -58,36 +62,49 @@ export class GroupTableComponent {
           this.sortInfo[1].direction = null;
           return;
         }
+        // else delete first element
         this.sortInfo[0].field = null;
         this.sortInfo[0].direction = null;
         return;
       }
     }
 
+    // if second element empty
     if (!this.sortInfo[1].field) {
+      // set 'field' as second element
       this.sortInfo[1].field = field;
       this.sortInfo[1].direction = SORTING_TO_THE_TOP;
       return;
     }
 
+    // if second element equals 'field'
     if (this.sortInfo[1].field === field) {
+      // if direction equals 'top' change direction
       if (this.sortInfo[1].direction === SORTING_TO_THE_TOP) {
         this.sortInfo[1].direction = SORTING_TO_THE_BOTTOM;
         return;
       }
+      // if direction equals 'bottom'
       if (this.sortInfo[1].direction === SORTING_TO_THE_BOTTOM) {
+        // delete first element
         this.sortInfo[1].field = null;
         this.sortInfo[1].direction = null;
         return;
       }
     }
 
+    // if sortInfo full replace second element by field
     this.sortInfo[1].field = field;
     this.sortInfo[1].direction = SORTING_TO_THE_TOP;
   }
 
+  /**
+   * multiple sort the array by sortInfo
+   */
   multipleSort(rows): StudentGroup[] {
     const properties = [];
+
+    // parse sortInfo field to the array structure
     for (let j = 0; j < this.sortInfo.length; j++) {
       if (this.sortInfo[j]['field']) {
         properties[j] = this.sortInfo[j]['field'].split(' ');
@@ -97,10 +114,12 @@ export class GroupTableComponent {
       }
     }
 
+    // sort the array
     rows = rows.sort((first, second) => {
       const firstValues = [];
       const secondValues = [];
 
+      // get value by 'properties' info from elements
       for (let g = 0; g < properties.length; g++) {
         firstValues[g] = '';
         secondValues[g] = '';
@@ -116,6 +135,7 @@ export class GroupTableComponent {
         }
       }
 
+      // comparison of elements
       for (let i = 0; i < firstValues.length; i++) {
         if (this.sortInfo[i].direction === SORTING_TO_THE_TOP) {
           if (firstValues[i] < secondValues[i]) { return -1; }
@@ -130,6 +150,9 @@ export class GroupTableComponent {
     return rows;
   }
 
+  /**
+   * add arrows if sortInfo has value
+   */
   isActiveDirectionOfSorting(field, direction): boolean {
     for (let i = 0; i < this.sortInfo.length; i++) {
       if (this.sortInfo[i].field === field && this.sortInfo[i].direction === direction) {
