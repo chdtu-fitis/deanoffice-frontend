@@ -2,7 +2,7 @@
   <loading *ngIf="loading"></loading>
   <div class="table" *ngIf="!loading">
     <div class="table-tr-fixed">
-      <label class="table-th checkbox"><input type="checkbox"></label>
+      <div class="table-th checkbox"></div>
       <div *ngFor="let item of translations" class="table-th {{item.className}}"
            (click)="handleClickHeader(item.field)">
         {{item.title}}
