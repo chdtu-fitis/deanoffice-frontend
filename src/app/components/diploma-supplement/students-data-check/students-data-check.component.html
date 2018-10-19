@@ -1,24 +1,26 @@
 <div class="modal-header">
   <h4 class="modal-title">Перевірка додатків</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
   <div class="div-table">
     <table class="table table-striped table-sm fs-13">
-      <tr>
-        <th>№</th>
-        <th>ПІБ</th>
-        <th>Група</th>
-        <th>Відсутні дані</th>
-      </tr>
-      <tr *ngFor="let studData of studentsCheckData; let i = index">
-        <td>{{ i+1 }}</td>
-        <td>{{ studData.surname }}</td>
-        <td>{{ studData.groupName }}</td>
-        <td>{{ studData.message }}</td>
-      </tr>
-      <tr>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" (click)="closeWindow()">Ок</button>
-          </div>
+        <tr>
+          <th class="pl-3">№</th>
+          <th>ПІБ</th>
+          <th>Група</th>
+          <th class="pr-3">Відсутні дані</th>
+        </tr>
+        <tr *ngFor="let studData of studentsCheckData; let i = index">
+          <td class="pl-3">{{ i+1 }}</td>
+          <td>{{ studData.surname}} {{studData.name}} {{studData.patronimic}}</td>
+          <td>{{ studData.groupName }}</td>
+          <td class="pr-3">{{ studData.message }}</td>
         </tr>
       </table>
   </div>
-</div>
+
+<footer class="modal-footer">
+  <button type="button" class="btn btn-outline-success" style="margin-left: auto" (click)="closeWindow()">Ок</button>
+</footer>

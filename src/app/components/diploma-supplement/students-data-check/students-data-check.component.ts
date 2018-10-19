@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {DataForSupplementStudentCheck} from "../../../models/custom/DataForSupplementStudentCheck";
 
@@ -7,13 +7,10 @@ import {DataForSupplementStudentCheck} from "../../../models/custom/DataForSuppl
   templateUrl: './students-data-check.component.html',
   styleUrls: ['./students-data-check.component.scss']
 })
-export class StudentsDataCheckComponent implements OnInit {
+export class StudentsDataCheckComponent {
   studentsCheckData: DataForSupplementStudentCheck[];
 
   constructor(public activeModal: NgbActiveModal) { }
-
-  ngOnInit() {
-  }
 
   closeWindow() {
     this.activeModal.close('Close click')
