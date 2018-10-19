@@ -3,11 +3,17 @@
   <div class="div-table">
     <table class="table table-striped table-sm fs-13">
       <tr>
+        <th>№</th>
         <th>ПІБ</th>
         <th>Група</th>
         <th>Відсутні дані</th>
       </tr>
-
+      <tr *ngFor="let studData of studentsCheckData; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ studData.surname }}</td>
+        <td>{{ studData.groupName }}</td>
+        <td>{{ studData.message }}</td>
+      </tr>
       <tr>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-success" (click)="closeWindow()">Ок</button>
