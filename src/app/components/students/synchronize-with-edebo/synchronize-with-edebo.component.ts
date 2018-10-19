@@ -92,8 +92,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   saveChanges(): void {
     let newAndUpdatedStudentDegreesDTO = {};
-    newAndUpdatedStudentDegreesDTO['createNewStudents'] = this.сhooseSelectedStudentsFromOrangeList();
-    newAndUpdatedStudentDegreesDTO['updateSecondaryData'] = [];
+    newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
+    newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = [];
     this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
   }
 }
