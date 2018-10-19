@@ -6,7 +6,7 @@ import {Person} from '../models/basemodels/Person'
 })
 export class NameWithInitialsPipe implements PipeTransform {
   transform(person: Person): any {
-    if (!person) {
+    if (person == null || !Object.keys(person).length) {
       return '';
     }
     if (person.patronimic) {

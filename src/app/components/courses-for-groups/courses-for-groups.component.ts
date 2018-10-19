@@ -1,17 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+
+import {NotificationsService} from 'angular2-notifications';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+
 import {StudentGroup} from '../../models/StudentGroup';
-import {Course} from "../../models/Course";
-import {GroupService} from "../../services/group.service";
-import {CourseService} from "../../services/course.service";
-import {CourseForGroup} from "../../models/CourseForGroup";
-import {AddedCoursesComponent} from "./added-courses/added-courses.component";
-import {CourseForGroupService} from "../../services/course-for-group.service";
-import {Teacher} from "../../models/Teacher";
-import {NotificationsService} from "angular2-notifications";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {CopyCoursesDialogComponent} from "./copy-courses-dialog/copy-courses-dialog.component";
-import {StudiedCoursesComponent} from "./studied-courses/studied-courses.component";
-import {TeacherDialogComponent} from "./teacher-dialog/teacher-dialog.component";
+import {Course} from '../../models/Course';
+import {Teacher} from '../../models/Teacher';
+import {CourseForGroup} from '../../models/CourseForGroup';
+import {GroupService} from '../../services/group.service';
+import {CourseService} from '../../services/course.service';
+import {CourseForGroupService} from '../../services/course-for-group.service';
+import {AddedCoursesComponent} from './added-courses/added-courses.component';
+import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
+import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
+import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
 
 @Component({
   selector: 'courses-for-groups',
@@ -325,7 +327,9 @@ export class CoursesForGroupsComponent implements OnInit {
     this.cnangesExistence = true;
     const modalRef = this.modalService.open(CopyCoursesDialogComponent);
     modalRef.componentInstance.groups = this.groups;
-    modalRef.componentInstance.semester = this.selectedSemester;
+    modalRef.componentInstance.selectedSemesterTo = this.selectedSemester;
+    modalRef.componentInstance.selectedSemesterFrom = this.selectedSemester;
+    modalRef.componentInstance.selectedGroupToCopyId = this.selectedGroup.id;
     modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
     modalRef.componentInstance.addedCoursesForGroups = this.coursesForAdd;
     modalRef.componentInstance.copiedCourse.subscribe(($event) => {
