@@ -10,41 +10,52 @@
         <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheBottom)">⭣</span>
       </div>
     </div>
-    <label class="table-tr" *ngFor="let row of rows" [ngClass]="{'active' : row.selected}">
-      <div class="table-td checkbox">
-        <input type="checkbox" (change)="handleSelectedChange.emit({selected: $event.target.checked,group: row})">
+    <div class="table-tr" *ngFor="let row of rows" [ngClass]="{'active' : row.selected}">
+      <div class="table-td checkbox"
+           (click)="handleSelectedChange.emit({group: row})">
+        <input type="checkbox" [checked]="row.selected">
       </div>
-      <div class="table-td name">
+      <div class="table-td name"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.name}}
       </div>
-      <div class="table-td specialization">
+      <div class="table-td specialization"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.specialization.name}}
       </div>
-      <div class="table-td speciality">
+      <div class="table-td speciality"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.specialization.speciality.code}}
         {{row.specialization.speciality.name}}
       </div>
-      <div class="table-td degree">
+      <div class="table-td degree"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.specialization.degree.name}}
       </div>
-      <div class="table-td tuitionForm">
+      <div class="table-td tuitionForm"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.tuitionForm}}
       </div>
-      <div class="table-td tuitionTerm">
+      <div class="table-td tuitionTerm"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.tuitionTerm}}
       </div>
-      <div class="table-td creationYear">
+      <div class="table-td creationYear"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.creationYear}}
       </div>
-      <div class="table-td beginYears">
+      <div class="table-td beginYears"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.beginYears}}
       </div>
-      <div class="table-td studyYears">
+      <div class="table-td studyYears"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.studyYears}}
       </div>
-      <div class="table-td studySemesters">
+      <div class="table-td studySemesters"
+           (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{row.studySemesters}}
       </div>
-    </label>
+    </div>
   </div>
 </div>

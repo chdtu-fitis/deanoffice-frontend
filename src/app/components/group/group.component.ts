@@ -36,9 +36,15 @@ export class GroupComponent implements OnInit {
 
   /**
    * handle click on checkbox in the table
+   * params: $event.group [, $event.reset]
    */
   handleSelectedChange($event): void {
-    $event.group.selected = $event.selected;
+    if ($event.reset) {
+      for (let i = 0; i < this.groups.length; i++) {
+        this.groups[i].selected = false;
+      }
+    }
+    $event.group.selected = !$event.group.selected;
     this.selectedGroups = this.getSelectedGroups();
   }
 
