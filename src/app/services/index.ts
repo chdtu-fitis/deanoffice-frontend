@@ -33,8 +33,7 @@ export const SERVICES = [
   DepartmentService,
   PersonalFileGradesStatementService,
   AcademicCertificateService,
-  AuthenticationService,
-  NgbModal
+  AuthenticationService
 ];
 
 export const GUARDS = [
