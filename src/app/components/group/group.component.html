@@ -13,13 +13,14 @@
         </div>
         <group-table
           [rows]="groups"
-          [searchText]="searchText"
           [loading]="loadingGroups"
+          (handleSelectedChange)="handleSelectedChange($event)"
         ></group-table>
       </div>
 
       <div class="bg-light fixed-bottom p-3">
-        Всього: {{groups.length || '0'}}
+        <span class="mr-3">Всього: {{groups.length || '0'}}</span>
+        <span>Вибрано: {{selectedGroups.length || '0'}}</span>
       </div>
     </div>
   </div>

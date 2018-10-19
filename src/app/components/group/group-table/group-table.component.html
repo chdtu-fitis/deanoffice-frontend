@@ -10,9 +10,9 @@
         <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheBottom)">⭣</span>
       </div>
     </div>
-    <label class="table-tr" *ngFor="let row of rows">
+    <label class="table-tr" *ngFor="let row of rows" [ngClass]="{'active' : row.selected}">
       <div class="table-td checkbox">
-        <input type="checkbox">
+        <input type="checkbox" (change)="handleSelectedChange.emit({selected: $event.target.checked,group: row})">
       </div>
       <div class="table-td name">
         {{row.name}}

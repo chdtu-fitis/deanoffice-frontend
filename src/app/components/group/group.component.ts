@@ -12,6 +12,7 @@ import {TuitionForm} from '../../models/tuition-form.enum';
 export class GroupComponent implements OnInit {
 
   groups: StudentGroup[] = [];
+  selectedGroups: StudentGroup[] = [];
   actualGroups: boolean | true;
   searchText: string;
   loadingGroups = true;
@@ -31,6 +32,24 @@ export class GroupComponent implements OnInit {
         this.setTuitionForm();
         this.setTuitionTerm();
       });
+  }
+
+  /**
+   * handle click on checkbox in the table
+   */
+  handleSelectedChange($event): void {
+    $event.group.selected = $event.selected;
+    this.selectedGroups = this.getSelectedGroups();
+  }
+
+  getSelectedGroups() {
+    const selectedGroups = [];
+    for (let i = 0; i < this.groups.length; i++) {
+      if (this.groups[i].selected) {
+        selectedGroups.push(this.groups[i]);
+      }
+    }
+    return selectedGroups;
   }
 
   setTuitionForm() {

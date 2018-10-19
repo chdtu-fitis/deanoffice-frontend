@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {translations} from '../translations.js'
 
@@ -12,8 +12,8 @@ const SORTING_TO_THE_BOTTOM = '2';
 })
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
-  @Input() searchText: string;
   @Input() loading: boolean;
+  @Output() handleSelectedChange: EventEmitter<any> = new EventEmitter();
 
   sortingToTheTop: string = SORTING_TO_THE_TOP;
   sortingToTheBottom: string = SORTING_TO_THE_BOTTOM;
