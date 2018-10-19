@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppComponent} from './app.component';
@@ -32,7 +32,8 @@ import {GUARDS, SERVICES} from '../../services';
   providers: [
     ...SERVICES,
     ...GUARDS,
-    AuthenticationModule.tokenInterceptor()
+    AuthenticationModule.tokenInterceptor(),
+    Title
   ],
   bootstrap: [AppComponent]
 })

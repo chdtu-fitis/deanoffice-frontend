@@ -35,7 +35,7 @@ export class ExamReportComponent implements OnInit {
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
 
   ngOnInit() {
-    this.years = [1, 2, 3, 4, 5];
+    this.years = [1, 2, 3, 4, 5, 6];
     this.semesters = [1, 2];
     this.selectedYear = 1;
     this.setInitialSemester();

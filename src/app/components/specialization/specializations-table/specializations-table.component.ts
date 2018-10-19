@@ -44,7 +44,7 @@ export class SpecializationsTableComponent implements OnInit {
         canAutoResize: false,
         draggable: false,
         resizable: false,
-        headerCheckboxable: true,
+        headerCheckboxable: false,
         checkboxable: true,
         width: 30
       }

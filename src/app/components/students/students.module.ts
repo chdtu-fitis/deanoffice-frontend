@@ -27,8 +27,8 @@ import {RouterModule, Routes} from '@angular/router';
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
-  {path: 'expelled', component: ExpelledStudentsComponent},
-  {path: 'in-vacation', component: StudentsInVacationComponent}
+  {path: 'expelled', component: ExpelledStudentsComponent, data: { title: 'Відраховані студенти' }},
+  {path: 'in-vacation', component: StudentsInVacationComponent, data: { title: 'Студенти в академ. відпустці' }}
 ];
 
 @NgModule({

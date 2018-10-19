@@ -1,73 +1,100 @@
+
 .statement-wrapper {
-  padding: 5px 20px;
-}
-h2,
-h3 {
-  text-transform: uppercase;
-  color: #222;
-}
-table {
-  margin: 0;
-}
-table td {
-  border: 2px solid #dee2e6;
-  padding: 3px 4px;
-  text-align: left;
-}
-table thead td {
-  border: 2px solid #dee2e6;
-  padding: 3px 4px;
-  font-weight: bold;
-  text-align: center;
-}
-.wrapp {
-  float: left;
-  width: 76%;
-  height: 60%;
-  overflow: hidden;
-}
-.wrapp-2 {
-  float: left;
-  width: 24%;
-  overflow: hidden;
-}
-.table-wrapper-2 {
-  max-width: 98%;
-  float: left;
-  height: 490px;
-  overflow-y: auto;
-  margin: 5px 0;
-}
-.select-container {
-  width: 100%;
-  overflow: hidden;
-}
-.select-wraper {
-  float: left;
-  width: 150px;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-.select-wraper select {
-  width: 120px;
-}
-.check-input {
-  width: 30px;
-  float: left;
-  overflow: hidden;
-  margin-bottom: 5px;
-}
-.checkbox-wraper {
-  margin: 10px 0;
-}
-label {
-  cursor: pointer;
-  display: block;
-}
-.rating-btn {
-  width: 505px;
-}
-h5 {
-  margin-bottom: 0px;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 100%;
 }
 
+.students-groups {
+  flex-grow: 1;
+  padding: 1.5rem 1rem 1rem 1rem;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.table-students {
+  margin: 0;
+}
+
+.table-students td {
+  padding: 5px 10px;
+  border: 1px solid #dee2e6;
+}
+
+.table-students thead td {
+  border-bottom-width: 2px;
+}
+
+.table-students .col-number {
+  width: 30px;
+  text-align: center;
+}
+
+.table-students .col-checkbox {
+  width: 34px;
+}
+
+.table-students .col-recordBookNumber {
+  width: 250px;
+}
+
+.form-groups {
+  width: 600px;
+  max-height: 100%;
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group.checkboxes {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.form-group.checkboxes input[type="checkbox"] {
+  display: inline-block;
+  height: 12px;
+}
+
+.form-group .btn-build {
+  width: 75%;
+}
+
+@media all and (max-width: 1000px) {
+  .statement-wrapper {
+    display: block;
+    height: auto;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .form-groups {
+    width: 100%;
+    max-height: none;
+  }
+
+  .students-groups {
+    max-height: none;
+  }
+
+  .table-students .col-recordBookNumber {
+    width: 120px;
+  }
+
+  .form-group .btn-build {
+    width: 100%;
+  }
+}
+
+@media all and (min-width: 1000px) and (max-width: 1100px) {
+  .table-students .col-recordBookNumber {
+    width: 160px;
+  }
+}
