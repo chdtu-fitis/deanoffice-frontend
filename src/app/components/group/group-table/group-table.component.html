@@ -15,46 +15,11 @@
            (click)="handleSelectedChange.emit({group: row})">
         <input type="checkbox" [checked]="row.selected">
       </div>
-      <div class="table-td name"
+      <div *ngFor="let item of translations" class="table-td {{item.className}}"
            (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.name}}
-      </div>
-      <div class="table-td specialization"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.specialization.name}}
-      </div>
-      <div class="table-td speciality"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.specialization.speciality.code}}
-        {{row.specialization.speciality.name}}
-      </div>
-      <div class="table-td degree"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.specialization.degree.name}}
-      </div>
-      <div class="table-td tuitionForm"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.tuitionForm}}
-      </div>
-      <div class="table-td tuitionTerm"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.tuitionTerm}}
-      </div>
-      <div class="table-td creationYear"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.creationYear}}
-      </div>
-      <div class="table-td beginYears"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.beginYears}}
-      </div>
-      <div class="table-td studyYears"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.studyYears}}
-      </div>
-      <div class="table-td studySemesters"
-           (click)="handleSelectedChange.emit({group: row, reset: true})">
-        {{row.studySemesters}}
+        <span *ngFor="let path of item.field">
+          {{getValueForRow(row, path)}}
+        </span>
       </div>
     </div>
     <div class="table-massage" *ngIf="rows.length === 0">

@@ -88,10 +88,7 @@ export class GroupTableComponent {
     // parse sortInfo field to the array structure
     for (let j = 0; j < this.sortInfo.length; j++) {
       if (this.sortInfo[j]['field']) {
-        properties[j] = this.sortInfo[j]['field'].split(' ');
-        for (let i = 0; i < properties[j].length; i++) {
-          properties[j][i] = properties[j][i].split('.');
-        }
+        properties[j] = this.sortInfo[j]['field'];
       }
     }
 
@@ -141,6 +138,14 @@ export class GroupTableComponent {
       }
     }
     return false;
+  }
+
+  getValueForRow(row, path) {
+    let result = row;
+    for (let i = 0; i < path.length; i++) {
+      result = result[path[i]];
+    }
+    return result;
   }
 
 }
