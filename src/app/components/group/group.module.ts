@@ -6,6 +6,8 @@ import {SharedModule} from '../shared/shared.module';
 import {GroupComponent} from './group.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {RouterModule, Routes} from '@angular/router';
+import {AddGroupComponent} from './add-group/add-group.component';
+import {GroupModalComponent} from './group-modal/group-modal.component';
 
 export const groupRoutes: Routes = [
   {path: '', component: GroupComponent}
@@ -21,6 +23,8 @@ export const groupRoutes: Routes = [
     RouterModule.forChild(groupRoutes)
   ],
   declarations: [
+    GroupModalComponent,
+    AddGroupComponent,
     GroupTableComponent,
     GroupComponent
   ]

@@ -26,8 +26,8 @@
               Редагувати
             </button>
 
-            <button type="button" class="btn btn-success align-middle mr-1" >
-                    <!--(click)="addGroup.openModal()">-->
+            <button type="button" class="btn btn-success align-middle mr-1"
+                    (click)="addGroup.openModal()">
               Нова група
             </button>
           </div>
@@ -47,3 +47,5 @@
     </div>
   </div>
 </div>
+
+<add-group #addGroup (onSubmit)="updateDatatable()"></add-group>
