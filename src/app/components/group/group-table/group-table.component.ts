@@ -5,6 +5,8 @@ import {translations} from '../translations.js'
 const SORTING_TO_THE_TOP = '1';
 const SORTING_TO_THE_BOTTOM = '2';
 
+const MAXIMUM_NUMBER_OF_COLUMNS_FOR_SORTING = 3;
+
 @Component({
   selector: 'group-table',
   templateUrl: './group-table.component.html',
@@ -20,6 +22,7 @@ export class GroupTableComponent {
   translations = translations;
   sortInfo = [
     {field: null, direction: null},
+    {field: null, direction: null},
     {field: null, direction: null}
   ];
 
@@ -34,66 +37,34 @@ export class GroupTableComponent {
   /**
    * change state of sortInfo property by the clicked field
    */
-  updateSortInfo(field) {
-    // if first element empty
-    if (!this.sortInfo[0].field) {
-      // set 'field' as first element
-      this.sortInfo[0].field = field;
-      this.sortInfo[0].direction = SORTING_TO_THE_TOP;
-      return;
-    }
-
-    // if first element equals 'field'
-    if (this.sortInfo[0].field === field) {
-      // if direction equals 'top' change direction
-      if (this.sortInfo[0].direction === SORTING_TO_THE_TOP) {
-        this.sortInfo[0].direction = SORTING_TO_THE_BOTTOM;
+  updateSortInfo(field): void {
+    for (let i = 0; i < MAXIMUM_NUMBER_OF_COLUMNS_FOR_SORTING; i++) {
+      // if 'i' element empty
+      if (!this.sortInfo[i].field) {
+        // set 'field' as 'i' element
+        this.sortInfo[i].field = field;
+        this.sortInfo[i].direction = SORTING_TO_THE_TOP;
         return;
       }
-      // if direction equals 'bottom'
-      if (this.sortInfo[0].direction === SORTING_TO_THE_BOTTOM) {
-        // if exist second element set it as first element
-        if (this.sortInfo[1].field) {
-          this.sortInfo[0].field = this.sortInfo[1].field;
-          this.sortInfo[0].direction = this.sortInfo[1].direction;
-          this.sortInfo[1].field = null;
-          this.sortInfo[1].direction = null;
+      // if 'i' element equals 'field'
+      if (this.sortInfo[i].field === field) {
+        // if direction equals 'top' change direction
+        if (this.sortInfo[i].direction === SORTING_TO_THE_TOP) {
+          this.sortInfo[i].direction = SORTING_TO_THE_BOTTOM;
           return;
         }
-        // else delete first element
-        this.sortInfo[0].field = null;
-        this.sortInfo[0].direction = null;
-        return;
+        // if direction equals 'bottom'
+        if (this.sortInfo[i].direction === SORTING_TO_THE_BOTTOM) {
+          // delete 'i'
+          this.sortInfo.splice(i, 1);
+          this.sortInfo.push({field: null, direction: null});
+          return;
+        }
       }
     }
-
-    // if second element empty
-    if (!this.sortInfo[1].field) {
-      // set 'field' as second element
-      this.sortInfo[1].field = field;
-      this.sortInfo[1].direction = SORTING_TO_THE_TOP;
-      return;
-    }
-
-    // if second element equals 'field'
-    if (this.sortInfo[1].field === field) {
-      // if direction equals 'top' change direction
-      if (this.sortInfo[1].direction === SORTING_TO_THE_TOP) {
-        this.sortInfo[1].direction = SORTING_TO_THE_BOTTOM;
-        return;
-      }
-      // if direction equals 'bottom'
-      if (this.sortInfo[1].direction === SORTING_TO_THE_BOTTOM) {
-        // delete first element
-        this.sortInfo[1].field = null;
-        this.sortInfo[1].direction = null;
-        return;
-      }
-    }
-
-    // if sortInfo full replace second element by field
-    this.sortInfo[1].field = field;
-    this.sortInfo[1].direction = SORTING_TO_THE_TOP;
+    // if all full and another element selected set as last element
+    this.sortInfo[MAXIMUM_NUMBER_OF_COLUMNS_FOR_SORTING - 1].field = field;
+    this.sortInfo[MAXIMUM_NUMBER_OF_COLUMNS_FOR_SORTING - 1].direction = SORTING_TO_THE_TOP;
   }
 
   /**
