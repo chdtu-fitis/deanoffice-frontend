@@ -69,17 +69,13 @@ export class GroupComponent implements OnInit {
   }
 
   updateSelectedGroups(): void {
-    this.selectedGroups = this.getSelectedGroups();
-  }
-
-  getSelectedGroups() {
     const selectedGroups = [];
     for (let i = 0; i < this.groups.length; i++) {
       if (this.groups[i].selected) {
         selectedGroups.push(this.groups[i]);
       }
     }
-    return selectedGroups;
+    this.selectedGroups = selectedGroups;
   }
 
   deselectGroups() {
