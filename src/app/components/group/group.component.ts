@@ -61,7 +61,9 @@ export class GroupComponent implements OnInit {
   handleSelectedChange($event): void {
     if ($event.reset) {
       for (let i = 0; i < this.groups.length; i++) {
-        this.groups[i].selected = false;
+        if (this.groups[i] !== $event.group) {
+          this.groups[i].selected = false;
+        }
       }
     }
     $event.group.selected = !$event.group.selected;
