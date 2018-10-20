@@ -27,16 +27,14 @@ export class GroupTableComponent {
    * handle click on th in the table
    */
   handleClickHeader(field): void {
-    this.checkSortInfo(field);
-    if (this.sortInfo[0].field) {
-      this.rows = this.multipleSort(this.rows);
-    }
+    this.updateSortInfo(field);
+    this.updateTable();
   }
 
   /**
    * change state of sortInfo property by the clicked field
    */
-  checkSortInfo(field) {
+  updateSortInfo(field) {
     // if first element empty
     if (!this.sortInfo[0].field) {
       // set 'field' as first element
@@ -99,9 +97,21 @@ export class GroupTableComponent {
   }
 
   /**
+   * update group table
+   */
+  updateTable(rows = this.rows): void {
+    this.rows = this.multipleSort(rows);
+  }
+
+  /**
    * multiple sort the array by sortInfo
    */
   multipleSort(rows): StudentGroup[] {
+
+    if (!this.sortInfo[0].field) {
+      return rows;
+    }
+
     const properties = [];
 
     // parse sortInfo field to the array structure

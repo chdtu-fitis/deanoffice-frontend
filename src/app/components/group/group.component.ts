@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
 import {TuitionTerm} from '../../models/tuition-term.enum';
@@ -11,27 +11,47 @@ import {TuitionForm} from '../../models/tuition-form.enum';
 })
 export class GroupComponent implements OnInit {
 
+  @ViewChild('table') table;
+
+  loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
-  actualGroups: boolean | true;
+  actualGroups = true;
   searchText: string;
   loadingGroups = true;
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    this.getGroups();
+    this.loadGroups();
   }
 
-  getGroups(onlyActual: boolean = true): void {
+  loadGroups(): void {
+    const onlyActual = false;
     this.loadingGroups = true;
     this.groupService.getGroups(onlyActual)
-      .subscribe((groups: StudentGroup[]) => {
-        this.groups = groups;
-        this.actualGroups = onlyActual;
+      .subscribe((loadedGroups: StudentGroup[]) => {
+        this.loadedGroups = loadedGroups;
         this.loadingGroups = false;
         this.setTuitionForm();
         this.setTuitionTerm();
+        this.updateGroups()
       });
+  }
+
+  updateGroups(): void {
+    this.groups = this.loadedGroups.filter((item) => {
+      if (this.actualGroups && !item.active) {
+        return false;
+      }
+      if (this.searchText) {
+        if (!item.name.includes(this.searchText)) {
+          return false;
+        }
+      }
+      return true;
+    });
+    this.deselectGroups();
+    this.table.updateTable(this.groups);
   }
 
   /**
@@ -45,6 +65,10 @@ export class GroupComponent implements OnInit {
       }
     }
     $event.group.selected = !$event.group.selected;
+    this.updateSelectedGroups();
+  }
+
+  updateSelectedGroups(): void {
     this.selectedGroups = this.getSelectedGroups();
   }
 
@@ -56,6 +80,20 @@ export class GroupComponent implements OnInit {
       }
     }
     return selectedGroups;
+  }
+
+  deselectGroups() {
+    for (let i = 0; i < this.groups.length; i++) {
+      this.deselectGroup(this.groups[i]);
+    }
+  }
+
+  deselectGroup(group) {
+    group.selected = false;
+    const index = this.selectedGroups.indexOf(group);
+    if (index > -1) {
+      this.selectedGroups.splice(index, 1);
+    }
   }
 
   setTuitionForm() {
