@@ -17,9 +17,7 @@
       </div>
       <div *ngFor="let item of translations" class="table-td" [ngStyle]="item.style"
            (click)="handleSelectedChange.emit({group: row, reset: true})">
-        <span *ngFor="let path of item.field">
-          {{getValueForRow(row, path)}}
-        </span>
+        {{getValue(row, item.field)}}
       </div>
     </div>
     <div class="table-massage" *ngIf="rows.length === 0">

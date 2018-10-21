@@ -83,44 +83,35 @@ export class GroupTableComponent {
       return rows;
     }
 
-    const properties = [];
-
-    // parse sortInfo field to the array structure
-    for (let j = 0; j < this.sortInfo.length; j++) {
-      if (this.sortInfo[j]['field']) {
-        properties[j] = this.sortInfo[j]['field'];
-      }
-    }
-
     // sort the array
     rows = rows.sort((first, second) => {
       const firstValues = [];
       const secondValues = [];
 
-      // get value by 'properties' info from elements
-      for (let g = 0; g < properties.length; g++) {
-        firstValues[g] = '';
-        secondValues[g] = '';
-        for (let j = 0; j < properties[g].length; j++) {
-          let firstDump = first;
-          let secondDump = second;
-          for (let i = 0; i < properties[g][j].length; i++) {
-            firstDump = firstDump[properties[g][j][i]];
-            secondDump = secondDump[properties[g][j][i]];
-          }
-          firstValues[g] += ' ' + firstDump;
-          secondValues[g] += ' ' + secondDump;
+      // get value from elements
+      for (let i = 0; i < this.sortInfo.length; i++) {
+        if (this.sortInfo[i]['field']) {
+          firstValues.push(this.getValue(first, this.sortInfo[i]['field']));
+          secondValues.push(this.getValue(second, this.sortInfo[i]['field']));
         }
       }
 
       // comparison of elements
       for (let i = 0; i < firstValues.length; i++) {
         if (this.sortInfo[i].direction === SORTING_TO_THE_TOP) {
-          if (firstValues[i] < secondValues[i]) { return -1; }
-          if (firstValues[i] > secondValues[i]) { return 1; }
+          if (firstValues[i] < secondValues[i]) {
+            return -1;
+          }
+          if (firstValues[i] > secondValues[i]) {
+            return 1;
+          }
         } else if (this.sortInfo[i].direction === SORTING_TO_THE_BOTTOM) {
-          if (firstValues[i] < secondValues[i]) { return 1; }
-          if (firstValues[i] > secondValues[i]) { return -1; }
+          if (firstValues[i] < secondValues[i]) {
+            return 1;
+          }
+          if (firstValues[i] > secondValues[i]) {
+            return -1;
+          }
         }
       }
     });
@@ -140,11 +131,39 @@ export class GroupTableComponent {
     return false;
   }
 
-  getValueForRow(row, path) {
-    let result = row;
-    for (let i = 0; i < path.length; i++) {
-      result = result[path[i]];
+  getValue(row, field) {
+
+    let result = field;
+
+    // function for get array of substrings from string
+    const getFromBetween = function (string, sub1, sub2) {
+      const results = [];
+      const array = string.split(sub1);
+      for (let i = 1; i < array.length; i++) {
+        results.push(array[i].split(sub2)[0]);
+      }
+      return results;
+    };
+
+    // function for get property from item by array of key
+    const getProperty = function (item, key, depth) {
+      if (!key[depth]) {
+        return item;
+      }
+      return getProperty(item[key[depth]], key, depth + 1)
+    };
+
+    // get array of substrings from string
+    const keys = getFromBetween(result, '{{', '}}');
+
+    // replace all substrings by value of property
+    for (let i = 0; i < keys.length; i++) {
+      result = result.replace(
+        `{{${keys[i]}}}`,
+        getProperty(row, keys[i].split('.'), 1)
+      );
     }
+
     return result;
   }
 

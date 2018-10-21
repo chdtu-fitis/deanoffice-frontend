@@ -1,51 +1,51 @@
 export const translations = [
   {
-    field: [['name']],
+    field: '{{row.name}}',
     title: 'Назва',
     style: {flex: '0 0 100px'}
   },
   {
-    field: [['specialization', 'name']],
+    field: '{{row.specialization.name}}',
     title: 'Спеціалізація',
     style: {flex: '1 0 200px'}
   },
   {
-    field: [['specialization', 'speciality', 'code'], ['specialization', 'speciality', 'name']],
+    field: '{{row.specialization.speciality.code}} {{row.specialization.speciality.name}}',
     title: 'Спеціальність',
     style: {flex: '1 0 220px'}
   },
   {
-    field: [['specialization', 'degree', 'name']],
+    field: '{{row.specialization.degree.name}}',
     title: 'Ступінь',
     style: {flex: '0 0 100px'}
   },
   {
-    field: [['tuitionForm']],
+    field: '{{row.tuitionForm}}',
     title: 'Форма',
     style: {flex: '0 0 115px'}
   },
   {
-    field: [['tuitionTerm']],
+    field: '{{row.tuitionTerm}}',
     title: 'Термін',
     style: {flex: '0 0 100px'}
   },
   {
-    field: [['creationYear']],
+    field: '{{row.creationYear}}',
     title: 'Створено',
     style: {flex: '0 0 105px'}
   },
   {
-    field: [['beginYears']],
+    field: '{{row.beginYears}}',
     title: 'Курс початку',
     style: {flex: '0 0 95px'}
   },
   {
-    field: [['studyYears']],
+    field: '{{row.studyYears}}',
     title: 'Років навчання',
     style: {flex: '0 0 106px'}
   },
   {
-    field: [['studySemesters']],
+    field: '{{row.studySemesters}}',
     title: 'Семестрів',
     style: {flex: '0 0 110px'}
   },
