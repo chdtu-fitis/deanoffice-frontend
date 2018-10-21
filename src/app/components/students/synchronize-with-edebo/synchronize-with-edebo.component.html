@@ -24,8 +24,8 @@
             </thead>
             <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index">
               <td>{{ i+1 }}</td>
+              <td>{{ student.student?.surname}}</td>
               <td>{{ student.student?.name }}</td>
-              <td>{{ student.student?.surname }}</td>
               <td>{{ student.student?.patronimic }}</td>
               <td>{{ convertDate(student.student?.birthDate) }}</td>
               <td>{{ student.specialization?.degree?.name }}</td>
@@ -39,8 +39,7 @@
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
-            <td><input type="checkbox" [(ngModel)]="studentsSelected" (click)="onSelectAllStudents($event.target.checked)"
-                       checked></td>
+            <td><input type="checkbox" [(ngModel)]="studentsSelected" (click)="onSelectAllStudents($event.target.checked)"></td>
             <td>Прізвище</td>
             <td>Ім'я</td>
             <td>По-батькові</td>
@@ -52,12 +51,12 @@
             <tr *ngFor="let student of noSuchStudentOrSuchStudentDegreeInDbOrange; let i = index">
               <td>{{ i+1 }}</td>
               <td><input type="checkbox" [(ngModel)]="student.selected"></td>
-              <td>{{ student.student?.name }}</td>
               <td>{{ student.student?.surname }}</td>
+              <td>{{ student.student?.name  }}</td>
               <td>{{ student.student?.patronimic }}</td>
               <td>{{ convertDate(student.student?.birthDate) }}</td>
               <td>{{ student.specialization?.degree?.name }}</td>
-              <td>{{ student.specialization?.speciality?.name }}</td>
+              <td>{{ student.specialization?.speciality?.code + " " + student.specialization?.speciality?.name }}</td>
               <td>{{ student.specialization?.name }}</td>
             </tr>
           </table>
@@ -77,8 +76,8 @@
             </thead>
             <tr *ngFor="let student of missingPrimaryDataRed; let i = index">
               <td>{{ i+1 }}</td>
-              <td>{{ student.studentDegreePrimaryData?.firstName }}</td>
-              <td>{{ student.studentDegreePrimaryData?.lastName }}</td>
+              <td>{{  student.studentDegreePrimaryData?.lastName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.firstName}}</td>
               <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
               <td>{{ convertDate(student.studentDegreePrimaryData?.birthday) }}</td>
               <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
@@ -99,6 +98,7 @@
       </div>
     </div>
     <div class="modal-footer">
+      <span class="number-of-students" *ngIf="!(importView)"> Всього: {{'0'}} </span>
       <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="modal.hide()">Відмінити</button>

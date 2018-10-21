@@ -51,6 +51,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onShow(): void {
+    this.studentsSelected = false;
     this.fileName = 'Виберіть файл';
     this.importView = true;
     this.fileField = true;
