@@ -23,6 +23,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
   studentsSelected: boolean;
+  studentsInTable: number;
 
   ngOnInit() {
   }
@@ -51,6 +52,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onShow(): void {
+    this.studentsInTable = 0;
     this.studentsSelected = false;
     this.fileName = 'Виберіть файл';
     this.importView = true;
@@ -85,11 +87,26 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     let chosenStudents = [];
     for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
         if (student.selected) {
+          delete student.selected;
           chosenStudents.push(student);
         }
     }
     return chosenStudents;
   }
+
+  setNumberOfStudents(tableType): void {
+    switch (tableType) {
+      case 'green':
+        this.studentsInTable = Object.keys(this.synchronizedStudentDegreesGreen).length;
+        break;
+      case 'orange':
+        this.studentsInTable = Object.keys(this.noSuchStudentOrSuchStudentDegreeInDbOrange).length;
+         break;
+      case 'red':
+        this.studentsInTable = Object.keys(this.missingPrimaryDataRed).length;
+        break;
+    }
+  };
 
   saveChanges(): void {
     let newAndUpdatedStudentDegreesDTO = {};

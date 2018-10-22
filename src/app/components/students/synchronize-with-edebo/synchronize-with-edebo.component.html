@@ -10,7 +10,7 @@
     </div>
     <div class="modal-body">
       <tabset #tabset *ngIf="!(importView)">
-        <tab heading="Повне співпадіння" class="tab-body">
+        <tab heading="Повне співпадіння" class="tab-body" (select)="setNumberOfStudents('green')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -22,7 +22,7 @@
             <td>Спеціальність</td>
             <td>Освітня програма</td>
             </thead>
-            <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index">
+            <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
               <td>{{ i+1 }}</td>
               <td>{{ student.student?.surname}}</td>
               <td>{{ student.student?.name }}</td>
@@ -35,7 +35,7 @@
           </table>
         </tab>
         <tab heading="Часткове співпадінння" class="tab-body"></tab>
-        <tab heading="Немає в базі" class="tab-body">
+        <tab heading="Немає в базі" class="tab-body" (select)="setNumberOfStudents('orange')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -61,8 +61,8 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Некоректна інформація" class="tab-body">
-          <table class="table table-sm table-striped table-bordered mt-4">
+        <tab heading="Некоректна інформація" class="tab-body" (select)="setNumberOfStudents('red')">
+          <table class="table table-sm table-striped table-bordered mt-4" >
             <thead>
             <td>№</td>
             <td>Прізвище</td>
@@ -98,7 +98,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <span class="number-of-students" *ngIf="!(importView)"> Всього: {{'0'}} </span>
+      <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
       <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="modal.hide()">Відмінити</button>
