@@ -1,6 +1,5 @@
-import {NameWithEngAndActiveEntity} from '../basemodels/NameWithEngAndActiveEntity';
 
-export class SpecialityBasics extends NameWithEngAndActiveEntity {
+export class SpecialityBasics{
   id: number;
   name: string;
   code: string;

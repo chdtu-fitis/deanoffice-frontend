@@ -1,12 +1,11 @@
-import {NameWithEngAndActiveEntity} from '../basemodels/NameWithEngAndActiveEntity';
-import {Faculty} from './Faculty';
-import {Degree} from './Degree';
-import {SpecialityBasics} from './SpecialityBasics';
 
-export class Specialization extends NameWithEngAndActiveEntity {
+import {SpecialityBasics} from './SpecialityBasics';
+import {Named} from './Named';
+
+export class Specialization{
   id: number;
   name: string;
-  faculty: Faculty;
-  degree: Degree;
+  faculty: Named;
+  degree: Named;
   speciality: SpecialityBasics;
 }

@@ -13,7 +13,7 @@ export class StudentDegreeFullEdeboData {
   supplementNumber?: string;
   admissionDate?: Date;
   admissionOrderNumber?: string;
-  admissionOrderDate?: string;
+  admissionOrderDate?: Date;
   payment?: string;
   selected?: boolean;
 }
