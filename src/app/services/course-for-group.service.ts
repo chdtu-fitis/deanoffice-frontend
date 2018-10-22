@@ -20,8 +20,8 @@ export class CourseForGroupService {
     return this.http.post(`${this.url}/groups/${groupId}/courses`, body);
   }
 
-  createCoursesForGroupNewSem(semester, course_for_group_ids, group_id) {
-    const data = {semester, course_for_group_ids, group_id};
+  createCoursesForGroupNewSem(semester, courseForGroupIds) {
+    const data = {semester, courseForGroupIds};
     return this.http.get<CourseForGroup[]>(`${this.url}/courses/other-semester`, {params: data});
   }
 

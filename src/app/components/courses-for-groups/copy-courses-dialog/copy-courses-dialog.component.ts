@@ -89,8 +89,7 @@ export class CopyCoursesDialogComponent implements OnInit {
   copyCourses() {
     this.courseForGroupService.createCoursesForGroupNewSem(
       this.selectedSemesterTo,
-      this.coursesForGroupForCopyIds,
-      this.selectedGroupToCopyId
+      this.coursesForGroupForCopyIds
     ).subscribe(courses => {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
