@@ -4,6 +4,7 @@ import {IAppModal} from '../../shared/modal.interface';
 import {EdeboService} from '../../../services/edebo.service';
 import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
 import {MissingPrimaryDataRedDTO} from '../../../models/synchronization-edebo-models/MissingPrimaryDataRedDTO';
+import {StudentDegreePrimaryEdeboDataDTO} from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -19,7 +20,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   importView = true;
   modalName = 'Імпортувати файл';
   modalSize = '';
-  synchronizedStudentDegreesGreen: StudentDegreeFullEdeboData[];
+  synchronizedStudentDegreesGreen: StudentDegreePrimaryEdeboDataDTO[];
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
   studentsSelected: boolean;
@@ -63,6 +64,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   changeModal(): void {
+    this.studentsInTable = Object.keys(this.synchronizedStudentDegreesGreen).length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;

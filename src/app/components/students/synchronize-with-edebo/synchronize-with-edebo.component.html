@@ -24,13 +24,13 @@
             </thead>
             <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
               <td>{{ i+1 }}</td>
-              <td>{{ student.student?.surname}}</td>
-              <td>{{ student.student?.name }}</td>
-              <td>{{ student.student?.patronimic }}</td>
-              <td>{{ convertDate(student.student?.birthDate) }}</td>
-              <td>{{ student.specialization?.degree?.name }}</td>
-              <td>{{ student.specialization?.speciality?.name }}</td>
-              <td>{{ student.specialization?.name }}</td>
+              <td>{{ student?.lastName}}</td>
+              <td>{{ student?.firstName }}</td>
+              <td>{{ student?.middleName }}</td>
+              <td>{{ student?.birthday }}</td>
+              <td>{{ student?.degreeName }}</td>
+              <td>{{ student?.fullSpecialityName }}</td>
+              <td>{{ student?.fullSpecializationName }}</td>
             </tr>
           </table>
         </tab>
