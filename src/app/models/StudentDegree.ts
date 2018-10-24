@@ -26,7 +26,8 @@ export class StudentDegree extends BaseEntity {
   previousDiplomaType?: DiplomaType;
   previousDiplomaNumber?: string;
   previousDiplomaDate?: Date;
-  previousDiplomaIssuedBy?: Date;
+  previousDiplomaIssuedBy?: string;
+  previousDiplomaIssuedByEng?: string;
   payment?: string;
   active?: boolean;
   selected?: boolean;

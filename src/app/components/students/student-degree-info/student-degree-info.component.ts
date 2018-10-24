@@ -63,6 +63,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           previousDiplomaNumber: this.getFormField(degree, 'previousDiplomaNumber'),
           previousDiplomaDate: this.getFormField(degree, 'previousDiplomaDate'),
           previousDiplomaIssuedBy: this.getFormField(degree, 'previousDiplomaIssuedBy'),
+          previousDiplomaIssuedByEng: this.getFormField(degree, 'previousDiplomaIssuedByEng'),
           admissionOrderDate: this.getFormField(degree, 'admissionOrderDate'),
           admissionOrderNumber: this.getFormField(degree, 'admissionOrderNumber'),
           contractDate: this.getFormField(degree, 'contractDate'),
