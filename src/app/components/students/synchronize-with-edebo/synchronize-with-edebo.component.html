@@ -56,17 +56,42 @@
             <td>Попередній тип диплому</td>
             </thead>
             <tr *ngFor="  let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
-              <td>{{ i+1 }}</td>
-              <td><input type="checkbox" [(ngModel)]="student.studentDegreeFromDb.selected"></td>
-              <td>{{ student.studentDegreeFromDb?.student?.surname }}</td>
-              <td>{{ student.studentDegreeFromDb?.student?.name  }}</td>
-              <td>{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
-              <td>{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
-              <td>{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
-              <td>{{ student.studentDegreeFromDb?.specialization?.speciality?.code
+              <td rowspan="2">{{ i+1 }}</td>
+              <td rowspan="2"><input type="checkbox" [(ngModel)]="student.studentDegreeFromDb.selected"></td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
+              <td rowspan="2">{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                     + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
               <td>{{ student.studentDegreeFromDb?.specialization?.name }}</td>
-              <td></td>
+              <td>{{student.studentDegreeFromDb?.admissionDate}}</td>
+              <td>{{convertDate(student.studentDegreeFromData?.admissionDate)}}</td>
+              <td>{{student.studentDegreeFromDb?.admissionOrderNumber}}</td>
+              <td>{{student.studentDegreeFromDb?.payment}}</td>
+              <td>{{convertDate(student.studentDegreeFromDb?.previousDiplomaDate)}}</td>
+              <td>{{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}</td>
+              <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
+              <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
+            </tr>
+            <tr *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue" class="data-integration">
+
+              <td>
+                  {{ student.studentDegreeFromData?.specialization?.name }}
+              </td>
+              <td>
+                  {{convertDate(student.studentDegreeFromData?.admissionDate)}}
+              </td>
+              <td>
+                {{student.studentDegreeFromData?.admissionOrderDate}}
+              </td>
+              <td>{{student.studentDegreeFromData?.admissionOrderNumber}}</td>
+              <td>{{student.studentDegreeFromData?.payment}}</td>
+              <td>{{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}</td>
+              <td>{{student.studentDegreeFromData.previousDiplomaIssuedBy}}</td>
+              <td>{{student.studentDegreeFromData?.previousDiplomaNumber}}</td>
+              <td>{{student.studentDegreeFromData?.previousDiplomaType}}</td>
             </tr>
           </table>
         </tab>
@@ -91,7 +116,8 @@
               <td>{{ student.student?.patronimic }}</td>
               <td>{{ convertDate(student.student?.birthDate) }}</td>
               <td>{{ student.specialization?.degree?.name }}</td>
-              <td>{{ student.specialization?.speciality?.code + " " + student.specialization?.speciality?.name }}</td>
+              <td>{{ student.specialization?.speciality?.code + " "
+                    + student.specialization?.speciality?.name }}</td>
               <td>{{ student.specialization?.name }}</td>
             </tr>
           </table>
@@ -134,7 +160,10 @@
     </div>
     <div class="modal-footer">
       <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
-      <button class="btn btn-success" *ngIf="importView" type="button" (click)="onFileUpload()" [disabled]="uploadInProgress" >Завантажити</button>
+      <button class="btn btn-success" *ngIf="importView" type="button"
+              (click)="onFileUpload()" [disabled]="uploadInProgress">
+                  Завантажити
+      </button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="modal.hide()">Відмінити</button>
     </div>

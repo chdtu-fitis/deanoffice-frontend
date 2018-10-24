@@ -75,12 +75,15 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   convertDate(miliseconds): String {
-    let fullDate = new Date(miliseconds);
-    let month , date;
-    fullDate.getMonth() < 10 ? month = '0' + fullDate.getMonth() : month = fullDate.getMonth();
-    fullDate.getDate() < 10 ? date = '0' + fullDate.getDate() : date = fullDate.getDate();
-    let stringDate = date + '.' + month + '.' + fullDate.getFullYear();
-    return stringDate;
+    if  (miliseconds) {
+      let fullDate = new Date(miliseconds);
+      let month, date;
+      fullDate.getMonth() < 10 ? month = '0' + fullDate.getMonth() : month = fullDate.getMonth();
+      fullDate.getDate() < 10 ? date = '0' + fullDate.getDate() : date = fullDate.getDate();
+      let stringDate = date + '.' + month + '.' + fullDate.getFullYear();
+      return stringDate;
+    }
+    return '';
   }
 
   onSelectAllStudents(checked: boolean, table: string): void {
@@ -88,7 +91,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
       for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
         student.selected = checked;
       }
-    } else {
+    }
+    if (table) {
       for (let student of this.unmatchedSecondaryDataStudentDegreesBlue) {
         student.studentDegreeFromDb.selected = checked;
       }

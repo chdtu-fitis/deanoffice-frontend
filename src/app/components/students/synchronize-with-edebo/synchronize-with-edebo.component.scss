@@ -37,4 +37,17 @@
 [heading = 'Часткове співпадіння'] table{
   border:2px solid blue;
 }
+[heading = 'Часткове співпадіння'] table tr td{
+  vertical-align: middle;
+}
+.data-integration td {
+  background-color:#5dbdbe;
+  color:white;
+}
+.data-integration td:hover {
+  border:1px solid white;
+}
+.data-integration td:active {
+  background-color: #17a2b8;
+}
 
