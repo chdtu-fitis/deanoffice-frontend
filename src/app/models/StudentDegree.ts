@@ -17,6 +17,7 @@ export class StudentDegree extends BaseEntity {
   contractDate?: Date;
   diplomaNumber?: string;
   diplomaDate?: Date;
+  diplomaWithHonours?: boolean;
   supplementNumber?: string;
   supplementDate?: Date;
   thesisName?: string;

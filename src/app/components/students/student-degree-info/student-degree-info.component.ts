@@ -53,6 +53,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           studentCardNumber: this.getFormField(degree, 'studentCardNumber'),
           diplomaNumber: this.getFormField(degree, 'diplomaNumber'),
           diplomaDate: this.getFormField(degree, 'diplomaDate'),
+          diplomaWithHonours: this.getFormField(degree, 'diplomaWithHonours'),
           supplementNumber: this.getFormField(degree, 'supplementNumber'),
           supplementDate: this.getFormField(degree, 'supplementDate'),
           thesisName: this.getFormField(degree, 'thesisName'),

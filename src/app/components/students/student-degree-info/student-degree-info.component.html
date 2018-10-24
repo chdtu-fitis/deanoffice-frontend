@@ -158,6 +158,12 @@
                     </select>
                     <app-validation-errors [control]="degree.controls.previousDiplomaType"></app-validation-errors>
                   </div>
+                  <div class="form-group col">
+                    <label for="diplomaWithHonours">Диплом з відзнакою</label>
+                    <input formControlName="diplomaWithHonours"
+                             class="form-control" type="checkbox" id="diplomaWithHonours" [appValidation]="degree.controls.diplomaWithHonours">
+                    <app-validation-errors [control]="degree.controls.diplomaWithHonours"></app-validation-errors>
+                  </div>
                 </div>
               </div>
             </tab>
