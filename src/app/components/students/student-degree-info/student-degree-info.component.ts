@@ -7,6 +7,7 @@ import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-re
 import {StudentService} from '../../../services/student.service';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
+import {DiplomaType} from '../../../models/diploma-type.enum';
 
 @Component({
     selector: 'app-student-degree-info',
@@ -16,6 +17,8 @@ import {StudentGroup} from '../../../models/StudentGroup';
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
   model: StudentDegree;
+  diplomaType = DiplomaType;
+  diplomaTypeKey: Array<string>
   tabValidity: Array<boolean> = [];
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
@@ -23,6 +26,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
 
   constructor(private fb: FormBuilder, private studentService: StudentService) {
     super();
+    this.diplomaTypeKey = Object.keys(DiplomaType);
   }
 
   openModal(id) {

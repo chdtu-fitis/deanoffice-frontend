@@ -2,6 +2,7 @@ import {Student} from './Student';
 import {StudentGroup} from './StudentGroup';
 import {BaseEntity} from './basemodels/BaseEntity';
 import {Specialization} from './Specialization';
+import {DiplomaType} from './diploma-type.enum';
 
 export class StudentDegree extends BaseEntity {
   student: Student;
@@ -22,7 +23,7 @@ export class StudentDegree extends BaseEntity {
   thesisNameEng?: string;
   protocolNumber?: string;
   protocolDate?: Date;
-  previousDiplomaType?: string;
+  previousDiplomaType?: DiplomaType;
   previousDiplomaNumber?: string;
   previousDiplomaDate?: Date;
   previousDiplomaIssuedBy?: Date;

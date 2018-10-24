@@ -145,12 +145,13 @@
                            [appValidation]="degree.controls.previousDiplomaIssuedBy">
                     <app-validation-errors [control]="degree.controls.previousDiplomaIssuedBy"></app-validation-errors>
                   </div>
-                  <!--<div class="form-group col">-->
-                    <!--<label for="previousDiplomaType">Тип попереднього диплому</label>-->
-                    <!--<input formControlName="previousDiplomaType" class="form-control" id="previousDiplomaType"-->
-                           <!--[appValidation]="degree.controls.previousDiplomaType">-->
-                    <!--<app-validation-errors [control]="degree.controls.previousDiplomaType"></app-validation-errors>-->
-                  <!--</div>-->
+                  <div class="form-group col">
+                    <label for="previousDiplomaType">Тип попереднього диплому</label>
+                    <select formControlName="previousDiplomaType" class="form-control" id="previousDiplomaType">
+                      <option *ngFor="let key of diplomaTypeKey" [ngValue]="key">{{diplomaType[key]}}</option>
+                    </select>
+                    <app-validation-errors [control]="degree.controls.previousDiplomaType"></app-validation-errors>
+                  </div>
                 </div>
               </div>
             </tab>
