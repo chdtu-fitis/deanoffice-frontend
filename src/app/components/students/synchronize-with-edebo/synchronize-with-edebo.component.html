@@ -34,12 +34,47 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Часткове співпадінння" class="tab-body"></tab>
+        <tab heading="Часткове співпадіння" class="tab-body" (select)="setNumberOfStudents('blue')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td><input type="checkbox" [(ngModel)]="blueStudentsSelected" (click)="onSelectAllStudents($event.target.checked)"></td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            <td>Дата зарахування</td>
+            <td>Дата наказу зарахування</td>
+            <td>Номер наказу заахування</td>
+            <td>Форма навчання</td>
+            <td>Попередній документ про освіту</td>
+            <td>Попередній документ виданий</td>
+            <td>Попередній номер диплому</td>
+            <td>Попередній тип диплому</td>
+            </thead>
+            <tr *ngFor="  let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
+              <td>{{ i+1 }}</td>
+              <td><input type="checkbox" [(ngModel)]="student.studentDegreeFromDb.selected"></td>
+              <td>{{ student.studentDegreeFromDb?.student?.surname }}</td>
+              <td>{{ student.studentDegreeFromDb?.student?.name  }}</td>
+              <td>{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
+              <td>{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
+              <td>{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
+              <td>{{ student.studentDegreeFromDb?.specialization?.speciality?.code
+                    + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
+              <td>{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+              <td></td>
+            </tr>
+          </table>
+        </tab>
         <tab heading="Немає в базі" class="tab-body" (select)="setNumberOfStudents('orange')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
-            <td><input type="checkbox" [(ngModel)]="studentsSelected" (click)="onSelectAllStudents($event.target.checked)"></td>
+            <td><input type="checkbox" [(ngModel)]="orangeStudentsSelected" (click)="onSelectAllStudents($event.target.checked,'orange')"></td>
             <td>Прізвище</td>
             <td>Ім'я</td>
             <td>По-батькові</td>

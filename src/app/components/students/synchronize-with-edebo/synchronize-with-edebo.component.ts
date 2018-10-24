@@ -5,6 +5,7 @@ import {EdeboService} from '../../../services/edebo.service';
 import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
 import {MissingPrimaryDataRedDTO} from '../../../models/synchronization-edebo-models/MissingPrimaryDataRedDTO';
 import {StudentDegreePrimaryEdeboDataDTO} from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
+import {UnmatchedSecodaryDataStudentDegreeBlue} from '../../../models/synchronization-edebo-models/UnmatchedSecodaryDataStudentDegreeBlue';
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -23,7 +24,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   synchronizedStudentDegreesGreen: StudentDegreePrimaryEdeboDataDTO[];
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
-  studentsSelected: boolean;
+  unmatchedSecondaryDataStudentDegreesBlue: UnmatchedSecodaryDataStudentDegreeBlue[];
+  orangeStudentsSelected: boolean;
+  blueStudentsSelected: boolean;
   studentsInTable: number;
 
   ngOnInit() {
@@ -44,6 +47,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
+          this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
           this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
           this.missingPrimaryDataRed = res.missingPrimaryDataRed;
           this.uploadInProgress = false;
@@ -54,7 +58,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   onShow(): void {
     this.studentsInTable = 0;
-    this.studentsSelected = false;
+    this.orangeStudentsSelected = false;
     this.fileName = 'Виберіть файл';
     this.importView = true;
     this.fileField = true;
@@ -64,7 +68,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   changeModal(): void {
-    this.studentsInTable = Object.keys(this.synchronizedStudentDegreesGreen).length;
+    this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
@@ -79,9 +83,15 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return stringDate;
   }
 
-  onSelectAllStudents(checked: boolean): void {
-    for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
-      student.selected = checked;
+  onSelectAllStudents(checked: boolean, table: string): void {
+    if (table === 'orange') {
+      for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
+        student.selected = checked;
+      }
+    } else {
+      for (let student of this.unmatchedSecondaryDataStudentDegreesBlue) {
+        student.studentDegreeFromDb.selected = checked;
+      }
     }
 
 }
@@ -99,13 +109,16 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   setNumberOfStudents(tableType): void {
     switch (tableType) {
       case 'green':
-        this.studentsInTable = Object.keys(this.synchronizedStudentDegreesGreen).length;
+        this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
+        break;
+      case 'blue':
+        this.studentsInTable = this.unmatchedSecondaryDataStudentDegreesBlue.length;
         break;
       case 'orange':
-        this.studentsInTable = Object.keys(this.noSuchStudentOrSuchStudentDegreeInDbOrange).length;
+        this.studentsInTable = this.noSuchStudentOrSuchStudentDegreeInDbOrange.length;
          break;
       case 'red':
-        this.studentsInTable = Object.keys(this.missingPrimaryDataRed).length;
+        this.studentsInTable = this.missingPrimaryDataRed.length;
         break;
     }
   };
@@ -115,6 +128,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = [];
     this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
+    this.modal.hide();
   }
 }
 
