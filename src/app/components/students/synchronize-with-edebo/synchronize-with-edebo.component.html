@@ -48,7 +48,7 @@
             <td>Освітня програма</td>
             <td>Дата зарахування</td>
             <td>Дата наказу зарахування</td>
-            <td>Номер наказу заахування</td>
+            <td>Номер наказу зарахування</td>
             <td>Форма навчання</td>
             <td>Попередній документ про освіту</td>
             <td>Попередній документ виданий</td>
@@ -65,7 +65,7 @@
               <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
               <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                     + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
-              <td>{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
               <td>{{student.studentDegreeFromDb?.admissionDate}}</td>
               <td>{{convertDate(student.studentDegreeFromData?.admissionDate)}}</td>
               <td>{{student.studentDegreeFromDb?.admissionOrderNumber}}</td>
@@ -75,23 +75,31 @@
               <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
               <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
             </tr>
-            <tr *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue" class="data-integration">
-
-              <td>
-                  {{ student.studentDegreeFromData?.specialization?.name }}
+            <tr *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index" class="data-integration">
+              <td (click)="replaceDataWithCorrect(i,'admissionDate')">
+                {{convertDate(student.studentDegreeFromData?.admissionDate)}}
               </td>
-              <td>
-                  {{convertDate(student.studentDegreeFromData?.admissionDate)}}
-              </td>
-              <td>
+              <td (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
                 {{student.studentDegreeFromData?.admissionOrderDate}}
               </td>
-              <td>{{student.studentDegreeFromData?.admissionOrderNumber}}</td>
-              <td>{{student.studentDegreeFromData?.payment}}</td>
-              <td>{{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}</td>
-              <td>{{student.studentDegreeFromData.previousDiplomaIssuedBy}}</td>
-              <td>{{student.studentDegreeFromData?.previousDiplomaNumber}}</td>
-              <td>{{student.studentDegreeFromData?.previousDiplomaType}}</td>
+              <td (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
+                {{student.studentDegreeFromData?.admissionOrderNumber}}
+              </td>
+              <td (click)="replaceDataWithCorrect(i,'payment')">
+                {{student.studentDegreeFromData?.payment}}
+              </td>
+              <td (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
+                {{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}
+              </td>
+              <td (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
+                {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
+              </td>
+              <td (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
+                {{student.studentDegreeFromData?.previousDiplomaNumber}}
+              </td>
+              <td (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
+                {{student.studentDegreeFromData?.previousDiplomaType}}
+              </td>
             </tr>
           </table>
         </tab>

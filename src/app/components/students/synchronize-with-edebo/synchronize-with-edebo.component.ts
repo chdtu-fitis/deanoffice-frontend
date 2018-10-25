@@ -134,5 +134,18 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
     this.modal.hide();
   }
+
+  replaceDataWithCorrect(index, fieldName): void {
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
+      return;
+    }
+    if (fieldName === 'admissionDate') {
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
+      convertDate(this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName]);
+      return;
+    }
+    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
+        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName];
+  }
 }
 

@@ -40,9 +40,10 @@
 [heading = 'Часткове співпадіння'] table tr td{
   vertical-align: middle;
 }
-.data-integration td {
+.data-integration {
   background-color:#5dbdbe;
   color:white;
+  cursor: pointer;
 }
 .data-integration td:hover {
   border:1px solid white;
