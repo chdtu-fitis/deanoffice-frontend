@@ -18,7 +18,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   form: FormGroup;
   model: StudentDegree;
   diplomaType = DiplomaType;
-  diplomaTypeKey: Array<string>
+  diplomaTypeKey: Array<string>;
   tabValidity: Array<boolean> = [];
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
@@ -32,6 +32,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   openModal(id) {
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
+      this.model['degrees'].sort( (a, b) => b.active - a.active );
       this.buildForm();
       this.modal.show();
     });
