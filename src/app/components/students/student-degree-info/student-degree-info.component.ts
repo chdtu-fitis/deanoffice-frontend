@@ -8,6 +8,7 @@ import {StudentService} from '../../../services/student.service';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {DiplomaType} from '../../../models/diploma-type.enum';
+import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversity';
 
 @Component({
     selector: 'app-student-degree-info',
@@ -71,6 +72,18 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           contractDate: this.getFormField(degree, 'contractDate'),
           contractNumber: this.getFormField(degree, 'contractNumber'),
           admissionDate: this.getFormField(degree, 'admissionDate'),
+          studentPreviousUniversities: this.fb.array(
+            (degree['studentPreviousUniversities'] as StudentPreviousUniversity[])
+              .map((SPU: StudentPreviousUniversity) => {
+            return this.fb.group({
+              id: SPU.id,
+              universityName: SPU.universityName,
+              studyStartDate: SPU.studyStartDate,
+              studyEndDate: SPU.studyEndDate,
+              academicCertificateNumber: SPU.academicCertificateNumber,
+              academicCertificateDate: SPU.academicCertificateDate,
+            })
+          })),
           payment: this.getFormField(degree, 'payment'),
           active: degree.active
         })

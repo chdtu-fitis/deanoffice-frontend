@@ -3,6 +3,7 @@ import {StudentGroup} from './StudentGroup';
 import {BaseEntity} from './basemodels/BaseEntity';
 import {Specialization} from './Specialization';
 import {DiplomaType} from './diploma-type.enum';
+import {StudentPreviousUniversity} from './StudentPreviousUniversity';
 
 export class StudentDegree extends BaseEntity {
   student: Student;
@@ -13,6 +14,7 @@ export class StudentDegree extends BaseEntity {
   admissionOrderNumber?: string;
   admissionOrderDate?: Date;
   admissionDate: Date;
+  studentPreviousUniversities: StudentPreviousUniversity[];
   contractNumber?: string;
   contractDate?: Date;
   diplomaNumber?: string;
