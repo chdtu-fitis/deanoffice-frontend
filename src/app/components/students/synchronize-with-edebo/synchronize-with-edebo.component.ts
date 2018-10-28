@@ -21,12 +21,12 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   importView = true;
   modalName = 'Імпортувати файл';
   modalSize = '';
+  isChangedValueOfDb = true;
   synchronizedStudentDegreesGreen: StudentDegreePrimaryEdeboDataDTO[];
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
   unmatchedSecondaryDataStudentDegreesBlue: UnmatchedSecodaryDataStudentDegreeBlue[];
   orangeStudentsSelected: boolean;
-  blueStudentsSelected: boolean;
   studentsInTable: number;
 
   ngOnInit() {
@@ -110,6 +110,16 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return chosenStudents;
   }
 
+  сhooseSelectedStudentsFromBlueList(): StudentDegreeFullEdeboData[] {
+    let chosenStudents = [];
+    for (let student of this.unmatchedSecondaryDataStudentDegreesBlue) {
+      if (student.selected) {
+        chosenStudents.push(student.studentDegreeFromDb);
+      }
+    }
+    return chosenStudents;
+  }
+
   setNumberOfStudents(tableType): void {
     switch (tableType) {
       case 'green':
@@ -130,20 +140,36 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   saveChanges(): void {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
-    newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = [];
+    newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
     this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
+  }
+
+  hideModal(): void {
     this.modal.hide();
+    this.isChangedValueOfDb = true;
+  }
+
+  changeBlueListCondition(index): void {
+    if (this.isChangedValueOfDb === true) {
+      this.isChangedValueOfDb = !(this.isChangedValueOfDb);
+    }
+    if (this.isChangedValueOfDb === false) {
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].selected = true;
+    }
   }
 
   replaceDataWithCorrect(index, fieldName): void {
+
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
       return;
     }
     if (fieldName === 'admissionDate') {
       this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
       convertDate(this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName]);
+      this.changeBlueListCondition(index);
       return;
     }
+    this.changeBlueListCondition(index);
     this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
         unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName];
   }

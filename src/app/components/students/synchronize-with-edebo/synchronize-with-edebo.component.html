@@ -4,7 +4,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h4 class="modal-title">{{modalName}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+      <button type="button" class="close" aria-label="Close" (click)="hideModal()">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -38,7 +38,7 @@
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
-            <td><input type="checkbox" [(ngModel)]="blueStudentsSelected" (click)="onSelectAllStudents($event.target.checked)"></td>
+            <td></td>
             <td>Прізвище</td>
             <td>Ім'я</td>
             <td>По-батькові</td>
@@ -57,7 +57,7 @@
             </thead>
             <tr *ngFor="  let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <td rowspan="2">{{ i+1 }}</td>
-              <td rowspan="2"><input type="checkbox" [(ngModel)]="student.studentDegreeFromDb.selected"></td>
+              <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
               <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
               <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
               <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
@@ -173,7 +173,7 @@
                   Завантажити
       </button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
-      <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="modal.hide()">Відмінити</button>
+      <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="hideModal()">Відмінити</button>
     </div>
   </div>
 </div>
