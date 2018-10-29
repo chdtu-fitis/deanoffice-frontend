@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {catchError} from 'rxjs/operators';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {forObservable} from '../components/shared/httpErrors';
+import {forObservable, forPromise} from '../components/shared/httpErrors';
 
 @Injectable()
 export class GroupService {
@@ -30,5 +30,17 @@ export class GroupService {
     const url = `${this.groupsUrl}/filter?degreeId=${degreeId}&year=${year}`;
     return this.http.get<StudentGroup[]>(url)
       .pipe(catchError(forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
+  }
+
+  create(body): Promise<any> {
+    return this.http.post(this.groupsUrl, body, {}).toPromise()
+      .catch(forPromise('Створення нової групи'));
+  }
+
+  delete(ids: number[]): Promise<any> {
+    const url = `${this.groupsUrl}/${ids.join(', ')}`;
+    console.log(url);
+    return this.http.delete(url).toPromise()
+      .catch(forPromise('Видалення групи'));
   }
 }

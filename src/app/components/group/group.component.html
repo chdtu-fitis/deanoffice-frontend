@@ -15,8 +15,8 @@
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
-                    [disabled]="selectedGroups.length === 0">
-                    <!--(click)="deleteGroup.openModal(selectedGroups)"-->
+                    [disabled]="selectedGroups.length === 0"
+                    (click)="deleteGroup.openModal(selectedGroups)">
               Видалити
             </button>
 
@@ -48,4 +48,6 @@
   </div>
 </div>
 
-<add-group #addGroup (onSubmit)="updateDatatable()"></add-group>
+<add-group #addGroup (onSubmit)="loadGroups()"></add-group>
+
+<delete-group #deleteGroup (onSubmit)="loadGroups()"></delete-group>
