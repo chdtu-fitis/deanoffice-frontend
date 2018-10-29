@@ -15,7 +15,6 @@ import {DegreeService} from './degree.service';
 import {DashboardGuard, LoginGuard} from './auth/auth.guard';
 import {PersonalFileGradesStatementService} from "./personal-file-grades-statement.service";
 import {AcademicCertificateService} from "./academic-certificate.service";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 export const SERVICES = [
   DegreeService,

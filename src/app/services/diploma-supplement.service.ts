@@ -29,10 +29,9 @@ export class DiplomaSupplementService {
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування шахматки', [])))
   }
 
-//Назвати норм і переписати ретурн і поміняти url
   checkStudentsData(degreeId: string): Observable<DataForSupplementStudentCheck[]> {
-    const url = `${this.documentsUrl}/supplements/data-check?degreeId=${degreeId}`;
-    return this.http.get<DataForSupplementStudentCheck[]>(url);
+    const url = `${this.documentsUrl}/supplements/data-check`;
+    return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
   }
 
 
