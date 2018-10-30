@@ -21,8 +21,8 @@
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
-                    [disabled]="selectedGroups.length === 0 || selectedGroups.length > 1">
-                    <!--(click)="updateGroup.openModal(selectedGroups[0].id)"-->
+                    [disabled]="selectedGroups.length === 0 || selectedGroups.length > 1"
+                    (click)="updateGroup.openModal(selectedGroups[0])">
               Редагувати
             </button>
 
@@ -51,3 +51,5 @@
 <add-group #addGroup (onSubmit)="loadGroups()"></add-group>
 
 <delete-group #deleteGroup (onSubmit)="loadGroups()"></delete-group>
+
+<update-group #updateGroup (onSubmit)="loadGroups()"></update-group>

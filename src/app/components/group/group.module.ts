@@ -9,6 +9,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AddGroupComponent} from './add-group/add-group.component';
 import {DeleteGroupComponent} from './delete-group/delete-group.component';
 import {GroupModalComponent} from './group-modal/group-modal.component';
+import { UpdateGroupComponent } from './update-group/update-group.component';
 
 export const groupRoutes: Routes = [
   {path: '', component: GroupComponent}
@@ -28,7 +29,8 @@ export const groupRoutes: Routes = [
     AddGroupComponent,
     DeleteGroupComponent,
     GroupTableComponent,
-    GroupComponent
+    GroupComponent,
+    UpdateGroupComponent
   ]
 })
 export class GroupModule { }
