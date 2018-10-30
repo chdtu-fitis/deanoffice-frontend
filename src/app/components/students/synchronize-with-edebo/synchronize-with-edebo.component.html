@@ -55,33 +55,33 @@
                   <td>Попередній номер диплому</td>
                   <td>Попередній тип диплому</td>
             </thead>
-            <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index" class="inline-block">
+            <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <tr>
                 <td rowspan="2">{{ i+1 }}</td>
                 <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
-                <td rowspan="2">{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.mm.yyyy' }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                       + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
-                <td>{{student.studentDegreeFromDb?.admissionDate}}</td>
-                <td>{{convertDate(student.studentDegreeFromData?.admissionDate)}}</td>
-                <td>{{student.studentDegreeFromDb?.admissionOrderNumber}}</td>
-                <td>{{student.studentDegreeFromDb?.payment}}</td>
-                <td>{{convertDate(student.studentDegreeFromDb?.previousDiplomaDate)}}</td>
+                <td>{{ student.studentDegreeFromDb?.admissionDate }}</td>
+                <td>{{ student.studentDegreeFromData?.admissionDate | date: 'dd.mm.yyyy' }}</td>
+                <td>{{ student.studentDegreeFromDb?.admissionOrderNumber }}</td>
+                <td>{{ student.studentDegreeFromDb?.payment }}</td>
+                <td>{{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.mm.yyyy' }}</td>
                 <td>{{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}</td>
                 <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
                 <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
               </tr>
               <tr class="data-integration">
                 <td (click)="replaceDataWithCorrect(i,'admissionDate')">
-                  {{convertDate(student.studentDegreeFromData?.admissionDate)}}
+                  {{ student.studentDegreeFromData?.admissionDate | date: 'dd.mm.yyyy'}}
                 </td>
                 <td (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
-                  {{student.studentDegreeFromData?.admissionOrderDate}}
+                  {{student.studentDegreeFromData?.admissionOrderDate | date: 'dd.mm.yyyy'}}
                 </td>
                 <td (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
                   {{student.studentDegreeFromData?.admissionOrderNumber}}
@@ -90,7 +90,7 @@
                   {{student.studentDegreeFromData?.payment}}
                 </td>
                 <td (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
-                  {{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}
+                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.mm.yyyy'}}
                 </td>
                 <td (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
                   {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
@@ -124,7 +124,7 @@
               <td>{{ student.student?.surname }}</td>
               <td>{{ student.student?.name  }}</td>
               <td>{{ student.student?.patronimic }}</td>
-              <td>{{ convertDate(student.student?.birthDate) }}</td>
+              <td>{{ student.student?.birthDate | date:'dd.mm.yyyy' }}</td>
               <td>{{ student.specialization?.degree?.name }}</td>
               <td>{{ student.specialization?.speciality?.code + " "
                     + student.specialization?.speciality?.name }}</td>
@@ -150,7 +150,7 @@
               <td>{{  student.studentDegreePrimaryData?.lastName }}</td>
               <td>{{ student.studentDegreePrimaryData?.firstName}}</td>
               <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
-              <td>{{ convertDate(student.studentDegreePrimaryData?.birthday) }}</td>
+              <td>{{ student.studentDegreePrimaryData?.birthday | date: 'dd.mm.yyyy' }}</td>
               <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecialityName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecializationName }}</td>
