@@ -43,4 +43,9 @@ export class GroupService {
     return this.http.delete(url).toPromise()
       .catch(forPromise('Видалення групи'));
   }
+
+  update(body): Promise<any> {
+    return this.http.put(this.groupsUrl, body).toPromise()
+      .catch(forPromise('Оновлення групи'));
+  }
 }
