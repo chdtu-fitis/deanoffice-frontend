@@ -2,7 +2,11 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="modal-body">
       <ul class="list">
-        <li *ngFor="let group of groups">{{group.id}}: "{{group.name}}"</li>
+        <li *ngFor="let group of groups">
+          <span>Назва:</span> {{group.name}};
+          <span>Рік створення:</span> {{group.creationYear}};
+          <span>Ступінь:</span> {{group.specialization.degree.name}}
+        </li>
       </ul>
     </div>
 
