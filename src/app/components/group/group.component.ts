@@ -1,8 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
-import {TuitionTerm} from '../../models/tuition-term.enum';
-import {TuitionForm} from '../../models/tuition-form.enum';
 
 @Component({
   selector: 'app-group',
@@ -33,8 +31,6 @@ export class GroupComponent implements OnInit {
       .subscribe((loadedGroups: StudentGroup[]) => {
         this.loadedGroups = loadedGroups;
         this.loadingGroups = false;
-        this.setTuitionForm();
-        this.setTuitionTerm();
         this.updateGroups()
       });
   }
@@ -93,27 +89,6 @@ export class GroupComponent implements OnInit {
     if (index > -1) {
       this.selectedGroups.splice(index, 1);
     }
-  }
-
-  setTuitionForm() {
-    this.groups.map(group => {
-      group.tuitionForm = this.translateTuitionForm(group.tuitionForm);
-      return group;
-    })
-  }
-  setTuitionTerm() {
-    this.groups.map(group => {
-      group.tuitionTerm = this.translateTuitionTerm(group.tuitionTerm);
-      return group;
-    })
-  }
-
-  private translateTuitionForm(form: TuitionForm) {
-    return TuitionForm[form];
-  }
-
-  private translateTuitionTerm(term: TuitionTerm) {
-    return TuitionTerm[term];
   }
 
 }

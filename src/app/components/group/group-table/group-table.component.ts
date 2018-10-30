@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {translations} from '../translations.js'
+import {TuitionForm} from '../../../models/tuition-form.enum';
+import {TuitionTerm} from '../../../models/tuition-term.enum';
 
 const SORTING_TO_THE_TOP = '1';
 const SORTING_TO_THE_BOTTOM = '2';
@@ -148,6 +150,12 @@ export class GroupTableComponent {
     // function for get property from item by array of key
     const getProperty = function (item, key, depth) {
       if (!key[depth]) {
+        if (key[depth - 1] === 'tuitionTerm') {
+          item = TuitionTerm[item];
+        }
+        if (key[depth - 1] === 'tuitionForm') {
+          item = TuitionForm[item];
+        }
         return item;
       }
       return getProperty(item[key[depth]], key, depth + 1)
