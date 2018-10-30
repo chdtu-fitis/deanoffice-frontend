@@ -3,6 +3,8 @@ import {GroupService} from '../../../services/group.service';
 import {GroupModalComponent} from '../group-modal/group-modal.component'
 
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SpecializationService} from '../../../services/specialization.service';
+import {Specialization} from '../../../models/Specialization';
 
 @Component({
   selector: 'add-group',
@@ -14,10 +16,38 @@ export class AddGroupComponent {
   @ViewChild('modal') modal: GroupModalComponent;
 
   form = new FormGroup({
-    first: new FormControl('Nancy', Validators.minLength(2)),
+    name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2)
+    ]),
+    studySemesters: new FormControl(8),
+    studyYears: new FormControl(4),
+    beginYears: new FormControl(1),
+    creationYear: new FormControl(2004),
+    tuitionForm: new FormControl(0),
+    tuitionTerm: new FormControl(0),
+    specialization: new FormControl(0),
   });
 
-  constructor(private groupService: GroupService) { }
+  tuitionForms = [
+    'FULL_TIME',
+    'EXTRAMURAL',
+  ];
+
+  tuitionTerms = [
+    'REGULAR',
+    'SHORTENED',
+  ];
+
+  specializations: Specialization[];
+
+  constructor(private groupService: GroupService, private specializationService: SpecializationService) {
+    specializationService.getSpecializations(true).subscribe(
+      (specializations: Specialization[]) => this.specializations = specializations,
+      null,
+      () => this.specializations.sort((a, b) => a.id - b.id)
+    );
+  }
 
   openModal(): void {
     this.modal.show();
@@ -30,29 +60,18 @@ export class AddGroupComponent {
   submit(): void {
     const body = {
       id: 0,
-      name: 'TEST-1844',
+      name: this.form.value.name,
       active: false,
-      studySemesters: 8,
-      creationYear: 2004,
+      studySemesters: this.form.value.studySemesters,
+      creationYear: this.form.value.creationYear,
       specialization: {
-        id: 25,
-        name: '',
-        speciality: {
-          id: 11,
-          name: 'Комп\'ютерні науки',
-          code: '6.050101'
-        },
-        degree: {
-          id: 1,
-          name: 'Бакалавр'
-        }
+        id: this.specializations[this.form.value.specialization].id
       },
-      tuitionForm: 'FULL_TIME',
-      tuitionTerm: 'REGULAR',
-      studyYears: 4,
-      beginYears: 1
+      tuitionForm: this.form.value.tuitionForm,
+      tuitionTerm: this.form.value.tuitionTerm,
+      studyYears: this.form.value.studyYears,
+      beginYears: this.form.value.beginYears
     };
-
     this.groupService.create(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
