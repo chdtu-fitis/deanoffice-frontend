@@ -26,6 +26,7 @@ export class GroupComponent implements OnInit {
   }
 
   loadGroups(): void {
+    this.selectedGroups = [];
     const onlyActual = false;
     this.loadingGroups = true;
     this.groupService.getGroups(onlyActual)
