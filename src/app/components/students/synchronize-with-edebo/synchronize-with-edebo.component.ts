@@ -74,18 +74,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.importView = !this.importView;
   }
 
-  convertDate(miliseconds): String {
-    if  (miliseconds) {
-      let fullDate = new Date(miliseconds);
-      let month, date;
-      fullDate.getMonth() < 10 ? month = '0' + fullDate.getMonth() : month = fullDate.getMonth();
-      fullDate.getDate() < 10 ? date = '0' + fullDate.getDate() : date = fullDate.getDate();
-      let stringDate = date + '.' + month + '.' + fullDate.getFullYear();
-      return stringDate;
-    }
-    return '';
-  }
-
   onSelectAllStudents(checked: boolean, table: string): void {
     if (table === 'orange') {
       for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
@@ -158,14 +146,26 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     }
   }
 
+  compareValuesInBlueList(name, index): number {
+    let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
+      unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name] ? 2 : 1;
+    return numberOfRows;
+  }
+
+  isEqual(name, index): boolean {
+    let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
+      unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
+    return !isShown;
+  }
+
   replaceDataWithCorrect(index, fieldName): void {
 
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
       return;
     }
     if (fieldName === 'admissionDate') {
-      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
-      convertDate(this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName]);
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] =
+        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName];
       this.changeBlueListCondition(index);
       return;
     }

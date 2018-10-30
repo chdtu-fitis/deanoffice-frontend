@@ -62,43 +62,68 @@
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
-                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.mm.yyyy' }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.MM.yyyy' }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                       + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
-                <td>{{ student.studentDegreeFromDb?.admissionDate }}</td>
-                <td>{{ student.studentDegreeFromData?.admissionDate | date: 'dd.mm.yyyy' }}</td>
-                <td>{{ student.studentDegreeFromDb?.admissionOrderNumber }}</td>
-                <td>{{ student.studentDegreeFromDb?.payment }}</td>
-                <td>{{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.mm.yyyy' }}</td>
-                <td>{{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}</td>
-                <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
-                <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
+
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionDate',i)">
+                  {{ student.studentDegreeFromDb?.admissionDate | date: 'dd.MM.yyyy' }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionOrderDate',i)">
+                  {{student.studentDegreeFromDb?.admissionOrderDate | date:'dd.MM.yyyy'}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionOrderNumber',i)">
+                  {{ student.studentDegreeFromDb?.admissionOrderNumber }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('payment',i)">
+                  {{ student.studentDegreeFromDb?.payment }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaIssuedBy',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaNumber',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaNumber}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaType}}
+                </td>
               </tr>
               <tr class="data-integration">
-                <td (click)="replaceDataWithCorrect(i,'admissionDate')">
-                  {{ student.studentDegreeFromData?.admissionDate | date: 'dd.mm.yyyy'}}
+                <td *ngIf="isEqual('admissionDate',i)"
+                    (click)="replaceDataWithCorrect(i,'admissionDate')">
+                  {{ student.studentDegreeFromData?.admissionDate | date:'dd.MM.yyyy'}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
-                  {{student.studentDegreeFromData?.admissionOrderDate | date: 'dd.mm.yyyy'}}
+                <td *ngIf="isEqual('admissionOrderDate',i)"
+                  (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
+                  {{student.studentDegreeFromData?.admissionOrderDate | date:'dd.MM.yyyy'}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
+                <td *ngIf="isEqual('admissionOrderNumber',i)"
+                  (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
                   {{student.studentDegreeFromData?.admissionOrderNumber}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'payment')">
+                <td *ngIf="isEqual('payment',i)"
+                  (click)="replaceDataWithCorrect(i,'payment')">
                   {{student.studentDegreeFromData?.payment}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
-                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.mm.yyyy'}}
+                <td *ngIf="isEqual('previousDiplomaDate',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
+                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.MM.yyyy'}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
+                <td  *ngIf="isEqual('previousDiplomaIssuedBy',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
                   {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
+                <td *ngIf="isEqual('previousDiplomaNumber',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
                   {{student.studentDegreeFromData?.previousDiplomaNumber}}
                 </td>
-                <td (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
+                <td *ngIf="isEqual('previousDiplomaType',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
                   {{student.studentDegreeFromData?.previousDiplomaType}}
                 </td>
               </tr>
@@ -124,7 +149,7 @@
               <td>{{ student.student?.surname }}</td>
               <td>{{ student.student?.name  }}</td>
               <td>{{ student.student?.patronimic }}</td>
-              <td>{{ student.student?.birthDate | date:'dd.mm.yyyy' }}</td>
+              <td>{{ student.student?.birthDate | date:'dd.MM.yyyy' }}</td>
               <td>{{ student.specialization?.degree?.name }}</td>
               <td>{{ student.specialization?.speciality?.code + " "
                     + student.specialization?.speciality?.name }}</td>
@@ -150,7 +175,7 @@
               <td>{{  student.studentDegreePrimaryData?.lastName }}</td>
               <td>{{ student.studentDegreePrimaryData?.firstName}}</td>
               <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
-              <td>{{ student.studentDegreePrimaryData?.birthday | date: 'dd.mm.yyyy' }}</td>
+              <td>{{ student.studentDegreePrimaryData?.birthday | date: 'dd.MM.yyyy' }}</td>
               <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecialityName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecializationName }}</td>
