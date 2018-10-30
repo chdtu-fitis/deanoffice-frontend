@@ -37,70 +37,72 @@
         <tab heading="Часткове співпадіння" class="tab-body" (select)="setNumberOfStudents('blue')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
-            <td>№</td>
-            <td></td>
-            <td>Прізвище</td>
-            <td>Ім'я</td>
-            <td>По-батькові</td>
-            <td>Дата народження</td>
-            <td>Ступінь</td>
-            <td>Спеціальність</td>
-            <td>Освітня програма</td>
-            <td>Дата зарахування</td>
-            <td>Дата наказу зарахування</td>
-            <td>Номер наказу зарахування</td>
-            <td>Форма навчання</td>
-            <td>Попередній документ про освіту</td>
-            <td>Попередній документ виданий</td>
-            <td>Попередній номер диплому</td>
-            <td>Попередній тип диплому</td>
+                  <td>№</td>
+                  <td> </td>
+                  <td>Прізвище</td>
+                  <td>Ім'я</td>
+                  <td>По-батькові</td>
+                  <td>Дата народження</td>
+                  <td>Ступінь</td>
+                  <td>Спеціальність</td>
+                  <td>Освітня програма</td>
+                  <td>Дата зарахування</td>
+                  <td>Дата наказу зарахування</td>
+                  <td>Номер наказу зарахування</td>
+                  <td>Форма навчання</td>
+                  <td>Попередній документ про освіту</td>
+                  <td>Попередній документ виданий</td>
+                  <td>Попередній номер диплому</td>
+                  <td>Попередній тип диплому</td>
             </thead>
-            <tr *ngFor="  let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
-              <td rowspan="2">{{ i+1 }}</td>
-              <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
-              <td rowspan="2">{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
-                    + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
-              <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
-              <td>{{student.studentDegreeFromDb?.admissionDate}}</td>
-              <td>{{convertDate(student.studentDegreeFromData?.admissionDate)}}</td>
-              <td>{{student.studentDegreeFromDb?.admissionOrderNumber}}</td>
-              <td>{{student.studentDegreeFromDb?.payment}}</td>
-              <td>{{convertDate(student.studentDegreeFromDb?.previousDiplomaDate)}}</td>
-              <td>{{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}</td>
-              <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
-              <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
-            </tr>
-            <tr *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index" class="data-integration">
-              <td (click)="replaceDataWithCorrect(i,'admissionDate')">
-                {{convertDate(student.studentDegreeFromData?.admissionDate)}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
-                {{student.studentDegreeFromData?.admissionOrderDate}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
-                {{student.studentDegreeFromData?.admissionOrderNumber}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'payment')">
-                {{student.studentDegreeFromData?.payment}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
-                {{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
-                {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
-                {{student.studentDegreeFromData?.previousDiplomaNumber}}
-              </td>
-              <td (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
-                {{student.studentDegreeFromData?.previousDiplomaType}}
-              </td>
-            </tr>
+            <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index" class="inline-block">
+              <tr>
+                <td rowspan="2">{{ i+1 }}</td>
+                <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
+                <td rowspan="2">{{ convertDate(student.studentDegreeFromDb?.student?.birthDate) }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
+                      + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+                <td>{{student.studentDegreeFromDb?.admissionDate}}</td>
+                <td>{{convertDate(student.studentDegreeFromData?.admissionDate)}}</td>
+                <td>{{student.studentDegreeFromDb?.admissionOrderNumber}}</td>
+                <td>{{student.studentDegreeFromDb?.payment}}</td>
+                <td>{{convertDate(student.studentDegreeFromDb?.previousDiplomaDate)}}</td>
+                <td>{{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}</td>
+                <td>{{student.studentDegreeFromDb?.previousDiplomaNumber}}</td>
+                <td>{{student.studentDegreeFromDb?.previousDiplomaType}}</td>
+              </tr>
+              <tr class="data-integration">
+                <td (click)="replaceDataWithCorrect(i,'admissionDate')">
+                  {{convertDate(student.studentDegreeFromData?.admissionDate)}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
+                  {{student.studentDegreeFromData?.admissionOrderDate}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
+                  {{student.studentDegreeFromData?.admissionOrderNumber}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'payment')">
+                  {{student.studentDegreeFromData?.payment}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
+                  {{convertDate(student.studentDegreeFromData?.previousDiplomaDate)}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
+                  {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
+                  {{student.studentDegreeFromData?.previousDiplomaNumber}}
+                </td>
+                <td (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
+                  {{student.studentDegreeFromData?.previousDiplomaType}}
+                </td>
+              </tr>
+            </tbody>
           </table>
         </tab>
         <tab heading="Немає в базі" class="tab-body" (select)="setNumberOfStudents('orange')">
