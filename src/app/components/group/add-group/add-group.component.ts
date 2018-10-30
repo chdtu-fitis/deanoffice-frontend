@@ -20,13 +20,13 @@ export class AddGroupComponent {
       Validators.required,
       Validators.minLength(2)
     ]),
-    studySemesters: new FormControl(8),
-    studyYears: new FormControl(4),
-    beginYears: new FormControl(1),
-    creationYear: new FormControl(),
-    tuitionForm: new FormControl(0),
-    tuitionTerm: new FormControl(0),
-    specialization: new FormControl(0),
+    studySemesters: new FormControl(8, Validators.required),
+    studyYears: new FormControl(4, Validators.required),
+    beginYears: new FormControl(1, Validators.required),
+    creationYear: new FormControl(this.getValueOfCreationYear(), Validators.required),
+    tuitionForm: new FormControl(0, Validators.required),
+    tuitionTerm: new FormControl(0, Validators.required),
+    specialization: new FormControl(0, Validators.required),
   });
 
   tuitionForms = [
