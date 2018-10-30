@@ -37,6 +37,9 @@
 [heading = 'Часткове співпадіння'] table{
   border:2px solid blue;
 }
+[heading = 'Немає в ЄДЕБО'] table{
+  border:2px solid yellow;
+}
 [heading = 'Часткове співпадіння'] table tr td{
   vertical-align: middle;
 }

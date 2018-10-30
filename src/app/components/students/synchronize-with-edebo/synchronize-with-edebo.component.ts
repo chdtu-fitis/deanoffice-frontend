@@ -6,6 +6,9 @@ import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-
 import {MissingPrimaryDataRedDTO} from '../../../models/synchronization-edebo-models/MissingPrimaryDataRedDTO';
 import {StudentDegreePrimaryEdeboDataDTO} from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
 import {UnmatchedSecodaryDataStudentDegreeBlue} from '../../../models/synchronization-edebo-models/UnmatchedSecodaryDataStudentDegreeBlue';
+import {DiplomaType} from '../../../models/diploma-type.enum';
+import {TuitionTerm} from '../../../models/tuition-term.enum';
+import {Payment} from '../../../models/payment.enum';
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -26,6 +29,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
   unmatchedSecondaryDataStudentDegreesBlue: UnmatchedSecodaryDataStudentDegreeBlue[];
+  absentInFileStudentDegreesYellow: StudentDegreePrimaryEdeboDataDTO[];
   orangeStudentsSelected: boolean;
   studentsInTable: number;
 
@@ -50,6 +54,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
           this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
           this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
           this.missingPrimaryDataRed = res.missingPrimaryDataRed;
+          this.absentInFileStudentDegreesYellow = res.absentInFileStudentDegreesYellow;
           this.uploadInProgress = false;
           this.changeModal();
         }
@@ -122,6 +127,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
       case 'red':
         this.studentsInTable = this.missingPrimaryDataRed.length;
         break;
+      case 'yellow':
+        this.studentsInTable = this.absentInFileStudentDegreesYellow.length;
+        break;
     }
   };
 
@@ -156,6 +164,14 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
       unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
     return !isShown;
+  }
+
+   translateDiplomaType(term: DiplomaType) {
+    return DiplomaType[term];
+  }
+
+  translatePayment(term: Payment) {
+    return Payment[term]
   }
 
   replaceDataWithCorrect(index, fieldName): void {

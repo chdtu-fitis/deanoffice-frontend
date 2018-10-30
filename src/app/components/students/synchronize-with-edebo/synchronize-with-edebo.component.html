@@ -78,7 +78,7 @@
                   {{ student.studentDegreeFromDb?.admissionOrderNumber }}
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('payment',i)">
-                  {{ student.studentDegreeFromDb?.payment }}
+                  {{ translatePayment(student.studentDegreeFromDb?.payment)}}
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
                   {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
@@ -90,7 +90,7 @@
                   {{student.studentDegreeFromDb?.previousDiplomaNumber}}
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
-                  {{student.studentDegreeFromDb?.previousDiplomaType}}
+                  {{translateDiplomaType(student.studentDegreeFromDb?.previousDiplomaType)}}
                 </td>
               </tr>
               <tr class="data-integration">
@@ -108,7 +108,7 @@
                 </td>
                 <td *ngIf="isEqual('payment',i)"
                   (click)="replaceDataWithCorrect(i,'payment')">
-                  {{student.studentDegreeFromData?.payment}}
+                  {{translatePayment(student.studentDegreeFromData?.payment)}}
                 </td>
                 <td *ngIf="isEqual('previousDiplomaDate',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
@@ -124,7 +124,7 @@
                 </td>
                 <td *ngIf="isEqual('previousDiplomaType',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
-                  {{student.studentDegreeFromData?.previousDiplomaType}}
+                  {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
                 </td>
               </tr>
             </tbody>
@@ -183,7 +183,30 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Немає в ЄДЕБО" class="tab-body"></tab>
+        <tab heading="Немає в ЄДЕБО" class="tab-body" (select)="setNumberOfStudents('yellow')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            </thead>
+            <tr *ngFor="let student of absentInFileStudentDegreesYellow; let i = index" >
+              <td>{{ i+1 }}</td>
+              <td>{{ student?.lastName}}</td>
+              <td>{{ student?.firstName }}</td>
+              <td>{{ student?.middleName }}</td>
+              <td>{{ student?.birthday }}</td>
+              <td>{{ student?.degreeName }}</td>
+              <td>{{ student?.fullSpecialityName }}</td>
+              <td>{{ student?.fullSpecializationName }}</td>
+            </tr>
+          </table>
+        </tab>
       </tabset>
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
