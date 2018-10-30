@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {translations} from '../translations.js'
+import {columns} from '../columns.js'
 import {TuitionForm} from '../../../models/tuition-form.enum';
 import {TuitionTerm} from '../../../models/tuition-term.enum';
 
@@ -21,7 +21,7 @@ export class GroupTableComponent {
 
   sortingToTheTop: string = SORTING_TO_THE_TOP;
   sortingToTheBottom: string = SORTING_TO_THE_BOTTOM;
-  translations = translations;
+  columns = columns;
   sortInfo = [
     {field: null, direction: null},
     {field: null, direction: null},

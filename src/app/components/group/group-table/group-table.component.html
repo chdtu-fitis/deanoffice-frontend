@@ -3,7 +3,7 @@
   <div class="table" *ngIf="!loading">
     <div class="table-tr-fixed">
       <div class="table-th checkbox"></div>
-      <div *ngFor="let item of translations" class="table-th" [ngStyle]="item.style"
+      <div *ngFor="let item of columns" class="table-th" [ngStyle]="item.style"
            (click)="handleClickHeader(item.field)">
         {{item.title}}
         <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheTop)">⭡</span>
@@ -15,7 +15,7 @@
            (click)="handleSelectedChange.emit({group: row})">
         <input type="checkbox" [checked]="row.selected">
       </div>
-      <div *ngFor="let item of translations" class="table-td" [ngStyle]="item.style"
+      <div *ngFor="let item of columns" class="table-td" [ngStyle]="item.style"
            (click)="handleSelectedChange.emit({group: row, reset: true})">
         {{getValue(row, item.field)}}
       </div>

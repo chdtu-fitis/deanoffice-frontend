@@ -1,4 +1,4 @@
-export const translations = [
+export const columns = [
   {
     field: '{{row.name}}',
     title: 'Назва',
