@@ -47,12 +47,12 @@
       <button class="btn btn-info w-75 mt-4" [disabled]="gradesTableReportLoading" (click)="onFullGradesTableReport()">
         Шахматка оцінок студентів
       </button>
-      
-      <button class="btn btn-warning w-75 mt-4" [disabled]="studentDataCheckLoading" (click)="onStudentDataCheck()">
-        Перевірити дані студентів
-      </button>
-      <loading *ngIf="true" size="20"></loading>
-      
+      <div class="flex-container">
+        <button class="btn btn-warning w-75 mt-4" [disabled]="studentDataCheckLoading" (click)="onStudentDataCheck()">
+          Перевірити дані студентів
+        </button>
+        <loading *ngIf="true" size="20"></loading>
+      </div>
     </app-sidebar>
   </div>
 </div>
