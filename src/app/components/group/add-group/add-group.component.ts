@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {GroupService} from '../../../services/group.service';
 import {GroupModalComponent} from '../group-modal/group-modal.component'
-
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SpecializationService} from '../../../services/specialization.service';
 import {Specialization} from '../../../models/Specialization';
+import {TuitionForm} from '../../../models/tuition-form.enum';
+import {TuitionTerm} from '../../../models/tuition-term.enum';
 
 @Component({
   selector: 'add-group',
@@ -12,32 +13,29 @@ import {Specialization} from '../../../models/Specialization';
   styleUrls: ['./add-group.component.scss']
 })
 export class AddGroupComponent {
+
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: GroupModalComponent;
 
   form = new FormGroup({
-    name: new FormControl('', [
+    name: new FormControl(null, [
       Validators.required,
       Validators.minLength(2)
     ]),
-    studySemesters: new FormControl(8, Validators.required),
-    studyYears: new FormControl(4, Validators.required),
-    beginYears: new FormControl(1, Validators.required),
-    creationYear: new FormControl(this.getValueOfCreationYear(), Validators.required),
-    tuitionForm: new FormControl(0, Validators.required),
-    tuitionTerm: new FormControl(0, Validators.required),
-    specialization: new FormControl(0, Validators.required),
+    studySemesters: new FormControl(null, Validators.required),
+    studyYears: new FormControl(null, Validators.required),
+    beginYears: new FormControl(null, Validators.required),
+    creationYear: new FormControl(null, Validators.required),
+    tuitionForm: new FormControl(null, Validators.required),
+    tuitionTerm: new FormControl(null, Validators.required),
+    specialization: new FormControl(null, Validators.required),
   });
 
-  tuitionForms = [
-    'FULL_TIME',
-    'EXTRAMURAL',
-  ];
+  tuitionForms;
+  tuitionFormsKeys;
 
-  tuitionTerms = [
-    'REGULAR',
-    'SHORTENED',
-  ];
+  tuitionTerms;
+  tuitionTermsKeys;
 
   specializations: Specialization[];
 
@@ -45,17 +43,31 @@ export class AddGroupComponent {
     specializationService.getSpecializations(true).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
       null,
-      () => this.specializations.sort((a, b) => a.id - b.id)
+      () => {
+        this.specializations.sort((a, b) => a.id - b.id);
+        this.form.controls['specialization'].setValue(this.specializations[0].id);
+      }
     );
+    this.tuitionFormsKeys = Object.keys(TuitionForm);
+    this.tuitionForms = this.tuitionFormsKeys.map(key => TuitionForm[key]);
+    this.tuitionTermsKeys = Object.keys(TuitionTerm);
+    this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
+
+    this.form.controls['studySemesters'].setValue(8);
+    this.form.controls['studyYears'].setValue(4);
+    this.form.controls['beginYears'].setValue(1);
+    this.form.controls['creationYear'].setValue(this.getValueOfCreationYear());
+    this.form.controls['tuitionForm'].setValue(this.tuitionFormsKeys[0]);
+    this.form.controls['tuitionTerm'].setValue(this.tuitionTermsKeys[0]);
   }
 
   getValueOfCreationYear(): number {
     const year = (new Date()).getFullYear();
     const month = (new Date()).getUTCMonth() + 1;
     if (month > 6) {
-      return year - 1;
+      return year;
     } else {
-      return year - 2;
+      return year - 1;
     }
   }
 
@@ -68,17 +80,13 @@ export class AddGroupComponent {
   }
 
   submit(): void {
-    if (this.form.value.name === '') {
-      return;
-    }
-
     const body = {
       name: this.form.value.name,
       active: false,
       studySemesters: this.form.value.studySemesters,
       creationYear: this.form.value.creationYear,
       specialization: {
-        id: this.specializations[this.form.value.specialization].id
+        id: this.form.value.specialization
       },
       tuitionForm: this.form.value.tuitionForm,
       tuitionTerm: this.form.value.tuitionTerm,
