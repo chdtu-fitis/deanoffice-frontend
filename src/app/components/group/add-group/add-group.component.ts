@@ -23,7 +23,7 @@ export class AddGroupComponent {
     studySemesters: new FormControl(8),
     studyYears: new FormControl(4),
     beginYears: new FormControl(1),
-    creationYear: new FormControl(2004),
+    creationYear: new FormControl(),
     tuitionForm: new FormControl(0),
     tuitionTerm: new FormControl(0),
     specialization: new FormControl(0),
@@ -49,6 +49,16 @@ export class AddGroupComponent {
     );
   }
 
+  getValueOfCreationYear(): number {
+    const year = (new Date()).getFullYear();
+    const month = (new Date()).getUTCMonth() + 1;
+    if (month > 6) {
+      return year - 1;
+    } else {
+      return year - 2;
+    }
+  }
+
   openModal(): void {
     this.modal.show();
   }
@@ -58,8 +68,11 @@ export class AddGroupComponent {
   }
 
   submit(): void {
+    if (this.form.value.name === '') {
+      return;
+    }
+
     const body = {
-      id: 0,
       name: this.form.value.name,
       active: false,
       studySemesters: this.form.value.studySemesters,

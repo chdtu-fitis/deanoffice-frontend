@@ -28,28 +28,28 @@
         <div class="form-group">
           <label for="creationYear">Створено: </label>
           <input formControlName="creationYear"
-                 type="number" min="0" max="100000"
+                 type="number" value="{{getValueOfCreationYear()}}"
                  placeholder="Семестрів" id="creationYear" class="form-control">
         </div>
 
         <div class="form-group">
           <label for="beginYears">Курс початку: </label>
           <input formControlName="beginYears"
-                 type="number" min="1" max="10"
+                 type="number" min="1"
                  placeholder="Семестрів" id="beginYears" class="form-control">
         </div>
 
         <div class="form-group">
           <label for="studyYears">Років навчання: </label>
           <input formControlName="studyYears"
-                 type="number" min="1" max="10"
+                 type="number" min="1"
                  placeholder="Семестрів" id="studyYears" class="form-control">
         </div>
 
         <div class="form-group">
           <label for="studySemesters">Семестрів: </label>
           <input formControlName="studySemesters"
-                 type="number" min="1" max="10"
+                 type="number" min="1"
                  placeholder="Семестрів" id="studySemesters" class="form-control">
         </div>
       </div>
