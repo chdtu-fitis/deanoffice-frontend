@@ -1,14 +1,13 @@
 .spinner-container {
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 20px 0 0 20px;
   height: 40px;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  display: inline;
   position: relative;
   top: 50%;
   -webkit-animation: spin 1.2s infinite ease-in-out;

@@ -8,8 +8,8 @@ export class PersonalFileGradesStatementService {
 
   constructor(private fileService: FileService) { }
 
-  buildPersonalFileGradesStatement(year: number, groupIds: number[]): any {
-    const url = `${this.documentsUrl}/personal-file-grades-statement/${year}/docx?groupIds=${groupIds}`;
+  buildPersonalFileGradesStatement(year: number, studentIds: number[]): any {
+    const url = `${this.documentsUrl}/personal-file-grades-statement/${year}/docx?studentDegreeIds=${studentIds}`;
     return this.fileService.downloadFile(url);
   }
 }

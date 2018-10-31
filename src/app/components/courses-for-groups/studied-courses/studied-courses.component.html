@@ -1,26 +1,24 @@
 <div class="card">
   <div class="card-body">
-    <div class="div-table">
-      <table *ngIf="!loading" class="table table-striped table-sm fs-13">
-        <thead>
-        <div *ngIf="courses">
-          <th></th>
-        </div>
-        <th>Назва</th>
-        <th>Контроль</th>
-        <th>Години</th>
-        <th>Кредити</th>
-        </thead>
-        <label class="empty" *ngIf="!courses">Виберіть групу та семестр</label>
-        <tr *ngFor="let course of courses | coursesSearch : searchText">
-          <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
-          <td>{{ course.courseName.name }}</td>
-          <td>{{ course.knowledgeControl.name }}</td>
-          <td>{{ course.hours }}</td>
-          <td>{{ course.credits }}</td>
+    <label class="empty" *ngIf="!courses">Виберіть групу та семестр</label>
+    <table *ngIf="!loading" class="table table-striped table-sm fs-13">
+      <thead>
+        <tr>
+          <th *ngIf="courses"></th>
+          <th>Назва</th>
+          <th>Контроль</th>
+          <th>Години</th>
+          <th>Кредити</th>
         </tr>
-      </table>
-      <loading *ngIf="loading"></loading>
-    </div>
+      </thead>
+      <tr *ngFor="let course of courses | coursesSearch : searchText">
+        <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
+        <td>{{ course.courseName.name }}</td>
+        <td>{{ course.knowledgeControl.name }}</td>
+        <td>{{ course.hours }}</td>
+        <td>{{ course.credits }}</td>
+      </tr>
+    </table>
+    <loading *ngIf="loading"></loading>
   </div>
 </div>

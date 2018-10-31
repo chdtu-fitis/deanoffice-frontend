@@ -5,13 +5,58 @@
   </button>
 </div>
 <div class="modal-body">
-  <div>
-    <input [(ngModel)]="searchText" placeholder="Пошук за групою"
-           class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+  <div class="row">
+    <div [ngClass]="copiedCoursesForGroup.length ? 'col-2' : 'col'"  class="form-group">
+      <div class="row">
+        <div class="col">
+          <label for="groupInput">Група</label>
+          <input [(ngModel)]="searchText" placeholder="Пошук за групою"
+                 class="form-control mr-2 ng-pristine ng-valid ng-touched search"
+                id="groupInput">
+        </div>
+        <div class="col">
+          <label for="semesterSelect">Семестер</label>
+          <select class="form-control" id="semesterSelect" [(ngModel)]="selectedSemesterFrom">
+            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+          </select>
+        </div>
+      </div>
+
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText"
+            (click)="selectGroup(group)">{{group.name}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="col" *ngIf="copiedCoursesForGroup.length">
+      <div>
+        <table class="table table-striped table-sm fs-13">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Назва</th>
+            <th>Контроль</th>
+            <th>Години</th>
+            <th>Кредити</th>
+            <th>Викладач</th>
+          </tr>
+          </thead>
+          <tr *ngFor="let course of copiedCoursesForGroup">
+            <td>
+              <input type="checkbox" #selected (change)="changeCopiedCoursesForGroup($event.target.checked, course)" [checked]="allRowsIsSelected">
+            </td>
+            <td>{{ course.course.courseName.name }}</td>
+            <td>{{ course.course.knowledgeControl.name }}</td>
+            <td>{{ course.course.hours }}</td>
+            <td>{{ course.course.credits }}</td>
+            <td>{{ (course.teacher | nameWithInitials) || '—' }}</td>
+          </tr>
+        </table>
+        <button type="button" class="btn btn-info copy" (click)="copyCourses()">
+          Скопіювати
+        </button>
+      </div>
+    </div>
   </div>
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText"
-        (click)="selectGroup(group)">{{group.name}}
-    </li>
-  </ul>
 </div>

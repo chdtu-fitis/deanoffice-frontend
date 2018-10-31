@@ -1,54 +1,29 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
-import {distinctUntilChanged, filter, map} from 'rxjs/operators';
-
-const features = {
-  // login
-  'login': 'Вхід',
-  // start year
-  'specialities': 'Спеціальності',
-  'specializations': 'Спеціалізації (освітні програми)',
-  'courses-for-groups': 'Предмети для груп',
-  // during year
-  'students': 'Студенти',
-  'expelled': 'Відраховані студенти',
-  'in-vacation': 'Студенти в академ. відпустці',
-  'grades': 'Оцінки',
-  // documents
-  'diploma-supplement': 'Додатки до диплому',
-  'exam-report': 'Відомості',
-  'personal-file-grades-statement': 'Виписка в особову справу'
-};
-
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  private feature$: Observable<string>;
+export class AppComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
+  ) {}
 
-  constructor(router: Router) {
-    this.feature$ = router.events
-      .pipe(
-        map(getUrlFromEvent),
-        filter(isExist),
-        distinctUntilChanged(),
-        map(getLastPath),
-        map(toFeature)
-      );
+  ngOnInit() {
+    this.router.events
+      .filter((event) => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map((route) => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .filter((route) => route.outlet === 'primary')
+      .mergeMap((route) => route.data)
+      .subscribe((event) => this.titleService.setTitle(`Деканат - ${event['title']}`));
   }
 }
-
-const getUrlFromEvent = (event) => event['url'] as string;
-
-const isExist = (url: string): boolean => Boolean(url);
-
-const getLastPath = (url: string): string => url.split('/').reverse()[0];
-
-const toFeature = (path: string): string => {
-  const feature: string | undefined = features[path];
-  return (feature) ? ` - ${feature}` : '';
-};
