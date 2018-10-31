@@ -26,13 +26,10 @@ export class DeleteGroupComponent {
   }
 
   submit(): void {
-    const IsConfirm = confirm('Ви дійсно бажаєте видалити обрані групи?');
-    if (IsConfirm) {
-      this.groupService
-        .delete(this.groups.map(x => x.id))
-        .then(() => this.onSubmit.emit(null))
-        .then(() => this.modal.hide());
-    }
+    this.groupService
+      .delete(this.groups.map(x => x.id))
+      .then(() => this.onSubmit.emit(null))
+      .then(() => this.modal.hide());
   }
 
   hideModal(): void {
