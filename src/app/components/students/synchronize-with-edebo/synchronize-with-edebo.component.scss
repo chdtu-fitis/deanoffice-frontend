@@ -13,6 +13,14 @@
   height:70vh;
   overflow: auto;
 }
+.result-table {
+  height:5vh;
+  overflow: auto;
+}
+.result-table caption{
+   caption-side:top;
+ }
+
 .loader {
   border: 5px solid #f3f3f3; /* Light grey */
   border-top: 5px solid #3498db; /* Blue */

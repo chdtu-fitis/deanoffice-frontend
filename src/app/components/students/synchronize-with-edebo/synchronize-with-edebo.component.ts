@@ -12,6 +12,7 @@ import {DegreeService} from '../../../services/degree.service';
 import {Degree} from '../../../models/Degree';
 import {SpecialityService} from '../../../services/speciality.service';
 import {Speciality} from '../../../models/Speciality';
+import {ResultOfSavingData} from '../../../models/synchronization-edebo-models/ResultOfSavingData';
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -23,6 +24,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   uploadInProgress = false;
   fileField = true;
   importView = true;
+  resultView = false;
+  downloadButton = this.importView;
   selectedFile: File = null;
   fileName = 'Виберіть файл';
   modalName = 'Імпортувати файл';
@@ -39,6 +42,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   specialities: Speciality[];
   selectedDegree = null;
   selectedSpeciality = null;
+  resultOfSaving: ResultOfSavingData;
 
   ngOnInit() {
   }
@@ -93,6 +97,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.specialityService.getSpecialities().subscribe(
       speciality => {
         this.specialities = speciality;
+        this.fileField = true;
      }
     );
     this.orangeStudentsSelected = false;
@@ -100,7 +105,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modalName = 'Імпортувати файл';
     this.modalSize = '';
     this.importView = true;
-    this.fileField = true;
     this.modal.show();
   }
 
@@ -109,6 +113,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
+    this.downloadButton = false;
   }
 
   onSelectAllStudents(checked: boolean, table: string): void {
@@ -169,13 +174,25 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
-    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe();
+    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
+      request => {
+        this.resultOfSaving = request;
+        this.modalSize = '';
+        this.modalName = 'Дані змінено';
+        this.importView = !this.importView;
+        this.resultView = true;
+      }
+    );
+
+
   }
 
   hideModal(): void {
     this.selectedDegree = null;
     this.selectedSpeciality = null;
     this.modal.hide();
+    this.resultView = false;
+    this.downloadButton = true;
     this.isChangedValueOfDb = true;
   }
 
