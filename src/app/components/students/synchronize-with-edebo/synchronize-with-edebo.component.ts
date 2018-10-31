@@ -169,6 +169,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   hideModal(): void {
+    this.selectedDegree = null;
+    this.selectedSpeciality = null;
     this.modal.hide();
     this.isChangedValueOfDb = true;
   }
