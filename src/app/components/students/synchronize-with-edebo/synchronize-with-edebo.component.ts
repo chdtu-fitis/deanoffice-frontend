@@ -37,8 +37,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   studentsInTable: number;
   degrees: Degree[];
   specialities: Speciality[];
-  selectedDegree;
-  selectedSpeciality;
+  selectedDegree = null;
+  selectedSpeciality = null;
 
   ngOnInit() {
   }
@@ -53,12 +53,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onFileUpload(): void {
-    if (this.selectedDegree == null) {
-      this.selectedDegree = null;
-    }
-    if (this.selectedSpeciality == null) {
-      this.selectedSpeciality = null;
-    }
+
     this.uploadInProgress = true;
     this.fileField = false;
     let formData = new FormData();
@@ -75,6 +70,13 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
           this.changeModal();
         }
     );
+  }
+
+  changeSpeciality(value) {
+    this.selectedSpeciality = value;
+  }
+  changeDegree(value) {
+    this.selectedDegree = value;
   }
 
   onShow(): void {
@@ -98,6 +100,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   changeModal(): void {
+    this.studentsInTable = 0;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;

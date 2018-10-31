@@ -221,14 +221,19 @@
       <div class="select-area from-group row" *ngIf="fileField">
         <div class="col-xs-2">
           <label for="degrees">Ступінь</label>
-          <select name="degree" id="degrees" class="form-control" ([ngModel])="selectedDegree">
-            <option *ngFor="let degree of degrees;">{{degree?.name}}</option>
+          <select name="degree" id="degrees" class="form-control" (change)="changeDegree($event.target.value)">
+            <option *ngFor="let degree of degrees;" value="{{degree?.name}}">{{degree?.name}}</option>
+            <option value="null" selected> </option>
           </select>
         </div>
         <div class="col-xs-12">
           <label for="specialities">Спеціальність</label>
-          <select name="speciality" id="specialities" class="form-control" ([ngModel])="selectedSpeciality">
-            <option *ngFor="let speciality of specialities;">{{speciality?.code + ' ' +  speciality?.name}}</option>
+          <select name="speciality" id="specialities" class="form-control"
+                  (change)="changeSpeciality($event.target.value)">
+              <option *ngFor="let speciality of specialities;" value="{{speciality?.code + ' ' +  speciality?.name}}">
+                {{speciality?.code + ' ' +  speciality?.name}}
+              </option>
+              <option value="null" selected> </option>
           </select>
         </div>
       </div>
