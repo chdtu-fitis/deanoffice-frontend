@@ -6,6 +6,7 @@ export class StudentDegreePrimaryEdeboDataDTO {
   facultyName?: string;
   birthday?: string;
   degreeName?: string;
+  groupName?: string;
   fullSpecialityName?: string;
   fullSpecializationName?: string;
 }
