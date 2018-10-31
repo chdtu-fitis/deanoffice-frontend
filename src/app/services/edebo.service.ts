@@ -8,8 +8,8 @@ export class EdeboService {
   private url = `${environment.apiUrl}/students/edebo-synchronization`;
   constructor(private _http: HttpClient) { }
 
-  uploadFile(formData: any, params: any): Observable<any> {
-    return this._http.post(`${this.url}/process-file`, formData, params)
+  uploadFile(formData: any): Observable<any> {
+    return this._http.post(`${this.url}/process-file`, formData)
       .catch(this._errorHandler);
   }
   updateDb(data: any): Observable<any> {

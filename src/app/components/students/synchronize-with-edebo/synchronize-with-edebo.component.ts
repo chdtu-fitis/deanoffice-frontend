@@ -58,8 +58,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.fileField = false;
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    let params = {degree: this.selectedDegree, speciality: this.selectedSpeciality};
-    this.edeboService.uploadFile(formData, params).subscribe(
+    formData.append('degree', this.selectedDegree, '');
+    formData.append('speciality', this.selectedSpeciality, '');
+    this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
           this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
@@ -100,7 +101,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   changeModal(): void {
-    this.studentsInTable = 0;
+    this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
