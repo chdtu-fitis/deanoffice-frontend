@@ -58,8 +58,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.fileField = false;
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    formData.append('degree', this.selectedDegree, '');
-    formData.append('speciality', this.selectedSpeciality, '');
+    formData.append('degree', this.selectedDegree);
+    formData.append('speciality', this.selectedSpeciality);
     this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
