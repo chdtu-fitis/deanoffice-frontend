@@ -17,6 +17,7 @@ import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversi
 })
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
+  studentPreviousUniversity: FormGroup;
   model: StudentDegree;
   diplomaType = DiplomaType;
   diplomaTypeKey: Array<string>;
@@ -107,6 +108,13 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
       .join('')
       .toUpperCase();
     return `${specialityAbbr} ${specialization.degree.name}`;
+  }
+
+  addStudentPreviousUniversity() {
+    this.studentPreviousUniversity = this.fb.group(
+      {...new StudentPreviousUniversity()}
+    );
+    this.form.controls.degrees.controls[0].controls.studentPreviousUniversities.push(this.studentPreviousUniversity);
   }
 
   submit() {
