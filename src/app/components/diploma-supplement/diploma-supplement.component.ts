@@ -65,7 +65,7 @@ export class DiplomaSupplementComponent implements OnInit {
     this.message = '';
     for (let student of this.students) {
       this.supplementLoading = true;
-      if (student.selected){
+      if (student.selected) {
         this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
           this.supplementLoading = false;
         });
