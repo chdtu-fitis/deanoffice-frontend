@@ -223,7 +223,7 @@
           <label for="degrees">Ступінь</label>
           <select name="degree" id="degrees" class="form-control" (change)="changeDegree($event.target.value)">
             <option *ngFor="let degree of degrees;" value="{{degree?.name}}">{{degree?.name}}</option>
-            <option value="null" selected> </option>
+            <option value="{{null}}" selected> </option>
           </select>
         </div>
         <div class="col-xs-12">
@@ -233,7 +233,7 @@
               <option *ngFor="let speciality of specialities;" value="{{speciality?.code + ' ' +  speciality?.name}}">
                 {{speciality?.code + ' ' +  speciality?.name}}
               </option>
-              <option value="null" selected> </option>
+              <option value="{{null}}" selected> </option>
           </select>
         </div>
       </div>
