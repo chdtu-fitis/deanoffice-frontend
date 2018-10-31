@@ -165,7 +165,6 @@
                     <app-validation-errors [control]="degree.controls.diplomaWithHonours"></app-validation-errors>
                   </div>
                 </div>
-                <button (click)="addStudentPreviousUniversity()">Додати</button>
                 <h6 class="mb-2">Попередні навчальні заклади</h6>
                 <div *ngFor="let SPU of degree.get('studentPreviousUniversities').controls; let i = index ">
                   <div formArrayName="studentPreviousUniversities">
@@ -201,10 +200,14 @@
                                  [appValidation]="SPU.controls.academicCertificateDate">
                           <app-validation-errors [control]="SPU.controls.academicCertificateDate"></app-validation-errors>
                         </div>
+                        <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                          <button *ngIf="SPU.controls.id" (click)="deleteStudentPreviousUniversity(SPU.controls.id.value)">Видалити</button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <button (click)="addStudentPreviousUniversity()">Додати</button>
               </div>
             </tab>
           </tabset>

@@ -117,6 +117,13 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     this.form.controls.degrees.controls[0].controls.studentPreviousUniversities.push(this.studentPreviousUniversity);
   }
 
+  deleteStudentPreviousUniversity(id) {
+    const studentPreviousUniversities = this.form.controls.degrees.controls[0].controls.studentPreviousUniversities;
+    const index = studentPreviousUniversities.value.findIndex(i => i.id === id);
+    studentPreviousUniversities.controls.splice(index, 1);
+    studentPreviousUniversities.value.splice(index, 1);
+  }
+
   submit() {
     super.submit();
     if (this.form.invalid) {
