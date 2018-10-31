@@ -134,7 +134,10 @@
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
-            <td><input type="checkbox" [(ngModel)]="orangeStudentsSelected" (click)="onSelectAllStudents($event.target.checked,'orange')"></td>
+            <td>
+              <input type="checkbox" [(ngModel)]="orangeStudentsSelected"
+                     (click)="onSelectAllStudents($event.target.checked,'orange')">
+            </td>
             <td>Прізвище</td>
             <td>Ім'я</td>
             <td>По-батькові</td>
@@ -215,6 +218,22 @@
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
       </div>
+      <div class="select-area from-group row" *ngIf="fileField">
+        <div class="col-xs-2">
+          <label for="degrees">Ступінь</label>
+          <select name="degree" id="degrees" class="form-control" ([ngModel])="selectedDegree">
+            <option *ngFor="let degree of degrees;">{{degree?.name}}</option>
+          </select>
+        </div>
+        <div class="col-xs-12">
+          <label for="specialities">Спеціальність</label>
+          <select name="speciality" id="specialities" class="form-control" ([ngModel])="selectedSpeciality">
+            <option *ngFor="let speciality of specialities;">{{speciality?.code + ' ' +  speciality?.name}}</option>
+          </select>
+        </div>
+      </div>
+
+
     </div>
     <div class="modal-footer">
       <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>

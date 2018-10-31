@@ -7,8 +7,11 @@ import {MissingPrimaryDataRedDTO} from '../../../models/synchronization-edebo-mo
 import {StudentDegreePrimaryEdeboDataDTO} from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
 import {UnmatchedSecodaryDataStudentDegreeBlue} from '../../../models/synchronization-edebo-models/UnmatchedSecodaryDataStudentDegreeBlue';
 import {DiplomaType} from '../../../models/diploma-type.enum';
-import {TuitionTerm} from '../../../models/tuition-term.enum';
 import {Payment} from '../../../models/payment.enum';
+import {DegreeService} from '../../../services/degree.service';
+import {Degree} from '../../../models/Degree';
+import {SpecialityService} from '../../../services/speciality.service';
+import {Speciality} from '../../../models/Speciality';
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -19,9 +22,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   @ViewChild('modal') modal: ModalDirective;
   uploadInProgress = false;
   fileField = true;
+  importView = true;
   selectedFile: File = null;
   fileName = 'Виберіть файл';
-  importView = true;
   modalName = 'Імпортувати файл';
   modalSize = '';
   isChangedValueOfDb = true;
@@ -32,10 +35,16 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   absentInFileStudentDegreesYellow: StudentDegreePrimaryEdeboDataDTO[];
   orangeStudentsSelected: boolean;
   studentsInTable: number;
+  degrees: Degree[];
+  specialities: Speciality[];
+  selectedDegree;
+  selectedSpeciality;
 
   ngOnInit() {
   }
-  constructor(private edeboService: EdeboService) {
+  constructor(private edeboService: EdeboService,
+              private degreeService: DegreeService,
+              private specialityService: SpecialityService) {
   }
 
   onFileSelected(event) {
@@ -44,11 +53,18 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onFileUpload(): void {
+    if (this.selectedDegree == null) {
+      this.selectedDegree = null;
+    }
+    if (this.selectedSpeciality == null) {
+      this.selectedSpeciality = null;
+    }
     this.uploadInProgress = true;
     this.fileField = false;
     let formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
-    this.edeboService.uploadFile(formData).subscribe(
+    let params = {degree: this.selectedDegree, speciality: this.selectedSpeciality};
+    this.edeboService.uploadFile(formData, params).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
           this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
@@ -62,18 +78,26 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onShow(): void {
-    this.studentsInTable = 0;
+    this.degreeService.getDegrees().subscribe(
+      degrees => {
+        this.degrees = degrees;
+      }
+    );
+    this.specialityService.getSpecialities().subscribe(
+      speciality => {
+        this.specialities = speciality;
+     }
+    );
     this.orangeStudentsSelected = false;
     this.fileName = 'Виберіть файл';
-    this.importView = true;
-    this.fileField = true;
     this.modalName = 'Імпортувати файл';
     this.modalSize = '';
+    this.importView = true;
+    this.fileField = true;
     this.modal.show();
   }
 
   changeModal(): void {
-    this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
     this.importView = !this.importView;
