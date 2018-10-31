@@ -26,7 +26,7 @@ export class UpdateGroupComponent {
       Validators.minLength(2)
     ]),
     studySemesters: new FormControl(null, Validators.required),
-    studyYears: new FormControl(null, Validators.required),
+    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[1-9.]*')]),
     beginYears: new FormControl(null, Validators.required),
     creationYear: new FormControl(null, Validators.required),
     tuitionForm: new FormControl(null, Validators.required),
