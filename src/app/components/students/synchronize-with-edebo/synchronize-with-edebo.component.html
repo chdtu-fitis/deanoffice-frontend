@@ -216,16 +216,18 @@
         </tab>
       </tabset>
       <div *ngIf="resultView">
-        <p> Додано студентів: {{resultOfSaving?.created?.createdStudentDegrees}}</p>
-        <table class="table table-sm table-striped table-bordered mt-4 result-table">
+        <p> Додано студентів: {{replaceNullValue(resultOfSaving?.created,'createdStudentDegrees')}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table"
+               *ngIf="resultOfSaving?.created?.notCreatedStudentDegrees.length !== 0 && resultOfSaving?.created !== null">
           <caption>Не додані студенти:</caption>
           <tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">
             <td>{{ student }}</td>
           </tr>
         </table>
         <hr>
-        <p> Змінено дані студентів: {{resultOfSaving?.updated?.updatedStudentDegrees}}</p>
-        <table class="table table-sm table-striped table-bordered mt-4 result-table">
+        <p> Змінено дані студентів: {{replaceNullValue(resultOfSaving?.updated,'updatedStudentDegrees')}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table"
+               *ngIf="resultOfSaving?.updated?.notUpdatedStudentDegrees.length !== 0 && resultOfSaving?.updated !== null">
           <caption>Не змінені дані для студентів:</caption>
           <tr *ngFor="let student of resultOfSaving?.updated?.notUpdatedStudentDegrees">
             <td>{{student}}</td>

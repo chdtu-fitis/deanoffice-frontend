@@ -57,7 +57,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onFileUpload(): void {
-
     this.uploadInProgress = true;
     this.fileField = false;
     let formData = new FormData();
@@ -97,9 +96,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.specialityService.getSpecialities().subscribe(
       speciality => {
         this.specialities = speciality;
-        this.fileField = true;
      }
     );
+    this.fileField = true;
     this.orangeStudentsSelected = false;
     this.fileName = 'Виберіть файл';
     this.modalName = 'Імпортувати файл';
@@ -170,27 +169,34 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     }
   };
 
+  replaceNullValue(value, string): number {
+    if (value === null) {
+      return 0;
+    }
+    return value[string];
+  }
+
+
   saveChanges(): void {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
     this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
       request => {
-        this.resultOfSaving = request;
         this.modalSize = '';
         this.modalName = 'Дані змінено';
         this.importView = !this.importView;
         this.resultView = true;
+        this.resultOfSaving = request;
       }
     );
-
-
   }
 
   hideModal(): void {
     this.selectedDegree = null;
     this.selectedSpeciality = null;
     this.modal.hide();
+    this.uploadInProgress = false;
     this.resultView = false;
     this.downloadButton = true;
     this.isChangedValueOfDb = true;
