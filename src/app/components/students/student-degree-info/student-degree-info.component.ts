@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -73,9 +73,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
           contractDate: this.getFormField(degree, 'contractDate'),
           contractNumber: this.getFormField(degree, 'contractNumber'),
           admissionDate: this.getFormField(degree, 'admissionDate'),
-          studentPreviousUniversities: this.fb.array(
-            (degree['studentPreviousUniversities'] as StudentPreviousUniversity[])
-              .map((SPU: StudentPreviousUniversity) => {
+          studentPreviousUniversities: this.fb.array(degree.studentPreviousUniversities.map((SPU) => {
             return this.fb.group({
               id: SPU.id,
               universityName: SPU.universityName,
@@ -114,11 +112,11 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     this.studentPreviousUniversity = this.fb.group(
       {...new StudentPreviousUniversity()}
     );
-    this.form.controls.degrees.controls[0].controls.studentPreviousUniversities.push(this.studentPreviousUniversity);
+    (this.form.controls.degrees as FormArray).controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
   }
 
   deleteStudentPreviousUniversity(id) {
-    const studentPreviousUniversities = this.form.controls.degrees.controls[0].controls.studentPreviousUniversities;
+    const studentPreviousUniversities = (this.form.controls.degrees as FormArray).controls[0]['controls']['studentPreviousUniversities'];
     const index = studentPreviousUniversities.value.findIndex(i => i.id === id);
     studentPreviousUniversities.controls.splice(index, 1);
     studentPreviousUniversities.value.splice(index, 1);
