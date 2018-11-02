@@ -13,7 +13,7 @@ import {TuitionTerm} from '../../../models/tuition-term.enum';
   templateUrl: './update-group.component.html',
   styleUrls: ['./update-group.component.scss']
 })
-export class UpdateGroupComponent {
+export class UpdateGroupComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: GroupModalComponent;
@@ -42,8 +42,10 @@ export class UpdateGroupComponent {
 
   specializations: Specialization[];
 
-  constructor(private groupService: GroupService, private specializationService: SpecializationService) {
-    specializationService.getSpecializations(true).subscribe(
+  constructor(private groupService: GroupService, private specializationService: SpecializationService) { }
+
+  ngOnInit () {
+    this.specializationService.getSpecializations(true).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
       null,
       () => this.specializations.sort((a, b) => a.id - b.id)

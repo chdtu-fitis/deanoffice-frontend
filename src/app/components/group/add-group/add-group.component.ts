@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild, OnInit} from '@angular/core';
 import {GroupService} from '../../../services/group.service';
 import {GroupModalComponent} from '../group-modal/group-modal.component'
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -12,7 +12,7 @@ import {TuitionTerm} from '../../../models/tuition-term.enum';
   templateUrl: './add-group.component.html',
   styleUrls: ['./add-group.component.scss']
 })
-export class AddGroupComponent {
+export class AddGroupComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: GroupModalComponent;
@@ -39,8 +39,10 @@ export class AddGroupComponent {
 
   specializations: Specialization[];
 
-  constructor(private groupService: GroupService, private specializationService: SpecializationService) {
-    specializationService.getSpecializations(true).subscribe(
+  constructor(private groupService: GroupService, private specializationService: SpecializationService) { }
+
+  ngOnInit() {
+    this.specializationService.getSpecializations(true).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
       null,
       () => {
