@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -25,6 +25,10 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   @ViewChild('modal') modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
   @Input() groups: StudentGroup[];
+
+  get degrees() {
+    return this.form.get('degrees') as FormArray;
+  }
 
   constructor(private fb: FormBuilder, private studentService: StudentService) {
     super();
@@ -109,14 +113,12 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   }
 
   addStudentPreviousUniversity() {
-    this.studentPreviousUniversity = this.fb.group(
-      {...new StudentPreviousUniversity()}
-    );
-    (this.form.controls.degrees as FormArray).controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
+    this.studentPreviousUniversity = this.fb.group({...new StudentPreviousUniversity()});
+    this.degrees.controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
   }
 
   deleteStudentPreviousUniversity(id) {
-    const studentPreviousUniversities = (this.form.controls.degrees as FormArray).controls[0]['controls']['studentPreviousUniversities'];
+    const studentPreviousUniversities = this.degrees.controls[0]['controls']['studentPreviousUniversities'];
     const index = studentPreviousUniversities.value.findIndex(i => i.id === id);
     studentPreviousUniversities.controls.splice(index, 1);
     studentPreviousUniversities.value.splice(index, 1);
@@ -125,7 +127,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   submit() {
     super.submit();
     if (this.form.invalid) {
-      this.tabValidity = (this.form.controls.degrees as FormArray).controls.map(
+      this.tabValidity = this.degrees.controls.map(
         control => control.invalid
       );
       return;
