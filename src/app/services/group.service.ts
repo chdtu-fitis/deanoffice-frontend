@@ -39,7 +39,6 @@ export class GroupService {
 
   delete(ids: number[]): Promise<any> {
     const url = `${this.groupsUrl}/${ids.join(', ')}`;
-    console.log(url);
     return this.http.delete(url).toPromise()
       .catch(forPromise('Видалення групи'));
   }

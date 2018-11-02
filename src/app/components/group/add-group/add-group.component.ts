@@ -23,7 +23,7 @@ export class AddGroupComponent implements OnInit {
       Validators.minLength(2)
     ]),
     studySemesters: new FormControl(null, Validators.required),
-    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[1-9.]*')]),
+    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[0-9.]*')]),
     beginYears: new FormControl(null, Validators.required),
     creationYear: new FormControl(null, Validators.required),
     tuitionForm: new FormControl(null, Validators.required),
@@ -47,7 +47,7 @@ export class AddGroupComponent implements OnInit {
       null,
       () => {
         this.specializations.sort((a, b) => a.id - b.id);
-        this.form.controls['specialization'].setValue(this.specializations[0].id);
+        this.form.controls.specialization.setValue(this.specializations[0].id);
       }
     );
     this.tuitionFormsKeys = Object.keys(TuitionForm);
@@ -55,12 +55,12 @@ export class AddGroupComponent implements OnInit {
     this.tuitionTermsKeys = Object.keys(TuitionTerm);
     this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
 
-    this.form.controls['studySemesters'].setValue(8);
-    this.form.controls['studyYears'].setValue(3.84);
-    this.form.controls['beginYears'].setValue(1);
-    this.form.controls['creationYear'].setValue(this.getValueOfCreationYear());
-    this.form.controls['tuitionForm'].setValue(this.tuitionFormsKeys[0]);
-    this.form.controls['tuitionTerm'].setValue(this.tuitionTermsKeys[0]);
+    this.form.controls.studySemesters.setValue(8);
+    this.form.controls.studyYears.setValue(3.84);
+    this.form.controls.beginYears.setValue(1);
+    this.form.controls.creationYear.setValue(this.getValueOfCreationYear());
+    this.form.controls.tuitionForm.setValue(this.tuitionFormsKeys[0]);
+    this.form.controls.tuitionTerm.setValue(this.tuitionTermsKeys[0]);
   }
 
   getValueOfCreationYear(): number {

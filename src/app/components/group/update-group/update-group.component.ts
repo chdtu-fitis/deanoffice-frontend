@@ -26,7 +26,7 @@ export class UpdateGroupComponent implements OnInit {
       Validators.minLength(2)
     ]),
     studySemesters: new FormControl(null, Validators.required),
-    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[1-9.]*')]),
+    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[0-9.]*')]),
     beginYears: new FormControl(null, Validators.required),
     creationYear: new FormControl(null, Validators.required),
     tuitionForm: new FormControl(null, Validators.required),
@@ -60,14 +60,14 @@ export class UpdateGroupComponent implements OnInit {
     this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
 
     this.selectedGroup = selectedGroup;
-    this.form.controls['name'].setValue(selectedGroup.name);
-    this.form.controls['studySemesters'].setValue(selectedGroup.studySemesters);
-    this.form.controls['studyYears'].setValue(selectedGroup.studyYears);
-    this.form.controls['beginYears'].setValue(selectedGroup.beginYears);
-    this.form.controls['creationYear'].setValue(selectedGroup.creationYear);
-    this.form.controls['tuitionForm'].setValue(selectedGroup.tuitionForm);
-    this.form.controls['tuitionTerm'].setValue(selectedGroup.tuitionTerm);
-    this.form.controls['specialization'].setValue(selectedGroup.specialization.id);
+    this.form.controls.name.setValue(selectedGroup.name);
+    this.form.controls.studySemesters.setValue(selectedGroup.studySemesters);
+    this.form.controls.studyYears.setValue(selectedGroup.studyYears);
+    this.form.controls.beginYears.setValue(selectedGroup.beginYears);
+    this.form.controls.creationYear.setValue(selectedGroup.creationYear);
+    this.form.controls.tuitionForm.setValue(selectedGroup.tuitionForm);
+    this.form.controls.tuitionTerm.setValue(selectedGroup.tuitionTerm);
+    this.form.controls.specialization.setValue(selectedGroup.specialization.id);
 
     this.modal.show();
   }
