@@ -67,7 +67,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     if (this.selectedSpeciality) {
       formData.append('speciality', this.selectedSpeciality);
     }
-    this.edeboService.uploadFile(formData).subscribe(
+    try {
+      this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
           this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
@@ -77,7 +78,10 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
           this.uploadInProgress = false;
           this.changeModal();
         }
-    );
+      );
+    } catch (error) {
+      console.log(error + 'Hello world!');
+    }
   }
 
   changeSpeciality(value) {
@@ -88,6 +92,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   onShow(): void {
+    this.downloadButton = true;
     this.degreeService.getDegrees().subscribe(
       degrees => {
         this.degrees = degrees;
@@ -181,15 +186,15 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
-    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
-      request => {
-        this.modalSize = '';
-        this.modalName = 'Дані змінено';
-        this.importView = !this.importView;
-        this.resultView = true;
-        this.resultOfSaving = request;
-      }
-    );
+      this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
+        response => {
+          this.modalSize = '';
+          this.modalName = 'Дані змінено';
+          this.importView = !this.importView;
+          this.resultView = true;
+          this.resultOfSaving = response;
+        }
+      );
   }
 
   hideModal(): void {
@@ -198,7 +203,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modal.hide();
     this.uploadInProgress = false;
     this.resultView = false;
-    this.downloadButton = true;
     this.isChangedValueOfDb = true;
   }
 

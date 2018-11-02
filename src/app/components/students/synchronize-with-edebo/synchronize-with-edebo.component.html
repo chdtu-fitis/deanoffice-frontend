@@ -234,17 +234,14 @@
           </tr>
         </table>
       </div>
-
-
-
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
         <div class="custom-file">
-          <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
+          <input type="file" class="custom-file" id="importFile" accept=".xlsx" (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
       </div>
-      <div class="select-area from-group row" *ngIf="fileField">
+      <div class="row select-area" *ngIf="fileField">
         <div class="col-xs-2">
           <label for="degrees">Ступінь</label>
           <select name="degree" id="degrees" class="form-control" (change)="changeDegree($event.target.value)">
