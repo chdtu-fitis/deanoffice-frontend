@@ -1,3 +1,18 @@
+.icon-arrow-up, .icon-arrow-down {
+  display: inline-block;
+  background-size: 25px;
+  background-position: center;
+  height: 10px;
+  width: 10px;
+}
+
+.icon-arrow-up {
+  background-image: url("/assets/img/arrow_down_black.png");
+}
+
+.icon-arrow-down {
+  background-image: url("/assets/img/arrow_up_black.png");
+}
 
 .table-wrapper {
   height: calc(100% - 55px) ;
