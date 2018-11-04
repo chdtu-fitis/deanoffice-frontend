@@ -56,27 +56,27 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
             },
             degree.active ? Validators.required : null,
           ],
-          recordBookNumber: this.getFormField(degree, 'recordBookNumber'),
-          studentCardNumber: this.getFormField(degree, 'studentCardNumber'),
-          diplomaNumber: this.getFormField(degree, 'diplomaNumber'),
-          diplomaDate: this.getFormField(degree, 'diplomaDate'),
-          diplomaWithHonours: this.getFormField(degree, 'diplomaWithHonours'),
-          supplementNumber: this.getFormField(degree, 'supplementNumber'),
-          supplementDate: this.getFormField(degree, 'supplementDate'),
-          thesisName: this.getFormField(degree, 'thesisName'),
-          thesisNameEng: this.getFormField(degree, 'thesisNameEng'),
-          protocolNumber: this.getFormField(degree, 'protocolNumber'),
-          protocolDate: this.getFormField(degree, 'protocolDate'),
-          previousDiplomaType: this.getFormField(degree, 'previousDiplomaType'),
-          previousDiplomaNumber: this.getFormField(degree, 'previousDiplomaNumber'),
-          previousDiplomaDate: this.getFormField(degree, 'previousDiplomaDate'),
-          previousDiplomaIssuedBy: this.getFormField(degree, 'previousDiplomaIssuedBy'),
-          previousDiplomaIssuedByEng: this.getFormField(degree, 'previousDiplomaIssuedByEng'),
-          admissionOrderDate: this.getFormField(degree, 'admissionOrderDate'),
-          admissionOrderNumber: this.getFormField(degree, 'admissionOrderNumber'),
-          contractDate: this.getFormField(degree, 'contractDate'),
-          contractNumber: this.getFormField(degree, 'contractNumber'),
-          admissionDate: this.getFormField(degree, 'admissionDate'),
+          recordBookNumber: degree.recordBookNumber,
+          studentCardNumber: degree.studentCardNumber,
+          diplomaNumber: degree.diplomaNumber,
+          diplomaDate: degree.diplomaDate,
+          diplomaWithHonours: degree.diplomaWithHonours,
+          supplementNumber: degree.supplementNumber,
+          supplementDate: degree.supplementDate,
+          thesisName: degree.thesisName,
+          thesisNameEng: degree.thesisNameEng,
+          protocolNumber: degree.protocolNumber,
+          protocolDate: degree.protocolDate,
+          previousDiplomaType: degree.previousDiplomaType,
+          previousDiplomaNumber: degree.previousDiplomaNumber,
+          previousDiplomaDate: degree.previousDiplomaDate,
+          previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
+          previousDiplomaIssuedByEng: degree.previousDiplomaIssuedByEng,
+          admissionOrderDate: degree.admissionOrderDate,
+          admissionOrderNumber: degree.admissionOrderNumber,
+          contractDate: degree.contractDate,
+          contractNumber: degree.contractNumber,
+          admissionDate: degree.admissionDate,
           studentPreviousUniversities: this.fb.array(degree.studentPreviousUniversities.map((SPU) => {
             return this.fb.group({
               id: SPU.id,
@@ -87,19 +87,16 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
               academicCertificateDate: SPU.academicCertificateDate,
             })
           })),
-          payment: this.getFormField(degree, 'payment'),
+          payment: degree.payment,
           active: degree.active
         })
       }))
     });
-  }
-
-  getFormField(degree: StudentDegree, field: string) {
-    return [{value: degree[field], disabled: !degree.active}]
-  }
-
-  getStudentGroup(i: number) {
-    return (this.model as any).degrees[i].studentGroup;
+    this.form.controls.degrees['controls'].map(control => {
+      if (!control.controls.active.value) {
+        control.disable()
+      }}
+    );
   }
 
   getTabHeader(i: number) {
