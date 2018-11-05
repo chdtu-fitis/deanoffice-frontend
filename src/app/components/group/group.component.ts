@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-group',
@@ -17,10 +18,27 @@ export class GroupComponent implements OnInit {
   actualGroups = true;
   searchText: string;
   loadingGroups = true;
-  constructor(private groupService: GroupService) { }
+  alertOptions = {
+    showProgressBar: false,
+    timeOut: 50000,
+    pauseOnHover: false,
+    clickToClose: true,
+    maxLength: 10,
+    maxStack: 3
+  };
+
+  constructor(
+    private groupService: GroupService,
+    private notificationsService: NotificationsService) { }
 
   ngOnInit() {
     this.loadGroups();
+  }
+
+  showErrorAlert($event) {
+    this.notificationsService.error('Помилка',
+      $event.message,
+      this.alertOptions);
   }
 
   loadGroups(): void {
@@ -31,7 +49,7 @@ export class GroupComponent implements OnInit {
       .subscribe((loadedGroups: StudentGroup[]) => {
         this.loadedGroups = loadedGroups;
         this.loadingGroups = false;
-        this.updateGroups()
+        this.updateGroups();
       });
   }
 

@@ -37,10 +37,10 @@ export class GroupService {
       .catch(forPromise('Створення нової групи'));
   }
 
-  delete(ids: number[]): Promise<any> {
+  delete(ids: number[]): Observable<Object> {
     const url = `${this.groupsUrl}/${ids.join(', ')}`;
-    return this.http.delete(url).toPromise()
-      .catch(forPromise('Видалення групи'));
+    return this.http.delete(url)
+      .pipe(catchError(forObservable('Видалення групи', [])));
   }
 
   update(body): Promise<any> {
