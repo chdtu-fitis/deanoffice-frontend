@@ -15,7 +15,7 @@
 }
 
 .table-wrapper {
-  height: calc(100% - 55px) ;
+  height: 100% ;
 }
 
 .table {
@@ -23,7 +23,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  overflow: auto;
   color: rgba(0, 0, 0, 0.9);
   border-collapse: collapse;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
