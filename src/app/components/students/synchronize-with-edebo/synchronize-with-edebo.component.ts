@@ -30,7 +30,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   fileName = 'Виберіть файл';
   modalName = 'Імпортувати файл';
   modalSize = '';
-  isChangedValueOfDb = true;
+  isChangedValueOfDb: boolean [];
   synchronizedStudentDegreesGreen: StudentDegreePrimaryEdeboDataDTO[];
   noSuchStudentOrSuchStudentDegreeInDbOrange: StudentDegreeFullEdeboData[];
   missingPrimaryDataRed: MissingPrimaryDataRedDTO[];
@@ -113,6 +113,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   changeModal(): void {
+    this.isChangedValueOfDb = this.unmatchedSecondaryDataStudentDegreesBlue.map(() => true);
     this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
@@ -131,8 +132,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
         student.studentDegreeFromDb.selected = checked;
       }
     }
-
-}
+  }
   сhooseSelectedStudentsFromOrangeList(): StudentDegreeFullEdeboData[] {
     let chosenStudents = [];
     for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
@@ -203,14 +203,14 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modal.hide();
     this.uploadInProgress = false;
     this.resultView = false;
-    this.isChangedValueOfDb = true;
+    this.isChangedValueOfDb.map((element) => true);
   }
 
   changeBlueListCondition(index): void {
-    if (this.isChangedValueOfDb === true) {
-      this.isChangedValueOfDb = !(this.isChangedValueOfDb);
+    if (this.isChangedValueOfDb[index] === true) {
+      this.isChangedValueOfDb[index] = !(this.isChangedValueOfDb[index]);
     }
-    if (this.isChangedValueOfDb === false) {
+    if (this.isChangedValueOfDb[index] === false) {
       this.unmatchedSecondaryDataStudentDegreesBlue[index].selected = true;
     }
   }
