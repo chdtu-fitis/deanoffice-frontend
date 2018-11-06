@@ -56,6 +56,7 @@
                   <td>Попередній документ виданий</td>
                   <td>Попередній номер диплому</td>
                   <td>Попередній тип диплому</td>
+                  <td>Номер додатку до диплому</td>
             </thead>
             <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <tr>
@@ -94,6 +95,9 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
                   {{translateDiplomaType(student.studentDegreeFromDb?.previousDiplomaType)}}
                 </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('supplementNumber',i)">
+                  {{student.studentDegreeFromDb?.supplementNumber}}
+                </td>
               </tr>
               <tr class="data-integration">
                 <td *ngIf="isEqual('admissionDate',i)"
@@ -127,6 +131,10 @@
                 <td *ngIf="isEqual('previousDiplomaType',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
                   {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
+                </td>
+                <td *ngIf="isEqual('supplementNumber',i)"
+                    (click)="replaceDataWithCorrect(i,'supplementNumber')">
+                  {{student.studentDegreeFromData?.supplementNumber}}
                 </td>
               </tr>
             </tbody>
