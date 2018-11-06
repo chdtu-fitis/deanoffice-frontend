@@ -9,7 +9,7 @@
           studentField="studentDegree.student"
         ></app-students-search>
         <button
-          *ngIf="selected.length === 1 && !selected[0].studentDegree.active"
+          *ngIf="selected.length === 1 && !selected[0].active"
           class="btn btn-info"
           (click)="stopAcademicVacationModal.openModal(selected[0])"
         >
