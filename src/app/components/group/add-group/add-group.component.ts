@@ -53,19 +53,9 @@ export class AddGroupComponent implements OnInit {
   }
 
   submit(): void {
-    const body = {
-      name: this.form.form.value.name,
-      active: false,
-      studySemesters: this.form.form.value.studySemesters,
-      creationYear: this.form.form.value.creationYear,
-      specialization: {
-        id: this.form.form.value.specialization
-      },
-      tuitionForm: this.form.form.value.tuitionForm,
-      tuitionTerm: this.form.form.value.tuitionTerm,
-      studyYears: this.form.form.value.studyYears,
-      beginYears: this.form.form.value.beginYears
-    };
+    const body = this.form.form.getRawValue();
+    body.active = 'false';
+    body.specialization = {id: body.specialization};
     this.groupService.create(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())

@@ -44,20 +44,10 @@ export class UpdateGroupComponent {
   }
 
   submit(): void {
-    const body = {
-      id: this.selectedGroup.id,
-      name: this.form.form.value.name,
-      active: this.selectedGroup.active,
-      studySemesters: this.form.form.value.studySemesters,
-      creationYear: this.form.form.value.creationYear,
-      specialization: {
-        id: this.form.form.value.specialization
-      },
-      tuitionForm: this.form.form.value.tuitionForm,
-      tuitionTerm: this.form.form.value.tuitionTerm,
-      studyYears: this.form.form.value.studyYears,
-      beginYears: this.form.form.value.beginYears
-    };
+    const body = this.form.form.getRawValue();
+    body.id = this.selectedGroup.id;
+    body.active = this.selectedGroup.active;
+    body.specialization = {id: body.specialization};
     this.groupService.update(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
