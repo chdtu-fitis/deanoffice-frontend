@@ -1,73 +1,11 @@
 <group-modal #modal [title]="'Редагувати групу'" (hideModal)="hideModal()">
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="modal-body">
-      <div class="form-item">
-        <div class="form-group">
-          <label for="name">Назва: </label>
-          <input formControlName="name" type="text"
-                 placeholder="Назва" id="name" class="form-control" >
-        </div>
-
-        <div class="form-group">
-          <label for="tuitionForm">Форма: </label>
-          <select formControlName="tuitionForm" class="form-control" id="tuitionForm">
-            <option *ngFor="let tuitionForm of tuitionForms; let i = index"
-                    [attr.data-index]="i" value="{{tuitionFormsKeys[i]}}">{{tuitionForm}}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="tuitionTerm">Термін: </label>
-          <select formControlName="tuitionTerm" class="form-control" id="tuitionTerm">
-            <option *ngFor="let tuitionTerm of tuitionTerms; let i = index"
-                    [attr.data-index]="i" value="{{tuitionTermsKeys[i]}}">{{tuitionTerm}}</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-item">
-        <div class="form-group">
-          <label for="creationYear">Створено: </label>
-          <input formControlName="creationYear"
-                 type="number"
-                 placeholder="Рік створення" id="creationYear" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="beginYears">Курс початку: </label>
-          <input formControlName="beginYears"
-                 type="number" min="1"
-                 placeholder="Курс початку" id="beginYears" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="studyYears">Років навчання: </label>
-          <input formControlName="studyYears"
-                 type="text"
-                 placeholder="Років навчання" id="studyYears" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label for="studySemesters">Семестрів: </label>
-          <input formControlName="studySemesters"
-                 type="number" min="1"
-                 placeholder="Семестрів" id="studySemesters" class="form-control">
-        </div>
-      </div>
-      <div class="form-group form-row">
-        <label for="specialization">Освітня програма (спеціалізація): </label>
-        <select formControlName="specialization" class="form-control" id="specialization">
-          <option *ngFor="let specialization of specializations"
-                  value="{{specialization.id}}">
-            {{specialization.name}}
-            ({{specialization.speciality.code}} {{specialization.speciality.name}}; {{specialization.degree.name}})
-          </option>
-        </select>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-warning">Редагувати</button>
-      <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
-    </div>
-  </form>
+  <group-form #form
+              [specializations]="specializations"
+              [tuitionForms]="tuitionForms"
+              [tuitionFormsKeys]="tuitionFormsKeys"
+              [tuitionTerms]="tuitionTerms"
+              [tuitionTermsKeys]="tuitionTermsKeys">
+    <button type="button" (click)="submit()" class="btn btn-warning">Редагувати</button>
+    <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+  </group-form>
 </group-modal>

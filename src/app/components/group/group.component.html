@@ -48,10 +48,24 @@
   </div>
 </div>
 
-<add-group #addGroup (onSubmit)="loadGroups()"></add-group>
+<add-group #addGroup (onSubmit)="loadGroups()"
+           [specializations]="specializations"
+           [tuitionForms]="tuitionForms"
+           [tuitionFormsKeys]="tuitionFormsKeys"
+           [tuitionTerms]="tuitionTerms"
+           [tuitionTermsKeys]="tuitionTermsKeys"
+></add-group>
 
-<delete-group #deleteGroup (onSubmit)="loadGroups()" (showErrorAlert)="showErrorAlert($event)"></delete-group>
+<delete-group #deleteGroup (onSubmit)="loadGroups()"
+              (showErrorAlert)="showErrorAlert($event)"
+></delete-group>
 
-<update-group #updateGroup (onSubmit)="loadGroups()"></update-group>
+<update-group #updateGroup (onSubmit)="loadGroups()"
+              [specializations]="specializations"
+              [tuitionForms]="tuitionForms"
+              [tuitionFormsKeys]="tuitionFormsKeys"
+              [tuitionTerms]="tuitionTerms"
+              [tuitionTermsKeys]="tuitionTermsKeys"
+></update-group>
 
 <simple-notifications></simple-notifications>
