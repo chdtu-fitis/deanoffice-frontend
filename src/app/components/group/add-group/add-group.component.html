@@ -5,7 +5,10 @@
               [tuitionFormsKeys]="tuitionFormsKeys"
               [tuitionTerms]="tuitionTerms"
               [tuitionTermsKeys]="tuitionTermsKeys">
-    <button type="button" (click)="submit()" class="btn btn-success btn-submit">Створити</button>
-    <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+    <button type="button" (click)="submit()"
+            [disabled]="form.form.invalid"
+            class="btn btn-success btn-submit">Створити</button>
+    <button type="button" (click)="hideModal()"
+            class="btn btn-outline-danger">Скасувати</button>
   </group-form>
 </group-modal>
