@@ -251,7 +251,7 @@
       </div>
     </div>
 
-      <div *ngIf="resultView">
+      <div *ngIf="resultView" class="m-2">
         <p> Додано студентів: {{replaceNullValue(resultOfSaving?.created,'createdStudentDegrees')}}</p>
         <table class="table table-sm table-striped table-bordered mt-4 result-table"
                *ngIf="resultOfSaving?.created?.notCreatedStudentDegrees.length !== 0 && resultOfSaving?.created !== null">
