@@ -26,16 +26,16 @@ export class UpdateGroupComponent {
 
   openModal(selectedGroup): void {
     this.selectedGroup = selectedGroup;
-    const values = {};
-    values['name'] = selectedGroup.name;
-    values['studySemesters'] = selectedGroup.studySemesters;
-    values['studyYears'] = selectedGroup.studyYears;
-    values['beginYears'] = selectedGroup.beginYears;
-    values['creationYear'] = selectedGroup.creationYear;
-    values['tuitionForm'] = selectedGroup.tuitionForm;
-    values['tuitionTerm'] = selectedGroup.tuitionTerm;
-    values['specialization'] = selectedGroup.specialization.id;
-    this.form.setValues(values);
+    this.form.setValues({
+      'name': selectedGroup.name,
+      'studySemesters': selectedGroup.studySemesters,
+      'studyYears': selectedGroup.studyYears,
+      'beginYears': selectedGroup.beginYears,
+      'creationYear': selectedGroup.creationYear,
+      'tuitionForm': selectedGroup.tuitionForm,
+      'tuitionTerm': selectedGroup.tuitionTerm,
+      'specialization': selectedGroup.specialization.id
+    });
     this.modal.show();
   }
 

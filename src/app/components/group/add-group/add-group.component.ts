@@ -23,15 +23,15 @@ export class AddGroupComponent implements OnInit {
   constructor(private groupService: GroupService) { }
 
   ngOnInit() {
-    const values = {};
-    values['name'] = '';
-    values['studySemesters'] = 8;
-    values['studyYears'] = 3.84;
-    values['beginYears'] = 1;
-    values['creationYear'] = this.getValueOfCreationYear();
-    values['tuitionForm'] = this.tuitionFormsKeys[0];
-    values['tuitionTerm'] = this.tuitionTermsKeys[0];
-    this.form.setValues(values);
+    this.form.setValues({
+      'name': '',
+      'studySemesters': 8,
+      'studyYears': 3.84,
+      'beginYears': 1,
+      'creationYear': this.getValueOfCreationYear(),
+      'tuitionForm': this.tuitionFormsKeys[0],
+      'tuitionTerm': this.tuitionTermsKeys[0]
+    });
   }
 
   getValueOfCreationYear(): number {
