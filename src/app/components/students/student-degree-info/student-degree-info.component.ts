@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {MatIconRegistry} from '@angular/material';
+import {DomSanitizer} from '@angular/platform-browser';
 import {ModalDirective} from 'ngx-bootstrap';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -30,9 +32,16 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     return this.form.get('degrees') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer) {
     super();
     this.diplomaTypeKey = Object.keys(DiplomaType);
+    iconRegistry.addSvgIcon(
+      'cancel',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
   openModal(id) {
