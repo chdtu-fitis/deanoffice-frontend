@@ -1,0 +1,278 @@
+<div class="modal"
+     bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog {{modalSize}}" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">{{modalName}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <tabset #tabset *ngIf="!(importView)">
+        <tab heading="Повне співпадіння" class="tab-body" (select)="setNumberOfStudents('green')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Група</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            </thead>
+            <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
+              <td>{{ i+1 }}</td>
+              <td>{{ student?.lastName}}</td>
+              <td>{{ student?.firstName }}</td>
+              <td>{{ student?.middleName }}</td>
+              <td>{{ student?.birthday }}</td>
+              <td>{{ student?.groupName }}</td>
+              <td>{{ student?.degreeName }}</td>
+              <td>{{ student?.fullSpecialityName }}</td>
+              <td>{{ student?.fullSpecializationName }}</td>
+            </tr>
+          </table>
+        </tab>
+        <tab heading="Часткове співпадіння" class="tab-body" (select)="setNumberOfStudents('blue')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+                  <td>№</td>
+                  <td> </td>
+                  <td>Прізвище</td>
+                  <td>Ім'я</td>
+                  <td>По-батькові</td>
+                  <td>Дата народження</td>
+                  <td>Ступінь</td>
+                  <td>Спеціальність</td>
+                  <td>Освітня програма</td>
+                  <td>Дата зарахування</td>
+                  <td>Дата наказу зарахування</td>
+                  <td>Номер наказу зарахування</td>
+                  <td>Форма навчання</td>
+                  <td>Попередній документ про освіту</td>
+                  <td>Попередній документ виданий</td>
+                  <td>Попередній номер диплому</td>
+                  <td>Попередній тип диплому</td>
+            </thead>
+            <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
+              <tr>
+                <td rowspan="2">{{ i+1 }}</td>
+                <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.MM.yyyy' }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
+                      + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
+                <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionDate',i)">
+                  {{ student.studentDegreeFromDb?.admissionDate | date: 'dd.MM.yyyy' }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionOrderDate',i)">
+                  {{student.studentDegreeFromDb?.admissionOrderDate | date:'dd.MM.yyyy'}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('admissionOrderNumber',i)">
+                  {{ student.studentDegreeFromDb?.admissionOrderNumber }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('payment',i)">
+                  {{ translatePayment(student.studentDegreeFromDb?.payment)}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaIssuedBy',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaNumber',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaNumber}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
+                  {{translateDiplomaType(student.studentDegreeFromDb?.previousDiplomaType)}}
+                </td>
+              </tr>
+              <tr class="data-integration">
+                <td *ngIf="isEqual('admissionDate',i)"
+                    (click)="replaceDataWithCorrect(i,'admissionDate')">
+                  {{ student.studentDegreeFromData?.admissionDate | date:'dd.MM.yyyy'}}
+                </td>
+                <td *ngIf="isEqual('admissionOrderDate',i)"
+                  (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
+                  {{student.studentDegreeFromData?.admissionOrderDate | date:'dd.MM.yyyy'}}
+                </td>
+                <td *ngIf="isEqual('admissionOrderNumber',i)"
+                  (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
+                  {{student.studentDegreeFromData?.admissionOrderNumber}}
+                </td>
+                <td *ngIf="isEqual('payment',i)"
+                  (click)="replaceDataWithCorrect(i,'payment')">
+                  {{translatePayment(student.studentDegreeFromData?.payment)}}
+                </td>
+                <td *ngIf="isEqual('previousDiplomaDate',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
+                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.MM.yyyy'}}
+                </td>
+                <td  *ngIf="isEqual('previousDiplomaIssuedBy',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
+                  {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
+                </td>
+                <td *ngIf="isEqual('previousDiplomaNumber',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
+                  {{student.studentDegreeFromData?.previousDiplomaNumber}}
+                </td>
+                <td *ngIf="isEqual('previousDiplomaType',i)"
+                  (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
+                  {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </tab>
+        <tab heading="Немає в базі" class="tab-body" (select)="setNumberOfStudents('orange')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td>
+              <input type="checkbox" [(ngModel)]="orangeStudentsSelected"
+                     (click)="onSelectAllStudents($event.target.checked,'orange')">
+            </td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            </thead>
+            <tr *ngFor="let student of noSuchStudentOrSuchStudentDegreeInDbOrange; let i = index">
+              <td>{{ i+1 }}</td>
+              <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+              <td>{{ student.student?.surname }}</td>
+              <td>{{ student.student?.name  }}</td>
+              <td>{{ student.student?.patronimic }}</td>
+              <td>{{ student.student?.birthDate | date:'dd.MM.yyyy' }}</td>
+              <td>{{ student.specialization?.degree?.name }}</td>
+              <td>{{ student.specialization?.speciality?.code + " "
+                    + student.specialization?.speciality?.name }}</td>
+              <td>{{ student.specialization?.name }}</td>
+            </tr>
+          </table>
+        </tab>
+        <tab heading="Некоректна інформація" class="tab-body" (select)="setNumberOfStudents('red')">
+          <table class="table table-sm table-striped table-bordered mt-4" >
+            <thead>
+            <td>№</td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            <td>Повідомлення</td>
+            </thead>
+            <tr *ngFor="let student of missingPrimaryDataRed; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{  student.studentDegreePrimaryData?.lastName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.firstName}}</td>
+              <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.birthday | date: 'dd.MM.yyyy' }}</td>
+              <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.fullSpecialityName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.fullSpecializationName }}</td>
+              <td>{{ student?.message }}</td>
+            </tr>
+          </table>
+        </tab>
+        <tab heading="Немає в ЄДЕБО" class="tab-body" (select)="setNumberOfStudents('yellow')">
+          <table class="table table-sm table-striped table-bordered mt-4">
+            <thead>
+            <td>№</td>
+            <td>Прізвище</td>
+            <td>Ім'я</td>
+            <td>По-батькові</td>
+            <td>Дата народження</td>
+            <td>Група</td>
+            <td>Ступінь</td>
+            <td>Спеціальність</td>
+            <td>Освітня програма</td>
+            </thead>
+            <tr *ngFor="let student of absentInFileStudentDegreesYellow; let i = index" >
+              <td>{{ i+1 }}</td>
+              <td>{{ student?.lastName}}</td>
+              <td>{{ student?.firstName }}</td>
+              <td>{{ student?.middleName }}</td>
+              <td>{{ student?.birthday }}</td>
+              <td>{{ student?.groupName }}</td>
+              <td>{{ student?.degreeName }}</td>
+              <td>{{ student?.fullSpecialityName }}</td>
+              <td>{{ student?.fullSpecializationName }}</td>
+            </tr>
+          </table>
+        </tab>
+      </tabset>
+      <div *ngIf="resultView">
+        <p> Додано студентів: {{resultOfSaving?.created?.createdStudentDegrees}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table">
+          <caption>Не додані студенти:</caption>
+          <tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">
+            <td>{{ student }}</td>
+          </tr>
+        </table>
+        <hr>
+        <p> Змінено дані студентів: {{resultOfSaving?.updated?.updatedStudentDegrees}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table">
+          <caption>Не змінені дані для студентів:</caption>
+          <tr *ngFor="let student of resultOfSaving?.updated?.notUpdatedStudentDegrees">
+            <td>{{student}}</td>
+          </tr>
+        </table>
+      </div>
+
+
+
+      <div class="loader" *ngIf="uploadInProgress"></div>
+      <div class="input-group import" *ngIf="fileField">
+        <div class="custom-file">
+          <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
+          <label class="custom-file-label" for="importFile">{{fileName}}</label>
+        </div>
+      </div>
+      <div class="select-area from-group row" *ngIf="fileField">
+        <div class="col-xs-2">
+          <label for="degrees">Ступінь</label>
+          <select name="degree" id="degrees" class="form-control" (change)="changeDegree($event.target.value)">
+            <option *ngFor="let degree of degrees;" value="{{degree?.name}}">{{degree?.name}}</option>
+            <option value="{{null}}" selected> </option>
+          </select>
+        </div>
+        <div class="col-xs-12">
+          <label for="specialities">Спеціальність</label>
+          <select name="speciality" id="specialities" class="form-control"
+                  (change)="changeSpeciality($event.target.value)">
+              <option *ngFor="let speciality of specialities;" value="{{speciality?.code + ' ' +  speciality?.name}}">
+                {{speciality?.code + ' ' +  speciality?.name}}
+              </option>
+              <option value="{{null}}" selected> </option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
+      <button class="btn btn-success" *ngIf="downloadButton" type="button"
+              (click)="onFileUpload()" [disabled]="uploadInProgress">
+                  Завантажити
+      </button>
+      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
+      <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="hideModal()">Відмінити</button>
+      <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
+    </div>
+  </div>
+</div>
+</div>

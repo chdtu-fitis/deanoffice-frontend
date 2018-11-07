@@ -1,0 +1,71 @@
+.import{
+  margin:80px auto 20px auto;
+}
+.modal-full {
+  min-width: 95%;
+  margin:0 auto;
+}
+
+.modal-full .modal-content {
+  height: 98vh;
+}
+.modal-full .tab-body{
+  height:70vh;
+  overflow: auto;
+}
+.result-table {
+  height:5vh;
+  overflow: auto;
+}
+.result-table caption{
+   caption-side:top;
+ }
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-right: 5px solid #3498db; /* Blue */
+  border-left: 5px solid #3498db; /* Blue */
+  margin:70px auto;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 1s linear infinite;
+}
+
+[heading = 'Повне співпадіння'] table{
+  border:2px solid green;
+}
+[heading = 'Немає в базі'] table{
+  border:2px solid orange;
+}
+[heading = 'Некоректна інформація'] table{
+  border:2px solid red;
+}
+[heading = 'Часткове співпадіння'] table{
+  border:2px solid blue;
+}
+[heading = 'Немає в ЄДЕБО'] table{
+  border:2px solid yellow;
+}
+[heading = 'Часткове співпадіння'] table tr td{
+  vertical-align: middle;
+}
+.data-integration {
+  background-color:#5dbdbe;
+  color:white;
+  cursor: pointer;
+}
+.data-integration td:hover {
+  border:1px solid white;
+}
+.data-integration td:active {
+  background-color: #17a2b8;
+}
+.select-area{
+  margin:30px auto 50px;
+}
+.select-area div {
+  margin:10px 0;
+}
+

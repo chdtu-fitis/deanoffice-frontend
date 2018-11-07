@@ -6,6 +6,9 @@ import {StudentGroup} from '../../models/StudentGroup';
 import {StudentService} from '../../services/student.service';
 import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
+import {EditDialogComponent} from "../courses-for-groups/edit-dialog/edit-dialog.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {StudentsDataCheckComponent} from "./students-data-check/students-data-check.component";
 
 @Component({
   selector: 'diploma-supplement',
@@ -22,9 +25,11 @@ export class DiplomaSupplementComponent implements OnInit {
   supplementLoading = false;
   gradePercentLoading = false;
   gradesTableReportLoading = false;
+  studentDataCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
-              private diplomaSupplementService: DiplomaSupplementService) {
+              private diplomaSupplementService: DiplomaSupplementService,
+              private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -60,7 +65,7 @@ export class DiplomaSupplementComponent implements OnInit {
     this.message = '';
     for (let student of this.students) {
       this.supplementLoading = true;
-      if (student.selected){
+      if (student.selected) {
         this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
           this.supplementLoading = false;
         });
@@ -81,6 +86,17 @@ export class DiplomaSupplementComponent implements OnInit {
     this.gradesTableReportLoading = true;
     this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
         this.gradesTableReportLoading = false;
+      }
+    );
+  }
+
+  onStudentDataCheck(): void {
+    this.message = '';
+    this.studentDataCheckLoading = true;
+    this.diplomaSupplementService.checkStudentsData('1').subscribe(res => {
+        this.studentDataCheckLoading = false;
+        const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
+        modalRef.componentInstance.studentsCheckData = res;
       }
     );
   }

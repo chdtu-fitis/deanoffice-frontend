@@ -25,6 +25,7 @@ import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-acade
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {RouterModule, Routes} from '@angular/router';
+import {SynchronizeWithEdeboComponent} from './synchronize-with-edebo/synchronize-with-edebo.component';
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
@@ -50,7 +51,8 @@ export const studentRoutes: Routes = [
     StudentsInVacationComponent,
     RenewStudentComponent,
     StopAcademicVacationComponent,
-    StudentAcademicVacationComponent
+    StudentAcademicVacationComponent,
+    SynchronizeWithEdeboComponent
   ],
   imports: [
     CommonModule,
