@@ -67,7 +67,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     if (this.selectedSpeciality) {
       formData.append('speciality', this.selectedSpeciality);
     }
-    try {
       this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
@@ -79,9 +78,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
           this.changeModal();
         }
       );
-    } catch (error) {
-      console.log(error + 'Hello world!');
-    }
   }
 
   changeSpeciality(value) {
@@ -203,7 +199,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modal.hide();
     this.uploadInProgress = false;
     this.resultView = false;
-    this.isChangedValueOfDb.map((element) => true);
+    this.isChangedValueOfDb.map(() => true);
   }
 
   changeBlueListCondition(index): void {
@@ -216,12 +212,37 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   compareValuesInBlueList(name, index): number {
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
+
+      if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] == false) {
+        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = null;
+      }
+      let string = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
+      if (string !== null) {
+        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = string.
+        charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+      }
+      let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].
+        studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
+        studentDegreeFromData.student[name] ? 2 : 1;
+      return numberOfRows;
+    }
     let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
       unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name] ? 2 : 1;
     return numberOfRows;
   }
 
   isEqual(name, index): boolean {
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
+
+      if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] == false) {
+        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = null;
+      }
+      let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].
+        studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
+        studentDegreeFromData.student[name];
+      return !isShown;
+    }
     let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
       unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
     return !isShown;
@@ -236,14 +257,11 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   replaceDataWithCorrect(index, fieldName): void {
-
-    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
-      return;
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[fieldName] = this.
+        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[fieldName];
     }
-    if (fieldName === 'admissionDate') {
-      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] =
-        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName];
-      this.changeBlueListCondition(index);
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
       return;
     }
     this.changeBlueListCondition(index);

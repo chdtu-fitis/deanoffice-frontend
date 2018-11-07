@@ -57,6 +57,9 @@
                   <td>Попередній номер диплому</td>
                   <td>Попередній тип диплому</td>
                   <td>Номер додатку до диплому</td>
+                  <td>Прізвище англійською</td>
+                  <td>Ім'я англійською</td>
+                  <td>По-батькові англійською </td>
             </thead>
             <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <tr>
@@ -98,6 +101,15 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('supplementNumber',i)">
                   {{student.studentDegreeFromDb?.supplementNumber}}
                 </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('surnameEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.surnameEng }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('nameEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.nameEng }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('patronimicEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.patronimicEng }}
+                </td>
               </tr>
               <tr class="data-integration">
                 <td *ngIf="isEqual('admissionDate',i)"
@@ -135,6 +147,18 @@
                 <td *ngIf="isEqual('supplementNumber',i)"
                     (click)="replaceDataWithCorrect(i,'supplementNumber')">
                   {{student.studentDegreeFromData?.supplementNumber}}
+                </td>
+                <td *ngIf="isEqual('surnameEng',i)"
+                    (click)="replaceDataWithCorrect(i,'surnameEng')">
+                  {{ student.studentDegreeFromData?.student?.surnameEng }}
+                </td>
+                <td *ngIf="isEqual('nameEng',i)"
+                    (click)="replaceDataWithCorrect(i,'nameEng')">
+                  {{ student.studentDegreeFromData?.student?.nameEng}}
+                </td>
+                <td *ngIf="isEqual('patronimicEng',i)"
+                    (click)="replaceDataWithCorrect(i,'patronimicEng')">
+                  {{ student.studentDegreeFromData?.student?.patronimicEng }}
                 </td>
               </tr>
             </tbody>
