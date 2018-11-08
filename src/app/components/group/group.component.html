@@ -1,6 +1,6 @@
 <div class="container-fluid h-100">
   <div class="row h-100 flex-nowrap">
-    <div class="col content py-3">
+    <div class="col content pt-3">
       <div class="groups-table h-100">
         <div class="mb-3">
           <input class="selection-panel search form-control" type="text"
@@ -26,7 +26,7 @@
               Редагувати
             </button>
 
-            <button type="button" class="btn btn-success align-middle mr-1"
+            <button type="button" class="btn btn-success align-middle"
                     (click)="addGroup.openModal()">
               Нова група
             </button>
@@ -40,7 +40,7 @@
         ></group-table>
       </div>
 
-      <div class="bg-light fixed-bottom p-3">
+      <div class="bg-light fixed-bottom p-3" style="z-index: 1">
         <span class="mr-3">Всього: {{groups.length || '0'}}</span>
         <span>Вибрано: {{selectedGroups.length || '0'}}</span>
       </div>
@@ -48,8 +48,24 @@
   </div>
 </div>
 
-<add-group #addGroup (onSubmit)="loadGroups()"></add-group>
+<add-group #addGroup (onSubmit)="loadGroups()"
+           [specializations]="specializations"
+           [tuitionForms]="tuitionForms"
+           [tuitionFormsKeys]="tuitionFormsKeys"
+           [tuitionTerms]="tuitionTerms"
+           [tuitionTermsKeys]="tuitionTermsKeys"
+></add-group>
 
-<delete-group #deleteGroup (onSubmit)="loadGroups()"></delete-group>
+<delete-group #deleteGroup (onSubmit)="loadGroups()"
+              (showErrorAlert)="showErrorAlert($event)"
+></delete-group>
 
-<update-group #updateGroup (onSubmit)="loadGroups()"></update-group>
+<update-group #updateGroup (onSubmit)="loadGroups()"
+              [specializations]="specializations"
+              [tuitionForms]="tuitionForms"
+              [tuitionFormsKeys]="tuitionFormsKeys"
+              [tuitionTerms]="tuitionTerms"
+              [tuitionTermsKeys]="tuitionTermsKeys"
+></update-group>
+
+<simple-notifications></simple-notifications>

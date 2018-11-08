@@ -1,6 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
+import {NotificationsService} from 'angular2-notifications';
+import {TuitionTerm} from '../../models/tuition-term.enum';
+import {TuitionForm} from '../../models/tuition-form.enum';
+import {Specialization} from '../../models/Specialization';
+import {SpecializationService} from '../../services/specialization.service';
 
 @Component({
   selector: 'app-group',
@@ -10,6 +15,7 @@ import {GroupService} from '../../services/group.service';
 export class GroupComponent implements OnInit {
 
   @ViewChild('table') table;
+  @ViewChild('addGroup') addGroup;
 
   loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
@@ -17,10 +23,49 @@ export class GroupComponent implements OnInit {
   actualGroups = true;
   searchText: string;
   loadingGroups = true;
-  constructor(private groupService: GroupService) { }
+  alertOptions = {
+    showProgressBar: false,
+    timeOut: 50000,
+    pauseOnHover: false,
+    clickToClose: true,
+    maxLength: 10,
+    maxStack: 3
+  };
+
+  specializations: Specialization[];
+
+  tuitionForms;
+  tuitionFormsKeys;
+
+  tuitionTerms;
+  tuitionTermsKeys;
+
+  constructor(
+    private groupService: GroupService,
+    private notificationsService: NotificationsService,
+    private specializationService: SpecializationService) { }
 
   ngOnInit() {
+    this.specializationService.getSpecializations(true).subscribe(
+      (specializations: Specialization[]) => this.specializations = specializations,
+      null,
+      () => {
+        this.addGroup.form.form.controls.specialization.setValue(this.specializations[0].id);
+      }
+    );
+
+    this.tuitionFormsKeys = Object.keys(TuitionForm);
+    this.tuitionForms = this.tuitionFormsKeys.map(key => TuitionForm[key]);
+    this.tuitionTermsKeys = Object.keys(TuitionTerm);
+    this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
+
     this.loadGroups();
+  }
+
+  showErrorAlert($event) {
+    this.notificationsService.error('Помилка',
+      $event.message,
+      this.alertOptions);
   }
 
   loadGroups(): void {
@@ -31,7 +76,7 @@ export class GroupComponent implements OnInit {
       .subscribe((loadedGroups: StudentGroup[]) => {
         this.loadedGroups = loadedGroups;
         this.loadingGroups = false;
-        this.updateGroups()
+        this.updateGroups();
       });
   }
 

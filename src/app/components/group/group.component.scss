@@ -1,5 +1,16 @@
 
+.groups-table {
+  display: flex;
+  flex-direction: column;
+}
+
+group-table {
+  flex: 1 0 300px;
+  overflow: hidden;
+}
+
 .content {
+  overflow: auto;
   margin-bottom: 54px;
 }
 
