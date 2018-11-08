@@ -68,7 +68,10 @@ export class CoursesForGroupsComponent implements OnInit {
   private changeSemesters() {
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
-      this.semesters.push(i + this.selectedGroup.beginYears*2-1);
+      this.semesters.push(i + this.selectedGroup.beginYears * 2 - 1);
+    }
+    if (!this.semesters.includes(this.selectedSemester)) {
+      this.selectedSemester = this.semesters[0];
     }
   }
 
@@ -81,7 +84,9 @@ export class CoursesForGroupsComponent implements OnInit {
   onGroupChange() {
     this.changeSemesters();
     this.refresh();
-    if (this.selectedSemester) this.onSemesterChange();
+    if (this.selectedSemester) {
+      this.onSemesterChange();
+    }
   }
 
   onSemesterChange() {
