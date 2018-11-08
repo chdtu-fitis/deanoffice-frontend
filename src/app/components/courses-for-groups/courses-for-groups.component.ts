@@ -171,6 +171,7 @@ export class CoursesForGroupsComponent implements OnInit {
     }
     this.sortCoursesForGroup();
     this.studiedCoursesChild.selectedCourses = [];
+    this.selectedCourses = [];
   }
 
   sortCoursesForGroup() {
