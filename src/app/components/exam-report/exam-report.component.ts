@@ -106,7 +106,7 @@ export class ExamReportComponent implements OnInit {
   }
 
   onExamReportJournalBuild(): void {
-      this.examReportService.buildExamReportJournalDoc(this.currentGroup.id, (this.selectedYear-1)*2+this.selectedSemester);
+      this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear-1)*2+this.selectedSemester);
   }
 
   setInitialSemester(): void {
