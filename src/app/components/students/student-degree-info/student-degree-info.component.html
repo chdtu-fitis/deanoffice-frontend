@@ -165,8 +165,9 @@
                     <app-validation-errors [control]="degree.controls.diplomaWithHonours"></app-validation-errors>
                   </div>
                 </div>
-                <h6 class="mb-2">Попередні навчальні заклади</h6>
-                  <div formArrayName="studentPreviousUniversities">
+                <div *ngIf="degree.controls.active.value">
+                  <h6 class="mb-2">Попередні навчальні заклади</h6>
+                  <div *ngIf="degree.get('studentPreviousUniversities').controls.length" formArrayName="studentPreviousUniversities">
                     <table class="table">
                       <thead>
                       <tr>
@@ -217,9 +218,10 @@
                       </tbody>
                     </table>
                   </div>
-                <button (click)="addStudentPreviousUniversity()" class="btn btn-success">
-                  Додати попередній навчальний заклад
-                </button>
+                  <button (click)="addStudentPreviousUniversity()" class="btn btn-success">
+                    Додати попередній навчальний заклад
+                  </button>
+                </div>
               </div>
             </tab>
           </tabset>
