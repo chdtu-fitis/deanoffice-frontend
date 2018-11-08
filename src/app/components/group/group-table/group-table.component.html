@@ -1,4 +1,4 @@
-<div class="table-wrapper">
+<div class="table-wrapper pb-3">
   <loading *ngIf="loading"></loading>
   <div class="table" *ngIf="!loading">
     <div class="table-tr-fixed">
@@ -6,8 +6,8 @@
       <div *ngFor="let item of columns" class="table-th" [ngStyle]="item.style"
            (click)="handleClickHeader(item.field)">
         {{item.title}}
-        <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheTop)">⭡</span>
-        <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheBottom)">⭣</span>
+        <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheTop)" class="icon-arrow-down"></span>
+        <span *ngIf="isActiveDirectionOfSorting(item.field, sortingToTheBottom)" class="icon-arrow-up"></span>
       </div>
     </div>
     <div class="table-tr" *ngFor="let row of rows" [ngClass]="{'active' : row.selected}">

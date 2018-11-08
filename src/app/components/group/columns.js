@@ -6,7 +6,7 @@ export const columns = [
   },
   {
     field: '{{row.specialization.name}}',
-    title: 'Спеціалізація',
+    title: 'Освітня програма (спеціалізація)',
     style: {flex: '1 0 200px'}
   },
   {
