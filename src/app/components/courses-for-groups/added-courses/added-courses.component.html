@@ -15,7 +15,6 @@
           <th>Дата іспиту</th>
         <tr>
       </thead>
-      <div *ngIf="coursesForGroup === []">Дані відсутні</div>
       <tr *ngFor="let course of coursesForGroup; let i = index">
         <td><input type="checkbox" #selected (change)="changeCoursesForDelete($event.target.checked, course)"
                    [checked]="allRowsIsSelected"></td>
