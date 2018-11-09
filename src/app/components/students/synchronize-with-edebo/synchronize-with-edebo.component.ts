@@ -13,6 +13,8 @@ import {Degree} from '../../../models/Degree';
 import {SpecialityService} from '../../../services/speciality.service';
 import {Speciality} from '../../../models/Speciality';
 import {ResultOfSavingData} from '../../../models/synchronization-edebo-models/ResultOfSavingData';
+import {Gender} from '../../../models/gender.enum';
+
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -23,9 +25,11 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   @ViewChild('modal') modal: ModalDirective;
   uploadInProgress = false;
   fileField = true;
+  wrongExtantion = false;
   importView = true;
   resultView = false;
   downloadButton = this.importView;
+  saveButton = false;
   selectedFile: File = null;
   fileName = 'Виберіть файл';
   modalName = 'Імпортувати файл';
@@ -44,6 +48,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   selectedSpeciality = null;
   resultOfSaving: ResultOfSavingData;
 
+
   ngOnInit() {
   }
   constructor(private edeboService: EdeboService,
@@ -53,7 +58,13 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   onFileSelected(event) {
     this.selectedFile = <File> event.target.files[0];
-    this.fileName = this.selectedFile.name;
+    let extention = this.selectedFile.name.slice(this.selectedFile.name.lastIndexOf('.'));
+    if ( extention !== '.xlsx' ) {
+      this.wrongExtantion = true;
+    } else {
+      this.wrongExtantion = false;
+    }
+    this.fileName = this.selectedFile.name
   }
 
   onFileUpload(): void {
@@ -179,6 +190,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
 
   saveChanges(): void {
+    this.saveButton = true;
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
@@ -199,6 +211,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.modal.hide();
     this.uploadInProgress = false;
     this.resultView = false;
+    this.saveButton = false;
     this.isChangedValueOfDb.map(() => true);
   }
 
@@ -213,15 +226,13 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   compareValuesInBlueList(name, index): number {
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
+      let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
+      let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
 
-      if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] == false) {
-        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = null;
+      if ((stFromDb == null && stFromData == '') || (stFromDb == '' && stFromData == null)) {
+        return 2;
       }
-      let string = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
-      if (string !== null) {
-        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = string.
-        charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-      }
+
       let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].
         studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
         studentDegreeFromData.student[name] ? 2 : 1;
@@ -235,8 +246,12 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   isEqual(name, index): boolean {
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
 
-      if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] == false) {
-        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name] = null;
+      let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
+      let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
+
+
+      if ((stFromDb == null && stFromData == '') || (stFromDb == '' && stFromData == null)) {
+        return false;
       }
       let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].
         studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
@@ -254,6 +269,10 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   translatePayment(term: Payment) {
     return Payment[term]
+  }
+
+  translateGender(term: Gender) {
+    return Gender[term]
   }
 
   replaceDataWithCorrect(index, fieldName): void {

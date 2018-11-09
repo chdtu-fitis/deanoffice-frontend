@@ -45,6 +45,7 @@
                   <td>Ім'я</td>
                   <td>По-батькові</td>
                   <td>Дата народження</td>
+                  <td>Стать</td>
                   <td>Ступінь</td>
                   <td>Спеціальність</td>
                   <td>Освітня програма</td>
@@ -69,10 +70,14 @@
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.MM.yyyy' }}</td>
+                <td [attr.rowspan] = "compareValuesInBlueList('sex',i)">
+                  {{ translateGender(student.studentDegreeFromDb?.student?.sex)}}
+                </td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                       + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+
 
                 <td [attr.rowspan] = "compareValuesInBlueList('admissionDate',i)">
                   {{ student.studentDegreeFromDb?.admissionDate | date: 'dd.MM.yyyy' }}
@@ -112,6 +117,10 @@
                 </td>
               </tr>
               <tr class="data-integration">
+                <td *ngIf="isEqual('sex',i)"
+                    (click)="replaceDataWithCorrect(i,'sex')">
+                  {{ translateGender(student.studentDegreeFromData?.student?.sex)}}
+                </td>
                 <td *ngIf="isEqual('admissionDate',i)"
                     (click)="replaceDataWithCorrect(i,'admissionDate')">
                   {{ student.studentDegreeFromData?.admissionDate | date:'dd.MM.yyyy'}}
@@ -249,11 +258,14 @@
       </tabset>
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
-        <div class="custom-file">
-          <input type="file" class="custom-file" id="importFile" accept=".xlsx" (change)="onFileSelected($event)">
+          <input type="file" class="custom-file-input" id="importFile" accept=".xlsx"
+              (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
-      </div>
+        <p class="alert alert-danger bad-extention" *ngIf="wrongExtantion">
+          Некоректне розширення файлу
+        </p>
+
       <div class="row select-area" *ngIf="fileField">
         <div class="col-xs-2">
           <label for="degrees">Ступінь</label>
@@ -298,10 +310,10 @@
     <div class="modal-footer">
       <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
       <button class="btn btn-success" *ngIf="downloadButton" type="button"
-              (click)="onFileUpload()" [disabled]="uploadInProgress">
+              (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtantion">
                   Завантажити
       </button>
-      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
+      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="hideModal()">Відмінити</button>
       <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
     </div>
