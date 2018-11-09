@@ -3,7 +3,6 @@ import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CourseName} from '../../../models/CourseName';
 import {Subject} from 'rxjs/Subject';
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +28,7 @@ export class CourseCreationComponent implements OnInit {
   @Output() onCourseCreation = new EventEmitter();
   course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
+  // TODO use Reactive forms
   form;
   success = false;
   failCreated = undefined;
@@ -56,6 +56,7 @@ export class CourseCreationComponent implements OnInit {
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
+      this.course.knowledgeControl = this.knowledgeControl[0];
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
