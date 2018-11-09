@@ -1,0 +1,40 @@
+<div class="modal fade"
+     [config]="{backdrop: 'static'}" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <form class="modal-content" [formGroup]="form">
+      <div class="modal-header">
+        <h4 class="modal-title">Призначити групу</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12 col-lg-12 students-list">
+          <div class="students-list row">
+            <div *ngFor="let student of students" class="col-6 p-2">
+              <div class="card">
+                <div class="card-body p-1 p-md-2">
+                  <b class="d-block">{{student.surname}} {{student.name}} {{student.patronimic}}</b>
+                  <div>
+                    <small class="d-inline ">Група: {{student.groups}}; </small>
+                    <small class="d-inline ml-2" *ngIf="student.birthDate">Дата народження: {{student.birthDate}};</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <select formControlName="group" class="float-left form-control">
+          <option *ngFor="let group of groups" [ngValue]="group">
+            {{group.name}}
+          </option>
+        </select>
+        <button (click)="submit()" [disabled]="form.invalid" class="btn btn-success btn-submit">Призначити групу</button>
+        <button (click)="hideModal()" class="btn btn-outline-info">Скасувати</button>
+      </div>
+    </form>
+  </div>
+</div>
