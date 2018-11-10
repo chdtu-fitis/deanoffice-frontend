@@ -20,7 +20,8 @@ import {Course} from "../../../models/Course";
 })
 export class EditDialogComponent implements OnInit {
   @Input() selectedGroup: StudentGroup = new StudentGroup();
-  @Input() course: CourseForGroup = new CourseForGroup();
+  @Input() courseFromTable = new CourseForGroup();
+  course: CourseForGroup = JSON.parse(JSON.stringify(this.courseFromTable));
   form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
@@ -79,8 +80,7 @@ export class EditDialogComponent implements OnInit {
       oldCourseId: this.course.course.id,
       newCourse: this.course.course
     }).subscribe((course: Course) => {
-      this.course.course = course;
-      this.course = new CourseForGroup();
+      this.courseFromTable.course = course;
     });
     this.activeModal.close('Close click')
   }
