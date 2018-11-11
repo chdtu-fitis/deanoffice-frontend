@@ -45,6 +45,7 @@
                   <td>Ім'я</td>
                   <td>По-батькові</td>
                   <td>Дата народження</td>
+                  <td>Стать</td>
                   <td>Ступінь</td>
                   <td>Спеціальність</td>
                   <td>Освітня програма</td>
@@ -56,19 +57,27 @@
                   <td>Попередній документ виданий</td>
                   <td>Попередній номер диплому</td>
                   <td>Попередній тип диплому</td>
+                  <td>Номер додатку до диплому</td>
+                  <td>Прізвище англійською</td>
+                  <td>Ім'я англійською</td>
+                  <td>По-батькові англійською </td>
             </thead>
             <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <tr>
                 <td rowspan="2">{{ i+1 }}</td>
-                <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb" [(ngModel)]="student.selected"></td>
+                <td rowspan="2"><input type="checkbox" [disabled]="isChangedValueOfDb[i]" [(ngModel)]="student.selected"></td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.surname }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.name  }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.patronimic }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.student?.birthDate | date: 'dd.MM.yyyy' }}</td>
+                <td [attr.rowspan] = "compareValuesInBlueList('sex',i)">
+                  {{ translateGender(student.studentDegreeFromDb?.student?.sex)}}
+                </td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.degree?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.speciality?.code + " "
                       + student.studentDegreeFromDb?.specialization?.speciality?.name }}</td>
                 <td rowspan="2">{{ student.studentDegreeFromDb?.specialization?.name }}</td>
+
 
                 <td [attr.rowspan] = "compareValuesInBlueList('admissionDate',i)">
                   {{ student.studentDegreeFromDb?.admissionDate | date: 'dd.MM.yyyy' }}
@@ -94,8 +103,24 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
                   {{translateDiplomaType(student.studentDegreeFromDb?.previousDiplomaType)}}
                 </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('supplementNumber',i)">
+                  {{student.studentDegreeFromDb?.supplementNumber}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('surnameEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.surnameEng }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('nameEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.nameEng }}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('patronimicEng',i)">
+                  {{ student.studentDegreeFromDb?.student?.patronimicEng }}
+                </td>
               </tr>
               <tr class="data-integration">
+                <td *ngIf="isEqual('sex',i)"
+                    (click)="replaceDataWithCorrect(i,'sex')">
+                  {{ translateGender(student.studentDegreeFromData?.student?.sex)}}
+                </td>
                 <td *ngIf="isEqual('admissionDate',i)"
                     (click)="replaceDataWithCorrect(i,'admissionDate')">
                   {{ student.studentDegreeFromData?.admissionDate | date:'dd.MM.yyyy'}}
@@ -127,6 +152,22 @@
                 <td *ngIf="isEqual('previousDiplomaType',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
                   {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
+                </td>
+                <td *ngIf="isEqual('supplementNumber',i)"
+                    (click)="replaceDataWithCorrect(i,'supplementNumber')">
+                  {{student.studentDegreeFromData?.supplementNumber}}
+                </td>
+                <td *ngIf="isEqual('surnameEng',i)"
+                    (click)="replaceDataWithCorrect(i,'surnameEng')">
+                  {{ student.studentDegreeFromData?.student?.surnameEng }}
+                </td>
+                <td *ngIf="isEqual('nameEng',i)"
+                    (click)="replaceDataWithCorrect(i,'nameEng')">
+                  {{ student.studentDegreeFromData?.student?.nameEng}}
+                </td>
+                <td *ngIf="isEqual('patronimicEng',i)"
+                    (click)="replaceDataWithCorrect(i,'patronimicEng')">
+                  {{ student.studentDegreeFromData?.student?.patronimicEng }}
                 </td>
               </tr>
             </tbody>
@@ -215,34 +256,17 @@
           </table>
         </tab>
       </tabset>
-      <div *ngIf="resultView">
-        <p> Додано студентів: {{resultOfSaving?.created?.createdStudentDegrees}}</p>
-        <table class="table table-sm table-striped table-bordered mt-4 result-table">
-          <caption>Не додані студенти:</caption>
-          <tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">
-            <td>{{ student }}</td>
-          </tr>
-        </table>
-        <hr>
-        <p> Змінено дані студентів: {{resultOfSaving?.updated?.updatedStudentDegrees}}</p>
-        <table class="table table-sm table-striped table-bordered mt-4 result-table">
-          <caption>Не змінені дані для студентів:</caption>
-          <tr *ngFor="let student of resultOfSaving?.updated?.notUpdatedStudentDegrees">
-            <td>{{student}}</td>
-          </tr>
-        </table>
-      </div>
-
-
-
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
-        <div class="custom-file">
-          <input type="file" class="custom-file" id="importFile" (change)="onFileSelected($event)">
+          <input type="file" class="custom-file-input" id="importFile" accept=".xlsx"
+              (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
-      </div>
-      <div class="select-area from-group row" *ngIf="fileField">
+        <p class="alert alert-danger bad-extention" *ngIf="wrongExtantion">
+          Некоректне розширення файлу
+        </p>
+
+      <div class="row select-area" *ngIf="fileField">
         <div class="col-xs-2">
           <label for="degrees">Ступінь</label>
           <select name="degree" id="degrees" class="form-control" (change)="changeDegree($event.target.value)">
@@ -254,22 +278,42 @@
           <label for="specialities">Спеціальність</label>
           <select name="speciality" id="specialities" class="form-control"
                   (change)="changeSpeciality($event.target.value)">
-              <option *ngFor="let speciality of specialities;" value="{{speciality?.code + ' ' +  speciality?.name}}">
-                {{speciality?.code + ' ' +  speciality?.name}}
-              </option>
-              <option value="{{null}}" selected> </option>
+            <option *ngFor="let speciality of specialities;" value="{{speciality?.code + ' ' +  speciality?.name}}">
+              {{speciality?.code + ' ' +  speciality?.name}}
+            </option>
+            <option value="{{null}}" selected> </option>
           </select>
         </div>
       </div>
-
     </div>
+
+      <div *ngIf="resultView" class="m-2">
+        <p> Додано студентів: {{replaceNullValue(resultOfSaving?.created,'createdStudentDegrees')}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table"
+               *ngIf="resultOfSaving?.created?.notCreatedStudentDegrees.length !== 0 && resultOfSaving?.created !== null">
+          <caption>Не додані студенти:</caption>
+          <tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">
+            <td>{{ student }}</td>
+          </tr>
+        </table>
+        <hr>
+        <p> Змінено дані студентів: {{replaceNullValue(resultOfSaving?.updated,'updatedStudentDegrees')}}</p>
+        <table class="table table-sm table-striped table-bordered mt-4 result-table"
+               *ngIf="resultOfSaving?.updated?.notUpdatedStudentDegrees.length !== 0 && resultOfSaving?.updated !== null">
+          <caption>Не змінені дані для студентів:</caption>
+          <tr *ngFor="let student of resultOfSaving?.updated?.notUpdatedStudentDegrees">
+            <td>{{student}}</td>
+          </tr>
+        </table>
+      </div>
+
     <div class="modal-footer">
       <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
       <button class="btn btn-success" *ngIf="downloadButton" type="button"
-              (click)="onFileUpload()" [disabled]="uploadInProgress">
+              (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtantion">
                   Завантажити
       </button>
-      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()">Зберегти</button>
+      <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>
       <button class="btn btn-primary" *ngIf="!(importView)" type="button" (click)="hideModal()">Відмінити</button>
       <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
     </div>

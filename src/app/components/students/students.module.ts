@@ -51,7 +51,7 @@ export const studentRoutes: Routes = [
     RenewStudentComponent,
     StopAcademicVacationComponent,
     StudentAcademicVacationComponent,
-    SynchronizeWithEdeboComponent
+    SynchronizeWithEdeboComponent,
   ],
   imports: [
     CommonModule,
