@@ -25,7 +25,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   @ViewChild('modal') modal: ModalDirective;
   uploadInProgress = false;
   fileField = true;
-  wrongExtantion = false;
+  wrongExtension = false;
   importView = true;
   resultView = false;
   downloadButton = this.importView;
@@ -60,9 +60,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.selectedFile = <File> event.target.files[0];
     let extention = this.selectedFile.name.slice(this.selectedFile.name.lastIndexOf('.'));
     if ( extention !== '.xlsx' ) {
-      this.wrongExtantion = true;
+      this.wrongExtension = true;
     } else {
-      this.wrongExtantion = false;
+      this.wrongExtension = false;
     }
     this.fileName = this.selectedFile.name
   }
@@ -78,7 +78,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     if (this.selectedSpeciality) {
       formData.append('speciality', this.selectedSpeciality);
     }
-      this.edeboService.uploadFile(formData).subscribe(
+    this.edeboService.uploadFile(formData).subscribe(
         res => {
           this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
           this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
@@ -140,7 +140,8 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
       }
     }
   }
-  сhooseSelectedStudentsFromOrangeList(): StudentDegreeFullEdeboData[] {
+
+  chooseSelectedStudentsFromOrangeList(): StudentDegreeFullEdeboData[] {
     let chosenStudents = [];
     for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
         if (student.selected) {
@@ -151,7 +152,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return chosenStudents;
   }
 
-  сhooseSelectedStudentsFromBlueList(): StudentDegreeFullEdeboData[] {
+  chooseSelectedStudentsFromBlueList(): StudentDegreeFullEdeboData[] {
     let chosenStudents = [];
     for (let student of this.unmatchedSecondaryDataStudentDegreesBlue) {
       if (student.selected) {
@@ -188,12 +189,11 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return value[string];
   }
 
-
   saveChanges(): void {
     this.saveButton = true;
     let newAndUpdatedStudentDegreesDTO = {};
-    newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.сhooseSelectedStudentsFromOrangeList();
-    newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.сhooseSelectedStudentsFromBlueList();
+    newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.chooseSelectedStudentsFromOrangeList();
+    newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.chooseSelectedStudentsFromBlueList();
       this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
         response => {
           this.modalSize = '';
@@ -275,17 +275,18 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return Gender[term]
   }
 
-  replaceDataWithCorrect(index, fieldName): void {
+  replaceDataWithCorrect(index, name): void {
+
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
-      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[fieldName] = this.
-        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[fieldName];
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name] = this.
+        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
     }
-    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName] == null) {
+    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name] == null) {
       return;
     }
     this.changeBlueListCondition(index);
-    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[fieldName] = this.
-        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[fieldName];
+    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] = this.
+        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
   }
 }
 
