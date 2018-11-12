@@ -75,20 +75,17 @@ export class CourseCreationComponent implements OnInit {
         : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 16));
 
   checkCourseName(name) {
-    if (name instanceof CourseName) {
-      return;
-    }
-    else {
-      let courseName = new CourseName();
+    if (!name.id) {
+      const courseName = new CourseName();
       courseName.name = name;
       this.course.courseName = courseName;
-      console.dir(this.course);
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
     console.dir(this.course);
+    this.checkCourseName(this.course.courseName);
     this.courseService.createCourse(this.course).subscribe((course: Course) => {
         this.success = true;
         this.failCreated = false;

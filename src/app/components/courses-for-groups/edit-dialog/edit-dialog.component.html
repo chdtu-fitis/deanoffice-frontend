@@ -8,6 +8,8 @@
   <div class="creation-form">
     <div class="row">
       <div class="form-group col">
+        <!--TODO put in a separate component-->
+        <!--TODO use ngx-bootstrap-->
         <label for="name" class="col-form-label">Назва курсу</label>
         <input
           name="name"
@@ -19,7 +21,6 @@
           [ngbTypeahead]="search"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
-          (change)="checkCourseName($event.target.value)"
           (focus)="focus$.next($event.target.value)"
           (click)="click$.next($event.target.value)"
           #instance="ngbTypeahead">

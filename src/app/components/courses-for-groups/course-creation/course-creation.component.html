@@ -5,6 +5,8 @@
   <div class="creation-form">
     <form #heroForm="ngForm">
     <div class="row">
+      <!--TODO put in a separate component-->
+      <!--TODO use ngx-bootstrap-->
       <div class="form-group col">
         <input
           name="courseName"
@@ -15,7 +17,6 @@
           [(ngModel)]="course.courseName"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
-          (change)="checkCourseName($event.target.value)"
           (focus)="focus$.next($event.target.value)"
           (click)="click$.next($event.target.value)"
           #instance="ngbTypeahead"

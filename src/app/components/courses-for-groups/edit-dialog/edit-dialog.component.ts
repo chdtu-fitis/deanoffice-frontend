@@ -22,6 +22,7 @@ export class EditDialogComponent implements OnInit {
   @Input() selectedGroup: StudentGroup = new StudentGroup();
   @Input() courseFromTable = new CourseForGroup();
   course: CourseForGroup = JSON.parse(JSON.stringify(this.courseFromTable));
+  // TODO use Reactive forms
   form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
@@ -55,11 +56,8 @@ export class EditDialogComponent implements OnInit {
         : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   checkCourseName(name) {
-    if (name instanceof CourseName) {
-      return;
-    }
-    else {
-      let courseName = new CourseName();
+    if (!name.id) {
+      const courseName = new CourseName();
       courseName.name = name;
       this.course.course.courseName = courseName;
     }
@@ -75,6 +73,7 @@ export class EditDialogComponent implements OnInit {
       oldCourseId: this.course.course.id,
       newCourse: this.course.course
     });
+    this.checkCourseName(this.course.course.courseName);
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
