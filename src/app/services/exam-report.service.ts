@@ -13,8 +13,8 @@ export class ExamReportService {
       return this.fileService.downloadFile(url);
   }
 
-  buildExamReportJournalDoc(groupId: number, semester: number): void {
-    const url = `${this.documentsUrl}/coursereport/groups/${groupId}/${semester}`;
+  buildExamReportJournalDoc(year: number, degreeId: number, semester: number): void {
+    const url = `${this.documentsUrl}/exam-reports-journal-courses/year/${year}/degree/${degreeId}?semester=${semester}`;
     this.fileService.downloadFile(url);
   }
 }

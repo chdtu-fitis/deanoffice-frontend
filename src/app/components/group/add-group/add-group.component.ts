@@ -1,64 +1,37 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild, OnInit, Input} from '@angular/core';
 import {GroupService} from '../../../services/group.service';
 import {GroupModalComponent} from '../group-modal/group-modal.component'
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {SpecializationService} from '../../../services/specialization.service';
+import {GroupFormComponent} from '../group-form/group-form.component';
 import {Specialization} from '../../../models/Specialization';
-import {TuitionForm} from '../../../models/tuition-form.enum';
-import {TuitionTerm} from '../../../models/tuition-term.enum';
 
 @Component({
   selector: 'add-group',
   templateUrl: './add-group.component.html',
   styleUrls: ['./add-group.component.scss']
 })
-export class AddGroupComponent {
+export class AddGroupComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: GroupModalComponent;
+  @ViewChild('form') form: GroupFormComponent;
+  @Input() tuitionFormsKeys;
+  @Input() tuitionForms;
+  @Input() tuitionTermsKeys;
+  @Input() tuitionTerms;
+  @Input() specializations: Specialization[];
 
-  form = new FormGroup({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    studySemesters: new FormControl(null, Validators.required),
-    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[1-9.]*')]),
-    beginYears: new FormControl(null, Validators.required),
-    creationYear: new FormControl(null, Validators.required),
-    tuitionForm: new FormControl(null, Validators.required),
-    tuitionTerm: new FormControl(null, Validators.required),
-    specialization: new FormControl(null, Validators.required),
-  });
+  constructor(private groupService: GroupService) { }
 
-  tuitionForms;
-  tuitionFormsKeys;
-
-  tuitionTerms;
-  tuitionTermsKeys;
-
-  specializations: Specialization[];
-
-  constructor(private groupService: GroupService, private specializationService: SpecializationService) {
-    specializationService.getSpecializations(true).subscribe(
-      (specializations: Specialization[]) => this.specializations = specializations,
-      null,
-      () => {
-        this.specializations.sort((a, b) => a.id - b.id);
-        this.form.controls['specialization'].setValue(this.specializations[0].id);
-      }
-    );
-    this.tuitionFormsKeys = Object.keys(TuitionForm);
-    this.tuitionForms = this.tuitionFormsKeys.map(key => TuitionForm[key]);
-    this.tuitionTermsKeys = Object.keys(TuitionTerm);
-    this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
-
-    this.form.controls['studySemesters'].setValue(8);
-    this.form.controls['studyYears'].setValue(3.84);
-    this.form.controls['beginYears'].setValue(1);
-    this.form.controls['creationYear'].setValue(this.getValueOfCreationYear());
-    this.form.controls['tuitionForm'].setValue(this.tuitionFormsKeys[0]);
-    this.form.controls['tuitionTerm'].setValue(this.tuitionTermsKeys[0]);
+  ngOnInit() {
+    this.form.setValues({
+      'name': '',
+      'studySemesters': 8,
+      'studyYears': 3.84,
+      'beginYears': 1,
+      'creationYear': this.getValueOfCreationYear(),
+      'tuitionForm': this.tuitionFormsKeys[0],
+      'tuitionTerm': this.tuitionTermsKeys[0]
+    });
   }
 
   getValueOfCreationYear(): number {
@@ -80,19 +53,9 @@ export class AddGroupComponent {
   }
 
   submit(): void {
-    const body = {
-      name: this.form.value.name,
-      active: false,
-      studySemesters: this.form.value.studySemesters,
-      creationYear: this.form.value.creationYear,
-      specialization: {
-        id: this.form.value.specialization
-      },
-      tuitionForm: this.form.value.tuitionForm,
-      tuitionTerm: this.form.value.tuitionTerm,
-      studyYears: this.form.value.studyYears,
-      beginYears: this.form.value.beginYears
-    };
+    const body = this.form.form.getRawValue();
+    body.active = 'false';
+    body.specialization = {id: body.specialization};
     this.groupService.create(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
