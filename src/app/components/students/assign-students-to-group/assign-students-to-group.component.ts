@@ -13,6 +13,7 @@ import {StudentService} from '../../../services/student.service';
 })
 export class AssignStudentsToGroupComponent {
 
+  degrees;
   students;
   form = new FormGroup({
     group: new FormControl(null, Validators.required)
@@ -25,11 +26,12 @@ export class AssignStudentsToGroupComponent {
 
   openModal(degrees: StudentDegree[]) {
     this.form.controls['group'].setValue(this.groups[0]);
+    this.degrees = degrees;
     this.students = degrees.map(degree => ({
-      ...degree.student,
-      id: degree.id, groups:
-      degree.studentGroup.name
-    }));
+      id: degree.id,
+      fullName: degree.student.surname + ' ' + degree.student.name + ' ' + degree.student.patronimic,
+      group: degree.studentGroup ? degree.studentGroup.name : null
+    })).sort();
     this.modal.show();
   }
 
@@ -42,6 +44,11 @@ export class AssignStudentsToGroupComponent {
       this.students.map( student => student.id),
       this.form.value.group.id
     ).subscribe(() => {
+      this.degrees.forEach(degree => {
+        degree.studentGroup = this.groups.find(group => {
+          return group.id === this.form.value.group.id;
+        });
+      });
       this.onSubmit.emit();
       this.hideModal();
     });

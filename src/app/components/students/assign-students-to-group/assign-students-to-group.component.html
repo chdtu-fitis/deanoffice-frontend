@@ -12,13 +12,12 @@
       <div class="modal-body">
         <div class="col-12 col-lg-12 students-list">
           <div class="students-list row">
-            <div *ngFor="let student of students" class="col-6 p-2">
-              <div class="card">
+            <div *ngFor="let student of students; let i = index" class="student col-6">
+              <div class="card h-100">
                 <div class="card-body p-1 p-md-2">
-                  <b class="d-block">{{student.surname}} {{student.name}} {{student.patronimic}}</b>
+                  <b class="d-block">{{i+1}}. {{student.fullName}}</b>
                   <div>
-                    <small class="d-inline ">Група: {{student.groups}}; </small>
-                    <small class="d-inline ml-2" *ngIf="student.birthDate">Дата народження: {{student.birthDate}};</small>
+                    <small class="d-inline" *ngIf="student.group">Група: {{student.group}}</small>
                   </div>
                 </div>
               </div>
