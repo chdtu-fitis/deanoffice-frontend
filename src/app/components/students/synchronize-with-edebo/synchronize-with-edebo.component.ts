@@ -15,7 +15,6 @@ import {Speciality} from '../../../models/Speciality';
 import {ResultOfSavingData} from '../../../models/synchronization-edebo-models/ResultOfSavingData';
 import {Gender} from '../../../models/gender.enum';
 
-
 @Component({
   selector: 'synchronize-with-edebo',
   templateUrl: './synchronize-with-edebo.component.html',
@@ -47,7 +46,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   selectedDegree = null;
   selectedSpeciality = null;
   resultOfSaving: ResultOfSavingData;
-
 
   ngOnInit() {
   }
@@ -231,7 +229,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   isNotEqual(name, index): boolean {
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
-
       let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
       let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
 
@@ -265,13 +262,12 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   replaceDataWithCorrect(index, name): void {
     this.changeBlueListCondition(index);
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
-      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name] = this.
-        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
-      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student.modified = true;
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name] =
+          this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
       return;
     }
-    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] = this.
-        unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
+    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] =
+        this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
     this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.modified = true;
   }
 }
