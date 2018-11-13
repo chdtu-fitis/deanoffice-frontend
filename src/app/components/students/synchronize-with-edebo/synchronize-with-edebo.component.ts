@@ -263,13 +263,13 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   replaceDataWithCorrect(index, name): void {
+    this.changeBlueListCondition(index);
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
       this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name] = this.
         unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
       this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student.modified = true;
       return;
     }
-    this.changeBlueListCondition(index);
     this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] = this.
         unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
     this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.modified = true;
