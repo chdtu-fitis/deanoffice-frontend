@@ -170,6 +170,8 @@ export class CoursesForGroupsComponent implements OnInit {
       if (courseIsExist) this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
     }
     this.sortCoursesForGroup();
+    this.studiedCoursesChild.courses.forEach(course => course.selected = false);
+    this.studiedCoursesChild.selectedCourses = [];
     this.selectedCourses = [];
   }
 

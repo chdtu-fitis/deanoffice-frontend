@@ -9,14 +9,5 @@ export class Course extends BaseEntity {
   hours: number;
   credits: number;
   hoursPerCredit: number;
-
-  constructor() {
-    super();
-    this.courseName = new CourseName();
-    this.knowledgeControl = new KnowledgeControl();
-    this.semester = undefined;
-    this.hours = undefined;
-    this.credits = undefined;
-    this.hoursPerCredit = undefined;
-  }
+  selected?: boolean;
 }
