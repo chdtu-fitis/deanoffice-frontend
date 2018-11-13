@@ -225,45 +225,32 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   compareValuesInBlueList(name, index): number {
-    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
-      let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
-      let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
-
-      if ((stFromDb == null && stFromData == '') || (stFromDb == '' && stFromData == null)) {
-        return 2;
-      }
-
-      let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].
-        studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
-        studentDegreeFromData.student[name] ? 2 : 1;
-      return numberOfRows;
-    }
-    let numberOfRows = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
-      unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name] ? 2 : 1;
+    let numberOfRows = !this.isNotEqual(name, index) ? 2 : 1;
     return numberOfRows;
   }
 
-  isEqual(name, index): boolean {
+  isNotEqual(name, index): boolean {
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
 
       let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
       let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
-
 
       if ((stFromDb == null && stFromData == '') || (stFromDb == '' && stFromData == null)) {
         return false;
       }
+
       let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].
         studentDegreeFromDb.student[name] === this.unmatchedSecondaryDataStudentDegreesBlue[index].
         studentDegreeFromData.student[name];
       return !isShown;
     }
+
     let isShown = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === this.
       unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
     return !isShown;
   }
 
-   translateDiplomaType(term: DiplomaType) {
+  translateDiplomaType(term: DiplomaType) {
     return DiplomaType[term];
   }
 
@@ -276,17 +263,16 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   replaceDataWithCorrect(index, name): void {
-
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {
       this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name] = this.
         unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
-    }
-    if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name] == null) {
+      this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student.modified = true;
       return;
     }
     this.changeBlueListCondition(index);
     this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] = this.
         unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData[name];
+    this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.modified = true;
   }
 }
 

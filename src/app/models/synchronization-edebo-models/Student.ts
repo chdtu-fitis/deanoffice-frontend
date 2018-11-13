@@ -11,5 +11,5 @@ export class  Student {
   patronimicEng: string;
   sex: Gender;
   birthDate: Date;
-
+  modified: boolean;
 }

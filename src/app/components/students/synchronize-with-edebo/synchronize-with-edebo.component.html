@@ -117,55 +117,55 @@
                 </td>
               </tr>
               <tr class="data-integration">
-                <td *ngIf="isEqual('sex',i)"
+                <td *ngIf="isNotEqual('sex',i)"
                     (click)="replaceDataWithCorrect(i,'sex')">
                   {{ translateGender(student.studentDegreeFromData?.student?.sex)}}
                 </td>
-                <td *ngIf="isEqual('admissionDate',i)"
+                <td *ngIf="isNotEqual('admissionDate',i)"
                     (click)="replaceDataWithCorrect(i,'admissionDate')">
                   {{ student.studentDegreeFromData?.admissionDate | date:'dd.MM.yyyy'}}
                 </td>
-                <td *ngIf="isEqual('admissionOrderDate',i)"
+                <td *ngIf="isNotEqual('admissionOrderDate',i)"
                   (click)="replaceDataWithCorrect(i,'admissionOrderDate')">
                   {{student.studentDegreeFromData?.admissionOrderDate | date:'dd.MM.yyyy'}}
                 </td>
-                <td *ngIf="isEqual('admissionOrderNumber',i)"
+                <td *ngIf="isNotEqual('admissionOrderNumber',i)"
                   (click)="replaceDataWithCorrect(i,'admissionOrderNumber')">
                   {{student.studentDegreeFromData?.admissionOrderNumber}}
                 </td>
-                <td *ngIf="isEqual('payment',i)"
+                <td *ngIf="isNotEqual('payment',i)"
                   (click)="replaceDataWithCorrect(i,'payment')">
                   {{translatePayment(student.studentDegreeFromData?.payment)}}
                 </td>
-                <td *ngIf="isEqual('previousDiplomaDate',i)"
+                <td *ngIf="isNotEqual('previousDiplomaDate',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
                   {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.MM.yyyy'}}
                 </td>
-                <td  *ngIf="isEqual('previousDiplomaIssuedBy',i)"
+                <td  *ngIf="isNotEqual('previousDiplomaIssuedBy',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
                   {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
                 </td>
-                <td *ngIf="isEqual('previousDiplomaNumber',i)"
+                <td *ngIf="isNotEqual('previousDiplomaNumber',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
                   {{student.studentDegreeFromData?.previousDiplomaNumber}}
                 </td>
-                <td *ngIf="isEqual('previousDiplomaType',i)"
+                <td *ngIf="isNotEqual('previousDiplomaType',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
                   {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
                 </td>
-                <td *ngIf="isEqual('supplementNumber',i)"
+                <td *ngIf="isNotEqual('supplementNumber',i)"
                     (click)="replaceDataWithCorrect(i,'supplementNumber')">
                   {{student.studentDegreeFromData?.supplementNumber}}
                 </td>
-                <td *ngIf="isEqual('surnameEng',i)"
+                <td *ngIf="isNotEqual('surnameEng',i)"
                     (click)="replaceDataWithCorrect(i,'surnameEng')">
                   {{ student.studentDegreeFromData?.student?.surnameEng }}
                 </td>
-                <td *ngIf="isEqual('nameEng',i)"
+                <td *ngIf="isNotEqual('nameEng',i)"
                     (click)="replaceDataWithCorrect(i,'nameEng')">
                   {{ student.studentDegreeFromData?.student?.nameEng}}
                 </td>
-                <td *ngIf="isEqual('patronimicEng',i)"
+                <td *ngIf="isNotEqual('patronimicEng',i)"
                     (click)="replaceDataWithCorrect(i,'patronimicEng')">
                   {{ student.studentDegreeFromData?.student?.patronimicEng }}
                 </td>
