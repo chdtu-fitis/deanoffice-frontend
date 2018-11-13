@@ -70,6 +70,12 @@
       >
         Відрахувати студентів
       </button>
+      <button
+        *ngIf="selected.length > 1"
+        class="btn btn-success w-100 mt-3"
+        (click)="assignStudentsToGroup.openModal(selected)">
+        Призначити групу
+      </button>
     </app-sidebar>
   </div>
 </div>
@@ -90,6 +96,12 @@
   (onSubmit)="onRemove($event)"
   #studentExpelModal
 ></app-student-expel>
+
+<assign-students-to-group
+  [groups]="groups"
+  (onSubmit)="getStudents()"
+  #assignStudentsToGroup
+></assign-students-to-group>
 
 <app-student-personal-info
   (onSubmit)="getStudents()"
