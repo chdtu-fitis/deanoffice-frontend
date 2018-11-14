@@ -26,6 +26,7 @@ import {PipeModule} from '../../pipes/pipe.module';
 import {RouterModule, Routes} from '@angular/router';
 import {SynchronizeWithEdeboComponent} from './synchronize-with-edebo/synchronize-with-edebo.component';
 import { AssignStudentsToGroupComponent } from './assign-students-to-group/assign-students-to-group.component';
+import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
@@ -52,7 +53,8 @@ export const studentRoutes: Routes = [
     RenewStudentComponent,
     StopAcademicVacationComponent,
     StudentAcademicVacationComponent,
-    AssignStudentsToGroupComponent,
+    AssignStudentsToGroupCo,
+    StudentThesisThemeInputComponentmponent,
     SynchronizeWithEdeboComponent
   ],
   imports: [
