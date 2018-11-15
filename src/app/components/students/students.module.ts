@@ -53,8 +53,8 @@ export const studentRoutes: Routes = [
     RenewStudentComponent,
     StopAcademicVacationComponent,
     StudentAcademicVacationComponent,
-    AssignStudentsToGroupCo,
-    StudentThesisThemeInputComponentmponent,
+    AssignStudentsToGroupComponent,
+    StudentThesisThemeInputComponent,
     SynchronizeWithEdeboComponent
   ],
   imports: [

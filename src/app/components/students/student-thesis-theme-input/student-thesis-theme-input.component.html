@@ -1,0 +1,28 @@
+<div class="modal"
+     bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Тема до диплому</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="input-group import" >
+          <input type="file" class="custom-file-input" id="importFile" accept=".doc, .docx"
+                 (change)="onFileSelected($event)">
+          <label class="custom-file-label" for="importFile">{{fileName}}</label>
+        </div>
+        <p class="alert alert-danger mt-1" *ngIf="wrongExtension">
+          Некоректне розширення файлу
+        </p>
+      </div>
+
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
