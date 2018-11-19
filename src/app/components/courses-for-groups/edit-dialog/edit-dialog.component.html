@@ -50,9 +50,11 @@
       </div>
       <div class="form-group col-5">
         <label for="kc" class="col-form-label">Тип контролю</label>
-        <select name="kc" id="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
-                [(ngModel)]="course.course.knowledgeControl">
-          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+        <select name="kc" id="kc" required class="form-control mr-2"
+                [(ngModel)]="course.course.knowledgeControl" [compareWith]="byId">
+          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">
+            {{kc.name}}
+          </option>
         </select>
       </div>
     </div>
