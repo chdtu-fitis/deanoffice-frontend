@@ -84,7 +84,6 @@ export class CourseCreationComponent implements OnInit {
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    console.dir(this.course);
     this.checkCourseName(this.course.courseName);
     this.courseService.createCourse(this.course).subscribe((course: Course) => {
         this.success = true;
@@ -96,7 +95,6 @@ export class CourseCreationComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
         if (error.status === 422) {
           this.failCreated = true;
           this.success = false;

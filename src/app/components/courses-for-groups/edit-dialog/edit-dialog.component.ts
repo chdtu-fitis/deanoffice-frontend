@@ -68,11 +68,6 @@ export class EditDialogComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.selectedGroup.id, {
-      courseForGroupId: this.course.id,
-      oldCourseId: this.course.course.id,
-      newCourse: this.course.course
-    });
     this.checkCourseName(this.course.course.courseName);
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
