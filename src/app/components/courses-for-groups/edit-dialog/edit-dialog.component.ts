@@ -103,7 +103,7 @@ export class EditDialogComponent implements OnInit {
     return this.form.get('kc');
   }
 
-  byId(item1, item2) {
+  compareById(item1, item2) {
     return item1.id === item2.id;
   }
 

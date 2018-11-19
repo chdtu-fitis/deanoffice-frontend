@@ -51,7 +51,7 @@
       <div class="form-group col-5">
         <label for="kc" class="col-form-label">Тип контролю</label>
         <select name="kc" id="kc" required class="form-control mr-2"
-                [(ngModel)]="course.course.knowledgeControl" [compareWith]="byId">
+                [(ngModel)]="course.course.knowledgeControl" [compareWith]="compareById">
           <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">
             {{kc.name}}
           </option>
