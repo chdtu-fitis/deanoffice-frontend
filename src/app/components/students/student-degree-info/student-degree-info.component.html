@@ -19,7 +19,11 @@
               [customClass]="tabValidity[i] ? 'tab-invalid' : ''"
             >
               <div [formArrayName]="i">
-                <b class="d-block mt-2">Cпеціальність: {{model.degrees[i].specialization.speciality.name}}</b>
+                <b class="d-block mt-2">
+                  Cпеціальність:
+                  {{model.degrees[i].specialization.speciality.code}}
+                  {{model.degrees[i].specialization.speciality.name}}
+                </b>
                 <b class="d-block">Спеціалізація: {{model.degrees[i].specialization.name}}</b>
                 <div class="row mt-2">
                   <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
