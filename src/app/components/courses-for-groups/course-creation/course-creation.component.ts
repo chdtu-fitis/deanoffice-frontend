@@ -3,7 +3,6 @@ import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CourseName} from '../../../models/CourseName';
 import {Subject} from 'rxjs/Subject';
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
@@ -29,6 +28,7 @@ export class CourseCreationComponent implements OnInit {
   @Output() onCourseCreation = new EventEmitter();
   course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
+  // TODO use Reactive forms
   form;
   success = false;
   failCreated = undefined;
@@ -56,6 +56,7 @@ export class CourseCreationComponent implements OnInit {
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
+      this.course.knowledgeControl = this.knowledgeControl[0];
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
@@ -74,20 +75,16 @@ export class CourseCreationComponent implements OnInit {
         : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 16));
 
   checkCourseName(name) {
-    if (name instanceof CourseName) {
-      return;
-    }
-    else {
-      let courseName = new CourseName();
+    if (!name.id) {
+      const courseName = new CourseName();
       courseName.name = name;
       this.course.courseName = courseName;
-      console.dir(this.course);
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    console.dir(this.course);
+    this.checkCourseName(this.course.courseName);
     this.courseService.createCourse(this.course).subscribe((course: Course) => {
         this.success = true;
         this.failCreated = false;
@@ -98,7 +95,6 @@ export class CourseCreationComponent implements OnInit {
         }
       },
       error => {
-        console.log(error);
         if (error.status === 422) {
           this.failCreated = true;
           this.success = false;

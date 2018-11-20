@@ -12,7 +12,8 @@
         </tr>
       </thead>
       <tr *ngFor="let course of courses | coursesSearch : searchText">
-        <td><input type="checkbox" (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
+        <td><input type="checkbox" [(ngModel)]="course.selected"
+                   (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
         <td>{{ course.courseName.name }}</td>
         <td>{{ course.knowledgeControl.name }}</td>
         <td>{{ course.hours }}</td>

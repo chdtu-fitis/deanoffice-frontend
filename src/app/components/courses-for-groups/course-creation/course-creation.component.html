@@ -3,18 +3,20 @@
     Створити предмет
   </div>
   <div class="creation-form">
+    <form #courseCreationForm="ngForm">
     <div class="row">
+      <!--TODO put in a separate component-->
+      <!--TODO use ngx-bootstrap-->
       <div class="form-group col">
         <input
-          name="name"
+          name="courseName"
           required
           type="text"
-          class="form-control mr-2 ng-pristine ng-valid ng-touched"
+          class="form-control"
           [ngbTypeahead]="search"
           [(ngModel)]="course.courseName"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
-          (change)="checkCourseName($event.target.value)"
           (focus)="focus$.next($event.target.value)"
           (click)="click$.next($event.target.value)"
           #instance="ngbTypeahead"
@@ -23,22 +25,22 @@
     </div>
     <div class="row">
       <div class="form-group col-2">
-        <input name="hours" required class="form-control mr-2 ng-pristine ng-valid ng-touched "
+        <input pattern="^(?:0|[1-9][0-9]*)$" type="text" min="0" name="hours" maxlength="4" required class="form-control"
                [(ngModel)]="course.hours" placeholder="Годин">
       </div>
       <div class="form-group col-3">
-        <input name="semester" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
+        <input name="semester" type="number" disabled required class="form-control"
                [(ngModel)]="course.semester" placeholder="Семестр">
       </div>
       <div class="form-group col-3">
-        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="course.hoursPerCredit">
+        <select name="hoursPerCredit" class="form-control" [(ngModel)]="course.hoursPerCredit" title="Кредити">
           <option [ngValue]="30">30</option>
           <option [ngValue]="36">36</option>
         </select>
       </div>
       <div class="form-group col-4">
-        <select name="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
-                [(ngModel)]="course.knowledgeControl">
+        <select name="kc" required class="form-control"
+                [(ngModel)]="course.knowledgeControl" title="Контроль">
           <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
         </select>
       </div>
@@ -46,11 +48,13 @@
     <div class="row">
       <div class="col-8">
         <button class="btn btn-success" (click)="createCourse(true)"
-                [disabled]="!selectedGroup||!selectedSemester">Створити і додати до групи</button>
+                [disabled]="!(selectedSemester&&courseCreationForm.form.valid)">Створити і додати до групи</button>
       </div>
       <div class="col-4">
-        <button class="btn btn-success" (click)="createCourse(false)">Створити</button>
+        <button class="btn btn-success" (click)="createCourse(false)"
+                [disabled]="!(selectedSemester&&courseCreationForm.form.valid)">Створити</button>
       </div>
     </div>
+    </form>
   </div>
 </div>

@@ -64,7 +64,8 @@ export class AddedCoursesComponent implements OnInit {
 
   changeCourse(course) {
     const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
-    modalRef.componentInstance.course = course;
+    modalRef.componentInstance.course = JSON.parse(JSON.stringify(course));
+    modalRef.componentInstance.courseFromTable = course;
     modalRef.componentInstance.selectedGroup = this.selectedGroup;
   }
 }
