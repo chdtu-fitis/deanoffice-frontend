@@ -4,62 +4,53 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Тема до диплому</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
         <tabset #tabset *ngIf="tableView">
-          <tab heading="Повне співпадіння" class="tab-body" (select)="">
-            <table class="table table-sm table-striped table-bordered mt-4">
+          <tab>
+             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <td>№</td>
-              <td>Прізвище</td>
-              <td>Ім'я</td>
-              <td>По-батькові</td>
-              <td>Дата народження</td>
-              <td>Група</td>
-              <td>Ступінь</td>
-              <td>Спеціальність</td>
-              <td>Освітня програма</td>
+              <td>
+                <input type="checkbox" (click)="onAllThesisThemeSelected($event.target.checked)">
+              </td>
+              <td>Повне ім'я</td>
+              <td>Назва дипломної роботи</td>
+              <td>Назва дипломної роботи англыйською</td>
+              <td>Стара назва дипломної роботи</td>
               </thead>
-              <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
+              <tr *ngFor="let student of allThesisThemes.importedThesisDataDTOs, let i = index">
                 <td>{{ i+1 }}</td>
-                <td>{{ student?.lastName}}</td>
-                <td>{{ student?.firstName }}</td>
-                <td>{{ student?.middleName }}</td>
-                <td>{{ student?.birthday }}</td>
-                <td>{{ student?.groupName }}</td>
-                <td>{{ student?.degreeName }}</td>
-                <td>{{ student?.fullSpecialityName }}</td>
-                <td>{{ student?.fullSpecializationName }}</td>
+                <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+                <td>{{ student.fullName }}</td>
+                <td>{{ student.thesisName }}</td>
+                <td>{{ student.thesisNameEng }}</td>
+                <td>{{ student.oldThesisName}}</td>
               </tr>
             </table>
           </tab>
-            <tab>
+          <tab>
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <td>№</td>
-              <td>Прізвище</td>
-              <td>Ім'я</td>
-              <td>По-батькові</td>
-              <td>Дата народження</td>
-              <td>Група</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td>Повне ім'я</td>
+              <td>Назва дипломної роботи</td>
+              <td>Назва дипломної роботи англыйською</td>
+              <td>Стара назва дипломної роботи</td>
+              <td>Повідомлення</td>
               </thead>
-              <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+              <tr *ngFor="let student of allThesisThemes.missingThesisDataRedDTOs; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+                <td>{{ student.importedThesisDataDTOs.fullName }}</td>
+                <td>{{ student.importedThesisDataDTOs.thesisName }}</td>
+                <td>{{ student.importedThesisDataDTOs.thesisNameEng }}</td>
+                <td>{{ student.importedThesisDataDTOs.oldThesisName}}</td>
+                <td>{{ student.message}}</td>
               </tr>
             </table>
           </tab>
@@ -77,10 +68,12 @@
       </div>
 
       <div class="modal-footer">
-        <button class="btn btn-success" *ngIf="" type="button"
+        <button class="btn btn-success" *ngIf="downloadButton" type="button"
                 (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtension">
           Завантажити
         </button>
+        <button class="btn btn-success" *ngIf="tableView" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>
+        <button class="btn btn-primary" *ngIf="tableView" type="button" (click)="hideModal()">Відмінити</button>
       </div>
     </div>
   </div>

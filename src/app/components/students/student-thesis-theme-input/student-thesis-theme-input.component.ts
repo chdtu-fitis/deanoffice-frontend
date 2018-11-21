@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
 import {ThesisInputService} from '../../../services/thesis-input.service';
+import {AllThesisListDTO} from '../../../models/thesis-theme-models/AllThesisListDTO';
 
 @Component({
   selector: 'student-thesis-theme-input',
@@ -15,7 +16,10 @@ export class StudentThesisThemeInputComponent implements OnInit {
   uploadInProgress = false;
   fileField = true;
   modalSize = '';
+  downloadButton = true;
+  saveButton = false;
   tableView = false;
+  allThesisThemes: AllThesisListDTO;
 
   constructor(private thesisService: ThesisInputService) { }
 
@@ -35,14 +39,15 @@ export class StudentThesisThemeInputComponent implements OnInit {
   }
 
   onFileUpload () {
-    this.uploadInProgress = true;
     this.fileField = false;
+    this.downloadButton = false;
+    this.uploadInProgress = true;
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
 
     this.thesisService.uploadFile(formData).subscribe(
       res => {
-
+        this.allThesisThemes = res;
         this.uploadInProgress = false;
         this.changeModal();
       }
@@ -65,4 +70,25 @@ export class StudentThesisThemeInputComponent implements OnInit {
   //   }
   // };
 
+  hideModal () {
+    this.modal.hide();
+    this.saveButton = false;
+    this.modalSize = '';
+  }
+
+  saveChanges () {
+    this.saveButton = true;
+  }
+
+  onAllThesisThemeSelected (checked: boolean) {
+    for ( let student of this.allThesisThemes.importedThesisDataDTOs) {
+      student.selected = checked;
+    }
+  }
+
+  onShow () {
+    this.fileField = true;
+    this.downloadButton = true;
+    this.modal.show();
+  }
 }
