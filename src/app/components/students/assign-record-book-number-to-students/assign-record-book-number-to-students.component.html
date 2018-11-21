@@ -1,0 +1,48 @@
+<div class="modal fade"
+     [config]="{backdrop: 'static'}" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Призначити номер заліковки</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="form">
+        <div class="col-12 col-lg-12 students-list">
+          <form  [formGroup]="form">
+            <div class="students-list row" formArrayName="studentDegrees">
+              <div *ngFor="let studentDegree of formStudentDegrees.controls; let i = index"
+                   class="student col-6">
+                  <div class="card h-100" [formArrayName]="i">
+                    <div class="card-body p-1 p-md-2">
+                      <b class="d-block">{{i+1}}. {{studentDegree.value.fullName}}</b>
+                      <input type="text" formControlName="recordBookNumber">
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label>
+          Номер заліковки:
+          <input type="text" [formControl]="initialRecordBookNumber">
+        </label>
+        <button (click)="generateRecordBookNumbers()"
+                [disabled]="initialRecordBookNumber.invalid"
+                class="btn btn-success btn-submit">
+          Встановити
+        </button>
+        <button (click)="submit()" class="btn btn-success btn-submit">
+          Зберегти
+        </button>
+        <button (click)="hideModal()" class="btn btn-outline-info">
+          Скасувати
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

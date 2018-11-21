@@ -1,0 +1,80 @@
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
+
+import {ModalDirective} from 'ngx-bootstrap';
+
+import {StudentDegree} from '../../../models/StudentDegree';
+import {StudentGroup} from '../../../models/StudentGroup';
+import {StudentService} from '../../../services/student.service';
+
+@Component({
+  selector: 'assign-record-book-number-to-students',
+  templateUrl: './assign-record-book-number-to-students.component.html',
+  styleUrls: ['./assign-record-book-number-to-students.component.scss']
+})
+export class AssignRecordBookNumberToStudentsComponent {
+
+  studentDegrees;
+  form: FormGroup;
+  initialRecordBookNumber = new FormControl('', Validators.required);
+  groupName;
+  recordBookNumber;
+  @ViewChild('modal') modal: ModalDirective;
+  @Input() groups: StudentGroup[];
+  @Output() onSubmit = new EventEmitter();
+
+  constructor(private fb: FormBuilder, private studentService: StudentService) { }
+
+  openModal(studentDegrees: StudentDegree[]) {
+    this.studentDegrees = studentDegrees;
+    this.buildForm();
+    this.modal.show();
+  }
+
+  hideModal() {
+    this.modal.hide();
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      studentDegrees: this.fb.array((this.studentDegrees).map((studentDegree) => {
+        return this.fb.group({
+          id: studentDegree.id,
+          fullName: `${studentDegree.student.surname} ${studentDegree.student.name} ${studentDegree.student.patronimic}`,
+          recordBookNumber: studentDegree.recordBookNumber,
+        })
+      }))
+    });
+  }
+
+  get formStudentDegrees() {
+    return this.form.get('studentDegrees') as FormArray;
+  }
+
+  generateRecordBookNumbers() {
+    [this.groupName, this.recordBookNumber] = this.initialRecordBookNumber.value.split('-');
+    for (let i = 0; i < this.formStudentDegrees.controls.length; i++) {
+      const recordBookNumber = `${this.groupName}-${Number(this.recordBookNumber) + i}`;
+      (this.formStudentDegrees.controls[i] as FormGroup).controls.recordBookNumber.setValue(recordBookNumber);
+    }
+  }
+
+  submit() {
+    const studentDegreesWithRecordBookNumber = this.form.value.studentDegrees.filter((studentDegree) =>
+      studentDegree.recordBookNumber
+    );
+    const degreesForSubmit = {};
+    studentDegreesWithRecordBookNumber.forEach(studentDegree => {
+      degreesForSubmit[studentDegree.id] = studentDegree.recordBookNumber
+    });
+    this.studentService.assignRecordBookNumberToStudents(degreesForSubmit).subscribe(() => {
+      for (let i = 0; i < this.studentDegrees.length; i++) {
+        this.studentDegrees[i].recordBookNumber = `${this.groupName}-${Number(this.recordBookNumber) + i}`;
+      }
+      this.initialRecordBookNumber.setValue('');
+      this.onSubmit.emit();
+      this.hideModal();
+    });
+  }
+
+}
