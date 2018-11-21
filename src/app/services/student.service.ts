@@ -48,7 +48,7 @@ export class StudentService {
   }
 
   assignRecordBookNumberToStudents(students): Observable<StudentDegree> {
-    return this.http.post<StudentDegree>(`${this.url}/assign-record-book-numbers`, students);
+    return this.http.post<StudentDegree>(`${this.url}/record-book-numbers`, students);
   }
 
   search(fullName: string = ''): Observable<StudentDegree[]> {
