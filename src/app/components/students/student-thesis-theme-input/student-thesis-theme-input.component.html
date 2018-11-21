@@ -1,6 +1,6 @@
 <div class="modal"
      bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog {{modalSize}}" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Тема до диплому</h4>
@@ -10,7 +10,61 @@
       </div>
 
       <div class="modal-body">
-        <div class="input-group import" >
+        <tabset #tabset *ngIf="tableView">
+          <tab heading="Повне співпадіння" class="tab-body" (select)="">
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <td>№</td>
+              <td>Прізвище</td>
+              <td>Ім'я</td>
+              <td>По-батькові</td>
+              <td>Дата народження</td>
+              <td>Група</td>
+              <td>Ступінь</td>
+              <td>Спеціальність</td>
+              <td>Освітня програма</td>
+              </thead>
+              <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
+                <td>{{ i+1 }}</td>
+                <td>{{ student?.lastName}}</td>
+                <td>{{ student?.firstName }}</td>
+                <td>{{ student?.middleName }}</td>
+                <td>{{ student?.birthday }}</td>
+                <td>{{ student?.groupName }}</td>
+                <td>{{ student?.degreeName }}</td>
+                <td>{{ student?.fullSpecialityName }}</td>
+                <td>{{ student?.fullSpecializationName }}</td>
+              </tr>
+            </table>
+          </tab>
+            <tab>
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <td>№</td>
+              <td>Прізвище</td>
+              <td>Ім'я</td>
+              <td>По-батькові</td>
+              <td>Дата народження</td>
+              <td>Група</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              </thead>
+              <tr *ngFor="let student of synchronizedStudentDegreesGreen; let i = index" >
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </tab>
+        </tabset>
+        <div class="input-group mt-2 mb-2" *ngIf="fileField">
           <input type="file" class="custom-file-input" id="importFile" accept=".doc, .docx"
                  (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
@@ -18,10 +72,15 @@
         <p class="alert alert-danger mt-1" *ngIf="wrongExtension">
           Некоректне розширення файлу
         </p>
+
+        <div class="loader" *ngIf="uploadInProgress"></div>
       </div>
 
       <div class="modal-footer">
-
+        <button class="btn btn-success" *ngIf="" type="button"
+                (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtension">
+          Завантажити
+        </button>
       </div>
     </div>
   </div>

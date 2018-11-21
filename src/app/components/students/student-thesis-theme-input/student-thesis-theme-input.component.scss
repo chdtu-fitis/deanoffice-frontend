@@ -1,0 +1,24 @@
+.modal-full {
+  min-width: 95%;
+  margin:0 auto;
+}
+
+.modal-full .modal-content {
+  height: 98vh;
+}
+.modal-full .tab-body{
+  height:70vh;
+  overflow: auto;
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-right: 5px solid #3498db; /* Blue */
+  border-left: 5px solid #3498db; /* Blue */
+  margin:70px auto;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 1s linear infinite;
+}
