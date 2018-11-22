@@ -47,6 +47,10 @@ export class StudentService {
     return this.http.post<StudentDegree>(`${environment.apiUrl}/group/${group}/add-students`, students);
   }
 
+  assignRecordBookNumberToStudents(students): Observable<StudentDegree> {
+    return this.http.post<StudentDegree>(`${this.url}/record-book-numbers`, students);
+  }
+
   search(fullName: string = ''): Observable<StudentDegree[]> {
     const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
     return this.http.get<StudentDegree[]>(`${this.url}/search`, {
