@@ -13,9 +13,8 @@ import {StudentService} from '../../../services/student.service';
   styleUrls: ['./assign-record-book-number-to-students.component.scss']
 })
 export class AssignRecordBookNumberToStudentsComponent {
-
-  studentDegrees;
   students;
+  studentDegrees;
   form: FormGroup;
   initialRecordBookNumber = new FormControl('', Validators.required);
   series;
@@ -28,16 +27,18 @@ export class AssignRecordBookNumberToStudentsComponent {
 
   openModal(studentDegrees: StudentDegree[]) {
     this.studentDegrees = studentDegrees;
+    this.studentDegrees.sort( (a, b) => {
+      let first = a.student.surname + ' ' + a.student.name + ' ' + a.student.patronimic;
+      let second = b.student.surname + ' ' + b.student.name + ' ' + b.student.patronimic;
+      if (first < second) { return -1; }
+      if (first > second) { return 1; }
+      return 0;
+    });
     this.students = this.studentDegrees.map(studentDegree => ({
       id: studentDegree.id,
       fullName: `${studentDegree.student.surname} ${studentDegree.student.name} ${studentDegree.student.patronimic}`,
       recordBookNumber: studentDegree.recordBookNumber
     }));
-    this.students.sort( (a, b) => {
-      if (a.fullName < b.fullName) { return -1; }
-      if (a.fullName > b.fullName) { return 1; }
-      return 0;
-    });
     this.buildForm();
     this.modal.show();
   }
