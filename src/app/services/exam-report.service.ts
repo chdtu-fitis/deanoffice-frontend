@@ -13,8 +13,18 @@ export class ExamReportService {
       return this.fileService.downloadFile(url);
   }
 
-  buildExamReportJournalDoc(year: number, degreeId: number, semester: number): void {
+  buildExamReportJournalDoc(year: number, degreeId: number, semester: number): any {
     const url = `${this.documentsUrl}/exam-reports-journal-courses/year/${year}/degree/${degreeId}?semester=${semester}`;
-    this.fileService.downloadFile(url);
+    return this.fileService.downloadFile(url);
+  }
+
+  buildGradesJournalStudentsPdf(year: number, degreeId: number): any {
+    const url = `${this.documentsUrl}/grades-journal/students?degreeId=${degreeId}&year=${year}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildGradesJournalCoursesPdf(year: number, degreeId: number): any {
+    const url = `${this.documentsUrl}/grades-journal/courses?degreeId=${degreeId}&year=${year}`;
+    return this.fileService.downloadFile(url);
   }
 }
