@@ -57,6 +57,12 @@
         </button>
         <loading *ngIf="studentDataCheckLoading" size="20"></loading>
       </div>
+      <div class="flex-container">
+        <button class="btn btn-warning w-75 mt-4" [disabled]="studentGradesCheckLoading" (click)="onStudentGradesCheck()">
+          Перевірити оцінки студентів
+        </button>
+        <loading *ngIf="studentGradesCheckLoading" size="20"></loading>
+      </div>
     </app-sidebar>
   </div>
 </div>

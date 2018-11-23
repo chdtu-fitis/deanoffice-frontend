@@ -34,5 +34,9 @@ export class DiplomaSupplementService {
     return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
   }
 
+  checkStudentsGrades(degreeId: string): Observable<DataForSupplementStudentCheck[]> {
+    const url = `${this.documentsUrl}/supplements/grade-check`;
+    return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
+  }
 
 }

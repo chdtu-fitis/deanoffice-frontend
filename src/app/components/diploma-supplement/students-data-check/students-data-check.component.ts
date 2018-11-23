@@ -9,7 +9,7 @@ import {DataForSupplementStudentCheck} from "../../../models/custom/DataForSuppl
 })
 export class StudentsDataCheckComponent {
   studentsCheckData: DataForSupplementStudentCheck[];
-
+  header: String;
   constructor(public activeModal: NgbActiveModal) { }
 
   closeWindow() {

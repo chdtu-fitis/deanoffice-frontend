@@ -26,6 +26,7 @@ export class DiplomaSupplementComponent implements OnInit {
   gradePercentLoading = false;
   gradesTableReportLoading = false;
   studentDataCheckLoading = false;
+  studentGradesCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
@@ -97,6 +98,19 @@ export class DiplomaSupplementComponent implements OnInit {
         this.studentDataCheckLoading = false;
         const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
         modalRef.componentInstance.studentsCheckData = res;
+        modalRef.componentInstance.header = 'Перевірка даних студента для додатку до диплому';
+      }
+    );
+  }
+
+  onStudentGradesCheck(): void {
+    this.message = '';
+    this.studentGradesCheckLoading = true;
+    this.diplomaSupplementService.checkStudentsGrades('1').subscribe(res => {
+        this.studentGradesCheckLoading = false;
+        const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
+        modalRef.componentInstance.studentsCheckData = res;
+        modalRef.componentInstance.header = 'Перевірка оцінок для додатку до диплому';
       }
     );
   }
