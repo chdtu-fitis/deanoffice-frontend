@@ -1,6 +1,6 @@
 import {ImportedThesisDataDTO} from './ImportedThesisDataDTO';
 
 export class MissingThesisDataRedDTO {
-  importedThesisDataDTO: ImportedThesisDataDTO;
+  thesisPrimaryData: ImportedThesisDataDTO;
   message?: string;
 }

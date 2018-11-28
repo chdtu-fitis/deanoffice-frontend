@@ -12,28 +12,31 @@
       <div class="modal-body">
         <tabset #tabset *ngIf="tableView">
           <tab>
-             <table class="table table-sm table-striped table-bordered mt-4">
+            <table *ngFor="let group of listThesisDataForGroup; let i = index" class="table table-sm table-striped table-bordered mt-4">
+              <caption>{{group?.group}}</caption>
               <thead>
               <td>№</td>
               <td>
-                <input type="checkbox" (click)="onAllThesisThemeSelected($event.target.checked)">
+                <input type="checkbox" (click)="onAllThesisThemeSelected($event.target.checked,i)">
               </td>
               <td>Повне ім'я</td>
               <td>Назва дипломної роботи</td>
-              <td>Назва дипломної роботи англыйською</td>
+              <td>Назва дипломної роботи англійською</td>
               <td>Стара назва дипломної роботи</td>
+              <td>Куратор дипломної роботи</td>
               </thead>
-              <tr *ngFor="let student of allThesisThemes.importedThesisDataDTOs, let i = index">
+              <tr *ngFor="let student of group.thesis let i = index">
                 <td>{{ i+1 }}</td>
                 <td><input type="checkbox" [(ngModel)]="student.selected"></td>
-                <td>{{ student.fullName }}</td>
-                <td>{{ student.thesisName }}</td>
-                <td>{{ student.thesisNameEng }}</td>
-                <td>{{ student.oldThesisName}}</td>
+                <td>{{ student?.fullName }}</td>
+                <td>{{ student?.thesisName }}</td>
+                <td>{{ student?.thesisNameEng }}</td>
+                <td>{{ student?.oldThesisName}}</td>
+                <td>{{ student?.fullSupervisorName }}</td>
               </tr>
             </table>
           </tab>
-          <tab>
+          <tab class="tab-body">
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <td>№</td>
@@ -41,21 +44,22 @@
               <td>Назва дипломної роботи</td>
               <td>Назва дипломної роботи англыйською</td>
               <td>Стара назва дипломної роботи</td>
+              <td>Куратор дипломної роботи</td>
               <td>Повідомлення</td>
               </thead>
-              <tr *ngFor="let student of allThesisThemes.missingThesisDataRedDTOs; let i = index" >
+              <tr *ngFor="let student of missingThesisDataRed; let i = index" >
                 <td>{{ i+1 }}</td>
-                <td><input type="checkbox" [(ngModel)]="student.selected"></td>
-                <td>{{ student.importedThesisDataDTOs.fullName }}</td>
-                <td>{{ student.importedThesisDataDTOs.thesisName }}</td>
-                <td>{{ student.importedThesisDataDTOs.thesisNameEng }}</td>
-                <td>{{ student.importedThesisDataDTOs.oldThesisName}}</td>
-                <td>{{ student.message}}</td>
+                <td>{{ student?.thesisPrimaryData?.fullName }}</td>
+                <td>{{ student?.thesisPrimaryData?.thesisName }}</td>
+                <td>{{ student?.thesisPrimaryData?.thesisNameEng }}</td>
+                <td>{{ student?.thesisPrimaryData?.oldThesisName}}</td>
+                <td>{{ student?.thesisPrimaryData?.fullSupervisorName}}</td>
+                <td>{{ student?.message}}</td>
               </tr>
             </table>
           </tab>
         </tabset>
-        <div class="input-group mt-2 mb-2" *ngIf="fileField">
+        <div class="input-group import" *ngIf="fileField">
           <input type="file" class="custom-file-input" id="importFile" accept=".doc, .docx"
                  (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
