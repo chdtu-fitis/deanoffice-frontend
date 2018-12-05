@@ -1,20 +1,20 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {NotificationsService} from 'angular2-notifications';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from 'angular2-notifications';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {StudentGroup} from '../../models/StudentGroup';
-import {Course} from '../../models/Course';
-import {Teacher} from '../../models/Teacher';
-import {CourseForGroup} from '../../models/CourseForGroup';
-import {GroupService} from '../../services/group.service';
-import {CourseService} from '../../services/course.service';
-import {CourseForGroupService} from '../../services/course-for-group.service';
-import {AddedCoursesComponent} from './added-courses/added-courses.component';
-import {CourseCreationComponent} from './course-creation/course-creation.component';
-import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
-import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
-import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
+import { StudentGroup } from '../../models/StudentGroup';
+import { Course } from '../../models/Course';
+import { Teacher } from '../../models/Teacher';
+import { CourseForGroup } from '../../models/CourseForGroup';
+import { GroupService } from '../../services/group.service';
+import { CourseService } from '../../services/course.service';
+import { CourseForGroupService } from '../../services/course-for-group.service';
+import { AddedCoursesComponent } from './added-courses/added-courses.component';
+import { CourseCreationComponent } from './course-creation/course-creation.component';
+import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
+import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
+import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 
 @Component({
   selector: 'courses-for-groups',

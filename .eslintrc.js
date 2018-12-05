@@ -40,9 +40,9 @@ module.exports = {
         variables: true
       }
     ],
-    // 'no-new': 'off',
-    // 'template-curly-spacing': 'error',
-    // 'object-curly-spacing': ['error', 'always'],
+    'no-new': 'off',
+    'template-curly-spacing': 'error',
+    'object-curly-spacing': ['error', 'always'],
     // 'object-property-newline': ['error'],
     // 'key-spacing': [
     //   'error',
