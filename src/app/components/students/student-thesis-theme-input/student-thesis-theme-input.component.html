@@ -70,17 +70,17 @@
 
         <div class="loader" *ngIf="uploadInProgress"></div>
 
-        <!--<div *ngIf="resultView" class="m-2">-->
-          <!--<p> Додано студентів: {{replaceNullValue(resultOfSaving?.created,'createdStudentDegrees')}}</p>-->
-          <!--<table class="table table-sm table-striped table-bordered mt-4 result-table"-->
-                 <!--*ngIf="resultOfSaving?.created?.notCreatedStudentDegrees.length !== 0 && resultOfSaving?.created !== null">-->
-            <!--<caption>Не додані студенти:</caption>-->
-            <!--<tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">-->
-              <!--<td>{{ student }}</td>-->
-            <!--</tr>-->
-          <!--</table>-->
-        <!--</div>-->
-        <!---->
+        <div *ngIf="resultView" class="m-2">
+          <p> Додано студентів: {{updatedStudentsDegrees}}</p>
+          <table class="table table-sm table-striped table-bordered mt-4 result-table"
+                 *ngIf="notUpdatedStudentDegrees.length !== 0 && notUpdatedStudentDegrees !== null">
+            <caption>Не додані студенти:</caption>
+            <tr *ngFor="let student of notUpdatedStudentDegrees">
+              <td>{{ student }}</td>
+            </tr>
+          </table>
+        </div>
+
       </div>
 
       <div class="modal-footer">

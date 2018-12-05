@@ -26,6 +26,8 @@ export class StudentThesisThemeInputComponent implements OnInit {
   tableView = false;
   listThesisDataForGroup: ThesisByGroups[];
   missingThesisDataRed: MissingThesisDataRedDTO[];
+  updatedStudentsDegrees: number;
+  notUpdatedStudentDegrees: string[];
 
   constructor(private thesisService: ThesisInputService) {
   }
@@ -81,6 +83,8 @@ export class StudentThesisThemeInputComponent implements OnInit {
     const importedThesisDataDTOs = this.getSelectedStudents();
     this.thesisService.updateData(importedThesisDataDTOs).subscribe(
       response => {
+        this.notUpdatedStudentDegrees = response.notUpdatedStudentDegrees;
+        this.updatedStudentsDegrees = response.updatedStudentDegrees;
         this.modalSize = '';
         this.modalName = 'Дані змінено';
         this.tableView = !this.tableView;
