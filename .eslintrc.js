@@ -4,6 +4,8 @@ module.exports = {
     browser: true,
     es6: true
   },
+  parser: 'typescript-eslint-parser',
+  plugins: [ 'typescript' ],
   rules: {
     indent: [
       'error',
@@ -15,10 +17,10 @@ module.exports = {
         ObjectExpression: 1
       }
     ],
-    'comma-dangle': [ 'error', 'always' ],
-    'linebreak-style': [ 'error', 'unix' ],
-    quotes: [ 'error', 'single' ],
-    semi: [ 'error', 'always' ],
+    'comma-dangle': ['error', 'never'],
+    'linebreak-style': ['error', 'unix'],
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
     'no-undef': 'error',
     'no-unused-vars': [
       'error',
@@ -27,8 +29,8 @@ module.exports = {
         args: 'after-used'
       }
     ],
-    'no-cond-assign': [ 'error', 'always' ],
-    eqeqeq: [ 'error', 'always' ],
+    'no-cond-assign': ['error', 'always'],
+    eqeqeq: ['error', 'always'],
     'no-console': 'error',
     'no-debugger': 'error',
     'block-scoped-var': 'error',
@@ -45,8 +47,8 @@ module.exports = {
     ],
     'no-new': 'off',
     'template-curly-spacing': 'error',
-    'object-curly-spacing': [ 'error', 'always' ],
-    'object-property-newline': [ 'error' ],
+    'object-curly-spacing': ['error', 'always'],
+    'object-property-newline': ['error'],
     'key-spacing': [
       'error',
       {
@@ -80,6 +82,35 @@ module.exports = {
         after: true
       }
     ],
-    'array-bracket-spacing': [ 'error', 'always' ]
+    'array-bracket-spacing': ['error', 'always'],
+    'no-var': 'error',
+    'camelcase': 'error',
+    "space-infix-ops": 'error',
+    'space-unary-ops': ['error', {'words': true, 'nonwords': false}],
+    'typescript/adjacent-overload-signatures': 'error',
+    'typescript/class-name-casing': 'error',
+    'typescript/explicit-function-return-type': 'error',
+    'typescript/generic-type-naming': 'error',
+    'typescript/member-ordering': [
+      'error',
+      {
+        'classes': [
+          'field', 'constructor', 'method'
+        ],
+      }
+    ],
+    'typescript/no-array-constructor': 'error',
+    'typescript/no-non-null-assertion': 'error',
+    'typescript/no-unused-vars': 'error',
+    'typescript/no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+        typedefs: true
+      }
+    ],
+    'typescript/type-annotation-spacing': 'error'
   }
 };
