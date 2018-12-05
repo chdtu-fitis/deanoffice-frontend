@@ -3,6 +3,8 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {ThesisInputService} from '../../../services/thesis-input.service';
 import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups';
 import {MissingThesisDataRedDTO} from '../../../models/thesis-theme-models/MissingThesisDataRedDTO';
+import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
+import {ImportedThesisDataDTO} from '../../../models/thesis-theme-models/ImportedThesisDataDTO';
 
 @Component({
   selector: 'student-thesis-theme-input',
@@ -12,9 +14,11 @@ import {MissingThesisDataRedDTO} from '../../../models/thesis-theme-models/Missi
 export class StudentThesisThemeInputComponent implements OnInit {
   @ViewChild('modal') modal: ModalDirective;
   fileName = 'Виберіть файл';
+  modalName = 'Тема диплому';
   selectedFile: File = null;
   wrongExtension = false;
   uploadInProgress = false;
+  resultView = false;
   fileField = true;
   modalSize = '';
   downloadButton = true;
@@ -63,32 +67,49 @@ export class StudentThesisThemeInputComponent implements OnInit {
     this.tableView = true;
   }
 
-  // setNumberOfStudents(tableType): void {
-  //   switch (tableType) {
-  //     case 'green':
-  //       this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
-  //       break;
-  //     case 'blue':
-  //       this.studentsInTable = this.unmatchedSecondaryDataStudentDegreesBlue.length;
-  //       break;
-  //   }
-  // };
-
   hideModal() {
     this.modal.hide();
-    this.tableView = false;
-    this.saveButton = false;
-    this.modalSize = '';
+    setTimeout(() => {
+      this.tableView = false;
+      this.saveButton = false;
+      this.modalSize = '';
+      this.resultView = false;
+    }, 500);
   }
 
   saveChanges() {
+    const importedThesisDataDTOs = this.getSelectedStudents();
+    this.thesisService.updateData(importedThesisDataDTOs).subscribe(
+      response => {
+        this.modalSize = '';
+        this.modalName = 'Дані змінено';
+        this.tableView = !this.tableView;
+        this.resultView = true;
+      }
+    );
     this.saveButton = true;
   }
 
   onAllThesisThemeSelected(checked: boolean, index: number) {
-    for (let student of this.listThesisDataForGroup[index].thesis) {
+    for (const student of this.listThesisDataForGroup[index].thesisDataBeans) {
       student.selected = checked;
     }
+  }
+
+  private getSelectedStudents() {
+    const chosenStudents = [];
+    for (const group of this.listThesisDataForGroup) {
+      for (const student of group.thesisDataBeans) {
+        if (student.selected) {
+          const obj = {...student};
+          delete obj.fullName;
+          delete obj.oldThesisName;
+          delete obj.selected;
+          chosenStudents.push(obj);
+        }
+      }
+    }
+    return chosenStudents;
   }
 
   onShow() {

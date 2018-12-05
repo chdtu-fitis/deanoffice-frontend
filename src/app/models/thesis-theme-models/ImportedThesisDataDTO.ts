@@ -1,6 +1,6 @@
 
 export class ImportedThesisDataDTO {
-  id: number;
+  id?: number;
   fullName?: string;
   thesisName?: string;
   thesisNameEng?: string;

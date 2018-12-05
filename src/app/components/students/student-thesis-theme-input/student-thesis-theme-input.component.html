@@ -3,7 +3,7 @@
   <div class="modal-dialog {{modalSize}}" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Тема до диплому</h4>
+        <h4 class="modal-title">{{modalName}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -13,7 +13,7 @@
         <tabset #tabset *ngIf="tableView">
           <tab>
             <table *ngFor="let group of listThesisDataForGroup; let i = index" class="table table-sm table-striped table-bordered mt-4">
-              <caption>{{group?.group}}</caption>
+              <caption class="group-caption"> {{group?.groupName}} </caption>
               <thead>
               <td>№</td>
               <td>
@@ -25,7 +25,7 @@
               <td>Стара назва дипломної роботи</td>
               <td>Куратор дипломної роботи</td>
               </thead>
-              <tr *ngFor="let student of group.thesis let i = index">
+              <tr *ngFor="let student of group.thesisDataBeans let i = index">
                 <td>{{ i+1 }}</td>
                 <td><input type="checkbox" [(ngModel)]="student.selected"></td>
                 <td>{{ student?.fullName }}</td>
@@ -69,6 +69,18 @@
         </p>
 
         <div class="loader" *ngIf="uploadInProgress"></div>
+
+        <!--<div *ngIf="resultView" class="m-2">-->
+          <!--<p> Додано студентів: {{replaceNullValue(resultOfSaving?.created,'createdStudentDegrees')}}</p>-->
+          <!--<table class="table table-sm table-striped table-bordered mt-4 result-table"-->
+                 <!--*ngIf="resultOfSaving?.created?.notCreatedStudentDegrees.length !== 0 && resultOfSaving?.created !== null">-->
+            <!--<caption>Не додані студенти:</caption>-->
+            <!--<tr *ngFor="let student of resultOfSaving?.created?.notCreatedStudentDegrees">-->
+              <!--<td>{{ student }}</td>-->
+            <!--</tr>-->
+          <!--</table>-->
+        <!--</div>-->
+        <!---->
       </div>
 
       <div class="modal-footer">
@@ -78,6 +90,7 @@
         </button>
         <button class="btn btn-success" *ngIf="tableView" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>
         <button class="btn btn-primary" *ngIf="tableView" type="button" (click)="hideModal()">Відмінити</button>
+        <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
       </div>
     </div>
   </div>
