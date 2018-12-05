@@ -3,7 +3,6 @@ import { environment } from '../../environments/environment';
 import { FileService } from './file-service';
 import { catchError } from 'rxjs/operators';
 import { forObservable } from '../components/shared/httpErrors';
-import { Degree } from '../models/Degree';
 import { HttpClient } from '@angular/common/http';
 import { DataForSupplementStudentCheck } from '../models/custom/DataForSupplementStudentCheck';
 import { Observable } from 'rxjs';

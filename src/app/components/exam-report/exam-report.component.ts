@@ -106,31 +106,31 @@ export class ExamReportComponent implements OnInit {
       }
     }
     this.examReportLoading = true;
-    this.examReportService.buildExamReport(this.currentGroup.id, courseIds).subscribe(a => {
-      this.examReportLoading = false;
-    }
-    );
+    this.examReportService
+      .buildExamReport(this.currentGroup.id, courseIds)
+      .subscribe(() => this.examReportLoading = false);
   }
 
   onExamReportJournalBuild(): void {
     this.examReportJournalTableLoading = true;
-    this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear - 1) * 2 + this.selectedSemester).subscribe(a => {
-      this.examReportJournalTableLoading = false;
-    });
+    const semester = (this.selectedYear - 1) * 2 + this.selectedSemester;
+    this.examReportService
+      .buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, semester)
+      .subscribe(() => this.examReportJournalTableLoading = false);
   }
 
   onGradesJournalStudentsListBuild() {
     this.gradesJournalStudentsTableLoading = true;
-    this.examReportService.buildGradesJournalStudentsPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalStudentsTableLoading = false;
-    });
+    this.examReportService
+      .buildGradesJournalStudentsPdf(this.selectedYear, this.currentDegree.id)
+      .subscribe(() => this.gradesJournalStudentsTableLoading = false);
   }
 
   onGradesJournalCoursesListBuild() {
     this.gradesJournalCoursesTableLoading = true;
-    this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalCoursesTableLoading = false;
-    });
+    this.examReportService
+      .buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id)
+      .subscribe(() => this.gradesJournalCoursesTableLoading = false);
   }
 
   setInitialSemester(): void {

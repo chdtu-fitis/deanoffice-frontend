@@ -1,11 +1,13 @@
-import { Injectable, Injector } from '@angular/core';
-import { HttpRequest,
+import {Injectable, Injector} from '@angular/core';
+import {
+  HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+  HttpInterceptor, HttpErrorResponse
+} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { AuthenticationService } from './authentication.service';
+import {Observable} from 'rxjs/Observable';
+import {AuthenticationService} from './authentication.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
@@ -21,8 +23,8 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authService = this.injector.get(AuthenticationService);
 
-    request = request.clone({ setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` } });
-    return next.handle(request).do((ev) => {
+    request = request.clone({setHeaders: {Authorization: `Bearer ${this.authService.getToken()}`}});
+    return next.handle(request).do(() => {
     }).catch((response: any) => {
       if (response instanceof HttpErrorResponse) {
         if (response.status == 401 || response.status == 403) {

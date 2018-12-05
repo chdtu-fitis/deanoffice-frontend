@@ -25,7 +25,7 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
   dataSource: Observable<any>;
   errorMessages = { required: 'Необхідно вибрати студента зі списку' };
 
-  propagateChange = (_) => {};
+  propagateChange = (value?) => {};
 
   constructor(private studentService: StudentService) {
     this.dataSource = Observable.create((observer: any) => {
@@ -36,7 +36,7 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
       // clear the selected value if input value was changed after selection
       if (this.selectedId) {
         this.selectedId = null;
-        this.propagateChange('');
+        this.propagateChange();
       }
       this.studentService.search(this.val).subscribe((result: any ) => {
         observer.next(result);

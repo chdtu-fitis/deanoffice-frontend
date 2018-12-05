@@ -3,10 +3,8 @@ import { Degree } from '../../models/Degree';
 import { DegreeService } from '../../services/degree.service';
 import { GroupService } from '../../services/group.service';
 import { StudentGroup } from '../../models/StudentGroup';
-import { StudentService } from '../../services/student.service';
 import { StudentDegree } from '../../models/StudentDegree';
 import { DiplomaSupplementService } from '../../services/diploma-supplement.service';
-import { EditDialogComponent } from '../courses-for-groups/edit-dialog/edit-dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StudentsDataCheckComponent } from './students-data-check/students-data-check.component';
 
@@ -67,9 +65,9 @@ export class DiplomaSupplementComponent implements OnInit {
     for (let student of this.students) {
       this.supplementLoading = true;
       if (student.selected) {
-        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id).subscribe(a => {
-          this.supplementLoading = false;
-        });
+        this.diplomaSupplementService
+          .buildDiplomaSupplement('' + student.id)
+          .subscribe(() => this.supplementLoading = false);
       }
     }
   }
@@ -77,26 +75,23 @@ export class DiplomaSupplementComponent implements OnInit {
   onFormGradePercent(): void {
     this.message = '';
     this.gradePercentLoading = true;
-    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
-      this.gradePercentLoading = false;
-    }
-    );
+    this.diplomaSupplementService
+      .buildGradePercent('' + this.currentGroup.id)
+      .subscribe(() => this.gradePercentLoading = false);
   }
 
   onFullGradesTableReport(): void {
     this.gradesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
-      this.gradesTableReportLoading = false;
-    }
-    );
+    this.diplomaSupplementService
+      .buildFullGradesTableReport('' + this.currentGroup.id)
+      .subscribe(() => this.gradesTableReportLoading = false);
   }
 
   onFullCoursesTableReport(): void {
     this.coursesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(a => {
-      this.coursesTableReportLoading = false;
-    }
-    );
+    this.diplomaSupplementService
+      .buildFullCoursesTableReport('' + this.currentGroup.id)
+      .subscribe(() => this.coursesTableReportLoading = false);
   }
 
   onStudentDataCheck(): void {

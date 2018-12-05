@@ -41,10 +41,9 @@ export class ExpelledStudentsComponent implements OnInit {
   onFormAcademicCertificate() {
     if (this.selected[0]) {
       this.academicCertificateLoading = true;
-      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(a => {
-        this.academicCertificateLoading = false;
-      }
-      );
+      this.academicCertificateService
+        .buildAcademicCertificate(this.selected[0].id)
+        .subscribe(() => this.academicCertificateLoading = false);
     }
   }
 }

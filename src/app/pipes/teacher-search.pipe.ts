@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Course } from '../models/Course';
 import { Teacher } from '../models/Teacher';
 
 @Pipe({ name: 'teacherSearch' })

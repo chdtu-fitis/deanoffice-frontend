@@ -8,7 +8,6 @@ import { StudentDegree } from '../../models/StudentDegree';
 import { CourseForGroup } from '../../models/CourseForGroup';
 import { StudentService } from '../../services/student.service';
 import { EmptyGrade } from './EmptyGrade';
-import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-grade',
@@ -170,16 +169,18 @@ export class GradeComponent implements OnInit {
     }
 
     updateGradesForGroup(): void {
-      this.gradeService.updateGrades(this.fixEntytyGrades(this.gradesUpdate)).subscribe(grades => {
-        this.getGrades();
-        this.gradeTable.resetGrades();
-      });
+      this.gradeService
+        .updateGrades(this.fixEntytyGrades(this.gradesUpdate))
+        .subscribe(() => {
+          this.getGrades();
+          this.gradeTable.resetGrades();
+        });
     }
 
     fillInWithZerosGrades(): void {
-      this.gradeService.updateGrades(this.fixEntytyGrades(this.emptyGradesList)).subscribe(grades => {
-        this.getGrades();
-      });
+      this.gradeService
+        .updateGrades(this.fixEntytyGrades(this.emptyGradesList))
+        .subscribe(this.getGrades.bind(this));
     }
 
     setSelectGradeForDelete(grade: Grade): void {
@@ -197,9 +198,9 @@ export class GradeComponent implements OnInit {
 
     deleteSelectedGrade(): void {
       if (!this.isConfirmToDeleteGrade(this.selectGradeForDelete)) return;
-      this.gradeService.deleteGradeById(this.selectGradeForDelete.id).subscribe(res => {
-        this.getGrades();
-      });
+      this.gradeService
+        .deleteGradeById(this.selectGradeForDelete.id)
+        .subscribe(this.getGrades.bind(this));
     }
 
     isConfirmToDeleteGrade(grade: any) {

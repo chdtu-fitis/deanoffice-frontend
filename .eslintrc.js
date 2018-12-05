@@ -2,7 +2,9 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    mocha: true,
+    jasmine: true,
   },
   parser: 'typescript-eslint-parser',
   plugins: [ 'typescript' ],
@@ -23,94 +25,94 @@ module.exports = {
     semi: ['error', 'always'],
     'no-undef': 'error',
     'no-unused-vars': [
-      'error',
+      'warn',
       {
         vars: 'all',
         args: 'after-used'
       }
     ],
-    'no-cond-assign': ['error', 'always'],
-    eqeqeq: ['error', 'always'],
-    'no-console': 'error',
-    'no-debugger': 'error',
-    'block-scoped-var': 'error',
-    'no-loop-func': 'error',
-    'no-self-compare': 'error',
-    'no-unneeded-ternary': 'error',
-    'no-use-before-define': [
-      'error',
-      {
-        functions: false,
-        classes: true,
-        variables: true
-      }
-    ],
-    'no-new': 'off',
-    'template-curly-spacing': 'error',
-    'object-curly-spacing': ['error', 'always'],
-    'object-property-newline': ['error'],
-    'key-spacing': [
-      'error',
-      {
-        beforeColon: false,
-        afterColon: true
-      }
-    ],
-    'object-curly-newline': [
-      'error',
-      {
-        ObjectExpression: {
-          multiline: true,
-          minProperties: 2
-        },
-        ObjectPattern: 'never',
-        ImportDeclaration: 'never',
-        ExportDeclaration: 'never',
-      }
-    ],
-    'array-bracket-newline': [
-      'error',
-      {
-        multiline: true,
-        minItems: 2
-      }
-    ],
-    'comma-spacing': [
-      'error',
-      {
-        before: false,
-        after: true
-      }
-    ],
-    'array-bracket-spacing': ['error', 'always'],
-    'no-var': 'error',
-    'camelcase': 'error',
-    "space-infix-ops": 'error',
-    'space-unary-ops': ['error', {'words': true, 'nonwords': false}],
-    'typescript/adjacent-overload-signatures': 'error',
-    'typescript/class-name-casing': 'error',
-    'typescript/explicit-function-return-type': 'error',
-    'typescript/generic-type-naming': 'error',
-    'typescript/member-ordering': [
-      'error',
-      {
-        'classes': [
-          'field', 'constructor', 'method'
-        ],
-      }
-    ],
-    'typescript/no-array-constructor': 'error',
-    'typescript/no-non-null-assertion': 'error',
-    'typescript/no-unused-vars': 'error',
-    'typescript/no-use-before-define': [
-      'error',
-      {
-        functions: false,
-        classes: true,
-        variables: true,
-        typedefs: true
-      }
-    ],
-    'typescript/type-annotation-spacing': 'error'
+    // 'no-cond-assign': ['error', 'always'],
+    // eqeqeq: ['error', 'always'],
+    // 'no-console': 'error',
+    // 'no-debugger': 'error',
+    // 'block-scoped-var': 'error',
+    // 'no-loop-func': 'error',
+    // 'no-self-compare': 'error',
+    // 'no-unneeded-ternary': 'error',
+    // 'no-use-before-define': [
+    //   'error',
+    //   {
+    //     functions: false,
+    //     classes: true,
+    //     variables: true
+    //   }
+    // ],
+    // 'no-new': 'off',
+    // 'template-curly-spacing': 'error',
+    // 'object-curly-spacing': ['error', 'always'],
+    // 'object-property-newline': ['error'],
+    // 'key-spacing': [
+    //   'error',
+    //   {
+    //     beforeColon: false,
+    //     afterColon: true
+    //   }
+    // ],
+    // 'object-curly-newline': [
+    //   'error',
+    //   {
+    //     ObjectExpression: {
+    //       multiline: true,
+    //       minProperties: 2
+    //     },
+    //     ObjectPattern: 'never',
+    //     ImportDeclaration: 'never',
+    //     ExportDeclaration: 'never',
+    //   }
+    // ],
+    // 'array-bracket-newline': [
+    //   'error',
+    //   {
+    //     multiline: true,
+    //     minItems: 2
+    //   }
+    // ],
+    // 'comma-spacing': [
+    //   'error',
+    //   {
+    //     before: false,
+    //     after: true
+    //   }
+    // ],
+    // 'array-bracket-spacing': ['error', 'always'],
+    // 'no-var': 'error',
+    // 'camelcase': 'error',
+    // "space-infix-ops": 'error',
+    // 'space-unary-ops': ['error', {'words': true, 'nonwords': false}],
+    // 'typescript/adjacent-overload-signatures': 'error',
+    // 'typescript/class-name-casing': 'error',
+    // 'typescript/explicit-function-return-type': 'error',
+    // 'typescript/generic-type-naming': 'error',
+    // 'typescript/member-ordering': [
+    //   'error',
+    //   {
+    //     'classes': [
+    //       'field', 'constructor', 'method'
+    //     ],
+    //   }
+    // ],
+    // 'typescript/no-array-constructor': 'error',
+    // 'typescript/no-non-null-assertion': 'error',
+    'typescript/no-unused-vars': ['error'],
+    // 'typescript/no-use-before-define': [
+    //   'error',
+    //   {
+    //     functions: false,
+    //     classes: true,
+    //     variables: true,
+    //     typedefs: true
+    //   }
+    // ],
+    // 'typescript/type-annotation-spacing': 'error'
   }
 };

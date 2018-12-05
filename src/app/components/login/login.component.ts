@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         if (result === true) {
           this.router.navigate([ '/' ]);
         }
-      }, err => {
+      }, () => {
         this.error = 'Ім\'я користувача чи пароль невірні';
         this.loading = false;
       });

@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ModalModule } from 'ngx-bootstrap';
 
-import { EntriesPipe } from '../../pipes/entries.pipe';
 import { SidebarComponent } from '../app/sidebar/sidebar.component';
 import { ValidationDirective } from './validation.directive';
 import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
