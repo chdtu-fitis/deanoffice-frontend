@@ -26,7 +26,7 @@ module.exports = {
     'no-undef': 'error',
     'no-cond-assign': ['error', 'always'],
     eqeqeq: ['error', 'always'],
-    // 'no-console': 'error',
+    'no-console': ['error', { allow: ['error'] } ],
     // 'no-debugger': 'error',
     // 'block-scoped-var': 'error',
     // 'no-loop-func': 'error',
