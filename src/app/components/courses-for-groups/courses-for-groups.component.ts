@@ -212,21 +212,21 @@ export class CoursesForGroupsComponent implements OnInit {
 
   saveCoursesForGroup() {
 
-    class courseForGroupNewCoursesType {
+    class CourseForGroupNewCoursesType {
       course: { id: number };
       teacher: { id: number };
       examDate: Date
     }
 
-    class courseForGroupUpdateCoursesType {
+    class CourseForGroupUpdateCoursesType {
       id: number;
       course: { id: number };
       teacher: { id: number };
       examDate: Date
     }
 
-    let newCourses: courseForGroupNewCoursesType[] = [];
-    let updatedCourses: courseForGroupUpdateCoursesType[] = [];
+    let newCourses: CourseForGroupNewCoursesType[] = [];
+    let updatedCourses: CourseForGroupUpdateCoursesType[] = [];
     for (let newCourse of this.coursesForAdd) {
       newCourses.push({
         course: { id: newCourse.course.id },
