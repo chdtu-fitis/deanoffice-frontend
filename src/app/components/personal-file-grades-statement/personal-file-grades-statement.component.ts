@@ -96,8 +96,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   updateGroups(): void {
     this.groups = this.loadedGroups.filter((group) => {
-      return this.isCheckedFullTime && group.tuitionForm.toString() == 'FULL_TIME' ||
-             this.isCheckedPartTime && group.tuitionForm.toString() == 'EXTRAMURAL';
+      return this.isCheckedFullTime && group.tuitionForm.toString() === 'FULL_TIME' ||
+             this.isCheckedPartTime && group.tuitionForm.toString() === 'EXTRAMURAL';
     });
     this.selectedGroups = this.groups;
     this.checkAllStudents();

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { IAppModal } from '../../shared/modal.interface';
 import { EdeboService } from '../../../services/edebo.service';
@@ -20,7 +20,7 @@ import { Gender } from '../../../models/gender.enum';
   templateUrl: './synchronize-with-edebo.component.html',
   styleUrls: [ './synchronize-with-edebo.component.scss' ]
 })
-export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
+export class SynchronizeWithEdeboComponent implements IAppModal {
   @ViewChild('modal') modal: ModalDirective;
   uploadInProgress = false;
   fileField = true;
@@ -47,8 +47,6 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   selectedSpeciality = null;
   resultOfSaving: ResultOfSavingData;
 
-  ngOnInit() {
-  }
   constructor(private edeboService: EdeboService,
               private degreeService: DegreeService,
               private specialityService: SpecialityService) {
@@ -57,11 +55,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   onFileSelected(event) {
     this.selectedFile = <File> event.target.files[0];
     let extention = this.selectedFile.name.slice(this.selectedFile.name.lastIndexOf('.'));
-    if ( extention !== '.xlsx' ) {
-      this.wrongExtension = true;
-    } else {
-      this.wrongExtension = false;
-    }
+    this.wrongExtension = extention !== '.xlsx';
     this.fileName = this.selectedFile.name;
   }
 
@@ -232,7 +226,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
       let stFromDb = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb.student[name];
       let stFromData = this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromData.student[name];
 
-      if ((stFromDb == null && stFromData == '') || (stFromDb == '' && stFromData == null)) {
+      if (!stFromDb || !stFromData) {
         return false;
       }
 

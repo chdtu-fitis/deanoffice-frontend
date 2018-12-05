@@ -24,15 +24,8 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-undef': 'error',
-    'no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        args: 'after-used'
-      }
-    ],
-    // 'no-cond-assign': ['error', 'always'],
-    // eqeqeq: ['error', 'always'],
+    'no-cond-assign': ['error', 'always'],
+    eqeqeq: ['error', 'always'],
     // 'no-console': 'error',
     // 'no-debugger': 'error',
     // 'block-scoped-var': 'error',
@@ -103,7 +96,7 @@ module.exports = {
     // ],
     // 'typescript/no-array-constructor': 'error',
     // 'typescript/no-non-null-assertion': 'error',
-    'typescript/no-unused-vars': ['error'],
+    'typescript/no-unused-vars': ['warn'],
     // 'typescript/no-use-before-define': [
     //   'error',
     //   {

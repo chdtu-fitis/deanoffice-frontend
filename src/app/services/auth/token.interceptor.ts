@@ -24,15 +24,18 @@ export class TokenInterceptor implements HttpInterceptor {
     this.authService = this.injector.get(AuthenticationService);
 
     request = request.clone({setHeaders: {Authorization: `Bearer ${this.authService.getToken()}`}});
-    return next.handle(request).do(() => {
-    }).catch((response: any) => {
-      if (response instanceof HttpErrorResponse) {
-        if (response.status == 401 || response.status == 403) {
-          this.authService.logout();
+    return next
+      .handle(request)
+      .do(() => {})
+      .catch((response: any) => {
+        if (response instanceof HttpErrorResponse) {
+          const status = +response.status;
+          if (status === 401 || status === 403) {
+            this.authService.logout();
+          }
         }
-      }
-      return Observable.throw(response);
-    });
+        return Observable.throw(response);
+      });
   }
 
 }

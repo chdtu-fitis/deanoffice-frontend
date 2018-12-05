@@ -48,7 +48,7 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onGroupChange(groupId: string): void {
-    this.currentGroup = this.groups.find(x => x.id == Number(groupId));
+    this.currentGroup = this.groups.find(x => (+x.id) === (+groupId));
     this.students = this.currentGroup.studentDegrees;
     for (let student of this.students) {student.selected = true;}
     this.studentsSelected = true;
