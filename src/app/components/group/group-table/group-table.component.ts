@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {columns} from '../columns.js'
+import {columns} from '../columns'
 import {TuitionForm} from '../../../models/tuition-form.enum';
 import {TuitionTerm} from '../../../models/tuition-term.enum';
 
