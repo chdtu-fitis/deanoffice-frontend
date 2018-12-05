@@ -27,19 +27,19 @@ module.exports = {
     'no-cond-assign': ['error', 'always'],
     eqeqeq: ['error', 'always'],
     'no-console': ['error', { allow: ['error'] } ],
-    // 'no-debugger': 'error',
-    // 'block-scoped-var': 'error',
-    // 'no-loop-func': 'error',
-    // 'no-self-compare': 'error',
-    // 'no-unneeded-ternary': 'error',
-    // 'no-use-before-define': [
-    //   'error',
-    //   {
-    //     functions: false,
-    //     classes: true,
-    //     variables: true
-    //   }
-    // ],
+    'no-debugger': 'error',
+    'block-scoped-var': 'error',
+    'no-loop-func': 'error',
+    'no-self-compare': 'error',
+    'no-unneeded-ternary': 'error',
+    'no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: false,
+        variables: true
+      }
+    ],
     // 'no-new': 'off',
     // 'template-curly-spacing': 'error',
     // 'object-curly-spacing': ['error', 'always'],

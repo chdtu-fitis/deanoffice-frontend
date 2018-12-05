@@ -15,7 +15,6 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
     }
   ]
 })
-
 export class StudentTypeaheadComponent implements ControlValueAccessor {
   @Input() control: FormControl;
   @Input() id: string;
