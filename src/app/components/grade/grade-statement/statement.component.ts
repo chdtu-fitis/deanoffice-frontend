@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { IAppModal } from '../../shared/modal.interface';
 import { GradeService } from '../../../services/grade.service';

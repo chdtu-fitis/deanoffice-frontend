@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnInit, Output 
+} from '@angular/core';
 import { Teacher } from '../../../models/Teacher';
 import { TeacherService } from '../../../services/teacher.service';
 import { CourseForGroup } from '../../../models/CourseForGroup';

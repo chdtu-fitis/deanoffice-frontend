@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
 import { SpecializationModalComponent } from '../../../specialization-modal/specialization-modal.component';
 import { Observable } from 'rxjs/Observable';
 import { ProfessionalQualification } from '../../models/professional-qualification';

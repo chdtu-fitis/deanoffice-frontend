@@ -6,8 +6,10 @@ import { BaseReactiveFormComponent } from '../../../shared/base-reactive-form/ba
 import { QualificationEvents } from '../models/qualification-events';
 import { getId } from '../../../../models/basemodels/BaseEntity';
 import { ChangeQualificationComponent } from './change-qualification/change-qualification.component';
-import { QualificationForSpecialization,
-  QualificationForSpecializationId } from '../models/QualificationForSpecialization';
+import {
+  QualificationForSpecialization,
+  QualificationForSpecializationId 
+} from '../models/QualificationForSpecialization';
 
 @Component({
   selector: 'specialization-qualification',

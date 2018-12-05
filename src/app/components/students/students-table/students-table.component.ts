@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output, TemplateRef,
-  ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, TemplateRef,
+  ViewChild 
+} from '@angular/core';
 
 import { translations } from '../translations';
 import { StudentDegree } from '../../../models/StudentDegree';

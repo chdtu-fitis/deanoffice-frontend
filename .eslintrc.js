@@ -43,26 +43,35 @@ module.exports = {
     'no-new': 'off',
     'template-curly-spacing': 'error',
     'object-curly-spacing': ['error', 'always'],
-    // 'object-property-newline': ['error'],
-    // 'key-spacing': [
-    //   'error',
-    //   {
-    //     beforeColon: false,
-    //     afterColon: true
-    //   }
-    // ],
-    // 'object-curly-newline': [
-    //   'error',
-    //   {
-    //     ObjectExpression: {
-    //       multiline: true,
-    //       minProperties: 2
-    //     },
-    //     ObjectPattern: 'never',
-    //     ImportDeclaration: 'never',
-    //     ExportDeclaration: 'never',
-    //   }
-    // ],
+    'object-property-newline': ['error'],
+    'key-spacing': [
+      'error',
+      {
+        beforeColon: false,
+        afterColon: true
+      }
+    ],
+    'object-curly-newline': [
+      'error',
+      {
+        ObjectExpression: {
+          multiline: true,
+          minProperties: 2
+        },
+        ObjectPattern: {
+          multiline: true,
+          minProperties: 5
+        },
+        ImportDeclaration: {
+          multiline: true,
+          minProperties: 5
+        },
+        ExportDeclaration: {
+          multiline: true,
+          minProperties: 5
+        },
+      }
+    ],
     // 'array-bracket-newline': [
     //   'error',
     //   {

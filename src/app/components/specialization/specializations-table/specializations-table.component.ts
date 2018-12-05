@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
+} from '@angular/core';
 import { Specialization } from '../../../models/Specialization';
 
 import { tableColumnTranslations } from '../transtations';

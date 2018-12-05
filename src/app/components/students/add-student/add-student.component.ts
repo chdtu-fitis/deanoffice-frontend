@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, ViewChild, Output } from '@angular/core';
+import {
+  Component, EventEmitter, Input, ViewChild, Output 
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
 

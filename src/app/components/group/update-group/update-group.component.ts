@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
 import { GroupModalComponent } from '../group-modal/group-modal.component';
 import { GroupService } from '../../../services/group.service';
 import { Specialization } from '../../../models/Specialization';
