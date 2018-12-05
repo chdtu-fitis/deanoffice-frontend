@@ -1,6 +1,6 @@
-import {BaseEntity} from './basemodels/BaseEntity';
-import {Course} from './Course';
-import {StudentDegree} from './StudentDegree';
+import { BaseEntity } from './basemodels/BaseEntity';
+import { Course } from './Course';
+import { StudentDegree } from './StudentDegree';
 
 export class Grade extends BaseEntity {
   course: Course;

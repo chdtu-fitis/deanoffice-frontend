@@ -1,11 +1,11 @@
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 export function forObservable<T>(operation = 'operation', result?: T) {
   return function (error: any): Observable<T> {
     forPromise(operation)(error);
     return of(result as T);
-  }
+  };
 }
 
 export function forPromise(operation = 'operation'): (error: any) => void {
@@ -13,13 +13,13 @@ export function forPromise(operation = 'operation'): (error: any) => void {
     let english = /^[A-Za-z0-9]+$/;
     let message;
     if (error.error) {
-      if (english.test(error.error.substr(0,1)))
+      if (english.test(error.error.substr(0, 1)))
         message = ERRORS[error.status];
       else
         message = error.error;
     }
     alert(`${operation}: ${message}`);
-  }
+  };
 }
 
 const ERRORS = {

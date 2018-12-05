@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {GroupModalComponent} from '../group-modal/group-modal.component';
-import {GroupService} from '../../../services/group.service';
-import {Specialization} from '../../../models/Specialization';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {GroupFormComponent} from '../group-form/group-form.component';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { GroupModalComponent } from '../group-modal/group-modal.component';
+import { GroupService } from '../../../services/group.service';
+import { Specialization } from '../../../models/Specialization';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { GroupFormComponent } from '../group-form/group-form.component';
 
 @Component({
   selector: 'update-group',
   templateUrl: './update-group.component.html',
-  styleUrls: ['./update-group.component.scss']
+  styleUrls: [ './update-group.component.scss' ]
 })
 export class UpdateGroupComponent {
 
@@ -47,7 +47,7 @@ export class UpdateGroupComponent {
     const body = this.form.form.getRawValue();
     body.id = this.selectedGroup.id;
     body.active = this.selectedGroup.active;
-    body.specialization = {id: body.specialization};
+    body.specialization = { id: body.specialization };
     this.groupService.update(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())

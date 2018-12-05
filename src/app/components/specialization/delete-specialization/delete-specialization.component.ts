@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
-import {Specialization} from '../../../models/Specialization';
-import {SpecializationService} from '../../../services/specialization.service';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { IAppModal } from '../../shared/modal.interface';
+import { ModalDirective } from 'ngx-bootstrap';
+import { Specialization } from '../../../models/Specialization';
+import { SpecializationService } from '../../../services/specialization.service';
 
 @Component({
   selector: 'delete-specialization',
   templateUrl: './delete-specialization.component.html',
-  styleUrls: ['./delete-specialization.component.scss']
+  styleUrls: [ './delete-specialization.component.scss' ]
 })
 export class DeleteSpecializationComponent implements IAppModal {
   specialization: Specialization;
@@ -28,7 +28,7 @@ export class DeleteSpecializationComponent implements IAppModal {
         .delete(this.specialization.id)
         .then(() => {
           this.onSubmit.emit(null);
-          this.modal.hide()
+          this.modal.hide();
         });
     }
   }

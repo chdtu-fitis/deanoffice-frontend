@@ -1,11 +1,11 @@
-import {Component, Input} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Specialization} from '../../../models/Specialization';
+import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Specialization } from '../../../models/Specialization';
 
 @Component({
   selector: 'group-form',
   templateUrl: './group-form.component.html',
-  styleUrls: ['./group-form.component.scss']
+  styleUrls: [ './group-form.component.scss' ]
 })
 export class GroupFormComponent {
 
@@ -25,7 +25,7 @@ export class GroupFormComponent {
     creationYear: new FormControl(null, Validators.required),
     tuitionForm: new FormControl(null, Validators.required),
     tuitionTerm: new FormControl(null, Validators.required),
-    specialization: new FormControl(null, Validators.required),
+    specialization: new FormControl(null, Validators.required)
   });
 
   @Input() tuitionForms;

@@ -1,15 +1,13 @@
-import {
-  Component, EventEmitter, Input, Output, TemplateRef,
-  ViewChild
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef,
+  ViewChild } from '@angular/core';
 
 import { translations } from '../translations';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
-    selector: 'app-students-table',
-    templateUrl: './students-table.component.html',
-    styleUrls: ['./students-table.component.scss'],
+  selector: 'app-students-table',
+  templateUrl: './students-table.component.html',
+  styleUrls: [ './students-table.component.scss' ]
 })
 export class StudentsTableComponent {
   @Input() set columns(cols: string[]) {
@@ -43,15 +41,21 @@ export class StudentsTableComponent {
         headerCheckboxable: true,
         checkboxable: true,
         width: 30
-      },
+      }
     };
 
-    return ['selected', ...array].map(prop => {
+    return [
+      'selected', ...array
+    ].map(prop => {
       let col = templatesMap[prop];
       if (prop.match(/date/i)) {
-        col = {cellTemplate: this.dateTemplate};
+        col = { cellTemplate: this.dateTemplate };
       }
-      return { prop, name: translations[prop], ...col };
+      return {
+        prop,
+        name: translations[prop],
+        ...col 
+      };
     });
   }
 
@@ -66,8 +70,8 @@ export class StudentsTableComponent {
   getRowClass(row) {
     return {
       'row-focused': row.id === this.focusedRowId,
-      [`row-id-${row.id}`]: !!row.id,
-    }
+      [`row-id-${row.id}`]: !!row.id
+    };
   }
 
   select({ selected }) {
@@ -80,7 +84,7 @@ export class StudentsTableComponent {
   activate({ type, row, column }) {
     if (type === 'click' && column.prop !== 'selected') {
       this.focusedRowId = row.id;
-      this.onSelect.emit([row]);
+      this.onSelect.emit([ row ]);
     }
   }
 }

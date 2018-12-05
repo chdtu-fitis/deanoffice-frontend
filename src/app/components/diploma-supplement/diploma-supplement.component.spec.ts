@@ -1,15 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {DiplomaSupplementComponent} from './diploma-supplement.component';
+import { DiplomaSupplementComponent } from './diploma-supplement.component';
 
 describe('DiplomaSupplementComponent', () => {
   let component: DiplomaSupplementComponent;
   let fixture: ComponentFixture<DiplomaSupplementComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [DiplomaSupplementComponent]
-    })
+    TestBed.configureTestingModule({ declarations: [ DiplomaSupplementComponent ] })
       .compileComponents();
   }));
 

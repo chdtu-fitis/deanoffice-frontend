@@ -1,18 +1,18 @@
-import {Component, EventEmitter, ViewChild, Output} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {IAppModal} from '../../shared/modal.interface';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {GroupService} from '../../../services/group.service';
-import {forObservable} from "../../shared/httpErrors";
+import { IAppModal } from '../../shared/modal.interface';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { StudentService } from '../../../services/student.service';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { GroupService } from '../../../services/group.service';
+import { forObservable } from '../../shared/httpErrors';
 
 @Component({
-    selector: 'app-renew-student',
-    templateUrl: './renew-student.component.html',
-    styleUrls: ['./renew-student.component.scss'],
+  selector: 'app-renew-student',
+  templateUrl: './renew-student.component.html',
+  styleUrls: [ './renew-student.component.scss' ]
 })
 export class RenewStudentComponent extends BaseReactiveFormComponent implements IAppModal {
   student;
@@ -27,16 +27,36 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
   ) {
     super();
     this.form = this.fb.group({
-      orderNumber: ['', Validators.required],
-      orderDate: ['', Validators.required],
-      payment: ['', Validators.required],
-      renewDate: ['', Validators.required],
-      applicationDate: ['', Validators.required],
-      academicCertificateNumber: ['', Validators.required],
-      academicCertificateDate: ['', Validators.required],
-      academicCertificateIssuedBy: ['', Validators.required],
-      studentExpelId: ['', Validators.required],
-      studentGroupId: ['', Validators.required],
+      orderNumber: [
+        '', Validators.required 
+      ],
+      orderDate: [
+        '', Validators.required 
+      ],
+      payment: [
+        '', Validators.required 
+      ],
+      renewDate: [
+        '', Validators.required
+      ],
+      applicationDate: [
+        '', Validators.required
+      ],
+      academicCertificateNumber: [
+        '', Validators.required
+      ],
+      academicCertificateDate: [
+        '', Validators.required
+      ],
+      academicCertificateIssuedBy: [
+        '', Validators.required 
+      ],
+      studentExpelId: [
+        '', Validators.required
+      ],
+      studentGroupId: [
+        '', Validators.required 
+      ]
     });
     groupService.getGroups().subscribe(groups => this.groups = groups);
   }

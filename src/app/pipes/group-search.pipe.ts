@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {StudentGroup} from "../models/StudentGroup";
+import { StudentGroup } from '../models/StudentGroup';
 
-@Pipe({
-  name: 'groupSearch'
-})
+@Pipe({ name: 'groupSearch' })
 export class GroupSearchPipe implements PipeTransform {
 
   transform(items: StudentGroup[], searchText: string): any[] {

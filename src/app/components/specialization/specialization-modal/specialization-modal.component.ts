@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
-import {ModalMargin} from './models/modal-margin';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { IAppModal } from '../../shared/modal.interface';
+import { ModalDirective } from 'ngx-bootstrap';
+import { ModalMargin } from './models/modal-margin';
 
 @Component({
   selector: 'specialization-modal',
   templateUrl: './specialization-modal.component.html',
-  styleUrls: ['./specialization-modal.component.scss']
+  styleUrls: [ './specialization-modal.component.scss' ]
 })
 export class SpecializationModalComponent implements IAppModal {
   @Input() title: string;

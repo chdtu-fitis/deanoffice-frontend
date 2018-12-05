@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {Degree} from '../../models/Degree';
-import {DegreeService} from '../../services/degree.service';
-import {StudentGroup} from "../../models/StudentGroup";
-import {GroupService} from "../../services/group.service";
-import {StudentDegree} from "../../models/StudentDegree";
-import {PersonalFileGradesStatementService} from "../../services/personal-file-grades-statement.service";
+import { Degree } from '../../models/Degree';
+import { DegreeService } from '../../services/degree.service';
+import { StudentGroup } from '../../models/StudentGroup';
+import { GroupService } from '../../services/group.service';
+import { StudentDegree } from '../../models/StudentDegree';
+import { PersonalFileGradesStatementService } from '../../services/personal-file-grades-statement.service';
 
 @Component({
   selector: 'personal-file-grades-statement',
   templateUrl: './personal-file-grades-statement.component.html',
-  styleUrls: ['./personal-file-grades-statement.component.scss']
+  styleUrls: [ './personal-file-grades-statement.component.scss' ]
 })
 export class PersonalFileGradesStatementComponent implements OnInit {
   degrees: Degree[];
@@ -58,7 +58,9 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.isCheckedFullTime = true;
     this.isCheckedPartTime = true;
 
-    this.years = [1, 2, 3, 4, 5, 6];
+    this.years = [
+      1, 2, 3, 4, 5, 6
+    ];
     this.selectedYear = 1;
 
     this.degreeService.getDegrees()
@@ -94,8 +96,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   updateGroups(): void {
     this.groups = this.loadedGroups.filter((group) => {
-      return this.isCheckedFullTime && group.tuitionForm.toString() == "FULL_TIME" ||
-             this.isCheckedPartTime && group.tuitionForm.toString() == "EXTRAMURAL";
+      return this.isCheckedFullTime && group.tuitionForm.toString() == 'FULL_TIME' ||
+             this.isCheckedPartTime && group.tuitionForm.toString() == 'EXTRAMURAL';
     });
     this.selectedGroups = this.groups;
     this.checkAllStudents();
@@ -117,14 +119,14 @@ export class PersonalFileGradesStatementComponent implements OnInit {
 
   handleFullTimeChange(): void {
     if(!this.isCheckedPartTime) {
-       this.isCheckedPartTime = true;
+      this.isCheckedPartTime = true;
     }
     this.updateGroups();
   }
 
   handlePartTimeChange(): void {
     if(!this.isCheckedFullTime) {
-       this.isCheckedFullTime = true;
+      this.isCheckedFullTime = true;
     }
     this.updateGroups();
   }
@@ -186,8 +188,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.personalFileGradesStatementService.buildPersonalFileGradesStatement(
       this.selectedStudyYearForDocument, studentIds
     ).subscribe(a => {
-        this.personalFileGradesStatementLoading = false;
-      }
+      this.personalFileGradesStatementLoading = false;
+    }
     );
   }
 }

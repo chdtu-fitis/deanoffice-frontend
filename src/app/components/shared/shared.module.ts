@@ -1,16 +1,16 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {ModalModule} from 'ngx-bootstrap';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ModalModule } from 'ngx-bootstrap';
 
-import {EntriesPipe} from '../../pipes/entries.pipe';
-import {SidebarComponent} from '../app/sidebar/sidebar.component';
-import {ValidationDirective} from './validation.directive';
-import {ValidationErrorsComponent} from './validation-errors/validation-errors.component';
-import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
-import {LoadingComponent} from './loading/loading.component';
-import {PipeModule} from '../../pipes/pipe.module';
+import { EntriesPipe } from '../../pipes/entries.pipe';
+import { SidebarComponent } from '../app/sidebar/sidebar.component';
+import { ValidationDirective } from './validation.directive';
+import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
+import { BaseReactiveFormComponent } from './base-reactive-form/base-reactive-form.component';
+import { LoadingComponent } from './loading/loading.component';
+import { PipeModule } from '../../pipes/pipe.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import {PipeModule} from '../../pipes/pipe.module';
     ValidationDirective,
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
-    LoadingComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +35,7 @@ import {PipeModule} from '../../pipes/pipe.module';
     ValidationDirective,
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
-    LoadingComponent,
+    LoadingComponent
   ]
 })
 

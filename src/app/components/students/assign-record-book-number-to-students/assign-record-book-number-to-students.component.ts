@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormArray, Validators} from '@angular/forms';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 
-import {ModalDirective} from 'ngx-bootstrap';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {StudentDegree} from '../../../models/StudentDegree';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {StudentService} from '../../../services/student.service';
+import { StudentDegree } from '../../../models/StudentDegree';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { StudentService } from '../../../services/student.service';
 
 @Component({
   selector: 'assign-record-book-number-to-students',
   templateUrl: './assign-record-book-number-to-students.component.html',
-  styleUrls: ['./assign-record-book-number-to-students.component.scss']
+  styleUrls: [ './assign-record-book-number-to-students.component.scss' ]
 })
 export class AssignRecordBookNumberToStudentsComponent {
   students;
@@ -53,8 +53,8 @@ export class AssignRecordBookNumberToStudentsComponent {
         return this.fb.group({
           id: studentDegree.id,
           fullName: studentDegree.fullName,
-          recordBookNumber: studentDegree.recordBookNumber,
-        })
+          recordBookNumber: studentDegree.recordBookNumber
+        });
       }))
     });
   }
@@ -79,7 +79,7 @@ export class AssignRecordBookNumberToStudentsComponent {
     );
     const degreesForSubmit = {};
     studentDegreesWithRecordBookNumber.forEach(studentDegree => {
-      degreesForSubmit[studentDegree.id] = studentDegree.recordBookNumber
+      degreesForSubmit[studentDegree.id] = studentDegree.recordBookNumber;
     });
     this.studentService.assignRecordBookNumberToStudents(degreesForSubmit).subscribe(() => {
       for (let i = 0; i < this.form.value.studentDegrees.length; i++) {

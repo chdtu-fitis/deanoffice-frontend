@@ -7,10 +7,8 @@ describe('CopyCoursesDialogComponent', () => {
   let fixture: ComponentFixture<CopyCoursesDialogComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ CopyCoursesDialogComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ CopyCoursesDialogComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

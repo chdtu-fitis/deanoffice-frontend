@@ -1,4 +1,4 @@
-import {BaseEntity} from './BaseEntity';
+import { BaseEntity } from './BaseEntity';
 
 export class Person extends BaseEntity {
   active: boolean;

@@ -1,20 +1,18 @@
-import {Component, Input, ViewChild} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
-import {QualificationService} from '../services/qualification.service';
-import {ProfessionalQualification} from '../models/professional-qualification';
-import {BaseReactiveFormComponent} from '../../../shared/base-reactive-form/base-reactive-form.component';
-import {QualificationEvents} from '../models/qualification-events';
-import {getId} from '../../../../models/basemodels/BaseEntity';
-import {ChangeQualificationComponent} from './change-qualification/change-qualification.component';
-import {
-  QualificationForSpecialization,
-  QualificationForSpecializationId
-} from '../models/QualificationForSpecialization';
+import { Component, Input, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { QualificationService } from '../services/qualification.service';
+import { ProfessionalQualification } from '../models/professional-qualification';
+import { BaseReactiveFormComponent } from '../../../shared/base-reactive-form/base-reactive-form.component';
+import { QualificationEvents } from '../models/qualification-events';
+import { getId } from '../../../../models/basemodels/BaseEntity';
+import { ChangeQualificationComponent } from './change-qualification/change-qualification.component';
+import { QualificationForSpecialization,
+  QualificationForSpecializationId } from '../models/QualificationForSpecialization';
 
 @Component({
   selector: 'specialization-qualification',
   templateUrl: './specialization-qualification.component.html',
-  styleUrls: ['./specialization-qualification.component.scss']
+  styleUrls: [ './specialization-qualification.component.scss' ]
 })
 export class SpecializationQualificationComponent extends BaseReactiveFormComponent {
   @Input() updateForm: boolean;
@@ -31,10 +29,17 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   ) {
     super();
     this.form = formBuilder.group({
-      name: ['', Validators.required],
-      nameEng: ['', Validators.required],
-      code: ['', Validators.compose(
-        [Validators.required, Validators.maxLength(10)])
+      name: [
+        '', Validators.required
+      ],
+      nameEng: [
+        '', Validators.required 
+      ],
+      code: [
+        '', Validators.compose(
+          [
+            Validators.required, Validators.maxLength(10) 
+          ])
       ]
     });
   }
@@ -104,7 +109,7 @@ export class SpecializationQualificationComponent extends BaseReactiveFormCompon
   private isDeleted(selectedIds: number[]) {
     return (qfsId: QualificationForSpecializationId) => {
       return !selectedIds.includes(qfsId.qid);
-    }
+    };
   }
 
   createForNewYear(): void {

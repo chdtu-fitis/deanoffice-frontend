@@ -1,16 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {StudentGroup} from '../../models/StudentGroup';
-import {GroupService} from '../../services/group.service';
-import {NotificationsService} from 'angular2-notifications';
-import {TuitionTerm} from '../../models/tuition-term.enum';
-import {TuitionForm} from '../../models/tuition-form.enum';
-import {Specialization} from '../../models/Specialization';
-import {SpecializationService} from '../../services/specialization.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { StudentGroup } from '../../models/StudentGroup';
+import { GroupService } from '../../services/group.service';
+import { NotificationsService } from 'angular2-notifications';
+import { TuitionTerm } from '../../models/tuition-term.enum';
+import { TuitionForm } from '../../models/tuition-form.enum';
+import { Specialization } from '../../models/Specialization';
+import { SpecializationService } from '../../services/specialization.service';
 
 @Component({
   selector: 'app-group',
   templateUrl: './group.component.html',
-  styleUrls: ['./group.component.scss']
+  styleUrls: [ './group.component.scss' ]
 })
 export class GroupComponent implements OnInit {
 

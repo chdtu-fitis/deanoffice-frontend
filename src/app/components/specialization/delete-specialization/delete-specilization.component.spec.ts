@@ -7,10 +7,8 @@ describe('DeleteSpecializationComponent', () => {
   let fixture: ComponentFixture<DeleteSpecializationComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DeleteSpecializationComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ DeleteSpecializationComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

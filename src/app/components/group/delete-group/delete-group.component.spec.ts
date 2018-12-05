@@ -7,10 +7,8 @@ describe('AddGroupComponent', () => {
   let fixture: ComponentFixture<DeleteGroupComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DeleteGroupComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ DeleteGroupComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import {SimpleNotificationsModule} from 'angular2-notifications';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
-import {SharedModule} from '../shared/shared.module';
-import {AuthenticationModule} from '../login/authentication.module';
-import {PipeModule} from '../../pipes/pipe.module';
+import { SharedModule } from '../shared/shared.module';
+import { AuthenticationModule } from '../login/authentication.module';
+import { PipeModule } from '../../pipes/pipe.module';
 
 import { CoursesForGroupsComponent } from './courses-for-groups.component';
 import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
@@ -21,7 +21,10 @@ import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 const coursesForGroupsRoutes: Routes = [
-  {path: '', component: CoursesForGroupsComponent}
+  {
+    path: '',
+    component: CoursesForGroupsComponent 
+  }
 ];
 
 @NgModule({
@@ -49,7 +52,7 @@ const coursesForGroupsRoutes: Routes = [
     CopyCoursesDialogComponent,
     TeacherDialogComponent
   ],
-  providers: [AuthenticationModule.tokenInterceptor()]
+  providers: [ AuthenticationModule.tokenInterceptor() ]
 })
 export class CoursesForGroupsModule {
 }

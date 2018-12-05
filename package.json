@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "eslint --ext .js --ext .ts ./src/ --config .eslintrc.js",
+    "lint": "eslint --ext .js --ext .ts ./src/app/ --config .eslintrc.js",
     "e2e": "ng e2e"
   },
   "private": true,

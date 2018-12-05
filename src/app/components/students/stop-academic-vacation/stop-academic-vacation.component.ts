@@ -1,17 +1,17 @@
-import {Component, EventEmitter, ViewChild, Output} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {IAppModal} from '../../shared/modal.interface';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {GroupService} from '../../../services/group.service';
+import { IAppModal } from '../../shared/modal.interface';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { StudentService } from '../../../services/student.service';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { GroupService } from '../../../services/group.service';
 
 @Component({
-    selector: 'app-stop-academic-vacation',
-    templateUrl: './stop-academic-vacation.component.html',
-    styleUrls: ['./stop-academic-vacation.component.scss'],
+  selector: 'app-stop-academic-vacation',
+  templateUrl: './stop-academic-vacation.component.html',
+  styleUrls: [ './stop-academic-vacation.component.scss' ]
 })
 export class StopAcademicVacationComponent extends BaseReactiveFormComponent implements IAppModal {
   student;
@@ -26,13 +26,27 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
   ) {
     super();
     this.form = this.fb.group({
-      orderNumber: ['', Validators.required],
-      orderDate: ['', Validators.required],
-      payment: ['', Validators.required],
-      renewDate: ['', Validators.required],
-      applicationDate: ['', Validators.required],
-      studentAcademicVacationId: ['', Validators.required],
-      studentGroupId: ['', Validators.required],
+      orderNumber: [
+        '', Validators.required 
+      ],
+      orderDate: [
+        '', Validators.required 
+      ],
+      payment: [
+        '', Validators.required 
+      ],
+      renewDate: [
+        '', Validators.required
+      ],
+      applicationDate: [
+        '', Validators.required
+      ],
+      studentAcademicVacationId: [
+        '', Validators.required 
+      ],
+      studentGroupId: [
+        '', Validators.required
+      ]
     });
     groupService.getGroups().subscribe(groups => this.groups = groups);
   }

@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { maxFileSize } from '../constants';
 
 @Component({
-    selector: 'app-photo-upload',
-    templateUrl: './photo-upload.component.html',
-    styleUrls: ['./photo-upload.component.scss'],
+  selector: 'app-photo-upload',
+  templateUrl: './photo-upload.component.html',
+  styleUrls: [ './photo-upload.component.scss' ]
 })
 export class PhotoUploadComponent {
   preview: WindowBase64;

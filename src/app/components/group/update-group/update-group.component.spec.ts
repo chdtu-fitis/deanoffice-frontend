@@ -7,10 +7,8 @@ describe('UpdateGroupComponent', () => {
   let fixture: ComponentFixture<UpdateGroupComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ UpdateGroupComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ UpdateGroupComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

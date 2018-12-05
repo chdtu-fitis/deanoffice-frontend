@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment';
-import {FileService} from './file-service';
+import { environment } from '../../environments/environment';
+import { FileService } from './file-service';
 
 @Injectable()
 export class PersonalFileGradesStatementService {

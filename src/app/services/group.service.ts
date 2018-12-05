@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {StudentGroup} from '../models/StudentGroup';
-import {Observable} from 'rxjs/Observable';
-import {catchError} from 'rxjs/operators';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {forObservable, forPromise} from '../components/shared/httpErrors';
+import { Injectable } from '@angular/core';
+import { StudentGroup } from '../models/StudentGroup';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../environments/environment';
+import { forObservable, forPromise } from '../components/shared/httpErrors';
 
 @Injectable()
 export class GroupService {
@@ -16,7 +16,7 @@ export class GroupService {
 
   getGroups(onlyActual: boolean = true): Observable<StudentGroup[]> {
     const params = new HttpParams().set('only-active', onlyActual.toString());
-    return this.http.get<StudentGroup[]>(`${this.groupsUrl}`, {params: params})
+    return this.http.get<StudentGroup[]>(`${this.groupsUrl}`, { params: params })
       .pipe(catchError(forObservable('Отримання груп', [])));
   }
 

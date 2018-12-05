@@ -1,21 +1,29 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
-import {StudentGroup} from '../../../models/StudentGroup';
-import {StudentDegree} from '../../../models/StudentDegree';
-import {months} from '../constants';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { StudentDegree } from '../../../models/StudentDegree';
+import { months } from '../constants';
 
 @Component({
-    selector: 'app-students-filters',
-    templateUrl: './students-filters.component.html',
-    styleUrls: ['./students-filters.component.scss'],
+  selector: 'app-students-filters',
+  templateUrl: './students-filters.component.html',
+  styleUrls: [ './students-filters.component.scss' ]
 })
 export class StudentsFiltersComponent {
   model = {
     group: '',
     payment: [
-      {label: 'Бюджет', value: 'BUDGET', selected: true},
-      {label: 'Контракт', value: 'CONTRACT', selected: true},
+      {
+        label: 'Бюджет',
+        value: 'BUDGET',
+        selected: true 
+      },
+      {
+        label: 'Контракт',
+        value: 'CONTRACT',
+        selected: true
+      }
     ],
     birthDate: '',
     birthMonth: ''
@@ -42,7 +50,7 @@ export class StudentsFiltersComponent {
     setTimeout(() => {
       const students = this.rows.filter(entry => this.filter(entry));
       this.applyFilters.emit(students);
-    }, 0)
+    }, 0);
   }
 
   resetFilters() {
@@ -57,7 +65,7 @@ export class StudentsFiltersComponent {
         this.fb.group(entry)),
       ),
       birthDate: this.model.birthDate,
-      birthMonth: this.model.birthMonth,
+      birthMonth: this.model.birthMonth
     });
   }
 

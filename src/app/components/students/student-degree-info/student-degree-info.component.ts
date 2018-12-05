@@ -1,21 +1,21 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
-import {DomSanitizer} from '@angular/platform-browser';
-import {ModalDirective} from 'ngx-bootstrap';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ModalDirective } from 'ngx-bootstrap';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
-import {StudentDegree} from '../../../models/StudentDegree';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {DiplomaType} from '../../../models/diploma-type.enum';
-import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversity';
+import { IAppModal } from '../../shared/modal.interface';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { StudentService } from '../../../services/student.service';
+import { StudentDegree } from '../../../models/StudentDegree';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { DiplomaType } from '../../../models/diploma-type.enum';
+import { StudentPreviousUniversity } from '../../../models/StudentPreviousUniversity';
 
 @Component({
-    selector: 'app-student-degree-info',
-    templateUrl: './student-degree-info.component.html',
-    styleUrls: ['./student-degree-info.component.scss'],
+  selector: 'app-student-degree-info',
+  templateUrl: './student-degree-info.component.html',
+  styleUrls: [ './student-degree-info.component.scss' ]
 })
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
@@ -63,7 +63,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
               value: degree.studentGroup ? degree.studentGroup.id : null,
               disabled: !degree.active
             },
-            degree.active ? Validators.required : null,
+            degree.active ? Validators.required : null
           ],
           recordBookNumber: degree.recordBookNumber,
           studentCardNumber: degree.studentCardNumber,
@@ -93,17 +93,17 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
               studyStartDate: SPU.studyStartDate,
               studyEndDate: SPU.studyEndDate,
               academicCertificateNumber: SPU.academicCertificateNumber,
-              academicCertificateDate: SPU.academicCertificateDate,
-            })
+              academicCertificateDate: SPU.academicCertificateDate
+            });
           })),
           payment: degree.payment,
           active: degree.active
-        })
+        });
       }))
     });
     this.form.controls.degrees['controls'].map(control => {
       if (!control.controls.active.value) {
-        control.disable()
+        control.disable();
       }}
     );
   }
@@ -119,7 +119,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   }
 
   addStudentPreviousUniversity() {
-    this.studentPreviousUniversity = this.fb.group({...new StudentPreviousUniversity()});
+    this.studentPreviousUniversity = this.fb.group({ ...new StudentPreviousUniversity() });
     this.degrees.controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
   }
 

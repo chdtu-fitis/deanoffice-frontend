@@ -1,9 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Specialization} from '../../../models/Specialization';
+import { Specialization } from '../../../models/Specialization';
 
-@Pipe({
-  name: 'searchSpecializations'
-})
+@Pipe({ name: 'searchSpecializations' })
 export class SearchSpecializationsPipe implements PipeTransform {
 
   transform(value: Specialization[], name: string): Specialization[] {

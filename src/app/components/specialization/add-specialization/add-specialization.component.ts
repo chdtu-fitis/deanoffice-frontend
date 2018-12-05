@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {SpecializationService} from '../../../services/specialization.service';
-import {SpecializationFormComponent} from '../specialization-form/specialization-form.component';
-import {SpecializationModalComponent} from '../specialization-modal/specialization-modal.component';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { SpecializationService } from '../../../services/specialization.service';
+import { SpecializationFormComponent } from '../specialization-form/specialization-form.component';
+import { SpecializationModalComponent } from '../specialization-modal/specialization-modal.component';
 
 @Component({
   selector: 'add-specialization',
   templateUrl: './add-specialization.component.html',
-  styleUrls: ['./add-specialization.component.scss']
+  styleUrls: [ './add-specialization.component.scss' ]
 })
 export class AddSpecializationComponent {
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +31,7 @@ export class AddSpecializationComponent {
     this.specializationService
       .create(this.form.getValue())
       .then((res) => {
-        this.form.saveCompetenciesAndQualification(res['id'] as number)
+        this.form.saveCompetenciesAndQualification(res['id'] as number);
       })
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())

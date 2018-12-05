@@ -7,10 +7,8 @@ describe('AssignRecordBookNumberToStudentsComponent', () => {
   let fixture: ComponentFixture<AssignRecordBookNumberToStudentsComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AssignRecordBookNumberToStudentsComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ AssignRecordBookNumberToStudentsComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

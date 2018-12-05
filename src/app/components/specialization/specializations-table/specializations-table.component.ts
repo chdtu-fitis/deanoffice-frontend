@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
-import {Specialization} from '../../../models/Specialization';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Specialization } from '../../../models/Specialization';
 
-import {tableColumnTranslations} from '../transtations';
+import { tableColumnTranslations } from '../transtations';
 
 const columns: string[] = [
   'name',
@@ -14,7 +14,7 @@ const columns: string[] = [
 @Component({
   selector: 'app-specializations-table',
   templateUrl: './specializations-table.component.html',
-  styleUrls: ['./specializations-table.component.scss']
+  styleUrls: [ './specializations-table.component.scss' ]
 })
 export class SpecializationsTableComponent implements OnInit {
   @Input() rows: Specialization[];
@@ -30,9 +30,7 @@ export class SpecializationsTableComponent implements OnInit {
 
   private _transformArrayToColumns(): Object[] {
     const templatesMap = {
-      'speciality': {
-        cellTemplate: this.specialityTemplate
-      },
+      'speciality': { cellTemplate: this.specialityTemplate },
       'degree.name': {
         width: 100,
         resizable: false,
@@ -50,8 +48,14 @@ export class SpecializationsTableComponent implements OnInit {
       }
     };
 
-    return ['selected', ...columns].map(prop => {
-      return {prop, name: tableColumnTranslations[prop], ...templatesMap[prop]};
+    return [
+      'selected', ...columns 
+    ].map(prop => {
+      return {
+        prop,
+        name: tableColumnTranslations[prop],
+        ...templatesMap[prop] 
+      };
     });
   }
 
@@ -59,8 +63,8 @@ export class SpecializationsTableComponent implements OnInit {
     return row.id;
   }
 
-  select({selected}) {
-    this.handleSelect([...selected].pop())
+  select({ selected }) {
+    this.handleSelect([ ...selected ].pop());
   }
 
   handleSelect(specialization: Specialization) {
@@ -81,6 +85,6 @@ export class SpecializationsTableComponent implements OnInit {
   }
 
   getSelected() {
-    return (this.selected) ? [this.selected] : [];
+    return (this.selected) ? [ this.selected ] : [];
   }
 }

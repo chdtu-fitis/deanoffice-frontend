@@ -36,7 +36,7 @@ export const expelledStudentsColumns = [
   'applicationDate',
   'expelDate',
   'orderDate',
-  'orderReason.name',
+  'orderReason.name'
 ];
 
 export const academicVacationColumns = [
@@ -47,7 +47,7 @@ export const academicVacationColumns = [
   'vacationEndDate',
   'applicationDate',
   'orderDate',
-  'orderReason.name',
+  'orderReason.name'
 ];
 
 export const months = [

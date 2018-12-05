@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {AuthenticationService} from '../../services/auth/authentication.service';
+import { AuthenticationService } from '../../services/auth/authentication.service';
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: [ './login.component.scss' ]
 })
 
 export class LoginComponent implements OnInit {
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.model.username, this.model.password)
       .subscribe(result => {
         if (result === true) {
-          this.router.navigate(['/']);
+          this.router.navigate([ '/' ]);
         }
       }, err => {
         this.error = 'Ім\'я користувача чи пароль невірні';

@@ -7,10 +7,8 @@ describe('AssignStudentsToGroupComponent', () => {
   let fixture: ComponentFixture<AssignStudentsToGroupComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AssignStudentsToGroupComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ AssignStudentsToGroupComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

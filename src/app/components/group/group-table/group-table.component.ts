@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {columns} from '../columns'
-import {TuitionForm} from '../../../models/tuition-form.enum';
-import {TuitionTerm} from '../../../models/tuition-term.enum';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { columns } from '../columns';
+import { TuitionForm } from '../../../models/tuition-form.enum';
+import { TuitionTerm } from '../../../models/tuition-term.enum';
 
 const SORTING_TO_THE_TOP = '1';
 const SORTING_TO_THE_BOTTOM = '2';
@@ -12,7 +12,7 @@ const MAXIMUM_NUMBER_OF_COLUMNS_FOR_SORTING = 3;
 @Component({
   selector: 'group-table',
   templateUrl: './group-table.component.html',
-  styleUrls: ['./group-table.component.scss']
+  styleUrls: [ './group-table.component.scss' ]
 })
 export class GroupTableComponent {
   @Input('rows') rows: StudentGroup[];
@@ -23,9 +23,18 @@ export class GroupTableComponent {
   sortingToTheBottom: string = SORTING_TO_THE_BOTTOM;
   columns = columns;
   sortInfo = [
-    {field: null, direction: null},
-    {field: null, direction: null},
-    {field: null, direction: null}
+    {
+      field: null,
+      direction: null 
+    },
+    {
+      field: null,
+      direction: null 
+    },
+    {
+      field: null,
+      direction: null
+    }
   ];
 
   /**
@@ -59,7 +68,10 @@ export class GroupTableComponent {
         if (this.sortInfo[i].direction === SORTING_TO_THE_BOTTOM) {
           // delete 'i'
           this.sortInfo.splice(i, 1);
-          this.sortInfo.push({field: null, direction: null});
+          this.sortInfo.push({
+            field: null,
+            direction: null 
+          });
           return;
         }
       }
@@ -158,7 +170,7 @@ export class GroupTableComponent {
         }
         return item;
       }
-      return getProperty(item[key[depth]], key, depth + 1)
+      return getProperty(item[key[depth]], key, depth + 1);
     };
 
     // get array of substrings from string

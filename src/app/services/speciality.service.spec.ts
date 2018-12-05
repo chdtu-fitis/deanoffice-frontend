@@ -4,12 +4,10 @@ import { SpecialityService } from './speciality.service';
 
 describe('SpecialityService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [SpecialityService]
-    });
+    TestBed.configureTestingModule({ providers: [ SpecialityService ] });
   });
 
-  it('should be created', inject([SpecialityService], (service: SpecialityService) => {
+  it('should be created', inject([ SpecialityService ], (service: SpecialityService) => {
     expect(service).toBeTruthy();
   }));
 });

@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {StudentDegree} from '../models/StudentDegree';
-import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
-import {Student} from '../models/Student';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { StudentDegree } from '../models/StudentDegree';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { Student } from '../models/Student';
 
 @Injectable()
 export class StudentService {
@@ -38,7 +38,7 @@ export class StudentService {
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
-      ? { params: { new_student: 'true' }}
+      ? { params: { new_student: 'true' } }
       : {};
     return this.http.post<StudentDegree>(`${this.url}/degrees`, studentDegree, params);
   }
@@ -52,12 +52,14 @@ export class StudentService {
   }
 
   search(fullName: string = ''): Observable<StudentDegree[]> {
-    const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
+    const [
+      surname = '', name = '', patronimic = ''
+    ] = fullName.split(' ');
     return this.http.get<StudentDegree[]>(`${this.url}/search`, {
       params: {
         surname,
         name,
-        patronimic,
+        patronimic
       }
     });
   }
@@ -75,8 +77,8 @@ export class StudentService {
   }
 
   getStudentsByGroupId(groupId: number): Observable<StudentDegree[]> {
-      const url = `${environment.apiUrl}/groups/${groupId}/students`;
-      return this.http.get<StudentDegree[]>(url);
+    const url = `${environment.apiUrl}/groups/${groupId}/students`;
+    return this.http.get<StudentDegree[]>(url);
   }
 
   renewStudent(expelledStudent) {

@@ -7,10 +7,8 @@ describe('GroupModalComponent', () => {
   let fixture: ComponentFixture<GroupModalComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GroupModalComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ GroupModalComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

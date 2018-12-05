@@ -1,8 +1,8 @@
-import {NameWithActiveEntity} from './basemodels/NameWithActiveEntity';
-import {Specialization} from './Specialization';
-import {StudentDegree} from './StudentDegree';
-import {TuitionForm} from './tuition-form.enum';
-import {TuitionTerm} from './tuition-term.enum';
+import { NameWithActiveEntity } from './basemodels/NameWithActiveEntity';
+import { Specialization } from './Specialization';
+import { StudentDegree } from './StudentDegree';
+import { TuitionForm } from './tuition-form.enum';
+import { TuitionTerm } from './tuition-term.enum';
 
 export class StudentGroup extends NameWithActiveEntity {
   specialization: Specialization;

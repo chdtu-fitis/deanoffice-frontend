@@ -1,22 +1,22 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Department} from '../../../models/Department';
-import {Degree} from '../../../models/Degree';
-import {Speciality} from '../../../models/Speciality';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {FormBuilder, Validators} from '@angular/forms';
-import {DegreeService} from '../../../services/degree.service';
-import {SpecialityService} from '../../../services/speciality.service';
-import {DepartmentService} from '../../../services/department.service';
-import {Specialization} from '../../../models/Specialization';
-import {TabsetComponent} from 'ngx-bootstrap';
-import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
-import {AcquiredCompetencies} from './models/acquired-competencies';
-import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
-import {Lang} from './enums/lang.enum';
-import {Observable} from 'rxjs/Observable';
-import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Department } from '../../../models/Department';
+import { Degree } from '../../../models/Degree';
+import { Speciality } from '../../../models/Speciality';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { FormBuilder, Validators } from '@angular/forms';
+import { DegreeService } from '../../../services/degree.service';
+import { SpecialityService } from '../../../services/speciality.service';
+import { DepartmentService } from '../../../services/department.service';
+import { Specialization } from '../../../models/Specialization';
+import { TabsetComponent } from 'ngx-bootstrap';
+import { SpecializationCompetenciesComponent } from './specialization-competencies/specialization-competencies.component';
+import { AcquiredCompetencies } from './models/acquired-competencies';
+import { AcquiredCompetenciesService } from './services/acquired-competencies.service';
+import { Lang } from './enums/lang.enum';
+import { Observable } from 'rxjs/Observable';
+import { SpecializationQualificationComponent } from './specialization-qualification/specialization-qualification.component';
 
-import {flatMap} from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 
@@ -28,7 +28,7 @@ const DEFAULT_STRING = '';
 @Component({
   selector: 'specialization-form',
   templateUrl: './specialization-form.component.html',
-  styleUrls: ['./specialization-form.component.scss']
+  styleUrls: [ './specialization-form.component.scss' ]
 })
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
@@ -60,8 +60,12 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.form = this._formBuilder.group({
       name: data.name,
       nameEng: data.nameEng,
-      specialityId: [data.specialityId, Validators.required],
-      degreeId: [data.degreeId, Validators.required],
+      specialityId: [
+        data.specialityId, Validators.required 
+      ],
+      degreeId: [
+        data.degreeId, Validators.required
+      ],
       departmentId: data.departmentId,
       qualification: data.qualification,
       qualificationEng: data.qualificationEng,
@@ -72,7 +76,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadName: data.educationalProgramHeadName,
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
-      educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
+      educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng
     });
   }
 
@@ -145,9 +149,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   private _createCompetencies(): void {
-    const acquiredCompetencies: AcquiredCompetencies = {
-      specializationId: this.initialData.id
-    } as AcquiredCompetencies;
+    const acquiredCompetencies: AcquiredCompetencies = { specializationId: this.initialData.id } as AcquiredCompetencies;
     Observable.of(acquiredCompetencies).pipe(
       flatMap(this.setCompetencies(Lang.UKR)),
       flatMap(this.setCompetencies(Lang.ENG))
@@ -172,9 +174,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
               ...ac,
               [fieldName]: _ac[fieldName] || ''
             } as AcquiredCompetencies;
-          })
+          });
       }
-    }
+    };
   }
 
   private getCompetenciesByLang(lang: Lang): SpecializationCompetenciesComponent {

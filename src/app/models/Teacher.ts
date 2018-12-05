@@ -1,5 +1,5 @@
-import {Person} from './basemodels/Person';
-import {Department} from './Department';
+import { Person } from './basemodels/Person';
+import { Department } from './Department';
 
 export class Teacher extends Person {
   department: Department;

@@ -7,7 +7,7 @@ import { StudentDegree } from '../../../models/StudentDegree';
 @Component({
   selector: 'app-students-in-vacation',
   templateUrl: './students-in-vacation.component.html',
-  styleUrls: ['./students-in-vacation.component.scss'],
+  styleUrls: [ './students-in-vacation.component.scss' ]
 })
 export class StudentsInVacationComponent implements OnInit {
   columns: string[] = academicVacationColumns;

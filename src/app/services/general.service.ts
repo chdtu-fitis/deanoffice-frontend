@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs/observable/of';
-import 'rxjs/add/operator/do'
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs/observable/of';
+import 'rxjs/add/operator/do';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class GeneralService {
@@ -25,6 +25,6 @@ export class GeneralService {
     if (this.academicVacationReasons) {
       return of(this.academicVacationReasons);
     }
-    return this.http.get(`${this.apiUrl}/reasons/vidp-students`)
+    return this.http.get(`${this.apiUrl}/reasons/vidp-students`);
   }
 }

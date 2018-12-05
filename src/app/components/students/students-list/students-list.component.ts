@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-    selector: 'app-students-list',
-    templateUrl: './students-list.component.html',
-    styleUrls: ['./students-list.component.scss'],
+  selector: 'app-students-list',
+  templateUrl: './students-list.component.html',
+  styleUrls: [ './students-list.component.scss' ]
 })
 export class StudentsListComponent {
   @Input() students;

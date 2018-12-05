@@ -1,9 +1,7 @@
-import {FormControl} from '@angular/forms';
-import {Directive, HostBinding, Input} from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Directive, HostBinding, Input } from '@angular/core';
 
-@Directive({
-  selector: '[appValidation]',
-})
+@Directive({ selector: '[appValidation]' })
 export class ValidationDirective {
   @Input('appValidation') control: FormControl;
 

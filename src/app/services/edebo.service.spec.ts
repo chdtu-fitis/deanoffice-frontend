@@ -4,12 +4,10 @@ import { EdeboService } from './edebo.service';
 
 describe('EdeboService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [EdeboService]
-    });
+    TestBed.configureTestingModule({ providers: [ EdeboService ] });
   });
 
-  it('should be created', inject([EdeboService], (service: EdeboService) => {
+  it('should be created', inject([ EdeboService ], (service: EdeboService) => {
     expect(service).toBeTruthy();
   }));
 });

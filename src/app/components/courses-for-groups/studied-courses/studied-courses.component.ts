@@ -1,13 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GroupService} from "../../../services/group.service";
-import {Course} from "../../../models/Course";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { GroupService } from '../../../services/group.service';
+import { Course } from '../../../models/Course';
+import { CourseForGroupService } from '../../../services/course-for-group.service';
 
 @Component({
   selector: 'studied-courses',
   templateUrl: './studied-courses.component.html',
-  styleUrls: ['./studied-courses.component.scss'],
-  providers: [GroupService, CourseForGroupService]
+  styleUrls: [ './studied-courses.component.scss' ],
+  providers: [
+    GroupService, CourseForGroupService
+  ]
 })
 export class StudiedCoursesComponent implements OnInit {
   @Input() courses: Course[] = [];
@@ -29,7 +31,7 @@ export class StudiedCoursesComponent implements OnInit {
         }
     }
     else {
-      this.selectedCourses.push(selectedCourse)
+      this.selectedCourses.push(selectedCourse);
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }

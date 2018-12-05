@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {SpecializationService} from '../../services/specialization.service';
-import {Specialization} from '../../models/Specialization';
+import { Component, OnInit } from '@angular/core';
+import { SpecializationService } from '../../services/specialization.service';
+import { Specialization } from '../../models/Specialization';
 
 @Component({
   selector: 'specialization',
   templateUrl: './specialization.component.html',
-  styleUrls: ['./specialization.component.scss']
+  styleUrls: [ './specialization.component.scss' ]
 })
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];

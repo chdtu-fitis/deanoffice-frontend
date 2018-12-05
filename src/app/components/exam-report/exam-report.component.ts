@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Degree} from '../../models/Degree';
-import {DegreeService} from '../../services/degree.service';
-import {StudentGroup} from "../../models/StudentGroup";
-import {GroupService} from "../../services/group.service";
-import {CourseForGroupService} from "../../services/course-for-group.service";
-import {CourseForGroup} from "../../models/CourseForGroup";
-import {StudentDegree} from "../../models/StudentDegree";
-import {ExamReportService} from "../../services/exam-report.service";
+import { Component, OnInit } from '@angular/core';
+import { Degree } from '../../models/Degree';
+import { DegreeService } from '../../services/degree.service';
+import { StudentGroup } from '../../models/StudentGroup';
+import { GroupService } from '../../services/group.service';
+import { CourseForGroupService } from '../../services/course-for-group.service';
+import { CourseForGroup } from '../../models/CourseForGroup';
+import { StudentDegree } from '../../models/StudentDegree';
+import { ExamReportService } from '../../services/exam-report.service';
 
 @Component({
   selector: 'exam-report',
   templateUrl: './exam-report.component.html',
-  styleUrls: ['./exam-report.component.scss']
+  styleUrls: [ './exam-report.component.scss' ]
 })
 export class ExamReportComponent implements OnInit {
   degrees: Degree[];
@@ -38,8 +38,12 @@ export class ExamReportComponent implements OnInit {
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
 
   ngOnInit() {
-    this.years = [1, 2, 3, 4, 5, 6];
-    this.semesters = [1, 2];
+    this.years = [
+      1, 2, 3, 4, 5, 6
+    ];
+    this.semesters = [
+      1, 2 
+    ];
     this.selectedYear = 1;
     this.setInitialSemester();
 
@@ -79,7 +83,7 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSemesterOrGroupChange(): void {
-    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, (this.selectedYear-1)*2+this.selectedSemester)
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, (this.selectedYear - 1) * 2 + this.selectedSemester)
       .subscribe(coursesForGroup => {
         this.coursesForGroup = coursesForGroup;
         this.coursesSelected = true;
@@ -103,14 +107,14 @@ export class ExamReportComponent implements OnInit {
     }
     this.examReportLoading = true;
     this.examReportService.buildExamReport(this.currentGroup.id, courseIds).subscribe(a => {
-        this.examReportLoading = false;
-      }
+      this.examReportLoading = false;
+    }
     );
   }
 
   onExamReportJournalBuild(): void {
     this.examReportJournalTableLoading = true;
-    this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear-1)*2+this.selectedSemester).subscribe(a => {
+    this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear - 1) * 2 + this.selectedSemester).subscribe(a => {
       this.examReportJournalTableLoading = false;
     });
   }

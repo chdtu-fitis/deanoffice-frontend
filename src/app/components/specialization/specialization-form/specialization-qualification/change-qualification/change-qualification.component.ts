@@ -1,17 +1,17 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {SpecializationModalComponent} from '../../../specialization-modal/specialization-modal.component';
-import {Observable} from 'rxjs/Observable';
-import {ProfessionalQualification} from '../../models/professional-qualification';
-import {QualificationService} from '../../services/qualification.service';
-import {getId} from '../../../../../models/basemodels/BaseEntity';
-import {ModalMargin} from '../../../specialization-modal/models/modal-margin';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { SpecializationModalComponent } from '../../../specialization-modal/specialization-modal.component';
+import { Observable } from 'rxjs/Observable';
+import { ProfessionalQualification } from '../../models/professional-qualification';
+import { QualificationService } from '../../services/qualification.service';
+import { getId } from '../../../../../models/basemodels/BaseEntity';
+import { ModalMargin } from '../../../specialization-modal/models/modal-margin';
 
 import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'change-qualification',
   templateUrl: './change-qualification.component.html',
-  styleUrls: ['./change-qualification.component.scss']
+  styleUrls: [ './change-qualification.component.scss' ]
 })
 export class ChangeQualificationComponent {
   @Input() canEdit: boolean;
@@ -30,7 +30,7 @@ export class ChangeQualificationComponent {
 
   open(selected: ProfessionalQualification[]): void {
     this.qualifications = this._service.getAll();
-    this.selected = [...selected];
+    this.selected = [ ...selected ];
     this.isOpen = true;
     this.modal.show();
   }
@@ -68,7 +68,7 @@ export class ChangeQualificationComponent {
     if (this.canEdit) {
       return 'qualification can-selected';
     }
-    return 'qualification'
+    return 'qualification';
   }
 
   createForNewYear(): void {

@@ -1,4 +1,4 @@
-import {StudentDegreePrimaryEdeboDataDTO} from './StudentDegreePrimaryEdeboDataDTO';
+import { StudentDegreePrimaryEdeboDataDTO } from './StudentDegreePrimaryEdeboDataDTO';
 
 export class MissingPrimaryDataRedDTO {
   studentDegreePrimaryData: StudentDegreePrimaryEdeboDataDTO;

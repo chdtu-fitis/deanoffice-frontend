@@ -1,9 +1,9 @@
-import {Student} from './Student';
-import {StudentGroup} from './StudentGroup';
-import {BaseEntity} from './basemodels/BaseEntity';
-import {Specialization} from './Specialization';
-import {DiplomaType} from './diploma-type.enum';
-import {StudentPreviousUniversity} from './StudentPreviousUniversity';
+import { Student } from './Student';
+import { StudentGroup } from './StudentGroup';
+import { BaseEntity } from './basemodels/BaseEntity';
+import { Specialization } from './Specialization';
+import { DiplomaType } from './diploma-type.enum';
+import { StudentPreviousUniversity } from './StudentPreviousUniversity';
 
 export class StudentDegree extends BaseEntity {
   student: Student;

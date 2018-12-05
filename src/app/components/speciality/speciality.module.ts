@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {SpecialityComponent} from './speciality.component';
-import {RouterModule, Routes} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
+import { SpecialityComponent } from './speciality.component';
+import { RouterModule, Routes } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 export const specialityRoutes: Routes = [
-  {path: '', component: SpecialityComponent}
+  {
+    path: '',
+    component: SpecialityComponent 
+  }
 ];
 
 @NgModule({
@@ -16,6 +19,6 @@ export const specialityRoutes: Routes = [
     SharedModule,
     RouterModule.forChild(specialityRoutes)
   ],
-  declarations: [SpecialityComponent]
+  declarations: [ SpecialityComponent ]
 })
 export class SpecialityModule { }

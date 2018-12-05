@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import { expelledStudentsColumns } from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
-import {AcademicCertificateService} from "../../../services/academic-certificate.service";
+import { AcademicCertificateService } from '../../../services/academic-certificate.service';
 
 @Component({
   selector: 'app-expelled-students',
   templateUrl: './expelled-students.component.html',
-  styleUrls: ['./expelled-students.component.scss'],
+  styleUrls: [ './expelled-students.component.scss' ]
 })
 export class ExpelledStudentsComponent implements OnInit {
   columns: string[] = expelledStudentsColumns;
@@ -42,8 +42,8 @@ export class ExpelledStudentsComponent implements OnInit {
     if (this.selected[0]) {
       this.academicCertificateLoading = true;
       this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(a => {
-          this.academicCertificateLoading = false;
-        }
+        this.academicCertificateLoading = false;
+      }
       );
     }
   }

@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-base-reactive-form',
-  template: '',
+  template: ''
 })
 export class BaseReactiveFormComponent {
   form: FormGroup;

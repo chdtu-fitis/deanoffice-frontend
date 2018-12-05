@@ -1,16 +1,16 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
-import {Student} from '../../../models/Student';
+import { IAppModal } from '../../shared/modal.interface';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { StudentService } from '../../../services/student.service';
+import { Student } from '../../../models/Student';
 
 @Component({
-    selector: 'app-student-personal-info',
-    templateUrl: './student-personal-info.component.html',
-    styleUrls: ['./student-personal-info.component.scss'],
+  selector: 'app-student-personal-info',
+  templateUrl: './student-personal-info.component.html',
+  styleUrls: [ './student-personal-info.component.scss' ]
 })
 export class StudentPersonalInfoComponent extends BaseReactiveFormComponent implements IAppModal {
   form: FormGroup;
@@ -37,15 +37,25 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
   buildForm() {
     this.form = this.fb.group({
       photoUrl: this.model.photoUrl,
-      name: [this.model.name, Validators.required],
-      surname: [this.model.surname, Validators.required],
-      patronimic: [this.model.patronimic, Validators.required],
+      name: [
+        this.model.name, Validators.required 
+      ],
+      surname: [
+        this.model.surname, Validators.required
+      ],
+      patronimic: [
+        this.model.patronimic, Validators.required 
+      ],
       nameEng: this.model.nameEng,
       surnameEng: this.model.surnameEng,
       patronimicEng: this.model.patronimicEng,
       telephone: this.model.telephone,
-      sex: [this.model.sex, Validators.required],
-      birthDate: [this.model.birthDate, Validators.required],
+      sex: [
+        this.model.sex, Validators.required
+      ],
+      birthDate: [
+        this.model.birthDate, Validators.required 
+      ],
       registrationAddress: this.model.registrationAdress,
       actualAddress: this.model.actualAdress,
       studentCardNumber: this.model.studentCardNumber,
@@ -57,7 +67,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       motherPhone: this.model.motherPhone,
       motherInfo: this.model.motherInfo,
       notes: this.model.notes,
-      email: this.model.email,
+      email: this.model.email
     });
   }
 
@@ -75,6 +85,6 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       .subscribe(() => {
         this.onSubmit.emit();
         this.modal.hide();
-      })
+      });
   }
 }

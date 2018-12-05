@@ -7,10 +7,8 @@ describe('ChangeQualificationComponent', () => {
   let fixture: ComponentFixture<ChangeQualificationComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ChangeQualificationComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ ChangeQualificationComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

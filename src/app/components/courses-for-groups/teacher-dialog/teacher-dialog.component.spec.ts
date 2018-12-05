@@ -7,10 +7,8 @@ describe('TeacherDialogComponent', () => {
   let fixture: ComponentFixture<TeacherDialogComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ TeacherDialogComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ TeacherDialogComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

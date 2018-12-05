@@ -7,10 +7,8 @@ describe('StudentsFiltersComponent', () => {
   let fixture: ComponentFixture<StudentsFiltersComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StudentsFiltersComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ StudentsFiltersComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

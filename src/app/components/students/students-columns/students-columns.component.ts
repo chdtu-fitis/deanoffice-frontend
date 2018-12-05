@@ -1,14 +1,14 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {translations} from '../translations';
-import {defaultColumns, allColumns } from '../constants';
-import {IAppModal} from '../../shared/modal.interface';
+import { translations } from '../translations';
+import { defaultColumns, allColumns } from '../constants';
+import { IAppModal } from '../../shared/modal.interface';
 
 @Component({
-    selector: 'app-students-columns',
-    templateUrl: './students-columns.component.html',
-    styleUrls: ['./students-columns.component.scss'],
+  selector: 'app-students-columns',
+  templateUrl: './students-columns.component.html',
+  styleUrls: [ './students-columns.component.scss' ]
 })
 export class StudentsColumnsComponent implements OnInit, IAppModal {
   columns: Object = {};
@@ -29,7 +29,7 @@ export class StudentsColumnsComponent implements OnInit, IAppModal {
 
   resetColumns() {
     Object.keys(this.columns).forEach(key => {
-      this.columns[key] = defaultColumns.find(el => el === key)
+      this.columns[key] = defaultColumns.find(el => el === key);
     });
     this.modal.hide();
     this.setColumns.emit(defaultColumns);

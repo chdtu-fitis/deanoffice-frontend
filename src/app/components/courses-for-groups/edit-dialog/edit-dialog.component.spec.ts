@@ -7,10 +7,8 @@ describe('EditDialogComponent', () => {
   let fixture: ComponentFixture<EditDialogComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ EditDialogComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ EditDialogComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

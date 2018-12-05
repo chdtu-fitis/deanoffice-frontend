@@ -7,10 +7,8 @@ describe('AddSpecializationComponent', () => {
   let fixture: ComponentFixture<AddSpecializationComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AddSpecializationComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ AddSpecializationComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

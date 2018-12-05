@@ -1,4 +1,4 @@
-import {NameEntity} from './NameEntity';
+import { NameEntity } from './NameEntity';
 
 export class NameWithActiveEntity extends NameEntity {
   id: number;

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {KnowledgeControl} from '../models/KnowlegeControl';
-import {Observable} from 'rxjs/Observable';
-import {environment} from "../../environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { KnowledgeControl } from '../models/KnowlegeControl';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class KnowledgeControlService {

@@ -26,11 +26,11 @@ export class ValidationErrorsComponent {
 
   listOfErrors(): string[] {
     return Object.keys(this.control.errors)
-      .map(this.replaceTemplate.bind(this))
+      .map(this.replaceTemplate.bind(this));
   }
 
   private getMessage(type: string) {
-    return Object.assign(this.errorMessages, this.messages)[type]
+    return Object.assign(this.errorMessages, this.messages)[type];
   }
 
   private replaceTemplate(field: string): string {

@@ -7,10 +7,8 @@ describe('GradesTableComponent', () => {
   let fixture: ComponentFixture<GradesTableComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GradesTableComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ GradesTableComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

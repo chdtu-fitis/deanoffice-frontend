@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
-import {StudentDegree} from '../../../models/StudentDegree';
+import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
-    selector: 'app-students-search',
-    templateUrl: './students-search.component.html',
-    styleUrls: ['./students-search.component.scss'],
+  selector: 'app-students-search',
+  templateUrl: './students-search.component.html',
+  styleUrls: [ './students-search.component.scss' ]
 })
 export class StudentsSearchComponent {
   searchForm;
@@ -15,9 +15,7 @@ export class StudentsSearchComponent {
   @Output() searchResult = new EventEmitter<Array<StudentDegree>>();
 
   constructor(private fb: FormBuilder) {
-    this.searchForm = this.fb.group({
-      search: '',
-    })
+    this.searchForm = this.fb.group({ search: '' });
   }
 
   private deepFind(obj, path) {
@@ -37,7 +35,9 @@ export class StudentsSearchComponent {
 
   searchStudent() {
     const value = this.searchForm.value.search.trim();
-    const [surname, name, patronimic] = value.split(' ');
+    const [
+      surname, name, patronimic 
+    ] = value.split(' ');
     if (!surname) {
       return;
     }
@@ -54,7 +54,7 @@ export class StudentsSearchComponent {
       : null;
     if (elem && elem[0]) {
       elem[0].scrollIntoView();
-      this.searchResult.emit([this.rows[index]]);
+      this.searchResult.emit([ this.rows[index] ]);
     } else {
       this.searchResult.emit([]);
     }

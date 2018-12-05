@@ -7,10 +7,8 @@ describe('GroupTableComponent', () => {
   let fixture: ComponentFixture<GroupTableComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GroupTableComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ GroupTableComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

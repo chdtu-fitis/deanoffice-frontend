@@ -7,10 +7,8 @@ describe('PersonalFileStatementComponent', () => {
   let fixture: ComponentFixture<PersonalFileStatementComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PersonalFileStatementComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ PersonalFileStatementComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

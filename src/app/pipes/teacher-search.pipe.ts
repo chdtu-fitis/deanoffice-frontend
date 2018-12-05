@@ -1,10 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Course} from '../models/Course';
-import {Teacher} from '../models/Teacher';
+import { Course } from '../models/Course';
+import { Teacher } from '../models/Teacher';
 
-@Pipe({
-  name: 'teacherSearch'
-})
+@Pipe({ name: 'teacherSearch' })
 export class TeacherSearchPipe implements PipeTransform {
 
   transform(items: Teacher[], searchText: string): any[] {

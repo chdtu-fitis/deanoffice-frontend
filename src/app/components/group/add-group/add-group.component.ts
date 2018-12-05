@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Output, ViewChild, OnInit, Input} from '@angular/core';
-import {GroupService} from '../../../services/group.service';
-import {GroupModalComponent} from '../group-modal/group-modal.component'
-import {GroupFormComponent} from '../group-form/group-form.component';
-import {Specialization} from '../../../models/Specialization';
+import { Component, EventEmitter, Output, ViewChild, OnInit, Input } from '@angular/core';
+import { GroupService } from '../../../services/group.service';
+import { GroupModalComponent } from '../group-modal/group-modal.component';
+import { GroupFormComponent } from '../group-form/group-form.component';
+import { Specialization } from '../../../models/Specialization';
 
 @Component({
   selector: 'add-group',
   templateUrl: './add-group.component.html',
-  styleUrls: ['./add-group.component.scss']
+  styleUrls: [ './add-group.component.scss' ]
 })
 export class AddGroupComponent implements OnInit {
 
@@ -55,7 +55,7 @@ export class AddGroupComponent implements OnInit {
   submit(): void {
     const body = this.form.form.getRawValue();
     body.active = 'false';
-    body.specialization = {id: body.specialization};
+    body.specialization = { id: body.specialization };
     this.groupService.create(body)
       .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())

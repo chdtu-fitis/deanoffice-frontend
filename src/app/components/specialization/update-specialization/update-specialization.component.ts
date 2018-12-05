@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {SpecializationModalComponent} from '../specialization-modal/specialization-modal.component';
-import {SpecializationService} from '../../../services/specialization.service';
-import {SpecializationFormComponent} from '../specialization-form/specialization-form.component';
-import {Specialization} from '../../../models/Specialization';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { SpecializationModalComponent } from '../specialization-modal/specialization-modal.component';
+import { SpecializationService } from '../../../services/specialization.service';
+import { SpecializationFormComponent } from '../specialization-form/specialization-form.component';
+import { Specialization } from '../../../models/Specialization';
 
 @Component({
   selector: 'update-specialization',
   templateUrl: './update-specialization.component.html',
-  styleUrls: ['./update-specialization.component.scss']
+  styleUrls: [ './update-specialization.component.scss' ]
 })
 export class UpdateSpecializationComponent {
   source: Specialization;

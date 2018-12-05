@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Degree} from '../models/Degree';
-import {Observable} from 'rxjs/Observable';
-import {catchError} from 'rxjs/operators';
-import {environment} from '../../environments/environment';
-import {forObservable} from '../components/shared/httpErrors';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Degree } from '../models/Degree';
+import { Observable } from 'rxjs/Observable';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+import { forObservable } from '../components/shared/httpErrors';
 
 @Injectable()
 export class DegreeService {

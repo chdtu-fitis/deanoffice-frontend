@@ -1,6 +1,6 @@
 
-import {SpecialityBasics} from './SpecialityBasics';
-import {Named} from './Named';
+import { SpecialityBasics } from './SpecialityBasics';
+import { Named } from './Named';
 
 export class Specialization{
   id: number;

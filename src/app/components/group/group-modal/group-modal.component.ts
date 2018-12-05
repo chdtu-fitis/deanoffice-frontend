@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
-import {ModalMargin} from './models/modal-margin';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { IAppModal } from '../../shared/modal.interface';
+import { ModalDirective } from 'ngx-bootstrap';
+import { ModalMargin } from './models/modal-margin';
 
 @Component({
   selector: 'group-modal',
   templateUrl: './group-modal.component.html',
-  styleUrls: ['./group-modal.component.scss']
+  styleUrls: [ './group-modal.component.scss' ]
 })
 export class GroupModalComponent implements IAppModal {
   @Input() title: string;

@@ -1,4 +1,4 @@
-import {StudentDegreeFullEdeboData} from './StudentDegreeFullEdeboData';
+import { StudentDegreeFullEdeboData } from './StudentDegreeFullEdeboData';
 
 export class UnmatchedSecodaryDataStudentDegreeBlue {
   studentDegreeFromDb?: StudentDegreeFullEdeboData;

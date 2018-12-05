@@ -1,5 +1,5 @@
-import {CreatedStudents} from './CreatedStudents';
-import {UpdatedStudents} from './UpdatedStudents';
+import { CreatedStudents } from './CreatedStudents';
+import { UpdatedStudents } from './UpdatedStudents';
 
 export class ResultOfSavingData {
   created?: CreatedStudents;

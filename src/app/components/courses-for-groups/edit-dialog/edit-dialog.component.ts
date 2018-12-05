@@ -1,22 +1,24 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgbActiveModal, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {KnowledgeControl} from "../../../models/KnowlegeControl";
-import {KnowledgeControlService} from "../../../services/knowledge-control.service";
-import {CourseService} from "../../../services/course.service";
-import {CourseName} from "../../../models/CourseName";
-import {StudentGroup} from '../../../models/StudentGroup';
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
-import {CourseForGroup} from "../../../models/CourseForGroup";
-import {FormGroup} from "@angular/forms";
-import {Course} from "../../../models/Course";
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { KnowledgeControl } from '../../../models/KnowlegeControl';
+import { KnowledgeControlService } from '../../../services/knowledge-control.service';
+import { CourseService } from '../../../services/course.service';
+import { CourseName } from '../../../models/CourseName';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { CourseForGroupService } from '../../../services/course-for-group.service';
+import { CourseForGroup } from '../../../models/CourseForGroup';
+import { FormGroup } from '@angular/forms';
+import { Course } from '../../../models/Course';
 
 @Component({
   selector: 'edit-dialog',
   templateUrl: './edit-dialog.component.html',
-  styleUrls: ['./edit-dialog.component.scss'],
-  providers: [CourseService, KnowledgeControlService, CourseForGroupService]
+  styleUrls: [ './edit-dialog.component.scss' ],
+  providers: [
+    CourseService, KnowledgeControlService, CourseForGroupService
+  ]
 })
 export class EditDialogComponent implements OnInit {
   @Input() selectedGroup: StudentGroup = new StudentGroup();
@@ -64,7 +66,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   canselChanges() {
-    this.activeModal.close('Close click')
+    this.activeModal.close('Close click');
   }
 
   saveChanges() {
@@ -76,11 +78,11 @@ export class EditDialogComponent implements OnInit {
     }).subscribe((course: Course) => {
       this.courseFromTable.course = course;
     });
-    this.activeModal.close('Close click')
+    this.activeModal.close('Close click');
   }
 
   calculateCredits(course: Course){
-    return course.hours/course.hoursPerCredit;
+    return course.hours / course.hoursPerCredit;
   }
 
   setCredits(){

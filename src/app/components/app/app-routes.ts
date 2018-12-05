@@ -1,5 +1,5 @@
-import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
-import {Routes} from '@angular/router';
+import { DashboardGuard, LoginGuard } from '../../services/auth/auth.guard';
+import { Routes } from '@angular/router';
 
 
 /**
@@ -13,13 +13,17 @@ export const appRoutes: Routes = [
   {
     path: 'login',
     loadChildren: '../login/authentication.module#AuthenticationModule',
-    canActivate: [LoginGuard],
+    canActivate: [ LoginGuard ],
     data: { title: 'Вхід' }
   },
   {
-    path: 'dashboard', canActivate: [DashboardGuard], data: { title: 'Головна' }, children: [
+    path: 'dashboard',
+    canActivate: [ DashboardGuard ],
+    data: { title: 'Головна' },
+    children: [
       {
-        path: 'documents', children: [
+        path: 'documents',
+        children: [
           {
             path: 'diploma-supplement',
             loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule',
@@ -69,6 +73,14 @@ export const appRoutes: Routes = [
       }
     ]
   },
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full' 
+  },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full' 
+  }
 ];

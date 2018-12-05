@@ -1,8 +1,11 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({name: 'entries'})
+@Pipe({ name: 'entries' })
 export class EntriesPipe implements PipeTransform {
   transform(value, args: string[]): any {
-    return Object.keys(value).map(key => ({ key, value: value[key] }));
+    return Object.keys(value).map(key => ({
+      key,
+      value: value[key] 
+    }));
   }
 }

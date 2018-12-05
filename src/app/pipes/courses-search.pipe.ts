@@ -1,7 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {Course} from "../models/Course";
+import { Pipe, PipeTransform } from '@angular/core';
+import { Course } from '../models/Course';
 
-@Pipe({name: 'coursesSearch'})
+@Pipe({ name: 'coursesSearch' })
 export class CoursesSearchPipe implements PipeTransform {
   transform(items: Course[], searchText: string): any[] {
     if (!items)

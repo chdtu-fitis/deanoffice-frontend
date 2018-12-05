@@ -1,23 +1,21 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {StudentDegree} from '../../../models/StudentDegree';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {StudentService} from '../../../services/student.service';
+import { StudentDegree } from '../../../models/StudentDegree';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { StudentService } from '../../../services/student.service';
 
 @Component({
   selector: 'assign-students-to-group',
   templateUrl: './assign-students-to-group.component.html',
-  styleUrls: ['./assign-students-to-group.component.scss']
+  styleUrls: [ './assign-students-to-group.component.scss' ]
 })
 export class AssignStudentsToGroupComponent {
 
   degrees;
   students;
-  form = new FormGroup({
-    group: new FormControl(null, Validators.required)
-  });
+  form = new FormGroup({ group: new FormControl(null, Validators.required) });
   @ViewChild('modal') modal: ModalDirective;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();

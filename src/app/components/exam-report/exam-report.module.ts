@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ExamReportComponent} from './exam-report.component';
-import {RouterModule, Routes} from '@angular/router';
-import {FormsModule} from '@angular/forms';
-import {SharedModule} from '../shared/shared.module';
-import {PipeModule} from "../../pipes/pipe.module";
+import { ExamReportComponent } from './exam-report.component';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
+import { PipeModule } from '../../pipes/pipe.module';
 
 export const examReportRoutes: Routes = [
-  {path: '', component: ExamReportComponent}
+  {
+    path: '',
+    component: ExamReportComponent 
+  }
 ];
 
 @NgModule({
@@ -18,6 +21,6 @@ export const examReportRoutes: Routes = [
     PipeModule.forRoot(),
     RouterModule.forChild(examReportRoutes)
   ],
-  declarations: [ExamReportComponent]
+  declarations: [ ExamReportComponent ]
 })
 export class ExamReportModule { }

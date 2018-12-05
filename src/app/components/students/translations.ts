@@ -31,5 +31,5 @@ export const translations = {
   'orderDate': 'Дата наказу',
   'orderReason.name': 'Причина',
   'vacationStartDate': 'Дата початку',
-  'vacationEndDate': 'Дата закінчення',
+  'vacationEndDate': 'Дата закінчення'
 };

@@ -1,13 +1,13 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {GroupService} from '../../../services/group.service';
-import {GroupModalComponent} from '../group-modal/group-modal.component'
-import {StudentGroup} from '../../../models/StudentGroup';
-import {FormGroup} from '@angular/forms';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { GroupService } from '../../../services/group.service';
+import { GroupModalComponent } from '../group-modal/group-modal.component';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'delete-group',
   templateUrl: './delete-group.component.html',
-  styleUrls: ['./delete-group.component.scss']
+  styleUrls: [ './delete-group.component.scss' ]
 })
 export class DeleteGroupComponent {
 
@@ -35,13 +35,11 @@ export class DeleteGroupComponent {
           return !deletedGroupsIds.includes(item.id);
         });
         for (let i = 0; i < errors.length; i++) {
-          this.showErrorAlert.emit({
-            message: `Неможливе видалення групи ${errors[i].name} <br>(в групі є студенти)`
-          });
+          this.showErrorAlert.emit({ message: `Неможливе видалення групи ${errors[i].name} <br>(в групі є студенти)` });
         }
         this.onSubmit.emit();
         this.modal.hide();
-      })
+      });
   }
 
   hideModal(): void {

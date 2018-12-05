@@ -10,7 +10,7 @@ export class DashboardGuard implements CanActivate {
     if (localStorage.getItem('currentUser')) {
       return true;
     }
-    this.router.navigate(['/login']);
+    this.router.navigate([ '/login' ]);
     return false;
   }
 }
@@ -24,7 +24,7 @@ export class LoginGuard implements CanActivate {
     if (!localStorage.getItem('currentUser')) {
       return true;
     }
-    this.router.navigate(['/dashboard']);
+    this.router.navigate([ '/dashboard' ]);
     return false;
   }
 }

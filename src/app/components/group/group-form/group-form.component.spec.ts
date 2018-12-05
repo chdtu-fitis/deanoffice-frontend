@@ -7,10 +7,8 @@ describe('GroupFormComponent', () => {
   let fixture: ComponentFixture<GroupFormComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ GroupFormComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ GroupFormComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-import {Person} from './basemodels/Person';
-import {StudentGroup} from './StudentGroup';
-import {Privilege} from './Privilege';
+import { Person } from './basemodels/Person';
+import { StudentGroup } from './StudentGroup';
+import { Privilege } from './Privilege';
 
 export class Student extends Person {
   surnameEng?: string;

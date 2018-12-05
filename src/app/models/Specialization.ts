@@ -1,7 +1,7 @@
-import {NameWithEngAndActiveEntity} from './basemodels/NameWithEngAndActiveEntity';
-import {Speciality} from './Speciality';
-import {Degree} from './Degree';
-import {Department} from './Department';
+import { NameWithEngAndActiveEntity } from './basemodels/NameWithEngAndActiveEntity';
+import { Speciality } from './Speciality';
+import { Degree } from './Degree';
+import { Department } from './Department';
 
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;

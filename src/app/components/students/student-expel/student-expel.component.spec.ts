@@ -7,10 +7,8 @@ describe('StudentExpelComponent', () => {
   let fixture: ComponentFixture<StudentExpelComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StudentExpelComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ StudentExpelComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

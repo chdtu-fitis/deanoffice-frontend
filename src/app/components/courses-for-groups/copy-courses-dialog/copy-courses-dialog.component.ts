@@ -1,18 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {CourseForGroup} from '../../../models/CourseForGroup';
-import {Teacher} from "../../../models/Teacher";
-import {StudentGroup} from "../../../models/StudentGroup";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
+import { CourseForGroup } from '../../../models/CourseForGroup';
+import { Teacher } from '../../../models/Teacher';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { CourseForGroupService } from '../../../services/course-for-group.service';
 
 const studySemesters = 12;
 
 @Component({
   selector: 'copy-courses-dialog',
   templateUrl: './copy-courses-dialog.component.html',
-  styleUrls: ['./copy-courses-dialog.component.scss']
+  styleUrls: [ './copy-courses-dialog.component.scss' ]
 })
 export class CopyCoursesDialogComponent implements OnInit {
 
@@ -40,7 +40,7 @@ export class CopyCoursesDialogComponent implements OnInit {
     this.selectedGroup = group;
     if (this.selectedSemesterFrom === this.selectedSemesterTo) {
       this.addCoursesForGroup();
-      this.activeModal.close('Close click')
+      this.activeModal.close('Close click');
     } else {
       this.getCoursesForGroup();
     }
@@ -94,7 +94,7 @@ export class CopyCoursesDialogComponent implements OnInit {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });
-    this.activeModal.close('Close click')
+    this.activeModal.close('Close click');
   }
 
   addCoursesForGroup() {

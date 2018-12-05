@@ -1,25 +1,27 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Course} from '../../../models/Course';
-import {KnowledgeControl} from '../../../models/KnowlegeControl';
-import {CourseService} from '../../../services/course.service';
-import {KnowledgeControlService} from '../../../services/knowledge-control.service';
-import {CourseName} from '../../../models/CourseName';
-import {Subject} from 'rxjs/Subject';
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Course } from '../../../models/Course';
+import { KnowledgeControl } from '../../../models/KnowlegeControl';
+import { CourseService } from '../../../services/course.service';
+import { KnowledgeControlService } from '../../../services/knowledge-control.service';
+import { CourseName } from '../../../models/CourseName';
+import { Subject } from 'rxjs/Subject';
+import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {NotificationsService} from "angular2-notifications";
-import {StudentGroup} from "../../../models/StudentGroup";
+import { NotificationsService } from 'angular2-notifications';
+import { StudentGroup } from '../../../models/StudentGroup';
 
 @Component({
   selector: 'course-creation',
   templateUrl: './course-creation.component.html',
-  styleUrls: ['./course-creation.component.scss'],
-  providers: [CourseService, KnowledgeControlService]
+  styleUrls: [ './course-creation.component.scss' ],
+  providers: [
+    CourseService, KnowledgeControlService
+  ]
 })
 export class CourseCreationComponent implements OnInit {
   @Input() selectedGroup: StudentGroup;
@@ -43,7 +45,7 @@ export class CourseCreationComponent implements OnInit {
     pauseOnHover: false,
     clickToClose: true,
     maxLength: 10,
-    maxStack: 3,
+    maxStack: 3
   };
 
   constructor(private courseService: CourseService,
@@ -86,25 +88,25 @@ export class CourseCreationComponent implements OnInit {
     this.setCredits();
     this.checkCourseName(this.course.courseName);
     this.courseService.createCourse(this.course).subscribe((course: Course) => {
-        this.success = true;
-        this.failCreated = false;
-        this.fail = false;
-        this.onCourseCreation.emit();
-        if (isAddingToCourseForGroup){
-          this.onCourseAdding.emit(course);
-        }
-      },
-      error => {
-        if (error.status === 422) {
-          this.failCreated = true;
-          this.success = false;
-        }
-        else {
-          this.success = false;
-          this.fail = true;
-        }
-        this.showAlert();
-      });
+      this.success = true;
+      this.failCreated = false;
+      this.fail = false;
+      this.onCourseCreation.emit();
+      if (isAddingToCourseForGroup){
+        this.onCourseAdding.emit(course);
+      }
+    },
+    error => {
+      if (error.status === 422) {
+        this.failCreated = true;
+        this.success = false;
+      }
+      else {
+        this.success = false;
+        this.fail = true;
+      }
+      this.showAlert();
+    });
   }
 
   showAlert() {

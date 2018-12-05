@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {SpecialityService} from '../../services/speciality.service';
-import {Speciality} from '../../models/Speciality';
+import { Component, OnInit } from '@angular/core';
+import { SpecialityService } from '../../services/speciality.service';
+import { Speciality } from '../../models/Speciality';
 
 @Component({
   selector: 'app-speciality',
   templateUrl: './speciality.component.html',
-  styleUrls: ['./speciality.component.scss']
+  styleUrls: [ './speciality.component.scss' ]
 })
 export class SpecialityComponent implements OnInit {
 
@@ -15,11 +15,26 @@ export class SpecialityComponent implements OnInit {
   specialities: Speciality[] = [];
   rows: Speciality[] = [];
   columns = [
-    {name: 'Шифр', prop: 'code'},
-    {name: 'Назва', prop: 'name'},
-    {name: 'Назва Англійською', prop: 'nameEng'},
-    {name: 'Галузь Знань', prop: 'fieldOfStudy'},
-    {name: 'Галузь Знань Англійською', prop: 'fieldOfStudyEng'}
+    {
+      name: 'Шифр',
+      prop: 'code' 
+    },
+    {
+      name: 'Назва',
+      prop: 'name' 
+    },
+    {
+      name: 'Назва Англійською',
+      prop: 'nameEng'
+    },
+    {
+      name: 'Галузь Знань',
+      prop: 'fieldOfStudy' 
+    },
+    {
+      name: 'Галузь Знань Англійською',
+      prop: 'fieldOfStudyEng'
+    }
   ];
 
   constructor(private specialityService: SpecialityService) {}
@@ -36,7 +51,7 @@ export class SpecialityComponent implements OnInit {
       });
   }
 
-  onSelect({selected}) {
+  onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
 
     this.selected.splice(0, this.selected.length);

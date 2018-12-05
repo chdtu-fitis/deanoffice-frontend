@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Speciality} from '../models/Speciality';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {environment} from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Speciality } from '../models/Speciality';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SpecialityService {
@@ -12,6 +12,6 @@ export class SpecialityService {
     }
 
     getSpecialities(): Observable<Speciality[]> {
-        return this.http.get<Speciality[]>(this.url);
+      return this.http.get<Speciality[]>(this.url);
     }
 }

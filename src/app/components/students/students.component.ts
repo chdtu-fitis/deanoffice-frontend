@@ -9,7 +9,7 @@ import { StudentGroup } from '../../models/StudentGroup';
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss'],
+  styleUrls: [ './students.component.scss' ]
 })
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
@@ -47,9 +47,11 @@ export class StudentsComponent implements OnInit {
   }
 
   prependStudent(student) {
-    this.students = [student, ...this.students];
+    this.students = [
+      student, ...this.students
+    ];
     this.setRows(this.students);
-    this.onSelect([student]);
+    this.onSelect([ student ]);
   };
 
   setRows(rows: StudentDegree[]) {

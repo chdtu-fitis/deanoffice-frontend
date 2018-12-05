@@ -1,15 +1,15 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CourseForGroup} from '../../../models/CourseForGroup';
-import {StudentGroup} from '../../../models/StudentGroup';
-import {CourseForGroupService} from '../../../services/course-for-group.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { CourseForGroup } from '../../../models/CourseForGroup';
+import { StudentGroup } from '../../../models/StudentGroup';
+import { CourseForGroupService } from '../../../services/course-for-group.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditDialogComponent } from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'added-courses',
   templateUrl: './added-courses.component.html',
-  styleUrls: ['./added-courses.component.scss'],
-  providers: [CourseForGroupService]
+  styleUrls: [ './added-courses.component.scss' ],
+  providers: [ CourseForGroupService ]
 })
 export class AddedCoursesComponent implements OnInit {
 
@@ -59,11 +59,14 @@ export class AddedCoursesComponent implements OnInit {
   }
 
   dateChange(index){
-    this.onDateChange.emit({index: index});
+    this.onDateChange.emit({ index: index });
   }
 
   changeCourse(course) {
-    const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
+    const modalRef = this.modalService.open(EditDialogComponent, {
+      centered: true,
+      size: 'lg' 
+    });
     modalRef.componentInstance.course = JSON.parse(JSON.stringify(course));
     modalRef.componentInstance.courseFromTable = course;
     modalRef.componentInstance.selectedGroup = this.selectedGroup;

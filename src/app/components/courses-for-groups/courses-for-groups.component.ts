@@ -1,26 +1,28 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
-import {NotificationsService} from 'angular2-notifications';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NotificationsService } from 'angular2-notifications';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import {StudentGroup} from '../../models/StudentGroup';
-import {Course} from '../../models/Course';
-import {Teacher} from '../../models/Teacher';
-import {CourseForGroup} from '../../models/CourseForGroup';
-import {GroupService} from '../../services/group.service';
-import {CourseService} from '../../services/course.service';
-import {CourseForGroupService} from '../../services/course-for-group.service';
-import {AddedCoursesComponent} from './added-courses/added-courses.component';
-import {CourseCreationComponent} from './course-creation/course-creation.component';
-import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
-import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
-import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
+import { StudentGroup } from '../../models/StudentGroup';
+import { Course } from '../../models/Course';
+import { Teacher } from '../../models/Teacher';
+import { CourseForGroup } from '../../models/CourseForGroup';
+import { GroupService } from '../../services/group.service';
+import { CourseService } from '../../services/course.service';
+import { CourseForGroupService } from '../../services/course-for-group.service';
+import { AddedCoursesComponent } from './added-courses/added-courses.component';
+import { CourseCreationComponent } from './course-creation/course-creation.component';
+import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
+import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
+import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 
 @Component({
   selector: 'courses-for-groups',
   templateUrl: './courses-for-groups.component.html',
-  styleUrls: ['./courses-for-groups.component.scss'],
-  providers: [CourseService, GroupService]
+  styleUrls: [ './courses-for-groups.component.scss' ],
+  providers: [
+    CourseService, GroupService 
+  ]
 })
 export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
@@ -62,7 +64,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
-    })
+    });
   }
 
   private changeSemesters() {
@@ -95,7 +97,7 @@ export class CoursesForGroupsComponent implements OnInit {
       this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
-      })
+      });
     }
     this.getCoursesForGroup();
     this.courseCreationChild.course.semester = this.selectedSemester;
@@ -103,7 +105,7 @@ export class CoursesForGroupsComponent implements OnInit {
 
   changeCoursesForGroup(event) {
     for (let i = 0; i < event.length; i++) {
-      this.coursesForGroup.push(event[i])
+      this.coursesForGroup.push(event[i]);
     }
   }
 
@@ -180,14 +182,14 @@ export class CoursesForGroupsComponent implements OnInit {
       if (a.course.courseName.name > b.course.courseName.name) return 1;
       if (a.course.courseName.name < b.course.courseName.name) return -1;
       return 0;
-    })
+    });
   }
 
   addCourse(newCourseForGroup: CourseForGroup, isDeleted: boolean) {
     this.changesExistence = true;
     if (isDeleted) {
       let id = newCourseForGroup.id;
-      this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id), 1)
+      this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id), 1);
     }
     else this.coursesForAdd.push(newCourseForGroup);
     this.coursesForGroup.push(newCourseForGroup);
@@ -227,36 +229,36 @@ export class CoursesForGroupsComponent implements OnInit {
     let updatedCourses: courseForGroupUpdateCoursesType[] = [];
     for (let newCourse of this.coursesForAdd) {
       newCourses.push({
-        course: {id: newCourse.course.id},
-        teacher: {id: newCourse.teacher.id},
+        course: { id: newCourse.course.id },
+        teacher: { id: newCourse.teacher.id },
         examDate: newCourse.examDate
-      })
+      });
     }
     for (let updateCourse of this.updatedCourses) {
       updatedCourses.push({
         id: updateCourse.id,
-        course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher.id},
+        course: { id: updateCourse.course.id },
+        teacher: { id: updateCourse.teacher.id },
         examDate: updateCourse.examDate
-      })
+      });
     }
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
       newCourses: newCourses,
       updatedCourses: updatedCourses,
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
-        this.refresh();
-        setTimeout(() => {
-          this.onSemesterChange();
-        }, 10);
-      },
-      error => {
-        if (error.status === 422) {
-          this.showErrorAlert('Предмет вже існує або дані введені невірно!');
-        } else {
-          this.showErrorAlert('Невідома помилка при сбереженні');
-        }
-      });
+      this.refresh();
+      setTimeout(() => {
+        this.onSemesterChange();
+      }, 10);
+    },
+    error => {
+      if (error.status === 422) {
+        this.showErrorAlert('Предмет вже існує або дані введені невірно!');
+      } else {
+        this.showErrorAlert('Невідома помилка при сбереженні');
+      }
+    });
     this.changesExistence = false;
   }
 
@@ -280,7 +282,7 @@ export class CoursesForGroupsComponent implements OnInit {
       this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
-      })
+      });
     }
   }
 

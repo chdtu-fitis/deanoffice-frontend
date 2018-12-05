@@ -7,10 +7,8 @@ describe('PhotoUploadComponent', () => {
   let fixture: ComponentFixture<PhotoUploadComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ PhotoUploadComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ PhotoUploadComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

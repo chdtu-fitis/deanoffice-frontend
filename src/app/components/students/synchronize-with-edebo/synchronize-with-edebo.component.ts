@@ -1,24 +1,24 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
-import {IAppModal} from '../../shared/modal.interface';
-import {EdeboService} from '../../../services/edebo.service';
-import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
-import {MissingPrimaryDataRedDTO} from '../../../models/synchronization-edebo-models/MissingPrimaryDataRedDTO';
-import {StudentDegreePrimaryEdeboDataDTO} from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
-import {UnmatchedSecodaryDataStudentDegreeBlue} from '../../../models/synchronization-edebo-models/UnmatchedSecodaryDataStudentDegreeBlue';
-import {DiplomaType} from '../../../models/diploma-type.enum';
-import {Payment} from '../../../models/payment.enum';
-import {DegreeService} from '../../../services/degree.service';
-import {Degree} from '../../../models/Degree';
-import {SpecialityService} from '../../../services/speciality.service';
-import {Speciality} from '../../../models/Speciality';
-import {ResultOfSavingData} from '../../../models/synchronization-edebo-models/ResultOfSavingData';
-import {Gender} from '../../../models/gender.enum';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
+import { IAppModal } from '../../shared/modal.interface';
+import { EdeboService } from '../../../services/edebo.service';
+import { StudentDegreeFullEdeboData } from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
+import { MissingPrimaryDataRedDTO } from '../../../models/synchronization-edebo-models/MissingPrimaryDataRedDTO';
+import { StudentDegreePrimaryEdeboDataDTO } from '../../../models/synchronization-edebo-models/StudentDegreePrimaryEdeboDataDTO';
+import { UnmatchedSecodaryDataStudentDegreeBlue } from '../../../models/synchronization-edebo-models/UnmatchedSecodaryDataStudentDegreeBlue';
+import { DiplomaType } from '../../../models/diploma-type.enum';
+import { Payment } from '../../../models/payment.enum';
+import { DegreeService } from '../../../services/degree.service';
+import { Degree } from '../../../models/Degree';
+import { SpecialityService } from '../../../services/speciality.service';
+import { Speciality } from '../../../models/Speciality';
+import { ResultOfSavingData } from '../../../models/synchronization-edebo-models/ResultOfSavingData';
+import { Gender } from '../../../models/gender.enum';
 
 @Component({
   selector: 'synchronize-with-edebo',
   templateUrl: './synchronize-with-edebo.component.html',
-  styleUrls: ['./synchronize-with-edebo.component.scss'],
+  styleUrls: [ './synchronize-with-edebo.component.scss' ]
 })
 export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   @ViewChild('modal') modal: ModalDirective;
@@ -62,7 +62,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     } else {
       this.wrongExtension = false;
     }
-    this.fileName = this.selectedFile.name
+    this.fileName = this.selectedFile.name;
   }
 
   onFileUpload(): void {
@@ -77,16 +77,16 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
       formData.append('speciality', this.selectedSpeciality);
     }
     this.edeboService.uploadFile(formData).subscribe(
-        res => {
-          this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
-          this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
-          this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
-          this.missingPrimaryDataRed = res.missingPrimaryDataRed;
-          this.absentInFileStudentDegreesYellow = res.absentInFileStudentDegreesYellow;
-          this.uploadInProgress = false;
-          this.changeModal();
-        }
-      );
+      res => {
+        this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
+        this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
+        this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
+        this.missingPrimaryDataRed = res.missingPrimaryDataRed;
+        this.absentInFileStudentDegreesYellow = res.absentInFileStudentDegreesYellow;
+        this.uploadInProgress = false;
+        this.changeModal();
+      }
+    );
   }
 
   changeSpeciality(value) {
@@ -106,7 +106,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     this.specialityService.getSpecialities().subscribe(
       speciality => {
         this.specialities = speciality;
-     }
+      }
     );
     this.fileField = true;
     this.orangeStudentsSelected = false;
@@ -142,10 +142,10 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   chooseSelectedStudentsFromOrangeList(): StudentDegreeFullEdeboData[] {
     let chosenStudents = [];
     for (let student of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
-        if (student.selected) {
-          delete student.selected;
-          chosenStudents.push(student);
-        }
+      if (student.selected) {
+        delete student.selected;
+        chosenStudents.push(student);
+      }
     }
     return chosenStudents;
   }
@@ -170,7 +170,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
         break;
       case 'orange':
         this.studentsInTable = this.noSuchStudentOrSuchStudentDegreeInDbOrange.length;
-         break;
+        break;
       case 'red':
         this.studentsInTable = this.missingPrimaryDataRed.length;
         break;
@@ -192,15 +192,15 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.chooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.chooseSelectedStudentsFromBlueList();
-      this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
-        response => {
-          this.modalSize = '';
-          this.modalName = 'Дані змінено';
-          this.importView = !this.importView;
-          this.resultView = true;
-          this.resultOfSaving = response;
-        }
-      );
+    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
+      response => {
+        this.modalSize = '';
+        this.modalName = 'Дані змінено';
+        this.importView = !this.importView;
+        this.resultView = true;
+        this.resultOfSaving = response;
+      }
+    );
   }
 
   hideModal(): void {
@@ -252,11 +252,11 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   }
 
   translatePayment(term: Payment) {
-    return Payment[term]
+    return Payment[term];
   }
 
   translateGender(term: Gender) {
-    return Gender[term]
+    return Gender[term];
   }
 
   replaceDataWithCorrect(index, name): void {

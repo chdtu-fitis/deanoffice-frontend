@@ -7,10 +7,8 @@ describe('SynchronizeWithEdeboComponent', () => {
   let fixture: ComponentFixture<SynchronizeWithEdeboComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SynchronizeWithEdeboComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ SynchronizeWithEdeboComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,17 +1,17 @@
-import {Component, EventEmitter, ViewChild, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, EventEmitter, ViewChild, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap';
 
-import {IAppModal} from '../../shared/modal.interface';
-import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
-import {StudentDegree} from '../../../models/StudentDegree';
-import {GeneralService} from '../../../services/general.service';
+import { IAppModal } from '../../shared/modal.interface';
+import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
+import { StudentService } from '../../../services/student.service';
+import { StudentDegree } from '../../../models/StudentDegree';
+import { GeneralService } from '../../../services/general.service';
 
 @Component({
-    selector: 'app-student-expel',
-    templateUrl: './student-expel.component.html',
-    styleUrls: ['./student-expel.component.scss'],
+  selector: 'app-student-expel',
+  templateUrl: './student-expel.component.html',
+  styleUrls: [ './student-expel.component.scss' ]
 })
 export class StudentExpelComponent extends BaseReactiveFormComponent implements IAppModal {
   students;
@@ -26,12 +26,22 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
   ) {
     super();
     this.form = this.fb.group({
-      orderNumber: ['', Validators.required],
-      orderDate: ['', Validators.required],
-      applicationDate: ['', Validators.required],
-      expelDate: ['', Validators.required],
-      orderReasonId: ['', Validators.required],
-      studentDegreeIds: this.fb.array([]),
+      orderNumber: [
+        '', Validators.required 
+      ],
+      orderDate: [
+        '', Validators.required
+      ],
+      applicationDate: [
+        '', Validators.required 
+      ],
+      expelDate: [
+        '', Validators.required
+      ],
+      orderReasonId: [
+        '', Validators.required
+      ],
+      studentDegreeIds: this.fb.array([])
     });
     generalService.getStudentExpelReasons().subscribe(reasons => this.reasons = reasons);
   }
@@ -39,7 +49,8 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
   openModal(degrees: StudentDegree[]) {
     this.students = degrees.map(degree => ({
       ...degree.student,
-      id: degree.id, groups:
+      id: degree.id,
+      groups:
       degree.studentGroup.name
     }));
     this.form.setControl('studentDegreeIds', this.fb.array(degrees.map(degree => degree.id)));
