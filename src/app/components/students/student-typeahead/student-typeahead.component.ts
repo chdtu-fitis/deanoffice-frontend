@@ -26,8 +26,6 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
   dataSource: Observable<any>;
   errorMessages = { required: 'Необхідно вибрати студента зі списку' };
 
-  propagateChange = (value?) => {};
-
   constructor(private studentService: StudentService) {
     this.dataSource = Observable.create((observer: any) => {
       if (this.val.length < 3) {
@@ -44,6 +42,8 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
       });
     });
   }
+
+  propagateChange = (value?) => {};
 
   registerOnChange(fn) {
     this.propagateChange = fn;

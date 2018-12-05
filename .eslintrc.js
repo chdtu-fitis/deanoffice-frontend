@@ -94,27 +94,27 @@ module.exports = {
     'typescript/adjacent-overload-signatures': 'error',
     'typescript/class-name-casing': 'error',
     // 'typescript/explicit-function-return-type': 'error',
-    // 'typescript/generic-type-naming': 'error',
-    // 'typescript/member-ordering': [
-    //   'error',
-    //   {
-    //     'classes': [
-    //       'field', 'constructor', 'method'
-    //     ],
-    //   }
-    // ],
-    // 'typescript/no-array-constructor': 'error',
-    // 'typescript/no-non-null-assertion': 'error',
+    'typescript/generic-type-naming': 'error',
+    'typescript/member-ordering': [
+      'error',
+      {
+        'classes': [
+          'field', 'constructor', 'method'
+        ],
+      }
+    ],
+    'typescript/no-array-constructor': 'error',
+    'typescript/no-non-null-assertion': 'error',
     'typescript/no-unused-vars': ['warn'],
-    // 'typescript/no-use-before-define': [
-    //   'error',
-    //   {
-    //     functions: false,
-    //     classes: true,
-    //     variables: true,
-    //     typedefs: true
-    //   }
-    // ],
-    // 'typescript/type-annotation-spacing': 'error'
+    'typescript/no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: false,
+        variables: true,
+        typedefs: true
+      }
+    ],
+    'typescript/type-annotation-spacing': 'error'
   }
 };
