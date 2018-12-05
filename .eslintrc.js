@@ -72,23 +72,23 @@ module.exports = {
         },
       }
     ],
-    // 'array-bracket-newline': [
-    //   'error',
-    //   {
-    //     multiline: true,
-    //     minItems: 2
-    //   }
-    // ],
-    // 'comma-spacing': [
-    //   'error',
-    //   {
-    //     before: false,
-    //     after: true
-    //   }
-    // ],
-    // 'array-bracket-spacing': ['error', 'always'],
-    // 'no-var': 'error',
-    // 'camelcase': 'error',
+    'array-bracket-newline': [
+      'error',
+      {
+        multiline: true,
+        minItems: 2
+      }
+    ],
+    'comma-spacing': [
+      'error',
+      {
+        before: false,
+        after: true
+      }
+    ],
+    'array-bracket-spacing': ['error', 'always'],
+    'no-var': 'error',
+    'camelcase': 'error',
     // "space-infix-ops": 'error',
     // 'space-unary-ops': ['error', {'words': true, 'nonwords': false}],
     // 'typescript/adjacent-overload-signatures': 'error',

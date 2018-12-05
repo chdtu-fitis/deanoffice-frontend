@@ -38,7 +38,7 @@ export class StudentService {
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {
     const params = !studentDegree.student.id
-      ? { params: { new_student: 'true' } }
+      ? { params: { 'new_student': 'true' } }
       : {};
     return this.http.post<StudentDegree>(`${this.url}/degrees`, studentDegree, params);
   }
