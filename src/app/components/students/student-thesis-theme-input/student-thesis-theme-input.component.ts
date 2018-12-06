@@ -107,10 +107,11 @@ export class StudentThesisThemeInputComponent implements OnInit {
       for (const student of group.thesisDataBeans) {
         if (student.selected) {
           const obj = {
-            thesisSupervisor: student.fullSupervisorName,
+            studentFullName: student.fullName,
             studentDegreeId: student.id,
             thesisName: student.thesisName,
-            thesisNameEng: student.thesisNameEng
+            thesisNameEng: student.thesisNameEng,
+            thesisSupervisor: student.fullSupervisorName
           };
           chosenStudents.push(obj);
         }
