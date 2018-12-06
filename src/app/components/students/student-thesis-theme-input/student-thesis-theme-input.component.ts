@@ -26,7 +26,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
   tableView = false;
   listThesisDataForGroup: ThesisByGroups[];
   missingThesisDataRed: MissingThesisDataRedDTO[];
-  updatedStudentsDegrees: number;
+  updatedStudentDegrees: number;
   notUpdatedStudentDegrees: string[];
 
   constructor(private thesisService: ThesisInputService) {
@@ -71,6 +71,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
 
   hideModal() {
     this.modal.hide();
+
     setTimeout(() => {
       this.tableView = false;
       this.saveButton = false;
@@ -80,11 +81,11 @@ export class StudentThesisThemeInputComponent implements OnInit {
   }
 
   saveChanges() {
-    const importedThesisDataDTOs = this.getSelectedStudents();
-    this.thesisService.updateData(importedThesisDataDTOs).subscribe(
+    const thesisDataForSaveDTOs = this.getSelectedStudents();
+    this.thesisService.updateData(thesisDataForSaveDTOs).subscribe(
       response => {
         this.notUpdatedStudentDegrees = response.notUpdatedStudentDegrees;
-        this.updatedStudentsDegrees = response.updatedStudentDegrees;
+        this.updatedStudentDegrees = response.updatedStudentDegrees;
         this.modalSize = '';
         this.modalName = 'Дані змінено';
         this.tableView = !this.tableView;
@@ -105,10 +106,12 @@ export class StudentThesisThemeInputComponent implements OnInit {
     for (const group of this.listThesisDataForGroup) {
       for (const student of group.thesisDataBeans) {
         if (student.selected) {
-          const obj = {...student};
-          delete obj.fullName;
-          delete obj.oldThesisName;
-          delete obj.selected;
+          const obj = {
+            thesisSupervisor: student.fullSupervisorName,
+            studentDegreeId: student.id,
+            thesisName: student.thesisName,
+            thesisNameEng: student.thesisNameEng
+          };
           chosenStudents.push(obj);
         }
       }

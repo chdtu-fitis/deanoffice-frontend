@@ -11,7 +11,7 @@
 
       <div class="modal-body">
         <tabset #tabset *ngIf="tableView">
-          <tab>
+          <tab class="tab-body" heading="Коректні дані">
             <table *ngFor="let group of listThesisDataForGroup; let i = index" class="table table-sm table-striped table-bordered mt-4">
               <caption class="group-caption"> {{group?.groupName}} </caption>
               <thead>
@@ -36,7 +36,7 @@
               </tr>
             </table>
           </tab>
-          <tab class="tab-body">
+          <tab class="tab-body" heading="Некоректні дані">
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <td>№</td>
@@ -71,7 +71,7 @@
         <div class="loader" *ngIf="uploadInProgress"></div>
 
         <div *ngIf="resultView" class="m-2">
-          <p> Додано студентів: {{updatedStudentsDegrees}}</p>
+          <p> Додано студентів: {{updatedStudentDegrees}}</p>
           <table class="table table-sm table-striped table-bordered mt-4 result-table"
                  *ngIf="notUpdatedStudentDegrees.length !== 0 && notUpdatedStudentDegrees !== null">
             <caption>Не додані студенти:</caption>

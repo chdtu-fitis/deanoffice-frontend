@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ThesisInputService {
 
-  private url = `${environment.apiUrl}/thesis/thesis-import`;
+  private url = `${environment.apiUrl}/students/thesis-import`;
   constructor(private _http: HttpClient) {}
 
   uploadFile(formData: any): Observable<any> {
