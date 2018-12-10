@@ -12,8 +12,9 @@
       <div class="modal-body">
         <tabset #tabset *ngIf="tableView">
           <tab class="tab-body" heading="Коректні дані">
-            <table *ngFor="let group of listThesisDataForGroup; let i = index" class="table table-sm table-striped table-bordered mt-4">
-              <caption class="group-caption"> {{group?.groupName}} </caption>
+            <table *ngFor="let group of listThesisDataForGroup; let i = index"
+                   class="table table-sm table-striped table-bordered mt-4">
+              <caption class="group-caption"> {{group?.groupName}}</caption>
               <thead>
               <td>№</td>
               <td>
@@ -47,7 +48,7 @@
               <td>Куратор дипломної роботи</td>
               <td>Повідомлення</td>
               </thead>
-              <tr *ngFor="let student of missingThesisDataRed; let i = index" >
+              <tr *ngFor="let student of missingThesisDataRed; let i = index">
                 <td>{{ i+1 }}</td>
                 <td>{{ student?.thesisPrimaryData?.fullName }}</td>
                 <td>{{ student?.thesisPrimaryData?.thesisName }}</td>
@@ -73,7 +74,7 @@
         <div *ngIf="resultView" class="m-2">
           <p> Додано тем для студентів: {{updatedStudentDegrees}}</p>
           <table class="table table-sm table-striped table-bordered mt-4 result-table"
-                 *ngIf="notUpdatedStudentDegrees.length !== 0 && notUpdatedStudentDegrees !== null">
+                 *ngIf="isNotUpdatedThesisTheme(notUpdatedStudentDegrees)">
             <caption>Не додані студенти:</caption>
             <tr *ngFor="let student of notUpdatedStudentDegrees">
               <td>{{ student }}</td>
@@ -88,7 +89,9 @@
                 (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtension">
           Завантажити
         </button>
-        <button class="btn btn-success" *ngIf="tableView" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>
+        <button class="btn btn-success" *ngIf="tableView" type="button" (click)="saveChanges()" [disabled]="saveButton">
+          Зберегти
+        </button>
         <button class="btn btn-primary" *ngIf="tableView" type="button" (click)="hideModal()">Відмінити</button>
         <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
       </div>

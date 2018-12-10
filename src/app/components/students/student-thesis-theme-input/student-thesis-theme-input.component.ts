@@ -64,6 +64,10 @@ export class StudentThesisThemeInputComponent implements OnInit {
     );
   }
 
+  isNotUpdatedThesisTheme(amount) {
+    return amount.length !== 0 && amount !== null;
+  }
+
   changeModal() {
     this.modalSize = 'modal-full';
     this.tableView = true;
