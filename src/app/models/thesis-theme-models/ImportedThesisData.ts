@@ -1,5 +1,5 @@
 
-export class ImportedThesisDataDTO {
+export class ImportedThesisData {
   id?: number;
   fullName?: string;
   thesisName?: string;
