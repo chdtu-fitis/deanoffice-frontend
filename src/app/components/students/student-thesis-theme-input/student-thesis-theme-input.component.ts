@@ -106,22 +106,18 @@ export class StudentThesisThemeInputComponent implements OnInit {
   }
 
   private getSelectedStudents() {
-    const chosenStudents = [];
-    for (const group of this.listThesisDataForGroup) {
-      for (const student of group.thesisDataBeans) {
-        if (student.selected) {
-          const obj = {
-            studentFullName: student.fullName,
-            studentDegreeId: student.id,
-            thesisName: student.thesisName,
-            thesisNameEng: student.thesisNameEng,
-            thesisSupervisor: student.fullSupervisorName
-          };
-          chosenStudents.push(obj);
+    return this.listThesisDataForGroup
+      .map(group => group.thesisDataBeans.filter(student => student.selected))
+      .reduce((prev, curr) => prev.concat(curr))
+      .map(student => {
+        return {
+          studentFullName: student.fullName,
+          studentDegreeId: student.id,
+          thesisName: student.thesisName,
+          thesisNameEng: student.thesisNameEng,
+          thesisSupervisor: student.fullSupervisorName
         }
-      }
-    }
-    return chosenStudents;
+      });
   }
 
   onShow() {
