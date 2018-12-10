@@ -14,7 +14,7 @@ export class ThesisInputService {
       .catch(this._errorHandler);
   }
   updateData(data: any): Observable<any> {
-    return this._http.post(`${this.url}/update`, data)
+    return this._http.put(`${this.url}`, data)
       .catch(this._errorHandler);
   }
 
