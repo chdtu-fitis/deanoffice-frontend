@@ -74,7 +74,7 @@
         <div *ngIf="resultView" class="m-2">
           <p> Додано тем для студентів: {{updatedStudentDegrees}}</p>
           <table class="table table-sm table-striped table-bordered mt-4 result-table"
-                 *ngIf="isNotUpdatedThesisTheme(notUpdatedStudentDegrees)">
+                 *ngIf="isNotUpdatedThesisTheme()">
             <caption>Не додані студенти:</caption>
             <tr *ngFor="let student of notUpdatedStudentDegrees">
               <td>{{ student }}</td>

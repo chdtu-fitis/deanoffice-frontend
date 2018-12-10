@@ -64,8 +64,8 @@ export class StudentThesisThemeInputComponent implements OnInit {
     );
   }
 
-  isNotUpdatedThesisTheme(amount) {
-    return amount.length !== 0 && amount !== null;
+  isNotUpdatedThesisTheme() {
+    return this.notUpdatedStudentDegrees.length !== 0 && this.notUpdatedStudentDegrees !== null;
   }
 
   changeModal() {
