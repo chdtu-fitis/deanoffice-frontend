@@ -8,6 +8,8 @@
   <div class="creation-form">
     <div class="row">
       <div class="form-group col">
+        <!--TODO put in a separate component-->
+        <!--TODO use ngx-bootstrap-->
         <label for="name" class="col-form-label">Назва курсу</label>
         <input
           name="name"
@@ -19,7 +21,6 @@
           [ngbTypeahead]="search"
           [inputFormatter]="formatter"
           [resultFormatter]="formatter"
-          (change)="checkCourseName($event.target.value)"
           (focus)="focus$.next($event.target.value)"
           (click)="click$.next($event.target.value)"
           #instance="ngbTypeahead">
@@ -49,9 +50,11 @@
       </div>
       <div class="form-group col-5">
         <label for="kc" class="col-form-label">Тип контролю</label>
-        <select name="kc" id="kc" required class="form-control mr-2 ng-pristine ng-valid ng-touched"
-                [(ngModel)]="course.course.knowledgeControl">
-          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+        <select name="kc" id="kc" required class="form-control mr-2"
+                [(ngModel)]="course.course.knowledgeControl" [compareWith]="compareById">
+          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">
+            {{kc.name}}
+          </option>
         </select>
       </div>
     </div>

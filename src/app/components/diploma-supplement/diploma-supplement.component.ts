@@ -25,6 +25,7 @@ export class DiplomaSupplementComponent implements OnInit {
   supplementLoading = false;
   gradePercentLoading = false;
   gradesTableReportLoading = false;
+  coursesTableReportLoading = false;
   studentDataCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
@@ -86,6 +87,14 @@ export class DiplomaSupplementComponent implements OnInit {
     this.gradesTableReportLoading = true;
     this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
         this.gradesTableReportLoading = false;
+      }
+    );
+  }
+
+  onFullCoursesTableReport(): void {
+    this.coursesTableReportLoading = true;
+    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(a => {
+        this.coursesTableReportLoading = false;
       }
     );
   }

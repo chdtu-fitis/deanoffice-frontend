@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import { MatIconModule } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
@@ -27,6 +28,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {SynchronizeWithEdeboComponent} from './synchronize-with-edebo/synchronize-with-edebo.component';
 import { AssignStudentsToGroupComponent } from './assign-students-to-group/assign-students-to-group.component';
 import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
+import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
@@ -55,6 +57,7 @@ export const studentRoutes: Routes = [
     StudentAcademicVacationComponent,
     AssignStudentsToGroupComponent,
     StudentThesisThemeInputComponent,
+    AssignRecordBookNumberToStudentsComponent,
     SynchronizeWithEdeboComponent
   ],
   imports: [
@@ -65,7 +68,8 @@ export const studentRoutes: Routes = [
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
     RouterModule.forChild(studentRoutes),
-    PipeModule
+    PipeModule,
+    MatIconModule
   ]
 })
 export class StudentsModule {}

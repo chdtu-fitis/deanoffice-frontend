@@ -30,6 +30,9 @@ export class ExamReportComponent implements OnInit {
   selectedSemester: number;
 
   examReportLoading = false;
+  examReportJournalTableLoading = false;
+  gradesJournalStudentsTableLoading = false;
+  gradesJournalCoursesTableLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
@@ -106,7 +109,24 @@ export class ExamReportComponent implements OnInit {
   }
 
   onExamReportJournalBuild(): void {
-      this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear-1)*2+this.selectedSemester);
+    this.examReportJournalTableLoading = true;
+    this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear-1)*2+this.selectedSemester).subscribe(a => {
+      this.examReportJournalTableLoading = false;
+    });
+  }
+
+  onGradesJournalStudentsListBuild() {
+    this.gradesJournalStudentsTableLoading = true;
+    this.examReportService.buildGradesJournalStudentsPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.gradesJournalStudentsTableLoading = false;
+    });
+  }
+
+  onGradesJournalCoursesListBuild() {
+    this.gradesJournalCoursesTableLoading = true;
+    this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.gradesJournalCoursesTableLoading = false;
+    });
   }
 
   setInitialSemester(): void {
@@ -117,5 +137,4 @@ export class ExamReportComponent implements OnInit {
       this.selectedSemester = 1;
     }
   }
-
 }

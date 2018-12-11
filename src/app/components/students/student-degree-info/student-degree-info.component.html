@@ -19,7 +19,11 @@
               [customClass]="tabValidity[i] ? 'tab-invalid' : ''"
             >
               <div [formArrayName]="i">
-                <b class="d-block mt-2">Cпеціальність: {{model.degrees[i].specialization.speciality.name}}</b>
+                <b class="d-block mt-2">
+                  Cпеціальність:
+                  {{model.degrees[i].specialization.speciality.code}}
+                  {{model.degrees[i].specialization.speciality.name}}
+                </b>
                 <b class="d-block">Спеціалізація: {{model.degrees[i].specialization.name}}</b>
                 <div class="row mt-2">
                   <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
@@ -139,18 +143,88 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col">
+                  <div class="form-group col-12 col-sm-6 col-md-4 col-lg-4">
                     <label for="previousDiplomaIssuedBy">Ким виданий попередній документ про освіту</label>
                     <input formControlName="previousDiplomaIssuedBy" class="form-control" id="previousDiplomaIssuedBy"
                            [appValidation]="degree.controls.previousDiplomaIssuedBy">
                     <app-validation-errors [control]="degree.controls.previousDiplomaIssuedBy"></app-validation-errors>
                   </div>
-                  <!--<div class="form-group col">-->
-                    <!--<label for="previousDiplomaType">Тип попереднього диплому</label>-->
-                    <!--<input formControlName="previousDiplomaType" class="form-control" id="previousDiplomaType"-->
-                           <!--[appValidation]="degree.controls.previousDiplomaType">-->
-                    <!--<app-validation-errors [control]="degree.controls.previousDiplomaType"></app-validation-errors>-->
-                  <!--</div>-->
+                  <div class="form-group col-12 col-sm-6 col-md-4 col-lg-4">
+                    <label for="previousDiplomaIssuedByEng">Ким виданий попередній документ про освіту (англ.)</label>
+                    <input formControlName="previousDiplomaIssuedByEng" class="form-control" id="previousDiplomaIssuedByEng"
+                           [appValidation]="degree.controls.previousDiplomaIssuedByEng">
+                    <app-validation-errors [control]="degree.controls.previousDiplomaIssuedByEng"></app-validation-errors>
+                  </div>
+                  <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                    <label for="previousDiplomaType">Тип попереднього диплому</label>
+                    <select formControlName="previousDiplomaType" class="form-control" id="previousDiplomaType">
+                      <option *ngFor="let key of diplomaTypeKey" [ngValue]="key">{{diplomaType[key]}}</option>
+                    </select>
+                    <app-validation-errors [control]="degree.controls.previousDiplomaType"></app-validation-errors>
+                  </div>
+                  <div class="form-group col-12 col-sm-6 col-md-4 col-lg-1">
+                    <label for="diplomaWithHonours">Диплом з відзнакою</label>
+                    <input formControlName="diplomaWithHonours"
+                             class="form-control" type="checkbox" id="diplomaWithHonours" [appValidation]="degree.controls.diplomaWithHonours">
+                    <app-validation-errors [control]="degree.controls.diplomaWithHonours"></app-validation-errors>
+                  </div>
+                </div>
+                <div *ngIf="degree.controls.active.value">
+                  <h6 class="mb-2">Попередні навчальні заклади</h6>
+                  <div *ngIf="degree.get('studentPreviousUniversities').controls.length" formArrayName="studentPreviousUniversities">
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <td>Назва навчального закладу</td>
+                        <td>Дата початоку навчання</td>
+                        <td>Дата закінчення навчання</td>
+                        <td>Номер сертифікату</td>
+                        <td>Дата отримання сертифікату</td>
+                        <td></td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <ng-container *ngFor="let SPU of degree.get('studentPreviousUniversities').controls; let i = index ">
+                        <tr [formArrayName]="i">
+                          <td>
+                            <input formControlName="universityName" class="form-control" id="universityName"
+                                   [appValidation]="SPU.controls.universityName">
+                            <app-validation-errors [control]="SPU.controls.universityName"></app-validation-errors>
+                          </td>
+                          <td>
+                            <input type="date" formControlName="studyStartDate" class="form-control" id="studyStartDate"
+                                     [appValidation]="SPU.controls.studyStartDate">
+                            <app-validation-errors [control]="SPU.controls.studyStartDate"></app-validation-errors>
+                          </td>
+                          <td>
+                            <input type="date" formControlName="studyEndDate" class="form-control" id="studyEndDate"
+                                     [appValidation]="SPU.controls.studyEndDate">
+                            <app-validation-errors [control]="SPU.controls.studyEndDate"></app-validation-errors>
+                          </td>
+                          <td>
+                            <input formControlName="academicCertificateNumber" class="form-control" id="academicCertificateNumber"
+                                      [appValidation]="SPU.controls.academicCertificateNumber">
+                            <app-validation-errors [control]="SPU.controls.academicCertificateNumber"></app-validation-errors>
+                          </td>
+                          <td>
+                            <input type="date" formControlName="academicCertificateDate" class="form-control" id="academicCertificateDate"
+                                     [appValidation]="SPU.controls.academicCertificateDate">
+                            <app-validation-errors [control]="SPU.controls.academicCertificateDate"></app-validation-errors>
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-default btn-circle" title="Видалити"
+                                    *ngIf="SPU.controls.id" (click)="deleteStudentPreviousUniversity(SPU.controls.id.value)">
+                              <mat-icon svgIcon="cancel"></mat-icon>
+                            </button>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      </tbody>
+                    </table>
+                  </div>
+                  <button (click)="addStudentPreviousUniversity()" class="btn btn-success">
+                    Додати попередній навчальний заклад
+                  </button>
                 </div>
               </div>
             </tab>

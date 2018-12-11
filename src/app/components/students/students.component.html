@@ -77,6 +77,12 @@
         (click)="assignStudentsToGroup.openModal(selected)">
         Призначити групу
       </button>
+      <button
+        *ngIf="selected.length > 1"
+        class="btn btn-success w-100 mt-3"
+        (click)="assignRecordBookNumberToStudents.openModal(selected)">
+        Призначити номер заліковки
+      </button>
     </app-sidebar>
   </div>
 </div>
@@ -97,6 +103,11 @@
   (onSubmit)="onRemove($event)"
   #studentExpelModal
 ></app-student-expel>
+
+<assign-record-book-number-to-students
+  (onSubmit)="getStudents()"
+  #assignRecordBookNumberToStudents
+></assign-record-book-number-to-students>
 
 <assign-students-to-group
   [groups]="groups"
