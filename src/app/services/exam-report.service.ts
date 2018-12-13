@@ -24,7 +24,12 @@ export class ExamReportService {
   }
 
   buildGradesJournalCoursesPdf(year: number, degreeId: number): any {
-    const url = `${this.documentsUrl}/grades-journal/courses?degreeId=${degreeId}&year=${year}`;
+    const url = `${this.documentsUrl}/grades-journal/courses/pdf?degreeId=${degreeId}&year=${year}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildGradesJournalCoursesDocx(year: number, degreeId: number): any {
+    const url = `${this.documentsUrl}/grades-journal/courses/docx?degreeId=${degreeId}&year=${year}`;
     return this.fileService.downloadFile(url);
   }
 }
