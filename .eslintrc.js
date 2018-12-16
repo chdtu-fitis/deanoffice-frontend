@@ -2,7 +2,9 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    es6: true
+    es6: true,
+    mocha: true,
+    jasmine: true,
   },
   parser: 'typescript-eslint-parser',
   plugins: [ 'typescript' ],
@@ -22,16 +24,9 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'no-undef': 'error',
-    'no-unused-vars': [
-      'error',
-      {
-        vars: 'all',
-        args: 'after-used'
-      }
-    ],
     'no-cond-assign': ['error', 'always'],
     eqeqeq: ['error', 'always'],
-    'no-console': 'error',
+    'no-console': ['error', { allow: ['error'] } ],
     'no-debugger': 'error',
     'block-scoped-var': 'error',
     'no-loop-func': 'error',
@@ -41,7 +36,7 @@ module.exports = {
       'error',
       {
         functions: false,
-        classes: true,
+        classes: false,
         variables: true
       }
     ],
@@ -63,9 +58,18 @@ module.exports = {
           multiline: true,
           minProperties: 2
         },
-        ObjectPattern: 'never',
-        ImportDeclaration: 'never',
-        ExportDeclaration: 'never',
+        ObjectPattern: {
+          multiline: true,
+          minProperties: 5
+        },
+        ImportDeclaration: {
+          multiline: true,
+          minProperties: 5
+        },
+        ExportDeclaration: {
+          multiline: true,
+          minProperties: 5
+        },
       }
     ],
     'array-bracket-newline': [
@@ -101,12 +105,12 @@ module.exports = {
     ],
     'typescript/no-array-constructor': 'error',
     'typescript/no-non-null-assertion': 'error',
-    'typescript/no-unused-vars': 'error',
+    'typescript/no-unused-vars': ['warn'],
     'typescript/no-use-before-define': [
       'error',
       {
         functions: false,
-        classes: true,
+        classes: false,
         variables: true,
         typedefs: true
       }
