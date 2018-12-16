@@ -8,6 +8,7 @@ import { AuthenticationService } from './authentication.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -23,8 +24,8 @@ export class TokenInterceptor implements HttpInterceptor {
     request = request.clone({ setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` } });
     return next
       .handle(request)
-      .do(() => {})
-      .catch((response: any) => {
+      .do((): void => {}) // TODO ??????????????????
+      .catch((response: any): ErrorObservable => {
         if (response instanceof HttpErrorResponse) {
           const status = +response.status;
           if (status === 401 || status === 403) {

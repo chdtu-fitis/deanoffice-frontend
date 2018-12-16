@@ -6,7 +6,7 @@ export class DashboardGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
-  canActivate() {
+  canActivate(): boolean {
     if (localStorage.getItem('currentUser')) {
       return true;
     }
@@ -20,7 +20,7 @@ export class LoginGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
-  canActivate() {
+  canActivate(): boolean {
     if (!localStorage.getItem('currentUser')) {
       return true;
     }

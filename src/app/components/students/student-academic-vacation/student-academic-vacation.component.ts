@@ -33,7 +33,7 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
         '', Validators.required
       ],
       orderNumber: [
-        '', Validators.required 
+        '', Validators.required
       ],
       orderDate: [
         '', Validators.required
@@ -42,7 +42,7 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
         '', Validators.required
       ],
       orderReasonId: [
-        '', Validators.required 
+        '', Validators.required
       ],
       studentDegreeId: [
         '', Validators.required
@@ -67,7 +67,7 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
     if (this.form.invalid) {
       return;
     }
-    this.studentService.startAcademicVacation(this.form.value).subscribe(() => {
+    this.studentService.startAcademicVacation(this.form.value).subscribe((): void => {
       this.onSubmit.emit(this.form.value.studentDegreeId);
       this.hideModal();
     });

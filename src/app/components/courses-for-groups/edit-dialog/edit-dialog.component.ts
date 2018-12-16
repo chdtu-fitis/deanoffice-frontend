@@ -39,7 +39,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
+    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]): void => {
       this.courseNames = courseNames;
     });
     this.knowledgeControlService.getAll().subscribe(kc => {
@@ -75,7 +75,7 @@ export class EditDialogComponent implements OnInit {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
       newCourse: this.course.course
-    }).subscribe((course: Course) => {
+    }).subscribe((course: Course): void => {
       this.courseFromTable.course = course;
     });
     this.activeModal.close('Close click');

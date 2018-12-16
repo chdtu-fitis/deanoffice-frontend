@@ -38,13 +38,13 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     this.form = this.fb.group({
       photoUrl: this.model.photoUrl,
       name: [
-        this.model.name, Validators.required 
+        this.model.name, Validators.required
       ],
       surname: [
         this.model.surname, Validators.required
       ],
       patronimic: [
-        this.model.patronimic, Validators.required 
+        this.model.patronimic, Validators.required
       ],
       nameEng: this.model.nameEng,
       surnameEng: this.model.surnameEng,
@@ -54,7 +54,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
         this.model.sex, Validators.required
       ],
       birthDate: [
-        this.model.birthDate, Validators.required 
+        this.model.birthDate, Validators.required
       ],
       registrationAddress: this.model.registrationAdress,
       actualAddress: this.model.actualAdress,
@@ -81,8 +81,9 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       return;
     }
     const { id } = this.model;
-    this.studentService.updateStudent(Object.assign(this.form.value, { id }))
-      .subscribe(() => {
+    this.studentService
+      .updateStudent(Object.assign(this.form.value, { id }))
+      .subscribe((): void => {
         this.onSubmit.emit();
         this.modal.hide();
       });

@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, OnInit, Output, ViewChild 
+  Component, EventEmitter, Input, OnInit, Output, ViewChild
 } from '@angular/core';
 import { Course } from '../../../models/Course';
 import { KnowledgeControl } from '../../../models/KnowlegeControl';
@@ -62,7 +62,7 @@ export class CourseCreationComponent implements OnInit {
       this.knowledgeControl = kc;
       this.course.knowledgeControl = this.knowledgeControl[0];
     });
-    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
+    this.courseService.getCourseNames().subscribe((courseNames: CourseName[]): void => {
       this.courseNames = courseNames;
     });
   }

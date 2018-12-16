@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, OnInit, Output 
+  Component, EventEmitter, Input, OnInit, Output
 } from '@angular/core';
 
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -92,7 +92,7 @@ export class CopyCoursesDialogComponent implements OnInit {
     this.courseForGroupService.createCoursesForGroupNewSem(
       this.selectedSemesterTo,
       this.coursesForGroupForCopyIds
-    ).subscribe(courses => {
+    ).subscribe((courses: CourseForGroup[]): void => {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });

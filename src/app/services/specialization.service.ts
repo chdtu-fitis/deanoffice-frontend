@@ -32,7 +32,7 @@ export class SpecializationService {
   getById(sourceId: number): Observable<Specialization> {
     return this._httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`)
       .pipe(catchError(forObservable('Отриманная спеціалізації по Id', [])))
-      .map(data => data as Specialization);
+      .map((data: Object): Specialization => data as Specialization);
   }
 
   update(body: Specialization): Promise<any> {

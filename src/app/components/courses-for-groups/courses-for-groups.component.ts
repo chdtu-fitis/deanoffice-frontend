@@ -21,7 +21,7 @@ import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.componen
   templateUrl: './courses-for-groups.component.html',
   styleUrls: [ './courses-for-groups.component.scss' ],
   providers: [
-    CourseService, GroupService 
+    CourseService, GroupService
   ]
 })
 export class CoursesForGroupsComponent implements OnInit {
@@ -246,9 +246,9 @@ export class CoursesForGroupsComponent implements OnInit {
       newCourses: newCourses,
       updatedCourses: updatedCourses,
       deleteCoursesIds: this.deleteCoursesIds
-    }).subscribe(() => {
+    }).subscribe((): void => {
       this.refresh();
-      setTimeout(() => {
+      setTimeout((): void => {
         this.onSemesterChange();
       }, 10);
     },

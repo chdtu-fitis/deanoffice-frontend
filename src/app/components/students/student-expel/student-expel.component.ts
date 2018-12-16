@@ -27,13 +27,13 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     super();
     this.form = this.fb.group({
       orderNumber: [
-        '', Validators.required 
+        '', Validators.required
       ],
       orderDate: [
         '', Validators.required
       ],
       applicationDate: [
-        '', Validators.required 
+        '', Validators.required
       ],
       expelDate: [
         '', Validators.required
@@ -73,7 +73,7 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     if (this.form.invalid) {
       return;
     }
-    this.studentService.expelStudents(this.form.value).subscribe(() => {
+    this.studentService.expelStudents(this.form.value).subscribe((): void => {
       this.onSubmit.emit(this.form.value.studentDegreeIds);
       this.modal.hide();
     });

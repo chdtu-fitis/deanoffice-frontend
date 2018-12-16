@@ -4,26 +4,26 @@ import { Observable } from 'rxjs/Observable';
 
 import { CourseForGroup } from '../models/CourseForGroup';
 import { environment } from '../../environments/environment';
+import { Course } from '../models/Course';
 
 @Injectable()
 export class CourseForGroupService {
   private url = `${environment.apiUrl}`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  changeCourse(groupId, body): Observable<Course> {
+    return this.http.put<Course>(`${this.url}/groups/${groupId}/courses`, body);
   }
 
-  changeCourse(groupId, body) {
-    return this.http.put(`${this.url}/groups/${groupId}/courses`, body);
-  }
-
-  createCoursesForGroup(groupId, body) {
+  createCoursesForGroup(groupId, body): Observable<Object> {
     return this.http.post(`${this.url}/groups/${groupId}/courses`, body);
   }
 
-  createCoursesForGroupNewSem(semester, courseForGroupIds) {
+  createCoursesForGroupNewSem(semester, courseForGroupIds): Observable<CourseForGroup[]> {
     const data = {
       semester,
-      courseForGroupIds 
+      courseForGroupIds
     };
     return this.http.get<CourseForGroup[]>(`${this.url}/courses/other-semester`, { params: data });
   }

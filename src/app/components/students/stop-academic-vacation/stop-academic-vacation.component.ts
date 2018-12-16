@@ -27,13 +27,13 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
     super();
     this.form = this.fb.group({
       orderNumber: [
-        '', Validators.required 
+        '', Validators.required
       ],
       orderDate: [
-        '', Validators.required 
+        '', Validators.required
       ],
       payment: [
-        '', Validators.required 
+        '', Validators.required
       ],
       renewDate: [
         '', Validators.required
@@ -42,7 +42,7 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
         '', Validators.required
       ],
       studentAcademicVacationId: [
-        '', Validators.required 
+        '', Validators.required
       ],
       studentGroupId: [
         '', Validators.required
@@ -67,7 +67,7 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
     if (this.form.invalid) {
       return;
     }
-    this.studentService.stopAcademicVacation(this.form.value).subscribe(() => {
+    this.studentService.stopAcademicVacation(this.form.value).subscribe((): void => {
       this.onSubmit.emit(this.form.value.studentAcademicVacationId);
       this.modal.hide();
     });

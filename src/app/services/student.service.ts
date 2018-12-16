@@ -64,15 +64,15 @@ export class StudentService {
     });
   }
 
-  updateStudent(student: Student) {
+  updateStudent(student: Student): Observable<Object> {
     return this.http.put<Student>(`${this.url}/`, student);
   }
 
-  updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]) {
+  updateStudentDegreesByStudentId(id: number, degrees: StudentDegree[]): Observable<Object> {
     return this.http.put(`${this.url}/${id}/degrees/`, degrees);
   }
 
-  expelStudents(studentDegrees: any[]) {
+  expelStudents(studentDegrees: any[]): Observable<Object> {
     return this.http.post(`${this.url}/degrees/expels`, studentDegrees);
   }
 
@@ -81,15 +81,15 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(url);
   }
 
-  renewStudent(expelledStudent) {
+  renewStudent(expelledStudent): Observable<Object> {
     return this.http.post(`${this.url}/degrees/expels/renewed`, expelledStudent);
   }
 
-  stopAcademicVacation(student) {
+  stopAcademicVacation(student): Observable<Object> {
     return this.http.post(`${this.url}/degrees/academic-vacations/renewed`, student);
   }
 
-  startAcademicVacation(vacationData) {
+  startAcademicVacation(vacationData): Observable<Object> {
     return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
   }
 }

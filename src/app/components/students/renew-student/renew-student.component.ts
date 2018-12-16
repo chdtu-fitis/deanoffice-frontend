@@ -28,13 +28,13 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
     super();
     this.form = this.fb.group({
       orderNumber: [
-        '', Validators.required 
+        '', Validators.required
       ],
       orderDate: [
-        '', Validators.required 
+        '', Validators.required
       ],
       payment: [
-        '', Validators.required 
+        '', Validators.required
       ],
       renewDate: [
         '', Validators.required
@@ -49,13 +49,13 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
         '', Validators.required
       ],
       academicCertificateIssuedBy: [
-        '', Validators.required 
+        '', Validators.required
       ],
       studentExpelId: [
         '', Validators.required
       ],
       studentGroupId: [
-        '', Validators.required 
+        '', Validators.required
       ]
     });
     groupService.getGroups().subscribe(groups => this.groups = groups);
@@ -78,11 +78,11 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
       return;
     }
     this.studentService.renewStudent(this.form.value).subscribe(
-      () => {
+      (): void => {
         this.onSubmit.emit(this.form.value.studentExpelId);
         this.modal.hide();
       },
-      (error) => {
+      (error): void => {
         forObservable('Поновлення студента', [])(error);
       });
   }

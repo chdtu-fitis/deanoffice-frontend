@@ -20,15 +20,15 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<boolean> {
     return this.http.post(`${environment.apiUrl}/login`, JSON.stringify({
       username: username,
-      password: password 
+      password: password
     }))
-      .map((response: any) => {
+      .map((response: any): boolean => {
         let token = response && response.token;
         if (token) {
           this.token = token;
           localStorage.setItem('currentUser', JSON.stringify({
             username: username,
-            token: token 
+            token: token
           }));
           this.isLoggedIn.next(true);
           return true;

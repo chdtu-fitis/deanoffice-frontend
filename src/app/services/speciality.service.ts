@@ -8,8 +8,7 @@ import { environment } from '../../environments/environment';
 export class SpecialityService {
     private url = `${environment.apiUrl}/specialities`;
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     getSpecialities(): Observable<Speciality[]> {
       return this.http.get<Speciality[]>(this.url);

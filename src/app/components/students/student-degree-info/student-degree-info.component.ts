@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, Output, ViewChild 
+  Component, EventEmitter, Input, Output, ViewChild
 } from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -141,9 +141,11 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
       return;
     }
     const degrees = this.form.value.degrees.filter(degree => degree.active);
-    this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
-      this.onSubmit.emit();
-      this.modal.hide();
-    });
+    this.studentService
+      .updateStudentDegreesByStudentId(this.model.id, degrees)
+      .subscribe((): void => {
+        this.onSubmit.emit();
+        this.modal.hide();
+      });
   }
 }
