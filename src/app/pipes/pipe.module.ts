@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CoursesSearchPipe } from './courses-search.pipe';
 import { GroupSearchPipe } from './group-search.pipe';
 import { TeacherSearchPipe } from './teacher-search.pipe';
@@ -26,7 +26,7 @@ import { NameWithInitialsPipe } from './name-with-initials.pipe';
   ]
 })
 export class PipeModule {
-  static forRoot() {
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: PipeModule,
       providers: [

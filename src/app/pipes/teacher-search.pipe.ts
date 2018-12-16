@@ -10,7 +10,7 @@ export class TeacherSearchPipe implements PipeTransform {
     if (!searchText)
       return items;
     searchText = searchText.toLowerCase();
-    return items.filter( teacher => {
+    return items.filter((teacher: Teacher): boolean => {
       return teacher.surname.toLowerCase().includes(searchText);
     });
   }

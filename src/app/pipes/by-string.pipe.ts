@@ -11,7 +11,7 @@ export class ByStringPipe implements PipeTransform {
       return array;
     }
     propValue = propValue.toLowerCase();
-    return array.filter((item: T) => (item[prop] as string).toLowerCase().includes(propValue));
+    return array.filter((item: T): boolean => (item[prop] as string).toLowerCase().includes(propValue));
   }
 
 }

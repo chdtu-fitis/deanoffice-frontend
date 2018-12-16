@@ -10,7 +10,7 @@ export class GroupSearchPipe implements PipeTransform {
     if (!searchText)
       return items;
     searchText = searchText.toLowerCase();
-    return items.filter( group => {
+    return items.filter((group: StudentGroup): boolean => {
       return group.name.toLowerCase().includes(searchText);
     });
   }
