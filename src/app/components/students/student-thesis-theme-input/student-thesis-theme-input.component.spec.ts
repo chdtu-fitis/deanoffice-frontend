@@ -7,10 +7,8 @@ describe('StudentThesisThemeInputComponent', () => {
   let fixture: ComponentFixture<StudentThesisThemeInputComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ StudentThesisThemeInputComponent ]
-    })
-    .compileComponents();
+    TestBed.configureTestingModule({ declarations: [ StudentThesisThemeInputComponent ] })
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnInit, Output, ViewChild 
+} from '@angular/core';
 import { Course } from '../../../models/Course';
 import { KnowledgeControl } from '../../../models/KnowlegeControl';
 import { CourseService } from '../../../services/course.service';

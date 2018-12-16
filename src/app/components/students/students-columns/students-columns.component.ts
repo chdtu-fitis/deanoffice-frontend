@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, OnInit, Output, ViewChild 
+} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
 import { translations } from '../translations';

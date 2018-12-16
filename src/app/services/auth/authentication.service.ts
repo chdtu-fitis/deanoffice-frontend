@@ -27,7 +27,11 @@ export class AuthenticationService {
         if (token) {
           this.token = token;
           let facultyId = parseInt(response.facultyId);
-          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, facultyId: facultyId}));
+          localStorage.setItem('currentUser', JSON.stringify({
+            username: username,
+            token: token,
+            facultyId: facultyId 
+          }));
           this.isLoggedIn.next(true);
           return true;
         } else {

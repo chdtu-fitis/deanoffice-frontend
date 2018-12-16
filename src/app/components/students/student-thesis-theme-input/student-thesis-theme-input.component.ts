@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
-import {ThesisInputService} from '../../../services/thesis-input.service';
-import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups';
-import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingThesisDataRed';
-import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
-import {ImportedThesisData} from '../../../models/thesis-theme-models/ImportedThesisData';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
+import { ThesisInputService } from '../../../services/thesis-input.service';
+import { ThesisByGroups } from '../../../models/thesis-theme-models/ThesisByGroups';
+import { MissingThesisDataRed } from '../../../models/thesis-theme-models/MissingThesisDataRed';
+import { StudentDegreeFullEdeboData } from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
+import { ImportedThesisData } from '../../../models/thesis-theme-models/ImportedThesisData';
 
 @Component({
   selector: 'student-thesis-theme-input',
   templateUrl: './student-thesis-theme-input.component.html',
-  styleUrls: ['./student-thesis-theme-input.component.scss']
+  styleUrls: [ './student-thesis-theme-input.component.scss' ]
 })
 export class StudentThesisThemeInputComponent implements OnInit {
   @ViewChild('modal') modal: ModalDirective;
@@ -116,7 +116,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
           thesisName: student.thesisName,
           thesisNameEng: student.thesisNameEng,
           thesisSupervisor: student.fullSupervisorName
-        }
+        };
       });
   }
 

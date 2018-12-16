@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
 import { IAppModal } from '../../shared/modal.interface';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ModalMargin } from './models/modal-margin';

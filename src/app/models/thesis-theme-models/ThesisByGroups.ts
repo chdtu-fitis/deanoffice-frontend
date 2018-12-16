@@ -1,4 +1,4 @@
-import {ImportedThesisData} from './ImportedThesisData';
+import { ImportedThesisData } from './ImportedThesisData';
 
 export class ThesisByGroups {
   groupName: string;

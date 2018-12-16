@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output, ViewChild, OnInit, Input } from '@angular/core';
+import {
+  Component, EventEmitter, Output, ViewChild, OnInit, Input 
+} from '@angular/core';
 import { GroupService } from '../../../services/group.service';
 import { GroupModalComponent } from '../group-modal/group-modal.component';
 import { GroupFormComponent } from '../group-form/group-form.component';

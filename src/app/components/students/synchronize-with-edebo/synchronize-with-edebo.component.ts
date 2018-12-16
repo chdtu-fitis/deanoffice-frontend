@@ -63,7 +63,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
   onFileSelected(event) {
     this.selectedFile = <File> event.target.files[0];
     this.wrongExtension = this.checkExtension(this.selectedFile);
-    this.fileName = this.selectedFile.name
+    this.fileName = this.selectedFile.name;
   }
 
   onFileUpload(): void {

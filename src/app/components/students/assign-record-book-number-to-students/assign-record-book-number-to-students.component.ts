@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
+import {
+  FormBuilder, FormControl, FormGroup, FormArray, Validators 
+} from '@angular/forms';
 
 import { ModalDirective } from 'ngx-bootstrap';
 

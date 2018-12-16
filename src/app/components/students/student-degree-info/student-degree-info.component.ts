@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output, ViewChild 
+} from '@angular/core';
 import { MatIconRegistry } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ModalDirective } from 'ngx-bootstrap';

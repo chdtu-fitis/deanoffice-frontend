@@ -12,12 +12,12 @@ import { GradeService } from './grade.service';
 import { FileService } from './file-service';
 import { DegreeService } from './degree.service';
 
-import {DashboardGuard, LoginGuard} from './auth/auth.guard';
-import {PersonalFileGradesStatementService} from "./personal-file-grades-statement.service";
-import {AcademicCertificateService} from "./academic-certificate.service";
-import {EdeboService} from "./edebo.service";
-import {CurrentUserService} from './auth/current-user.service';
-import {ThesisInputService} from './thesis-input.service';
+import { DashboardGuard, LoginGuard } from './auth/auth.guard';
+import { PersonalFileGradesStatementService } from './personal-file-grades-statement.service';
+import { AcademicCertificateService } from './academic-certificate.service';
+import { EdeboService } from './edebo.service';
+import { CurrentUserService } from './auth/current-user.service';
+import { ThesisInputService } from './thesis-input.service';
 
 export const SERVICES = [
   DegreeService,
