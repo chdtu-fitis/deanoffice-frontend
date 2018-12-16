@@ -1,13 +1,14 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { ApplicationUser } from '../../models/ApplicationUser';
 
 @Injectable()
 export class CurrentUserService {
 
-  facultyId() {
-    return this.getUser().facultyId
+  facultyId(): number {
+    return this.getUser().facultyId;
   }
 
-  private getUser() {
-    return JSON.parse(localStorage.getItem('currentUser'))
+  private getUser(): ApplicationUser {
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 }
