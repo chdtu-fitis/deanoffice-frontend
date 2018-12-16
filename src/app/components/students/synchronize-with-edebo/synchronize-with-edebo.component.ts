@@ -52,11 +52,16 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
               private specialityService: SpecialityService) {
   }
 
+  private checkExtension(file): boolean {
+    const extension = file.name.slice(file.name.lastIndexOf('.'));
+    return extension !== '.xlsx';
+  }
+
+
   onFileSelected(event) {
     this.selectedFile = <File> event.target.files[0];
-    let extention = this.selectedFile.name.slice(this.selectedFile.name.lastIndexOf('.'));
-    this.wrongExtension = extention !== '.xlsx';
-    this.fileName = this.selectedFile.name;
+    this.wrongExtension = this.checkExtension(this.selectedFile);
+    this.fileName = this.selectedFile.name
   }
 
   onFileUpload(): void {

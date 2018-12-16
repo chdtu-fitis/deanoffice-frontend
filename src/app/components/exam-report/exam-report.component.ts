@@ -32,7 +32,9 @@ export class ExamReportComponent implements OnInit {
   examReportLoading = false;
   examReportJournalTableLoading = false;
   gradesJournalStudentsTableLoading = false;
-  gradesJournalCoursesTableLoading = false;
+  gradesJournalCoursesTableLoadingPdf = false;
+  gradesJournalCoursesTableLoadingDocx = false;
+  studentsListLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
@@ -42,7 +44,7 @@ export class ExamReportComponent implements OnInit {
       1, 2, 3, 4, 5, 6
     ];
     this.semesters = [
-      1, 2 
+      1, 2
     ];
     this.selectedYear = 1;
     this.setInitialSemester();
@@ -126,11 +128,25 @@ export class ExamReportComponent implements OnInit {
       .subscribe(() => this.gradesJournalStudentsTableLoading = false);
   }
 
-  onGradesJournalCoursesListBuild() {
-    this.gradesJournalCoursesTableLoading = true;
-    this.examReportService
-      .buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id)
-      .subscribe(() => this.gradesJournalCoursesTableLoading = false);
+  onGradesJournalCoursesListBuildPdf() {
+    this.gradesJournalCoursesTableLoadingPdf = true;
+    this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.gradesJournalCoursesTableLoadingPdf = false;
+    });
+  }
+
+  onGradesJournalCoursesListBuildDocx() {
+    this.gradesJournalCoursesTableLoadingDocx = true;
+    this.examReportService.buildGradesJournalCoursesDocx(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.gradesJournalCoursesTableLoadingDocx = false;
+    });
+  }
+
+  onStudentsListBuild() {
+    this.studentsListLoading = true;
+    this.examReportService.buildStudentsList(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.studentsListLoading = false;
+    });
   }
 
   setInitialSemester(): void {

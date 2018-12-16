@@ -12,7 +12,7 @@ export class AuthenticationService {
   public isLoggedIn;
 
   constructor(private http: HttpClient, private router: Router) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
     this.isLoggedIn = new BehaviorSubject<boolean>(!!this.token);
   }
@@ -26,9 +26,11 @@ export class AuthenticationService {
         let token = response && response.token;
         if (token) {
           this.token = token;
+          let facultyId = parseInt(response.facultyId);
           localStorage.setItem('currentUser', JSON.stringify({
-            username: username,
-            token: token
+            username,
+            token,
+            facultyId
           }));
           this.isLoggedIn.next(true);
           return true;
