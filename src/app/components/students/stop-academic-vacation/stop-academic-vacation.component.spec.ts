@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StopAcademicVacationComponent } from './renew-student.component';
+import { StopAcademicVacationComponent } from './stop-academic-vacation.component';
 
-describe('StopAcademicVacationComponent', () => {
+describe('StopAcademicVacationComponent', (): void => {
   let component: StopAcademicVacationComponent;
   let fixture: ComponentFixture<StopAcademicVacationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async((): void => {
     TestBed.configureTestingModule({ declarations: [ StopAcademicVacationComponent ] })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach((): void => {
     fixture = TestBed.createComponent(StopAcademicVacationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(component).toBeTruthy();
   });
 });

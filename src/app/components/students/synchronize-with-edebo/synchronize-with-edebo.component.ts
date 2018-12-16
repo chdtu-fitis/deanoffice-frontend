@@ -49,8 +49,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
 
   constructor(private edeboService: EdeboService,
               private degreeService: DegreeService,
-              private specialityService: SpecialityService) {
-  }
+              private specialityService: SpecialityService) {}
 
   private checkExtension(file): boolean {
     const extension = file.name.slice(file.name.lastIndexOf('.'));
@@ -58,7 +57,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   }
 
 
-  onFileSelected(event) {
+  onFileSelected(event): void {
     this.selectedFile = <File> event.target.files[0];
     this.wrongExtension = this.checkExtension(this.selectedFile);
     this.fileName = this.selectedFile.name;
@@ -76,7 +75,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
       formData.append('speciality', this.selectedSpeciality);
     }
     this.edeboService.uploadFile(formData).subscribe(
-      res => {
+      (res): void => {
         this.synchronizedStudentDegreesGreen = res.synchronizedStudentDegreesGreen;
         this.unmatchedSecondaryDataStudentDegreesBlue = res.unmatchedSecondaryDataStudentDegreesBlue;
         this.noSuchStudentOrSuchStudentDegreeInDbOrange = res.noSuchStudentOrSuchStudentDegreeInDbOrange;
@@ -88,25 +87,21 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     );
   }
 
-  changeSpeciality(value) {
+  changeSpeciality(value): void {
     this.selectedSpeciality = value;
   }
-  changeDegree(value) {
+  changeDegree(value): void {
     this.selectedDegree = value;
   }
 
   onShow(): void {
     this.downloadButton = true;
-    this.degreeService.getDegrees().subscribe(
-      degrees => {
-        this.degrees = degrees;
-      }
-    );
-    this.specialityService.getSpecialities().subscribe(
-      speciality => {
-        this.specialities = speciality;
-      }
-    );
+    this.degreeService.getDegrees().subscribe((degrees): void => {
+      this.degrees = degrees;
+    });
+    this.specialityService.getSpecialities().subscribe((speciality): void => {
+      this.specialities = speciality;
+    });
     this.fileField = true;
     this.orangeStudentsSelected = false;
     this.fileName = 'Виберіть файл';
@@ -117,7 +112,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   }
 
   changeModal(): void {
-    this.isChangedValueOfDb = this.unmatchedSecondaryDataStudentDegreesBlue.map(() => true);
+    this.isChangedValueOfDb = this.unmatchedSecondaryDataStudentDegreesBlue.map((): boolean => true);
     this.studentsInTable = this.synchronizedStudentDegreesGreen.length;
     this.modalName = 'Студенти';
     this.modalSize = 'modal-full';
@@ -191,15 +186,13 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     let newAndUpdatedStudentDegreesDTO = {};
     newAndUpdatedStudentDegreesDTO['newStudentDegrees'] = this.chooseSelectedStudentsFromOrangeList();
     newAndUpdatedStudentDegreesDTO['studentDegreesForUpdate'] = this.chooseSelectedStudentsFromBlueList();
-    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe(
-      response => {
-        this.modalSize = '';
-        this.modalName = 'Дані змінено';
-        this.importView = !this.importView;
-        this.resultView = true;
-        this.resultOfSaving = response;
-      }
-    );
+    this.edeboService.updateDb(newAndUpdatedStudentDegreesDTO).subscribe((response): void => {
+      this.modalSize = '';
+      this.modalName = 'Дані змінено';
+      this.importView = !this.importView;
+      this.resultView = true;
+      this.resultOfSaving = response;
+    });
   }
 
   hideModal(): void {
@@ -209,7 +202,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     this.uploadInProgress = false;
     this.resultView = false;
     this.saveButton = false;
-    this.isChangedValueOfDb.map(() => true);
+    this.isChangedValueOfDb.map((): boolean => true);
   }
 
   changeBlueListCondition(index): void {
@@ -222,8 +215,7 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
   }
 
   compareValuesInBlueList(name, index): number {
-    let numberOfRows = !this.isNotEqual(name, index) ? 2 : 1;
-    return numberOfRows;
+    return !this.isNotEqual(name, index) ? 2 : 1;
   }
 
   isNotEqual(name, index): boolean {
@@ -246,15 +238,15 @@ export class SynchronizeWithEdeboComponent implements IAppModal {
     return !isShown;
   }
 
-  translateDiplomaType(term: DiplomaType) {
+  translateDiplomaType(term: DiplomaType): string {
     return DiplomaType[term];
   }
 
-  translatePayment(term: Payment) {
+  translatePayment(term: Payment): string {
     return Payment[term];
   }
 
-  translateGender(term: Gender) {
+  translateGender(term: Gender): string {
     return Gender[term];
   }
 

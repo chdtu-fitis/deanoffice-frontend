@@ -2,22 +2,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StudentDegreeInfoComponent } from './student-degree-info.component';
 
-describe('StudentDegreeInfoComponent', () => {
+describe('StudentDegreeInfoComponent', (): void => {
   let component: StudentDegreeInfoComponent;
   let fixture: ComponentFixture<StudentDegreeInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async((): void => {
     TestBed.configureTestingModule({ declarations: [ StudentDegreeInfoComponent ] })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach((): void => {
     fixture = TestBed.createComponent(StudentDegreeInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(component).toBeTruthy();
   });
 });

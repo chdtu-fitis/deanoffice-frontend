@@ -21,17 +21,17 @@ export class StudentsInVacationComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]) => {
+    this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]): void => {
       this.rows = students;
       this.loading = false;
     });
   }
 
-  onSelect(students: StudentDegree[]) {
+  onSelect(students: StudentDegree[]): void {
     this.selected = students;
   }
 
   onRenew(id) {
-    this.rows = this.rows.filter(row => row.id !== id);
+    this.rows = this.rows.filter((row): boolean => row.id !== id);
   }
 }

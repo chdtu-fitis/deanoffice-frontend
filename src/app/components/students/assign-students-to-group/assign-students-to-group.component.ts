@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, Output, ViewChild 
+  Component, EventEmitter, Input, Output, ViewChild
 } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
@@ -24,10 +24,10 @@ export class AssignStudentsToGroupComponent {
 
   constructor(private studentService: StudentService) { }
 
-  openModal(degrees: StudentDegree[]) {
+  openModal(degrees: StudentDegree[]): void {
     this.form.controls['group'].setValue(this.groups[0]);
     this.degrees = degrees;
-    this.students = degrees.map(degree => ({
+    this.students = degrees.map((degree): Object => ({
       id: degree.id,
       fullName: degree.student.surname + ' ' + degree.student.name + ' ' + degree.student.patronimic,
       group: degree.studentGroup ? degree.studentGroup.name : null
@@ -35,17 +35,17 @@ export class AssignStudentsToGroupComponent {
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
   }
 
-  submit() {
+  submit(): void {
     this.studentService.assignStudentsToGroup(
-      this.students.map( student => student.id),
+      this.students.map((student): number => student.id),
       this.form.value.group.id
-    ).subscribe(() => {
-      this.degrees.forEach(degree => {
-        degree.studentGroup = this.groups.find(group => {
+    ).subscribe((): void => {
+      this.degrees.forEach((degree): void => {
+        degree.studentGroup = this.groups.find((group): boolean => {
           return group.id === this.form.value.group.id;
         });
       });

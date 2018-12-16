@@ -3,7 +3,6 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { ThesisInputService } from '../../../services/thesis-input.service';
 import { ThesisByGroups } from '../../../models/thesis-theme-models/ThesisByGroups';
 import { MissingThesisDataRed } from '../../../models/thesis-theme-models/MissingThesisDataRed';
-import { StudentDegreeFullEdeboData } from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
 import { ImportedThesisData } from '../../../models/thesis-theme-models/ImportedThesisData';
 
 @Component({
@@ -11,7 +10,7 @@ import { ImportedThesisData } from '../../../models/thesis-theme-models/Imported
   templateUrl: './student-thesis-theme-input.component.html',
   styleUrls: [ './student-thesis-theme-input.component.scss' ]
 })
-export class StudentThesisThemeInputComponent implements OnInit {
+export class StudentThesisThemeInputComponent {
   @ViewChild('modal') modal: ModalDirective;
   fileName = 'Виберіть файл';
   modalName = 'Тема диплому';
@@ -29,24 +28,20 @@ export class StudentThesisThemeInputComponent implements OnInit {
   updatedStudentDegrees: number;
   notUpdatedStudentDegrees: string[];
 
-  constructor(private thesisService: ThesisInputService) {
-  }
-
-  ngOnInit() {
-  }
+  constructor(private thesisService: ThesisInputService) {}
 
   private checkExtension(file): boolean {
     const extension = file.name.slice(file.name.lastIndexOf('.'));
     return !(extension === '.docx' || extension === '.doc');
   }
 
-  onFileSelected(event) {
+  onFileSelected(event): void {
     this.selectedFile = <File> event.target.files[0];
     this.wrongExtension = this.checkExtension(this.selectedFile);
     this.fileName = this.selectedFile.name;
   }
 
-  onFileUpload() {
+  onFileUpload(): void {
     this.fileField = false;
     this.uploadInProgress = true;
 
@@ -54,7 +49,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
     formData.append('file', this.selectedFile, this.selectedFile.name);
 
     this.thesisService.uploadFile(formData).subscribe(
-      res => {
+      (res): any => {
         this.listThesisDataForGroup = res.listThesisDataForGroupDTOs;
         this.missingThesisDataRed = res.missingThesisDataRedDTOs;
         this.uploadInProgress = false;
@@ -64,19 +59,19 @@ export class StudentThesisThemeInputComponent implements OnInit {
     );
   }
 
-  isNotUpdatedThesisTheme() {
+  isNotUpdatedThesisTheme(): boolean {
     return this.notUpdatedStudentDegrees.length !== 0 && this.notUpdatedStudentDegrees !== null;
   }
 
-  changeModal() {
+  changeModal(): void {
     this.modalSize = 'modal-full';
     this.tableView = true;
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
 
-    setTimeout(() => {
+    setTimeout((): void => {
       this.tableView = false;
       this.saveButton = false;
       this.modalSize = '';
@@ -84,10 +79,10 @@ export class StudentThesisThemeInputComponent implements OnInit {
     }, 500);
   }
 
-  saveChanges() {
+  saveChanges(): void {
     const thesisDataForSaveDTOs = this.getSelectedStudents();
     this.thesisService.updateData(thesisDataForSaveDTOs).subscribe(
-      response => {
+      (response): void => {
         this.notUpdatedStudentDegrees = response.notUpdatedStudentDegrees;
         this.updatedStudentDegrees = response.updatedStudentDegrees;
         this.modalSize = '';
@@ -99,17 +94,18 @@ export class StudentThesisThemeInputComponent implements OnInit {
     this.saveButton = true;
   }
 
-  onAllThesisThemeSelected(checked: boolean, index: number) {
+  onAllThesisThemeSelected(checked: boolean, index: number): void {
     for (const student of this.listThesisDataForGroup[index].thesisDataBeans) {
       student.selected = checked;
     }
   }
 
-  private getSelectedStudents() {
+  private getSelectedStudents(): Object {
     return this.listThesisDataForGroup
-      .map(group => group.thesisDataBeans.filter(student => student.selected))
-      .reduce((prev, curr) => prev.concat(curr))
-      .map(student => {
+      .map((group): ImportedThesisData[] =>
+        group.thesisDataBeans.filter((student): boolean => student.selected))
+      .reduce((prev, curr): ImportedThesisData[] => prev.concat(curr))
+      .map((student: ImportedThesisData): Object => {
         return {
           studentFullName: student.fullName,
           studentDegreeId: student.id,
@@ -120,7 +116,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
       });
   }
 
-  onShow() {
+  onShow(): void {
     this.fileName = 'Виберіть файл';
     this.fileField = true;
     this.downloadButton = true;

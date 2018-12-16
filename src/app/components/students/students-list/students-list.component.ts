@@ -12,7 +12,7 @@ export class StudentsListComponent {
   constructor() {
   }
 
-  remove(id) {
+  remove(id): void {
     this.onRemove.emit(id);
   }
 }

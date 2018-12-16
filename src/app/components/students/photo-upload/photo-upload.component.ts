@@ -19,7 +19,7 @@ export class PhotoUploadComponent {
   }
   @Output() onLoad = new EventEmitter();
 
-  onSelectFile(event) {
+  onSelectFile(event): void {
     this.error = '';
     const files: File[] = event.target.files;
     if (files && files[0]) {
@@ -32,9 +32,9 @@ export class PhotoUploadComponent {
     }
   }
 
-  private generatePreviewImage(data) {
+  private generatePreviewImage(data): void {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = (e): void => {
       this.preview = e.target['result'];
     };
     reader.readAsDataURL(data);

@@ -93,7 +93,7 @@ module.exports = {
     'space-unary-ops': ['error', {'words': true, 'nonwords': false}],
     'typescript/adjacent-overload-signatures': 'error',
     'typescript/class-name-casing': 'error',
-    'typescript/explicit-function-return-type': 'error', // TODO fix this errors
+    'typescript/explicit-function-return-type': 'error',
     'typescript/generic-type-naming': 'error',
     'typescript/member-ordering': [
       'error',

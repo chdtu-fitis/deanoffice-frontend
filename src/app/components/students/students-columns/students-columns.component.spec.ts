@@ -2,22 +2,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StudentsColumnsComponent } from './students-columns.component';
 
-describe('StudentsColumnsComponent', () => {
+describe('StudentsColumnsComponent', (): void => {
   let component: StudentsColumnsComponent;
   let fixture: ComponentFixture<StudentsColumnsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(async((): void => {
     TestBed.configureTestingModule({ declarations: [ StudentsColumnsComponent ] })
       .compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach((): void => {
     fixture = TestBed.createComponent(StudentsColumnsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(component).toBeTruthy();
   });
 });

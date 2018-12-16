@@ -30,7 +30,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
   @Output() onSubmit = new EventEmitter();
   @Input() groups: StudentGroup[];
 
-  get degrees() {
+  get degrees(): FormArray {
     return this.form.get('degrees') as FormArray;
   }
 
@@ -46,101 +46,101 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
-  openModal(id) {
-    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
+  openModal(id): void {
+    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree): void => {
       this.model = studentDegrees;
-      this.model['degrees'].sort( (a, b) => b.active - a.active );
+      this.model['degrees'].sort((a, b): number => b.active - a.active );
       this.buildForm();
       this.modal.show();
     });
   }
 
-  buildForm() {
+  buildForm(): void {
     this.form = this.fb.group({
-      degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) => {
-        return this.fb.group({
-          id: degree.id,
-          studentGroupId: [
-            {
-              value: degree.studentGroup ? degree.studentGroup.id : null,
-              disabled: !degree.active
-            },
-            degree.active ? Validators.required : null
-          ],
-          recordBookNumber: degree.recordBookNumber,
-          studentCardNumber: degree.studentCardNumber,
-          diplomaNumber: degree.diplomaNumber,
-          diplomaDate: degree.diplomaDate,
-          diplomaWithHonours: degree.diplomaWithHonours,
-          supplementNumber: degree.supplementNumber,
-          supplementDate: degree.supplementDate,
-          thesisName: degree.thesisName,
-          thesisNameEng: degree.thesisNameEng,
-          protocolNumber: degree.protocolNumber,
-          protocolDate: degree.protocolDate,
-          previousDiplomaType: degree.previousDiplomaType,
-          previousDiplomaNumber: degree.previousDiplomaNumber,
-          previousDiplomaDate: degree.previousDiplomaDate,
-          previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
-          previousDiplomaIssuedByEng: degree.previousDiplomaIssuedByEng,
-          admissionOrderDate: degree.admissionOrderDate,
-          admissionOrderNumber: degree.admissionOrderNumber,
-          contractDate: degree.contractDate,
-          contractNumber: degree.contractNumber,
-          admissionDate: degree.admissionDate,
-          studentPreviousUniversities: this.fb.array(degree.studentPreviousUniversities.map((SPU) => {
-            return this.fb.group({
-              id: SPU.id,
-              universityName: SPU.universityName,
-              studyStartDate: SPU.studyStartDate,
-              studyEndDate: SPU.studyEndDate,
-              academicCertificateNumber: SPU.academicCertificateNumber,
-              academicCertificateDate: SPU.academicCertificateDate
-            });
-          })),
-          payment: degree.payment,
-          active: degree.active
-        });
-      }))
+      degrees: this.fb.array((this.model['degrees'] as StudentDegree[])
+        .map((degree: StudentDegree): FormGroup => {
+          return this.fb.group({
+            id: degree.id,
+            studentGroupId: [
+              {
+                value: degree.studentGroup ? degree.studentGroup.id : null,
+                disabled: !degree.active
+              },
+              degree.active ? Validators.required : null
+            ],
+            recordBookNumber: degree.recordBookNumber,
+            studentCardNumber: degree.studentCardNumber,
+            diplomaNumber: degree.diplomaNumber,
+            diplomaDate: degree.diplomaDate,
+            diplomaWithHonours: degree.diplomaWithHonours,
+            supplementNumber: degree.supplementNumber,
+            supplementDate: degree.supplementDate,
+            thesisName: degree.thesisName,
+            thesisNameEng: degree.thesisNameEng,
+            protocolNumber: degree.protocolNumber,
+            protocolDate: degree.protocolDate,
+            previousDiplomaType: degree.previousDiplomaType,
+            previousDiplomaNumber: degree.previousDiplomaNumber,
+            previousDiplomaDate: degree.previousDiplomaDate,
+            previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
+            previousDiplomaIssuedByEng: degree.previousDiplomaIssuedByEng,
+            admissionOrderDate: degree.admissionOrderDate,
+            admissionOrderNumber: degree.admissionOrderNumber,
+            contractDate: degree.contractDate,
+            contractNumber: degree.contractNumber,
+            admissionDate: degree.admissionDate,
+            studentPreviousUniversities: this.fb.array(degree.studentPreviousUniversities
+              .map((SPU): FormGroup => {
+                return this.fb.group({
+                  id: SPU.id,
+                  universityName: SPU.universityName,
+                  studyStartDate: SPU.studyStartDate,
+                  studyEndDate: SPU.studyEndDate,
+                  academicCertificateNumber: SPU.academicCertificateNumber,
+                  academicCertificateDate: SPU.academicCertificateDate
+                });
+              })),
+            payment: degree.payment,
+            active: degree.active
+          });
+        }))
     });
-    this.form.controls.degrees['controls'].map(control => {
+    this.form.controls.degrees['controls'].map((control): void => {
       if (!control.controls.active.value) {
         control.disable();
       }}
     );
   }
 
-  getTabHeader(i: number) {
+  getTabHeader(i: number): string {
     const specialization = (this.model as any).degrees[i].specialization;
     const specialityAbbr = specialization.speciality.name
       .split(' ')
-      .map(str => str.charAt(0))
+      .map((str): string => str.charAt(0))
       .join('')
       .toUpperCase();
     return `${specialityAbbr} ${specialization.degree.name}`;
   }
 
-  addStudentPreviousUniversity() {
+  addStudentPreviousUniversity(): void {
     this.studentPreviousUniversity = this.fb.group({ ...new StudentPreviousUniversity() });
     this.degrees.controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
   }
 
-  deleteStudentPreviousUniversity(id) {
+  deleteStudentPreviousUniversity(id): void {
     const studentPreviousUniversities = this.degrees.controls[0]['controls']['studentPreviousUniversities'];
-    const index = studentPreviousUniversities.value.findIndex(i => i.id === id);
+    const index = studentPreviousUniversities.value.findIndex((i): boolean => i.id === id);
     studentPreviousUniversities.controls.splice(index, 1);
     studentPreviousUniversities.value.splice(index, 1);
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
-      this.tabValidity = this.degrees.controls.map(
-        control => control.invalid
-      );
+      this.tabValidity = this.degrees.controls.map((control): boolean => control.invalid);
       return;
     }
-    const degrees = this.form.value.degrees.filter(degree => degree.active);
+    const degrees = this.form.value.degrees.filter((degree): boolean => degree.active);
     this.studentService
       .updateStudentDegreesByStudentId(this.model.id, degrees)
       .subscribe((): void => {

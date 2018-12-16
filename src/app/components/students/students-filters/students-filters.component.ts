@@ -17,7 +17,7 @@ export class StudentsFiltersComponent {
       {
         label: 'Бюджет',
         value: 'BUDGET',
-        selected: true 
+        selected: true
       },
       {
         label: 'Контракт',
@@ -46,22 +46,22 @@ export class StudentsFiltersComponent {
     return this.form.get('payment') as FormArray;
   }
 
-  setFilters() {
-    setTimeout(() => {
-      const students = this.rows.filter(entry => this.filter(entry));
+  setFilters(): void {
+    setTimeout((): void => {
+      const students = this.rows.filter((entry): Boolean => this.filter(entry));
       this.applyFilters.emit(students);
     }, 0);
   }
 
-  resetFilters() {
+  resetFilters(): void {
     this.buildForm();
     this.applyFilters.emit(this.rows);
   }
 
-  private buildForm() {
+  private buildForm(): void {
     this.form = this.fb.group({
       group: this.model.group,
-      payment: this.fb.array(this.model.payment.map(entry =>
+      payment: this.fb.array(this.model.payment.map((entry): FormGroup =>
         this.fb.group(entry)),
       ),
       birthDate: this.model.birthDate,
@@ -88,8 +88,8 @@ export class StudentsFiltersComponent {
     }
 
     const payments = payment
-      .filter(val => val.selected)
-      .map(val => val.value);
+      .filter((val): boolean => val.selected)
+      .map((val): any => val.value);
     const isPaymentMatch = payments.includes(entry.payment);
 
     return isGroupMatch && isBirthDateMatch && isBirthMonthMatch && isPaymentMatch;

@@ -58,21 +58,21 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
         '', Validators.required
       ]
     });
-    groupService.getGroups().subscribe(groups => this.groups = groups);
+    groupService.getGroups().subscribe((groups): StudentGroup[] => this.groups = groups);
   }
 
-  openModal(expelledStudent) {
+  openModal(expelledStudent): void {
     this.student = expelledStudent.studentDegree.student;
     this.form.patchValue({ studentExpelId: expelledStudent.id });
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
     this.form.reset();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;

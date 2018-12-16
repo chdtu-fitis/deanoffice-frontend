@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, forwardRef, Output 
+  Component, EventEmitter, Input, forwardRef, Output
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -12,7 +12,7 @@ import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => StudentTypeaheadComponent),
+      useExisting: forwardRef((): typeof StudentTypeaheadComponent => StudentTypeaheadComponent),
       multi: true
     }
   ]
@@ -27,7 +27,7 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
   errorMessages = { required: 'Необхідно вибрати студента зі списку' };
 
   constructor(private studentService: StudentService) {
-    this.dataSource = Observable.create((observer: any) => {
+    this.dataSource = Observable.create((observer: any): void => {
       if (this.val.length < 3) {
         return;
       }
@@ -37,28 +37,27 @@ export class StudentTypeaheadComponent implements ControlValueAccessor {
         this.selectedId = null;
         this.propagateChange();
       }
-      this.studentService.search(this.val).subscribe((result: any ) => {
+      this.studentService.search(this.val).subscribe((result: any): void => {
         observer.next(result);
       });
     });
   }
 
-  propagateChange = (value?) => {};
+  propagateChange = (value?): void => {};
 
-  registerOnChange(fn) {
+  registerOnChange(fn): void {
     this.propagateChange = fn;
   }
 
-  registerOnTouched() {
-  }
+  registerOnTouched(): void {}
 
-  writeValue(value) {
+  writeValue(value): void {
     if (value) {
       this.val = value;
     }
   }
 
-  onSelect({ item }: TypeaheadMatch) {
+  onSelect({ item }: TypeaheadMatch): void {
     const { surname, name, patronimic } = item;
     this.val = `${surname} ${name} ${patronimic}`;
     this.propagateChange(item.id);

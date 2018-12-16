@@ -7,6 +7,7 @@ import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-
 import { StudentService } from '../../../services/student.service';
 import { StudentDegree } from '../../../models/StudentDegree';
 import { GeneralService } from '../../../services/general.service';
+import { OrderReason } from '../../../models/OrderReason';
 
 @Component({
   selector: 'app-student-expel',
@@ -43,32 +44,32 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
       ],
       studentDegreeIds: this.fb.array([])
     });
-    generalService.getStudentExpelReasons().subscribe(reasons => this.reasons = reasons);
+    generalService.getStudentExpelReasons().subscribe((reasons): OrderReason[] => this.reasons = reasons);
   }
 
-  openModal(degrees: StudentDegree[]) {
-    this.students = degrees.map(degree => ({
+  openModal(degrees: StudentDegree[]): void {
+    this.students = degrees.map((degree): Object => ({
       ...degree.student,
       id: degree.id,
       groups:
       degree.studentGroup.name
     }));
-    this.form.setControl('studentDegreeIds', this.fb.array(degrees.map(degree => degree.id)));
+    this.form.setControl('studentDegreeIds', this.fb.array(degrees.map((degree: StudentDegree): number => degree.id)));
     this.modal.show();
   }
 
-  onRemoveStudent(id) {
-    this.students = this.students.filter(student => student.id !== id);
-    const ids = this.students.map(item => item.id);
+  onRemoveStudent(id): void {
+    this.students = this.students.filter((student): boolean => student.id !== id);
+    const ids = this.students.map((item): number => item.id);
     this.form.setControl('studentDegreeIds', this.fb.array(ids));
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
     this.form.reset();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;

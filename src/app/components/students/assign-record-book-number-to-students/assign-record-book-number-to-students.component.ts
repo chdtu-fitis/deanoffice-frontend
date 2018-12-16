@@ -1,8 +1,8 @@
 import {
-  Component, EventEmitter, Input, Output, ViewChild 
+  Component, EventEmitter, Input, Output, ViewChild
 } from '@angular/core';
 import {
-  FormBuilder, FormControl, FormGroup, FormArray, Validators 
+  FormBuilder, FormControl, FormGroup, FormArray, Validators
 } from '@angular/forms';
 
 import { ModalDirective } from 'ngx-bootstrap';
@@ -29,16 +29,16 @@ export class AssignRecordBookNumberToStudentsComponent {
 
   constructor(private fb: FormBuilder, private studentService: StudentService) { }
 
-  openModal(studentDegrees: StudentDegree[]) {
+  openModal(studentDegrees: StudentDegree[]): void {
     this.studentDegrees = studentDegrees;
-    this.studentDegrees.sort( (a, b) => {
+    this.studentDegrees.sort((a, b): number => {
       let first = a.student.surname + ' ' + a.student.name + ' ' + a.student.patronimic;
       let second = b.student.surname + ' ' + b.student.name + ' ' + b.student.patronimic;
       if (first < second) { return -1; }
       if (first > second) { return 1; }
       return 0;
     });
-    this.students = this.studentDegrees.map(studentDegree => ({
+    this.students = this.studentDegrees.map((studentDegree): Object => ({
       id: studentDegree.id,
       fullName: `${studentDegree.student.surname} ${studentDegree.student.name} ${studentDegree.student.patronimic}`,
       recordBookNumber: studentDegree.recordBookNumber
@@ -47,13 +47,13 @@ export class AssignRecordBookNumberToStudentsComponent {
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
   }
 
-  buildForm() {
+  buildForm(): void {
     this.form = this.fb.group({
-      studentDegrees: this.fb.array((this.students).map((studentDegree) => {
+      studentDegrees: this.fb.array((this.students).map((studentDegree): Object => {
         return this.fb.group({
           id: studentDegree.id,
           fullName: studentDegree.fullName,
@@ -63,11 +63,11 @@ export class AssignRecordBookNumberToStudentsComponent {
     });
   }
 
-  get formStudentDegrees() {
+  get formStudentDegrees(): FormArray {
     return this.form.get('studentDegrees') as FormArray;
   }
 
-  generateRecordBookNumbers() {
+  generateRecordBookNumbers(): void {
     const firstIntIndex = this.initialRecordBookNumber.value.search(/\d/);
     this.series = this.initialRecordBookNumber.value.slice(0, firstIntIndex);
     this.recordBookNumber = this.initialRecordBookNumber.value.slice(firstIntIndex);
@@ -77,15 +77,15 @@ export class AssignRecordBookNumberToStudentsComponent {
     }
   }
 
-  submit() {
-    const studentDegreesWithRecordBookNumber = this.form.value.studentDegrees.filter((studentDegree) =>
+  submit(): void {
+    const studentDegreesWithRecordBookNumber = this.form.value.studentDegrees.filter((studentDegree): boolean =>
       studentDegree.recordBookNumber
     );
     const degreesForSubmit = {};
-    studentDegreesWithRecordBookNumber.forEach(studentDegree => {
+    studentDegreesWithRecordBookNumber.forEach((studentDegree): void => {
       degreesForSubmit[studentDegree.id] = studentDegree.recordBookNumber;
     });
-    this.studentService.assignRecordBookNumberToStudents(degreesForSubmit).subscribe(() => {
+    this.studentService.assignRecordBookNumberToStudents(degreesForSubmit).subscribe((): void => {
       for (let i = 0; i < this.form.value.studentDegrees.length; i++) {
         this.studentDegrees[i].recordBookNumber = this.form.value.studentDegrees[i].recordBookNumber;
       }

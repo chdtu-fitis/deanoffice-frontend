@@ -26,18 +26,18 @@ export class StudentsComponent implements OnInit {
     private groupService: GroupService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getStudents();
-    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+    this.groupService.getGroups().subscribe((groups: StudentGroup[]): void => {
       this.groups = groups;
     });
   }
 
-  setColumns(columns: string[]) {
+  setColumns(columns: string[]): void {
     if (!this.isAllDataLoaded) {
       this.loading = true;
       this.studentService.getStudents()
-        .subscribe((students: StudentDegree[]) => {
+        .subscribe((students: StudentDegree[]): void => {
           this.students = students;
           this.loading = false;
           this.isAllDataLoaded = true;
@@ -46,7 +46,7 @@ export class StudentsComponent implements OnInit {
     this.columns = columns;
   }
 
-  prependStudent(student) {
+  prependStudent(student): void {
     this.students = [
       student, ...this.students
     ];
@@ -54,28 +54,28 @@ export class StudentsComponent implements OnInit {
     this.onSelect([ student ]);
   };
 
-  setRows(rows: StudentDegree[]) {
+  setRows(rows: StudentDegree[]): void {
     this.rows = rows;
   };
 
-  onSelect(students: StudentDegree[]) {
+  onSelect(students: StudentDegree[]): void {
     this.selected = students;
   }
 
-  getStudents() {
+  getStudents(): void {
     this.loading = true;
     const stream = this.isAllDataLoaded
       ? this.studentService.getStudents()
       : this.studentService.getInitialStudents();
-    stream.subscribe((students: StudentDegree[]) => {
+    stream.subscribe((students: StudentDegree[]): void => {
       this.students = students;
       this.loading = false;
     });
   }
 
-  onRemove(ids) {
+  onRemove(ids): void {
     const idsToRemove = [].concat(ids);
-    const filterFn = degree => !idsToRemove.includes(degree.id);
+    const filterFn = (degree): boolean => !idsToRemove.includes(degree.id);
     this.selected = this.selected.filter(filterFn);
     this.students = this.students.filter(filterFn);
     this.setRows(this.students);

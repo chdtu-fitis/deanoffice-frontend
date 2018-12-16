@@ -22,7 +22,7 @@ export class ExpelledStudentsComponent implements OnInit {
     private academicCertificateService: AcademicCertificateService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loading = true;
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
       this.rows = students;
@@ -30,20 +30,20 @@ export class ExpelledStudentsComponent implements OnInit {
     });
   }
 
-  onSelect(students: StudentDegree[]) {
+  onSelect(students: StudentDegree[]): void {
     this.selected = students;
   }
 
-  onRenew(id) {
-    this.rows = this.rows.filter(row => row.id !== id);
+  onRenew(id): void {
+    this.rows = this.rows.filter((row): boolean => row.id !== id);
   }
 
-  onFormAcademicCertificate() {
+  onFormAcademicCertificate(): void {
     if (this.selected[0]) {
       this.academicCertificateLoading = true;
       this.academicCertificateService
         .buildAcademicCertificate(this.selected[0].id)
-        .subscribe(() => this.academicCertificateLoading = false);
+        .subscribe((): boolean => this.academicCertificateLoading = false);
     }
   }
 }

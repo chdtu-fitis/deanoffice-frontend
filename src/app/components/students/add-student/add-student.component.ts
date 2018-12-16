@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, Input, ViewChild, Output 
+  Component, EventEmitter, Input, ViewChild, Output
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
@@ -37,7 +37,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
       id: '',
       student: '',
       studentGroupId: [
-        '', Validators.required 
+        '', Validators.required
       ],
       payment: [
         '', Validators.required
@@ -46,11 +46,11 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.setStudentFormGroup();
   }
 
-  get student() {
+  get student(): FormGroup {
     return this.form.controls['student'] as FormGroup;
   }
 
-  selectTab(tab: Tabs) {
+  selectTab(tab: Tabs): void {
     if (this.activeTab === tab) {
       return;
     }
@@ -60,26 +60,26 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.setStudentFormGroup();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;
     }
     this.studentService.addStudentDegree(this.form.value)
-      .subscribe((student: StudentDegree) => {
+      .subscribe((student: StudentDegree): void => {
         this.onSubmit.emit(student);
         this.hideModal();
       });
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
     this.form.reset();
     this.activeTab = Tabs.Existing;
     this.tabset.tabs[0].active = true;
   }
 
-  setStudentFormGroup() {
+  setStudentFormGroup(): void {
     const controls = this.activeTab === Tabs.New
       ? {
         id: '',
@@ -96,7 +96,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
           '', Validators.required
         ],
         sex: [
-          '', Validators.required 
+          '', Validators.required
         ]
       }
       : {
@@ -110,7 +110,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     this.form.setControl('student', this.fb.group(controls));
   }
 
-  onSelectStudent({ birthDate }) {
+  onSelectStudent({ birthDate }): void {
     this.form.patchValue({ student: { birthDate } });
   }
 }

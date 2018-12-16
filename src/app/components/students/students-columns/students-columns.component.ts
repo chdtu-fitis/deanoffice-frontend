@@ -1,5 +1,5 @@
 import {
-  Component, EventEmitter, OnInit, Output, ViewChild 
+  Component, EventEmitter, OnInit, Output, ViewChild
 } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 
@@ -17,31 +17,31 @@ export class StudentsColumnsComponent implements OnInit, IAppModal {
   @ViewChild('modal') modal: ModalDirective;
   @Output() setColumns = new EventEmitter<string[]>();
 
-  ngOnInit() {
-    allColumns.forEach(col => {
-      return this.columns[col] = defaultColumns.find(el => el === col);
+  ngOnInit(): void {
+    allColumns.forEach((col): any => {
+      return this.columns[col] = defaultColumns.find((el): boolean => el === col);
     });
   }
 
-  applyColumns() {
-    const columns = Object.keys(this.columns).filter(key => this.columns[key]);
+  applyColumns(): void {
+    const columns = Object.keys(this.columns).filter((key): boolean => this.columns[key]);
     this.modal.hide();
     this.setColumns.emit(columns);
   }
 
-  resetColumns() {
-    Object.keys(this.columns).forEach(key => {
-      this.columns[key] = defaultColumns.find(el => el === key);
+  resetColumns(): void {
+    Object.keys(this.columns).forEach((key): void => {
+      this.columns[key] = defaultColumns.find((el): boolean => el === key);
     });
     this.modal.hide();
     this.setColumns.emit(defaultColumns);
   }
 
-  onChange(col) {
+  onChange(col): void {
     this.columns[col] = !this.columns[col];
   }
 
-  getName(col) {
+  getName(col): string {
     return translations[col] || col;
   }
 }

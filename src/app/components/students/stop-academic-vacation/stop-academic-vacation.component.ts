@@ -48,21 +48,21 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
         '', Validators.required
       ]
     });
-    groupService.getGroups().subscribe(groups => this.groups = groups);
+    groupService.getGroups().subscribe((groups): StudentGroup[] => this.groups = groups);
   }
 
-  openModal(studentInVacation) {
+  openModal(studentInVacation): void {
     this.student = studentInVacation.studentDegree.student;
     this.form.patchValue({ studentAcademicVacationId: studentInVacation.id });
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
     this.form.reset();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;

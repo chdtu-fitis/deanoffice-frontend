@@ -26,15 +26,15 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     super();
   }
 
-  openModal(id) {
-    this.studentService.getStudentById(id).subscribe((student: Student) => {
+  openModal(id): void {
+    this.studentService.getStudentById(id).subscribe((student: Student): void => {
       this.model = student;
       this.buildForm();
       this.modal.show();
     });
   }
 
-  buildForm() {
+  buildForm(): void {
     this.form = this.fb.group({
       photoUrl: this.model.photoUrl,
       name: [
@@ -71,11 +71,11 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     });
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;

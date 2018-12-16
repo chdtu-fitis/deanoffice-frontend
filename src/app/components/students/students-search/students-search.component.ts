@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { StudentDegree } from '../../../models/StudentDegree';
+import { Student } from '../../../models/Student';
 
 @Component({
   selector: 'app-students-search',
@@ -18,7 +19,7 @@ export class StudentsSearchComponent {
     this.searchForm = this.fb.group({ search: '' });
   }
 
-  private deepFind(obj, path) {
+  private deepFind(obj, path): Student {
     const paths = path.split('.');
     for (let i = 0; i < paths.length; i++) {
       obj = obj[paths[i]];
@@ -27,16 +28,16 @@ export class StudentsSearchComponent {
     return obj;
   };
 
-  onKeyPress(e) {
+  onKeyPress(e): void {
     if (e.keyCode === 13) {
       this.searchStudent();
     }
   }
 
-  searchStudent() {
+  searchStudent(): void {
     const value = this.searchForm.value.search.trim();
     const [
-      surname, name, patronimic 
+      surname, name, patronimic
     ] = value.split(' ');
     if (!surname) {
       return;

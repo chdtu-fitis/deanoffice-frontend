@@ -1,6 +1,6 @@
 import {
   Component, EventEmitter, Input, Output, TemplateRef,
-  ViewChild 
+  ViewChild
 } from '@angular/core';
 
 import { translations } from '../translations';
@@ -48,7 +48,7 @@ export class StudentsTableComponent {
 
     return [
       'selected', ...array
-    ].map(prop => {
+    ].map((prop): Object[] => {
       let col = templatesMap[prop];
       if (prop.match(/date/i)) {
         col = { cellTemplate: this.dateTemplate };
@@ -56,20 +56,20 @@ export class StudentsTableComponent {
       return {
         prop,
         name: translations[prop],
-        ...col 
+        ...col
       };
     });
   }
 
-  getDate(date) {
+  getDate(date): number {
     return new Date(date).getTime();
   }
 
-  getRowIdentity(row) {
+  getRowIdentity(row): number {
     return row && row.id;
   }
 
-  getRowClass(row) {
+  getRowClass(row): Object {
     return {
       'row-focused': row.id === this.focusedRowId,
       [`row-id-${row.id}`]: !!row.id
@@ -83,7 +83,7 @@ export class StudentsTableComponent {
     this.onSelect.emit(this.selected);
   }
 
-  activate({ type, row, column }) {
+  activate({ type, row, column }): void {
     if (type === 'click' && column.prop !== 'selected') {
       this.focusedRowId = row.id;
       this.onSelect.emit([ row ]);

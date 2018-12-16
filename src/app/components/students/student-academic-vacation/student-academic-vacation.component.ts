@@ -6,6 +6,7 @@ import { IAppModal } from '../../shared/modal.interface';
 import { BaseReactiveFormComponent } from '../../shared/base-reactive-form/base-reactive-form.component';
 import { StudentService } from '../../../services/student.service';
 import { GeneralService } from '../../../services/general.service';
+import { OrderReason } from '../../../models/OrderReason';
 
 @Component({
   selector: 'app-student-academic-vacation',
@@ -49,20 +50,20 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
       ],
       extraInformation: ''
     });
-    generalService.getAcademicVacationReasons().subscribe(reasons => this.reasons = reasons);
+    generalService.getAcademicVacationReasons().subscribe((reasons): OrderReason[] => this.reasons = reasons);
   }
 
-  openModal(studentDegreeId) {
+  openModal(studentDegreeId): void {
     this.form.patchValue({ studentDegreeId });
     this.modal.show();
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
     this.form.reset();
   }
 
-  submit() {
+  submit(): void {
     super.submit();
     if (this.form.invalid) {
       return;
