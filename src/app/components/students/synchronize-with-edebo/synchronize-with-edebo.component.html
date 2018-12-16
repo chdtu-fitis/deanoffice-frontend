@@ -262,7 +262,7 @@
               (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>
-        <p class="alert alert-danger bad-extention" *ngIf="wrongExtantion">
+        <p class="alert alert-danger mt-1" *ngIf="wrongExtension">
           Некоректне розширення файлу
         </p>
 
@@ -310,7 +310,7 @@
     <div class="modal-footer">
       <span class="mr-auto" *ngIf="!(importView)"> Всього: {{studentsInTable ||'0'}} </span>
       <button class="btn btn-success" *ngIf="downloadButton" type="button"
-              (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtantion">
+              (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtension">
                   Завантажити
       </button>
       <button class="btn btn-success" *ngIf="!(importView)" type="button" (click)="saveChanges()" [disabled]="saveButton">Зберегти</button>

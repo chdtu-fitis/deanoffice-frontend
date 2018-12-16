@@ -12,7 +12,7 @@ export class AuthenticationService {
   public isLoggedIn;
 
   constructor(private http: HttpClient, private router: Router) {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
     this.isLoggedIn = new BehaviorSubject<boolean>(!!this.token);
   }
@@ -20,16 +20,14 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<boolean> {
     return this.http.post(`${environment.apiUrl}/login`, JSON.stringify({
       username: username,
-      password: password 
+      password: password
     }))
       .map((response: any) => {
         let token = response && response.token;
         if (token) {
           this.token = token;
-          localStorage.setItem('currentUser', JSON.stringify({
-            username: username,
-            token: token 
-          }));
+          let facultyId = parseInt(response.facultyId);
+          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, facultyId: facultyId}));
           this.isLoggedIn.next(true);
           return true;
         } else {

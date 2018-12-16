@@ -32,7 +32,9 @@ export class ExamReportComponent implements OnInit {
   examReportLoading = false;
   examReportJournalTableLoading = false;
   gradesJournalStudentsTableLoading = false;
-  gradesJournalCoursesTableLoading = false;
+  gradesJournalCoursesTableLoadingPdf = false;
+  gradesJournalCoursesTableLoadingDocx = false;
+  studentsListLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
@@ -126,10 +128,24 @@ export class ExamReportComponent implements OnInit {
     });
   }
 
-  onGradesJournalCoursesListBuild() {
-    this.gradesJournalCoursesTableLoading = true;
+  onGradesJournalCoursesListBuildPdf() {
+    this.gradesJournalCoursesTableLoadingPdf = true;
     this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalCoursesTableLoading = false;
+      this.gradesJournalCoursesTableLoadingPdf = false;
+    });
+  }
+
+  onGradesJournalCoursesListBuildDocx() {
+    this.gradesJournalCoursesTableLoadingDocx = true;
+    this.examReportService.buildGradesJournalCoursesDocx(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.gradesJournalCoursesTableLoadingDocx = false;
+    });
+  }
+
+  onStudentsListBuild() {
+    this.studentsListLoading = true;
+    this.examReportService.buildStudentsList(this.selectedYear, this.currentDegree.id).subscribe(a => {
+      this.studentsListLoading = false;
     });
   }
 
