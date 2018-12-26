@@ -29,11 +29,14 @@ import {SynchronizeWithEdeboComponent} from './synchronize-with-edebo/synchroniz
 import { AssignStudentsToGroupComponent } from './assign-students-to-group/assign-students-to-group.component';
 import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
 import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
+import { StudentStipendComponent } from './student-stipend/student-stipend.component';
+
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
   {path: 'expelled', component: ExpelledStudentsComponent, data: { title: 'Відраховані студенти' }},
-  {path: 'in-vacation', component: StudentsInVacationComponent, data: { title: 'Студенти в академ. відпустці' }}
+  {path: 'in-vacation', component: StudentsInVacationComponent, data: { title: 'Студенти в академ. відпустці' }},
+  {path: 'stipend', component: StudentStipendComponent, data: { title: 'Стипендія' }}
 ];
 
 @NgModule({
@@ -58,6 +61,7 @@ export const studentRoutes: Routes = [
     AssignStudentsToGroupComponent,
     StudentThesisThemeInputComponent,
     AssignRecordBookNumberToStudentsComponent,
+    StudentStipendComponent,
     SynchronizeWithEdeboComponent
   ],
   imports: [
