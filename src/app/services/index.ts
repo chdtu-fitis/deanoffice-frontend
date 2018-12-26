@@ -18,6 +18,7 @@ import {AcademicCertificateService} from "./academic-certificate.service";
 import {EdeboService} from "./edebo.service";
 import {CurrentUserService} from './auth/current-user.service';
 import {ThesisInputService} from './thesis-input.service';
+import {StudentStipendService} from "./student-stipend.service";
 
 export const SERVICES = [
   DegreeService,
@@ -38,7 +39,8 @@ export const SERVICES = [
   AcademicCertificateService,
   AuthenticationService,
   CurrentUserService,
-  ThesisInputService
+  ThesisInputService,
+  StudentStipendService
 ];
 
 export const GUARDS = [
