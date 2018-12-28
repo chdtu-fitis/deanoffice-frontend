@@ -1,3 +1,35 @@
-<p>
-  student-stipend works!
-</p>
+<div class="wrapp">
+  <h5>Студенти</h5>
+  <div class="table-wrapper">
+    <table class="main-table">
+      <thead>
+      <tr>
+        <td>№</td>
+        <td>ПІБ</td>
+        <td>Група</td>
+        <td>Ступінь</td>
+        <td>Форма</td>
+        <td>Спеціальність</td>
+        <td>Дата екзамену</td>
+      </tr>
+      </thead>
+      <tbody>
+
+      <tr *ngFor="let ssi of studentStipendInfo; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
+        <td>{{ssi.groupName}}</td>
+        <td>{{ssi.degreeName}}</td>
+        <td>{{ssi.tuitionTerm}}</td>
+        <td>{{ssi.specialityCode}}</td>
+        <td>
+          <p *ngFor="let course of ssi.debtCourses">
+            {{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}
+          </p>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
