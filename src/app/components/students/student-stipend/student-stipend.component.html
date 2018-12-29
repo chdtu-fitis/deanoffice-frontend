@@ -10,23 +10,27 @@
         <td>Ступінь</td>
         <td>Форма</td>
         <td>Спеціальність</td>
-        <td>Дата екзамену</td>
+        <td>Курс</td>
+        <td>Середній бал</td>
+        <!--<td>Заборгованості</td>-->
       </tr>
       </thead>
       <tbody>
 
-      <tr *ngFor="let ssi of studentStipendInfo; let i = index">
+      <tr *ngFor="let ssi of studentStipendInfo; let i = index" [ngClass]="isDebtor(ssi)">
         <td>{{i+1}}</td>
         <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
         <td>{{ssi.groupName}}</td>
-        <td>{{ssi.degreeName}}</td>
+        <td>{{ssi.degreeName.substring(0,3)}}</td>
         <td>{{ssi.tuitionTerm}}</td>
         <td>{{ssi.specialityCode}}</td>
-        <td>
-          <p *ngFor="let course of ssi.debtCourses">
-            {{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}
-          </p>
-        </td>
+        <td>{{ssi.year}}</td>
+        <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
+        <!--<td>-->
+          <!--<p *ngFor="let course of ssi.debtCourses">-->
+            <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->
+          <!--</p>-->
+        <!--</td>-->
       </tr>
 
       </tbody>

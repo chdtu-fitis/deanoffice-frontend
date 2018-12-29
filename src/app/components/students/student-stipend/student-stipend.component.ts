@@ -14,6 +14,13 @@ export class StudentStipendComponent implements OnInit {
   constructor(private studentStipendService: StudentStipendService) {
   }
 
+  isDebtor(ssi: StudentStipendInfo): string {
+    if(ssi.debtCourses.length > 0)
+      return 'debtor';
+    else
+      return '';
+  }
+
   ngOnInit() {
      this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: StudentStipendInfo[]) => {
        this.studentStipendInfo = studentStipendInfo;
