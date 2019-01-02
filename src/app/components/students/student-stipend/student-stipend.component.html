@@ -21,7 +21,7 @@
         <td colspan="9">
         <table class="main-table">
           <tr>
-            <td colspan="9">{{group}}</td>
+            <td colspan="9" class="group-header">{{group}}</td>
           </tr>
           <tr *ngFor="let ssi of studentStipendInfo[group]; let i = index" [ngClass]="isDebtor(ssi)">
             <td>{{i+1}}</td>
