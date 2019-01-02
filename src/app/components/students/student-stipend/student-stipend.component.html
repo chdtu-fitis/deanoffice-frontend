@@ -12,15 +12,16 @@
         <td>Спеціальність</td>
         <td>Курс</td>
         <td>Середній бал</td>
+        <td>Середній бал * 0,9</td>
         <!--<td>Заборгованості</td>-->
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let group of getStudentStipendGroups()">
-        <td colspan="8">
+        <td colspan="9">
         <table class="main-table">
           <tr>
-            <td colspan="8">{{group}}</td>
+            <td colspan="9">{{group}}</td>
           </tr>
           <tr *ngFor="let ssi of studentStipendInfo[group]; let i = index" [ngClass]="isDebtor(ssi)">
             <td>{{i+1}}</td>
@@ -31,6 +32,7 @@
             <td>{{ssi.specialityCode}}</td>
             <td>{{ssi.year}}</td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
+            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
                 <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->
