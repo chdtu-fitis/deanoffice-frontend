@@ -22,7 +22,7 @@
         <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
         <td>{{ssi.groupName}}</td>
         <td>{{ssi.degreeName.substring(0,3)}}</td>
-        <td>{{ssi.tuitionTerm}}</td>
+        <td>{{getTuitionTermUkr(ssi.tuitionTerm)}}</td>
         <td>{{ssi.specialityCode}}</td>
         <td>{{ssi.year}}</td>
         <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>

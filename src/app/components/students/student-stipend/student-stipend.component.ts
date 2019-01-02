@@ -21,6 +21,14 @@ export class StudentStipendComponent implements OnInit {
       return '';
   }
 
+  getTuitionTermUkr(tuitionTerm: string) {
+    switch (tuitionTerm) {
+      case 'REGULAR': return 'Повна';
+      case 'SHORTENED': return 'Скороч';
+      default: return '';
+    }
+  }
+
   ngOnInit() {
      this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: StudentStipendInfo[]) => {
        this.studentStipendInfo = studentStipendInfo;
