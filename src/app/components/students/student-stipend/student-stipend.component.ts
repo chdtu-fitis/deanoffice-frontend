@@ -9,7 +9,7 @@ import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipend
   styleUrls: ['./student-stipend.component.scss']
 })
 export class StudentStipendComponent implements OnInit {
-  studentStipendInfo: StudentStipendInfo[];
+  studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
 
   constructor(private studentStipendService: StudentStipendService) {
   }
@@ -31,8 +31,20 @@ export class StudentStipendComponent implements OnInit {
 
   ngOnInit() {
      this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: StudentStipendInfo[]) => {
-       this.studentStipendInfo = studentStipendInfo;
+       var info = studentStipendInfo;
+       info.forEach(ssi => {
+         let currentStudentStipendGroup = this.studentStipendInfo[ssi.groupName];
+         if (currentStudentStipendGroup) {
+           currentStudentStipendGroup.push(ssi);
+         } else {
+           this.studentStipendInfo[ssi.groupName] = [];
+           this.studentStipendInfo[ssi.groupName].push(ssi);
+         }
+       })
     });
   }
 
+  getStudentStipendGroups() {
+    return Object.keys(this.studentStipendInfo);
+  }
 }
