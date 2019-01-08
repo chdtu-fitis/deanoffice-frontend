@@ -40,11 +40,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     const year = (new Date()).getFullYear();
     const month = (new Date()).getUTCMonth() + 1;
 
-    if(month > 6) {
-      this.selectedStudyYearForDocument = year - 1;
-    } else {
-      this.selectedStudyYearForDocument = year - 2;
-    }
+    this.selectedStudyYearForDocument = year - 1;
 
     this.studyYearsForDocument = [];
     for(let i = 0; i < 6; i++ ) {
