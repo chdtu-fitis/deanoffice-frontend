@@ -25,7 +25,4 @@ export class ModalWrapperComponent implements IAppModal {
     this.modal.hide();
   }
 
-  stopPropagation() {
-    event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
-  }
 }
