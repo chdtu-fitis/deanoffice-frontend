@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {IAppModal} from '../modal.interface';
 import {ModalDirective} from 'ngx-bootstrap';
-import {ModalMargin} from './models/modal-margin';
 
 @Component({
   selector: 'modal-wrapper',
@@ -10,7 +9,7 @@ import {ModalMargin} from './models/modal-margin';
 })
 export class ModalWrapperComponent implements IAppModal {
   @Input() title: string;
-  @Input() margin: ModalMargin = new ModalMargin();
+  @Input() styleObj;
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 

@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
 import {getId} from '../../../../../models/basemodels/BaseEntity';
-import {ModalMargin} from '../../../../shared/modal-wrapper/models/modal-margin';
 
 import 'rxjs/add/operator/map';
 
@@ -22,7 +21,6 @@ export class ChangeQualificationComponent {
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
   isOpen = false;
-  modalMargin = new ModalMargin('10px', '10px', '10px', '10px');
   searchedName = '';
   searchedCode = '';
 
