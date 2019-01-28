@@ -1,9 +1,8 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {StudentService} from '../../../services/student.service';
 import {Student} from '../../../models/Student';
 
@@ -12,11 +11,11 @@ import {Student} from '../../../models/Student';
     templateUrl: './student-personal-info.component.html',
     styleUrls: ['./student-personal-info.component.scss'],
 })
-export class StudentPersonalInfoComponent extends BaseReactiveFormComponent implements IAppModal {
+export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
   model: Student;
   id: string;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
 
   constructor(
