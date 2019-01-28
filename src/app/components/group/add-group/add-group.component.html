@@ -1,4 +1,4 @@
-<group-modal #modal [title]="'Додати нову групу'" (hideModal)="hideModal()">
+<modal-wrapper #modal [title]="'Додати нову групу'" (hideModal)="hideModal()">
   <group-form #form
               [specializations]="specializations"
               [tuitionForms]="tuitionForms"
@@ -11,4 +11,4 @@
     <button type="button" (click)="hideModal()"
             class="btn btn-outline-danger">Скасувати</button>
   </group-form>
-</group-modal>
+</modal-wrapper>

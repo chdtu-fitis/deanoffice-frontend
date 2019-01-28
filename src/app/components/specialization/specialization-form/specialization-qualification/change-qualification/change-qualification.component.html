@@ -1,5 +1,5 @@
 <div id="qualification-modal">
-  <specialization-modal #modal [title]="'Вибір кваліфікації'" [margin]="modalMargin" (hideModal)="hide()">
+  <modal-wrapper #modal [title]="'Вибір кваліфікації'" [margin]="modalMargin" (hideModal)="hide()">
     <div class="modal-body">
       <div *ngIf="!canEdit" class="p-1 qualification-alert">
         <alert type="warning">
@@ -31,5 +31,5 @@
       <button type="button" class="btn btn-success" (click)="submit()" [disabled]="!canEdit">Обрати</button>
       <button type="button" class="btn btn-outline-danger" (click)="hide()">Скасувати</button>
     </div>
-  </specialization-modal>
+  </modal-wrapper>
 </div>

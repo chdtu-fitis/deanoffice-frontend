@@ -1,4 +1,4 @@
-<group-modal #modal [title]="'Видалити групи'" (hideModal)="hideModal()">
+<modal-wrapper #modal [title]="'Видалити групи'" (hideModal)="hideModal()">
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="modal-body">
       <table class="table">
@@ -24,4 +24,4 @@
       <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
     </div>
   </form>
-</group-modal>
+</modal-wrapper>
