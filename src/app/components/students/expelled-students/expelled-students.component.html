@@ -1,44 +1,93 @@
 <div class="container-fluid h-100">
   <div class="row h-100 flex-nowrap">
     <div class="col content py-3">
-      <div class="mb-4 mt-3 d-flex">
-        <app-students-search
-          class="mr-auto"
-          [rows]="rows"
-          (searchResult)="onSelect($event)"
-          studentField="studentDegree.student"
-        ></app-students-search>
-        <button
-          *ngIf="selected.length === 1 && !selected[0].active"
-          class="btn btn-info"
-          (click)="renewStudentModal.openModal(selected[0])"
-        >
-          Поновити
-        </button>
-        <button
-          *ngIf="selected.length === 1"
-          class="btn btn-warning ml-3 mr-2"
-          (click)="onFormAcademicCertificate()"
-        >
-          Сформувати академдовідку
-        </button>
-        <img class="pt-4" *ngIf="academicCertificateLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-      </div>
 
-      <div class="students-table">
-        <app-students-table
-          [columns]="columns"
-          [rows]="rows"
-          [selected]="selected"
-          [loading]="loading"
-          (onSelect)="onSelect($event)"
-        >
-        </app-students-table>
-      </div>
+      <tabset class="h-100">
+        <tab heading="Відраховані за останні 5 років (крім тих, що успішно закінчили навчання)" class="h-100">
+          <div class="my-2 d-flex">
+            <app-students-search
+              class="mr-2"
+              [rows]="rows"
+              (searchResult)="onSelect($event)"
+              studentField="studentDegree.student"
+            ></app-students-search>
 
-      <div class="bg-light fixed-bottom p-3">
-        Всього: {{rows.length || '0'}}
-      </div>
+            <button
+              *ngIf="selected.length === 1 && !selected[0].active"
+              class="btn btn-info"
+              (click)="renewStudentModal.openModal(selected[0])"
+            >
+              Поновити
+            </button>
+            <button
+              *ngIf="selected.length === 1"
+              class="btn btn-warning ml-3 mr-2"
+              (click)="onFormAcademicCertificate()"
+            >
+              Сформувати академдовідку
+            </button>
+            <img class="pt-4" *ngIf="academicCertificateLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+          </div>
+
+          <div class="students-table">
+            <app-students-table
+              [columns]="columns"
+              [rows]="rows"
+              [selected]="selected"
+              [loading]="loading"
+              (onSelect)="onSelect($event)"
+            >
+            </app-students-table>
+          </div>
+
+          <div class="bg-light fixed-bottom p-2">
+            Всього: {{rows.length || '0'}}
+          </div>
+        </tab>
+
+        <tab heading="Всі відраховані" class="h-100">
+          <div class="my-2 d-flex">
+            <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="searchStudent()">
+              <input
+                class="form-control mr-2"
+                placeholder="прізвище"
+                formControlName="lastName"
+              >
+              <input
+                class="form-control mr-2"
+                placeholder="ім'я"
+                formControlName="firstName"
+              >
+              <input
+                type="date"
+                class="form-control mr-2"
+                formControlName="startDate"
+                title="Початкова дата пошуку">
+              <input
+                type="date"
+                class="form-control mr-2"
+                formControlName="endDate"
+                title="Кінцева дата пошуку">
+              <button type="submit" class="btn btn-info">Пошук</button>
+            </form>
+          </div>
+
+          <div class="students-table">
+            <app-students-table
+              [columns]="columns"
+              [rows]="rowsAll"
+              [selected]="selected"
+              [loading]="loading"
+              (onSelect)="onSelect($event)"
+            >
+            </app-students-table>
+          </div>
+
+          <div class="bg-light fixed-bottom p-2">
+            Всього: {{rows.length || '0'}}
+          </div>
+        </tab>
+      </tabset>
     </div>
   </div>
 </div>

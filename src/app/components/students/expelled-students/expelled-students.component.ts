@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
 import { expelledStudentsColumns } from './../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
-import {AcademicCertificateService} from "../../../services/academic-certificate.service";
+import {AcademicCertificateService} from '../../../services/academic-certificate.service';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-expelled-students',
@@ -13,21 +14,31 @@ import {AcademicCertificateService} from "../../../services/academic-certificate
 export class ExpelledStudentsComponent implements OnInit {
   columns: string[] = expelledStudentsColumns;
   rows: StudentDegree[] = [];
+  rowsAll: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   loading: boolean;
   academicCertificateLoading: boolean;
+  searchForm: FormGroup;
 
   constructor(
     private studentService: StudentService,
-    private academicCertificateService: AcademicCertificateService
+    private academicCertificateService: AcademicCertificateService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    // this.rowsAll = [new StudentDegree()];
     this.loading = true;
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
       this.rows = students;
       this.loading = false;
     });
+    this.searchForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+      startDate: '',
+      endDate: ''
+    })
   }
 
   onSelect(students: StudentDegree[]) {
@@ -46,5 +57,13 @@ export class ExpelledStudentsComponent implements OnInit {
         }
       );
     }
+  }
+
+  searchStudent() {
+    console.log(this.searchForm);
+    this.studentService.searchExpelled(this.searchForm.value).subscribe((students: StudentDegree[]) => {
+      this.rows = students;
+      this.loading = false;
+    });
   }
 }
