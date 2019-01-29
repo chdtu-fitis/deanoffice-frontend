@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -14,6 +14,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
   model: Student;
   id: string;
+  @Input() editable = true;
   @Output() onSubmit = new EventEmitter();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
 
@@ -46,6 +47,9 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
       notes: this.model.notes,
       email: this.model.email,
     });
+    if (!this.editable) {
+      this.form.disable();
+    }
   }
 
   submit() {

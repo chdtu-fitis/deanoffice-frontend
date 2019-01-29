@@ -220,7 +220,10 @@
     </tabset>
   </form>
 </div>
-<div class="modal-footer">
-  <button (click)="submit()" class="btn btn-success btn-submit">Зберегти</button>
-  <button (click)="emitHide()" class="btn btn-outline-danger">Скасувати</button>
-</div>
+
+<ng-container *ngIf="editable">
+  <div class="modal-footer">
+    <button (click)="submit()" class="btn btn-success btn-submit">Зберегти</button>
+    <button (click)="emitHide()" class="btn btn-outline-danger">Скасувати</button>
+  </div>
+</ng-container>

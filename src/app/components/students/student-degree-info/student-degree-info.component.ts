@@ -28,6 +28,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   @Output() onSubmit = new EventEmitter();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
+  @Input() editable = true;
 
   get degrees() {
     return this.form.get('degrees') as FormArray;

@@ -14,10 +14,16 @@
 
             <button
               *ngIf="selected.length === 1 && !selected[0].active"
-              class="btn btn-info"
+              class="btn btn-info mr-2"
               (click)="renewStudentModal.openModal(selected[0])"
             >
               Поновити
+            </button>
+            <button
+              *ngIf="selected.length === 1"
+              class="btn btn-info"
+              (click)="studentAllInfo.openModal(selected[0].studentDegree.student.id)">
+              Інформація про студента
             </button>
             <button
               *ngIf="selected.length === 1"
@@ -96,3 +102,14 @@
   #renewStudentModal
   (onSubmit)="onRenew($event)">
 </app-renew-student>
+
+<student-all-info
+  [editable]="false"
+  #studentAllInfo>
+</student-all-info>
+
+<!--<student-all-info-->
+  <!--[groups]="groups"-->
+  <!--(onSubmit)="getStudents()"-->
+  <!--#assignStudentsToGroup-->
+<!--&gt;</student-all-info>-->

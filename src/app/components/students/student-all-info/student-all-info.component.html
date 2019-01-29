@@ -1,0 +1,20 @@
+<modal-wrapper #modal [title]="'Інформація про студента'" (hideModal)="hideModal()" [styleObj]="{'max-width': '90%'}">
+  <tabset>
+    <tab heading="Особиста інформація">
+      <app-student-personal-info
+        [editable]="editable"
+        #studentPersonalInfo>
+      </app-student-personal-info>
+    </tab>
+    <tab heading="Навчальна інформація">
+      <app-student-degree-info
+        [editable]="editable"
+        [groups]="groups"
+        #studentDegreeInfo>
+      </app-student-degree-info>
+    </tab>
+    <tab heading="Історія">
+      History component
+    </tab>
+  </tabset>
+</modal-wrapper>

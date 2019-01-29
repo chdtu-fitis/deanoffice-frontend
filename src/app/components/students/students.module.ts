@@ -32,6 +32,7 @@ import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-
 import { StudentStipendComponent } from './student-stipend/student-stipend.component';
 import { StudentPersonalInfoModalComponent } from './student-personal-info-modal/student-personal-info-modal.component';
 import { StudentDegreeInfoModalComponent } from './student-degree-info-modal/student-degree-info-modal.component';
+import {StudentAllInfoComponent} from './student-all-info/student-all-info.component';
 
 
 export const studentRoutes: Routes = [
@@ -66,7 +67,8 @@ export const studentRoutes: Routes = [
     StudentStipendComponent,
     StudentPersonalInfoModalComponent,
     StudentDegreeInfoModalComponent,
-    SynchronizeWithEdeboComponent
+    SynchronizeWithEdeboComponent,
+    StudentAllInfoComponent
   ],
   imports: [
     CommonModule,
