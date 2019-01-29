@@ -22,6 +22,13 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     super();
   }
 
+  renderForm(id) {
+    this.studentService.getStudentById(id).subscribe((student: Student) => {
+      this.model = student;
+      this.buildForm();
+    });
+  }
+
   buildForm() {
     this.form = this.fb.group({
       photoUrl: this.model.photoUrl,

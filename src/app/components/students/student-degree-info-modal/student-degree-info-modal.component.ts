@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
-import {StudentDegree} from '../../../models/StudentDegree';
-import {StudentService} from '../../../services/student.service';
 import {StudentDegreeInfoComponent} from '../student-degree-info/student-degree-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 
@@ -16,15 +14,9 @@ export class StudentDegreeInfoModalComponent {
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('studentDegreeInfo') studentDegreeInfo: StudentDegreeInfoComponent;
 
-  constructor(private studentService: StudentService) { }
-
   openModal(id) {
-    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
-      this.studentDegreeInfo.model = studentDegrees;
-      this.studentDegreeInfo.model['degrees'].sort( (a, b) => b.active - a.active );
-      this.studentDegreeInfo.buildForm();
-      this.modal.show();
-    });
+    this.studentDegreeInfo.renderForm(id);
+    this.modal.show();
   }
 
   hideModal(): void {

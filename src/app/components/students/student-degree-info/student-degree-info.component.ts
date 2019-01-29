@@ -46,6 +46,14 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
+  renderForm(id) {
+    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
+      this.model = studentDegrees;
+      this.model['degrees'].sort( (a, b) => b.active - a.active );
+      this.buildForm();
+    });
+  }
+
   buildForm() {
     this.form = this.fb.group({
       degrees: this.fb.array((this.model['degrees'] as StudentDegree[]).map((degree: StudentDegree) => {
