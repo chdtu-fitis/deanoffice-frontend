@@ -1,10 +1,9 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
-import {StudentService} from '../../../services/student.service';
 import {Student} from '../../../models/Student';
+import {StudentService} from '../../../services/student.service';
 
 @Component({
     selector: 'app-student-personal-info',
@@ -15,22 +14,11 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
   model: Student;
   id: string;
-  @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
+  @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private fb: FormBuilder,
-    private studentService: StudentService,
-  ) {
+  constructor(private fb: FormBuilder, private studentService: StudentService) {
     super();
-  }
-
-  openModal(id) {
-    this.studentService.getStudentById(id).subscribe((student: Student) => {
-      this.model = student;
-      this.buildForm();
-      this.modal.show();
-    });
   }
 
   buildForm() {
@@ -60,10 +48,6 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     });
   }
 
-  hideModal(): void {
-    this.modal.hide();
-  }
-
   submit() {
     super.submit();
     if (this.form.invalid) {
@@ -73,7 +57,11 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     this.studentService.updateStudent(Object.assign(this.form.value, { id }))
       .subscribe(() => {
         this.onSubmit.emit();
-        this.modal.hide();
+        this.emitHide();
       })
+  }
+
+  emitHide() {
+    this.hideModal.emit(null);
   }
 }
