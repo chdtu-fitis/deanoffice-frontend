@@ -26,6 +26,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   tabValidity: Array<boolean> = [];
   @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
+  @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
 
   get degrees() {
@@ -42,15 +43,6 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     iconRegistry.addSvgIcon(
       'cancel',
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
-  }
-
-  openModal(id) {
-    this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
-      this.model = studentDegrees;
-      this.model['degrees'].sort( (a, b) => b.active - a.active );
-      this.buildForm();
-      this.modal.show();
-    });
   }
 
   buildForm() {
@@ -141,11 +133,10 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     const degrees = this.form.value.degrees.filter(degree => degree.active);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
       this.onSubmit.emit();
-      this.modal.hide();
+      this.emitHide();
     });
   }
-
-  hideModal(): void {
-    this.modal.hide();
+  emitHide() {
+    this.hideModal.emit(null);
   }
 }

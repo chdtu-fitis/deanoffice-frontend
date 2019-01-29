@@ -31,6 +31,7 @@ import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/s
 import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
 import { StudentStipendComponent } from './student-stipend/student-stipend.component';
 import { StudentPersonalInfoModalComponent } from './student-personal-info-modal/student-personal-info-modal.component';
+import { StudentDegreeInfoModalComponent } from './student-degree-info-modal/student-degree-info-modal.component';
 
 
 export const studentRoutes: Routes = [
@@ -64,6 +65,7 @@ export const studentRoutes: Routes = [
     AssignRecordBookNumberToStudentsComponent,
     StudentStipendComponent,
     StudentPersonalInfoModalComponent,
+    StudentDegreeInfoModalComponent,
     SynchronizeWithEdeboComponent
   ],
   imports: [

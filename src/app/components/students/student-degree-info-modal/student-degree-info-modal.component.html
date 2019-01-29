@@ -1,0 +1,8 @@
+<modal-wrapper #modal [title]="'Редагування навчальної інформації'" (hideModal)="hideModal()" [styleObj]="{'max-width': '90%'}">
+  <app-student-degree-info
+    [groups]="groups"
+    (hideModal)="hideModal()"
+    (onSubmit)="submit()"
+    #studentDegreeInfo>
+  </app-student-degree-info>
+</modal-wrapper>
