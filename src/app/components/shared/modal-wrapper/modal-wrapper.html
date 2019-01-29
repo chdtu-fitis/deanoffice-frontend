@@ -1,9 +1,9 @@
 <div class="modal fade" [config]="{backdrop: 'static'}" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
-     aria-hidden="true">
+     aria-hidden="true"  (onHide)="stopPropagation()">
   <div class="modal-dialog modal-lg" [ngStyle]="styleObj">
     <div class="modal-content">
       <div class="modal-header">
-        <div class="modal-title"><b>{{title}}</b></div>
+        <div class="modal-title"><h4>{{title}}</h4></div>
         <button type="button" class="close" aria-label="Close" (click)="emitHide()">
           <span aria-hidden="true">x</span>
         </button>

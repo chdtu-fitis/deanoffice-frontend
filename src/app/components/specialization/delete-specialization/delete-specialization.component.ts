@@ -1,5 +1,4 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {Specialization} from '../../../models/Specialization';
 import {SpecializationService} from '../../../services/specialization.service';

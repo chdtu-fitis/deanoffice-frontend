@@ -60,7 +60,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     });
   }
 
-  hideModal() {
+  hideModal(): void {
     this.modal.hide();
   }
 
