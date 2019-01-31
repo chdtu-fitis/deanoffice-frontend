@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../../services/student.service';
-import { expelledStudentsColumns } from './../constants';
+import { expelledStudentsColumns } from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {AcademicCertificateService} from "../../../services/academic-certificate.service";
 

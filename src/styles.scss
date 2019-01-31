@@ -4,6 +4,8 @@
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 @import '~bootstrap/scss/bootstrap';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
 $color-table-row-selection: #c0ffc0;
 $color-table-row-selection-hover: darken($color-table-row-selection, 5%);

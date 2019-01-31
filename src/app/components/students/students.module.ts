@@ -1,9 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material';
+import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {AgGridModule} from 'ag-grid-angular';
 
 import {StudentsComponent} from './students.component';
 import {StudentsTableComponent} from './students-table/students-table.component';
@@ -24,7 +26,6 @@ import {RenewStudentComponent} from './renew-student/renew-student.component';
 import {StopAcademicVacationComponent} from './stop-academic-vacation/stop-academic-vacation.component';
 import {StudentAcademicVacationComponent} from './student-academic-vacation/student-academic-vacation.component';
 import {PipeModule} from '../../pipes/pipe.module';
-import {RouterModule, Routes} from '@angular/router';
 import {SynchronizeWithEdeboComponent} from './synchronize-with-edebo/synchronize-with-edebo.component';
 import { AssignStudentsToGroupComponent } from './assign-students-to-group/assign-students-to-group.component';
 import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
@@ -73,7 +74,8 @@ export const studentRoutes: Routes = [
     TypeaheadModule.forRoot(),
     RouterModule.forChild(studentRoutes),
     PipeModule,
-    MatIconModule
+    MatIconModule,
+    AgGridModule.withComponents([]),
   ]
 })
 export class StudentsModule {}
