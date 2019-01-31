@@ -186,8 +186,14 @@ const colDefStudentNameEng = {
 const colDefStudentSex = {
   headerName: 'Стать',
   field: 'student.sex',
+  valueGetter: function(params) {
+    if (params.data.student.sex === 'MALE') {
+      return 'Чол.';
+    } else {
+      return 'Жін.';
+    }},
   sortable: true,
-  minWidth: 100
+  minWidth: 50
 };
 
 const colDefStudentRegistrationAddress = {
