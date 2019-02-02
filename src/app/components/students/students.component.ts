@@ -32,7 +32,7 @@ export class StudentsComponent {
   }
 
   onSelectionChanged() {
-    this.selected = this.gridApi.getSelectedRows()
+    this.selected = this.gridApi.getSelectedRows();
   }
 
   onGridReady(params) {
@@ -102,6 +102,13 @@ export class StudentsComponent {
       this.students = students;
       console.log(this.students);
     });
+  }
+
+  updateStudentPersonalInfo(student) {
+    const rowNode = this.gridApi.getRowNode(this.gridApi.getSelectedNodes()[0].id);
+    for (const prop of  Object.keys(this.selected[0].student)) {
+      rowNode.setDataValue(`student.${prop}`, student[prop]);
+    }
   }
 
   onRemove(ids) {
