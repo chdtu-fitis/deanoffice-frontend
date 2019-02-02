@@ -25,15 +25,17 @@ export class AssignRecordBookNumberToStudentsComponent {
 
   constructor(private fb: FormBuilder, private studentService: StudentService) { }
 
+  comparePIB(a, b) {
+    const first = `${a.student.surname}  ${a.student.name} ${a.student.patronimic}`;
+    const second = `${b.student.surname}  ${b.student.name} ${b.student.patronimic}`;
+    if (first < second) { return -1; }
+    if (first > second) { return 1; }
+    return 0;
+  }
+
   openModal(studentDegrees: StudentDegree[]) {
     this.studentDegrees = studentDegrees;
-    this.studentDegrees.sort( (a, b) => {
-      let first = a.student.surname + ' ' + a.student.name + ' ' + a.student.patronimic;
-      let second = b.student.surname + ' ' + b.student.name + ' ' + b.student.patronimic;
-      if (first < second) { return -1; }
-      if (first > second) { return 1; }
-      return 0;
-    });
+    this.studentDegrees.sort(this.comparePIB);
     this.students = this.studentDegrees.map(studentDegree => ({
       id: studentDegree.id,
       fullName: `${studentDegree.student.surname} ${studentDegree.student.name} ${studentDegree.student.patronimic}`,
@@ -86,7 +88,7 @@ export class AssignRecordBookNumberToStudentsComponent {
         this.studentDegrees[i].recordBookNumber = this.form.value.studentDegrees[i].recordBookNumber;
       }
       this.initialRecordBookNumber.setValue('');
-      this.onSubmit.emit();
+      this.onSubmit.emit(degreesForSubmit);
       this.hideModal();
     });
   }

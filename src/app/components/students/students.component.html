@@ -24,6 +24,7 @@
       [localeText]="localeText"
       (selectionChanged)="onSelectionChanged($event)"
       (modelUpdated)="onModelUpdated($event)"
+      [getRowNodeId]="getRowNodeId"
       (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
@@ -107,7 +108,7 @@
 ></app-student-expel>
 
 <assign-record-book-number-to-students
-  (onSubmit)="getStudents()"
+  (onSubmit)="updateRecordBookNumber($event)"
   #assignRecordBookNumberToStudents
 ></assign-record-book-number-to-students>
 

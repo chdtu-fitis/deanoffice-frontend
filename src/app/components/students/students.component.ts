@@ -27,6 +27,9 @@ export class StudentsComponent {
   localeText = localeText;
   private gridApi;
   private gridColumnApi;
+  getRowNodeId = function(data) {
+    return data.id;
+  };
 
   constructor(private studentService: StudentService, private groupService: GroupService) {
   }
@@ -105,16 +108,23 @@ export class StudentsComponent {
   }
 
   updateStudentPersonalInfo(student) {
-    const rowNode = this.gridApi.getRowNode(this.gridApi.getSelectedNodes()[0].id);
+    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
     for (const prop of  Object.keys(this.selected[0].student)) {
       rowNode.setDataValue(`student.${prop}`, student[prop]);
     }
   }
 
   updateStudentsGroup(group) {
-    for (const node of this.gridApi.getSelectedNodes()) {
+    for (const node of this.selected) {
       const rowNode = this.gridApi.getRowNode(node.id);
       rowNode.setDataValue('studentGroup.name', group.name);
+    }
+  }
+
+  updateRecordBookNumber(recordBookNumber) {
+    for (const id of Object.keys(recordBookNumber)) {
+      const rowNode = this.gridApi.getRowNode(id);
+      rowNode.setDataValue('recordBookNumber', recordBookNumber[id]);
     }
   }
 

@@ -212,7 +212,7 @@ const colDefStudentActualAddress = {
 
 const colDefStudentRecordBookNumber = {
   headerName: 'Номер заліковки',
-  field: 'student.recordBookNumber',
+  field: 'recordBookNumber',
   sortable: true,
   minWidth: 100
 };
