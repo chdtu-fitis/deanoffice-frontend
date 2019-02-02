@@ -21,12 +21,6 @@
             </button>
             <button
               *ngIf="selected.length === 1"
-              class="btn btn-info"
-              (click)="studentAllInfo.openModal(selected[0].studentDegree.student.id)">
-              Інформація про студента
-            </button>
-            <button
-              *ngIf="selected.length === 1"
               class="btn btn-warning ml-3 mr-2"
               (click)="onFormAcademicCertificate()"
             >
@@ -53,44 +47,52 @@
 
         <tab heading="Всі відраховані" class="h-100">
           <div class="my-2 d-flex">
-            <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="searchStudent()">
-              <input
-                class="form-control mr-2"
-                placeholder="прізвище"
-                formControlName="lastName"
-              >
-              <input
-                class="form-control mr-2"
-                placeholder="ім'я"
-                formControlName="firstName"
-              >
-              <input
-                type="date"
-                class="form-control mr-2"
-                formControlName="startDate"
-                title="Початкова дата пошуку">
-              <input
-                type="date"
-                class="form-control mr-2"
-                formControlName="endDate"
-                title="Кінцева дата пошуку">
-              <button type="submit" class="btn btn-info">Пошук</button>
-            </form>
+            <div class="mr-2">
+              <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="onSearchAllExpelled()">
+                <input
+                  class="form-control mr-2"
+                  placeholder="прізвище"
+                  formControlName="surname"
+                >
+                <input
+                  class="form-control mr-2"
+                  placeholder="ім'я"
+                  formControlName="name"
+                >
+                <input
+                  type="date"
+                  class="form-control mr-2"
+                  formControlName="startDate"
+                  title="Початкова дата пошуку">
+                <input
+                  type="date"
+                  class="form-control mr-2"
+                  formControlName="endDate"
+                  title="Кінцева дата пошуку">
+                <button type="submit" class="btn btn-info">Пошук</button>
+              </form>
+            </div>
+            <button
+              *ngIf="selectedAll.length === 1"
+              class="btn btn-info"
+              (click)="studentAllInfo.openModal(selectedAll[0].studentDegree.student.id)">
+              Інформація про студента
+            </button>
           </div>
 
           <div class="students-table">
             <app-students-table
               [columns]="columns"
               [rows]="rowsAll"
-              [selected]="selected"
+              [selected]="selectedAll"
               [loading]="loading"
-              (onSelect)="onSelect($event)"
+              (onSelect)="onSelectAll($event)"
             >
             </app-students-table>
           </div>
 
           <div class="bg-light fixed-bottom p-2">
-            Всього: {{rows.length || '0'}}
+            Всього: {{rowsAll.length || '0'}}
           </div>
         </tab>
       </tabset>
@@ -107,9 +109,3 @@
   [editable]="false"
   #studentAllInfo>
 </student-all-info>
-
-<!--<student-all-info-->
-  <!--[groups]="groups"-->
-  <!--(onSubmit)="getStudents()"-->
-  <!--#assignStudentsToGroup-->
-<!--&gt;</student-all-info>-->

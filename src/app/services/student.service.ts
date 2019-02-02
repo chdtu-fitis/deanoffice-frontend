@@ -63,7 +63,7 @@ export class StudentService {
   }
 
   searchExpelled(expelledStudent) {
-    return this.http.get(`${this.url}/search-expelled`, {params: expelledStudent});
+    return this.http.get(`${this.url}/degrees/expels/all`, {params: expelledStudent});
   }
 
   updateStudent(student: Student) {
