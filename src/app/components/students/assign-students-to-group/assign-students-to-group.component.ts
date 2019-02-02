@@ -47,7 +47,7 @@ export class AssignStudentsToGroupComponent {
           return group.id === this.group.value.id;
         });
       });
-      this.onSubmit.emit();
+      this.onSubmit.emit(this.group.value);
       this.hideModal();
     });
   }

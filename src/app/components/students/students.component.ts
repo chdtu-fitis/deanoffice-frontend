@@ -111,6 +111,13 @@ export class StudentsComponent {
     }
   }
 
+  updateStudentsGroup(group) {
+    for (const node of this.gridApi.getSelectedNodes()) {
+      const rowNode = this.gridApi.getRowNode(node.id);
+      rowNode.setDataValue('studentGroup.name', group.name);
+    }
+  }
+
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
     const filterFn = degree => !idsToRemove.includes(degree.id);
