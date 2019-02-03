@@ -133,7 +133,8 @@ const colDefPayment = {
   valueGetter: function(params) {
     if (params.data.payment === 'BUDGET') {
       return 'бюджет';
-    } else {
+    }
+    if (params.data.payment === 'CONTRACT') {
       return 'контракт';
     }},
   sortable: true,
@@ -189,7 +190,8 @@ const colDefStudentSex = {
   valueGetter: function(params) {
     if (params.data.student.sex === 'MALE') {
       return 'Чол.';
-    } else {
+    }
+    if (params.data.student.sex === 'FEMALE') {
       return 'Жін.';
     }},
   sortable: true,
