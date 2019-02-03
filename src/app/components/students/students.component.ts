@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
 import { GroupService } from '../../services/group.service';
@@ -11,7 +11,7 @@ import {defaultColumnDefs, allColumnDefs, localeText} from './constants';
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss'],
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
   groups: StudentGroup[] = [];
   rows: StudentDegree[] = [];
@@ -34,6 +34,12 @@ export class StudentsComponent {
   constructor(private studentService: StudentService, private groupService: GroupService) {
   }
 
+  ngOnInit() {
+    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+      this.groups = groups;
+    });
+  }
+
   onSelectionChanged() {
     this.selected = this.gridApi.getSelectedRows();
   }
@@ -42,9 +48,8 @@ export class StudentsComponent {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
     this.gridColumnApi = params.columnApi;
-    this.getStudents();
-    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
-      this.groups = groups;
+    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
+      this.students = students;
     });
   }
 
@@ -96,17 +101,6 @@ export class StudentsComponent {
     this.selected = students;
   }
 
-  // TODO: use form data instead of loading all student
-  getStudents() {
-    const stream = this.isAllDataLoaded
-      ? this.studentService.getStudents()
-      : this.studentService.getInitialStudents();
-    stream.subscribe((students: StudentDegree[]) => {
-      this.students = students;
-      console.log(this.students);
-    });
-  }
-
   updateStudentPersonalInfo(studentPersonalInfo) {
     const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
     for (const col of this.columnDefsAll) {
@@ -148,6 +142,7 @@ export class StudentsComponent {
     const idsToRemove = [].concat(ids);
     const filterFn = degree => !idsToRemove.includes(degree.id);
     this.oldSelectedIds = this.selected.map(a => (a.id));
+    this.selected = this.selected.filter(filterFn);
     this.students = this.students.filter(filterFn);
     this.setRows(this.students);
   }
