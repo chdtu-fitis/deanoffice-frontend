@@ -62,10 +62,10 @@ export class StudentsComponent {
   }
 
   setColumns(columns: string[]) {
+    this.oldSelectedIds = this.selected.map(a => (a.id));
     if (!this.isAllDataLoaded) {
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
-          this.oldSelectedIds = this.selected.map(a => (a.id));
           this.students = students;
           this.isAllDataLoaded = true;
         });
@@ -107,11 +107,27 @@ export class StudentsComponent {
     });
   }
 
-  updateStudentPersonalInfo(student) {
-    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
-    for (const prop of  Object.keys(this.selected[0].student)) {
-      rowNode.setDataValue(`student.${prop}`, student[prop]);
+  updateStudentPersonalInfo(studentPersonalInfo) {
+    const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
+    for (const col of this.columnDefsAll) {
+      if (col.field.startsWith('student.')) {
+        const [s, field] = col.field.split('.');
+        selectedStudent['student'][field] = studentPersonalInfo[field];
+      }
     }
+    this.gridApi.refreshCells();
+  }
+
+  updateStudentDegreeInfo(degrees) {
+    const activeDegree = degrees['degrees'][0];
+    const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
+    for (const col of this.columnDefsAll) {
+      if (col.field.startsWith('student')) {
+        continue
+      }
+      selectedStudent[col.field] = activeDegree[col.field];
+    }
+    this.gridApi.refreshCells();
   }
 
   updateStudentsGroup(group) {
@@ -125,20 +141,6 @@ export class StudentsComponent {
     for (const id of Object.keys(recordBookNumber)) {
       const rowNode = this.gridApi.getRowNode(id);
       rowNode.setDataValue('recordBookNumber', recordBookNumber[id]);
-    }
-  }
-
-  updateStudentDegreeInfo(degrees) {
-    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
-    const activeDegree = degrees['degrees'][0];
-    if (activeDegree['studentGroup']) {
-      rowNode.setDataValue('studentGroup.name', activeDegree['studentGroup']['name']);
-    }
-    for (const prop of  Object.keys(this.selected[0])) {
-      if (prop === 'student') {
-        continue
-      }
-      rowNode.setDataValue(prop, activeDegree[prop]);
     }
   }
 
