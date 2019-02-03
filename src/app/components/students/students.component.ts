@@ -54,16 +54,15 @@ export class StudentsComponent implements OnInit {
   }
 
   onModelUpdated(params) {
+    this.count = params.api.getDisplayedRowCount();
     if (this.oldSelectedIds.length) {
-      this.gridApi.forEachNode((node) => {
-        for (const i of this.oldSelectedIds) {
-          if (node.data.id === i) {
-            node.setSelected(true);
-          }
+      for (const selectedId of this.oldSelectedIds) {
+        const rowNode = this.gridApi.getRowNode(selectedId);
+        if (rowNode) {
+          rowNode.setSelected(true);
         }
-      });
+      }
     }
-    this.count = params.api.getDisplayedRowCount()
   }
 
   setColumns(columns: string[]) {
@@ -86,14 +85,8 @@ export class StudentsComponent implements OnInit {
     this.gridApi.setColumnDefs(cols);
   }
 
-  prependStudent(student) {
-    this.oldSelectedIds = this.selected.map(a => (a.id));
-    this.oldSelectedIds.push(student.id);
-    this.students = [student, ...this.students];
-    this.setRows(this.students);
-  };
-
   setRows(rows: StudentDegree[]) {
+    this.oldSelectedIds = this.selected.map(a => (a.id));
     this.rows = rows;
   };
 
@@ -138,12 +131,18 @@ export class StudentsComponent implements OnInit {
     }
   }
 
+  prependStudent(student) {
+    this.oldSelectedIds = this.selected.map(a => (a.id));
+    this.oldSelectedIds.push(student.id);
+    this.gridApi.updateRowData({ add: [student] });
+  };
+
+
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
-    const filterFn = degree => !idsToRemove.includes(degree.id);
+    this.selected = this.selected.filter(degree => idsToRemove.includes(degree.id));
     this.oldSelectedIds = this.selected.map(a => (a.id));
-    this.selected = this.selected.filter(filterFn);
-    this.students = this.students.filter(filterFn);
-    this.setRows(this.students);
+    this.oldSelectedIds = this.oldSelectedIds.filter(id => !idsToRemove.includes(id));
+    this.gridApi.updateRowData({ remove: this.selected });
   }
 }
