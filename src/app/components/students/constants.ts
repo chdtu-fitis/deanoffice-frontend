@@ -123,7 +123,7 @@ const colDefStudentGroupName = {
   headerName: 'Група',
   field: 'studentGroup.name',
   sortable: true,
-  filter: true,
+  filter: 'partialMatchFilter',
   minWidth: 100
 };
 

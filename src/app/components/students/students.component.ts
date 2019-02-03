@@ -5,6 +5,7 @@ import { GroupService } from '../../services/group.service';
 import { StudentDegree } from '../../models/StudentDegree';
 import { StudentGroup } from '../../models/StudentGroup';
 import {defaultColumnDefs, allColumnDefs, localeText} from './constants';
+import {CustomFilterComponent} from './custom-filter/custom-filter.component';
 
 @Component({
   selector: 'app-students',
@@ -27,11 +28,13 @@ export class StudentsComponent implements OnInit {
   localeText = localeText;
   private gridApi;
   private gridColumnApi;
+  private frameworkComponents;
   getRowNodeId = function(data) {
     return data.id;
   };
 
   constructor(private studentService: StudentService, private groupService: GroupService) {
+    this.frameworkComponents = { partialMatchFilter: CustomFilterComponent };
   }
 
   ngOnInit() {
@@ -46,8 +49,8 @@ export class StudentsComponent implements OnInit {
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
     this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
     this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
       this.students = students;
     });

@@ -17,14 +17,17 @@
 
       <ag-grid-angular
       class="ag-theme-balham students-table"
+      rowSelection="multiple"
+      enableCellChangeFlash=true
+      [animateRows]="true"
       [rowData]="rows"
       [columnDefs]="columnDefs"
-      rowSelection="multiple"
       [accentedSort]="true"
       [localeText]="localeText"
+      [getRowNodeId]="getRowNodeId"
+      [frameworkComponents]="frameworkComponents"
       (selectionChanged)="onSelectionChanged($event)"
       (modelUpdated)="onModelUpdated($event)"
-      [getRowNodeId]="getRowNodeId"
       (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
