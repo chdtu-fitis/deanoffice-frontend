@@ -32,6 +32,7 @@
                             id="studentGroup" [appValidation]="degree.controls.studentGroupId">
                       <option *ngFor="let group of groups" [ngValue]="group.id"
                               [selected]="group.id === degree.value.studentGroupId"
+                              (click)="selectGroup(group)"
                       >
                         {{group.name}}
                       </option>

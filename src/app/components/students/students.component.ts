@@ -65,6 +65,7 @@ export class StudentsComponent {
     if (!this.isAllDataLoaded) {
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
+          this.oldSelectedIds = this.selected.map(a => (a.id));
           this.students = students;
           this.isAllDataLoaded = true;
         });
@@ -101,7 +102,6 @@ export class StudentsComponent {
       ? this.studentService.getStudents()
       : this.studentService.getInitialStudents();
     stream.subscribe((students: StudentDegree[]) => {
-      this.oldSelectedIds = this.selected.map(a => (a.id));
       this.students = students;
       console.log(this.students);
     });
@@ -125,6 +125,20 @@ export class StudentsComponent {
     for (const id of Object.keys(recordBookNumber)) {
       const rowNode = this.gridApi.getRowNode(id);
       rowNode.setDataValue('recordBookNumber', recordBookNumber[id]);
+    }
+  }
+
+  updateStudentDegreeInfo(degrees) {
+    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
+    const activeDegree = degrees['degrees'][0];
+    if (activeDegree['studentGroup']) {
+      rowNode.setDataValue('studentGroup.name', activeDegree['studentGroup']['name']);
+    }
+    for (const prop of  Object.keys(this.selected[0])) {
+      if (prop === 'student') {
+        continue
+      }
+      rowNode.setDataValue(prop, activeDegree[prop]);
     }
   }
 
