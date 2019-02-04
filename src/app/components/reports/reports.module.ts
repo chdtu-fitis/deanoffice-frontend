@@ -17,9 +17,6 @@ export const reportRouts: Routes = [
   ],
   declarations: [
     DebtorStatisticsComponent
-  ],
-  providers: [
-    DebtorStatisticsService
   ]
 })
 export class ReportsModule {}

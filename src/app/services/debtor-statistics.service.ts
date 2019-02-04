@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {DebtorBySpescialityModel} from '../models/reports/debtors-statistics/debtor-by-spesciality.model';
+import {SpecializationWithDebtorsStatistics} from '../models/reports/debtors-statistics/SpecializationWithDebtorsStatistics';
 
 @Injectable()
 export class DebtorStatisticsService {
@@ -10,7 +10,7 @@ export class DebtorStatisticsService {
 
   constructor(private _http: HttpClient) { }
 
-  getDebts(): Observable<DebtorBySpescialityModel[]> {
-    return this._http.get<DebtorBySpescialityModel[]>(`${this.url}/debtor`)
+  getDebts(): Observable<SpecializationWithDebtorsStatistics[]> {
+    return this._http.get<SpecializationWithDebtorsStatistics[]>(`${this.url}/debtor`)
   }
 }
