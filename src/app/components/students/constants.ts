@@ -138,7 +138,7 @@ const colDefPayment = {
       return 'контракт';
     }},
   sortable: true,
-  filter: true,
+  filter: 'paymentFilterComponent',
   minWidth: 100
 };
 

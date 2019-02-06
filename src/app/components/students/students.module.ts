@@ -32,6 +32,7 @@ import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/s
 import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
 import { StudentStipendComponent } from './student-stipend/student-stipend.component';
 import { CustomFilterComponent } from './custom-filter/custom-filter.component';
+import { PaymentFilterComponent } from './payment-filter/payment-filter.component';
 
 
 export const studentRoutes: Routes = [
@@ -65,10 +66,12 @@ export const studentRoutes: Routes = [
     AssignRecordBookNumberToStudentsComponent,
     StudentStipendComponent,
     SynchronizeWithEdeboComponent,
-    CustomFilterComponent
+    CustomFilterComponent,
+    PaymentFilterComponent
   ],
   entryComponents: [
-    CustomFilterComponent
+    CustomFilterComponent,
+    PaymentFilterComponent
  ],
   imports: [
     CommonModule,

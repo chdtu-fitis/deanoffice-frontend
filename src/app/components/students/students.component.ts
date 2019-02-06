@@ -6,6 +6,7 @@ import { StudentDegree } from '../../models/StudentDegree';
 import { StudentGroup } from '../../models/StudentGroup';
 import {defaultColumnDefs, allColumnDefs, localeText} from './constants';
 import {CustomFilterComponent} from './custom-filter/custom-filter.component';
+import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
 
 @Component({
   selector: 'app-students',
@@ -28,13 +29,16 @@ export class StudentsComponent implements OnInit {
   localeText = localeText;
   private gridApi;
   private gridColumnApi;
-  private frameworkComponents;
+  frameworkComponents;
   getRowNodeId = function(data) {
     return data.id;
   };
 
   constructor(private studentService: StudentService, private groupService: GroupService) {
-    this.frameworkComponents = { partialMatchFilter: CustomFilterComponent };
+    this.frameworkComponents = {
+      partialMatchFilter: CustomFilterComponent,
+      paymentFilterComponent: PaymentFilterComponent
+    };
   }
 
   ngOnInit() {
