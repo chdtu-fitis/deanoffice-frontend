@@ -16,7 +16,6 @@ import {PaymentFilterComponent} from './payment-filter/payment-filter.component'
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
   groups: StudentGroup[] = [];
-  rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
   loading: boolean;
@@ -42,6 +41,9 @@ export class StudentsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
+      this.students = students;
+    });
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
@@ -55,9 +57,6 @@ export class StudentsComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
-    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
-      this.students = students;
-    });
   }
 
   onModelUpdated(params) {
@@ -91,11 +90,6 @@ export class StudentsComponent implements OnInit {
     }
     this.gridApi.setColumnDefs(cols);
   }
-
-  setRows(rows: StudentDegree[]) {
-    this.oldSelectedIds = this.selected.map(a => (a.id));
-    this.rows = rows;
-  };
 
   onSelect(students: StudentDegree[]) {
     this.selected = students;

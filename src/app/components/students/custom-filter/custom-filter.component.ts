@@ -1,4 +1,4 @@
-import {Component, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component} from '@angular/core';
 import {IDoesFilterPassParams, IFilterParams, RowNode} from 'ag-grid-community';
 import {IFilterAngularComp} from 'ag-grid-angular';
 import {StudentGroup} from '../../../models/StudentGroup';
@@ -21,6 +21,7 @@ export class CustomFilterComponent implements IFilterAngularComp {
   agInit(params: IFilterParams): void {
     this.params = params;
     this.valueGetter = params.valueGetter;
+    // TODO receive from student component
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
