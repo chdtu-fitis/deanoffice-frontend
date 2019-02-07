@@ -3,9 +3,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 
 import {CourseForGroup} from '../../../models/CourseForGroup';
-import {Teacher} from "../../../models/Teacher";
-import {StudentGroup} from "../../../models/StudentGroup";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
+import {Teacher} from '../../../models/Teacher';
+import {StudentGroup} from '../../../models/StudentGroup';
+import {CourseForGroupService} from '../../../services/course-for-group.service';
 
 const studySemesters = 12;
 

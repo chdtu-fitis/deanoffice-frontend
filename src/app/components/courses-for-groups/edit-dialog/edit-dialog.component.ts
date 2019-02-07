@@ -1,16 +1,19 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgbActiveModal, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {KnowledgeControl} from "../../../models/KnowlegeControl";
-import {KnowledgeControlService} from "../../../services/knowledge-control.service";
-import {CourseService} from "../../../services/course.service";
-import {CourseName} from "../../../models/CourseName";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+
+import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap';
+
+import {KnowledgeControl} from '../../../models/KnowlegeControl';
+import {KnowledgeControlService} from '../../../services/knowledge-control.service';
+import {CourseService} from '../../../services/course.service';
+import {CourseName} from '../../../models/CourseName';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
-import {CourseForGroup} from "../../../models/CourseForGroup";
-import {FormGroup} from "@angular/forms";
-import {Course} from "../../../models/Course";
+import {CourseForGroupService} from '../../../services/course-for-group.service';
+import {CourseForGroup} from '../../../models/CourseForGroup';
+import {Course} from '../../../models/Course';
 
 @Component({
   selector: 'edit-dialog',
@@ -19,9 +22,9 @@ import {Course} from "../../../models/Course";
   providers: [CourseService, KnowledgeControlService, CourseForGroupService]
 })
 export class EditDialogComponent implements OnInit {
-  @Input() selectedGroup: StudentGroup = new StudentGroup();
-  @Input() courseFromTable = new CourseForGroup();
-  course: CourseForGroup = JSON.parse(JSON.stringify(this.courseFromTable));
+  selectedGroup: StudentGroup = new StudentGroup();
+  courseFromTable = new CourseForGroup();
+  course: CourseForGroup;
   // TODO use Reactive forms
   form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
@@ -33,10 +36,11 @@ export class EditDialogComponent implements OnInit {
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
-              public activeModal: NgbActiveModal) {
+              public bsModalRef: BsModalRef) {
   }
 
   ngOnInit() {
+    this.course = JSON.parse(JSON.stringify(this.courseFromTable));
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
     });
@@ -64,7 +68,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   canselChanges() {
-    this.activeModal.close('Close click')
+    this.bsModalRef.hide()
   }
 
   saveChanges() {
@@ -76,7 +80,7 @@ export class EditDialogComponent implements OnInit {
     }).subscribe((course: Course) => {
       this.courseFromTable.course = course;
     });
-    this.activeModal.close('Close click')
+    this.bsModalRef.hide()
   }
 
   calculateCredits(course: Course){
