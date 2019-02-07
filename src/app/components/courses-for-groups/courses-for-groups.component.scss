@@ -105,3 +105,7 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
 .courses-for-groups{
   height: calc(100% - 108px);
 }
+
+.modal-custom .modal-dialog, .modal-content {
+  height: 90vh;
+}

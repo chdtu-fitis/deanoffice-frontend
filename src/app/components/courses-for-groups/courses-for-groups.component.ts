@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {NotificationsService} from 'angular2-notifications';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 import {StudentGroup} from '../../models/StudentGroup';
 import {Course} from '../../models/Course';
@@ -57,8 +56,7 @@ export class CoursesForGroupsComponent implements OnInit {
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
               private _service: NotificationsService,
-              private modalService: NgbModal,
-              private modalServiceX: BsModalService) {}
+              private modalService: BsModalService) {}
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(groups => {
@@ -287,9 +285,9 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   changeTeacher(event) {
-    const modalRef = this.modalService.open(TeacherDialogComponent);
-    modalRef.componentInstance.courseForGroups = event;
-    modalRef.componentInstance.onTeacherSelect.subscribe(($event) => {
+    const initialState = {courseForGroups: event};
+    const modalRef = this.modalService.show(TeacherDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onTeacherSelect.subscribe(($event) => {
       this.updateCoursesForGroupWithNewTeacher($event);
     });
   }
@@ -339,7 +337,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.changesExistence = true;
     const initialState = {groups: this.groups, selectedSemesterTo: this.selectedSemester,
       selectedSemesterFrom: this.selectedSemester, coursesForGroups: this.coursesForGroup};
-    const bsModalRef = this.modalServiceX.show(CopyCoursesDialogComponent, {initialState});
+    const bsModalRef = this.modalService.show(CopyCoursesDialogComponent, {initialState, class: 'modal-custom'});
     bsModalRef.content.copiedCourse.subscribe(($event) => {
       this.addCourse($event, this.checkIfAddedCourseIsInDeleted($event.course));
     });
