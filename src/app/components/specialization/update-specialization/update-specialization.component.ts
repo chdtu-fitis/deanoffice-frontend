@@ -45,7 +45,13 @@ export class UpdateSpecializationComponent {
     this.specializationService
       .update(specialization)
       .then(() => this.form.saveCompetenciesAndQualification(this.source.id))
-      .then(() => this.onSubmit.emit(null))
+      .then(() => this.onSubmit.emit(
+        {
+          specialization: this.form.getValue(),
+          degrees: this.form.degrees,
+          specialities: this.form.specialities,
+        }
+      ))
       .then(() => this.hideModal())
       .catch(null);
   }

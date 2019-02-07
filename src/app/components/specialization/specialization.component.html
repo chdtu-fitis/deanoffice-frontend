@@ -3,11 +3,6 @@
     <div class="col content py-3">
       <div class="mb-3 d-flex justify-content-between">
         <div>
-          <div class="d-inline-block align-middle" style="width: 161px">
-            <input type="search" name="search" class="form-control" placeholder="Пошук за назвою"
-                   [(ngModel)]="searchField">
-          </div>
-
           <div class="d-inline-block align-middle">
             <label for="active" class="ml-1 m-0">
               <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
@@ -18,38 +13,51 @@
 
         <div>
           <button type="button" class="btn btn-danger align-middle"
-                  (click)="deleteSpecialization.openModal(selectedSpecialization)" [disabled]="buttonIsDisabled()">
+                  (click)="deleteSpecializationModal.openModal(selectedSpecialization[0])"
+                  [disabled]="!selectedSpecialization.length">
             Видалити
           </button>
 
-          <button type="button" class="btn btn-warning align-middle" [disabled]="buttonIsDisabled()"
-                  (click)="updateSpecialization.openModal(selectedSpecialization.id)">
+          <button type="button" class="btn btn-warning align-middle"
+                  [disabled]="selectedSpecialization.length === 0 || selectedSpecialization.length > 1"
+                  (click)="updateSpecializationModal.openModal(selectedSpecialization[0].id)">
             Редагувати
           </button>
 
-          <button type="button" class="btn btn-success align-middle mr-1" (click)="addSpecialization.openModal()">
+          <button type="button" class="btn btn-success align-middle mr-1"
+                  (click)="addSpecializationModal.openModal()">
             Нова спеціалізація
           </button>
         </div>
       </div>
 
-      <div class="specializations-table">
-        <app-specializations-table
-          [rows]="specializations | searchSpecializations: searchField"
-          [loading]="loading"
-          (onSelect)="selectSpecializations($event)"
-        ></app-specializations-table>
-      </div>
+      <ag-grid-angular
+        class="ag-theme-balham specializations-table"
+        rowSelection="multiple"
+        rowHeight="50"
+        rowSelection="single"
+        enableCellChangeFlash=true
+        [animateRows]="true"
+        [accentedSort]="true"
+        [rowData]="specializations"
+        [columnDefs]="columnDefs"
+        [localeText]="localeText"
+        [getRowNodeId]="getRowNodeId"
+        (selectionChanged)="selectSpecializations($event)"
+        (gridReady)="onGridReady($event)"
+        (modelUpdated)="onModelUpdated($event)"
+      >
+      </ag-grid-angular>
 
       <div class="bg-light fixed-bottom p-3">
-        Всього: {{(specializations | searchSpecializations: searchField).length || '0'}}
+        Всього: {{count || '0'}}
       </div>
     </div>
   </div>
 </div>
 
-<add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
+<add-specialization #addSpecializationModal (onSubmit)="addSpecialization($event)"></add-specialization>
 
-<delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>
+<delete-specialization #deleteSpecializationModal (onSubmit)="deleteSpecialization()"></delete-specialization>
 
-<update-specialization #updateSpecialization (onSubmit)="updateDatatable()"></update-specialization>
+<update-specialization #updateSpecializationModal (onSubmit)="updateSpecialization($event)"></update-specialization>

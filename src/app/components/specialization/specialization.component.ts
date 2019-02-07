@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
+import {columnDefs} from './transtations';
+import {localeText} from '../shared/constant';
+
 
 @Component({
   selector: 'specialization',
@@ -9,10 +13,16 @@ import {Specialization} from '../../models/Specialization';
 })
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
-  selectedSpecialization: Specialization;
+  selectedSpecialization: Specialization[] = [];
+  count;
   loading: boolean;
   searchField: string;
   private actual: boolean;
+  columnDefs = columnDefs;
+  localeText = localeText;
+  private gridApi;
+  private gridColumnApi;
+  getRowNodeId = (data) => data.id;
 
   constructor(private specializationService: SpecializationService) {}
 
@@ -20,25 +30,58 @@ export class SpecializationComponent implements OnInit {
     this.getSpecializations(true);
   }
 
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onModelUpdated(params) {
+    this.count = params.api.getDisplayedRowCount();
+  }
+
+
   getSpecializations(actual: boolean): void {
     this.loading = true;
     this.actual = actual;
     this.specializationService.getSpecializations(actual).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
       null,
-      () => this.loading = false
+      () => {
+        this.loading = false;
+        console.log(this.specializations);
+      }
     );
   }
 
-  buttonIsDisabled(): boolean {
-    return !this.selectedSpecialization || !this.actual;
+  selectSpecializations(): void {
+    this.selectedSpecialization = this.gridApi.getSelectedRows();
+    console.log(this.selectedSpecialization);
   }
 
-  selectSpecializations(selected: Specialization): void {
-    this.selectedSpecialization = selected;
+  deleteSpecialization() {
+    this.gridApi.updateRowData({ remove: this.selectedSpecialization });
   }
 
-  updateDatatable(): void {
-    this.getSpecializations(true);
+  addSpecialization(obj) {
+    const {specialization, degrees, specialities, specializationId} = obj;
+    console.log(specialization);
+    specialization['id'] = specializationId;
+    const speciality = specialities.find(obj => obj.id === specialization['specialityId']);
+    specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
+    const degree = degrees.find(obj => obj.id === specialization['degreeId']);
+    specialization['degree'] = {'name': degree.name};
+    this.gridApi.updateRowData({ add: [specialization] });
   }
+
+  updateSpecialization(obj) {
+    const rowNode = this.gridApi.getRowNode(this.selectedSpecialization[0].id);
+    const {specialization, degrees, specialities} = obj;
+    const speciality = specialities.find(obj => obj.id === specialization['specialityId']);
+    specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
+    const degree = degrees.find(obj => obj.id === specialization['degreeId']);
+    specialization['degree'] = {'name': degree.name};
+    rowNode.setData(specialization)
+  }
+
 }
