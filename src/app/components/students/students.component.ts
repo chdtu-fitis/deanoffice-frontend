@@ -18,9 +18,6 @@ export class StudentsComponent implements OnInit {
   groups: StudentGroup[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
-  loading: boolean;
-  isSidebarOpen: boolean;
-
   count;
   oldSelectedIds = [];
   columnDefs = defaultColumnDefs;
@@ -29,9 +26,7 @@ export class StudentsComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   frameworkComponents;
-  getRowNodeId = function(data) {
-    return data.id;
-  };
+  getRowNodeId = (data) => data.id;
 
   constructor(private studentService: StudentService, private groupService: GroupService) {
     this.frameworkComponents = {
@@ -109,6 +104,9 @@ export class StudentsComponent implements OnInit {
   updateStudentDegreeInfo(degrees) {
     const activeDegree = degrees['degrees'][0];
     const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
+    if (activeDegree['studentGroup']) {
+      selectedStudent['studentGroup'] = activeDegree['studentGroup'];
+    }
     for (const col of this.columnDefsAll) {
       if (col.field.startsWith('student')) {
         continue
