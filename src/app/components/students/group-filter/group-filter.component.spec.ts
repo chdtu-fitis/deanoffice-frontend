@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomFilterComponent } from './custom-filter.component';
+import { GroupFilterComponent } from './group-filter.component';
 
-describe('CustomFilterComponent', () => {
-  let component: CustomFilterComponent;
-  let fixture: ComponentFixture<CustomFilterComponent>;
+describe('GroupFilterComponent', () => {
+  let component: GroupFilterComponent;
+  let fixture: ComponentFixture<GroupFilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomFilterComponent ]
+      declarations: [ GroupFilterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomFilterComponent);
+    fixture = TestBed.createComponent(GroupFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -123,7 +123,7 @@ const colDefStudentGroupName = {
   headerName: 'Група',
   field: 'studentGroup.name',
   sortable: true,
-  filter: 'partialMatchFilter',
+  filter: 'groupFilter',
   minWidth: 100
 };
 
@@ -138,7 +138,7 @@ const colDefPayment = {
       return 'контракт';
     }},
   sortable: true,
-  filter: 'paymentFilterComponent',
+  filter: 'paymentFilter',
   minWidth: 100
 };
 

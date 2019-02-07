@@ -5,7 +5,7 @@ import { GroupService } from '../../services/group.service';
 import { StudentDegree } from '../../models/StudentDegree';
 import { StudentGroup } from '../../models/StudentGroup';
 import {defaultColumnDefs, allColumnDefs, localeText} from './constants';
-import {CustomFilterComponent} from './custom-filter/custom-filter.component';
+import {GroupFilterComponent} from './group-filter/group-filter.component';
 import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
 
 @Component({
@@ -35,8 +35,8 @@ export class StudentsComponent implements OnInit {
 
   constructor(private studentService: StudentService, private groupService: GroupService) {
     this.frameworkComponents = {
-      partialMatchFilter: CustomFilterComponent,
-      paymentFilterComponent: PaymentFilterComponent
+      groupFilter: GroupFilterComponent,
+      paymentFilter: PaymentFilterComponent
     };
   }
 

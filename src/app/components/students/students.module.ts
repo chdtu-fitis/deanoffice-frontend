@@ -31,7 +31,7 @@ import { AssignStudentsToGroupComponent } from './assign-students-to-group/assig
 import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
 import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
 import { StudentStipendComponent } from './student-stipend/student-stipend.component';
-import { CustomFilterComponent } from './custom-filter/custom-filter.component';
+import { GroupFilterComponent } from './group-filter/group-filter.component';
 import { PaymentFilterComponent } from './payment-filter/payment-filter.component';
 
 
@@ -66,11 +66,11 @@ export const studentRoutes: Routes = [
     AssignRecordBookNumberToStudentsComponent,
     StudentStipendComponent,
     SynchronizeWithEdeboComponent,
-    CustomFilterComponent,
+    GroupFilterComponent,
     PaymentFilterComponent
   ],
   entryComponents: [
-    CustomFilterComponent,
+    GroupFilterComponent,
     PaymentFilterComponent
  ],
   imports: [

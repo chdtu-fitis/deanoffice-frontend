@@ -5,11 +5,11 @@ import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
 
 @Component({
-  selector: 'custom-filter',
-  templateUrl: './custom-filter.component.html',
-  styleUrls: ['./custom-filter.component.scss']
+  selector: 'group-filter',
+  templateUrl: './group-filter.component.html',
+  styleUrls: ['./group-filter.component.scss']
 })
-export class CustomFilterComponent implements IFilterAngularComp {
+export class GroupFilterComponent implements IFilterAngularComp {
   private params: IFilterParams;
   private valueGetter: (rowNode: RowNode) => any;
   selectedGroup;
