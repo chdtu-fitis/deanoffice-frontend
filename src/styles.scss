@@ -4,8 +4,15 @@
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 @import '~bootstrap/scss/bootstrap';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import "~ag-grid-community/dist/styles/ag-grid.css";
-@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+
+$ag-icons-path: "~/ag-grid-community/src/styles/ag-theme-balham/icons/";
+$font-size: 14px;
+$secondary-font-size: 14px;
+$primary-color: #7cffa3;
+$selected-color: #c0ffc0;
+
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
 
 $color-table-row-selection: #c0ffc0;
 $color-table-row-selection-hover: darken($color-table-row-selection, 5%);
