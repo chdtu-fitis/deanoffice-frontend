@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {BsModalRef} from 'ngx-bootstrap';
 
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Teacher} from "../../../models/Teacher";
@@ -16,12 +16,10 @@ const studySemesters = 12;
 })
 export class CopyCoursesDialogComponent implements OnInit {
 
-  @Input() groups: StudentGroup[];
-  @Input() selectedSemesterTo: number;
-  @Input() selectedSemesterFrom: number;
-  @Input() selectedGroupToCopyId: number;
-  @Input() coursesForGroups: CourseForGroup[] = [];
-  @Input() addedCoursesForGroups: CourseForGroup[] = [];
+  groups: StudentGroup[];
+  selectedSemesterTo: number;
+  selectedSemesterFrom: number;
+  coursesForGroups: CourseForGroup[] = [];
   @Output() copiedCourse: EventEmitter<CourseForGroup> = new EventEmitter<CourseForGroup>();
   @Output() alertMessage: EventEmitter<String> = new EventEmitter<String>();
   semesters = Array.from(new Array(studySemesters), (val, index) => index + 1);
@@ -31,7 +29,7 @@ export class CopyCoursesDialogComponent implements OnInit {
   searchText = '';
   allRowsIsSelected = true;
 
-  constructor(private courseForGroupService: CourseForGroupService, public activeModal: NgbActiveModal) { }
+  constructor(private courseForGroupService: CourseForGroupService, public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
   }
@@ -40,7 +38,7 @@ export class CopyCoursesDialogComponent implements OnInit {
     this.selectedGroup = group;
     if (this.selectedSemesterFrom === this.selectedSemesterTo) {
       this.addCoursesForGroup();
-      this.activeModal.close('Close click')
+      this.bsModalRef.hide();
     } else {
       this.getCoursesForGroup();
     }
@@ -94,7 +92,7 @@ export class CopyCoursesDialogComponent implements OnInit {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });
-    this.activeModal.close('Close click')
+    this.bsModalRef.hide();
   }
 
   addCoursesForGroup() {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {SimpleNotificationsModule} from 'angular2-notifications';
 
@@ -49,7 +49,7 @@ const coursesForGroupsRoutes: Routes = [
     CopyCoursesDialogComponent,
     TeacherDialogComponent
   ],
-  providers: [AuthenticationModule.tokenInterceptor()]
+  providers: [AuthenticationModule.tokenInterceptor(), NgbActiveModal]
 })
 export class CoursesForGroupsModule {
 }

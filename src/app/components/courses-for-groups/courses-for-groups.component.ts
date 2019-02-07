@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {NotificationsService} from 'angular2-notifications';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import {StudentGroup} from '../../models/StudentGroup';
 import {Course} from '../../models/Course';
@@ -56,7 +57,8 @@ export class CoursesForGroupsComponent implements OnInit {
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
               private _service: NotificationsService,
-              private modalService: NgbModal) {}
+              private modalService: NgbModal,
+              private modalServiceX: BsModalService) {}
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(groups => {
@@ -335,17 +337,13 @@ export class CoursesForGroupsComponent implements OnInit {
 
   copyCourses() {
     this.changesExistence = true;
-    const modalRef = this.modalService.open(CopyCoursesDialogComponent);
-    modalRef.componentInstance.groups = this.groups;
-    modalRef.componentInstance.selectedSemesterTo = this.selectedSemester;
-    modalRef.componentInstance.selectedSemesterFrom = this.selectedSemester;
-    modalRef.componentInstance.selectedGroupToCopyId = this.selectedGroup.id;
-    modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
-    modalRef.componentInstance.addedCoursesForGroups = this.coursesForAdd;
-    modalRef.componentInstance.copiedCourse.subscribe(($event) => {
+    const initialState = {groups: this.groups, selectedSemesterTo: this.selectedSemester,
+      selectedSemesterFrom: this.selectedSemester, coursesForGroups: this.coursesForGroup};
+    const bsModalRef = this.modalServiceX.show(CopyCoursesDialogComponent, {initialState});
+    bsModalRef.content.copiedCourse.subscribe(($event) => {
       this.addCourse($event, this.checkIfAddedCourseIsInDeleted($event.course));
     });
-    modalRef.componentInstance.alertMessage.subscribe(($event) => {
+    bsModalRef.content.alertMessage.subscribe(($event) => {
       this.showErrorAlert($event);
     });
   }

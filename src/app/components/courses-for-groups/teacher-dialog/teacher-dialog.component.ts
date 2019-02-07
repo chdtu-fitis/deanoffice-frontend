@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {animate, style, transition, trigger} from '@angular/animations';
+import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+
 import {Teacher} from '../../../models/Teacher';
 import {TeacherService} from '../../../services/teacher.service';
 import {CourseForGroup} from '../../../models/CourseForGroup';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'teacher-dialog',
