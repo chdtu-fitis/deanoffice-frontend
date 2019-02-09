@@ -16,16 +16,15 @@ export class PaymentFilterComponent implements IFilterAngularComp {
   form;
   model = {
     payment: [
-      {name: 'бюджет', selected: true},
-      {name: 'контракт', selected: true},
+      {name: 'Контракт', selected: true},
+      {name: 'Бюджет', selected: true},
     ],
   };
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      payment: this.fb.array(this.model.payment.map(entry =>
-        this.fb.group(entry)),
-      ),
+  constructor(private formBuilder: FormBuilder) {
+    const paymentControls = formBuilder.array(this.model.payment.map(entry => formBuilder.group(entry)));
+    this.form = formBuilder.group({
+      payment: paymentControls,
     });
     this.onChanges();
   }
