@@ -25,9 +25,9 @@ export class AssignRecordBookNumberToStudentsComponent {
 
   constructor(private fb: FormBuilder, private studentService: StudentService) { }
 
-  comparePIB(a, b) {
-    const first = `${a.student.surname}  ${a.student.name} ${a.student.patronimic}`;
-    const second = `${b.student.surname}  ${b.student.name} ${b.student.patronimic}`;
+  compareSurnameNamePatronimic(firstStudentDegree, secondStudentDegree) {
+    const first = `${firstStudentDegree.student.surname}  ${firstStudentDegree.student.name} ${firstStudentDegree.student.patronimic}`;
+    const second = `${secondStudentDegree.student.surname}  ${secondStudentDegree.student.name} ${secondStudentDegree.student.patronimic}`;
     if (first < second) { return -1; }
     if (first > second) { return 1; }
     return 0;
@@ -35,7 +35,7 @@ export class AssignRecordBookNumberToStudentsComponent {
 
   openModal(studentDegrees: StudentDegree[]) {
     this.studentDegrees = studentDegrees;
-    this.studentDegrees.sort(this.comparePIB);
+    this.studentDegrees.sort(this.compareSurnameNamePatronimic);
     this.students = this.studentDegrees.map(studentDegree => ({
       id: studentDegree.id,
       fullName: `${studentDegree.student.surname} ${studentDegree.student.name} ${studentDegree.student.patronimic}`,
