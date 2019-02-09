@@ -1,3 +1,6 @@
+import {Payment} from '../../models/payment.enum';
+import {Gender} from '../../models/gender.enum';
+
 export const maxFileSize = 1572864;
 
 export const defaultColumns = [
@@ -130,13 +133,7 @@ const colDefStudentGroupName = {
 const colDefPayment = {
   headerName: 'Форма навчання',
   field: 'payment',
-  valueGetter: function(params) {
-    if (params.data.payment === 'BUDGET') {
-      return 'бюджет';
-    }
-    if (params.data.payment === 'CONTRACT') {
-      return 'контракт';
-    }},
+  valueGetter: (params) => Payment[params.data.payment],
   sortable: true,
   filter: 'paymentFilter',
   minWidth: 100
@@ -187,13 +184,7 @@ const colDefStudentNameEng = {
 const colDefStudentSex = {
   headerName: 'Стать',
   field: 'student.sex',
-  valueGetter: function(params) {
-    if (params.data.student.sex === 'MALE') {
-      return 'Чол.';
-    }
-    if (params.data.student.sex === 'FEMALE') {
-      return 'Жін.';
-    }},
+  valueGetter: (params) => Gender[params.data.student.sex],
   sortable: true,
   minWidth: 50
 };

@@ -32,7 +32,6 @@ export class PaymentFilterComponent implements IFilterAngularComp {
 
   onChanges(): void {
     this.form.valueChanges.subscribe(val => {
-      console.log(this.form.value.payment);
       this.params.filterChangedCallback();
     });
   }
