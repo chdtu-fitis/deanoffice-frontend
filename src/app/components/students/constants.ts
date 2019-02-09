@@ -1,5 +1,6 @@
 import {Payment} from '../../models/payment.enum';
 import {Gender} from '../../models/gender.enum';
+import {Utils} from '../shared/utils';
 
 export const maxFileSize = 1572864;
 
@@ -145,21 +146,7 @@ const colDefStudentBirthDate = {
   sortable: true,
   filter: 'agDateColumnFilter',
   filterParams: {
-    comparator: function(filterDate, cellValue) {
-      const dateAsString = cellValue;
-      if (dateAsString == null) { return -1; }
-      const dateParts = dateAsString.split('-');
-      const cellDate = new Date(Number(dateParts[0]), Number(dateParts[1]) - 1, Number(dateParts[2]));
-      if (filterDate.getTime() === cellDate.getTime()) {
-        return 0;
-      }
-      if (cellDate < filterDate) {
-        return -1;
-      }
-      if (cellDate > filterDate) {
-        return 1;
-      }
-    },
+    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
     browserDatePicker: true
   },
   minWidth: 100
