@@ -35,7 +35,9 @@ export class PaymentFilterComponent implements IFilterAngularComp {
     });
   }
 
-  get payment(): FormArray { return this.form.get('payment') as FormArray; }
+  get payment(): FormArray {
+    return this.form.get('payment') as FormArray;
+  }
 
   agInit(params: IFilterParams): void {
     this.params = params;
