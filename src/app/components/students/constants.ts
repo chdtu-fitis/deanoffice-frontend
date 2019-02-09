@@ -267,12 +267,32 @@ const colDefProtocolDate = {
   minWidth: 100
 };
 
-export const defaultColumnDefs = [colDefStudentSurname, colDefStudentName, colDefStudentPatronimic,
-  colDefStudentTelephone, colDefStudentGroupName, colDefPayment];
+export const defaultColumnDefs = [
+  colDefStudentSurname,
+  colDefStudentName,
+  colDefStudentPatronimic,
+  colDefStudentTelephone,
+  colDefStudentGroupName,
+  colDefPayment
+];
 
-export const allColumnDefs = [...defaultColumnDefs, colDefStudentBirthDate,
-  colDefStudentSurnameEng, colDefStudentNameEng, colDefStudentSex,
-  colDefStudentRegistrationAddress, colDefStudentActualAddress, colDefStudentRecordBookNumber,
-  colDefThesisName, colDefThesisNameEng, colDefDiplomaNumber, colDefDiplomaDate,
-  colDefSupplementNumber, colDefSupplementDate, colDefPreviousDiplomaNumber,
-  colDefPreviousDiplomaDate, colDefProtocolNumber, colDefProtocolDate];
+export const allColumnDefs = [
+  ...defaultColumnDefs,
+  colDefStudentBirthDate,
+  colDefStudentSurnameEng,
+  colDefStudentNameEng,
+  colDefStudentSex,
+  colDefStudentRegistrationAddress,
+  colDefStudentActualAddress,
+  colDefStudentRecordBookNumber,
+  colDefThesisName,
+  colDefThesisNameEng,
+  colDefDiplomaNumber,
+  colDefDiplomaDate,
+  colDefSupplementNumber,
+  colDefSupplementDate,
+  colDefPreviousDiplomaNumber,
+  colDefPreviousDiplomaDate,
+  colDefProtocolNumber,
+  colDefProtocolDate
+];
