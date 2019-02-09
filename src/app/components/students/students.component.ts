@@ -76,10 +76,10 @@ export class StudentsComponent implements OnInit {
         });
     }
     const cols = [];
-    for (const i of columns) {
-      for (const j of this.columnDefsAll) {
-        if (i === j['field']) {
-          cols.push(j)
+    for (const column of columns) {
+      for (const columnDef of this.columnDefsAll) {
+        if (column === columnDef.field) {
+          cols.push(columnDef)
         }
       }
     }
@@ -94,7 +94,7 @@ export class StudentsComponent implements OnInit {
     const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
     for (const col of this.columnDefsAll) {
       if (col.field.startsWith('student.')) {
-        const [s, field] = col.field.split('.');
+        const [, field] = col.field.split('.');
         selectedStudent['student'][field] = studentPersonalInfo[field];
       }
     }
