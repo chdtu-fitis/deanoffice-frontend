@@ -4,7 +4,7 @@ import { StudentService } from '../../services/student.service';
 import { GroupService } from '../../services/group.service';
 import { StudentDegree } from '../../models/StudentDegree';
 import { StudentGroup } from '../../models/StudentGroup';
-import {defaultColumnDefs, allColumnDefs, localeText} from './constants';
+import {defaultColDef, defaultColumnDefs, allColumnDefs, localeText} from './constants';
 import {GroupFilterComponent} from './group-filter/group-filter.component';
 import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
 
@@ -22,6 +22,7 @@ export class StudentsComponent implements OnInit {
   oldSelectedIds = [];
   columnDefs = defaultColumnDefs;
   columnDefsAll = allColumnDefs;
+  defaultColDef = defaultColDef;
   localeText = localeText;
   private gridApi;
   private gridColumnApi;

@@ -86,39 +86,35 @@ export const localeText = {
   noRowsToShow: 'Завантаження данних',
 };
 
+export const defaultColDef = {
+  sortable: true,
+  filter: true,
+  resizable: true,
+};
 
 const colDefStudentSurname = {
   headerName: 'Прізвище',
   field: 'student.surname',
-  sortable: true,
-  filter: true,
   checkboxSelection: true,
-  resizable: true,
   minWidth: 150
 };
 
 const colDefStudentName = {
   headerName: 'Ім\'я',
   field: 'student.name',
-  filter: true,
-  sortable: true,
-  resizable: true,
   minWidth: 150
 };
 
 const colDefStudentPatronimic = {
   headerName: 'По-батькові',
   field: 'student.patronimic',
-  sortable: true,
-  resizable: true,
   minWidth: 150
 };
 
 const colDefStudentTelephone = {
   headerName: 'Телефон',
   field: 'student.telephone',
-  resizable: true,
-  filter: true,
+  sortable: false,
   minWidth: 125,
   maxWidth: 150,
 };
@@ -126,7 +122,6 @@ const colDefStudentTelephone = {
 const colDefStudentGroupName = {
   headerName: 'Група',
   field: 'studentGroup.name',
-  sortable: true,
   filter: 'groupFilter',
   minWidth: 100
 };
@@ -135,7 +130,6 @@ const colDefPayment = {
   headerName: 'Форма навчання',
   field: 'payment',
   valueGetter: (params) => Payment[params.data.payment],
-  sortable: true,
   filter: 'paymentFilter',
   minWidth: 100
 };
@@ -143,7 +137,6 @@ const colDefPayment = {
 const colDefStudentBirthDate = {
   headerName: 'Дата народження',
   field: 'student.birthDate',
-  sortable: true,
   filter: 'agDateColumnFilter',
   filterParams: {
     comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
@@ -155,16 +148,12 @@ const colDefStudentBirthDate = {
 const colDefStudentSurnameEng = {
   headerName: 'Прізвище (англ.)',
   field: 'student.surnameEng',
-  sortable: true,
-  filter: true,
   minWidth: 100
 };
 
 const colDefStudentNameEng = {
   headerName: 'Ім\'я (англ.)',
   field: 'student.nameEng',
-  sortable: true,
-  filter: true,
   minWidth: 100
 };
 
@@ -172,98 +161,84 @@ const colDefStudentSex = {
   headerName: 'Стать',
   field: 'student.sex',
   valueGetter: (params) => Gender[params.data.student.sex],
-  sortable: true,
   minWidth: 50
 };
 
 const colDefStudentRegistrationAddress = {
   headerName: 'Адреса реєстрації',
   field: 'student.registrationAddress',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefStudentActualAddress = {
   headerName: 'Поточна адреса',
   field: 'student.actualAddress',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefStudentRecordBookNumber = {
   headerName: 'Номер заліковки',
   field: 'recordBookNumber',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefThesisName = {
   headerName: 'Тема диплому',
   field: 'thesisName',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefThesisNameEng = {
   headerName: 'Тема диплому (англ.)',
   field: 'thesisNameEng',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefDiplomaNumber = {
   headerName: 'Номер диплому',
   field: 'diplomaNumber',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefDiplomaDate = {
   headerName: 'Дата диплому',
   field: 'diplomaDate',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefSupplementNumber = {
   headerName: 'Номер додатку до диплому',
   field: 'supplementNumber',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefSupplementDate = {
   headerName: 'Дата додатку до диплому',
   field: 'supplementDate',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefPreviousDiplomaNumber = {
   headerName: 'Номер попереднього диплому',
   field: 'previousDiplomaNumber',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefPreviousDiplomaDate = {
   headerName: 'Дата попереднього диплому',
   field: 'previousDiplomaDate',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefProtocolNumber = {
   headerName: 'Номер протоколу захисту диплому',
   field: 'protocolNumber',
-  sortable: true,
   minWidth: 100
 };
 
 const colDefProtocolDate = {
   headerName: 'Дата протоколу захисту диплому',
   field: 'protocolDate',
-  sortable: true,
   minWidth: 100
 };
 
