@@ -1,15 +1,9 @@
-.content {
-  margin-bottom: 54px;
-  width: calc(100% - 400px);
-  overflow-x: hidden;
-}
-
 .btn-danger{
   background-color: #e57373;
 }
 
 .students-table {
-  height: calc(100% - 50px);
+  height: calc(100% - 100px);
 }
 
 :host ::ng-deep {

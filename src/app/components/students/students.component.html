@@ -1,6 +1,6 @@
 <div class="container-fluid h-100">
-  <div class="row h-100">
-    <div class="col h-100 content py-1 px-2">
+  <div class="row">
+    <div class="col px-2">
       <div class="my-2 d-flex">
         <app-students-search
           class="mr-auto"
@@ -50,40 +50,38 @@
           </button>
         </div>
       </div>
-
-      <div class="row h-100">
-        <div class="col-9 h-100 pl-3 pr-0">
-          <ag-grid-angular
-            class="ag-theme-balham students-table"
-            rowSelection="multiple"
-            enableCellChangeFlash=true
-            [animateRows]="true"
-            [rowData]="students"
-            [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [accentedSort]="true"
-            [localeText]="localeText"
-            [getRowNodeId]="getRowNodeId"
-            [frameworkComponents]="frameworkComponents"
-            (selectionChanged)="onSelectionChanged($event)"
-            (modelUpdated)="onModelUpdated($event)"
-            (gridReady)="onGridReady($event)"
-          >
-          </ag-grid-angular>
-        </div>
-        <div class="col-3">
-          <button class="btn w-100 mt-3 btn-secondary" (click)="studentThesisTheme.onShow()">Тема диплому</button>
-          <button class="btn w-100 mt-3 btn-warning" (click)="synchronizeWithEdeboModal.onShow()">Синхронізувати з ЄДЕБО</button>
-          <button class="btn w-100 mt-3 btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
-          <button class="btn w-100 mt-3 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
-        </div>
-      </div>
-
-      <div class="bg-light fixed-bottom p-1">
-        Всього: {{count || '0'}}
-      </div>
-
     </div>
+  </div>
+
+  <div class="row h-100">
+    <div class="col-9 h-100 pl-2 pr-0">
+      <ag-grid-angular
+        class="ag-theme-balham students-table"
+        rowSelection="multiple"
+        enableCellChangeFlash=true
+        [animateRows]="true"
+        [rowData]="students"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [accentedSort]="true"
+        [localeText]="localeText"
+        [getRowNodeId]="getRowNodeId"
+        [frameworkComponents]="frameworkComponents"
+        (selectionChanged)="onSelectionChanged($event)"
+        (modelUpdated)="onModelUpdated($event)"
+        (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>
+    </div>
+    <div class="col-3">
+      <button class="btn w-100 mt-3 btn-secondary" (click)="studentThesisTheme.onShow()">Тема диплому</button>
+      <button class="btn w-100 mt-3 btn-warning" (click)="synchronizeWithEdeboModal.onShow()">Синхронізувати з ЄДЕБО</button>
+      <button class="btn w-100 mt-3 btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
+      <button class="btn w-100 mt-3 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+    </div>
+  </div>
+  <div class="bg-light fixed-bottom p-1">
+    Всього: {{count || '0'}}
   </div>
 </div>
 
