@@ -5,6 +5,7 @@ import {StudentPersonalInfoComponent} from '../student-personal-info/student-per
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
 import {StudentDegreeInfoComponent} from '../student-degree-info/student-degree-info.component';
+import {StudentDegreeHistoryComponent} from '../student-degree-history/student-degree-history.component';
 
 @Component({
   selector: 'student-all-info',
@@ -17,6 +18,7 @@ export class StudentAllInfoComponent {
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('studentPersonalInfo') studentPersonalInfo: StudentPersonalInfoComponent;
   @ViewChild('studentDegreeInfo') studentDegreeInfo: StudentDegreeInfoComponent;
+  @ViewChild('studentHistory') studentHistory: StudentDegreeHistoryComponent;
 
   constructor(
     private studentService: StudentService,
@@ -27,10 +29,10 @@ export class StudentAllInfoComponent {
     this.modal.hide();
   }
 
-  openModal(id) {
-    // TODO make observable render functions
-    this.studentPersonalInfo.renderForm(id);
-    this.studentDegreeInfo.renderForm(id);
+  openModal(studentDegree) {
+    this.studentPersonalInfo.renderForm(studentDegree.student.id);
+    this.studentDegreeInfo.renderForm(studentDegree.student.id, studentDegree.id);
+    this.studentHistory.renderForm(studentDegree.id);
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });

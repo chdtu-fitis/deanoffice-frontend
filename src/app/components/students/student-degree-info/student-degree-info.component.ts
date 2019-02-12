@@ -29,6 +29,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
   @Input() editable = true;
+  @Input() degreeId;
 
   get degrees() {
     return this.form.get('degrees') as FormArray;
@@ -46,7 +47,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
-  renderForm(id) {
+  renderForm(id, degreeId= -1) {
+    this.degreeId = degreeId;
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
       this.model['degrees'].sort( (a, b) => b.active - a.active );

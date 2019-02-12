@@ -1,0 +1,28 @@
+<div class="m-3">
+  <table class="table table-striped table-sm fs-1">
+    <thead>
+    <tr>
+      <th>Операція</th>
+      <th>Дата заяви</th>
+      <th>Дата відр./пон.</th>
+      <th>Дата наказу</th>
+      <th>Номер наказу</th>
+      <th>Форма навчання</th>
+      <th>Рік навчання</th>
+      <th>Причина</th>
+    <tr>
+    </thead>
+    <tr *ngFor="let studentHistor of studentHistory | async">
+      <td>{{ studentHistor.operation }}</td>
+      <td>{{ studentHistor.expelOrRenewApplicationDate }}</td>
+      <td>{{ studentHistor.expelOrRenewDate}}</td>
+      <td>{{ studentHistor.expelOrRenewOrderDate }}</td>
+      <td>{{ studentHistor.expelOrRenewOrderNumber }}</td>
+      <td>{{ payment[studentHistor.expelOrRenewPayment] }}</td>
+      <td>{{ studentHistor.expelOrRenewStudyYear }}</td>
+      <ng-container *ngIf="studentHistor.orderReason">
+        <td>{{ studentHistor.orderReason.name }}</td>
+      </ng-container>
+    </tr>
+  </table>
+</div>
