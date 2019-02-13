@@ -55,7 +55,7 @@ export const academicVacationColumns = [
 ];
 
 // for ag-grid
-export const localeText = {
+export const LOCALE_TEXT = {
   // for text filter
   equals: 'Рівне',
   notEqual: 'Не рівне',

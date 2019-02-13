@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../../services/student.service';
-import {academicVacationColumnDefs, academicVacationColumns, defaultColDef, localeText} from '../constants';
+import {academicVacationColumnDefs, academicVacationColumns, defaultColDef, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
@@ -18,7 +18,7 @@ export class StudentsInVacationComponent implements OnInit {
   private gridColumnApi;
   columnDefs = academicVacationColumnDefs;
   defaultColDef = defaultColDef;
-  localeText = localeText;
+  localeText = LOCALE_TEXT;
   count;
   getRowNodeId = (data) => data.id;
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { StudentService } from '../../../services/student.service';
-import {expelledColumnDefs, defaultColDef, expelledStudentsColumns, localeText} from '../constants';
+import {expelledColumnDefs, defaultColDef, expelledStudentsColumns, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
 
@@ -26,7 +26,7 @@ export class ExpelledStudentsComponent implements OnInit {
   private gridColumnApiAll;
   columnDefs = expelledColumnDefs;
   defaultColDef = defaultColDef;
-  localeText = localeText;
+  localeText = LOCALE_TEXT;
   count;
   getRowNodeId = (data) => data.id;
 

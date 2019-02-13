@@ -28,8 +28,12 @@ export class AssignRecordBookNumberToStudentsComponent {
   compareSurnameNamePatronimic(firstStudentDegree, secondStudentDegree) {
     const first = `${firstStudentDegree.student.surname}  ${firstStudentDegree.student.name} ${firstStudentDegree.student.patronimic}`;
     const second = `${secondStudentDegree.student.surname}  ${secondStudentDegree.student.name} ${secondStudentDegree.student.patronimic}`;
-    if (first < second) { return -1; }
-    if (first > second) { return 1; }
+    if (first < second) {
+      return -1;
+    }
+    if (first > second) {
+      return 1;
+    }
     return 0;
   }
 
