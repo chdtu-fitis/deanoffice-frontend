@@ -115,16 +115,16 @@
   #assignStudentsToGroup
 ></assign-students-to-group>
 
-<app-student-personal-info
+<student-personal-info-modal
   (onSubmit)="getStudents()"
   #personalInfoModal
-></app-student-personal-info>
+></student-personal-info-modal>
 
-<app-student-degree-info
+<student-degree-info-modal
   [groups]="groups"
   (onSubmit)="getStudents()"
   #degreeInfoModal
-></app-student-degree-info>
+></student-degree-info-modal>
 
 <app-student-academic-vacation
   #academicVacationModal

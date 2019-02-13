@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {GroupModalComponent} from '../group-modal/group-modal.component';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {GroupService} from '../../../services/group.service';
 import {Specialization} from '../../../models/Specialization';
 import {StudentGroup} from '../../../models/StudentGroup';
@@ -13,7 +13,7 @@ import {GroupFormComponent} from '../group-form/group-form.component';
 export class UpdateGroupComponent {
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: GroupModalComponent;
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: GroupFormComponent;
   @Input() tuitionFormsKeys;
   @Input() tuitionForms;

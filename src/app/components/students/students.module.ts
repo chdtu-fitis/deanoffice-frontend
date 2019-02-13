@@ -30,6 +30,10 @@ import { AssignStudentsToGroupComponent } from './assign-students-to-group/assig
 import { StudentThesisThemeInputComponent } from './student-thesis-theme-input/student-thesis-theme-input.component';
 import { AssignRecordBookNumberToStudentsComponent } from './assign-record-book-number-to-students/assign-record-book-number-to-students.component';
 import { StudentStipendComponent } from './student-stipend/student-stipend.component';
+import { StudentPersonalInfoModalComponent } from './student-personal-info-modal/student-personal-info-modal.component';
+import { StudentDegreeInfoModalComponent } from './student-degree-info-modal/student-degree-info-modal.component';
+import {StudentAllInfoComponent} from './student-all-info/student-all-info.component';
+import {StudentDegreeHistoryComponent} from './student-degree-history/student-degree-history.component'
 
 
 export const studentRoutes: Routes = [
@@ -62,7 +66,11 @@ export const studentRoutes: Routes = [
     StudentThesisThemeInputComponent,
     AssignRecordBookNumberToStudentsComponent,
     StudentStipendComponent,
-    SynchronizeWithEdeboComponent
+    StudentPersonalInfoModalComponent,
+    StudentDegreeInfoModalComponent,
+    SynchronizeWithEdeboComponent,
+    StudentAllInfoComponent,
+    StudentDegreeHistoryComponent
   ],
   imports: [
     CommonModule,

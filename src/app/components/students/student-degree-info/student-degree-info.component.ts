@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {MatIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ModalDirective} from 'ngx-bootstrap';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
+
 import {StudentService} from '../../../services/student.service';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
@@ -17,16 +17,19 @@ import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversi
     templateUrl: './student-degree-info.component.html',
     styleUrls: ['./student-degree-info.component.scss'],
 })
-export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
+export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
   studentPreviousUniversity: FormGroup;
   model: StudentDegree;
   diplomaType = DiplomaType;
   diplomaTypeKey: Array<string>;
   tabValidity: Array<boolean> = [];
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
+  @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
+  @Input() editable = true;
+  @Input() degreeId: number;
 
   get degrees() {
     return this.form.get('degrees') as FormArray;
@@ -44,12 +47,12 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
-  openModal(id) {
+  renderForm(id, degreeId= -1) {
+    this.degreeId = degreeId;
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
       this.model['degrees'].sort( (a, b) => b.active - a.active );
       this.buildForm();
-      this.modal.show();
     });
   }
 
@@ -141,7 +144,10 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     const degrees = this.form.value.degrees.filter(degree => degree.active);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
       this.onSubmit.emit();
-      this.modal.hide();
+      this.emitHide();
     });
+  }
+  emitHide() {
+    this.hideModal.emit(null);
   }
 }

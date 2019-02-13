@@ -5,3 +5,7 @@
 .students-table {
   height: calc(100% - 80px);
 }
+
+::ng-deep .tab-content  {
+  height: 100%;
+}

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupModalComponent } from './group-modal.component';
+import { StudentAllInfoComponent } from './student-all-info.component';
 
-describe('GroupModalComponent', () => {
-  let component: GroupModalComponent;
-  let fixture: ComponentFixture<GroupModalComponent>;
+describe('StudentAllInfoComponent', () => {
+  let component: StudentAllInfoComponent;
+  let fixture: ComponentFixture<StudentAllInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupModalComponent ]
+      declarations: [ StudentAllInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupModalComponent);
+    fixture = TestBed.createComponent(StudentAllInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
