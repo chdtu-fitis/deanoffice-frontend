@@ -12,13 +12,13 @@ import {ExpelsAndRenews} from '../../../models/ExpelsAndRenews';
   styleUrls: ['./student-degree-history.component.scss']
 })
 export class StudentDegreeHistoryComponent {
-  studentHistory: Observable<ExpelsAndRenews[]>;
+  studentDegreeHistory: Observable<ExpelsAndRenews[]>;
   payment = Payment;
 
   constructor(private studentService: StudentService) { }
 
   renderForm(id) {
-    this.studentHistory = this.studentService.getStudentDegreeHistory(id);
+    this.studentDegreeHistory = this.studentService.getStudentDegreeHistory(id);
   }
 
 }
