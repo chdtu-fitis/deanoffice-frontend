@@ -1,5 +1,5 @@
 <div id="qualification-modal">
-  <modal-wrapper #modal [title]="'Вибір кваліфікації'"
+  <modal-wrapper #modal heading="Вибір кваліфікації"
                  [styleObj]="{'max-width': '95%', 'margin-top': '10%'}" (hideModal)="hide()">
     <div class="modal-body">
       <div *ngIf="!canEdit" class="p-1 qualification-alert">

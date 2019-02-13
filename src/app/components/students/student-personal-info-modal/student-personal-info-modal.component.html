@@ -1,4 +1,4 @@
-<modal-wrapper #modal [title]="'Редагування особистої інформації'" (hideModal)="hideModal()" [styleObj]="{'max-width': '90%'}">
+<modal-wrapper #modal heading="Редагування особистої інформації" (hideModal)="hideModal()" [styleObj]="{'max-width': '90%'}">
   <app-student-personal-info
     (hideModal)="hideModal()"
     (onSubmit)="submit()"
