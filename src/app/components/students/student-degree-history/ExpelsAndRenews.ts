@@ -1,5 +1,5 @@
-import {OrderReason} from './OrderReason';
-import {Payment} from './payment.enum';
+import {OrderReason} from '../../../models/OrderReason';
+import {Payment} from '../../../models/payment.enum';
 
 export class ExpelsAndRenews {
   operation: string;

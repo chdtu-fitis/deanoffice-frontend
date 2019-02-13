@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {StudentService} from '../../../services/student.service';
 import {Payment} from '../../../models/payment.enum';
-import {ExpelsAndRenews} from '../../../models/ExpelsAndRenews';
+import {ExpelsAndRenews} from './ExpelsAndRenews';
 
 
 @Component({

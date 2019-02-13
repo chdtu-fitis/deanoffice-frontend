@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {StudentDegree} from '../models/StudentDegree';
-import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+
+import {environment} from '../../environments/environment';
+import {StudentDegree} from '../models/StudentDegree';
 import {Student} from '../models/Student';
-import {ExpelsAndRenews} from '../models/ExpelsAndRenews';
+import {ExpelsAndRenews} from '../components/students/student-degree-history/ExpelsAndRenews';
 
 @Injectable()
 export class StudentService {
