@@ -54,7 +54,7 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
       return;
     }
     this.studentService.stopAcademicVacation(this.form.value).subscribe(() => {
-      this.onSubmit.emit(this.form.value.studentAcademicVacationId);
+      this.onSubmit.emit();
       this.modal.hide();
     });
   }

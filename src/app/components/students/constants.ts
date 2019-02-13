@@ -54,21 +54,6 @@ export const academicVacationColumns = [
   'orderReason.name',
 ];
 
-export const months = [
-  'Січень',
-  'Лютий',
-  'Березень',
-  'Квітень',
-  'Травень',
-  'Червень',
-  'Липень',
-  'Серпень',
-  'Вересень',
-  'Жовтень',
-  'Листопад',
-  'Грудень'
-];
-
 // for ag-grid
 export const localeText = {
   // for text filter
@@ -249,6 +234,78 @@ export const defaultColumnDefs = [
   colDefStudentTelephone,
   colDefStudentGroupName,
   colDefPayment
+];
+
+
+const expelledStudentSurname = {
+  headerName: 'Прізвище',
+  field: 'studentDegree.student.surname',
+  checkboxSelection: true,
+  minWidth: 150
+};
+
+const expelledStudentName = {
+  headerName: 'Ім\'я',
+  field: 'studentDegree.student.name',
+  minWidth: 150
+};
+
+const expelledStudentPatronimic = {
+  headerName: 'По-батькові',
+  field: 'studentDegree.student.patronimic',
+  minWidth: 150
+};
+
+const applicationDate = {
+  headerName: 'Дата заяви',
+  field: 'applicationDate'
+};
+
+const expelDate = {
+  headerName: 'Дата відрахування',
+  field: 'expelDate'
+};
+
+const orderDate = {
+  headerName: 'Дата наказу',
+  field: 'orderDate'
+};
+
+const orderReasonName = {
+  headerName: 'Причина',
+  field: 'orderReason.name'
+};
+
+export const expelledColumnDefs = [
+  expelledStudentSurname,
+  expelledStudentName,
+  expelledStudentPatronimic,
+  applicationDate,
+  expelDate,
+  orderDate,
+  orderReasonName
+];
+
+const vacationStartDate = {
+  headerName: 'Дата початку',
+  field: 'vacationStartDate'
+};
+
+const vacationEndDate = {
+  headerName: 'Дата закінчення',
+  field: 'vacationEndDate'
+};
+
+
+export const academicVacationColumnDefs = [
+  expelledStudentSurname,
+  expelledStudentName,
+  expelledStudentPatronimic,
+  vacationStartDate,
+  vacationEndDate,
+  applicationDate,
+  orderDate,
+  orderReasonName
 ];
 
 export const allColumnDefs = [

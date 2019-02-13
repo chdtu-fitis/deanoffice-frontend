@@ -87,8 +87,10 @@ export class StudentsComponent implements OnInit {
     this.gridApi.setColumnDefs(cols);
   }
 
-  onSelect(students: StudentDegree[]) {
-    this.selected = students;
+  onSelect(index) {
+    this.gridApi.ensureIndexVisible(index, 'top');
+    const node = this.gridApi.getRowNode(this.students[index].id);
+    node.setSelected(true);
   }
 
   updateStudentPersonalInfo(studentPersonalInfo) {
