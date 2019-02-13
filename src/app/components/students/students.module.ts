@@ -73,7 +73,7 @@ export const studentRoutes: Routes = [
     StudentDegreeInfoModalComponent,
     SynchronizeWithEdeboComponent,
     StudentAllInfoComponent,
-    StudentDegreeHistoryComponent
+    StudentDegreeHistoryComponent,
     SynchronizeWithEdeboComponent,
     GroupFilterComponent,
     PaymentFilterComponent

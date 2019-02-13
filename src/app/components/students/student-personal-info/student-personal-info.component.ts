@@ -68,11 +68,7 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     this.studentService.updateStudent(Object.assign(this.form.value, { id }))
       .subscribe(() => {
         this.onSubmit.emit(this.form.value);
-        this.emitHide();
+        this.hideModal.emit(null);
       })
-  }
-
-  emitHide() {
-    this.hideModal.emit(null);
   }
 }

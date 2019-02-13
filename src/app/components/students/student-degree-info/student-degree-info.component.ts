@@ -51,7 +51,6 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     this.form.value['degrees'][0]['studentGroup'] = group;
   }
 
-  openModal(id) {
   renderForm(id, degreeId= -1) {
     this.degreeId = degreeId;
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
@@ -149,7 +148,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     const degrees = this.form.value.degrees.filter(degree => degree.active);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
       this.onSubmit.emit(this.form.value);
-      this.modal.hide();
+      this.hideModal.emit(null);
     });
   }
 }
