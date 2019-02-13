@@ -12,17 +12,24 @@
             <label for="nameEng">Назва англ.</label>
             <input formControlName="nameEng" type="text" class="form-control" id="nameEng">
           </div>
+
+          <div class="form-group">
+            <label for="specializationCode">Код спеціалізації</label>
+            <input formControlName="code" type="text" class="form-control" id="specializationCode">
+          </div>
         </div>
 
         <div class="form-group form-item">
-          <label for="specialityId" class="required">Спеціальність</label>
-          <select formControlName="specialityId" class="form-control" id="specialityId"
-                  [appValidation]="form.controls.specialityId">
-            <option *ngFor="let speciality of specialities" [ngValue]="speciality.id">
-              {{speciality.code + ' ' + speciality.name}}
-            </option>
-          </select>
-          <app-validation-errors [control]="form.controls.specialityId"></app-validation-errors>
+          <div class="form-group">
+            <label for="specialityId" class="required">Спеціальність</label>
+            <select formControlName="specialityId" class="form-control" id="specialityId"
+                    [appValidation]="form.controls.specialityId">
+              <option *ngFor="let speciality of specialities" [ngValue]="speciality.id">
+                {{speciality.code + ' ' + speciality.name}}
+              </option>
+            </select>
+            <app-validation-errors [control]="form.controls.specialityId"></app-validation-errors>
+          </div>
 
           <div class="form-group">
             <label for="degreeId" class="required">Ступінь</label>

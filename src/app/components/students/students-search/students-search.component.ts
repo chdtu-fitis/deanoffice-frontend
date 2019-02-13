@@ -29,12 +29,6 @@ export class StudentsSearchComponent {
     return obj;
   };
 
-  onKeyPress(e) {
-    if (e.keyCode === 13) {
-      this.searchStudent();
-    }
-  }
-
   searchStudent() {
     const value = this.searchForm.value.search.trim();
     const [surname, name, patronimic] = value.split(' ');

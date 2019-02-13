@@ -60,6 +60,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.form = this._formBuilder.group({
       name: data.name,
       nameEng: data.nameEng,
+      code: data.code,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: data.departmentId,

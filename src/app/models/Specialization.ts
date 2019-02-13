@@ -5,6 +5,7 @@ import {Department} from './Department';
 
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;
+  code: string;
   degree: Degree;
   department?: Department;
   qualification?: string;
