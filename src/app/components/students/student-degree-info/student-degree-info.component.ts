@@ -29,7 +29,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
   @Input() editable = true;
-  @Input() degreeId;
+  @Input() degreeId: number;
 
   get degrees() {
     return this.form.get('degrees') as FormArray;

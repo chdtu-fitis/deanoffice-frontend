@@ -13,9 +13,8 @@ export class StudentPersonalInfoModalComponent {
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('studentPersonalInfo') studentPersonalInfo: StudentPersonalInfoComponent;
   @Output() onSubmit = new EventEmitter();
-  @Output() onOpenModal = new EventEmitter();
 
-  openModal(id) {
+  openModal(id: number) {
     this.studentPersonalInfo.renderForm(id);
     this.modal.show();
   }
