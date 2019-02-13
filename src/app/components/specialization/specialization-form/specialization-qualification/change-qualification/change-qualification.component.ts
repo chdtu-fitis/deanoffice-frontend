@@ -23,6 +23,7 @@ export class ChangeQualificationComponent {
   isOpen = false;
   searchedName = '';
   searchedCode = '';
+  modalStyles = {'max-width': '95%', 'margin-top': '10%'};
 
   constructor(private _service: QualificationService) {}
 

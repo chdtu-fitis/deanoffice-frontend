@@ -9,7 +9,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 })
 export class ModalWrapperComponent implements IAppModal {
   @Input() heading: string;
-  @Input() styleObj;
+  @Input() modalStyles;
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 

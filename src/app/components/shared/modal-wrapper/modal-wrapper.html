@@ -1,6 +1,6 @@
 <div class="modal fade" [config]="{backdrop: 'static'}" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
      aria-hidden="true"  (onHide)="stopPropagation()">
-  <div class="modal-dialog modal-lg" [ngStyle]="styleObj">
+  <div class="modal-dialog modal-lg" [ngStyle]="modalStyles">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title"><h4>{{heading}}</h4></div>

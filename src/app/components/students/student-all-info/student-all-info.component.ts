@@ -1,5 +1,6 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
+import {modalLarge} from '../../shared/modal-wrapper/constant';
 import {StudentService} from '../../../services/student.service';
 import {StudentPersonalInfoComponent} from '../student-personal-info/student-personal-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
@@ -14,6 +15,7 @@ import {StudentDegreeHistoryComponent} from '../student-degree-history/student-d
 })
 export class StudentAllInfoComponent {
   groups;
+  modalStyles = modalLarge;
   @Input() editable: boolean;
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('studentPersonalInfo') studentPersonalInfo: StudentPersonalInfoComponent;

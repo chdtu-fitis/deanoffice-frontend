@@ -1,4 +1,5 @@
-<modal-wrapper #modal heading="Інформація про студента" (hideModal)="hideModal()" [styleObj]="{'max-width': '90%'}">
+<modal-wrapper #modal heading="Інформація про студента" (hideModal)="hideModal()"
+               [modalStyles]="modalStyles">
   <tabset>
     <tab heading="Особиста інформація">
       <app-student-personal-info

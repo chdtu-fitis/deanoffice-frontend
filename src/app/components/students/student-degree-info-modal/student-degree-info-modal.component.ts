@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
+import {modalLarge} from '../../shared/modal-wrapper/constant';
 import {StudentDegreeInfoComponent} from '../student-degree-info/student-degree-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 
@@ -9,6 +10,7 @@ import {StudentGroup} from '../../../models/StudentGroup';
   styleUrls: ['./student-degree-info-modal.component.scss']
 })
 export class StudentDegreeInfoModalComponent {
+  modalStyles = modalLarge;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();
   @ViewChild('modal') modal: ModalWrapperComponent;
