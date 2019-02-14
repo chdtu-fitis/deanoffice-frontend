@@ -7,15 +7,15 @@
         <p class="mb-0"> денна форма навчання </p>
         <p class="h5 mt-1"> станом на 03.09.2018 р.</p>
       </div>
-      <table class="table dark-border text-center mb-0">
+      <table class="table dark-border text-center mb-0" *ngFor="let course of (specialization.value | keys)[0].value | keys ">
         <thead>
         <tr>
           <th colspan="3">Контингент</th>
-          <th class="align-middle" colspan="4" rowspan="2">Всього <br>по 1 курсу</th>
-          <th colspan="4">1 курс</th>
+          <th class="align-middle" colspan="4" rowspan="2">Всього <br>{{course.key !== 7 ? '' : 'по'+ course.key + 'курсу' }}</th>
+          <th colspan="4">{{course.key < 7 ? course.key + ' курс' : 'Всього'}} </th>
         </tr>
         <tr>
-          <th colspan="3">1 курсу</th>
+          <th colspan="3">{{course.key < 7 ? course.key + ' курсу' : 'Всього'}}</th>
           <th colspan="2">1 і 2 заб.</th>
           <th colspan="2">3 і більше</th>
         </tr>
@@ -35,43 +35,21 @@
         </thead>
 
         <tbody>
-        <tr></tr>
-        <tr></tr>
-        <tr></tr>
+        <tr>
+          <td>{{course.value.budgetStudents + course.value.contractStudents}}</td>
+          <td>{{course.value.contractStudents}}</td>
+          <td>{{course.value.budgetStudents}}</td>
+          <td>{{course.value.budgetDebtors + course.value.contractDebtors}}</td>
+          <td>{{course.value.budgetDebtors}}</td>
+          <td>{{course.value.contractDebtors}}</td>
+          <td>{{course.value.debtorsPercent}}</td>
+          <td>{{course.value.lessThanThreeDebtsForBudgetDebtors}}</td>
+          <td>{{course.value.lessThanThreeDebtsForContractDebtors}}</td>
+          <td>{{course.value.threeOrMoreDebtsForBudgetDebtors}}</td>
+          <td>{{course.value.threeOrMoreDebtsForContractDebtors}}</td>
+        </tr>
         </tbody>
 
-      </table>
-      <table class="table dark-border text-center">
-        <thead>
-        <tr>
-          <th colspan="3">Контингент</th>
-          <th class="align-middle" colspan="4" rowspan="2">Всього</th>
-          <th colspan="4">Всього</th>
-        </tr>
-        <tr>
-          <th colspan="3">Всього</th>
-          <th colspan="2">1 і 2 заб.</th>
-          <th colspan="2">3 і більше</th>
-        </tr>
-        <tr>
-          <th>всього</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>всього</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>%</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>бюдж</th>
-          <th>контр</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr></tr>
-        <tr></tr>
-        <tr></tr>
-        </tbody>
       </table>
     </tab>
   </tabset>

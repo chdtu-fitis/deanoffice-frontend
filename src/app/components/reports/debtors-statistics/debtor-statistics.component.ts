@@ -23,4 +23,6 @@ export class DebtorStatisticsComponent implements OnInit {
       console.log(this.specializationDebtors);
     });
   }
+
+
 }
