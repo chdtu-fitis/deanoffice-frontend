@@ -26,6 +26,7 @@ export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
   indexForDate: number;
   groups: StudentGroup[];
+  groupsForCopy: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
   semesters: number[] = [];
@@ -62,7 +63,10 @@ export class CoursesForGroupsComponent implements OnInit {
     this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
-    })
+    });
+    this.groupService.getGroupsForCopy().subscribe(groupsForCopy => {
+      this.groupsForCopy = groupsForCopy;
+    });
   }
 
   private changeSemesters() {
@@ -336,7 +340,7 @@ export class CoursesForGroupsComponent implements OnInit {
   copyCourses() {
     this.changesExistence = true;
     const modalRef = this.modalService.open(CopyCoursesDialogComponent);
-    modalRef.componentInstance.groups = this.groups;
+    modalRef.componentInstance.groups = this.groupsForCopy;
     modalRef.componentInstance.selectedSemesterTo = this.selectedSemester;
     modalRef.componentInstance.selectedSemesterFrom = this.selectedSemester;
     modalRef.componentInstance.selectedGroupToCopyId = this.selectedGroup.id;
