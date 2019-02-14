@@ -80,7 +80,7 @@ export class ExpelledStudentsComponent implements OnInit {
   onSelect(index) {
     this.gridApi.ensureIndexVisible(index, 'top');
     const node = this.gridApi.getRowNode(this.rows[index].id);
-    node.setSelected(true);
+    node.setSelected(true, true);
   }
 
   onFormAcademicCertificate() {
