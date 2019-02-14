@@ -1,8 +1,8 @@
 <div class="container">
   <tabset>
-    <tab heading="fitis">
+    <tab heading="{{specialization.key}}" *ngFor="let specialization of specializationDebtors | keys">
       <div class="text-center">
-        <p class="h1 mt-4">ФІТІС</p>
+        <p class="h1 mt-4">{{specialization.key}}</p>
         <p class="h5">Результати літньої екзаменаційної сесії 2017-2018 н.р.</p>
         <p class="mb-0"> денна форма навчання </p>
         <p class="h5 mt-1"> станом на 03.09.2018 р.</p>

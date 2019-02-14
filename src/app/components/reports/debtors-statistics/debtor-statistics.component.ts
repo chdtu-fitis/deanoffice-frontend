@@ -6,24 +6,21 @@ import {SpecializationWithDebtorsStatistics} from '../../../models/reports/debto
   selector: 'app-reports-debts',
   templateUrl: './debtor-statistics.component.html',
   styleUrls: ['./debtor-statistics.component.scss'],
-  providers : [
+  providers: [
     DebtorStatisticsService
   ]
 })
 
 export class DebtorStatisticsComponent implements OnInit {
-  private res: SpecializationWithDebtorsStatistics[];
-  constructor(private report: DebtorStatisticsService) { }
+  specializationDebtors: SpecializationWithDebtorsStatistics[];
+
+  constructor(private report: DebtorStatisticsService) {
+  }
 
   ngOnInit() {
-    this.report.getDebts().subscribe(res => {
-     this.res = res;
-     this.getd();
+    this.report.getDebts().subscribe(result => {
+      this.specializationDebtors = result;
+      console.log(this.specializationDebtors);
     });
   }
-
-  getd() {
-    console.log(this.res)
-  }
-
 }
