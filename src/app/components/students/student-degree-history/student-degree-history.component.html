@@ -14,9 +14,9 @@
     </thead>
     <tr *ngFor="let history of studentDegreeHistory | async">
       <td>{{ history.operation }}</td>
-      <td>{{ history.expelOrRenewApplicationDate }}</td>
-      <td>{{ history.expelOrRenewDate}}</td>
-      <td>{{ history.expelOrRenewOrderDate }}</td>
+      <td>{{ getDate(history.expelOrRenewApplicationDate) | date: 'dd.MM.yyyy'}}</td>
+      <td>{{ getDate(history.expelOrRenewDate) | date: 'dd.MM.yyyy'}}</td>
+      <td>{{ getDate(history.expelOrRenewOrderDate) | date: 'dd.MM.yyyy'}}</td>
       <td>{{ history.expelOrRenewOrderNumber }}</td>
       <td>{{ payment[history.expelOrRenewPayment] }}</td>
       <td>{{ history.expelOrRenewStudyYear }}</td>

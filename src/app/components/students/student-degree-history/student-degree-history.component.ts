@@ -21,4 +21,8 @@ export class StudentDegreeHistoryComponent {
     this.studentDegreeHistory = this.studentService.getStudentDegreeHistory(id);
   }
 
+  getDate(date) {
+    return new Date(date).getTime();
+  }
+
 }
