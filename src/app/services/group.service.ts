@@ -20,6 +20,12 @@ export class GroupService {
       .pipe(catchError(forObservable('Отримання груп', [])));
   }
 
+  getGroupsForCopy(onlyActual: boolean = true): Observable<StudentGroup[]> {
+    const params = new HttpParams().set('only-active', onlyActual.toString());
+    return this.http.get<StudentGroup[]>(`${this.groupsUrl}/copy`, { params: params })
+      .pipe(catchError(forObservable('Оримання груп для копіювання предметів', [])));
+  }
+
   getGroupsByDegree(degreeId: string): Observable<StudentGroup[]> {
     const url = `${this.groupsByDegreeUrl}?degreeId=${degreeId}`;
     return this.http.get<StudentGroup[]>(url)
