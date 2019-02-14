@@ -3,7 +3,7 @@
     <div class="col content py-3">
 
       <tabset class="h-100">
-        <tab heading="Відраховані за останні 5 років (крім тих, що успішно закінчили навчання)" class="h-100">
+        <tab heading="Відрахування за останні 5 років (крім тих, що успішно закінчили навчання)" class="h-100">
           <div class="my-2 d-flex">
             <app-students-search
               class="mr-2"
@@ -29,23 +29,29 @@
             <img class="pt-4" *ngIf="academicCertificateLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
           </div>
 
-          <div class="students-table">
-            <app-students-table
-              [columns]="columns"
-              [rows]="rows"
-              [selected]="selected"
-              [loading]="loading"
-              (onSelect)="onSelect($event)"
-            >
-            </app-students-table>
-          </div>
+          <ag-grid-angular
+            class="ag-theme-balham students-table"
+            rowSelection="single"
+            enableCellChangeFlash=true
+            [animateRows]="true"
+            [rowData]="rows"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [accentedSort]="true"
+            [localeText]="localeText"
+            [getRowNodeId]="getRowNodeId"
+            (selectionChanged)="onSelectionChanged($event)"
+            (modelUpdated)="onModelUpdated($event)"
+            (gridReady)="onGridReady($event)"
+          >
+          </ag-grid-angular>
 
           <div class="bg-light fixed-bottom p-2">
-            Всього: {{rows.length || '0'}}
+            Всього: {{count || '0'}}
           </div>
         </tab>
 
-        <tab heading="Всі відраховані" class="h-100">
+        <tab heading="Всі відрахування" class="h-100">
           <div class="my-2 d-flex">
             <div class="mr-2">
               <form class="form-inline" [formGroup]="searchForm" (ngSubmit)="onSearchAllExpelled()">
@@ -69,7 +75,9 @@
                   class="form-control mr-2"
                   formControlName="endDate"
                   title="Кінцева дата пошуку">
-                <button type="submit" class="btn btn-info">Пошук</button>
+                <button type="submit" class="btn btn-info" [disabled]="searchForm.invalid">
+                  Пошук
+                </button>
               </form>
             </div>
             <button
@@ -80,16 +88,21 @@
             </button>
           </div>
 
-          <div class="students-table">
-            <app-students-table
-              [columns]="columns"
-              [rows]="rowsAll"
-              [selected]="selectedAll"
-              [loading]="loading"
-              (onSelect)="onSelectAll($event)"
-            >
-            </app-students-table>
-          </div>
+          <ag-grid-angular
+            class="ag-theme-balham students-table"
+            rowSelection="single"
+            enableCellChangeFlash=true
+            [animateRows]="true"
+            [rowData]="rowsAll"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [accentedSort]="true"
+            [localeText]="localeText"
+            [getRowNodeId]="getRowNodeId"
+            (selectionChanged)="onAllSelectionChanged($event)"
+            (gridReady)="onAllGridReady($event)"
+          >
+          </ag-grid-angular>
 
           <div class="bg-light fixed-bottom p-2">
             Всього: {{rowsAll.length || '0'}}

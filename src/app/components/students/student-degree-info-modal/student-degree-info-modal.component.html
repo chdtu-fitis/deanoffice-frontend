@@ -3,7 +3,7 @@
   <app-student-degree-info
     [groups]="groups"
     (hideModal)="hideModal()"
-    (onSubmit)="submit()"
+    (onSubmit)="submit($event)"
     #studentDegreeInfo>
   </app-student-degree-info>
 </modal-wrapper>

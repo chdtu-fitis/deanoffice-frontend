@@ -47,6 +47,10 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
       sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
+  selectGroup(group) {
+    this.form.value['degrees'][0]['studentGroup'] = group;
+  }
+
   renderForm(id, degreeId= -1) {
     this.degreeId = degreeId;
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
@@ -143,11 +147,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     }
     const degrees = this.form.value.degrees.filter(degree => degree.active);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
-      this.onSubmit.emit();
-      this.emitHide();
+      this.onSubmit.emit(this.form.value);
+      this.hideModal.emit(null);
     });
-  }
-  emitHide() {
-    this.hideModal.emit(null);
   }
 }

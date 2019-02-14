@@ -2,7 +2,7 @@
                [modalStyles]="modalStyles">
   <app-student-personal-info
     (hideModal)="hideModal()"
-    (onSubmit)="submit()"
+    (onSubmit)="submit($event)"
     #studentPersonalInfo>
   </app-student-personal-info>
 </modal-wrapper>

@@ -23,8 +23,8 @@ export class StudentPersonalInfoModalComponent {
     this.modal.hide();
   }
 
-  submit() {
-    this.onSubmit.emit()
+  submit(studentInfo) {
+    this.onSubmit.emit(studentInfo)
   }
 
 }

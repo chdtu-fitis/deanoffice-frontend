@@ -3,7 +3,7 @@ import {ModalDirective} from 'ngx-bootstrap';
 
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {StudentService} from '../../../services/student.service';
 
 @Component({
@@ -15,9 +15,7 @@ export class AssignStudentsToGroupComponent {
 
   degrees;
   students;
-  form = new FormGroup({
-    group: new FormControl(null, Validators.required)
-  });
+  group = new FormControl(null, Validators.required);
   @ViewChild('modal') modal: ModalDirective;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();
@@ -25,7 +23,7 @@ export class AssignStudentsToGroupComponent {
   constructor(private studentService: StudentService) { }
 
   openModal(degrees: StudentDegree[]) {
-    this.form.controls['group'].setValue(this.groups[0]);
+    this.group.setValue(this.groups[0]);
     this.degrees = degrees;
     this.students = degrees.map(degree => ({
       id: degree.id,
@@ -42,14 +40,14 @@ export class AssignStudentsToGroupComponent {
   submit() {
     this.studentService.assignStudentsToGroup(
       this.students.map( student => student.id),
-      this.form.value.group.id
+      this.group.value.id
     ).subscribe(() => {
       this.degrees.forEach(degree => {
         degree.studentGroup = this.groups.find(group => {
-          return group.id === this.form.value.group.id;
+          return group.id === this.group.value.id;
         });
       });
-      this.onSubmit.emit();
+      this.onSubmit.emit(this.group.value);
       this.hideModal();
     });
   }

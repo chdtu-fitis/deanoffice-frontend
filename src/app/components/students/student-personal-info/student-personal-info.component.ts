@@ -41,8 +41,8 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
       telephone: this.model.telephone,
       sex: [this.model.sex, Validators.required],
       birthDate: [this.model.birthDate, Validators.required],
-      registrationAddress: this.model.registrationAdress,
-      actualAddress: this.model.actualAdress,
+      registrationAddress: this.model.registrationAddress,
+      actualAddress: this.model.actualAddress,
       studentCardNumber: this.model.studentCardNumber,
       school: this.model.school,
       fatherName: this.model.fatherName,
@@ -67,12 +67,8 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
     const { id } = this.model;
     this.studentService.updateStudent(Object.assign(this.form.value, { id }))
       .subscribe(() => {
-        this.onSubmit.emit();
-        this.emitHide();
+        this.onSubmit.emit(this.form.value);
+        this.hideModal.emit(null);
       })
-  }
-
-  emitHide() {
-    this.hideModal.emit(null);
   }
 }

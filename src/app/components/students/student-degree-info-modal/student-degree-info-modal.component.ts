@@ -25,8 +25,8 @@ export class StudentDegreeInfoModalComponent {
     this.modal.hide();
   }
 
-  submit() {
-    this.onSubmit.emit()
+  submit(degrees) {
+    this.onSubmit.emit(degrees)
   }
 
 }
