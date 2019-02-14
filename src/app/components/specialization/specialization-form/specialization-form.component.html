@@ -21,7 +21,18 @@
 
         <div class="form-group form-item">
           <div class="form-group">
-            <label for="specialityId" class="required">Спеціальність</label>
+            <div>
+              <label for="specialityId" class="required">Спеціальність</label>
+              <div class="form-check checkbox-group-right-align">
+                <input
+                  (change)="onSpecialityCheckboxChange($event)"
+                  type="checkbox"
+                  class="form-check-input"
+                  name="allSpecialityCheckbox"
+                  id="allSpecialityCheckbox">
+                <label class="form-check-label" for="allSpecialityCheckbox">Всі</label>
+              </div>
+            </div>
             <select formControlName="specialityId" class="form-control" id="specialityId"
                     [appValidation]="form.controls.specialityId">
               <option *ngFor="let speciality of specialities" [ngValue]="speciality.id">
