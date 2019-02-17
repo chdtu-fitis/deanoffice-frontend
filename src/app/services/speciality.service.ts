@@ -14,4 +14,8 @@ export class SpecialityService {
     getSpecialities(): Observable<Speciality[]> {
         return this.http.get<Speciality[]>(this.url);
     }
+
+    getActiveSpecialities(): Observable<Speciality[]> {
+        return this.http.get<Speciality[]>(`${this.url}/all`);
+    }
 }
