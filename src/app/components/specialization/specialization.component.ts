@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
-import {columnDefs} from './transtations';
-import {localeText} from '../shared/constant';
+import {COLUMN_DEFINITIONS} from './column-definitions';
+import {LOCALE_TEXT} from '../shared/constant';
 
 
 @Component({
@@ -16,8 +16,8 @@ export class SpecializationComponent implements OnInit {
   selectedSpecialization: Specialization[] = [];
   count;
   private actual: boolean;
-  columnDefs = columnDefs;
-  localeText = localeText;
+  columnDefs = COLUMN_DEFINITIONS;
+  localeText = LOCALE_TEXT;
   private gridApi;
   private gridColumnApi;
   getRowNodeId = (data) => data.id;

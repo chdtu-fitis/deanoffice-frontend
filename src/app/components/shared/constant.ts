@@ -1,6 +1,7 @@
 // for ag-grid
-export const localeText = {
+export const LOCALE_TEXT = {
   // for text filter
+  filterOoo: 'Фільтрування...',
   equals: 'Рівне',
   notEqual: 'Не рівне',
   contains: 'Містить',

@@ -1,4 +1,4 @@
-export const columnDefs = [
+export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Назва',
     field: 'name',
