@@ -15,8 +15,6 @@ export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
   selectedSpecialization: Specialization[] = [];
   count;
-  loading: boolean;
-  searchField: string;
   private actual: boolean;
   columnDefs = columnDefs;
   localeText = localeText;
@@ -42,21 +40,14 @@ export class SpecializationComponent implements OnInit {
 
 
   getSpecializations(actual: boolean): void {
-    this.loading = true;
     this.actual = actual;
     this.specializationService.getSpecializations(actual).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
-      null,
-      () => {
-        this.loading = false;
-        console.log(this.specializations);
-      }
     );
   }
 
   selectSpecializations(): void {
     this.selectedSpecialization = this.gridApi.getSelectedRows();
-    console.log(this.selectedSpecialization);
   }
 
   deleteSpecialization() {
@@ -65,7 +56,6 @@ export class SpecializationComponent implements OnInit {
 
   addSpecialization(obj) {
     const {specialization, degrees, specialities, specializationId} = obj;
-    console.log(specialization);
     specialization['id'] = specializationId;
     const speciality = specialities.find(obj => obj.id === specialization['specialityId']);
     specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
@@ -77,9 +67,9 @@ export class SpecializationComponent implements OnInit {
   updateSpecialization(obj) {
     const rowNode = this.gridApi.getRowNode(this.selectedSpecialization[0].id);
     const {specialization, degrees, specialities} = obj;
-    const speciality = specialities.find(obj => obj.id === specialization['specialityId']);
+    const speciality = specialities.find(speciality => speciality.id === specialization['specialityId']);
     specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
-    const degree = degrees.find(obj => obj.id === specialization['degreeId']);
+    const degree = degrees.find(degree => degree.id === specialization['degreeId']);
     specialization['degree'] = {'name': degree.name};
     rowNode.setData(specialization)
   }

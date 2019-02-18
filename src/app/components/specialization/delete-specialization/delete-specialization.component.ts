@@ -21,15 +21,12 @@ export class DeleteSpecializationComponent {
   }
 
   submit(): void {
-    const IsConfirm = confirm('Ви дійсно бажаєте видалити обрану спеціалізацю?');
-    if (IsConfirm) {
-      this.specializationService
-        .delete(this.specialization.id)
-        .then(() => {
-          this.onSubmit.emit(null);
-          this.modal.hide()
-        });
-    }
+    this.specializationService
+      .delete(this.specialization.id)
+      .then(() => {
+        this.onSubmit.emit(null);
+        this.modal.hide()
+      });
   }
 
   hideModal(): void {
