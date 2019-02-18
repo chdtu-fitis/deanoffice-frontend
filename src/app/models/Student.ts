@@ -9,8 +9,8 @@ export class Student extends Person {
   sex: string;
   studentGroup: StudentGroup;
   birthDate: Date;
-  registrationAdress?: string;
-  actualAdress?: string;
+  registrationAddress?: string;
+  actualAddress?: string;
   school?: string;
   recordGroupNumber?: string;
   studentCardNumber?: string;

@@ -1,0 +1,9 @@
+<modal-wrapper #modal heading="Редагування навчальної інформації" (hideModal)="hideModal()"
+               [modalStyles]="modalStyles">
+  <app-student-degree-info
+    [groups]="groups"
+    (hideModal)="hideModal()"
+    (onSubmit)="submit($event)"
+    #studentDegreeInfo>
+  </app-student-degree-info>
+</modal-wrapper>

@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {ModalDirective} from 'ngx-bootstrap';
 
 import {translations} from '../translations.js';
-import {defaultColumns, allColumns } from '../constants.js';
+import {defaultColumns, allColumns } from '../constants';
 import {IAppModal} from '../../shared/modal.interface';
 
 @Component({
@@ -14,7 +14,7 @@ export class StudentsColumnsComponent implements OnInit, IAppModal {
   columns: Object = {};
   @ViewChild('modal') modal: ModalDirective;
   @Output() setColumns = new EventEmitter<string[]>();
-
+  // TODO use ag-grid col def
   ngOnInit() {
     allColumns.forEach(col => {
       return this.columns[col] = defaultColumns.find(el => el === col);

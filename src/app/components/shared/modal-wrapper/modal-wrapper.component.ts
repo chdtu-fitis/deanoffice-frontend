@@ -1,16 +1,15 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
+import {IAppModal} from '../modal.interface';
 import {ModalDirective} from 'ngx-bootstrap';
-import {ModalMargin} from './models/modal-margin';
 
 @Component({
-  selector: 'group-modal',
-  templateUrl: './group-modal.component.html',
-  styleUrls: ['./group-modal.component.scss']
+  selector: 'modal-wrapper',
+  templateUrl: './modal-wrapper.html',
+  styleUrls: ['./modal-wrapper.scss']
 })
-export class GroupModalComponent implements IAppModal {
-  @Input() title: string;
-  @Input() margin: ModalMargin = new ModalMargin();
+export class ModalWrapperComponent implements IAppModal {
+  @Input() heading: string;
+  @Input() modalStyles;
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalDirective;
 
@@ -29,4 +28,5 @@ export class GroupModalComponent implements IAppModal {
   stopPropagation() {
     event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
   }
+
 }

@@ -10,7 +10,6 @@ import {SharedModule} from '../shared/shared.module';
 import { AddSpecializationComponent } from './add-specialization/add-specialization.component';
 import { DeleteSpecializationComponent } from './delete-specialization/delete-specialization.component';
 import { SpecializationFormComponent } from './specialization-form/specialization-form.component';
-import { SpecializationModalComponent } from './specialization-modal/specialization-modal.component';
 import { UpdateSpecializationComponent } from './update-specialization/update-specialization.component';
 import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
 import { SpecializationCompetenciesComponent } from './specialization-form/specialization-competencies/specialization-competencies.component';
@@ -42,7 +41,6 @@ export const specializationRoutes: Routes = [
     AddSpecializationComponent,
     DeleteSpecializationComponent,
     SpecializationFormComponent,
-    SpecializationModalComponent,
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
     SpecializationCompetenciesComponent,

@@ -1,36 +1,31 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {StudentService} from '../../../services/student.service';
 import {Student} from '../../../models/Student';
+import {StudentService} from '../../../services/student.service';
 
 @Component({
     selector: 'app-student-personal-info',
     templateUrl: './student-personal-info.component.html',
     styleUrls: ['./student-personal-info.component.scss'],
 })
-export class StudentPersonalInfoComponent extends BaseReactiveFormComponent implements IAppModal {
+export class StudentPersonalInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
   model: Student;
   id: string;
-  @ViewChild('modal') modal: ModalDirective;
+  @Input() editable = true;
   @Output() onSubmit = new EventEmitter();
+  @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    private fb: FormBuilder,
-    private studentService: StudentService,
-  ) {
+  constructor(private fb: FormBuilder, private studentService: StudentService) {
     super();
   }
 
-  openModal(id) {
+  renderForm(id) {
     this.studentService.getStudentById(id).subscribe((student: Student) => {
       this.model = student;
       this.buildForm();
-      this.modal.show();
     });
   }
 
@@ -46,8 +41,8 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       telephone: this.model.telephone,
       sex: [this.model.sex, Validators.required],
       birthDate: [this.model.birthDate, Validators.required],
-      registrationAddress: this.model.registrationAdress,
-      actualAddress: this.model.actualAdress,
+      registrationAddress: this.model.registrationAddress,
+      actualAddress: this.model.actualAddress,
       studentCardNumber: this.model.studentCardNumber,
       school: this.model.school,
       fatherName: this.model.fatherName,
@@ -59,10 +54,9 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
       notes: this.model.notes,
       email: this.model.email,
     });
-  }
-
-  hideModal() {
-    this.modal.hide();
+    if (!this.editable) {
+      this.form.disable();
+    }
   }
 
   submit() {
@@ -73,8 +67,12 @@ export class StudentPersonalInfoComponent extends BaseReactiveFormComponent impl
     const { id } = this.model;
     this.studentService.updateStudent(Object.assign(this.form.value, { id }))
       .subscribe(() => {
-        this.onSubmit.emit();
-        this.modal.hide();
+        this.onSubmit.emit(this.form.value);
+        this.emitHide();
       })
+  }
+
+  emitHide() {
+    this.hideModal.emit(null);
   }
 }

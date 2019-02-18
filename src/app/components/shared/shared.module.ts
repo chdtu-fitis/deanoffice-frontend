@@ -11,6 +11,7 @@ import {ValidationErrorsComponent} from './validation-errors/validation-errors.c
 import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form.component';
 import {LoadingComponent} from './loading/loading.component';
 import {PipeModule} from '../../pipes/pipe.module';
+import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {PipeModule} from '../../pipes/pipe.module';
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
     LoadingComponent,
+    ModalWrapperComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import {PipeModule} from '../../pipes/pipe.module';
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
     LoadingComponent,
+    ModalWrapperComponent
   ]
 })
 

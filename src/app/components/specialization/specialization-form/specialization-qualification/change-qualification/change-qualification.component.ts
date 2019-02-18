@@ -1,10 +1,9 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {SpecializationModalComponent} from '../../../specialization-modal/specialization-modal.component';
+import {ModalWrapperComponent} from '../../../../shared/modal-wrapper/modal-wrapper.component';
 import {Observable} from 'rxjs/Observable';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
 import {getId} from '../../../../../models/basemodels/BaseEntity';
-import {ModalMargin} from '../../../specialization-modal/models/modal-margin';
 
 import 'rxjs/add/operator/map';
 
@@ -18,13 +17,13 @@ export class ChangeQualificationComponent {
   @Input() qualificationsYear: number;
   @Output() onSubmit: EventEmitter<ProfessionalQualification[]> = new EventEmitter<ProfessionalQualification[]>();
   @Output() allowEditing: EventEmitter<null> = new EventEmitter<null>();
-  @ViewChild('modal') modal: SpecializationModalComponent;
+  @ViewChild('modal') modal: ModalWrapperComponent;
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
   isOpen = false;
-  modalMargin = new ModalMargin('10px', '10px', '10px', '10px');
   searchedName = '';
   searchedCode = '';
+  modalStyles = {'max-width': '95%', 'margin-top': '10%'};
 
   constructor(private _service: QualificationService) {}
 

@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {Specialization} from '../../../models/Specialization';
 import {SpecializationService} from '../../../services/specialization.service';
 
@@ -9,10 +8,10 @@ import {SpecializationService} from '../../../services/specialization.service';
   templateUrl: './delete-specialization.component.html',
   styleUrls: ['./delete-specialization.component.scss']
 })
-export class DeleteSpecializationComponent implements IAppModal {
+export class DeleteSpecializationComponent {
   specialization: Specialization;
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal') modal: ModalWrapperComponent;
 
   constructor(private specializationService: SpecializationService) { }
 

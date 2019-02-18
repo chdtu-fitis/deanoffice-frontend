@@ -1,0 +1,17 @@
+<div class="container">
+  <form class="row" [formGroup]="form">
+    <div formArrayName="payment">
+      <ng-container *ngFor="let child of payment.controls; let i = index">
+        <div class="form-check" formGroupName="{{i}}">
+          <input class="form-check-input"
+                 [id]="'checkbox'+i"
+                 formControlName="selected"
+                 type="checkbox"
+          />
+          <label class="form-check-label" [for]="'checkbox'+i">{{child.value.name}}</label>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+</div>
+
