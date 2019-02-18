@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
 import {COLUMN_DEFINITIONS} from './column-definitions';
-import {LOCALE_TEXT} from '../shared/constant';
+import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 
 
 @Component({
@@ -16,6 +16,7 @@ export class SpecializationComponent implements OnInit {
   selectedSpecialization: Specialization[] = [];
   count;
   private actual: boolean;
+  defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
   localeText = LOCALE_TEXT;
   private gridApi;
@@ -57,9 +58,9 @@ export class SpecializationComponent implements OnInit {
   addSpecialization(obj) {
     const {specialization, degrees, specialities, specializationId} = obj;
     specialization['id'] = specializationId;
-    const speciality = specialities.find(obj => obj.id === specialization['specialityId']);
+    const speciality = specialities.find(speciality => speciality.id === specialization['specialityId']);
     specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
-    const degree = degrees.find(obj => obj.id === specialization['degreeId']);
+    const degree = degrees.find(degree => degree.id === specialization['degreeId']);
     specialization['degree'] = {'name': degree.name};
     this.gridApi.updateRowData({ add: [specialization] });
   }

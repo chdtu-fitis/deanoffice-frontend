@@ -15,3 +15,9 @@ export const LOCALE_TEXT = {
 
   noRowsToShow: 'Завантаження данних',
 };
+
+export const DEFAULT_COLUMN_DEFINITIONS = {
+  sortable: true,
+  filter: true,
+  resizable: true,
+};
