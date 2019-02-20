@@ -23,10 +23,3 @@ export const COLUMN_DEFINITIONS = [
     field: 'educationalProgramHeadName',
   }
 ];
-
-
-
-
-
-
-

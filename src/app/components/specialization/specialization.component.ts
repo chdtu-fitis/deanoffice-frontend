@@ -51,6 +51,10 @@ export class SpecializationComponent implements OnInit {
     this.selectedSpecialization = this.gridApi.getSelectedRows();
   }
 
+  buttonIsDisabled(): boolean {
+    return !this.selectedSpecialization.length || !this.actual;
+  }
+
   deleteSpecialization() {
     this.gridApi.updateRowData({ remove: this.selectedSpecialization });
   }

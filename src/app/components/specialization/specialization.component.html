@@ -14,12 +14,12 @@
         <div>
           <button type="button" class="btn btn-danger align-middle"
                   (click)="deleteSpecializationModal.openModal(selectedSpecialization[0])"
-                  [disabled]="!selectedSpecialization.length">
+                  [disabled]="buttonIsDisabled()">
             Видалити
           </button>
 
           <button type="button" class="btn btn-warning align-middle"
-                  [disabled]="selectedSpecialization.length === 0 || selectedSpecialization.length > 1"
+                  [disabled]="buttonIsDisabled()"
                   (click)="updateSpecializationModal.openModal(selectedSpecialization[0].id)">
             Редагувати
           </button>
