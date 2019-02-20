@@ -11,16 +11,18 @@
         <div class="d-flex">
           <div *ngIf="selected.length === 1" class="d-flex">
             <button
-              class="btn btn-info w-100 mr-1"
+              class="btn btn-info w-100 mr-1 d-flex"
               (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
             >
-              Редагувати особисту інформацію
+              <mat-icon class="mr-1">edit</mat-icon>
+              Особиста інформація
             </button>
             <button
-              class="btn btn-info w-100 mr-1"
+              class="btn btn-info w-100 mr-1 d-flex"
               (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
             >
-              Редагувати навчальну інформацію
+              <mat-icon class="mr-1">edit</mat-icon>
+              Навчальна інформація
             </button>
             <button
               class="btn btn-info w-100 mr-1"
