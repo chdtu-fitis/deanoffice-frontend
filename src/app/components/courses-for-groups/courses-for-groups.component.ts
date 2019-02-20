@@ -98,7 +98,8 @@ export class CoursesForGroupsComponent implements OnInit {
       })
     }
     this.getCoursesForGroup();
-    this.courseCreationChild.course.semester = this.selectedSemester;
+    this.courseCreationChild.form.controls.semester.setValue(this.selectedSemester);
+
   }
 
   changeCoursesForGroup(event) {

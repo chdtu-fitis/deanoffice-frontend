@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -24,14 +25,11 @@ import {StudentGroup} from '../../../models/StudentGroup';
   providers: [CourseService, KnowledgeControlService]
 })
 export class CourseCreationComponent implements OnInit {
-  @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
   @Output() onCourseAdding = new EventEmitter();
   @Output() onCourseCreation = new EventEmitter();
-  course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
-  // TODO use Reactive forms
-  form;
+  form: FormGroup;
   success = false;
   failCreated = undefined;
   fail = undefined;
@@ -50,15 +48,24 @@ export class CourseCreationComponent implements OnInit {
 
   constructor(private courseService: CourseService,
               private knowledgeControlService: KnowledgeControlService,
-              private _service: NotificationsService) {
-    this.course.hoursPerCredit = 30;
+              private _service: NotificationsService,
+              private fb: FormBuilder) {
+    this.form = fb.group({
+      courseName: ['', Validators.required],
+      hours: ['', Validators.required],
+      semester: '',
+      hoursPerCredit: ['', Validators.required],
+      knowledgeControl: ['', Validators.required],
+      credits: ''
+    });
+    this.form.controls.hoursPerCredit.setValue(30);
   }
 
 
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
-      this.course.knowledgeControl = this.knowledgeControl[0];
+      this.form.controls.knowledgeControl.setValue(this.knowledgeControl[0]);
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
@@ -80,19 +87,19 @@ export class CourseCreationComponent implements OnInit {
     if (!name.id) {
       const courseName = new CourseName();
       courseName.name = name;
-      this.course.courseName = courseName;
+      this.form.controls.courseName.setValue(courseName);
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.course.courseName);
-    this.courseService.createCourse(this.course).subscribe((course: Course) => {
+    this.checkCourseName(this.form.controls.courseName.value);
+    this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
         this.success = true;
         this.failCreated = false;
         this.fail = false;
         this.onCourseCreation.emit();
-        if (isAddingToCourseForGroup){
+        if (isAddingToCourseForGroup) {
           this.onCourseAdding.emit(course);
         }
       },
@@ -100,8 +107,7 @@ export class CourseCreationComponent implements OnInit {
         if (error.status === 422) {
           this.failCreated = true;
           this.success = false;
-        }
-        else {
+        } else {
           this.success = false;
           this.fail = true;
         }
@@ -110,38 +116,27 @@ export class CourseCreationComponent implements OnInit {
   }
 
   showAlert() {
-    if (this.success)
+    if (this.success) {
       this._service.success('Предмет створено',
         '',
         this.alertOptions);
-    if (this.failCreated)
+    }
+    if (this.failCreated) {
       this._service.error('Помилка',
         'Предмет вже існує або поля заповнені невірно!',
         this.alertOptions);
-    if (this.fail)
+    }
+    if (this.fail) {
       this._service.error('Невідома помилка',
         '',
         this.alertOptions);
-  }
-
-  get courseName() {
-    return this.form.get('courseName');
-  }
-
-  get semester() {
-    return this.form.get('semester');
-  }
-
-  get hours() {
-    return this.form.get('hours');
-  }
-
-  get kc() {
-    return this.form.get('kc');
+    }
   }
 
   private setCredits() {
-    this.course.credits = this.course.hours / this.course.hoursPerCredit;
+    this.form.controls.credits.setValue(
+      this.form.controls.hours.value / this.form.controls.hoursPerCredit.value
+    );
   }
 
 }
