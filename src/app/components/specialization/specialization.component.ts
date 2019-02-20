@@ -55,23 +55,12 @@ export class SpecializationComponent implements OnInit {
     this.gridApi.updateRowData({ remove: this.selectedSpecialization });
   }
 
-  addSpecialization(obj) {
-    const {specialization, degrees, specialities, specializationId} = obj;
-    specialization['id'] = specializationId;
-    const speciality = specialities.find(speciality => speciality.id === specialization['specialityId']);
-    specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
-    const degree = degrees.find(degree => degree.id === specialization['degreeId']);
-    specialization['degree'] = {'name': degree.name};
+  addSpecialization(specialization) {
     this.gridApi.updateRowData({ add: [specialization] });
   }
 
-  updateSpecialization(obj) {
+  updateSpecialization(specialization) {
     const rowNode = this.gridApi.getRowNode(this.selectedSpecialization[0].id);
-    const {specialization, degrees, specialities} = obj;
-    const speciality = specialities.find(speciality => speciality.id === specialization['specialityId']);
-    specialization['speciality'] = {'name':  speciality.name, 'code': speciality.code};
-    const degree = degrees.find(degree => degree.id === specialization['degreeId']);
-    specialization['degree'] = {'name': degree.name};
     rowNode.setData(specialization)
   }
 

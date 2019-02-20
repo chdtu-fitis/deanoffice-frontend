@@ -32,13 +32,7 @@ export class AddSpecializationComponent {
       .create(this.form.getValue())
       .then((res) => {
         this.form.saveCompetenciesAndQualification(res['id'] as number);
-        this.onSubmit.emit(
-          {
-            specialization: this.form.getValue(),
-            specializationId: res['id'],
-            degrees: this.form.degrees,
-            specialities: this.form.specialities,
-          })
+        this.onSubmit.emit({...this.form.getValueForTable(), id: res['id']})
       })
       .then(() => this.hideModal())
       .catch(null);

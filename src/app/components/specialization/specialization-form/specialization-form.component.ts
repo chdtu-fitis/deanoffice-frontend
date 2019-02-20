@@ -145,6 +145,17 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     } as Specialization;
   }
 
+  getValueForTable(): Specialization {
+    const formValue = this.getValue();
+    const speciality = this.specialities.find(speciality => speciality.id === formValue.specialityId);
+    const degree = this.degrees.find(degree => degree.id === formValue.degreeId);
+    return {
+      ...formValue,
+      speciality,
+      degree
+    } as Specialization;
+  }
+
 
   saveCompetenciesAndQualification(specializationId: number) {
     this._saveCompetencies(specializationId);
