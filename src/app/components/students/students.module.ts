@@ -3,9 +3,11 @@ import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import {AgGridModule} from 'ag-grid-angular';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {StudentsComponent} from './students.component';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
@@ -89,6 +91,7 @@ export const studentRoutes: Routes = [
     PipeModule,
     MatIconModule,
     AgGridModule.withComponents([]),
+    FontAwesomeModule
   ]
 })
 export class StudentsModule {}

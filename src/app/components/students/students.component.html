@@ -14,14 +14,14 @@
               class="btn btn-info w-100 mr-1 d-flex"
               (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
             >
-              <mat-icon class="mr-1">edit</mat-icon>
+              <fa-icon class="mr-1" [icon]="faPen"></fa-icon>
               Особиста інформація
             </button>
             <button
               class="btn btn-info w-100 mr-1 d-flex"
               (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
             >
-              <mat-icon class="mr-1">edit</mat-icon>
+              <fa-icon class="mr-1" [icon]="faPen"></fa-icon>
               Навчальна інформація
             </button>
             <button

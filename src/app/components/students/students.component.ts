@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 
 import { StudentService } from '../../services/student.service';
 import { GroupService } from '../../services/group.service';
@@ -14,6 +15,7 @@ import {PaymentFilterComponent} from './payment-filter/payment-filter.component'
   styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
+  faPen = faPen;
   students: StudentDegree[] = [];
   groups: StudentGroup[] = [];
   selected: StudentDegree[] = [];
