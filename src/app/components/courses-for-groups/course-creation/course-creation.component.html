@@ -6,21 +6,17 @@
     <form [formGroup]="form">
     <div class="row">
       <!--TODO put in a separate component-->
-      <!--TODO use ngx-bootstrap-->
       <div class="form-group col">
-        <input
-          name="courseName"
-          required
-          type="text"
-          class="form-control"
-          [ngbTypeahead]="search"
-          formControlName="courseName"
-          [inputFormatter]="formatter"
-          [resultFormatter]="formatter"
-          (focus)="focus$.next($event.target.value)"
-          (click)="click$.next($event.target.value)"
-          #instance="ngbTypeahead"
-          placeholder="Назва">
+        <div formGroupName="courseName">
+          <input formControlName="name"
+                 [typeahead]="courseNames"
+                 typeaheadOptionField="name"
+                 (typeaheadOnSelect)="onSelect($event)"
+                 [typeaheadOptionsLimit]="7"
+                 [typeaheadMinLength]="0"
+                 placeholder="Назва"
+                 class="form-control">
+        </div>
       </div>
     </div>
     <div class="row">

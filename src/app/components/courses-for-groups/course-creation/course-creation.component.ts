@@ -1,12 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
 
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {NotificationsService} from 'angular2-notifications';
@@ -16,7 +9,7 @@ import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {CourseName} from '../../../models/CourseName';
-import {StudentGroup} from '../../../models/StudentGroup';
+import {TypeaheadMatch} from 'ngx-bootstrap';
 
 @Component({
   selector: 'course-creation',
@@ -35,8 +28,6 @@ export class CourseCreationComponent implements OnInit {
   fail = undefined;
   courseNames: CourseName[];
   @ViewChild('instance') instance: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,
@@ -51,7 +42,10 @@ export class CourseCreationComponent implements OnInit {
               private _service: NotificationsService,
               private fb: FormBuilder) {
     this.form = fb.group({
-      courseName: ['', Validators.required],
+      courseName: this.fb.group({
+        id: [''],
+        name: ['', Validators.required],
+      }),
       hours: ['', Validators.required],
       semester: '',
       hoursPerCredit: ['', Validators.required],
@@ -60,7 +54,6 @@ export class CourseCreationComponent implements OnInit {
     });
     this.form.controls.hoursPerCredit.setValue(30);
   }
-
 
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
@@ -72,16 +65,9 @@ export class CourseCreationComponent implements OnInit {
     });
   }
 
-  formatter = (result: CourseName) => result.name;
-
-
-  search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200).distinctUntilChanged()
-      .merge(this.focus$)
-      .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
-      .map(term => term === '' ? []
-        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 16));
+  onSelect(event: TypeaheadMatch): void {
+    this.form.controls.courseName.setValue(event.item);
+  }
 
   checkCourseName(name) {
     if (!name.id) {

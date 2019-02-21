@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import {SimpleNotificationsModule} from 'angular2-notifications';
 
@@ -33,7 +34,8 @@ const coursesForGroupsRoutes: Routes = [
     NgbModule.forRoot(),
     PipeModule,
     RouterModule.forChild(coursesForGroupsRoutes),
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   declarations: [
     CoursesForGroupsComponent,
