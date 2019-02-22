@@ -79,10 +79,6 @@ export class EditDialogComponent implements OnInit {
     }
   }
 
-  canselChanges() {
-    this.bsModalRef.hide()
-  }
-
   saveChanges() {
     this.checkCourseName(this.courseName.value);
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {

@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {Degree} from '../../models/Degree';
+import {BsModalService} from 'ngx-bootstrap';
+
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
+import {Degree} from '../../models/Degree';
 import {StudentGroup} from '../../models/StudentGroup';
-import {StudentService} from '../../services/student.service';
 import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
-import {EditDialogComponent} from "../courses-for-groups/edit-dialog/edit-dialog.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {StudentsDataCheckComponent} from "./students-data-check/students-data-check.component";
+import {StudentsDataCheckComponent} from './students-data-check/students-data-check.component';
 
 @Component({
   selector: 'diploma-supplement',
@@ -31,7 +30,7 @@ export class DiplomaSupplementComponent implements OnInit {
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
-              private modalService: NgbModal) {
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -52,24 +51,26 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onGroupChange(groupId: string): void {
-    this.currentGroup = this.groups.find(x => x.id == Number(groupId));
+    this.currentGroup = this.groups.find(x => x.id === Number(groupId));
     this.students = this.currentGroup.studentDegrees;
-    for (let student of this.students) {student.selected = true;}
+    for (const student of this.students) {
+      student.selected = true;
+    }
     this.studentsSelected = true;
   }
 
   onSelectAllStudents(checked: boolean): void {
-    for (let student of this.students) {
+    for (const student of this.students) {
       student.selected = checked;
     }
   }
 
   onFormSupplement(): void {
     this.message = '';
-    for (let student of this.students) {
+    for (const student of this.students) {
       this.supplementLoading = true;
       if (student.selected) {
-        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
+        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id).subscribe(a => {
           this.supplementLoading = false;
         });
       }
@@ -104,10 +105,9 @@ export class DiplomaSupplementComponent implements OnInit {
   onStudentDataCheck(): void {
     this.message = '';
     this.studentDataCheckLoading = true;
-    this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(res => {
+    this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(studentsCheckData => {
         this.studentDataCheckLoading = false;
-        const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
-        modalRef.componentInstance.studentsCheckData = res;
+        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData}});
       }
     );
   }
