@@ -55,8 +55,8 @@ export class EditDialogComponent implements OnInit {
       this.courseNames = courseNames;
       this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
-    this.knowledgeControlService.getAll().subscribe(kc => {
-      this.knowledgeControl = kc;
+    this.knowledgeControlService.getAll().subscribe(knowledgeControl => {
+      this.knowledgeControl = knowledgeControl;
     });
   }
 

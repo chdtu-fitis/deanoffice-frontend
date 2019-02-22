@@ -23,7 +23,6 @@
     "@angular/platform-browser": "^5.2.6",
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/router": "^5.2.6",
-    "@ng-bootstrap/ng-bootstrap": "^1.1.2",
     "@swimlane/ngx-datatable": "^11.1.5",
     "angular2-notifications": "^1.0.2",
     "bootstrap": "^4.0.0",
