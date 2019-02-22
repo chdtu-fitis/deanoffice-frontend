@@ -24,6 +24,8 @@
     "@angular/platform-browser-dynamic": "^5.2.6",
     "@angular/router": "^5.2.6",
     "@swimlane/ngx-datatable": "^11.1.5",
+    "ag-grid-angular": "^20.0.0",
+    "ag-grid-community": "^20.0.0",
     "angular2-notifications": "^1.0.2",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",

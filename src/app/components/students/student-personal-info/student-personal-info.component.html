@@ -1,153 +1,141 @@
-<div class="modal fade"
-     bsModal #modal="bs-modal"
-     tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Редагування особистої інформації</h4>
-        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="form" *ngIf="model">
-          <h6 class="mb-2">Особиста інформація</h6>
-          <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="surname" class="required">Прізвище</label>
-                  <input formControlName="surname" class="form-control" id="surname" [appValidation]="form.controls.surname">
-                  <app-validation-errors [control]="form.controls.surname"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="name" class="required">Ім'я</label>
-                  <input formControlName="name" class="form-control" id="name" [appValidation]="form.controls.name">
-                  <app-validation-errors [control]="form.controls.name"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="patronimic" class="required">По-батькові</label>
-                  <input formControlName="patronimic" class="form-control" id="patronimic" [appValidation]="form.controls.patronimic">
-                  <app-validation-errors [control]="form.controls.patronimic"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="surnameEng">Прізвище (англ.)</label>
-                  <input formControlName="surnameEng" class="form-control" id="surnameEng" [appValidation]="form.controls.surnameEng">
-                  <app-validation-errors [control]="form.controls.surnameEng"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="nameEng">Ім'я (англ.)</label>
-                  <input formControlName="nameEng" class="form-control" id="nameEng" [appValidation]="form.controls.nameEng">
-                  <app-validation-errors [control]="form.controls.nameEng"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="patronimicEng">По-батькові (англ.)</label>
-                  <input formControlName="patronimicEng" class="form-control" id="patronimicEng" [appValidation]="form.controls.patronimicEng">
-                  <app-validation-errors [control]="form.controls.patronimicEng"></app-validation-errors>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-12 col-sm-6 col-md-4" *ngIf="form.controls.sex">
-                  <label class="required">Стать</label>
-                  <div class="form-check">
-                    <input formControlName="sex" [appValidation]="form.controls.sex"
-                           class="form-check-input" type="radio" value="MALE" id="sex1">
-                    <label class="form-check-label" for="sex1">Чоловіча</label>
-                  </div>
-                  <div class="form-check">
-                    <input formControlName="sex" [appValidation]="form.controls.sex"
-                           class="form-check-input" type="radio" value="FEMALE" id="sex2">
-                    <label class="form-check-label" for="sex2">Жіноча</label>
-                  </div>
-                  <app-validation-errors [control]="form.controls.sex"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="birthDate" class="required">Дата народження</label>
-                  <input formControlName="birthDate" type="date" class="form-control" id="birthDate" [appValidation]="form.controls.birthDate">
-                  <app-validation-errors [control]="form.controls.birthDate"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
-                  <label for="school">Школа</label>
-                  <input formControlName="school" class="form-control" id="school" [appValidation]="form.controls.school">
-                  <app-validation-errors [control]="form.controls.school"></app-validation-errors>
-                </div>
-              </div>
-            </div>
+<div class="modal-body">
+  <form [formGroup]="form" *ngIf="model">
+    <h6 class="mb-2">Особиста інформація</h6>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="surname" class="required">Прізвище</label>
+            <input formControlName="surname" class="form-control" id="surname" [appValidation]="form.controls.surname">
+            <app-validation-errors [control]="form.controls.surname"></app-validation-errors>
           </div>
-          <div class="row">
-            <div class="col-12 col-md">
-              <h6 class="mb-2">Інформація про батьків</h6>
-              <div class="row">
-                <div class="form-group col-12 col-sm-6">
-                  <label for="fatherName">ПІБ батька</label>
-                  <input formControlName="fatherName" class="form-control" id="fatherName" [appValidation]="form.controls.fatherName">
-                  <app-validation-errors [control]="form.controls.fatherName"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="motherName">ПІБ матері</label>
-                  <input formControlName="motherName" class="form-control" id="motherName" [appValidation]="form.controls.motherName">
-                  <app-validation-errors [control]="form.controls.motherName"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="fatherPhone">Телефон батька</label>
-                  <input formControlName="fatherPhone" class="form-control" id="fatherPhone" [appValidation]="form.controls.fatherPhone">
-                  <app-validation-errors [control]="form.controls.fatherPhone"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="motherPhone">Телефон матері</label>
-                  <input formControlName="motherPhone" class="form-control" id="motherPhone" [appValidation]="form.controls.motherPhone">
-                  <app-validation-errors [control]="form.controls.motherPhone"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="fatherInfo">Інформація про батька</label>
-                  <input formControlName="fatherInfo" class="form-control" id="fatherInfo" [appValidation]="form.controls.fatherInfo">
-                  <app-validation-errors [control]="form.controls.fatherInfo"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="motherInfo">Інформація про матір</label>
-                  <input formControlName="motherInfo" class="form-control" id="motherInfo" [appValidation]="form.controls.motherInfo">
-                  <app-validation-errors [control]="form.controls.motherName"></app-validation-errors>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md">
-              <h6 class="mb-2">Контактна інформація</h6>
-              <div class="row">
-                <div class="form-group col-12 col-sm-6">
-                  <label for="email">Email</label>
-                  <input formControlName="email" class="form-control" id="email" [appValidation]="form.controls.email">
-                  <app-validation-errors [control]="form.controls.email"></app-validation-errors>
-                </div>
-                <div class="form-group col-12 col-sm-6">
-                  <label for="telephone">Телефон</label>
-                  <input formControlName="telephone" class="form-control" id="telephone" [appValidation]="form.controls.telephone">
-                  <app-validation-errors [control]="form.controls.telephone"></app-validation-errors>
-                </div>
-                <div class="form-group col-12">
-                  <label for="actualAddress">Поточна адреса</label>
-                  <input formControlName="actualAddress" class="form-control" id="actualAddress" [appValidation]="form.controls.actualAddress">
-                  <app-validation-errors [control]="form.controls.actualAddress"></app-validation-errors>
-                </div>
-                <div class="form-group col-12">
-                  <label for="registrationAddress">Адреса реєстрації</label>
-                  <input formControlName="registrationAddress" class="form-control" id="registrationAddress" [appValidation]="form.controls.registrationAddress">
-                  <app-validation-errors [control]="form.controls.registrationAddress"></app-validation-errors>
-                </div>
-              </div>
-            </div>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="name" class="required">Ім'я</label>
+            <input formControlName="name" class="form-control" id="name" [appValidation]="form.controls.name">
+            <app-validation-errors [control]="form.controls.name"></app-validation-errors>
           </div>
-          <div class="form-group">
-            <label for="notes">Примітки</label>
-            <input formControlName="notes" class="form-control" id="notes" [appValidation]="form.controls.notes">
-            <app-validation-errors [control]="form.controls.notes"></app-validation-errors>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="patronimic" class="required">По-батькові</label>
+            <input formControlName="patronimic" class="form-control" id="patronimic" [appValidation]="form.controls.patronimic">
+            <app-validation-errors [control]="form.controls.patronimic"></app-validation-errors>
           </div>
-        </form>
-
-      </div>
-      <div class="modal-footer">
-        <button (click)="submit()" class="btn btn-success btn-submit">Зберегти</button>
-        <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="surnameEng">Прізвище (англ.)</label>
+            <input formControlName="surnameEng" class="form-control" id="surnameEng" [appValidation]="form.controls.surnameEng">
+            <app-validation-errors [control]="form.controls.surnameEng"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="nameEng">Ім'я (англ.)</label>
+            <input formControlName="nameEng" class="form-control" id="nameEng" [appValidation]="form.controls.nameEng">
+            <app-validation-errors [control]="form.controls.nameEng"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="patronimicEng">По-батькові (англ.)</label>
+            <input formControlName="patronimicEng" class="form-control" id="patronimicEng" [appValidation]="form.controls.patronimicEng">
+            <app-validation-errors [control]="form.controls.patronimicEng"></app-validation-errors>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 col-sm-6 col-md-4" *ngIf="form.controls.sex">
+            <label class="required">Стать</label>
+            <div class="form-check">
+              <input formControlName="sex" [appValidation]="form.controls.sex"
+                     class="form-check-input" type="radio" value="MALE" id="sex1">
+              <label class="form-check-label" for="sex1">Чоловіча</label>
+            </div>
+            <div class="form-check">
+              <input formControlName="sex" [appValidation]="form.controls.sex"
+                     class="form-check-input" type="radio" value="FEMALE" id="sex2">
+              <label class="form-check-label" for="sex2">Жіноча</label>
+            </div>
+            <app-validation-errors [control]="form.controls.sex"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="birthDate" class="required">Дата народження</label>
+            <input formControlName="birthDate" type="date" class="form-control" id="birthDate" [appValidation]="form.controls.birthDate">
+            <app-validation-errors [control]="form.controls.birthDate"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6 col-md-4">
+            <label for="school">Школа</label>
+            <input formControlName="school" class="form-control" id="school" [appValidation]="form.controls.school">
+            <app-validation-errors [control]="form.controls.school"></app-validation-errors>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-12 col-md">
+        <h6 class="mb-2">Інформація про батьків</h6>
+        <div class="row">
+          <div class="form-group col-12 col-sm-6">
+            <label for="fatherName">ПІБ батька</label>
+            <input formControlName="fatherName" class="form-control" id="fatherName" [appValidation]="form.controls.fatherName">
+            <app-validation-errors [control]="form.controls.fatherName"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="motherName">ПІБ матері</label>
+            <input formControlName="motherName" class="form-control" id="motherName" [appValidation]="form.controls.motherName">
+            <app-validation-errors [control]="form.controls.motherName"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="fatherPhone">Телефон батька</label>
+            <input formControlName="fatherPhone" class="form-control" id="fatherPhone" [appValidation]="form.controls.fatherPhone">
+            <app-validation-errors [control]="form.controls.fatherPhone"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="motherPhone">Телефон матері</label>
+            <input formControlName="motherPhone" class="form-control" id="motherPhone" [appValidation]="form.controls.motherPhone">
+            <app-validation-errors [control]="form.controls.motherPhone"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="fatherInfo">Інформація про батька</label>
+            <input formControlName="fatherInfo" class="form-control" id="fatherInfo" [appValidation]="form.controls.fatherInfo">
+            <app-validation-errors [control]="form.controls.fatherInfo"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="motherInfo">Інформація про матір</label>
+            <input formControlName="motherInfo" class="form-control" id="motherInfo" [appValidation]="form.controls.motherInfo">
+            <app-validation-errors [control]="form.controls.motherName"></app-validation-errors>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md">
+        <h6 class="mb-2">Контактна інформація</h6>
+        <div class="row">
+          <div class="form-group col-12 col-sm-6">
+            <label for="email">Email</label>
+            <input formControlName="email" class="form-control" id="email" [appValidation]="form.controls.email">
+            <app-validation-errors [control]="form.controls.email"></app-validation-errors>
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="telephone">Телефон</label>
+            <input formControlName="telephone" class="form-control" id="telephone" [appValidation]="form.controls.telephone">
+            <app-validation-errors [control]="form.controls.telephone"></app-validation-errors>
+          </div>
+          <div class="form-group col-12">
+            <label for="actualAddress">Поточна адреса</label>
+            <input formControlName="actualAddress" class="form-control" id="actualAddress" [appValidation]="form.controls.actualAddress">
+            <app-validation-errors [control]="form.controls.actualAddress"></app-validation-errors>
+          </div>
+          <div class="form-group col-12">
+            <label for="registrationAddress">Адреса реєстрації</label>
+            <input formControlName="registrationAddress" class="form-control" id="registrationAddress" [appValidation]="form.controls.registrationAddress">
+            <app-validation-errors [control]="form.controls.registrationAddress"></app-validation-errors>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="notes">Примітки</label>
+      <input formControlName="notes" class="form-control" id="notes" [appValidation]="form.controls.notes">
+      <app-validation-errors [control]="form.controls.notes"></app-validation-errors>
+    </div>
+  </form>
 </div>
+
+<ng-container *ngIf="editable">
+  <div class="modal-footer">
+    <button (click)="submit()" class="btn btn-success btn-submit">Зберегти</button>
+    <button (click)="emitHide()" class="btn btn-outline-danger">Скасувати</button>
+  </div>
+</ng-container>

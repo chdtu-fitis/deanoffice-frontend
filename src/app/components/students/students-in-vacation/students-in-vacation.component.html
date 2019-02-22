@@ -17,19 +17,25 @@
         </button>
       </div>
 
-      <div class="students-table">
-        <app-students-table
-          [columns]="columns"
-          [rows]="rows"
-          [selected]="selected"
-          [loading]="loading"
-          (onSelect)="onSelect($event)"
-        >
-        </app-students-table>
-      </div>
+      <ag-grid-angular
+        class="ag-theme-balham students-table"
+        rowSelection="single"
+        enableCellChangeFlash=true
+        [animateRows]="true"
+        [rowData]="rows"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [accentedSort]="true"
+        [localeText]="localeText"
+        [getRowNodeId]="getRowNodeId"
+        (selectionChanged)="onSelectionChanged($event)"
+        (modelUpdated)="onModelUpdated($event)"
+        (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>
 
       <div class="bg-light fixed-bottom p-3">
-        Всього: {{rows.length || '0'}}
+        Всього: {{count || '0'}}
       </div>
     </div>
   </div>
@@ -37,5 +43,5 @@
 
 <app-stop-academic-vacation
   #stopAcademicVacationModal
-  (onSubmit)="onRenew($event)"
+  (onSubmit)="onRenew()"
 ></app-stop-academic-vacation>

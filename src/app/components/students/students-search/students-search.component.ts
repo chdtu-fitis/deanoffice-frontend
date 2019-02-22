@@ -12,7 +12,7 @@ export class StudentsSearchComponent {
   searchForm;
   @Input() studentField: string;
   @Input() rows: StudentDegree[];
-  @Output() searchResult = new EventEmitter<Array<StudentDegree>>();
+  @Output() searchResult = new EventEmitter();
 
   constructor(private fb: FormBuilder) {
     this.searchForm = this.fb.group({
@@ -29,12 +29,6 @@ export class StudentsSearchComponent {
     return obj;
   };
 
-  onKeyPress(e) {
-    if (e.keyCode === 13) {
-      this.searchStudent();
-    }
-  }
-
   searchStudent() {
     const value = this.searchForm.value.search.trim();
     const [surname, name, patronimic] = value.split(' ');
@@ -49,14 +43,6 @@ export class StudentsSearchComponent {
       return isSurnameMatch && isPatronimicMatch && isNameMatch;
     });
 
-    const elem = this.rows[index]
-      ? document.getElementsByClassName(`row-id-${this.rows[index].id}`)
-      : null;
-    if (elem && elem[0]) {
-      elem[0].scrollIntoView();
-      this.searchResult.emit([this.rows[index]]);
-    } else {
-      this.searchResult.emit([]);
-    }
+    this.searchResult.emit(index);
   }
 }

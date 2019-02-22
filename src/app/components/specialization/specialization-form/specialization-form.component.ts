@@ -60,6 +60,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.form = this._formBuilder.group({
       name: data.name,
       nameEng: data.nameEng,
+      code: data.code,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: data.departmentId,
@@ -78,13 +79,32 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   ngOnInit() {
     this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
-    this._specialityService.getSpecialities()
-      .subscribe((specialities: Speciality[]) => this.specialities = specialities);
+    this.setSpecialityToAllActiveInFaculty();
     this._departmentService.getDepartments()
       .subscribe((departments: Department[]) => this.departments = departments);
   }
 
+  onSpecialityCheckboxChange(event: Event) {
+    if ((event.target as HTMLInputElement).checked) {
+      this.setSpecialityToAllActive();
+    } else {
+      this.setSpecialityToAllActiveInFaculty();
+    }
+  }
+
+  setSpecialityToAllActive() {
+    this._specialityService.getActiveSpecialities()
+      .subscribe((specialities: Speciality[]) => this.specialities = specialities);
+  }
+
+  setSpecialityToAllActiveInFaculty() {
+    this._specialityService.getSpecialities()
+      .subscribe((specialities: Speciality[]) => this.specialities = specialities);
+  }
+
   reset() {
+    (document.getElementById('allSpecialityCheckbox') as HTMLInputElement).checked = false;
+    this.setSpecialityToAllActiveInFaculty();
     this.selectTap(0);
     this.form.reset();
     this._destroyCompetenciesTabs();

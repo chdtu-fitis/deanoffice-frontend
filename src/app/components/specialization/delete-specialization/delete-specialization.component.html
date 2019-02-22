@@ -1,4 +1,4 @@
-<specialization-modal #modal title="Видалення спеціалізації" (hideModal)="hideModal()">
+<modal-wrapper #modal heading="Видалення спеціалізації" (hideModal)="hideModal()">
   <div class="modal-body" *ngIf="specialization">
     <h5>{{specialization?.name}}</h5>
     <div>
@@ -11,4 +11,4 @@
     <button type="button" class="btn btn-danger" (click)="submit()">Видалити</button>
     <button type="button" class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
   </div>
-</specialization-modal>
+</modal-wrapper>

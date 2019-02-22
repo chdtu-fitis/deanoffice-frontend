@@ -1,0 +1,6 @@
+<div class="container">
+  <select [(ngModel)]="selectedGroup" (ngModelChange)="onChange($event)" class="form-control" id="group">
+    <option value="">Всі</option>
+    <option *ngFor="let group of groups" [ngValue]="group.name">{{group.name}}</option>
+  </select>
+</div>

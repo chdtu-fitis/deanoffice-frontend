@@ -8,7 +8,6 @@ import { AddSpecializationComponent } from './add-specialization/add-specializat
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import { DeleteSpecializationComponent } from './delete-specialization/delete-specialization.component';
 import { SpecializationFormComponent } from './specialization-form/specialization-form.component';
-import { SpecializationModalComponent } from './specialization-modal/specialization-modal.component';
 import { UpdateSpecializationComponent } from './update-specialization/update-specialization.component';
 import { SearchSpecializationsPipe } from './pipes/search-specializations.pipe';
 import {RouterModule, Routes} from '@angular/router';
@@ -42,7 +41,6 @@ export const specializationRoutes: Routes = [
     AddSpecializationComponent,
     DeleteSpecializationComponent,
     SpecializationFormComponent,
-    SpecializationModalComponent,
     UpdateSpecializationComponent,
     SearchSpecializationsPipe,
     SpecializationCompetenciesComponent,

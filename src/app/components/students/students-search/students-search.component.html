@@ -1,10 +1,10 @@
-<div [formGroup]="searchForm" class="form-inline d-inline-flex">
+<form (ngSubmit)="searchStudent()" [formGroup]="searchForm" class="form-inline d-inline-flex">
   <input
+    type="text"
     formControlName="search"
-    class="form-control mr-2"
+    class="form-control mr-1"
     id="search"
     placeholder="ПIБ"
-    (keypress)="onKeyPress($event)"
   >
-  <button class="btn btn-info" (click)="searchStudent()">Пошук</button>
-</div>
+  <button type="submit" class="btn btn-info">Пошук</button>
+</form>

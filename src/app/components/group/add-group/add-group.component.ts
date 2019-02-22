@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output, ViewChild, OnInit, Input} from '@angular/core';
 import {GroupService} from '../../../services/group.service';
-import {GroupModalComponent} from '../group-modal/group-modal.component'
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {GroupFormComponent} from '../group-form/group-form.component';
 import {Specialization} from '../../../models/Specialization';
 
@@ -12,7 +12,7 @@ import {Specialization} from '../../../models/Specialization';
 export class AddGroupComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: GroupModalComponent;
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: GroupFormComponent;
   @Input() tuitionFormsKeys;
   @Input() tuitionForms;
