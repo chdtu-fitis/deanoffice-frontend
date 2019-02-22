@@ -1,15 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {NotificationsService} from 'angular2-notifications';
+import {TypeaheadMatch} from 'ngx-bootstrap';
 
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {CourseName} from '../../../models/CourseName';
-import {TypeaheadMatch} from 'ngx-bootstrap';
 
 @Component({
   selector: 'course-creation',
@@ -28,7 +27,6 @@ export class CourseCreationComponent implements OnInit {
   fail = undefined;
   courseNames: CourseName[];
   courseNamesArray: string[];
-  @ViewChild('instance') instance: NgbTypeahead;
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,

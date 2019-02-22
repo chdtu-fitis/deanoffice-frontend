@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 import {BsModalRef, TypeaheadMatch} from 'ngx-bootstrap';
 
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
@@ -26,7 +25,6 @@ export class EditDialogComponent implements OnInit {
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
   courseNamesArray: string[];
-  @ViewChild('instance') instance: NgbTypeahead;
 
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
