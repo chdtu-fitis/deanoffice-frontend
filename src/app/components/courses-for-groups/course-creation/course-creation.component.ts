@@ -27,6 +27,7 @@ export class CourseCreationComponent implements OnInit {
   failCreated = undefined;
   fail = undefined;
   courseNames: CourseName[];
+  courseNamesArray: string[];
   @ViewChild('instance') instance: NgbTypeahead;
   alertOptions = {
     showProgressBar: false,
@@ -43,7 +44,7 @@ export class CourseCreationComponent implements OnInit {
               private fb: FormBuilder) {
     this.form = fb.group({
       courseName: this.fb.group({
-        id: [''],
+        id: '',
         name: ['', Validators.required],
       }),
       hours: ['', Validators.required],
@@ -62,24 +63,28 @@ export class CourseCreationComponent implements OnInit {
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+      this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
+  }
+
+  get courseName() {
+    return this.form.controls.courseName as FormGroup;
   }
 
   onSelect(event: TypeaheadMatch): void {
     this.form.controls.courseName.setValue(event.item);
   }
 
-  checkCourseName(name) {
-    if (!name.id) {
-      const courseName = new CourseName();
-      courseName.name = name;
-      this.form.controls.courseName.setValue(courseName);
+  checkCourseName(courseName) {
+    if (!this.courseNamesArray.includes(courseName.name)) {
+      this.courseName.controls.id.setValue('');
+      this.courseName.controls.name.setValue(courseName.name);
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.form.controls.courseName.value);
+    this.checkCourseName(this.courseName.value);
     this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
         this.success = true;
         this.failCreated = false;
