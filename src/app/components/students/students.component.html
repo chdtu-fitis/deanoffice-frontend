@@ -14,18 +14,22 @@
               class="btn btn-info w-100 mr-1 d-flex"
               (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
             >
-              <fa-icon class="mr-1" [icon]="faPen"></fa-icon>
+              <svg class="mr-1 svg-icon" viewBox="0 0 640 512">
+                <use xlink:href="assets/img/icons-sprite.svg#user-edit"></use>
+              </svg>
               Особиста інформація
             </button>
             <button
-              class="btn btn-info w-100 mr-1 d-flex"
+              class="btn btn-info mr-1 d-flex"
               (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
             >
-              <fa-icon class="mr-1" [icon]="faPen"></fa-icon>
+              <svg class="mr-1 svg-icon" viewBox="0 0 170 137.28">
+                <use xlink:href="assets/img/icons-sprite.svg#user-graduate-edit"></use>
+              </svg>
               Навчальна інформація
             </button>
             <button
-              class="btn btn-info w-100 mr-1"
+              class="btn btn-info mr-1"
               (click)="academicVacationModal.openModal(selected[0]?.id)"
             >
               Направити в академ. відпустку
@@ -33,7 +37,7 @@
           </div>
           <button
             *ngIf="selected.length"
-            class="btn btn-danger w-100 mr-1"
+            class="btn btn-danger mr-1"
             (click)="studentExpelModal.openModal(selected)"
           >
             Відрахувати студентів

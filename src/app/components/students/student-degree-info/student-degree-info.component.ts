@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
@@ -17,7 +16,6 @@ import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversi
     styleUrls: ['./student-degree-info.component.scss'],
 })
 export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
-  faTimesCircle = faTimesCircle;
   form: FormGroup;
   studentPreviousUniversity: FormGroup;
   model: StudentDegree;
