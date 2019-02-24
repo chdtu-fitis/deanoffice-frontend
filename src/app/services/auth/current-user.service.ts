@@ -7,6 +7,10 @@ export class CurrentUserService {
     return this.getUser().facultyId
   }
 
+  name() {
+    return this.getUser().username
+  }
+
   private getUser() {
     return JSON.parse(localStorage.getItem('currentUser'))
   }
