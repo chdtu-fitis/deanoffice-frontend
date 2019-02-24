@@ -30,9 +30,9 @@ export class AddSpecializationComponent {
     }
     this.specializationService
       .create(this.form.getValue())
-      .then((res) => {
-        this.form.saveCompetenciesAndQualification(res['id'] as number);
-        this.onSubmit.emit({...this.form.getValueForTable(), id: res['id']})
+      .then((specialization) => {
+        this.form.saveCompetenciesAndQualification(specialization['id'] as number);
+        this.onSubmit.emit(specialization)
       })
       .then(() => this.hideModal())
       .catch(null);
