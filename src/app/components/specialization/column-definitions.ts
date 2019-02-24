@@ -10,7 +10,7 @@ export const COLUMN_DEFINITIONS = [
   },
   {
     headerName: 'Спеціальність',
-    valueGetter: function(params) { return `${params.data.speciality.code} ${params.data.speciality.name}`; },
+    valueGetter: (params) => `${params.data.speciality.code} ${params.data.speciality.name}`,
     minWidth: 450,
   },
   {

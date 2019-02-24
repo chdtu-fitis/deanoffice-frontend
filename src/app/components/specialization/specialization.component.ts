@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
 
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
@@ -29,13 +30,13 @@ export class SpecializationComponent implements OnInit {
     this.getSpecializations(true);
   }
 
-  onGridReady(params) {
+  onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
   }
 
-  onModelUpdated(params) {
+  onModelUpdated(params: ModelUpdatedEvent) {
     this.count = params.api.getDisplayedRowCount();
   }
 
@@ -47,8 +48,8 @@ export class SpecializationComponent implements OnInit {
     );
   }
 
-  selectSpecializations(): void {
-    this.selectedSpecialization = this.gridApi.getSelectedRows();
+  onSelectionChanged(event: SelectionChangedEvent) {
+    this.selectedSpecialization = event.api.getSelectedRows();
   }
 
   buttonIsDisabled(): boolean {
