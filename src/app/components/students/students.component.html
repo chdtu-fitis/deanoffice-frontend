@@ -11,7 +11,7 @@
         <div class="d-flex">
           <div *ngIf="selected.length === 1" class="d-flex">
             <button
-              class="btn btn-info w-100 mr-1 d-flex"
+              class="btn btn-info mr-1"
               (click)="personalInfoModal.openModal(selected[0]?.student?.id)"
             >
               <svg class="mr-1 svg-icon" viewBox="0 0 640 512">
@@ -20,7 +20,7 @@
               Особиста інформація
             </button>
             <button
-              class="btn btn-info mr-1 d-flex"
+              class="btn btn-info mr-1"
               (click)="degreeInfoModal.openModal(selected[0]?.student?.id)"
             >
               <svg class="mr-1 svg-icon" viewBox="0 0 170 137.28">

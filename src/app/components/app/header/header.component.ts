@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
+import {CurrentUserService} from '../../../services/auth/current-user.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,12 @@ import {AuthenticationService} from '../../../services/auth/authentication.servi
 })
 export class HeaderComponent {
   public loggedIn: any;
+  userName;
 
-  public constructor(private auth: AuthenticationService) {
+  public constructor(private auth: AuthenticationService,
+                     private currentUserService: CurrentUserService) {
     this.auth.isLoggedIn.subscribe(islogged => {this.loggedIn = islogged});
+    this.userName = this.currentUserService.name();
   }
 
   logout() {
