@@ -63,7 +63,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       code: data.code,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
-      departmentId: data.departmentId,
+      departmentId: [data.departmentId, Validators.required],
       qualification: data.qualification,
       qualificationEng: data.qualificationEng,
       paymentFulltime: data.paymentFulltime,
@@ -144,7 +144,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadInfoEng: s.educationalProgramHeadInfoEng || DEFAULT_STRING
     } as Specialization;
   }
-
 
   saveCompetenciesAndQualification(specializationId: number) {
     this._saveCompetencies(specializationId);

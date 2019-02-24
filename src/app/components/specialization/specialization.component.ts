@@ -1,6 +1,11 @@
 import {Component, OnInit} from '@angular/core';
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
+import {COLUMN_DEFINITIONS} from './column-definitions';
+import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+
 
 @Component({
   selector: 'specialization',
@@ -9,10 +14,15 @@ import {Specialization} from '../../models/Specialization';
 })
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
-  selectedSpecialization: Specialization;
-  loading: boolean;
-  searchField: string;
+  selectedSpecialization: Specialization[] = [];
+  count;
   private actual: boolean;
+  defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
+  columnDefs = COLUMN_DEFINITIONS;
+  localeText = LOCALE_TEXT;
+  private gridApi;
+  private gridColumnApi;
+  getRowNodeId = (data) => data.id;
 
   constructor(private specializationService: SpecializationService) {}
 
@@ -20,25 +30,43 @@ export class SpecializationComponent implements OnInit {
     this.getSpecializations(true);
   }
 
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onModelUpdated(params: ModelUpdatedEvent) {
+    this.count = params.api.getDisplayedRowCount();
+  }
+
+
   getSpecializations(actual: boolean): void {
-    this.loading = true;
     this.actual = actual;
     this.specializationService.getSpecializations(actual).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
-      null,
-      () => this.loading = false
     );
   }
 
+  onSelectionChanged(event: SelectionChangedEvent) {
+    this.selectedSpecialization = event.api.getSelectedRows();
+  }
+
   buttonIsDisabled(): boolean {
-    return !this.selectedSpecialization || !this.actual;
+    return !this.selectedSpecialization.length || !this.actual;
   }
 
-  selectSpecializations(selected: Specialization): void {
-    this.selectedSpecialization = selected;
+  deleteSpecialization() {
+    this.gridApi.updateRowData({ remove: this.selectedSpecialization });
   }
 
-  updateDatatable(): void {
-    this.getSpecializations(true);
+  addSpecialization(specialization) {
+    this.gridApi.updateRowData({ add: [specialization] });
   }
+
+  updateSpecialization(specialization) {
+    const rowNode = this.gridApi.getRowNode(this.selectedSpecialization[0].id);
+    rowNode.setData(specialization)
+  }
+
 }

@@ -41,11 +41,10 @@ export class UpdateSpecializationComponent {
     if (this.form.invalid()) {
       return;
     }
-    const specialization = this.form.getValue();
     this.specializationService
-      .update(specialization)
+      .update(this.form.getValue())
+      .then((specialization) => this.onSubmit.emit(specialization))
       .then(() => this.form.saveCompetenciesAndQualification(this.source.id))
-      .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);
   }
