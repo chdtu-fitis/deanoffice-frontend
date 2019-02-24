@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
-import {DomSanitizer} from '@angular/platform-browser';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
@@ -37,14 +35,9 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private studentService: StudentService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer) {
+    private studentService: StudentService) {
     super();
     this.diplomaTypeKey = Object.keys(DiplomaType);
-    iconRegistry.addSvgIcon(
-      'cancel',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-cancel-24px.svg'));
   }
 
   selectGroup(group) {
