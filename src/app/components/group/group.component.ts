@@ -8,7 +8,7 @@ import {TuitionTerm} from '../../models/tuition-term.enum';
 import {TuitionForm} from '../../models/tuition-form.enum';
 import {Specialization} from '../../models/Specialization';
 import {SpecializationService} from '../../services/specialization.service';
-import {columnDefs} from './columns-def';
+import {COLUMN_DEFINITIONS} from './columns-def';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 
 @Component({
@@ -45,7 +45,7 @@ export class GroupComponent implements OnInit {
 
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
-  columnDefs = columnDefs;
+  columnDefs = COLUMN_DEFINITIONS;
   localeText = LOCALE_TEXT;
   gridApi;
   private gridColumnApi;

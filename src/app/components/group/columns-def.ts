@@ -1,7 +1,7 @@
 import {TuitionForm} from '../../models/tuition-form.enum';
 import {TuitionTerm} from '../../models/tuition-term.enum';
 
-export const columnDefs = [
+export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Назва',
     field: 'name',
