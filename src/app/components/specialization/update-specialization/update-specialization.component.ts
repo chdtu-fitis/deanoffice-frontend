@@ -11,7 +11,7 @@ import {Specialization} from '../../../models/Specialization';
 })
 export class UpdateSpecializationComponent {
   source: Specialization;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateSpecialization: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: SpecializationFormComponent;
 
@@ -41,11 +41,10 @@ export class UpdateSpecializationComponent {
     if (this.form.invalid()) {
       return;
     }
-    const specialization = this.form.getValue();
     this.specializationService
-      .update(specialization)
+      .update(this.form.getValue())
+      .then((specialization) => this.updateSpecialization.emit(specialization))
       .then(() => this.form.saveCompetenciesAndQualification(this.source.id))
-      .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);
   }

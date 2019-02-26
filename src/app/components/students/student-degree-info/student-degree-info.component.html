@@ -205,7 +205,9 @@
                         <td>
                           <button type="button" class="btn btn-default btn-circle" title="Видалити"
                                   *ngIf="SPU.controls.id" (click)="deleteStudentPreviousUniversity(SPU.controls.id.value)">
-                            <mat-icon svgIcon="cancel"></mat-icon>
+                            <svg class="mr-1 svg-icon danger" viewBox="0 0 512 512">
+                              <use xlink:href="assets/img/icons-sprite.svg#times-circle"></use>
+                            </svg>
                           </button>
                         </td>
                       </tr>

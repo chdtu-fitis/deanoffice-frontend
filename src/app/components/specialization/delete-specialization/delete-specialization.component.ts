@@ -10,7 +10,7 @@ import {SpecializationService} from '../../../services/specialization.service';
 })
 export class DeleteSpecializationComponent {
   specialization: Specialization;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteSpecialization: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 
   constructor(private specializationService: SpecializationService) { }
@@ -21,15 +21,12 @@ export class DeleteSpecializationComponent {
   }
 
   submit(): void {
-    const IsConfirm = confirm('Ви дійсно бажаєте видалити обрану спеціалізацю?');
-    if (IsConfirm) {
-      this.specializationService
-        .delete(this.specialization.id)
-        .then(() => {
-          this.onSubmit.emit(null);
-          this.modal.hide()
-        });
-    }
+    this.specializationService
+      .delete(this.specialization.id)
+      .then(() => {
+        this.deleteSpecialization.emit(null);
+        this.modal.hide()
+      });
   }
 
   hideModal(): void {

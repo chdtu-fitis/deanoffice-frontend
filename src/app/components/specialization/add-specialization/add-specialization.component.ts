@@ -9,7 +9,7 @@ import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.co
   styleUrls: ['./add-specialization.component.scss']
 })
 export class AddSpecializationComponent {
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addSpecialization: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: SpecializationFormComponent;
 
@@ -30,10 +30,10 @@ export class AddSpecializationComponent {
     }
     this.specializationService
       .create(this.form.getValue())
-      .then((res) => {
-        this.form.saveCompetenciesAndQualification(res['id'] as number)
+      .then((specialization) => {
+        this.form.saveCompetenciesAndQualification(specialization['id'] as number);
+        this.addSpecialization.emit(specialization)
       })
-      .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);
   }

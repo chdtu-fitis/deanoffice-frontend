@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-import {AgGridModule} from 'ag-grid-angular';
 
 import {StudentsComponent} from './students.component';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
@@ -88,7 +88,6 @@ export const studentRoutes: Routes = [
     RouterModule.forChild(studentRoutes),
     PipeModule,
     MatIconModule,
-    AgGridModule.withComponents([]),
   ]
 })
 export class StudentsModule {}
