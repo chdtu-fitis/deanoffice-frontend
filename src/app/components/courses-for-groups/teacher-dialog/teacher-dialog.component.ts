@@ -16,9 +16,8 @@ export class TeacherDialogComponent implements OnInit {
   @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
   searchText = '';
-  modalRef: BsModalRef;
 
-  constructor(private teacherService: TeacherService) { }
+  constructor(private teacherService: TeacherService, public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
     this.teacherService.getTeachers().subscribe(teachers => {
@@ -29,6 +28,6 @@ export class TeacherDialogComponent implements OnInit {
   selectTeacher(teacher: Teacher) {
     this.courseForGroups.teacher = teacher;
     this.onTeacherSelect.emit(this.courseForGroups);
-    this.modalRef.hide()
+    this.bsModalRef.hide()
   }
 }

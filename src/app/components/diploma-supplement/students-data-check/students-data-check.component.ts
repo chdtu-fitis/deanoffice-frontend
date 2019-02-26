@@ -9,6 +9,7 @@ import {DataForSupplementStudentCheck} from '../../../models/custom/DataForSuppl
 })
 export class StudentsDataCheckComponent {
   studentsCheckData: DataForSupplementStudentCheck[];
-  modalRef: BsModalRef
+
+  constructor(public bsModalRef: BsModalRef) {}
 
 }

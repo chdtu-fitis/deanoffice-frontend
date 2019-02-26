@@ -51,7 +51,7 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onGroupChange(groupId: string): void {
-    this.currentGroup = this.groups.find(x => x.id === Number(groupId));
+    this.currentGroup = this.groups.find(group => group.id === Number(groupId));
     this.students = this.currentGroup.studentDegrees;
     for (const student of this.students) {
       student.selected = true;
@@ -70,7 +70,7 @@ export class DiplomaSupplementComponent implements OnInit {
     for (const student of this.students) {
       this.supplementLoading = true;
       if (student.selected) {
-        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id).subscribe(a => {
+        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id).subscribe(() => {
           this.supplementLoading = false;
         });
       }
@@ -80,7 +80,7 @@ export class DiplomaSupplementComponent implements OnInit {
   onFormGradePercent(): void {
     this.message = '';
     this.gradePercentLoading = true;
-    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
+    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(() => {
         this.gradePercentLoading = false;
       }
     );
@@ -88,7 +88,7 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onFullGradesTableReport(): void {
     this.gradesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
+    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(() => {
         this.gradesTableReportLoading = false;
       }
     );
@@ -96,7 +96,7 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onFullCoursesTableReport(): void {
     this.coursesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(a => {
+    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(() => {
         this.coursesTableReportLoading = false;
       }
     );

@@ -28,9 +28,10 @@ export class CopyCoursesDialogComponent implements OnInit {
   selectedGroup: StudentGroup;
   searchText = '';
   allRowsIsSelected = true;
-  modalRef: BsModalRef;
 
-  constructor(private courseForGroupService: CourseForGroupService) { }
+  constructor(private courseForGroupService: CourseForGroupService,
+              public bsModalRef: BsModalRef
+  ) { }
 
   ngOnInit() {
   }
@@ -39,7 +40,7 @@ export class CopyCoursesDialogComponent implements OnInit {
     this.selectedGroup = group;
     if (this.selectedSemesterFrom === this.selectedSemesterTo) {
       this.addCoursesForGroup();
-      this.modalRef.hide();
+      this.bsModalRef.hide();
     } else {
       this.getCoursesForGroup();
     }
@@ -96,7 +97,7 @@ export class CopyCoursesDialogComponent implements OnInit {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });
-    this.modalRef.hide();
+    this.bsModalRef.hide();
   }
 
   addCoursesForGroup() {

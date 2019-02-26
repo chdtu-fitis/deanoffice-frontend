@@ -25,12 +25,12 @@ export class EditDialogComponent implements OnInit {
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
   courseNamesArray: string[];
-  modalRef: BsModalRef;
 
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public bsModalRef: BsModalRef) {
     this.form = fb.group({
       id: '',
       course: this.fb.group({
@@ -88,7 +88,7 @@ export class EditDialogComponent implements OnInit {
     }).subscribe((course: Course) => {
       this.courseFromTable.course = course;
     });
-    this.modalRef.hide()
+    this.bsModalRef.hide()
   }
 
   setCredits() {
