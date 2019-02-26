@@ -45,7 +45,7 @@ export class CourseCreationComponent implements OnInit {
         id: '',
         name: ['', Validators.required],
       }),
-      hours: ['', Validators.required],
+      hours: ['',  Validators.min(0)],
       semester: '',
       hoursPerCredit: ['', Validators.required],
       knowledgeControl: ['', Validators.required],
@@ -123,9 +123,8 @@ export class CourseCreationComponent implements OnInit {
   }
 
   private setCredits() {
-    this.form.controls.credits.setValue(
-      this.form.controls.hours.value / this.form.controls.hoursPerCredit.value
-    );
+    const credits = this.form.controls.hours.value / this.form.controls.hoursPerCredit.value;
+    this.form.controls.credits.setValue(credits);
   }
 
 }

@@ -25,11 +25,11 @@ export class EditDialogComponent implements OnInit {
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
   courseNamesArray: string[];
+  modalRef: BsModalRef;
 
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
-              public bsModalRef: BsModalRef,
               private fb: FormBuilder) {
     this.form = fb.group({
       id: '',
@@ -88,13 +88,12 @@ export class EditDialogComponent implements OnInit {
     }).subscribe((course: Course) => {
       this.courseFromTable.course = course;
     });
-    this.bsModalRef.hide()
+    this.modalRef.hide()
   }
 
   setCredits() {
-    this.course.controls.credits.setValue(
-      this.course.controls.hours.value / this.course.controls.hoursPerCredit.value
-    );
+    const credits = this.form.controls.hours.value / this.form.controls.hoursPerCredit.value;
+    this.course.controls.credits.setValue(credits);
   }
 
   compareById(item1, item2) {

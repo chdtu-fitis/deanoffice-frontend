@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Редагувати предмет</h4>
-  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+  <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -47,8 +47,8 @@
               formControlName="credits">
           </div>
           <div class="form-group col-5">
-            <label for="kc" class="col-form-label">Тип контролю</label>
-            <select name="kc" id="kc" required class="form-control mr-2"
+            <label for="knowledgeControl" class="col-form-label">Тип контролю</label>
+            <select name="knowledgeControl" id="knowledgeControl" required class="form-control mr-2"
                     formControlName="knowledgeControl" [compareWith]="compareById">
               <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">
                 {{kc.name}}
@@ -60,7 +60,7 @@
     </form>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-success" (click)="saveChanges()">Зберегти</button>
-      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Відмініти зміни</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modalRef.hide()">Відмініти зміни</button>
     </div>
   </div>
 </div>

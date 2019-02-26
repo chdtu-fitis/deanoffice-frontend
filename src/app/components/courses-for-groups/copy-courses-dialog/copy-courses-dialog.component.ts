@@ -28,8 +28,9 @@ export class CopyCoursesDialogComponent implements OnInit {
   selectedGroup: StudentGroup;
   searchText = '';
   allRowsIsSelected = true;
+  modalRef: BsModalRef;
 
-  constructor(private courseForGroupService: CourseForGroupService, public bsModalRef: BsModalRef) { }
+  constructor(private courseForGroupService: CourseForGroupService) { }
 
   ngOnInit() {
   }
@@ -38,7 +39,7 @@ export class CopyCoursesDialogComponent implements OnInit {
     this.selectedGroup = group;
     if (this.selectedSemesterFrom === this.selectedSemesterTo) {
       this.addCoursesForGroup();
-      this.bsModalRef.hide();
+      this.modalRef.hide();
     } else {
       this.getCoursesForGroup();
     }
@@ -46,24 +47,27 @@ export class CopyCoursesDialogComponent implements OnInit {
 
 
   addSelectedCourses() {
-    if (this.copiedCoursesForGroup.length) {
-      for (let copiedCourse of this.copiedCoursesForGroup) {
-        let courseIsAdded = false;
-        if (this.coursesForGroups) {
-          for (let course of this.coursesForGroups) {
-            if (course.course.id === copiedCourse.course.id) courseIsAdded = true;
+    if (!this.copiedCoursesForGroup.length) {
+      return;
+    }
+    for (const copiedCourse of this.copiedCoursesForGroup) {
+      let courseIsAdded = false;
+      if (this.coursesForGroups) {
+        for (const course of this.coursesForGroups) {
+          if (course.course.id === copiedCourse.course.id) {
+            courseIsAdded = true;
           }
         }
-        if (!courseIsAdded) {
-          copiedCourse.examDate = null;
-          if (!copiedCourse.teacher) {
-            let teacher = new Teacher();
-            copiedCourse.teacher = teacher;
-          }
-          this.copiedCourse.emit(copiedCourse);
-        } else {
-          this.alertMessage.emit('Предмет "' + copiedCourse.course.courseName.name + '" не було додано, тому що він існує');
+      }
+      if (!courseIsAdded) {
+        copiedCourse.examDate = null;
+        if (!copiedCourse.teacher) {
+          const teacher = new Teacher();
+          copiedCourse.teacher = teacher;
         }
+        this.copiedCourse.emit(copiedCourse);
+      } else {
+        this.alertMessage.emit('Предмет "' + copiedCourse.course.courseName.name + '" не було додано, тому що він існує');
       }
     }
   }
@@ -92,7 +96,7 @@ export class CopyCoursesDialogComponent implements OnInit {
       this.copiedCoursesForGroup = courses;
       this.addSelectedCourses();
     });
-    this.bsModalRef.hide();
+    this.modalRef.hide();
   }
 
   addCoursesForGroup() {
