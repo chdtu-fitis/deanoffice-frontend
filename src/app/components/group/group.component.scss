@@ -1,27 +1,5 @@
-
-.groups-table {
-  display: flex;
-  flex-direction: column;
+::ng-deep .ag-header-cell-text {
+  text-overflow: clip !important;
+  overflow: visible !important;
+  white-space: normal !important;
 }
-
-group-table {
-  flex: 1 0 300px;
-  overflow: hidden;
-}
-
-.content {
-  overflow: auto;
-  margin-bottom: 54px;
-}
-
-.selection-panel{
-  &.search{
-    display: inline-block;
-    width: 190px;
-    margin-right: 10px;
-  }
-  &.active-group{
-    display: inline-block;
-  }
-}
-

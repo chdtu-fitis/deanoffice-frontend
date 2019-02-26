@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {AlertModule, TabsModule} from 'ngx-bootstrap';
-import { AgGridModule } from 'ag-grid-angular';
 
 import { SpecializationComponent } from './specialization.component';
 import {SharedModule} from '../shared/shared.module';
@@ -34,7 +33,6 @@ export const specializationRoutes: Routes = [
     AlertModule.forRoot(),
     RouterModule.forChild(specializationRoutes),
     PipeModule.forRoot(),
-    AgGridModule.withComponents([]),
   ],
   declarations: [
     SpecializationComponent,
