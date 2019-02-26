@@ -1,3 +1,8 @@
 ::ng-deep .modal-dialog  {
   max-width: 80%;
 }
+
+.list-group {
+  height: 70vh;
+  overflow: auto;
+}
