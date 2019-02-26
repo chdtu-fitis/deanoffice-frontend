@@ -40,6 +40,9 @@ export class SpecializationComponent implements OnInit {
     this.count = params.api.getDisplayedRowCount();
   }
 
+  onSelectionChanged(event: SelectionChangedEvent) {
+    this.selectedSpecialization = event.api.getSelectedRows();
+  }
 
   getSpecializations(actual: boolean): void {
     this.actual = actual;
@@ -48,23 +51,19 @@ export class SpecializationComponent implements OnInit {
     );
   }
 
-  onSelectionChanged(event: SelectionChangedEvent) {
-    this.selectedSpecialization = event.api.getSelectedRows();
-  }
-
   buttonIsDisabled(): boolean {
     return !this.selectedSpecialization.length || !this.actual;
   }
 
-  deleteSpecialization() {
+  onDeleteSpecialization() {
     this.gridApi.updateRowData({ remove: this.selectedSpecialization });
   }
 
-  addSpecialization(specialization) {
+  onAddSpecialization(specialization) {
     this.gridApi.updateRowData({ add: [specialization] });
   }
 
-  updateSpecialization(specialization) {
+  onUpdateSpecialization(specialization) {
     const rowNode = this.gridApi.getRowNode(this.selectedSpecialization[0].id);
     rowNode.setData(specialization)
   }

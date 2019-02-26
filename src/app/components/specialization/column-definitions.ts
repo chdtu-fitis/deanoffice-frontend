@@ -10,13 +10,14 @@ export const COLUMN_DEFINITIONS = [
   },
   {
     headerName: 'Спеціальність',
-    valueGetter: (params) => `${params.data.speciality.code} ${params.data.speciality.name}`,
+    valueGetter: params => `${params.data.speciality.code} ${params.data.speciality.name}`,
     minWidth: 450,
   },
   {
     headerName: 'Ступінь',
     field: 'degree.name',
-    filter: false
+    filter: false,
+    maxWidth: 100,
   },
   {
     headerName: 'Гарант програми',

@@ -114,7 +114,7 @@ const colDefStudentGroupName = {
 const colDefPayment = {
   headerName: 'Форма навчання',
   field: 'payment',
-  valueGetter: (params) => Payment[params.data.payment],
+  valueGetter: params => Payment[params.data.payment],
   filter: 'paymentFilter',
   minWidth: 100
 };

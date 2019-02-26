@@ -12,7 +12,7 @@ import {FormGroup} from '@angular/forms';
 export class DeleteGroupComponent {
 
   @Output() showErrorAlert: EventEmitter<any> = new EventEmitter<any>();
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 
   groups: StudentGroup[];
@@ -30,16 +30,7 @@ export class DeleteGroupComponent {
     this.groupService
       .delete(this.groups.map(x => x.id))
       .subscribe((deletedGroups: StudentGroup[]) => {
-        const deletedGroupsIds = deletedGroups.map(x => x.id);
-        const errors = this.groups.filter(item => {
-          return !deletedGroupsIds.includes(item.id);
-        });
-        for (let i = 0; i < errors.length; i++) {
-          this.showErrorAlert.emit({
-            message: `Неможливе видалення групи ${errors[i].name} <br>(в групі є студенти)`
-          });
-        }
-        this.onSubmit.emit();
+        this.deleteGroup.emit(deletedGroups);
         this.modal.hide();
       })
   }

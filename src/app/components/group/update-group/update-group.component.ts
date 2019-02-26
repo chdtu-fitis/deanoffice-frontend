@@ -12,7 +12,7 @@ import {GroupFormComponent} from '../group-form/group-form.component';
 })
 export class UpdateGroupComponent {
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() updateGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: GroupFormComponent;
   @Input() tuitionFormsKeys;
@@ -49,7 +49,7 @@ export class UpdateGroupComponent {
     body.active = this.selectedGroup.active;
     body.specialization = {id: body.specialization};
     this.groupService.update(body)
-      .then(() => this.onSubmit.emit(null))
+      .then(group => this.updateGroup.emit(group))
       .then(() => this.hideModal())
       .catch(null);
   }

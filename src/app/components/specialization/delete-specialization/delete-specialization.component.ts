@@ -10,7 +10,7 @@ import {SpecializationService} from '../../../services/specialization.service';
 })
 export class DeleteSpecializationComponent {
   specialization: Specialization;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteSpecialization: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 
   constructor(private specializationService: SpecializationService) { }
@@ -24,7 +24,7 @@ export class DeleteSpecializationComponent {
     this.specializationService
       .delete(this.specialization.id)
       .then(() => {
-        this.onSubmit.emit(null);
+        this.deleteSpecialization.emit(null);
         this.modal.hide()
       });
   }

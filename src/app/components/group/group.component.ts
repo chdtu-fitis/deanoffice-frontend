@@ -1,11 +1,15 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {NotificationsService} from 'angular2-notifications';
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
-import {NotificationsService} from 'angular2-notifications';
 import {TuitionTerm} from '../../models/tuition-term.enum';
 import {TuitionForm} from '../../models/tuition-form.enum';
 import {Specialization} from '../../models/Specialization';
 import {SpecializationService} from '../../services/specialization.service';
+import {COLUMN_DEFINITIONS} from './columns-def';
+import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 
 @Component({
   selector: 'app-group',
@@ -15,14 +19,13 @@ import {SpecializationService} from '../../services/specialization.service';
 export class GroupComponent implements OnInit {
 
   @ViewChild('table') table;
-  @ViewChild('addGroup') addGroup;
+  @ViewChild('addGroupModal') addGroupModal;
 
   loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
   actualGroups = true;
   searchText: string;
-  loadingGroups = true;
   alertOptions = {
     showProgressBar: false,
     timeOut: 50000,
@@ -40,17 +43,31 @@ export class GroupComponent implements OnInit {
   tuitionTerms;
   tuitionTermsKeys;
 
+  count;
+  defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
+  columnDefs = COLUMN_DEFINITIONS;
+  localeText = LOCALE_TEXT;
+  gridApi;
+  private gridColumnApi;
+  getRowNodeId = (data) => data.id;
+
   constructor(
     private groupService: GroupService,
     private notificationsService: NotificationsService,
-    private specializationService: SpecializationService) { }
+    private specializationService: SpecializationService) {
+  }
+
+
+  onColumnResized() {
+    this.gridApi.resetRowHeights();
+  }
 
   ngOnInit() {
     this.specializationService.getSpecializations(true).subscribe(
       (specializations: Specialization[]) => this.specializations = specializations,
       null,
       () => {
-        this.addGroup.form.form.controls.specialization.setValue(this.specializations[0].id);
+        this.addGroupModal.form.form.controls.specialization.setValue(this.specializations[0].id);
       }
     );
 
@@ -62,77 +79,68 @@ export class GroupComponent implements OnInit {
     this.loadGroups();
   }
 
-  showErrorAlert($event) {
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onModelUpdated(params: ModelUpdatedEvent) {
+    this.count = params.api.getDisplayedRowCount();
+  }
+
+  onSelectionChanged(event: SelectionChangedEvent) {
+    this.selectedGroups = event.api.getSelectedRows();
+  }
+
+  showErrorAlert(event) {
     this.notificationsService.error('Помилка',
-      $event.message,
+      event.message,
       this.alertOptions);
   }
 
   loadGroups(): void {
     this.selectedGroups = [];
     const onlyActual = false;
-    this.loadingGroups = true;
     this.groupService.getGroups(onlyActual)
       .subscribe((loadedGroups: StudentGroup[]) => {
         this.loadedGroups = loadedGroups;
-        this.loadingGroups = false;
-        this.updateGroups();
+        this.filterActive();
       });
   }
 
-  updateGroups(): void {
-    this.groups = this.loadedGroups.filter((item) => {
-      if (this.actualGroups && !item.active) {
-        return false;
-      }
-      if (this.searchText) {
-        if (!item.name.includes(this.searchText)) {
-          return false;
-        }
-      }
-      return true;
+  filterActive(): void {
+    this.groups = this.loadedGroups.filter(item => {
+      return !(this.actualGroups && !item.active);
     });
-    this.deselectGroups();
-    this.table.updateTable(this.groups);
   }
 
-  /**
-   * handle click on checkbox in the table
-   * params: $event.group [, $event.reset]
-   */
-  handleSelectedChange($event): void {
-    if ($event.reset) {
-      for (let i = 0; i < this.groups.length; i++) {
-        if (this.groups[i] !== $event.group) {
-          this.groups[i].selected = false;
-        }
+  onAddGroup(group: StudentGroup) {
+    this.loadedGroups.push(group);
+    this.gridApi.updateRowData({ add: [group] });
+  }
+
+  onUpdateGroup(updatedGroup: StudentGroup) {
+    const rowNode = this.gridApi.getRowNode(this.selectedGroups[0].id);
+    rowNode.setData(updatedGroup);
+
+    const index = this.loadedGroups.findIndex(loadedGroup => loadedGroup.id === updatedGroup.id);
+    this.loadedGroups[index] = updatedGroup;
+  }
+
+  onDeleteGroup(deletedGroups: StudentGroup[]) {
+    const deletedGroupsIds = deletedGroups.map(group => group.id);
+    const groupsForRemove = this.selectedGroups.filter(group => deletedGroupsIds.includes(group.id));
+    this.gridApi.updateRowData({ remove: groupsForRemove });
+
+    for (const selectedGroup of this.selectedGroups) {
+      if (!deletedGroupsIds.includes(selectedGroup.id)) {
+        const message = {message: `Неможливе видалення групи ${selectedGroup.name} <br>(в групі є студенти)`};
+        this.showErrorAlert(message);
+      } else {
+        const group = this.loadedGroups.find(group => group.id === selectedGroup.id);
+        group.active = false;
       }
-    }
-    $event.group.selected = !$event.group.selected;
-    this.updateSelectedGroups();
-  }
-
-  updateSelectedGroups(): void {
-    const selectedGroups = [];
-    for (let i = 0; i < this.groups.length; i++) {
-      if (this.groups[i].selected) {
-        selectedGroups.push(this.groups[i]);
-      }
-    }
-    this.selectedGroups = selectedGroups;
-  }
-
-  deselectGroups() {
-    for (let i = 0; i < this.groups.length; i++) {
-      this.deselectGroup(this.groups[i]);
-    }
-  }
-
-  deselectGroup(group) {
-    group.selected = false;
-    const index = this.selectedGroups.indexOf(group);
-    if (index > -1) {
-      this.selectedGroups.splice(index, 1);
     }
   }
 

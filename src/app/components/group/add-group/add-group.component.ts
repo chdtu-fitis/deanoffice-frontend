@@ -11,7 +11,7 @@ import {Specialization} from '../../../models/Specialization';
 })
 export class AddGroupComponent implements OnInit {
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: GroupFormComponent;
   @Input() tuitionFormsKeys;
@@ -57,7 +57,7 @@ export class AddGroupComponent implements OnInit {
     body.active = 'false';
     body.specialization = {id: body.specialization};
     this.groupService.create(body)
-      .then(() => this.onSubmit.emit(null))
+      .then(group => this.addGroup.emit(group))
       .then(() => this.hideModal())
       .catch(null);
   }
