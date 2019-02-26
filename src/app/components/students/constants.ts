@@ -77,6 +77,15 @@ export const defaultColDef = {
   resizable: true,
 };
 
+const dateFields = {
+  filter: 'agDateColumnFilter',
+  filterParams: {
+    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
+    browserDatePicker: true
+  },
+  cellRenderer: data => Utils.formatDate(data.value)
+};
+
 const colDefStudentSurname = {
   headerName: 'Прізвище',
   field: 'student.surname',
@@ -122,12 +131,7 @@ const colDefPayment = {
 const colDefStudentBirthDate = {
   headerName: 'Дата народження',
   field: 'student.birthDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value),
+  ...dateFields,
   minWidth: 100
 };
 
@@ -190,12 +194,7 @@ const colDefDiplomaDate = {
   headerName: 'Дата диплому',
   field: 'diplomaDate',
   minWidth: 100,
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const colDefSupplementNumber = {
@@ -208,12 +207,7 @@ const colDefSupplementDate = {
   headerName: 'Дата додатку до диплому',
   field: 'supplementDate',
   minWidth: 100,
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const colDefPreviousDiplomaNumber = {
@@ -226,12 +220,7 @@ const colDefPreviousDiplomaDate = {
   headerName: 'Дата попереднього диплому',
   field: 'previousDiplomaDate',
   minWidth: 100,
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const colDefProtocolNumber = {
@@ -244,12 +233,7 @@ const colDefProtocolDate = {
   headerName: 'Дата протоколу захисту диплому',
   field: 'protocolDate',
   minWidth: 100,
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 export const defaultColumnDefs = [
@@ -284,34 +268,19 @@ const expelledStudentPatronimic = {
 const applicationDate = {
   headerName: 'Дата заяви',
   field: 'applicationDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const expelDate = {
   headerName: 'Дата відрахування',
   field: 'expelDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const orderDate = {
   headerName: 'Дата наказу',
   field: 'orderDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const orderReasonName = {
@@ -332,23 +301,13 @@ export const expelledColumnDefs = [
 const vacationStartDate = {
   headerName: 'Дата початку',
   field: 'vacationStartDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 const vacationEndDate = {
   headerName: 'Дата закінчення',
   field: 'vacationEndDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
-  cellRenderer: data => Utils.formatDate(data.value)
+  ...dateFields
 };
 
 
