@@ -8,7 +8,6 @@
       </select>
     </div>
 
-
     <div class="select-wrapper form-group">
       <label for="years">Курс</label>
       <select class="form-control-sm"
@@ -37,11 +36,71 @@
               id="semester"
               [(ngModel)]="selectedSemester"
               (change)="onSemesterOrGroupChange()" >
-        <option [ngValue]="i"
-                *ngFor="let i of semesters">{{i}}</option>
+        <option [ngValue]="semester"
+                *ngFor="let semester of semesters">{{ semester }}</option>
       </select>
     </div>
   </div>
 
+  <div class="consolidated-main-container row">
+    <div class="table-wrapper col-md-9 col-sm-12">
+      <div style="display: flex; justify-content: space-between">
+        <h3>Список предметів</h3>
+        <div>
+          <button type="button" class="btn btn-success">Створити відомість</button>
+          <button type="button" class="btn btn-secondary">Заповнити автоматично</button>
+        </div>
+      </div>
+      <table class="table table-sm table-striped table-hover">
+        <thead>
+          <tr>
+            <td scope="col">№</td>
+            <td scope="col">Назва предмету</td>
+            <td scope="col">Семестровий контроль</td>
+            <td scope="col">Годин</td>
+            <td scope="col">Викладач</td>
+            <td scope="col">Дата екзамену</td>
+          </tr>
+          </thead>
+        <tbody>
+
+        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ courseForGroup.course.courseName.name }}</td>
+          <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
+          <td>{{ courseForGroup.course.hours }}</td>
+          <td>{{ courseForGroup.teacher | nameWithInitials }}</td>
+          <td>{{ courseForGroup.examDate | date:"dd-MM-yyyy" }}</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <h3>Список груп</h3>
+      <div>
+        <table class="table table-sm table-striped">
+          <thead>
+          <tr>
+            <td>№</td>
+            <td>
+              <input type="checkbox">
+            </td>
+            <td>Назва</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let studentDegree of students; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>
+              <input type="checkbox">
+            </td>
+            <td>{{studentDegree.student | nameWithInitials}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
 </div>
