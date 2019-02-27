@@ -1,3 +1,47 @@
-<p>
-  consolidated-document works!
-</p>
+<div class="consolidated-document-wrapper">
+
+  <div class="top-select-container">
+    <div class="select-wrapper form-group">
+      <label for="cmbDegree">Ступінь</label>
+      <select class="form-control-sm" id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
+        <option *ngFor="let degree of degrees" [ngValue]="degree">{{ degree.name }}</option>
+      </select>
+    </div>
+
+
+    <div class="select-wrapper form-group">
+      <label for="years">Курс</label>
+      <select class="form-control-sm"
+              id="years"
+              [(ngModel)]="selectedYear"
+              (change)="onYearChange()">
+        <option [ngValue]="year"
+                *ngFor="let year of years">{{ year }}</option>
+      </select>
+    </div>
+
+    <div class="select-wrapper form-group">
+      <label for="cmbGroup">Група</label>
+      <select class="cmbGroup form-control-sm"
+              id="cmbGroup"
+              [(ngModel)]="currentGroup"
+              (change)="onSemesterOrGroupChange()">
+        <option *ngFor="let group of groups"
+                [ngValue]="group">{{ group.name }}</option>
+      </select>
+    </div>
+
+    <div class="select-wrapper form-group">
+      <label for="semester">Семестр</label>
+      <select class="form-control-sm"
+              id="semester"
+              [(ngModel)]="selectedSemester"
+              (change)="onSemesterOrGroupChange()" >
+        <option [ngValue]="i"
+                *ngFor="let i of semesters">{{i}}</option>
+      </select>
+    </div>
+  </div>
+
+
+</div>
