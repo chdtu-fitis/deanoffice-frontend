@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { StudentService } from '../../../services/student.service';
 import {expelledColumnDefs, defaultColDef, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
+import {StudentAllInfoComponent} from '../student-all-info/student-all-info.component';
+import {StudentGroup} from '../../../models/StudentGroup';
+import {GroupService} from '../../../services/group.service';
 
 @Component({
   selector: 'app-expelled-students',
@@ -28,12 +31,14 @@ export class ExpelledStudentsComponent implements OnInit {
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
   count;
+  @ViewChild('studentAllInfo') studentAllInfo: StudentAllInfoComponent;
   getRowNodeId = (data) => data.id;
 
   constructor(
     private studentService: StudentService,
     private academicCertificateService: AcademicCertificateService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private groupService: GroupService
   ) { }
 
   ngOnInit() {
@@ -95,6 +100,12 @@ export class ExpelledStudentsComponent implements OnInit {
         }
       );
     }
+  }
+
+  onAllTabSelect() {
+    this.groupService.getGroups(false).subscribe((groups: StudentGroup[]) => {
+      this.studentAllInfo.groups = groups;
+    });
   }
 
   onSearchAllExpelled() {
