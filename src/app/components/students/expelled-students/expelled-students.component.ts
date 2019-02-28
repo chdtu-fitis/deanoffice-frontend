@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common'
 
-import { StudentService } from '../../../services/student.service';
-import {expelledColumnDefs, defaultColDef, LOCALE_TEXT} from '../constants';
-import { StudentDegree } from '../../../models/StudentDegree';
+import {StudentService} from '../../../services/student.service';
+import {defaultColDef, expelledColumnDefs, LOCALE_TEXT} from '../constants';
+import {StudentDegree} from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
 import {StudentAllInfoComponent} from '../student-all-info/student-all-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
@@ -48,9 +49,15 @@ export class ExpelledStudentsComponent implements OnInit {
     this.searchForm = this.fb.group({
       name: '',
       surname: '',
-      startDate: ['', Validators.required],
+      startDate: [this.getStartDate(), Validators.required],
       endDate: ''
-    })
+    });
+  }
+
+  getStartDate() {
+    const date = new Date();
+    date.setFullYear( date.getFullYear() - 7 );
+    return new DatePipe('en-US').transform(date, 'y-MM-dd')
   }
 
   onGridReady(params) {
