@@ -35,7 +35,7 @@ export class StudentAllInfoComponent {
     this.studentPersonalInfo.renderForm(studentDegree.student.id);
     this.studentDegreeInfo.renderForm(studentDegree.student.id, studentDegree.id);
     this.studentHistory.renderForm(studentDegree.id);
-    this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+    this.groupService.getGroups(false).subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
     this.modal.show();
