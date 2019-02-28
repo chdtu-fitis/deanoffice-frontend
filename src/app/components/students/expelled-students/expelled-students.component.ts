@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { StudentService } from '../../../services/student.service';
-import {expelledColumnDefs, defaultColDef, expelledStudentsColumns, LOCALE_TEXT} from '../constants';
+import {expelledColumnDefs, defaultColDef, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
 
@@ -12,7 +12,6 @@ import {AcademicCertificateService} from '../../../services/academic-certificate
   styleUrls: ['./expelled-students.component.scss'],
 })
 export class ExpelledStudentsComponent implements OnInit {
-  columns: string[] = expelledStudentsColumns;
   rows: StudentDegree[] = [];
   rowsAll: StudentDegree[] = [];
   selected: StudentDegree[] = [];
@@ -20,6 +19,7 @@ export class ExpelledStudentsComponent implements OnInit {
   loading: boolean;
   academicCertificateLoading: boolean;
   searchForm: FormGroup;
+  // TODO: create reusable component
   private gridApi;
   private gridColumnApi;
   private gridApiAll;
@@ -77,6 +77,10 @@ export class ExpelledStudentsComponent implements OnInit {
     this.gridApi.updateRowData({ remove: this.selected });
   }
 
+  onRenewAll() {
+    this.gridApiAll.updateRowData({ remove: this.selectedAll });
+  }
+
   onSelect(index) {
     this.gridApi.ensureIndexVisible(index, 'top');
     const node = this.gridApi.getRowNode(this.rows[index].id);
@@ -86,7 +90,7 @@ export class ExpelledStudentsComponent implements OnInit {
   onFormAcademicCertificate() {
     if (this.selected[0]) {
       this.academicCertificateLoading = true;
-      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(a => {
+      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(() => {
           this.academicCertificateLoading = false;
         }
       );

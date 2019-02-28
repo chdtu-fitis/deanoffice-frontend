@@ -81,6 +81,13 @@
               </form>
             </div>
             <button
+              *ngIf="selectedAll.length === 1 && !selectedAll[0].active"
+              class="btn btn-info mr-2"
+              (click)="renewAllStudentModal.openModal(selectedAll[0])"
+            >
+              Поновити
+            </button>
+            <button
               *ngIf="selectedAll.length === 1"
               class="btn btn-info"
               (click)="studentAllInfo.openModal(selectedAll[0].studentDegree)">
@@ -116,6 +123,11 @@
 <app-renew-student
   #renewStudentModal
   (onSubmit)="onRenew($event)">
+</app-renew-student>
+
+<app-renew-student
+  #renewAllStudentModal
+  (onSubmit)="onRenewAll($event)">
 </app-renew-student>
 
 <student-all-info
