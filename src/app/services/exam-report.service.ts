@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {FileService} from "./file-service";
+import {FileService} from './file-service';
 
 @Injectable()
 export class ExamReportService {
@@ -33,8 +33,8 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
-  buildStudentsList(year: number, degreeId: number): any {
-    const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=FULL_TIME`;
+  buildStudentsList(year: number, degreeId: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
   }
 }
