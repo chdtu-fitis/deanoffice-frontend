@@ -104,19 +104,27 @@ const colDefStudentTelephone = {
   maxWidth: 150,
 };
 
+const colDefStudentSpeciality = {
+  headerName: 'Код спеціальності',
+  headerTooltip: 'Код спеціальності',
+  field: 'specialization.speciality.code',
+  width: 100,
+};
+
 const colDefStudentGroupName = {
   headerName: 'Група',
   field: 'studentGroup.name',
   filter: 'groupFilter',
-  minWidth: 100
+  width: 100,
 };
 
 const colDefPayment = {
   headerName: 'Форма навчання',
+  headerTooltip: 'Форма навчання',
   field: 'payment',
   valueGetter: params => Payment[params.data.payment],
   filter: 'paymentFilter',
-  minWidth: 100
+  width: 100
 };
 
 const colDefStudentBirthDate = {
@@ -231,7 +239,7 @@ export const defaultColumnDefs = [
   colDefStudentSurname,
   colDefStudentName,
   colDefStudentPatronimic,
-  colDefStudentTelephone,
+  colDefStudentSpeciality,
   colDefStudentGroupName,
   colDefPayment
 ];
@@ -276,6 +284,14 @@ const orderReasonName = {
   field: 'orderReason.name'
 };
 
+const payment = {
+  headerName: 'Форма навчання',
+  field: 'studentDegree.payment',
+  valueGetter: params => Payment[params.data.studentDegree.payment],
+  filter: 'paymentFilter',
+  minWidth: 100
+};
+
 export const expelledColumnDefs = [
   expelledStudentSurname,
   expelledStudentName,
@@ -283,7 +299,8 @@ export const expelledColumnDefs = [
   applicationDate,
   expelDate,
   orderDate,
-  orderReasonName
+  orderReasonName,
+  payment
 ];
 
 const vacationStartDate = {
