@@ -2,62 +2,66 @@
   <div *ngIf="loading">
     <loading [size]="40"></loading>
   </div>
-  <tabset *ngIf="!loading">
-    <tab heading="{{ getUniqueFacultyName(specialization.key | abbreviate) }}"
-         *ngFor="let specialization of specializationDebtors | keys">
+  <tabset *ngIf="!loading" class="d-flex align-items-center flex-column">
+    <tab
+      heading="{{ getUniqueFacultyName(specialization.key | abbreviate) }}"
+      *ngFor="let specialization of specializationDebtors | keys"
+    >
       <div class="text-center">
-        <p class="h1 mt-4">{{specialization.key}}</p>
-        <p class="h5">Результати літньої екзаменаційної сесії 2017-2018 н.р.</p>
-        <p class="mb-0"> денна форма навчання </p>
-        <p class="h5 mt-1"> станом на 03.09.2018 р.</p>
+        <p class="h3 mt-4">{{specialization.key}}</p>
+        <p class="h5">Результати {{sessionSeason}} екзаменаційної сесії {{ sessionYears}} н.р.</p>
+        <p class="h6 mb-0"> денна форма навчання </p>
+        <p class="h5 mt-1"> станом на {{ currentDate | date: 'dd.MM.yyyy'}} р.</p>
       </div>
-      <table class="table dark-border text-center mb-0"
-             *ngFor="let course of (specialization.value | keys)[0].value | keys ">
-        <thead>
-        <tr>
-          <th colspan="3">Контингент</th>
-          <th class="align-middle" colspan="4" rowspan="2">Всього
-            <br>{{course.key !== 7 ? '' : 'по' + course.key + 'курсу' }}</th>
-          <th colspan="4">{{course.key < 7 ? course.key + ' курс' : 'Всього'}} </th>
-        </tr>
-        <tr>
-          <th colspan="3">{{course.key < 7 ? course.key + ' курсу' : 'Всього'}}</th>
-          <th colspan="2">1 і 2 заб.</th>
-          <th colspan="2">3 і більше</th>
-        </tr>
-        <tr>
-          <th>всього</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>всього</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>%</th>
-          <th>бюдж</th>
-          <th>контр</th>
-          <th>бюдж</th>
-          <th>контр</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>{{course.value.budgetStudents + course.value.contractStudents}}</td>
-          <td>{{course.value.contractStudents}}</td>
-          <td>{{course.value.budgetStudents}}</td>
-          <td>{{course.value.budgetDebtors + course.value.contractDebtors}}</td>
-          <td>{{course.value.budgetDebtors}}</td>
-          <td>{{course.value.contractDebtors}}</td>
-          <td>{{ course.value.debtorsPercent
-            ? (course.value.debtorsPercent | number:'2.1-3')
-            : course.value.debtorsPercent
-            }}</td>
-          <td>{{course.value.lessThanThreeDebtsForBudgetDebtors}}</td>
-          <td>{{course.value.lessThanThreeDebtsForContractDebtors}}</td>
-          <td>{{course.value.threeOrMoreDebtsForBudgetDebtors}}</td>
-          <td>{{course.value.threeOrMoreDebtsForContractDebtors}}</td>
-        </tr>
-        </tbody>
-      </table>
+      <div class="tables-content">
+        <table class="table dark-border text-center mb-0"
+               *ngFor="let course of (specialization.value | keys)[0].value | keys ">
+          <thead class="thead-light">
+          <tr>
+            <th colspan="3">Контингент</th>
+            <th class="align-middle row-size" colspan="4" rowspan="2"> Всього
+              <br>{{course.key != 7 ? 'по ' + course.key + ' курсу' : ''}}</th>
+            <th colspan="4">{{course.key != 7 ? course.key + ' курс' : 'Всього'}} </th>
+          </tr>
+          <tr>
+            <th colspan="3">{{course.key != 7 ? 'по ' + course.key + ' курсу' : 'Всього'}}</th>
+            <th colspan="2">1 і 2 заб.</th>
+            <th colspan="2">3 і більше</th>
+          </tr>
+          <tr>
+            <th>всього</th>
+            <th>бюдж</th>
+            <th>контр</th>
+            <th>всього</th>
+            <th>бюдж</th>
+            <th>контр</th>
+            <th>%</th>
+            <th>бюдж</th>
+            <th>контр</th>
+            <th>бюдж</th>
+            <th>контр</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{course.value.budgetStudents + course.value.contractStudents}}</td>
+            <td class="bg-group">{{course.value.contractStudents}}</td>
+            <td class="bg-group">{{course.value.budgetStudents}}</td>
+            <td>{{course.value.budgetDebtors + course.value.contractDebtors}}</td>
+            <td>{{course.value.budgetDebtors}}</td>
+            <td>{{course.value.contractDebtors}}</td>
+            <td>{{ course.value.debtorsPercent
+              ? (course.value.debtorsPercent | number:'2.1-3')
+              : course.value.debtorsPercent
+              }}</td>
+            <td class="bg-debts">{{course.value.lessThanThreeDebtsForBudgetDebtors}}</td>
+            <td class="bg-debts">{{course.value.lessThanThreeDebtsForContractDebtors}}</td>
+            <td class="bg-debts">{{course.value.threeOrMoreDebtsForBudgetDebtors}}</td>
+            <td class="bg-debts">{{course.value.threeOrMoreDebtsForContractDebtors}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </tab>
   </tabset>
 </div>

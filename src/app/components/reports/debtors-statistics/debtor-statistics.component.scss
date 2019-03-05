@@ -2,9 +2,22 @@
   border: 1px solid rgba(31, 31, 31, 0.92);
 }
 
-
-
-.table {
-  //width: calc(100% / 3);
+.table th, .table td {
+  padding: 5px 10px;
 }
 
+.row-size {
+  width: 300px;
+}
+
+.tables-content {
+  margin: 10px 0;
+  box-shadow: 3px 3px 1px 0 lightgray;
+}
+.bg-group {
+  background: #FFFF99;
+}
+
+.bg-debts {
+  background: #99CCFF;
+}

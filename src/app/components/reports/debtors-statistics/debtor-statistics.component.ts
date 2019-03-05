@@ -12,20 +12,37 @@ import {SpecializationWithDebtorsStatistics} from '../../../models/reports/debto
 export class DebtorStatisticsComponent implements OnInit {
   specializationDebtors: SpecializationWithDebtorsStatistics[];
   loading: boolean;
+  sessionSeason: string;
+  sessionYears: string;
+  currentDate: Date;
 
   constructor(private report: DebtorStatisticsService) {
   }
 
   ngOnInit() {
     this.loading = true;
+    this.currentDate = new Date();
+    this.sessionSeason = this.getSessionSeason();
+    this.sessionYears = this.getSessionYears();
     this.report.getDebts().subscribe(result => {
       this.specializationDebtors = result;
       this.loading = !this.loading;
-      console.log(this.specializationDebtors);
     });
   }
 
   getUniqueFacultyName(value: string) {
     return value !== 'ФІТС' ? value : 'ФІТІС';
+  }
+
+  private getSessionYears() {
+    const currentYear = this.currentDate.getFullYear();
+    return (currentYear - 1) + ' - ' + currentYear;
+  }
+
+  private getSessionSeason() {
+    const summerSessionStart = new Date(`06/10/${this.currentDate.getFullYear()}`);
+    const winterSessionStart = new Date(`12/17/${this.currentDate.getFullYear()}`);
+    const winterSeason = this.currentDate > winterSessionStart || this.currentDate < summerSessionStart;
+    return winterSeason ? 'зимньої' : 'літньої';
   }
 }
