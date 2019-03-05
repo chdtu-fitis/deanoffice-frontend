@@ -1,6 +1,10 @@
-<div class="container">
-  <tabset>
-    <tab heading="{{specialization.key}}" *ngFor="let specialization of specializationDebtors | keys">
+<div class="container overflow-y" [ngClass]="loading && 'h-100 d-flex justify-content-center align-items-center'">
+  <div *ngIf="loading">
+    <loading [size]="40"></loading>
+  </div>
+  <tabset *ngIf="!loading">
+    <tab heading="{{ getUniqueFacultyName(specialization.key | abbreviate) }}"
+         *ngFor="let specialization of specializationDebtors | keys">
       <div class="text-center">
         <p class="h1 mt-4">{{specialization.key}}</p>
         <p class="h5">Результати літньої екзаменаційної сесії 2017-2018 н.р.</p>
@@ -35,7 +39,6 @@
           <th>контр</th>
         </tr>
         </thead>
-
         <tbody>
         <tr>
           <td>{{course.value.budgetStudents + course.value.contractStudents}}</td>
@@ -46,7 +49,7 @@
           <td>{{course.value.contractDebtors}}</td>
           <td>{{ course.value.debtorsPercent
             ? (course.value.debtorsPercent | number:'2.1-3')
-              : course.value.debtorsPercent
+            : course.value.debtorsPercent
             }}</td>
           <td>{{course.value.lessThanThreeDebtsForBudgetDebtors}}</td>
           <td>{{course.value.lessThanThreeDebtsForContractDebtors}}</td>
@@ -54,7 +57,6 @@
           <td>{{course.value.threeOrMoreDebtsForContractDebtors}}</td>
         </tr>
         </tbody>
-
       </table>
     </tab>
   </tabset>
