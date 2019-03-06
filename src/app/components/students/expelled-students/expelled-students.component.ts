@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DatePipe} from '@angular/common'
 
-import { StudentService } from '../../../services/student.service';
-import {expelledColumnDefs, defaultColDef, expelledStudentsColumns, LOCALE_TEXT} from '../constants';
-import { StudentDegree } from '../../../models/StudentDegree';
+import {StudentService} from '../../../services/student.service';
+import {defaultColDef, expelledColumnDefs, LOCALE_TEXT} from '../constants';
+import {StudentDegree} from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
+
+import {StudentAllInfoComponent} from '../student-all-info/student-all-info.component';
+import {StudentGroup} from '../../../models/StudentGroup';
+import {GroupService} from '../../../services/group.service';
 import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
 
 @Component({
@@ -13,7 +18,6 @@ import {PaymentFilterComponent} from '../payment-filter/payment-filter.component
   styleUrls: ['./expelled-students.component.scss'],
 })
 export class ExpelledStudentsComponent implements OnInit {
-  columns: string[] = expelledStudentsColumns;
   rows: StudentDegree[] = [];
   rowsAll: StudentDegree[] = [];
   selected: StudentDegree[] = [];
@@ -21,6 +25,7 @@ export class ExpelledStudentsComponent implements OnInit {
   loading: boolean;
   academicCertificateLoading: boolean;
   searchForm: FormGroup;
+  // TODO: create reusable component
   private gridApi;
   private gridColumnApi;
   private gridApiAll;
@@ -29,12 +34,14 @@ export class ExpelledStudentsComponent implements OnInit {
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
   count;
+  @ViewChild('studentAllInfo') studentAllInfo: StudentAllInfoComponent;
   frameworkComponents;
   getRowNodeId = (data) => data.id;
 
   constructor(private studentService: StudentService,
               private academicCertificateService: AcademicCertificateService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private groupService: GroupService) {
     this.frameworkComponents = {
       paymentFilter: PaymentFilterComponent
     };
@@ -47,9 +54,15 @@ export class ExpelledStudentsComponent implements OnInit {
     this.searchForm = this.fb.group({
       name: '',
       surname: '',
-      startDate: ['', Validators.required],
+      startDate: [this.getStartDate(), Validators.required],
       endDate: ''
-    })
+    });
+  }
+
+  getStartDate() {
+    const date = new Date();
+    date.setFullYear( date.getFullYear() - 7 );
+    return new DatePipe('en-US').transform(date, 'y-MM-dd')
   }
 
   onGridReady(params) {
@@ -81,6 +94,10 @@ export class ExpelledStudentsComponent implements OnInit {
     this.gridApi.updateRowData({ remove: this.selected });
   }
 
+  onRenewAll() {
+    this.gridApiAll.updateRowData({ remove: this.selectedAll });
+  }
+
   onSelect(index) {
     this.gridApi.ensureIndexVisible(index, 'top');
     const node = this.gridApi.getRowNode(this.rows[index].id);
@@ -90,11 +107,17 @@ export class ExpelledStudentsComponent implements OnInit {
   onFormAcademicCertificate() {
     if (this.selected[0]) {
       this.academicCertificateLoading = true;
-      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(a => {
+      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(() => {
           this.academicCertificateLoading = false;
         }
       );
     }
+  }
+
+  onAllTabSelect() {
+    this.groupService.getGroups(false).subscribe((groups: StudentGroup[]) => {
+      this.studentAllInfo.groups = groups;
+    });
   }
 
   onSearchAllExpelled() {
