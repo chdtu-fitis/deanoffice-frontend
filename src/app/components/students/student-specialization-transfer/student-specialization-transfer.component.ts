@@ -63,7 +63,11 @@ export class StudentSpecializationTransferComponent {
 
   submit() {
     this.studentService.createStudentTransfer(this.form.value).subscribe(() => {
-      this.onSubmit.emit(this.form.value);
+      const specialization = this.specializations.find(
+        specialization => specialization.id === Number(this.form.controls.newSpecializationId.value));
+      const group = this.groups.find(group => group.id === Number(this.form.controls.newStudentGroupId.value));
+      const transferData = {group, specialityCode: specialization.speciality.code, ...this.form.value};
+      this.onSubmit.emit(transferData);
       this.hideModal();
     });
   }
