@@ -1,52 +1,50 @@
-<div class="statement-wrapper">
-
-  <div class="select-container">
-    <div class="select-wraper">
-      <div class="form-group">
-        <h4>Ступінь</h4>
-        <select id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
-          <option *ngFor="let degree of degrees" [ngValue]="degree">{{degree.name}}</option>
-        </select>
+<div class="container-fluid">
+  <div class="d-flex">
+    <div class="p-3">
+      <h4>Ступінь</h4>
+      <div class="custom-control custom-radio" *ngFor="let degree of degrees">
+        <input type="radio" [id]="degree.id" name="degreeRadio" class="custom-control-input"
+               [value]="degree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
+        <label class="custom-control-label" [for]="degree.id">{{degree.name}}</label>
       </div>
     </div>
-
-    <div class="select-wraper">
+    <div class="p-3">
       <h4>Курс</h4>
-      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years">
-        <option  [ngValue]="i" *ngFor="let i of years">{{i}}</option>
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+        <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
       </select>
     </div>
-
-    <div class="select-wraper">
+    <div class="p-3">
       <h4>Група</h4>
-      <select id="cmbGroup" [(ngModel)]="currentGroup" class="cmbGroup" (change)="onSemesterOrGroupChange()">
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control" (change)="onSemesterOrGroupChange()">
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
-
-    <div class="select-wraper">
+    <div class="p-3">
       <h4>Семестр</h4>
-      <select [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()" >
-        <option [ngValue]="i" *ngFor="let i of semesters">{{i}}</option>
-      </select>
+      <div class="custom-control custom-radio" *ngFor="let semester of semesters">
+        <input type="radio" [id]="semester + degrees.length" name="semesterRadio" class="custom-control-input"
+               [value]="semester" [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()">
+        <label class="custom-control-label" [for]="semester + degrees.length">{{semester}}</label>
+      </div>
     </div>
   </div>
 
-  <div class="wrapp">
-    <h5>Список предметів</h5>
-    <div class="table-wrapper">
+  <div class="d-flex">
+    <div class="mr-auto pl-3">
+      <h5>Список предметів</h5>
       <table class="main-table">
         <thead>
         <tr>
-          <td>№</td>
-          <td>
+          <th class="row-1 row-number">№</th>
+          <th class="row-2 row-checkbox">
             <input type="checkbox" [(ngModel)]="coursesSelected" (click)="onSelectAllCourses($event.target.checked)" checked>
-          </td>
-          <td>Назва предмету</td>
-          <td>Семестровий контроль</td>
-          <td>Годин</td>
-          <td>Викладач</td>
-          <td>Дата екзамену</td>
+          </th>
+          <th class="row-3 row-name">Назва предмету</th>
+          <th class="row-4 row-control">Семестровий контроль</th>
+          <th class="row-5 row-hours">Годин</th>
+          <th class="row-6 row-teacher">Викладач</th>
+          <th class="row-7 row-exam-date">Дата екзамену</th>
         </tr>
         </thead>
         <tbody>
@@ -65,41 +63,34 @@
 
         </tbody>
       </table>
+      <button class="btn btn-success w-25 mt-2" (click)="onExamReportBuild()">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+              *ngIf="examReportLoading">
+        </span>
+        Сформувати відомість
+      </button>
     </div>
-    <button class="btn btn-success w-25 mt-1" (click)="onExamReportBuild()">Сформувати відомість</button>
-    <img class="pt-4" *ngIf="examReportLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    <button class="btn btn-info w-25 mt-1" (click)="onExamReportJournalBuild()">Виписка в журнал відомостей</button>
-    <img class="pt-4" *ngIf="examReportJournalTableLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    <button class="btn btn-info w-25 mt-1" (click)="onGradesJournalStudentsListBuild()">Списки студентів</button>
-    <img class="pt-4" *ngIf="gradesJournalStudentsTableLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    <button class="btn btn-info w-25 mt-1" (click)="onGradesJournalCoursesListBuildPdf()">Списки предметів PDF</button>
-    <img class="pt-4" *ngIf="gradesJournalCoursesTableLoadingPdf" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    <button class="btn btn-info w-25 mt-1" (click)="onGradesJournalCoursesListBuildDocx()">Списки предметів DOCX</button>
-    <img class="pt-4" *ngIf="gradesJournalCoursesTableLoadingDocx" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-    <button class="btn btn-info w-25 mt-1" (click)="onStudentsListBuild()">Повні списки студентів</button>
-    <img class="pt-4" *ngIf="studentsListLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
-  </div>
 
-  <div class="wrapp-2">
-    <h5>Список студентів</h5>
-    <div class="table-wrapper-2">
-      <table class="student-table">
-        <thead>
-        <tr>
-          <td>№</td>
-          <td>ПІБ</td>
-          <td>Заліковка</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let studentDegree of students; let i = index">
-          <td>{{ i+1 }}</td>
-          <td>{{studentDegree.student | nameWithInitials}}</td>
-          <td>{{studentDegree.recordBookNumber}}</td>
-        </tr>
-        </tbody>
-      </table>
+    <div class="px-3">
+      <h5>Список студентів</h5>
+      <div class="table-wrapper-2">
+        <table class="student-table">
+          <thead>
+          <tr>
+            <td>№</td>
+            <td>ПІБ</td>
+            <td>Заліковка</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let studentDegree of students; let i = index">
+            <td>{{ i+1 }}</td>
+            <td>{{studentDegree.student | nameWithInitials}}</td>
+            <td>{{studentDegree.recordBookNumber}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
 </div>

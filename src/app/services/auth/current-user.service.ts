@@ -8,7 +8,10 @@ export class CurrentUserService {
   }
 
   name() {
-    return this.getUser().username
+    const user = this.getUser();
+    if (user) {
+      return user.username
+    }
   }
 
   private getUser() {
