@@ -77,6 +77,15 @@ export const defaultColDef = {
   resizable: true,
 };
 
+const dateFields = {
+  filter: 'agDateColumnFilter',
+  filterParams: {
+    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
+    browserDatePicker: true
+  },
+  cellRenderer: data => Utils.formatDate(data.value)
+};
+
 const colDefStudentSurname = {
   headerName: 'Прізвище',
   field: 'student.surname',
@@ -130,11 +139,7 @@ const colDefPayment = {
 const colDefStudentBirthDate = {
   headerName: 'Дата народження',
   field: 'student.birthDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
+  ...dateFields,
   minWidth: 100
 };
 
@@ -196,7 +201,8 @@ const colDefDiplomaNumber = {
 const colDefDiplomaDate = {
   headerName: 'Дата диплому',
   field: 'diplomaDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefSupplementNumber = {
@@ -208,7 +214,8 @@ const colDefSupplementNumber = {
 const colDefSupplementDate = {
   headerName: 'Дата додатку до диплому',
   field: 'supplementDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefPreviousDiplomaNumber = {
@@ -220,7 +227,8 @@ const colDefPreviousDiplomaNumber = {
 const colDefPreviousDiplomaDate = {
   headerName: 'Дата попереднього диплому',
   field: 'previousDiplomaDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefProtocolNumber = {
@@ -232,7 +240,8 @@ const colDefProtocolNumber = {
 const colDefProtocolDate = {
   headerName: 'Дата протоколу захисту диплому',
   field: 'protocolDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 export const defaultColumnDefs = [
@@ -266,17 +275,20 @@ const expelledStudentPatronimic = {
 
 const applicationDate = {
   headerName: 'Дата заяви',
-  field: 'applicationDate'
+  field: 'applicationDate',
+  ...dateFields
 };
 
 const expelDate = {
   headerName: 'Дата відрахування',
-  field: 'expelDate'
+  field: 'expelDate',
+  ...dateFields
 };
 
 const orderDate = {
   headerName: 'Дата наказу',
-  field: 'orderDate'
+  field: 'orderDate',
+  ...dateFields
 };
 
 const orderReasonName = {
@@ -305,12 +317,14 @@ export const expelledColumnDefs = [
 
 const vacationStartDate = {
   headerName: 'Дата початку',
-  field: 'vacationStartDate'
+  field: 'vacationStartDate',
+  ...dateFields
 };
 
 const vacationEndDate = {
   headerName: 'Дата закінчення',
-  field: 'vacationEndDate'
+  field: 'vacationEndDate',
+  ...dateFields
 };
 
 
