@@ -5,6 +5,7 @@ import { StudentService } from '../../../services/student.service';
 import {expelledColumnDefs, defaultColDef, expelledStudentsColumns, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
+import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
 
 @Component({
   selector: 'app-expelled-students',
@@ -28,13 +29,16 @@ export class ExpelledStudentsComponent implements OnInit {
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
   count;
+  frameworkComponents;
   getRowNodeId = (data) => data.id;
 
-  constructor(
-    private studentService: StudentService,
-    private academicCertificateService: AcademicCertificateService,
-    private fb: FormBuilder
-  ) { }
+  constructor(private studentService: StudentService,
+              private academicCertificateService: AcademicCertificateService,
+              private fb: FormBuilder) {
+    this.frameworkComponents = {
+      paymentFilter: PaymentFilterComponent
+    };
+  }
 
   ngOnInit() {
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
