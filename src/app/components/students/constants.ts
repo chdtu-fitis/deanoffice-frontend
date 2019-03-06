@@ -77,6 +77,15 @@ export const defaultColDef = {
   resizable: true,
 };
 
+const dateFields = {
+  filter: 'agDateColumnFilter',
+  filterParams: {
+    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
+    browserDatePicker: true
+  },
+  cellRenderer: data => Utils.formatDate(data.value)
+};
+
 const colDefStudentSurname = {
   headerName: 'Прізвище',
   field: 'student.surname',
@@ -104,29 +113,33 @@ const colDefStudentTelephone = {
   maxWidth: 150,
 };
 
+const colDefStudentSpeciality = {
+  headerName: 'Код спеціальності',
+  headerTooltip: 'Код спеціальності',
+  field: 'specialization.speciality.code',
+  width: 100,
+};
+
 const colDefStudentGroupName = {
   headerName: 'Група',
   field: 'studentGroup.name',
   filter: 'groupFilter',
-  minWidth: 100
+  width: 100,
 };
 
 const colDefPayment = {
   headerName: 'Форма навчання',
+  headerTooltip: 'Форма навчання',
   field: 'payment',
   valueGetter: params => Payment[params.data.payment],
   filter: 'paymentFilter',
-  minWidth: 100
+  width: 100
 };
 
 const colDefStudentBirthDate = {
   headerName: 'Дата народження',
   field: 'student.birthDate',
-  filter: 'agDateColumnFilter',
-  filterParams: {
-    comparator: (filterDate, cellValue) => Utils.dateComparator(filterDate, cellValue),
-    browserDatePicker: true
-  },
+  ...dateFields,
   minWidth: 100
 };
 
@@ -188,7 +201,8 @@ const colDefDiplomaNumber = {
 const colDefDiplomaDate = {
   headerName: 'Дата диплому',
   field: 'diplomaDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefSupplementNumber = {
@@ -200,7 +214,8 @@ const colDefSupplementNumber = {
 const colDefSupplementDate = {
   headerName: 'Дата додатку до диплому',
   field: 'supplementDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefPreviousDiplomaNumber = {
@@ -212,7 +227,8 @@ const colDefPreviousDiplomaNumber = {
 const colDefPreviousDiplomaDate = {
   headerName: 'Дата попереднього диплому',
   field: 'previousDiplomaDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 const colDefProtocolNumber = {
@@ -224,14 +240,15 @@ const colDefProtocolNumber = {
 const colDefProtocolDate = {
   headerName: 'Дата протоколу захисту диплому',
   field: 'protocolDate',
-  minWidth: 100
+  minWidth: 100,
+  ...dateFields
 };
 
 export const defaultColumnDefs = [
   colDefStudentSurname,
   colDefStudentName,
   colDefStudentPatronimic,
-  colDefStudentTelephone,
+  colDefStudentSpeciality,
   colDefStudentGroupName,
   colDefPayment
 ];
@@ -258,22 +275,33 @@ const expelledStudentPatronimic = {
 
 const applicationDate = {
   headerName: 'Дата заяви',
-  field: 'applicationDate'
+  field: 'applicationDate',
+  ...dateFields
 };
 
 const expelDate = {
   headerName: 'Дата відрахування',
-  field: 'expelDate'
+  field: 'expelDate',
+  ...dateFields
 };
 
 const orderDate = {
   headerName: 'Дата наказу',
-  field: 'orderDate'
+  field: 'orderDate',
+  ...dateFields
 };
 
 const orderReasonName = {
   headerName: 'Причина',
   field: 'orderReason.name'
+};
+
+const payment = {
+  headerName: 'Форма навчання',
+  field: 'studentDegree.payment',
+  valueGetter: params => Payment[params.data.studentDegree.payment],
+  filter: 'paymentFilter',
+  minWidth: 100
 };
 
 export const expelledColumnDefs = [
@@ -283,17 +311,20 @@ export const expelledColumnDefs = [
   applicationDate,
   expelDate,
   orderDate,
-  orderReasonName
+  orderReasonName,
+  payment
 ];
 
 const vacationStartDate = {
   headerName: 'Дата початку',
-  field: 'vacationStartDate'
+  field: 'vacationStartDate',
+  ...dateFields
 };
 
 const vacationEndDate = {
   headerName: 'Дата закінчення',
-  field: 'vacationEndDate'
+  field: 'vacationEndDate',
+  ...dateFields
 };
 
 
