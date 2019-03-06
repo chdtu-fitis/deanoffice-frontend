@@ -38,6 +38,12 @@ export class GroupService {
       .pipe(catchError(forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
   }
 
+  getGroupsBySpecialization(specializationID: number): Observable<StudentGroup[]> {
+    const url = `${this.groupsUrl}/filter/specialization/${specializationID}`;
+    return this.http.get<StudentGroup[]>(url)
+      .pipe(catchError(forObservable('Отримання груп за спеціалізацією', [])));
+  }
+
   create(body): Promise<any> {
     return this.http.post(this.groupsUrl, body, {}).toPromise()
       .catch(forPromise('Створення нової групи'));
