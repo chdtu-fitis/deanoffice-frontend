@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
+
 import {Degree} from '../../models/Degree';
 import {DegreeService} from '../../services/degree.service';
-import {StudentGroup} from "../../models/StudentGroup";
-import {GroupService} from "../../services/group.service";
-import {CourseForGroupService} from "../../services/course-for-group.service";
-import {CourseForGroup} from "../../models/CourseForGroup";
-import {StudentDegree} from "../../models/StudentDegree";
-import {ExamReportService} from "../../services/exam-report.service";
+import {StudentGroup} from '../../models/StudentGroup';
+import {GroupService} from '../../services/group.service';
+import {CourseForGroupService} from '../../services/course-for-group.service';
+import {CourseForGroup} from '../../models/CourseForGroup';
+import {StudentDegree} from '../../models/StudentDegree';
+import {ExamReportService} from '../../services/exam-report.service';
 
 @Component({
   selector: 'exam-report',
@@ -14,7 +15,7 @@ import {ExamReportService} from "../../services/exam-report.service";
   styleUrls: ['./exam-report.component.scss']
 })
 export class ExamReportComponent implements OnInit {
-  degrees: Degree[];
+  degrees: Degree[] = [];
   currentDegree: Degree;
 
   groups: StudentGroup[];
@@ -30,14 +31,11 @@ export class ExamReportComponent implements OnInit {
   selectedSemester: number;
 
   examReportLoading = false;
-  examReportJournalTableLoading = false;
-  gradesJournalStudentsTableLoading = false;
-  gradesJournalCoursesTableLoadingPdf = false;
-  gradesJournalCoursesTableLoadingDocx = false;
-  studentsListLoading = false;
 
-  constructor(private groupService: GroupService, private degreeService: DegreeService,
-              private courseForGroupService: CourseForGroupService, private examReportService: ExamReportService){ }
+  constructor(private groupService: GroupService,
+              private degreeService: DegreeService,
+              private courseForGroupService: CourseForGroupService,
+              private examReportService: ExamReportService) { }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -71,7 +69,7 @@ export class ExamReportComponent implements OnInit {
   onYearChange(): void {
     this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
-        if (groups){
+        if (groups) {
           this.groups = groups;
           this.currentGroup = groups[0];
           this.students = this.currentGroup.studentDegrees;
@@ -81,7 +79,8 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSemesterOrGroupChange(): void {
-    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, (this.selectedYear-1)*2+this.selectedSemester)
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id,
+      (this.selectedYear - 1) * 2 + this.selectedSemester)
       .subscribe(coursesForGroup => {
         this.coursesForGroup = coursesForGroup;
         this.coursesSelected = true;
@@ -91,62 +90,27 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSelectAllCourses(checked: boolean): void {
-    for (let courseForGroup of this.coursesForGroup) {
+    for (const courseForGroup of this.coursesForGroup) {
       courseForGroup.selected = checked;
     }
   }
 
   onExamReportBuild(): void {
-    let courseIds = [];
-    for (let courseForGroup of this.coursesForGroup) {
-      if (courseForGroup.selected){
+    const courseIds = [];
+    for (const courseForGroup of this.coursesForGroup) {
+      if (courseForGroup.selected) {
         courseIds.push(courseForGroup.course.id);
       }
     }
     this.examReportLoading = true;
-    this.examReportService.buildExamReport(this.currentGroup.id, courseIds).subscribe(a => {
+    this.examReportService.buildExamReport(this.currentGroup.id, courseIds).subscribe(() => {
         this.examReportLoading = false;
       }
     );
   }
 
-  onExamReportJournalBuild(): void {
-    this.examReportJournalTableLoading = true;
-    this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id, (this.selectedYear-1)*2+this.selectedSemester).subscribe(a => {
-      this.examReportJournalTableLoading = false;
-    });
-  }
-
-  onGradesJournalStudentsListBuild() {
-    this.gradesJournalStudentsTableLoading = true;
-    this.examReportService.buildGradesJournalStudentsPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalStudentsTableLoading = false;
-    });
-  }
-
-  onGradesJournalCoursesListBuildPdf() {
-    this.gradesJournalCoursesTableLoadingPdf = true;
-    this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalCoursesTableLoadingPdf = false;
-    });
-  }
-
-  onGradesJournalCoursesListBuildDocx() {
-    this.gradesJournalCoursesTableLoadingDocx = true;
-    this.examReportService.buildGradesJournalCoursesDocx(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.gradesJournalCoursesTableLoadingDocx = false;
-    });
-  }
-
-  onStudentsListBuild() {
-    this.studentsListLoading = true;
-    this.examReportService.buildStudentsList(this.selectedYear, this.currentDegree.id).subscribe(a => {
-      this.studentsListLoading = false;
-    });
-  }
-
   setInitialSemester(): void {
-    let currentDate = new Date();
+    const currentDate = new Date();
     if (currentDate.getMonth() > 1 && currentDate.getMonth() < 9) {
       this.selectedSemester = 2;
     } else {
