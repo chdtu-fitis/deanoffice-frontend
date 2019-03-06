@@ -147,4 +147,12 @@ export class StudentsComponent implements OnInit {
     this.oldSelectedIds = this.oldSelectedIds.filter(id => !idsToRemove.includes(id));
     this.gridApi.updateRowData({ remove: this.selected });
   }
+
+  onTransfer(transferData) {
+    // TODO: update specialization
+    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
+    const group = this.groups.find(group => group.id === Number(transferData.newStudentGroupId));
+    rowNode.setDataValue('payment', transferData.newPayment);
+    rowNode.setDataValue('studentGroup.name', group.name);
+  }
 }

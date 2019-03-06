@@ -100,4 +100,8 @@ export class StudentService {
   startAcademicVacation(vacationData) {
     return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
   }
+
+  createStudentTransfer(transferData) {
+    return this.http.post(`${this.url}/degrees/transfers`, transferData);
+  }
 }

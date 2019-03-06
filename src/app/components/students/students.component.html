@@ -44,13 +44,13 @@
           </button>
           <button
             *ngIf="selected.length > 1"
-            class="btn btn-success w-100 mr-1"
+            class="btn btn-success mr-1"
             (click)="assignStudentsToGroup.openModal(selected)">
             Призначити групу
           </button>
           <button
             *ngIf="selected.length > 1"
-            class="btn btn-success w-100 mr-1"
+            class="btn btn-success mr-1"
             (click)="assignRecordBookNumberToStudents.openModal(selected)">
             Призначити номер заліковки
           </button>
@@ -80,10 +80,35 @@
       </ag-grid-angular>
     </div>
     <div class="col-3">
-      <button class="btn w-100 mt-3 btn-secondary" (click)="studentThesisTheme.onShow()">Тема диплому</button>
-      <button class="btn w-100 mt-3 btn-warning" (click)="synchronizeWithEdeboModal.onShow()">Синхронізувати з ЄДЕБО</button>
-      <button class="btn w-100 mt-3 btn-info" (click)="columnsModal.modal.show()">Вибір колонок</button>
-      <button class="btn w-100 mt-3 btn-success" (click)="addStudentModal.modal.show()">Зарахувати</button>
+      <button
+        class="btn btn-info w-100"
+        (click)="StudentSpecializationTransferModal.openModal(selected[0])"
+        *ngIf="selected.length === 1"
+      >
+        <svg class="mr-1" style="height: 1.5em" viewBox="0 0 477.86 477.86">
+          <use xlink:href="assets/img/icons-sprite.svg#transfer"></use>
+        </svg>
+        На іншу спеціальність
+      </button>
+      <button class="btn btn-secondary w-100 mt-3"
+              (click)="studentThesisTheme.onShow()">
+        Тема диплому
+      </button>
+      <button class="btn btn-warning w-100 mt-3 btn-warning"
+              (click)="synchronizeWithEdeboModal.onShow()">
+        <svg class="mr-1 svg-icon" viewBox="0 0 512 512">
+          <use xlink:href="assets/img/icons-sprite.svg#sync"></use>
+        </svg>
+        Синхронізувати з ЄДЕБО
+      </button>
+      <button class="btn btn-info w-100 mt-3"
+              (click)="columnsModal.modal.show()">
+        Вибір колонок
+      </button>
+      <button class="btn btn-success w-100 mt-3"
+              (click)="addStudentModal.modal.show()">
+        Зарахувати
+      </button>
     </div>
   </div>
   <div class="bg-light fixed-bottom p-1">
@@ -134,3 +159,8 @@
   #academicVacationModal
   (onSubmit)="onRemove($event)"
 ></app-student-academic-vacation>
+
+<student-specialization-transfer
+  #StudentSpecializationTransferModal
+  (onSubmit)="onTransfer($event)"
+></student-specialization-transfer>
