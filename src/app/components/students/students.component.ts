@@ -7,6 +7,8 @@ import { StudentGroup } from '../../models/StudentGroup';
 import {defaultColDef, defaultColumnDefs, allColumnDefs, LOCALE_TEXT} from './constants';
 import {GroupFilterComponent} from './group-filter/group-filter.component';
 import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
+import {BsModalService} from 'ngx-bootstrap';
+import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 
 @Component({
   selector: 'app-students',
@@ -21,6 +23,7 @@ export class StudentsComponent implements OnInit {
   count;
   oldSelectedIds = [];
   columnDefs = defaultColumnDefs;
+  selectedColumns = [...defaultColumnDefs];
   columnDefsAll = allColumnDefs;
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
@@ -29,11 +32,29 @@ export class StudentsComponent implements OnInit {
   frameworkComponents;
   getRowNodeId = (data) => data.id;
 
-  constructor(private studentService: StudentService, private groupService: GroupService) {
+  constructor(private studentService: StudentService, private groupService: GroupService,
+              private modalService: BsModalService) {
     this.frameworkComponents = {
       groupFilter: GroupFilterComponent,
       paymentFilter: PaymentFilterComponent
     };
+  }
+
+  columnsModal() {
+    const initialState = {selectedColumns: this.selectedColumns};
+    const bsModalRef = this.modalService.show(StudentsColumnsComponent, {initialState});
+    bsModalRef.content.setColumns.subscribe((selectedColumns) => {
+      this.oldSelectedIds = this.selected.map(studentDegree => (studentDegree.id));
+      if (!this.isAllDataLoaded) {
+        this.studentService.getStudents()
+          .subscribe((students: StudentDegree[]) => {
+            this.students = students;
+            this.isAllDataLoaded = true;
+          });
+      }
+      this.selectedColumns = selectedColumns;
+      this.gridApi.setColumnDefs(selectedColumns);
+    })
   }
 
   ngOnInit() {
@@ -65,26 +86,6 @@ export class StudentsComponent implements OnInit {
         }
       }
     }
-  }
-
-  setColumns(columns: string[]) {
-    this.oldSelectedIds = this.selected.map(a => (a.id));
-    if (!this.isAllDataLoaded) {
-      this.studentService.getStudents()
-        .subscribe((students: StudentDegree[]) => {
-          this.students = students;
-          this.isAllDataLoaded = true;
-        });
-    }
-    const cols = [];
-    for (const column of columns) {
-      for (const columnDef of this.columnDefsAll) {
-        if (column === columnDef.field) {
-          cols.push(columnDef)
-        }
-      }
-    }
-    this.gridApi.setColumnDefs(cols);
   }
 
   onSelect(index) {

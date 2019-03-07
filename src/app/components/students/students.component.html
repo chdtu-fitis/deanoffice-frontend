@@ -102,7 +102,7 @@
         Синхронізувати з ЄДЕБО
       </button>
       <button class="btn btn-info w-100 mt-3"
-              (click)="columnsModal.modal.show()">
+              (click)="columnsModal()">
         Вибір колонок
       </button>
       <button class="btn btn-success w-100 mt-3"
@@ -116,10 +116,6 @@
   </div>
 </div>
 
-<app-students-columns
-  #columnsModal
-  (setColumns)="setColumns($event)">
-</app-students-columns>
 <student-thesis-theme-input #studentThesisTheme></student-thesis-theme-input>
 <synchronize-with-edebo #synchronizeWithEdeboModal></synchronize-with-edebo>
 <app-add-student
