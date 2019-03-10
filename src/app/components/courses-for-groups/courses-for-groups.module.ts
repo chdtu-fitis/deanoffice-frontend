@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 
 import {SharedModule} from '../shared/shared.module';
@@ -30,10 +29,10 @@ const coursesForGroupsRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    NgbModule.forRoot(),
     PipeModule,
     RouterModule.forChild(coursesForGroupsRoutes),
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   declarations: [
     CoursesForGroupsComponent,
