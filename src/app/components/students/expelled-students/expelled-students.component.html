@@ -31,23 +31,13 @@
             </button>
           </div>
 
-          <ag-grid-angular
-            class="ag-theme-balham students-table"
-            rowSelection="single"
-            enableCellChangeFlash=true
-            [animateRows]="true"
-            [rowData]="rows"
-            [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [accentedSort]="true"
-            [localeText]="localeText"
-            [getRowNodeId]="getRowNodeId"
-            [frameworkComponents]="frameworkComponents"
+          <expelled-students-table
+            #expelledStudentsTable
+            [rows]="rows"
             (selectionChanged)="onSelectionChanged($event)"
             (modelUpdated)="onModelUpdated($event)"
-            (gridReady)="onGridReady($event)"
           >
-          </ag-grid-angular>
+          </expelled-students-table>
 
           <div class="bg-light fixed-bottom p-2">
             Всього: {{count || '0'}}
@@ -98,25 +88,16 @@
             </button>
           </div>
 
-          <ag-grid-angular
-            class="ag-theme-balham students-table"
-            rowSelection="single"
-            enableCellChangeFlash=true
-            [animateRows]="true"
-            [rowData]="rowsAll"
-            [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [accentedSort]="true"
-            [localeText]="localeText"
-            [getRowNodeId]="getRowNodeId"
-            [frameworkComponents]="frameworkComponents"
+          <expelled-students-table
+            #allExpelledStudentsTable
+            [rows]="rowsAll"
             (selectionChanged)="onAllSelectionChanged($event)"
-            (gridReady)="onAllGridReady($event)"
+            (modelUpdated)="onAllModelUpdated($event)"
           >
-          </ag-grid-angular>
+          </expelled-students-table>
 
           <div class="bg-light fixed-bottom p-2">
-            Всього: {{rowsAll.length || '0'}}
+            Всього: {{countAll || '0'}}
           </div>
         </tab>
       </tabset>

@@ -35,7 +35,8 @@ import { StudentPersonalInfoModalComponent } from './student-personal-info-modal
 import { StudentDegreeInfoModalComponent } from './student-degree-info-modal/student-degree-info-modal.component';
 import {StudentAllInfoComponent} from './student-all-info/student-all-info.component';
 import {StudentDegreeHistoryComponent} from './student-degree-history/student-degree-history.component';
-import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component'
+import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component';
+import { ExpelledStudentsTableComponent } from './expelled-students-table/expelled-students-table.component'
 
 
 export const studentRoutes: Routes = [
@@ -74,7 +75,8 @@ export const studentRoutes: Routes = [
     SynchronizeWithEdeboComponent,
     GroupFilterComponent,
     PaymentFilterComponent,
-    StudentSpecializationTransferComponent
+    StudentSpecializationTransferComponent,
+    ExpelledStudentsTableComponent
   ],
   entryComponents: [
     GroupFilterComponent,
