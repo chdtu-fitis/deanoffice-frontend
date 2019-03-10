@@ -17,14 +17,14 @@
         </button>
       </div>
 
-      <expelled-students-table
+      <students-table
         #studentsInVacationTable
         [rows]="rows"
         [columnDefs]="columnDefs"
         (selectionChanged)="onSelectionChanged($event)"
         (modelUpdated)="onModelUpdated($event)"
       >
-      </expelled-students-table>
+      </students-table>
 
       <div class="bg-light fixed-bottom p-3">
         Всього: {{count || '0'}}

@@ -31,14 +31,14 @@
             </button>
           </div>
 
-          <expelled-students-table
+          <students-table
             #expelledStudentsTable
             [rows]="rows"
             [columnDefs]="columnDefs"
             (selectionChanged)="onSelectionChanged($event)"
             (modelUpdated)="onModelUpdated($event)"
           >
-          </expelled-students-table>
+          </students-table>
 
           <div class="bg-light fixed-bottom p-2">
             Всього: {{count || '0'}}
@@ -89,13 +89,13 @@
             </button>
           </div>
 
-          <expelled-students-table
+          <students-table
             #allExpelledStudentsTable
             [rows]="rowsAll"
             (selectionChanged)="onAllSelectionChanged($event)"
             (modelUpdated)="onAllModelUpdated($event)"
           >
-          </expelled-students-table>
+          </students-table>
 
           <div class="bg-light fixed-bottom p-2">
             Всього: {{countAll || '0'}}
