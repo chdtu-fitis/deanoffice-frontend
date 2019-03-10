@@ -1,11 +1,15 @@
-@import '~@swimlane/ngx-datatable/release/index.css';
-@import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
-@import '~@swimlane/ngx-datatable/release/themes/material.css';
-@import '~@swimlane/ngx-datatable/release/assets/icons.css';
 @import '~bootstrap/scss/bootstrap';
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-$color-table-row-selection: #c0ffc0;
-$color-table-row-selection-hover: darken($color-table-row-selection, 5%);
+$ag-icons-path: "~/ag-grid-community/src/styles/ag-theme-balham/icons/";
+$font-size: 14px;
+$secondary-font-size: 14px;
+$primary-color: #7cffa3;
+$selected-color: #c0ffc0;
+
+@import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+@import "../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
+
 
 html,
 body {
@@ -18,97 +22,6 @@ body {
   border-right: solid 1px #eee;
 }
 
-.ngx-datatable.material {
-  height: 100%;
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2), 0 3px 5px rgba(0, 0, 0, 0.14);
-
-  .visible {
-    height: 100%;
-  }
-
-  .datatable-header {
-    height: auto;
-
-    .datatable-header-cell {
-      border: solid #ddd;
-      border-width: 1px 1px 0 0;
-      padding: 5px 10px;
-      font-size: 14px;
-      font-weight: 800;
-      user-select: none;
-    }
-  }
-
-  &:not(.cell-selection) .datatable-body-row {
-    &:hover .datatable-row-group {
-      background: transparent;
-    }
-
-    &.row-focused {
-      background: $color-table-row-selection;
-
-      &:hover {
-        background: $color-table-row-selection-hover;
-      }
-    }
-  }
-
-  .datatable-body {
-    overflow: auto;
-    height: calc(100% - 33px) !important; // 100% - table header height
-
-    .datatable-body-row {
-      box-sizing: border-box;
-      cursor: pointer;
-
-      &.active {
-        background: $color-table-row-selection;
-
-        &:hover {
-          background: $color-table-row-selection;
-        }
-      }
-
-      .datatable-body-cell {
-        padding: 5px 10px;
-      }
-    }
-  }
-}
-
-.ngx-datatable.bootstrap {
-  .datatable-body {
-    .datatable-body-row {
-      padding: 0.75rem;
-      vertical-align: top;
-      border-top: 1px solid #d1d4d7;
-      &.active {
-        background: $color-table-row-selection;
-        color: black;
-        .datatable-row-group {
-          background: none;
-        }
-
-        &:hover {
-          background: $color-table-row-selection-hover;
-
-          .datatable-row-group {
-            background: none;
-          }
-        }
-      }
-    }
-  }
-}
-
-.scrollable {
-  overflow-y: auto;
-}
-
-.required:after {
-  content: '*';
-  color: red;
-}
 
 .link {
   cursor: pointer;
@@ -126,4 +39,8 @@ body {
 .qualification-alert .alert {
   margin: 0;
   padding: 10px;
+}
+
+.svg-icon {
+  height: 1em;
 }

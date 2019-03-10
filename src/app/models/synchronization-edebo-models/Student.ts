@@ -1,3 +1,4 @@
+import {Gender} from '../gender.enum';
 
 
 export class  Student {
@@ -8,7 +9,6 @@ export class  Student {
   nameEng: string;
   surnameEng: string;
   patronimicEng: string;
-  sex: string;
+  sex: Gender;
   birthDate: Date;
-
 }

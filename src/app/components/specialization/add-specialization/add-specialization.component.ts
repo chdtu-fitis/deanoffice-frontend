@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {SpecializationService} from '../../../services/specialization.service';
 import {SpecializationFormComponent} from '../specialization-form/specialization-form.component';
-import {SpecializationModalComponent} from '../specialization-modal/specialization-modal.component';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 
 @Component({
   selector: 'add-specialization',
@@ -9,8 +9,8 @@ import {SpecializationModalComponent} from '../specialization-modal/specializati
   styleUrls: ['./add-specialization.component.scss']
 })
 export class AddSpecializationComponent {
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: SpecializationModalComponent;
+  @Output() addSpecialization: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: SpecializationFormComponent;
 
   constructor(private specializationService: SpecializationService) { }
@@ -30,10 +30,10 @@ export class AddSpecializationComponent {
     }
     this.specializationService
       .create(this.form.getValue())
-      .then((res) => {
-        this.form.saveCompetenciesAndQualification(res['id'] as number)
+      .then((specialization) => {
+        this.form.saveCompetenciesAndQualification(specialization['id'] as number);
+        this.addSpecialization.emit(specialization)
       })
-      .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);
   }

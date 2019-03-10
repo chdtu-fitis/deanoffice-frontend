@@ -1,55 +1,79 @@
 <div class="container-fluid h-100">
-  <div class="row h-100 flex-nowrap">
-    <div class="col content py-3">
-      <div class="groups-table h-100">
-        <div class="mb-3">
-          <input class="selection-panel search form-control" type="text"
-                 placeholder="Пошук за ім'ям"
-                 [(ngModel)]="searchText"
-                 (input)="updateGroups()">
-          <label class="selection-panel active-group">
+  <div class="row h-100 flex-column">
+    <div class="col content overflow-auto">
+      <div class="d-flex flex-column h-100 overflow-auto">
+        <div class="d-flex my-2 align-items-center">
+          <label class="mr-auto ml-1 m-0">
             <input type="checkbox"
                    [checked]="actualGroups"
-                   (change)="actualGroups =!actualGroups; updateGroups()">
+                   (change)="actualGroups =!actualGroups; filterActive()">
             Актуальні групи
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
                     [disabled]="selectedGroups.length === 0"
-                    (click)="deleteGroup.openModal(selectedGroups)">
+                    (click)="deleteGroupModal.openModal(gridApi.getSelectedRows())">
               Видалити
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
                     [disabled]="selectedGroups.length === 0 || selectedGroups.length > 1"
-                    (click)="updateGroup.openModal(selectedGroups[0])">
+                    (click)="updateGroupModal.openModal(gridApi.getSelectedRows()[0])">
               Редагувати
             </button>
 
-            <button type="button" class="btn btn-success align-middle mr-1"
-                    (click)="addGroup.openModal()">
+            <button type="button" class="btn btn-success align-middle"
+                    (click)="addGroupModal.openModal()">
               Нова група
             </button>
           </div>
         </div>
-        <group-table
-          #table
-          [rows]="groups"
-          [loading]="loadingGroups"
-          (handleSelectedChange)="handleSelectedChange($event)"
-        ></group-table>
-      </div>
-
-      <div class="bg-light fixed-bottom p-3">
-        <span class="mr-3">Всього: {{groups.length || '0'}}</span>
-        <span>Вибрано: {{selectedGroups.length || '0'}}</span>
+        <ag-grid-angular
+          class="ag-theme-balham overflow-auto h-100"
+          rowSelection="multiple"
+          rowHeight="80"
+          headerHeight="70"
+          enableCellChangeFlash=true
+          [animateRows]="true"
+          [accentedSort]="true"
+          [rowData]="groups"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [localeText]="localeText"
+          [getRowNodeId]="getRowNodeId"
+          (columnResized)="onColumnResized($event)"
+          (selectionChanged)="onSelectionChanged($event)"
+          (gridReady)="onGridReady($event)"
+          (modelUpdated)="onModelUpdated($event)"
+        >
+        </ag-grid-angular>
       </div>
     </div>
+    <footer class="bg-light px-3 py-2">
+      <span class="mr-3">Всього: {{count || '0'}}</span>
+      <span>Вибрано: {{selectedGroups.length || '0'}}</span>
+    </footer>
   </div>
 </div>
 
-<add-group #addGroup (onSubmit)="loadGroups()"></add-group>
+<add-group #addGroupModal (addGroup)="onAddGroup($event)"
+           [specializations]="specializations"
+           [tuitionForms]="tuitionForms"
+           [tuitionFormsKeys]="tuitionFormsKeys"
+           [tuitionTerms]="tuitionTerms"
+           [tuitionTermsKeys]="tuitionTermsKeys"
+></add-group>
 
-<delete-group #deleteGroup (onSubmit)="loadGroups()"></delete-group>
+<delete-group #deleteGroupModal (deleteGroup)="onDeleteGroup($event)"
+              (showErrorAlert)="showErrorAlert($event)"
+></delete-group>
 
-<update-group #updateGroup (onSubmit)="loadGroups()"></update-group>
+<update-group #updateGroupModal (updateGroup)="onUpdateGroup($event)"
+              [specializations]="specializations"
+              [tuitionForms]="tuitionForms"
+              [tuitionFormsKeys]="tuitionFormsKeys"
+              [tuitionTerms]="tuitionTerms"
+              [tuitionTermsKeys]="tuitionTermsKeys"
+></update-group>
+
+<simple-notifications></simple-notifications>

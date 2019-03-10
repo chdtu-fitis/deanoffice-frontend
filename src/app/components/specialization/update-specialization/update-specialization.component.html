@@ -1,4 +1,4 @@
-<specialization-modal #modal [title]=" getTitle()" (hideModal)="hideModal()">
+<modal-wrapper #modal [heading]=" getTitle()" (hideModal)="hideModal()">
   <div class="modal-body">
     <specialization-form [updateForm]="true" #form></specialization-form>
   </div>
@@ -7,4 +7,4 @@
     <button (click)="submit()" class="btn btn-success btn-submit">Оновити</button>
     <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
   </div>
-</specialization-modal>
+</modal-wrapper>

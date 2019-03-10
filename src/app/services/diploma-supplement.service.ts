@@ -29,6 +29,11 @@ export class DiplomaSupplementService {
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування шахматки', [])))
   }
 
+  buildFullCoursesTableReport(groupId: string): any {
+    const url = `${this.documentsUrl}/groups/${groupId}/graduate-courses`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування шахматки', [])))
+  }
+
   checkStudentsData(degreeId: string): Observable<DataForSupplementStudentCheck[]> {
     const url = `${this.documentsUrl}/supplements/data-check`;
     return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});

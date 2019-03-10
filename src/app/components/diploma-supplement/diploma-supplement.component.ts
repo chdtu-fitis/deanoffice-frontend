@@ -19,12 +19,14 @@ export class DiplomaSupplementComponent implements OnInit {
   degrees: Degree[];
   groups: StudentGroup[];
   currentGroup: StudentGroup;
+  currentDegreeId: string;
   students: StudentDegree[];
   studentsSelected: boolean;
   message: string;
   supplementLoading = false;
   gradePercentLoading = false;
   gradesTableReportLoading = false;
+  coursesTableReportLoading = false;
   studentDataCheckLoading = false;
   studentGradesCheckLoading = false;
 
@@ -42,6 +44,7 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onDegreeChange(degreeId: string): void {
+    this.currentDegreeId = degreeId;
     this.groupService.getGroupsByDegree(degreeId)
       .subscribe(groups => {
         this.groups = groups;
@@ -91,10 +94,18 @@ export class DiplomaSupplementComponent implements OnInit {
     );
   }
 
+  onFullCoursesTableReport(): void {
+    this.coursesTableReportLoading = true;
+    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(a => {
+        this.coursesTableReportLoading = false;
+      }
+    );
+  }
+
   onStudentDataCheck(): void {
     this.message = '';
     this.studentDataCheckLoading = true;
-    this.diplomaSupplementService.checkStudentsData('1').subscribe(res => {
+    this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(res => {
         this.studentDataCheckLoading = false;
         const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
         modalRef.componentInstance.studentsCheckData = res;

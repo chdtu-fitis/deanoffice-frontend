@@ -1,35 +1,71 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {IAppModal} from '../../shared/modal.interface';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
+
 import {StudentService} from '../../../services/student.service';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
+import {DiplomaType} from '../../../models/diploma-type.enum';
+import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversity';
+import {CurrentUserService} from '../../../services/auth/current-user.service';
 
 @Component({
     selector: 'app-student-degree-info',
     templateUrl: './student-degree-info.component.html',
     styleUrls: ['./student-degree-info.component.scss'],
 })
-export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implements IAppModal {
+export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   form: FormGroup;
+  studentPreviousUniversity: FormGroup;
   model: StudentDegree;
+  diplomaType = DiplomaType;
+  diplomaTypeKey: Array<string>;
   tabValidity: Array<boolean> = [];
-  @ViewChild('modal') modal: ModalDirective;
+  userFacultyId: number;
+  degreeIdFromOtherFaculty: number[] = [];
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
+  @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];
+  @Input() editable = true;
+  @Input() degreeId: number;
 
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
-    super();
+  get degrees() {
+    return this.form.get('degrees') as FormArray;
   }
 
-  openModal(id) {
+  constructor(
+    private fb: FormBuilder,
+    private studentService: StudentService,
+    private currentUserService: CurrentUserService) {
+    super();
+    this.diplomaTypeKey = Object.keys(DiplomaType);
+    this.userFacultyId = currentUserService.facultyId();
+  }
+
+  selectGroup(group) {
+    this.form.value['degrees'][0]['studentGroup'] = group;
+  }
+
+  renderForm(id, degreeId= -1) {
+    this.degreeId = degreeId;
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
+      this.model['degrees'].sort( (a, b) => b.active - a.active );
+      this.degreeIdFromOtherFaculty = [];
+      this.model['degrees'].map((degre) => {
+        if (degre.specialization.facultyId !== this.userFacultyId) {
+          this.degreeIdFromOtherFaculty.push(degre.id);
+        }
+      });
+      this.model['degrees'].sort( (a, ) => {
+        if (this.degreeIdFromOtherFaculty.includes(a.id)) {
+          return 1;
+        }
+      });
       this.buildForm();
-      this.modal.show();
     });
   }
 
@@ -45,38 +81,47 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
             },
             degree.active ? Validators.required : null,
           ],
-          recordBookNumber: this.getFormField(degree, 'recordBookNumber'),
-          studentCardNumber: this.getFormField(degree, 'studentCardNumber'),
-          diplomaNumber: this.getFormField(degree, 'diplomaNumber'),
-          diplomaDate: this.getFormField(degree, 'diplomaDate'),
-          supplementNumber: this.getFormField(degree, 'supplementNumber'),
-          supplementDate: this.getFormField(degree, 'supplementDate'),
-          thesisName: this.getFormField(degree, 'thesisName'),
-          thesisNameEng: this.getFormField(degree, 'thesisNameEng'),
-          protocolNumber: this.getFormField(degree, 'protocolNumber'),
-          protocolDate: this.getFormField(degree, 'protocolDate'),
-          previousDiplomaType: this.getFormField(degree, 'previousDiplomaType'),
-          previousDiplomaNumber: this.getFormField(degree, 'previousDiplomaNumber'),
-          previousDiplomaDate: this.getFormField(degree, 'previousDiplomaDate'),
-          previousDiplomaIssuedBy: this.getFormField(degree, 'previousDiplomaIssuedBy'),
-          admissionOrderDate: this.getFormField(degree, 'admissionOrderDate'),
-          admissionOrderNumber: this.getFormField(degree, 'admissionOrderNumber'),
-          contractDate: this.getFormField(degree, 'contractDate'),
-          contractNumber: this.getFormField(degree, 'contractNumber'),
-          admissionDate: this.getFormField(degree, 'admissionDate'),
-          payment: this.getFormField(degree, 'payment'),
+          recordBookNumber: degree.recordBookNumber,
+          studentCardNumber: degree.studentCardNumber,
+          diplomaNumber: degree.diplomaNumber,
+          diplomaDate: degree.diplomaDate,
+          diplomaWithHonours: degree.diplomaWithHonours,
+          supplementNumber: degree.supplementNumber,
+          supplementDate: degree.supplementDate,
+          thesisName: degree.thesisName,
+          thesisNameEng: degree.thesisNameEng,
+          protocolNumber: degree.protocolNumber,
+          protocolDate: degree.protocolDate,
+          previousDiplomaType: degree.previousDiplomaType,
+          previousDiplomaNumber: degree.previousDiplomaNumber,
+          previousDiplomaDate: degree.previousDiplomaDate,
+          previousDiplomaIssuedBy: degree.previousDiplomaIssuedBy,
+          previousDiplomaIssuedByEng: degree.previousDiplomaIssuedByEng,
+          admissionOrderDate: degree.admissionOrderDate,
+          admissionOrderNumber: degree.admissionOrderNumber,
+          contractDate: degree.contractDate,
+          contractNumber: degree.contractNumber,
+          admissionDate: degree.admissionDate,
+          studentPreviousUniversities: this.fb.array(degree.studentPreviousUniversities.map((SPU) => {
+            return this.fb.group({
+              id: SPU.id,
+              universityName: SPU.universityName,
+              studyStartDate: SPU.studyStartDate,
+              studyEndDate: SPU.studyEndDate,
+              academicCertificateNumber: SPU.academicCertificateNumber,
+              academicCertificateDate: SPU.academicCertificateDate,
+            })
+          })),
+          payment: degree.payment,
           active: degree.active
         })
       }))
     });
-  }
-
-  getFormField(degree: StudentDegree, field: string) {
-    return [{value: degree[field], disabled: !degree.active}]
-  }
-
-  getStudentGroup(i: number) {
-    return (this.model as any).degrees[i].studentGroup;
+    this.form.controls.degrees['controls'].map(control => {
+      if (!control.controls.active.value || this.degreeIdFromOtherFaculty.includes(control.controls.id.value)) {
+        control.disable()
+      }
+    });
   }
 
   getTabHeader(i: number) {
@@ -89,18 +134,34 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent implem
     return `${specialityAbbr} ${specialization.degree.name}`;
   }
 
+  addStudentPreviousUniversity() {
+    this.studentPreviousUniversity = this.fb.group({...new StudentPreviousUniversity()});
+    this.degrees.controls[0]['controls']['studentPreviousUniversities'].push(this.studentPreviousUniversity);
+  }
+
+  deleteStudentPreviousUniversity(id) {
+    const studentPreviousUniversities = this.degrees.controls[0]['controls']['studentPreviousUniversities'];
+    const index = studentPreviousUniversities.value.findIndex(i => i.id === id);
+    studentPreviousUniversities.controls.splice(index, 1);
+    studentPreviousUniversities.value.splice(index, 1);
+  }
+
   submit() {
     super.submit();
     if (this.form.invalid) {
-      this.tabValidity = (this.form.controls.degrees as FormArray).controls.map(
+      this.tabValidity = this.degrees.controls.map(
         control => control.invalid
       );
       return;
     }
     const degrees = this.form.value.degrees.filter(degree => degree.active);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
-      this.onSubmit.emit();
-      this.modal.hide();
+      this.onSubmit.emit(this.form.value);
+      this.emitHide();
     });
+  }
+
+  emitHide() {
+    this.hideModal.emit(null);
   }
 }

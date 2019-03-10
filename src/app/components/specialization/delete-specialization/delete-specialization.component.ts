@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {IAppModal} from '../../shared/modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {Specialization} from '../../../models/Specialization';
 import {SpecializationService} from '../../../services/specialization.service';
 
@@ -9,10 +8,10 @@ import {SpecializationService} from '../../../services/specialization.service';
   templateUrl: './delete-specialization.component.html',
   styleUrls: ['./delete-specialization.component.scss']
 })
-export class DeleteSpecializationComponent implements IAppModal {
+export class DeleteSpecializationComponent {
   specialization: Specialization;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalDirective;
+  @Output() deleteSpecialization: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('modal') modal: ModalWrapperComponent;
 
   constructor(private specializationService: SpecializationService) { }
 
@@ -22,15 +21,12 @@ export class DeleteSpecializationComponent implements IAppModal {
   }
 
   submit(): void {
-    const IsConfirm = confirm('Ви дійсно бажаєте видалити обрану спеціалізацю?');
-    if (IsConfirm) {
-      this.specializationService
-        .delete(this.specialization.id)
-        .then(() => {
-          this.onSubmit.emit(null);
-          this.modal.hide()
-        });
-    }
+    this.specializationService
+      .delete(this.specialization.id)
+      .then(() => {
+        this.deleteSpecialization.emit(null);
+        this.modal.hide()
+      });
   }
 
   hideModal(): void {

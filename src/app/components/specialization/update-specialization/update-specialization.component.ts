@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
-import {SpecializationModalComponent} from '../specialization-modal/specialization-modal.component';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {SpecializationService} from '../../../services/specialization.service';
 import {SpecializationFormComponent} from '../specialization-form/specialization-form.component';
 import {Specialization} from '../../../models/Specialization';
@@ -11,8 +11,8 @@ import {Specialization} from '../../../models/Specialization';
 })
 export class UpdateSpecializationComponent {
   source: Specialization;
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: SpecializationModalComponent;
+  @Output() updateSpecialization: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: SpecializationFormComponent;
 
   constructor(private specializationService: SpecializationService) { }
@@ -41,11 +41,10 @@ export class UpdateSpecializationComponent {
     if (this.form.invalid()) {
       return;
     }
-    const specialization = this.form.getValue();
     this.specializationService
-      .update(specialization)
+      .update(this.form.getValue())
+      .then((specialization) => this.updateSpecialization.emit(specialization))
       .then(() => this.form.saveCompetenciesAndQualification(this.source.id))
-      .then(() => this.onSubmit.emit(null))
       .then(() => this.hideModal())
       .catch(null);
   }

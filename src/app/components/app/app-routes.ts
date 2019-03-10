@@ -34,6 +34,11 @@ export const appRoutes: Routes = [
             path: 'personal-file-statement',
             loadChildren: '../personal-file-grades-statement/personal-file-grades-statement.module#PersonalFileGradesStatementModule',
             data: { title: 'Виписка в особову справу' }
+          },
+          {
+            path: 'additional-documents',
+            loadChildren: '../additional-documents/additional-documents.module#AdditionalDocumentsModule',
+            data: { title: 'Додаткові документи' }
           }
         ]
       },
@@ -66,6 +71,10 @@ export const appRoutes: Routes = [
         path: 'specializations',
         loadChildren: '../specialization/specialization.module#SpecializationModule',
         data: { title: 'Спеціалізації (освітні програми)' }
+      },
+      {
+        path: 'reports',
+        loadChildren: '../reports/reports.module#ReportsModule',
       }
     ]
   },

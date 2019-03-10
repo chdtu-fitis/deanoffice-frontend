@@ -1,12 +1,9 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {GroupModalComponent} from '../group-modal/group-modal.component';
-import {SpecializationService} from '../../../services/specialization.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {GroupService} from '../../../services/group.service';
 import {Specialization} from '../../../models/Specialization';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {TuitionForm} from '../../../models/tuition-form.enum';
-import {TuitionTerm} from '../../../models/tuition-term.enum';
+import {GroupFormComponent} from '../group-form/group-form.component';
 
 @Component({
   selector: 'update-group',
@@ -15,58 +12,30 @@ import {TuitionTerm} from '../../../models/tuition-term.enum';
 })
 export class UpdateGroupComponent {
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: GroupModalComponent;
-
+  @Output() updateGroup: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('form') form: GroupFormComponent;
+  @Input() tuitionFormsKeys;
+  @Input() tuitionForms;
+  @Input() tuitionTermsKeys;
+  @Input() tuitionTerms;
+  @Input() specializations: Specialization[];
   selectedGroup: StudentGroup;
 
-  form = new FormGroup({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.minLength(2)
-    ]),
-    studySemesters: new FormControl(null, Validators.required),
-    studyYears: new FormControl(null, [Validators.required, Validators.pattern('[1-9.]*')]),
-    beginYears: new FormControl(null, Validators.required),
-    creationYear: new FormControl(null, Validators.required),
-    tuitionForm: new FormControl(null, Validators.required),
-    tuitionTerm: new FormControl(null, Validators.required),
-    specialization: new FormControl(null, Validators.required),
-  });
-
-  tuitionFormsKeys;
-  tuitionForms;
-
-  tuitionTermsKeys;
-  tuitionTerms;
-
-  specializations: Specialization[];
-
-  constructor(private groupService: GroupService, private specializationService: SpecializationService) {
-    specializationService.getSpecializations(true).subscribe(
-      (specializations: Specialization[]) => this.specializations = specializations,
-      null,
-      () => this.specializations.sort((a, b) => a.id - b.id)
-    );
-  }
+  constructor(private groupService: GroupService) { }
 
   openModal(selectedGroup): void {
-
-    this.tuitionFormsKeys = Object.keys(TuitionForm);
-    this.tuitionForms = this.tuitionFormsKeys.map(key => TuitionForm[key]);
-    this.tuitionTermsKeys = Object.keys(TuitionTerm);
-    this.tuitionTerms = this.tuitionTermsKeys.map(key => TuitionTerm[key]);
-
     this.selectedGroup = selectedGroup;
-    this.form.controls['name'].setValue(selectedGroup.name);
-    this.form.controls['studySemesters'].setValue(selectedGroup.studySemesters);
-    this.form.controls['studyYears'].setValue(selectedGroup.studyYears);
-    this.form.controls['beginYears'].setValue(selectedGroup.beginYears);
-    this.form.controls['creationYear'].setValue(selectedGroup.creationYear);
-    this.form.controls['tuitionForm'].setValue(selectedGroup.tuitionForm);
-    this.form.controls['tuitionTerm'].setValue(selectedGroup.tuitionTerm);
-    this.form.controls['specialization'].setValue(selectedGroup.specialization.id);
-
+    this.form.setValues({
+      'name': selectedGroup.name,
+      'studySemesters': selectedGroup.studySemesters,
+      'studyYears': selectedGroup.studyYears,
+      'beginYears': selectedGroup.beginYears,
+      'creationYear': selectedGroup.creationYear,
+      'tuitionForm': selectedGroup.tuitionForm,
+      'tuitionTerm': selectedGroup.tuitionTerm,
+      'specialization': selectedGroup.specialization.id
+    });
     this.modal.show();
   }
 
@@ -75,22 +44,12 @@ export class UpdateGroupComponent {
   }
 
   submit(): void {
-    const body = {
-      id: this.selectedGroup.id,
-      name: this.form.value.name,
-      active: this.selectedGroup.active,
-      studySemesters: this.form.value.studySemesters,
-      creationYear: this.form.value.creationYear,
-      specialization: {
-        id: this.form.value.specialization
-      },
-      tuitionForm: this.form.value.tuitionForm,
-      tuitionTerm: this.form.value.tuitionTerm,
-      studyYears: this.form.value.studyYears,
-      beginYears: this.form.value.beginYears
-    };
+    const body = this.form.form.getRawValue();
+    body.id = this.selectedGroup.id;
+    body.active = this.selectedGroup.active;
+    body.specialization = {id: body.specialization};
     this.groupService.update(body)
-      .then(() => this.onSubmit.emit(null))
+      .then(group => this.updateGroup.emit(group))
       .then(() => this.hideModal())
       .catch(null);
   }

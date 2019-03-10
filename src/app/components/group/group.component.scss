@@ -1,16 +1,5 @@
-
-.content {
-  margin-bottom: 54px;
+::ng-deep .ag-header-cell-text {
+  text-overflow: clip !important;
+  overflow: visible !important;
+  white-space: normal !important;
 }
-
-.selection-panel{
-  &.search{
-    display: inline-block;
-    width: 190px;
-    margin-right: 10px;
-  }
-  &.active-group{
-    display: inline-block;
-  }
-}
-

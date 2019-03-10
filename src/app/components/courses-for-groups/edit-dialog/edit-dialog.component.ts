@@ -20,7 +20,9 @@ import {Course} from "../../../models/Course";
 })
 export class EditDialogComponent implements OnInit {
   @Input() selectedGroup: StudentGroup = new StudentGroup();
-  @Input() course: CourseForGroup = new CourseForGroup();
+  @Input() courseFromTable = new CourseForGroup();
+  course: CourseForGroup = JSON.parse(JSON.stringify(this.courseFromTable));
+  // TODO use Reactive forms
   form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
@@ -54,11 +56,8 @@ export class EditDialogComponent implements OnInit {
         : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
   checkCourseName(name) {
-    if (name instanceof CourseName) {
-      return;
-    }
-    else {
-      let courseName = new CourseName();
+    if (!name.id) {
+      const courseName = new CourseName();
       courseName.name = name;
       this.course.course.courseName = courseName;
     }
@@ -69,18 +68,13 @@ export class EditDialogComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.selectedGroup.id, {
-      courseForGroupId: this.course.id,
-      oldCourseId: this.course.course.id,
-      newCourse: this.course.course
-    });
+    this.checkCourseName(this.course.course.courseName);
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
       courseForGroupId: this.course.id,
       oldCourseId: this.course.course.id,
       newCourse: this.course.course
     }).subscribe((course: Course) => {
-      this.course.course = course;
-      this.course = new CourseForGroup();
+      this.courseFromTable.course = course;
     });
     this.activeModal.close('Close click')
   }
@@ -108,4 +102,9 @@ export class EditDialogComponent implements OnInit {
   get kc() {
     return this.form.get('kc');
   }
+
+  compareById(item1, item2) {
+    return item1.id === item2.id;
+  }
+
 }

@@ -44,12 +44,18 @@
           Таблиця відсотків оцінок студентів
         </button>
         <loading *ngIf="gradePercentLoading" size="20"></loading>
-    </div>
+      </div>
       <div class="flex-container">
         <button class="btn btn-info w-75 mt-4" [disabled]="gradesTableReportLoading" (click)="onFullGradesTableReport()">
           Шахматка оцінок студентів
         </button>
         <loading *ngIf="gradesTableReportLoading" size="20"></loading>
+      </div>
+      <div class="flex-container">
+        <button class="btn btn-info w-75 mt-4" [disabled]="coursesTableReportLoading" (click)="onFullCoursesTableReport()">
+          Таблиця предметів групи випускників
+        </button>
+        <loading *ngIf="coursesTableReportLoading" size="20"></loading>
       </div>
       <div class="flex-container">
         <button class="btn btn-warning w-75 mt-4" [disabled]="studentDataCheckLoading" (click)="onStudentDataCheck()">

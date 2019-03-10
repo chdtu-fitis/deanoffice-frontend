@@ -1,0 +1,49 @@
+<div class="wrapp">
+  <h5>Студенти</h5>
+  <div class="table-wrapper">
+    <table class="main-table">
+      <thead>
+      <tr>
+        <td>№</td>
+        <td>ПІБ</td>
+        <td>Група</td>
+        <td>Ступінь</td>
+        <td>Форма</td>
+        <td>Спеціальність</td>
+        <td>Курс</td>
+        <td>Середній бал</td>
+        <td>Середній бал * 0,9</td>
+        <!--<td>Заборгованості</td>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let group of getStudentStipendGroups()">
+        <td colspan="9">
+        <table class="main-table">
+          <tr>
+            <td colspan="9" class="group-header">{{group}}</td>
+          </tr>
+          <tr *ngFor="let ssi of studentStipendInfo[group]; let i = index" [ngClass]="isDebtor(ssi)">
+            <td>{{i+1}}</td>
+            <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
+            <td>{{ssi.groupName}}</td>
+            <td>{{ssi.degreeName.substring(0,3)}}</td>
+            <td>{{getTuitionTermUkr(ssi.tuitionTerm)}}</td>
+            <td>{{ssi.specialityCode}}</td>
+            <td>{{ssi.year}}</td>
+            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
+            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
+            <!--<td>-->
+              <!--<p *ngFor="let course of ssi.debtCourses">-->
+                <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->
+              <!--</p>-->
+            <!--</td>-->
+          </tr>
+        </table>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {StudentDegree} from '../models/StudentDegree';
-import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+
+import {environment} from '../../environments/environment';
+import {StudentDegree} from '../models/StudentDegree';
 import {Student} from '../models/Student';
+import {ExpelsAndRenews} from '../components/students/student-degree-history/ExpelsAndRenews';
 
 @Injectable()
 export class StudentService {
@@ -43,6 +45,14 @@ export class StudentService {
     return this.http.post<StudentDegree>(`${this.url}/degrees`, studentDegree, params);
   }
 
+  assignStudentsToGroup(students, group): Observable<StudentDegree> {
+    return this.http.post<StudentDegree>(`${environment.apiUrl}/group/${group}/add-students`, students);
+  }
+
+  assignRecordBookNumberToStudents(students): Observable<StudentDegree> {
+    return this.http.post<StudentDegree>(`${this.url}/record-book-numbers`, students);
+  }
+
   search(fullName: string = ''): Observable<StudentDegree[]> {
     const [surname = '', name = '', patronimic = ''] = fullName.split(' ');
     return this.http.get<StudentDegree[]>(`${this.url}/search`, {
@@ -52,6 +62,14 @@ export class StudentService {
         patronimic,
       }
     });
+  }
+
+  searchExpelled(expelledStudent) {
+    return this.http.get(`${this.url}/degrees/expels/search`, {params: expelledStudent});
+  }
+
+  getStudentDegreeHistory(studentDegreeId): Observable<ExpelsAndRenews[]> {
+    return this.http.get<ExpelsAndRenews[]>(`${this.url}/degrees/expels/${studentDegreeId}/expels-and-renews`);
   }
 
   updateStudent(student: Student) {
@@ -81,5 +99,9 @@ export class StudentService {
 
   startAcademicVacation(vacationData) {
     return this.http.post(`${this.url}/degrees/academic-vacations`, vacationData);
+  }
+
+  createStudentTransfer(transferData) {
+    return this.http.post(`${this.url}/degrees/transfers`, transferData);
   }
 }

@@ -1,0 +1,94 @@
+<div class="modal fade"
+     [config]="{backdrop: 'static'}" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Перевести на іншу спеціальність</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="studentDegree">
+          <b class="d-block mt-2">
+            Cпеціальність:
+            {{studentDegree.specialization.speciality.code}}
+            {{studentDegree.specialization.speciality.name}}
+          </b>
+          <b class="d-block">Спеціалізація: {{studentDegree.specialization.name}}</b>
+        </ng-container>
+        <hr>
+
+        <form [formGroup]="form">
+          <div class="form-row justify-content-between">
+            <div class="form-group col-md-9 required">
+              <label for="specialization">Нова освітня програма (спеціалізація):</label>
+              <select formControlName="newSpecializationId" class="form-control" id="specialization"
+                      (change)="onSpecializationChange($event)">
+                <option *ngFor="let specialization of specializations"
+                        value="{{specialization.id}}">
+                  {{specialization.name}}
+                  ({{specialization.speciality.code}} {{specialization.speciality.name}}; {{specialization.degree.name}})
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-2 required">
+              <label for="groups">Група</label>
+              <select formControlName="newStudentGroupId" class="form-control" id="groups">
+                <option *ngFor="let group of groups" value="{{group.id}}">
+                  {{group.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-4 required">
+              <label for="orderNumber">Номер наказу</label>
+              <input type="text" class="form-control" id="orderNumber" formControlName="orderNumber">
+            </div>
+            <div class="form-group col-md-4 required">
+              <label for="orderDate">Дата наказу</label>
+              <input type="date" class="form-control" id="orderDate" formControlName="orderDate">
+            </div>
+            <div class="form-group col-md-4 required">
+              <label for="newStudyYear">Курс</label>
+              <select formControlName="newStudyYear" id="newStudyYear" class="form-control">
+                <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="contractNumber">Номер контракту</label>
+              <input type="text" class="form-control" id="contractNumber" formControlName="contractNumber">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="contractDate">Дата контракту</label>
+              <input type="date" class="form-control" id="contractDate" formControlName="contractDate">
+            </div>
+            <div class="form-group col-md-4 required">
+              <label for="applicationDate">Дата заяви</label>
+              <input type="date" class="form-control" id="applicationDate" formControlName="applicationDate">
+            </div>
+            <div class="form-group col-md-4">
+              Форма
+              <div class="custom-control custom-radio" *ngFor="let key of paymentKey">
+                <input type="radio" [id]="key" class="custom-control-input"
+                       [value]="key" formControlName="newPayment">
+                <label class="custom-control-label" [for]="key">{{paymentType[key]}}</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-submit" (click)="submit()" [disabled]="form.invalid">
+          Перевести
+        </button>
+        <button class="btn btn-outline-info" (click)="hideModal()">
+          Скасувати
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

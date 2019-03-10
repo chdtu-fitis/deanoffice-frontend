@@ -20,6 +20,12 @@ export class GroupService {
       .pipe(catchError(forObservable('Отримання груп', [])));
   }
 
+  getGroupsForCopy(onlyActual: boolean = true): Observable<StudentGroup[]> {
+    const params = new HttpParams().set('only-active', onlyActual.toString());
+    return this.http.get<StudentGroup[]>(`${this.groupsUrl}/copy`, { params: params })
+      .pipe(catchError(forObservable('Оримання груп для копіювання предметів', [])));
+  }
+
   getGroupsByDegree(degreeId: string): Observable<StudentGroup[]> {
     const url = `${this.groupsByDegreeUrl}?degreeId=${degreeId}`;
     return this.http.get<StudentGroup[]>(url)
@@ -32,16 +38,21 @@ export class GroupService {
       .pipe(catchError(forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
   }
 
+  getGroupsBySpecialization(specializationID: number): Observable<StudentGroup[]> {
+    const url = `${this.groupsUrl}/filter/specialization/${specializationID}`;
+    return this.http.get<StudentGroup[]>(url)
+      .pipe(catchError(forObservable('Отримання груп за спеціалізацією', [])));
+  }
+
   create(body): Promise<any> {
     return this.http.post(this.groupsUrl, body, {}).toPromise()
       .catch(forPromise('Створення нової групи'));
   }
 
-  delete(ids: number[]): Promise<any> {
+  delete(ids: number[]): Observable<Object> {
     const url = `${this.groupsUrl}/${ids.join(', ')}`;
-    console.log(url);
-    return this.http.delete(url).toPromise()
-      .catch(forPromise('Видалення групи'));
+    return this.http.delete(url)
+      .pipe(catchError(forObservable('Видалення групи', [])));
   }
 
   update(body): Promise<any> {

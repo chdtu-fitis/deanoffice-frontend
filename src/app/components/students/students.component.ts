@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../services/student.service';
-import { defaultColumns } from './constants';
-import { StudentDegree } from '../../models/StudentDegree';
 import { GroupService } from '../../services/group.service';
+import { StudentDegree } from '../../models/StudentDegree';
 import { StudentGroup } from '../../models/StudentGroup';
+import {defaultColDef, defaultColumnDefs, allColumnDefs, LOCALE_TEXT} from './constants';
+import {GroupFilterComponent} from './group-filter/group-filter.component';
+import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
 
 @Component({
   selector: 'app-students',
@@ -14,68 +16,142 @@ import { StudentGroup } from '../../models/StudentGroup';
 export class StudentsComponent implements OnInit {
   students: StudentDegree[] = [];
   groups: StudentGroup[] = [];
-  columns: any[] = defaultColumns;
-  rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
-  loading: boolean;
-  isSidebarOpen: boolean;
+  count;
+  oldSelectedIds = [];
+  columnDefs = defaultColumnDefs;
+  columnDefsAll = allColumnDefs;
+  defaultColDef = defaultColDef;
+  localeText = LOCALE_TEXT;
+  private gridApi;
+  private gridColumnApi;
+  frameworkComponents;
+  getRowNodeId = (data) => data.id;
 
-  constructor(
-    private studentService: StudentService,
-    private groupService: GroupService
-  ) { }
+  constructor(private studentService: StudentService, private groupService: GroupService) {
+    this.frameworkComponents = {
+      groupFilter: GroupFilterComponent,
+      paymentFilter: PaymentFilterComponent
+    };
+  }
 
   ngOnInit() {
-    this.getStudents();
+    this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
+      this.students = students;
+    });
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
   }
 
+  onSelectionChanged() {
+    this.selected = this.gridApi.getSelectedRows();
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  onModelUpdated(params) {
+    this.count = params.api.getDisplayedRowCount();
+    if (this.oldSelectedIds.length) {
+      for (const selectedId of this.oldSelectedIds) {
+        const rowNode = this.gridApi.getRowNode(selectedId);
+        if (rowNode) {
+          rowNode.setSelected(true);
+        }
+      }
+    }
+  }
+
   setColumns(columns: string[]) {
+    this.oldSelectedIds = this.selected.map(a => (a.id));
     if (!this.isAllDataLoaded) {
-      this.loading = true;
       this.studentService.getStudents()
         .subscribe((students: StudentDegree[]) => {
           this.students = students;
-          this.loading = false;
           this.isAllDataLoaded = true;
         });
     }
-    this.columns = columns;
+    const cols = [];
+    for (const column of columns) {
+      for (const columnDef of this.columnDefsAll) {
+        if (column === columnDef.field) {
+          cols.push(columnDef)
+        }
+      }
+    }
+    this.gridApi.setColumnDefs(cols);
+  }
+
+  onSelect(index) {
+    this.gridApi.ensureIndexVisible(index, 'top');
+    const node = this.gridApi.getRowNode(this.students[index].id);
+    node.setSelected(true, true);
+  }
+
+  updateStudentPersonalInfo(studentPersonalInfo) {
+    const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
+    for (const col of this.columnDefsAll) {
+      if (col.field.startsWith('student.')) {
+        const [, field] = col.field.split('.');
+        selectedStudent['student'][field] = studentPersonalInfo[field];
+      }
+    }
+    this.gridApi.refreshCells();
+  }
+
+  updateStudentDegreeInfo(degrees) {
+    const activeDegree = degrees['degrees'][0];
+    const selectedStudent = this.students.find(student => student.id === this.selected[0].id);
+    if (activeDegree['studentGroup']) {
+      selectedStudent['studentGroup'] = activeDegree['studentGroup'];
+    }
+    for (const col of this.columnDefsAll) {
+      if (col.field.startsWith('student')) {
+        continue
+      }
+      selectedStudent[col.field] = activeDegree[col.field];
+    }
+    this.gridApi.refreshCells();
+  }
+
+  updateStudentsGroup(group) {
+    for (const node of this.selected) {
+      const rowNode = this.gridApi.getRowNode(node.id);
+      rowNode.setDataValue('studentGroup.name', group.name);
+    }
+  }
+
+  updateRecordBookNumber(recordBookNumber) {
+    for (const id of Object.keys(recordBookNumber)) {
+      const rowNode = this.gridApi.getRowNode(id);
+      rowNode.setDataValue('recordBookNumber', recordBookNumber[id]);
+    }
   }
 
   prependStudent(student) {
-    this.students = [student, ...this.students];
-    this.setRows(this.students);
-    this.onSelect([student]);
+    this.oldSelectedIds = this.selected.map(a => (a.id));
+    this.oldSelectedIds.push(student.id);
+    this.gridApi.updateRowData({ add: [student] });
   };
 
-  setRows(rows: StudentDegree[]) {
-    this.rows = rows;
-  };
-
-  onSelect(students: StudentDegree[]) {
-    this.selected = students;
-  }
-
-  getStudents() {
-    this.loading = true;
-    const stream = this.isAllDataLoaded
-      ? this.studentService.getStudents()
-      : this.studentService.getInitialStudents();
-    stream.subscribe((students: StudentDegree[]) => {
-      this.students = students;
-      this.loading = false;
-    });
-  }
 
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
-    const filterFn = degree => !idsToRemove.includes(degree.id);
-    this.selected = this.selected.filter(filterFn);
-    this.students = this.students.filter(filterFn);
-    this.setRows(this.students);
+    this.selected = this.selected.filter(degree => idsToRemove.includes(degree.id));
+    this.oldSelectedIds = this.selected.map(a => (a.id));
+    this.oldSelectedIds = this.oldSelectedIds.filter(id => !idsToRemove.includes(id));
+    this.gridApi.updateRowData({ remove: this.selected });
+  }
+
+  onTransfer(transferData) {
+    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
+    rowNode.setDataValue('payment', transferData.newPayment);
+    rowNode.setDataValue('studentGroup.name', transferData.group.name);
+    rowNode.setDataValue('specialization.speciality.code', transferData.specialityCode);
   }
 }

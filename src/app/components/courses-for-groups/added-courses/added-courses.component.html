@@ -15,7 +15,6 @@
           <th>Дата іспиту</th>
         <tr>
       </thead>
-      <div *ngIf="coursesForGroup === []">Дані відсутні</div>
       <tr *ngFor="let course of coursesForGroup; let i = index">
         <td><input type="checkbox" #selected (change)="changeCoursesForDelete($event.target.checked, course)"
                    [checked]="allRowsIsSelected"></td>
@@ -29,10 +28,12 @@
           </button>
         </td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"
-                   (change)="dateChange(i)" *ngIf="course.course.knowledgeControl.name==='іспит'">
+                   (change)="dateChange(i)">
         </td>
         <td (click)="changeCourse(course)">
-          <button type="button" class="btn btn-outline-info" [disabled]="changesExistence">Редагувати курс</button>
+          <button type="button" class="btn btn-outline-info" [disabled]="changesExistence">
+            Редагувати курс
+          </button>
         </td>
       </tr>
     </table>

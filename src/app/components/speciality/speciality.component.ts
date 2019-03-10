@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SpecialityService} from '../../services/speciality.service';
 import {Speciality} from '../../models/Speciality';
+import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+import {COLUMN_DEFINITIONS} from './column-definitions';
 
 @Component({
   selector: 'app-speciality',
@@ -14,18 +16,24 @@ export class SpecialityComponent implements OnInit {
   selected: Speciality[] = [];
   specialities: Speciality[] = [];
   rows: Speciality[] = [];
-  columns = [
-    {name: 'Шифр', prop: 'code'},
-    {name: 'Назва', prop: 'name'},
-    {name: 'Назва Англійською', prop: 'nameEng'},
-    {name: 'Галузь Знань', prop: 'fieldOfStudy'},
-    {name: 'Галузь Знань Англійською', prop: 'fieldOfStudyEng'}
-  ];
+  defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
+  columnDefs = COLUMN_DEFINITIONS;
+  localeText = LOCALE_TEXT;
+  private gridApi;
+  private gridColumnApi;
+  getRowNodeId = (data) => data.id;
+
 
   constructor(private specialityService: SpecialityService) {}
 
   ngOnInit() {
     this.getSpecialities();
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
   }
 
   getSpecialities() {
@@ -34,13 +42,6 @@ export class SpecialityComponent implements OnInit {
         this.specialities = speciality;
         this.rows = speciality.filter(value => value.active === this.isActual);
       });
-  }
-
-  onSelect({selected}) {
-    console.log('Select Event', selected, this.selected);
-
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...selected);
   }
 
   actual() {

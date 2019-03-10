@@ -1,10 +1,5 @@
 .modal-dialog {
   max-width: 90%;
-  width: 1000px;
-}
-
-.modal-body {
-  padding: 1rem 1rem 0;
 }
 
 h6 {
@@ -21,4 +16,15 @@ h6 {
     background-color: #aaa;
     margin-left: 10px;
   }
+}
+
+.btn-circle {
+  width: 25px;
+  height: 25px;
+  padding: 0;
+  border-radius: 100%;
+}
+
+.danger {
+  color: #F44336;
 }

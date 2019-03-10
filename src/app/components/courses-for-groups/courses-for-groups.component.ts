@@ -11,6 +11,7 @@ import {GroupService} from '../../services/group.service';
 import {CourseService} from '../../services/course.service';
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {AddedCoursesComponent} from './added-courses/added-courses.component';
+import {CourseCreationComponent} from './course-creation/course-creation.component';
 import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
 import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
@@ -25,6 +26,7 @@ export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
   indexForDate: number;
   groups: StudentGroup[];
+  groupsForCopy: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
   semesters: number[] = [];
@@ -39,6 +41,7 @@ export class CoursesForGroupsComponent implements OnInit {
   deleteCoursesIdsForCheck: number[] = [];
   @ViewChild(AddedCoursesComponent) addedCoursesChild: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
+  @ViewChild(CourseCreationComponent) courseCreationChild: CourseCreationComponent;
   studiedCoursesLoading = false;
   showPage = false;
   alertOptions = {
@@ -60,13 +63,19 @@ export class CoursesForGroupsComponent implements OnInit {
     this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
-    })
+    });
+    this.groupService.getGroupsForCopy().subscribe(groupsForCopy => {
+      this.groupsForCopy = groupsForCopy;
+    });
   }
 
   private changeSemesters() {
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
-      this.semesters.push(i + this.selectedGroup.beginYears*2-1);
+      this.semesters.push(i + this.selectedGroup.beginYears * 2 - 1);
+    }
+    if (!this.semesters.includes(this.selectedSemester)) {
+      this.selectedSemester = this.semesters[0];
     }
   }
 
@@ -79,7 +88,9 @@ export class CoursesForGroupsComponent implements OnInit {
   onGroupChange() {
     this.changeSemesters();
     this.refresh();
-    if (this.selectedSemester) this.onSemesterChange();
+    if (this.selectedSemester) {
+      this.onSemesterChange();
+    }
   }
 
   onSemesterChange() {
@@ -91,6 +102,7 @@ export class CoursesForGroupsComponent implements OnInit {
       })
     }
     this.getCoursesForGroup();
+    this.courseCreationChild.course.semester = this.selectedSemester;
   }
 
   changeCoursesForGroup(event) {
@@ -162,7 +174,9 @@ export class CoursesForGroupsComponent implements OnInit {
       if (courseIsExist) this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
     }
     this.sortCoursesForGroup();
+    this.studiedCoursesChild.courses.forEach(course => course.selected = false);
     this.studiedCoursesChild.selectedCourses = [];
+    this.selectedCourses = [];
   }
 
   sortCoursesForGroup() {
@@ -326,7 +340,7 @@ export class CoursesForGroupsComponent implements OnInit {
   copyCourses() {
     this.changesExistence = true;
     const modalRef = this.modalService.open(CopyCoursesDialogComponent);
-    modalRef.componentInstance.groups = this.groups;
+    modalRef.componentInstance.groups = this.groupsForCopy;
     modalRef.componentInstance.selectedSemesterTo = this.selectedSemester;
     modalRef.componentInstance.selectedSemesterFrom = this.selectedSemester;
     modalRef.componentInstance.selectedGroupToCopyId = this.selectedGroup.id;

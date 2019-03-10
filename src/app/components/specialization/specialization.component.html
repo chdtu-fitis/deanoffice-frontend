@@ -1,55 +1,65 @@
 <div class="container-fluid h-100">
-  <div class="row h-100 flex-nowrap">
-    <div class="col content py-3">
-      <div class="mb-3 d-flex justify-content-between">
-        <div>
-          <div class="d-inline-block align-middle" style="width: 161px">
-            <input type="search" name="search" class="form-control" placeholder="Пошук за назвою"
-                   [(ngModel)]="searchField">
-          </div>
-
-          <div class="d-inline-block align-middle">
-            <label for="active" class="ml-1 m-0">
-              <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
-              Актуальні спеціалізації
-            </label>
-          </div>
+  <div class="row h-100 flex-column">
+    <div class="col content d-flex flex-column overflow-auto">
+      <div class="py-2 d-flex align-items-center">
+        <div class="mr-auto">
+          <label for="active" class="ml-1 m-0">
+            <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
+            Актуальні спеціалізації
+          </label>
         </div>
-
         <div>
-          <button type="button" class="btn btn-danger align-middle"
-                  (click)="deleteSpecialization.openModal(selectedSpecialization)" [disabled]="buttonIsDisabled()">
+          <button type="button" class="btn btn-danger"
+                  (click)="deleteSpecializationModal.openModal(selectedSpecialization[0])"
+                  [disabled]="buttonIsDisabled()">
             Видалити
           </button>
 
-          <button type="button" class="btn btn-warning align-middle" [disabled]="buttonIsDisabled()"
-                  (click)="updateSpecialization.openModal(selectedSpecialization.id)">
+          <button type="button" class="btn btn-warning"
+                  [disabled]="buttonIsDisabled()"
+                  (click)="updateSpecializationModal.openModal(selectedSpecialization[0].id)">
             Редагувати
           </button>
 
-          <button type="button" class="btn btn-success align-middle mr-1" (click)="addSpecialization.openModal()">
+          <button type="button" class="btn btn-success mr-1"
+                  (click)="addSpecializationModal.openModal()">
             Нова спеціалізація
           </button>
         </div>
       </div>
 
-      <div class="specializations-table">
-        <app-specializations-table
-          [rows]="specializations | searchSpecializations: searchField"
-          [loading]="loading"
-          (onSelect)="selectSpecializations($event)"
-        ></app-specializations-table>
-      </div>
-
-      <div class="bg-light fixed-bottom p-3">
-        Всього: {{(specializations | searchSpecializations: searchField).length || '0'}}
-      </div>
+      <ag-grid-angular
+        class="ag-theme-balham overflow-auto h-100"
+        rowHeight="50"
+        rowSelection="single"
+        enableCellChangeFlash=true
+        [animateRows]="true"
+        [accentedSort]="true"
+        [rowData]="specializations"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [localeText]="localeText"
+        [getRowNodeId]="getRowNodeId"
+        (selectionChanged)="onSelectionChanged($event)"
+        (gridReady)="onGridReady($event)"
+        (modelUpdated)="onModelUpdated($event)"
+      >
+      </ag-grid-angular>
     </div>
+    <footer class="bg-light px-3 py-2">
+      Всього: {{count || '0'}}
+    </footer>
   </div>
 </div>
 
-<add-specialization #addSpecialization (onSubmit)="updateDatatable()"></add-specialization>
+<add-specialization #addSpecializationModal
+                    (addSpecialization)="onAddSpecialization($event)">
+</add-specialization>
 
-<delete-specialization #deleteSpecialization (onSubmit)="updateDatatable()"></delete-specialization>
+<delete-specialization #deleteSpecializationModal
+                       (deleteSpecialization)="onDeleteSpecialization()">
+</delete-specialization>
 
-<update-specialization #updateSpecialization (onSubmit)="updateDatatable()"></update-specialization>
+<update-specialization #updateSpecializationModal
+                       (updateSpecialization)="onUpdateSpecialization($event)">
+</update-specialization>

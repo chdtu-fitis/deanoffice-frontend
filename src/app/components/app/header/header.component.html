@@ -30,6 +30,8 @@
           <a class="dropdown-item" routerLinkActive="active"
              routerLink="/dashboard/students/in-vacation" [routerLinkActiveOptions]="{exact: true}">Студенти в академ. відпустці</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/grades">Оцінки</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/stipend" [routerLinkActiveOptions]="{exact: true}">Стипендія</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/reports/debts" [routerLinkActiveOptions]="{exact: true}">Звіт з успішності</a>
         </div>
       </li>
 
@@ -54,11 +56,20 @@
              routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
              routerLink="/dashboard/documents/personal-file-statement">Виписки в особові справи</a>
-          <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в журнали</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/documents/additional-documents">Додаткові документи</a>
         </div>
       </li>
     </ul>
     <ul class="navbar-nav">
+      <li class="nav-item">
+        <div class="nav-link">
+          <svg class="mr-1 svg-icon" viewBox="0 0 448 512">
+            <use xlink:href="assets/img/icons-sprite.svg#user"></use>
+          </svg>
+          {{userName}}
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link user-logout" (click)="logout()" title="Вийти">Вийти</a>
       </li>

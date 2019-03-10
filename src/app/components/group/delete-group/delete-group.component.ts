@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {GroupService} from '../../../services/group.service';
-import {GroupModalComponent} from '../group-modal/group-modal.component'
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {FormGroup} from '@angular/forms';
 
@@ -11,8 +11,9 @@ import {FormGroup} from '@angular/forms';
 })
 export class DeleteGroupComponent {
 
-  @Output() onSubmit: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: GroupModalComponent;
+  @Output() showErrorAlert: EventEmitter<any> = new EventEmitter<any>();
+  @Output() deleteGroup: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('modal') modal: ModalWrapperComponent;
 
   groups: StudentGroup[];
 
@@ -28,8 +29,10 @@ export class DeleteGroupComponent {
   submit(): void {
     this.groupService
       .delete(this.groups.map(x => x.id))
-      .then(() => this.onSubmit.emit(null))
-      .then(() => this.modal.hide());
+      .subscribe((deletedGroups: StudentGroup[]) => {
+        this.deleteGroup.emit(deletedGroups);
+        this.modal.hide();
+      })
   }
 
   hideModal(): void {
