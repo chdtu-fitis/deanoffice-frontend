@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { StudentService } from '../../../services/student.service';
-import {academicVacationColumnDefs, academicVacationColumns, defaultColDef, LOCALE_TEXT} from '../constants';
+import {academicVacationColumnDefs, defaultColDef, LOCALE_TEXT} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 
 @Component({
@@ -10,7 +10,6 @@ import { StudentDegree } from '../../../models/StudentDegree';
   styleUrls: ['./students-in-vacation.component.scss'],
 })
 export class StudentsInVacationComponent implements OnInit {
-  columns: string[] = academicVacationColumns;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   loading: boolean;

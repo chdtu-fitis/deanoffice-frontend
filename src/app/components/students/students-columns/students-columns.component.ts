@@ -1,45 +1,44 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap';
 
-import {translations} from '../translations.js';
-import {defaultColumns, allColumns } from '../constants';
-import {IAppModal} from '../../shared/modal.interface';
+import {defaultColumnDefs, allColumnDefs } from '../constants';
 
 @Component({
     selector: 'app-students-columns',
     templateUrl: './students-columns.component.html',
     styleUrls: ['./students-columns.component.scss'],
 })
-export class StudentsColumnsComponent implements OnInit, IAppModal {
-  columns: Object = {};
-  @ViewChild('modal') modal: ModalDirective;
-  @Output() setColumns = new EventEmitter<string[]>();
-  // TODO use ag-grid col def
+export class StudentsColumnsComponent implements OnInit {
+  selectedColumns;
+  allColumnDef;
+  @Output() setColumns = new EventEmitter();
+
+  constructor(public bsModalRef: BsModalRef) { }
+
   ngOnInit() {
-    allColumns.forEach(col => {
-      return this.columns[col] = defaultColumns.find(el => el === col);
-    });
+    this.allColumnDef = allColumnDefs;
   }
 
   applyColumns() {
-    const columns = Object.keys(this.columns).filter(key => this.columns[key]);
-    this.modal.hide();
-    this.setColumns.emit(columns);
+    this.bsModalRef.hide();
+    this.setColumns.emit(this.selectedColumns);
   }
 
   resetColumns() {
-    Object.keys(this.columns).forEach(key => {
-      this.columns[key] = defaultColumns.find(el => el === key)
-    });
-    this.modal.hide();
-    this.setColumns.emit(defaultColumns);
+    this.bsModalRef.hide();
+    this.setColumns.emit(defaultColumnDefs);
+  }
+
+  isChecked(field) {
+    return this.selectedColumns.find(selectedColumn => selectedColumn.field === field);
   }
 
   onChange(col) {
-    this.columns[col] = !this.columns[col];
-  }
-
-  getName(col) {
-    return translations[col] || col;
+    const index = this.selectedColumns.findIndex(selectedColumn => selectedColumn.field === col.field);
+    if (index === -1) {
+      this.selectedColumns.push(col);
+    } else {
+      this.selectedColumns.splice(index, 1);
+    }
   }
 }
