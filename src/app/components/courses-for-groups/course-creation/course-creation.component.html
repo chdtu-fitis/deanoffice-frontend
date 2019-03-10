@@ -3,58 +3,55 @@
     Створити предмет
   </div>
   <div class="creation-form">
-    <form #courseCreationForm="ngForm">
-    <div class="row">
-      <!--TODO put in a separate component-->
-      <!--TODO use ngx-bootstrap-->
-      <div class="form-group col">
-        <input
-          name="courseName"
-          required
-          type="text"
-          class="form-control"
-          [ngbTypeahead]="search"
-          [(ngModel)]="course.courseName"
-          [inputFormatter]="formatter"
-          [resultFormatter]="formatter"
-          (focus)="focus$.next($event.target.value)"
-          (click)="click$.next($event.target.value)"
-          #instance="ngbTypeahead"
-          placeholder="Назва">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="form-group col">
+          <div formGroupName="courseName">
+            <input formControlName="name"
+                   [typeahead]="courseNames"
+                   typeaheadOptionField="name"
+                   (typeaheadOnSelect)="onSelect($event)"
+                   [typeaheadOptionsLimit]="7"
+                   [typeaheadMinLength]="0"
+                   placeholder="Назва"
+                   class="form-control">
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-2">
-        <input pattern="^(?:0|[1-9][0-9]*)$" type="text" min="0" name="hours" maxlength="4" required class="form-control"
-               [(ngModel)]="course.hours" placeholder="Годин">
+      <div class="row">
+        <div class="form-group col-2">
+          <input type="number" required class="form-control"
+                  formControlName="hours" placeholder="Годин">
+        </div>
+        <div class="form-group col-3">
+          <input name="semester" type="number" disabled required class="form-control"
+                 formControlName="semester" placeholder="Семестр">
+        </div>
+        <div class="form-group col-3">
+          <select name="hoursPerCredit" class="form-control" formControlName="hoursPerCredit" title="Кредити">
+            <option [ngValue]="30">30</option>
+            <option [ngValue]="36">36</option>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <select name="kc" required class="form-control"
+                  formControlName="knowledgeControl" title="Контроль">
+            <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
+          </select>
+        </div>
       </div>
-      <div class="form-group col-3">
-        <input name="semester" type="number" disabled required class="form-control"
-               [(ngModel)]="course.semester" placeholder="Семестр">
+      <div class="row">
+        <div class="col-8">
+          <button class="btn btn-success" (click)="createCourse(true)" [disabled]="form.invalid">
+            Створити і додати до групи
+          </button>
+        </div>
+        <div class="col-4">
+          <button class="btn btn-success" (click)="createCourse(false)" [disabled]="form.invalid">
+            Створити
+          </button>
+        </div>
       </div>
-      <div class="form-group col-3">
-        <select name="hoursPerCredit" class="form-control" [(ngModel)]="course.hoursPerCredit" title="Кредити">
-          <option [ngValue]="30">30</option>
-          <option [ngValue]="36">36</option>
-        </select>
-      </div>
-      <div class="form-group col-4">
-        <select name="kc" required class="form-control"
-                [(ngModel)]="course.knowledgeControl" title="Контроль">
-          <option *ngFor="let kc of knowledgeControl" [ngValue]="kc">{{kc.name}}</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <button class="btn btn-success" (click)="createCourse(true)"
-                [disabled]="!(selectedSemester&&courseCreationForm.form.valid)">Створити і додати до групи</button>
-      </div>
-      <div class="col-4">
-        <button class="btn btn-success" (click)="createCourse(false)"
-                [disabled]="!(selectedSemester&&courseCreationForm.form.valid)">Створити</button>
-      </div>
-    </div>
     </form>
   </div>
 </div>

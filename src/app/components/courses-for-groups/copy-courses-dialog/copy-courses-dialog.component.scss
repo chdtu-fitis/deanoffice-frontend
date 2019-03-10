@@ -1,18 +1,14 @@
-ul{
-  margin-top: 10px;
-}
-
-li {
+.cursor-pointer  {
   cursor: pointer;
 }
 
 .form-group {
-  height: 500px;
+  height: 80vh;
   overflow: auto;
 }
 
 ::ng-deep .modal-dialog  {
-  max-width: 95%;
+  max-width: 80%;
 }
 
 ::ng-deep .modal-content {

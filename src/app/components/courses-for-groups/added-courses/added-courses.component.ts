@@ -1,9 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {BsModalService} from 'ngx-bootstrap';
+
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
+import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'added-courses',
@@ -25,7 +26,7 @@ export class AddedCoursesComponent implements OnInit {
   allRowsIsSelected = false;
 
   constructor(private courseForGroupService: CourseForGroupService,
-              private modalService: NgbModal) { }
+              private modalService: BsModalService) { }
 
   ngOnInit() {}
 
@@ -41,31 +42,32 @@ export class AddedCoursesComponent implements OnInit {
     this.allRowsIsSelected = isSelected;
   }
 
-  changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup){
+  changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup) {
     if (!checked) {
-      for (let course of this.coursesForGroupForDelete)
+      for (const course of this.coursesForGroupForDelete) {
         if (course.id === selectedCourse.id) {
           this.coursesForGroupForDelete.splice(this.coursesForGroupForDelete.indexOf(course), 1);
         }
-    }
-    else {
+      }
+    } else {
       this.coursesForGroupForDelete.push(selectedCourse);
     }
     this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);
   }
 
-  changeTeacher(course){
+  changeTeacher(course) {
     this.onTeacherChange.emit(course);
   }
 
-  dateChange(index){
+  dateChange(index) {
     this.onDateChange.emit({index: index});
   }
 
   changeCourse(course) {
-    const modalRef = this.modalService.open(EditDialogComponent, { centered: true, size: "lg" });
-    modalRef.componentInstance.course = JSON.parse(JSON.stringify(course));
-    modalRef.componentInstance.courseFromTable = course;
-    modalRef.componentInstance.selectedGroup = this.selectedGroup;
+    const initialState = {
+      courseFromTable: course,
+      selectedGroup: this.selectedGroup
+    };
+    this.modalService.show(EditDialogComponent, {initialState});
   }
 }

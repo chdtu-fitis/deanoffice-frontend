@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Виберіть групу для копіювання</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -22,8 +22,9 @@
         </div>
       </div>
 
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-action" *ngFor="let group of groups | groupSearch: searchText"
+      <ul class="list-group mt-3">
+        <li class="list-group-item list-group-item-action cursor-pointer"
+            *ngFor="let group of groups | groupSearch: searchText"
             (click)="selectGroup(group)">{{group.name}}
         </li>
       </ul>

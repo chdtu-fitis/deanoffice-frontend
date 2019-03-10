@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
-import {DataForSupplementStudentCheck} from "../../../models/custom/DataForSupplementStudentCheck";
+import {BsModalRef} from 'ngx-bootstrap';
+import {DataForSupplementStudentCheck} from '../../../models/custom/DataForSupplementStudentCheck';
 
 @Component({
   selector: 'students-data-check',
@@ -10,10 +10,6 @@ import {DataForSupplementStudentCheck} from "../../../models/custom/DataForSuppl
 export class StudentsDataCheckComponent {
   studentsCheckData: DataForSupplementStudentCheck[];
 
-  constructor(public activeModal: NgbActiveModal) { }
-
-  closeWindow() {
-    this.activeModal.close('Close click')
-  }
+  constructor(public bsModalRef: BsModalRef) {}
 
 }

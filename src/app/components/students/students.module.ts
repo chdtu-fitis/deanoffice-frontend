@@ -80,7 +80,8 @@ export const studentRoutes: Routes = [
   ],
   entryComponents: [
     GroupFilterComponent,
-    PaymentFilterComponent
+    PaymentFilterComponent,
+    StudentsColumnsComponent
  ],
   imports: [
     CommonModule,

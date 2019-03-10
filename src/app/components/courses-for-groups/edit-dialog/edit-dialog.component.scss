@@ -2,3 +2,7 @@
   padding-right: 7px;
   padding-left: 7px;
 }
+
+::ng-deep .modal-dialog  {
+  max-width: 60%;
+}

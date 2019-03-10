@@ -1,3 +1,7 @@
 .btn-submit {
   width: 100px;
 }
+
+::ng-deep .modal-dialog {
+  max-width: 60%;
+}
