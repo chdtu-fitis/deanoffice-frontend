@@ -34,6 +34,7 @@
           <expelled-students-table
             #expelledStudentsTable
             [rows]="rows"
+            [columnDefs]="columnDefs"
             (selectionChanged)="onSelectionChanged($event)"
             (modelUpdated)="onModelUpdated($event)"
           >

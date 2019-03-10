@@ -17,22 +17,14 @@
         </button>
       </div>
 
-      <ag-grid-angular
-        class="ag-theme-balham students-table"
-        rowSelection="single"
-        enableCellChangeFlash=true
-        [animateRows]="true"
-        [rowData]="rows"
+      <expelled-students-table
+        #studentsInVacationTable
+        [rows]="rows"
         [columnDefs]="columnDefs"
-        [defaultColDef]="defaultColDef"
-        [accentedSort]="true"
-        [localeText]="localeText"
-        [getRowNodeId]="getRowNodeId"
         (selectionChanged)="onSelectionChanged($event)"
         (modelUpdated)="onModelUpdated($event)"
-        (gridReady)="onGridReady($event)"
       >
-      </ag-grid-angular>
+      </expelled-students-table>
 
       <div class="bg-light fixed-bottom p-3">
         Всього: {{count || '0'}}

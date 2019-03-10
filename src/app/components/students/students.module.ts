@@ -36,7 +36,7 @@ import { StudentDegreeInfoModalComponent } from './student-degree-info-modal/stu
 import {StudentAllInfoComponent} from './student-all-info/student-all-info.component';
 import {StudentDegreeHistoryComponent} from './student-degree-history/student-degree-history.component';
 import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component';
-import { ExpelledStudentsTableComponent } from './expelled-students-table/expelled-students-table.component'
+import { StudentsTableComponent } from './students-table/students-table.component'
 
 
 export const studentRoutes: Routes = [
@@ -76,7 +76,7 @@ export const studentRoutes: Routes = [
     GroupFilterComponent,
     PaymentFilterComponent,
     StudentSpecializationTransferComponent,
-    ExpelledStudentsTableComponent
+    StudentsTableComponent
   ],
   entryComponents: [
     GroupFilterComponent,

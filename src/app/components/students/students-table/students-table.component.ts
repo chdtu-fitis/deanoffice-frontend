@@ -1,20 +1,20 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {StudentDegree} from '../../../models/StudentDegree';
-import {defaultColDef, expelledColumnDefs, LOCALE_TEXT} from '../constants';
+import {defaultColDef, LOCALE_TEXT} from '../constants';
 import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
 
 @Component({
   selector: 'expelled-students-table',
-  templateUrl: './expelled-students-table.component.html',
-  styleUrls: ['./expelled-students-table.component.scss']
+  templateUrl: './students-table.component.html',
+  styleUrls: ['./students-table.component.scss']
 })
-export class ExpelledStudentsTableComponent {
+export class StudentsTableComponent {
   @Input() rows: StudentDegree[] = [];
+  @Input() columnDefs;
   @Output() selectionChanged = new EventEmitter();
   @Output() modelUpdated = new EventEmitter();
   private gridApi;
   private gridColumnApi;
-  columnDefs = expelledColumnDefs;
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
   frameworkComponents;

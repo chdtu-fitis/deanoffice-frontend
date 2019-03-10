@@ -9,7 +9,8 @@ import {AcademicCertificateService} from '../../../services/academic-certificate
 import {StudentAllInfoComponent} from '../student-all-info/student-all-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
-import {ExpelledStudentsTableComponent} from '../expelled-students-table/expelled-students-table.component';
+import {StudentsTableComponent} from '../students-table/students-table.component';
+import {expelledColumnDefs} from '../constants';
 
 @Component({
   selector: 'app-expelled-students',
@@ -18,6 +19,7 @@ import {ExpelledStudentsTableComponent} from '../expelled-students-table/expelle
 })
 export class ExpelledStudentsComponent implements OnInit {
   rows: StudentDegree[] = [];
+  columnDefs = expelledColumnDefs;
   rowsAll: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   selectedAll: StudentDegree[] = [];
@@ -26,8 +28,8 @@ export class ExpelledStudentsComponent implements OnInit {
   count;
   countAll;
   @ViewChild('studentAllInfo') studentAllInfo: StudentAllInfoComponent;
-  @ViewChild('expelledStudentsTable') expelledStudentsTable: ExpelledStudentsTableComponent;
-  @ViewChild('allExpelledStudentsTable') allExpelledStudentsTable: ExpelledStudentsTableComponent;
+  @ViewChild('expelledStudentsTable') expelledStudentsTable: StudentsTableComponent;
+  @ViewChild('allExpelledStudentsTable') allExpelledStudentsTable: StudentsTableComponent;
 
   constructor(private studentService: StudentService,
               private academicCertificateService: AcademicCertificateService,
