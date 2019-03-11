@@ -3,14 +3,14 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common'
 
 import {StudentService} from '../../../services/student.service';
-import {defaultColDef, expelledColumnDefs, LOCALE_TEXT} from '../constants';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {AcademicCertificateService} from '../../../services/academic-certificate.service';
 
 import {StudentAllInfoComponent} from '../student-all-info/student-all-info.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
-import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
+import {StudentsTableComponent} from '../students-table/students-table.component';
+import {expelledColumnDefs} from '../constants';
 
 @Component({
   selector: 'app-expelled-students',
@@ -19,33 +19,22 @@ import {PaymentFilterComponent} from '../payment-filter/payment-filter.component
 })
 export class ExpelledStudentsComponent implements OnInit {
   rows: StudentDegree[] = [];
+  columnDefs = expelledColumnDefs;
   rowsAll: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   selectedAll: StudentDegree[] = [];
-  loading: boolean;
   academicCertificateLoading: boolean;
   searchForm: FormGroup;
-  // TODO: create reusable component
-  private gridApi;
-  private gridColumnApi;
-  private gridApiAll;
-  private gridColumnApiAll;
-  columnDefs = expelledColumnDefs;
-  defaultColDef = defaultColDef;
-  localeText = LOCALE_TEXT;
   count;
+  countAll;
   @ViewChild('studentAllInfo') studentAllInfo: StudentAllInfoComponent;
-  frameworkComponents;
-  getRowNodeId = (data) => data.id;
+  @ViewChild('expelledStudentsTable') expelledStudentsTable: StudentsTableComponent;
+  @ViewChild('allExpelledStudentsTable') allExpelledStudentsTable: StudentsTableComponent;
 
   constructor(private studentService: StudentService,
               private academicCertificateService: AcademicCertificateService,
               private fb: FormBuilder,
-              private groupService: GroupService) {
-    this.frameworkComponents = {
-      paymentFilter: PaymentFilterComponent
-    };
-  }
+              private groupService: GroupService) {}
 
   ngOnInit() {
     this.studentService.getExpelledStudents().subscribe((students: StudentDegree[]) => {
@@ -65,43 +54,32 @@ export class ExpelledStudentsComponent implements OnInit {
     return new DatePipe('en-US').transform(date, 'y-MM-dd')
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    this.gridApi.sizeColumnsToFit();
+  onSelectionChanged(selected) {
+    this.selected = selected;
   }
 
-  onSelectionChanged() {
-    this.selected = this.gridApi.getSelectedRows();
+  onAllSelectionChanged(selectedAll) {
+    this.selectedAll = selectedAll;
   }
 
-  onModelUpdated(params) {
-    this.count = params.api.getDisplayedRowCount();
+  onItemsCountUpdate(count) {
+    this.count = count;
   }
 
-  // TODO create reusable component
-  onAllGridReady(params) {
-    this.gridApiAll = params.api;
-    this.gridColumnApiAll = params.columnApi;
-    this.gridApi.sizeColumnsToFit();
-  }
-
-  onAllSelectionChanged() {
-    this.selectedAll = this.gridApiAll.getSelectedRows();
+  onAllItemsCountUpdate(count) {
+    this.countAll = count;
   }
 
   onRenew() {
-    this.gridApi.updateRowData({ remove: this.selected });
+    this.expelledStudentsTable.onRenew(this.selected);
   }
 
   onRenewAll() {
-    this.gridApiAll.updateRowData({ remove: this.selectedAll });
+    this.allExpelledStudentsTable.onRenew(this.selectedAll);
   }
 
   onSelect(index) {
-    this.gridApi.ensureIndexVisible(index, 'top');
-    const node = this.gridApi.getRowNode(this.rows[index].id);
-    node.setSelected(true, true);
+    this.expelledStudentsTable.showByIndex(index);
   }
 
   onFormAcademicCertificate() {

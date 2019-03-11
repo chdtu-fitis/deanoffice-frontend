@@ -1,0 +1,17 @@
+<ag-grid-angular
+  class="ag-theme-balham students-table"
+  rowSelection="single"
+  enableCellChangeFlash=true
+  [animateRows]="true"
+  [rowData]="rows"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [accentedSort]="true"
+  [localeText]="localeText"
+  [getRowNodeId]="getRowNodeId"
+  [frameworkComponents]="frameworkComponents"
+  (selectionChanged)="onSelectionChanged($event)"
+  (modelUpdated)="onModelUpdated($event)"
+  (gridReady)="onGridReady($event)"
+>
+</ag-grid-angular>
