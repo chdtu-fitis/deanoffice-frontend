@@ -273,7 +273,7 @@ export class CoursesForGroupsComponent implements OnInit {
       },
       error => {
         if (error.status === 422) {
-          this.showErrorAlert('Предмет вже існує або дані введені невірно!');
+          this.showErrorAlert(error.error);
         } else {
           this.showErrorAlert('Невідома помилка при сбереженні');
         }
