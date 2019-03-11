@@ -14,7 +14,7 @@ export class StudentsTableComponent {
   @Input() rows: StudentDegree[] = [];
   @Input() columnDefs;
   @Output() selectionChanged = new EventEmitter();
-  @Output() modelUpdated = new EventEmitter();
+  @Output() itemsCountUpdate = new EventEmitter();
   private gridApi;
   private gridColumnApi;
   defaultColDef = defaultColDef;
@@ -41,7 +41,7 @@ export class StudentsTableComponent {
 
   onModelUpdated(params: ModelUpdatedEvent) {
     const count = params.api.getDisplayedRowCount();
-    this.modelUpdated.emit(count);
+    this.itemsCountUpdate.emit(count);
   }
 
   onRenew(forRenew: StudentDegree[]) {

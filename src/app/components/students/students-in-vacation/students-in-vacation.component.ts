@@ -30,7 +30,7 @@ export class StudentsInVacationComponent implements OnInit {
     this.selected = selected;
   }
 
-  onModelUpdated(count) {
+  onItemsCountUpdate(count) {
     this.count = count;
   }
 

@@ -36,7 +36,7 @@
             [rows]="rows"
             [columnDefs]="columnDefs"
             (selectionChanged)="onSelectionChanged($event)"
-            (modelUpdated)="onModelUpdated($event)"
+            (itemsCountUpdate)="onItemsCountUpdate($event)"
           >
           </students-table>
 
@@ -92,8 +92,9 @@
           <students-table
             #allExpelledStudentsTable
             [rows]="rowsAll"
+            [columnDefs]="columnDefs"
             (selectionChanged)="onAllSelectionChanged($event)"
-            (modelUpdated)="onAllModelUpdated($event)"
+            (itemsCountUpdate)="onAllItemsCountUpdate($event)"
           >
           </students-table>
 

@@ -62,11 +62,11 @@ export class ExpelledStudentsComponent implements OnInit {
     this.selectedAll = selectedAll;
   }
 
-  onModelUpdated(count) {
+  onItemsCountUpdate(count) {
     this.count = count;
   }
 
-  onAllModelUpdated(count) {
+  onAllItemsCountUpdate(count) {
     this.countAll = count;
   }
 
