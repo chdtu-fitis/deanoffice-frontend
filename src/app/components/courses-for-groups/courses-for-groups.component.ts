@@ -275,7 +275,7 @@ export class CoursesForGroupsComponent implements OnInit {
         if (error.status === 422) {
           this.showErrorAlert(error.error);
         } else {
-          this.showErrorAlert('Невідома помилка при сбереженні');
+          this.showErrorAlert('Невідома помилка при збереженні');
         }
       });
     this.changesExistence = false;
