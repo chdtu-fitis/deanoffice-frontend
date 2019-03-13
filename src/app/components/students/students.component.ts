@@ -9,6 +9,7 @@ import {GroupFilterComponent} from './group-filter/group-filter.component';
 import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
 import {BsModalService} from 'ngx-bootstrap';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
+import {CurrentUserService} from '../../services/auth/current-user.service';
 
 @Component({
   selector: 'app-students',
@@ -20,6 +21,8 @@ export class StudentsComponent implements OnInit {
   groups: StudentGroup[] = [];
   selected: StudentDegree[] = [];
   isAllDataLoaded: boolean;
+  userFacultyId: number;
+
   count;
   oldSelectedIds = [];
   columnDefs = defaultColumnDefs;
@@ -32,8 +35,11 @@ export class StudentsComponent implements OnInit {
   frameworkComponents;
   getRowNodeId = (data) => data.id;
 
-  constructor(private studentService: StudentService, private groupService: GroupService,
-              private modalService: BsModalService) {
+  constructor(private studentService: StudentService,
+              private groupService: GroupService,
+              private modalService: BsModalService,
+              private currentUserService: CurrentUserService) {
+    this.userFacultyId = currentUserService.facultyId();
     this.frameworkComponents = {
       groupFilter: GroupFilterComponent,
       paymentFilter: PaymentFilterComponent
@@ -152,9 +158,13 @@ export class StudentsComponent implements OnInit {
   }
 
   onTransfer(transferData) {
-    const rowNode = this.gridApi.getRowNode(this.selected[0].id);
-    rowNode.setDataValue('payment', transferData.newPayment);
-    rowNode.setDataValue('studentGroup.name', transferData.group.name);
-    rowNode.setDataValue('specialization.speciality.code', transferData.specialityCode);
+    if (this.userFacultyId === transferData.specialization.facultyId) {
+      const rowNode = this.gridApi.getRowNode(this.selected[0].id);
+      rowNode.setDataValue('payment', transferData.newPayment);
+      rowNode.setDataValue('studentGroup.name', transferData.group.name);
+      rowNode.setDataValue('specialization.speciality.code', transferData.specialization.speciality.code);
+  } else {
+      this.gridApi.updateRowData({ remove: this.selected });
+    }
   }
 }

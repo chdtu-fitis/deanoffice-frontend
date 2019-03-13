@@ -13,12 +13,14 @@ import {FileService} from './file-service';
 import {DegreeService} from './degree.service';
 
 import {DashboardGuard, LoginGuard} from './auth/auth.guard';
-import {PersonalFileGradesStatementService} from "./personal-file-grades-statement.service";
-import {AcademicCertificateService} from "./academic-certificate.service";
-import {EdeboService} from "./edebo.service";
+import {PersonalFileGradesStatementService} from './personal-file-grades-statement.service';
+import {AcademicCertificateService} from './academic-certificate.service';
+import {EdeboService} from './edebo.service';
 import {CurrentUserService} from './auth/current-user.service';
 import {ThesisInputService} from './thesis-input.service';
-import {StudentStipendService} from "./student-stipend.service";
+import {StudentStipendService} from './student-stipend.service';
+import {FacultyService} from './faculty.service';
+import {DebtorStatisticsService} from './debtor-statistics.service';
 
 export const SERVICES = [
   DegreeService,
@@ -40,7 +42,9 @@ export const SERVICES = [
   AuthenticationService,
   CurrentUserService,
   ThesisInputService,
-  StudentStipendService
+  StudentStipendService,
+  FacultyService,
+  DebtorStatisticsService
 ];
 
 export const GUARDS = [
