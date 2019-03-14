@@ -82,20 +82,10 @@ export class ExpelledStudentsComponent implements OnInit {
     this.expelledStudentsTable.showByIndex(index);
   }
 
-  onFormAcademicCertificate() {
-    if (this.selected[0]) {
+  onFormAcademicCertificate(selected: StudentDegree) {
+    if (selected) {
       this.academicCertificateLoading = true;
-      this.academicCertificateService.buildAcademicCertificate(this.selected[0].id).subscribe(() => {
-          this.academicCertificateLoading = false;
-        }
-      );
-    }
-  }
-
-  onFormAcademicCertificateAll() {
-    if (this.selectedAll[0]) {
-      this.academicCertificateLoading = true;
-      this.academicCertificateService.buildAcademicCertificate(this.selectedAll[0].id).subscribe(() => {
+      this.academicCertificateService.buildAcademicCertificate(selected.id).subscribe(() => {
           this.academicCertificateLoading = false;
         }
       );

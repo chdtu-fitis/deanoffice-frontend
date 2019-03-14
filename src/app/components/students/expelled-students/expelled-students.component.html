@@ -22,7 +22,7 @@
             <button
               *ngIf="selected.length === 1"
               class="btn btn-warning ml-3 mr-2"
-              (click)="onFormAcademicCertificate()"
+              (click)="onFormAcademicCertificate(selected[0])"
             >
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                     *ngIf="academicCertificateLoading">
@@ -90,7 +90,7 @@
             <button
               *ngIf="selectedAll.length === 1"
               class="btn btn-warning"
-              (click)="onFormAcademicCertificateAll()"
+              (click)="onFormAcademicCertificate(selectedAll[0])"
             >
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                     *ngIf="academicCertificateLoading">
