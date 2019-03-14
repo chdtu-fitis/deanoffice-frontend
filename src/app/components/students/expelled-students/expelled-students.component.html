@@ -83,9 +83,19 @@
             </button>
             <button
               *ngIf="selectedAll.length === 1"
-              class="btn btn-info"
+              class="btn btn-info mr-2"
               (click)="studentAllInfo.openModal(selectedAll[0].studentDegree)">
-              Інформація про студента
+              Інфо про студента
+            </button>
+            <button
+              *ngIf="selectedAll.length === 1"
+              class="btn btn-warning"
+              (click)="onFormAcademicCertificateAll()"
+            >
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                    *ngIf="academicCertificateLoading">
+              </span>
+              Сформувати академдовідку
             </button>
           </div>
 

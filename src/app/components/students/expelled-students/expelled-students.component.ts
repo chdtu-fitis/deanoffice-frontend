@@ -92,6 +92,16 @@ export class ExpelledStudentsComponent implements OnInit {
     }
   }
 
+  onFormAcademicCertificateAll() {
+    if (this.selectedAll[0]) {
+      this.academicCertificateLoading = true;
+      this.academicCertificateService.buildAcademicCertificate(this.selectedAll[0].id).subscribe(() => {
+          this.academicCertificateLoading = false;
+        }
+      );
+    }
+  }
+
   onAllTabSelect() {
     this.groupService.getGroups(false).subscribe((groups: StudentGroup[]) => {
       this.studentAllInfo.groups = groups;
