@@ -137,7 +137,7 @@ export class StudentsComponent implements OnInit {
   prependStudent(student) {
     this.oldSelectedIds = this.selected.map(a => (a.id));
     this.oldSelectedIds.push(student.id);
-    this.gridApi.updateRowData({ add: [student] });
+    this.gridApi.updateRowData({ add: [student], addIndex: 0});
   };
 
 
