@@ -2,4 +2,6 @@ import {NameWithEngAndActiveEntity} from './basemodels/NameWithEngAndActiveEntit
 
 export class Faculty extends NameWithEngAndActiveEntity {
   abbr: string;
+  dean?: string;
+  deanEng: string;
 }

@@ -22,7 +22,7 @@
             <button
               *ngIf="selected.length === 1"
               class="btn btn-warning ml-3 mr-2"
-              (click)="onFormAcademicCertificate()"
+              (click)="onFormAcademicCertificate(selected[0])"
             >
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                     *ngIf="academicCertificateLoading">
@@ -31,23 +31,14 @@
             </button>
           </div>
 
-          <ag-grid-angular
-            class="ag-theme-balham students-table"
-            rowSelection="single"
-            enableCellChangeFlash=true
-            [animateRows]="true"
-            [rowData]="rows"
+          <students-table
+            #expelledStudentsTable
+            [rows]="rows"
             [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [accentedSort]="true"
-            [localeText]="localeText"
-            [getRowNodeId]="getRowNodeId"
-            [frameworkComponents]="frameworkComponents"
             (selectionChanged)="onSelectionChanged($event)"
-            (modelUpdated)="onModelUpdated($event)"
-            (gridReady)="onGridReady($event)"
+            (itemsCountUpdate)="onItemsCountUpdate($event)"
           >
-          </ag-grid-angular>
+          </students-table>
 
           <div class="bg-light fixed-bottom p-2">
             Всього: {{count || '0'}}
@@ -92,31 +83,33 @@
             </button>
             <button
               *ngIf="selectedAll.length === 1"
-              class="btn btn-info"
+              class="btn btn-info mr-2"
               (click)="studentAllInfo.openModal(selectedAll[0].studentDegree)">
-              Інформація про студента
+              Інфо про студента
+            </button>
+            <button
+              *ngIf="selectedAll.length === 1"
+              class="btn btn-warning"
+              (click)="onFormAcademicCertificate(selectedAll[0])"
+            >
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                    *ngIf="academicCertificateLoading">
+              </span>
+              Сформувати академдовідку
             </button>
           </div>
 
-          <ag-grid-angular
-            class="ag-theme-balham students-table"
-            rowSelection="single"
-            enableCellChangeFlash=true
-            [animateRows]="true"
-            [rowData]="rowsAll"
+          <students-table
+            #allExpelledStudentsTable
+            [rows]="rowsAll"
             [columnDefs]="columnDefs"
-            [defaultColDef]="defaultColDef"
-            [accentedSort]="true"
-            [localeText]="localeText"
-            [getRowNodeId]="getRowNodeId"
-            [frameworkComponents]="frameworkComponents"
             (selectionChanged)="onAllSelectionChanged($event)"
-            (gridReady)="onAllGridReady($event)"
+            (itemsCountUpdate)="onAllItemsCountUpdate($event)"
           >
-          </ag-grid-angular>
+          </students-table>
 
           <div class="bg-light fixed-bottom p-2">
-            Всього: {{rowsAll.length || '0'}}
+            Всього: {{countAll || '0'}}
           </div>
         </tab>
       </tabset>

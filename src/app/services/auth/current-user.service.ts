@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class CurrentUserService {
 
-  facultyId() {
+  facultyId(): number {
     return this.getUser().facultyId
   }
 

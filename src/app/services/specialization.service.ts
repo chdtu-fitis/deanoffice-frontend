@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Specialization} from '../models/Specialization';
 import {catchError} from 'rxjs/operators';
 import {forObservable, forPromise} from '../components/shared/httpErrors';
+import {CurrentUserService} from './auth/current-user.service';
 
 const API_URL: string = environment.apiUrl;
 export const SPECIALIZATION_URL: string = API_URL + '/specializations';
 
 @Injectable()
 export class SpecializationService {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient,
+              private currentUserService: CurrentUserService) {}
 
-  public getSpecializations(actual: boolean = true): Observable<Specialization[]> {
-    const params = new HttpParams().set('active', actual.toString());
-    return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params: params})
+  public getSpecializations(
+    actual: boolean = true,
+    facultyId: string = this.currentUserService.facultyId().toString()): Observable<Specialization[]> {
+    const params = {actual: actual.toString(), facultyId};
+    return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
 

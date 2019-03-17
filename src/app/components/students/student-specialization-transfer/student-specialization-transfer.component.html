@@ -20,6 +20,18 @@
         </ng-container>
         <hr>
 
+        <div class="form-row justify-content-between">
+          <div class="form-group col-md-9 required">
+            <label for="specialization">Факультет</label>
+            <select [(ngModel)]="facultyId" class="form-control" id="faculty"
+                    (change)="getSpecializationsByFaculty(facultyId)">
+              <option *ngFor="let faculty of faculties" value="{{faculty.id}}">
+                {{faculty.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+
         <form [formGroup]="form">
           <div class="form-row justify-content-between">
             <div class="form-group col-md-9 required">

@@ -9,6 +9,9 @@ import {GroupService} from '../../../services/group.service';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {Payment} from '../../../models/payment.enum';
 import {StudentService} from '../../../services/student.service';
+import {FacultyService} from '../../../services/faculty.service';
+import {Faculty} from '../../../models/Faculty';
+import {CurrentUserService} from '../../../services/auth/current-user.service';
 
 @Component({
   selector: 'student-specialization-transfer',
@@ -21,6 +24,9 @@ export class StudentSpecializationTransferComponent {
   studentDegree: StudentDegree;
   specializations: Specialization[];
   groups: StudentGroup[] = [];
+  faculties: Faculty[];
+  facultyId: string;
+  userFacultyId: number;
   paymentType = Payment;
   paymentKey: Array<string>;
   @ViewChild('modal') modal: ModalDirective;
@@ -30,8 +36,11 @@ export class StudentSpecializationTransferComponent {
     private specializationService: SpecializationService,
     private studentService: StudentService,
     private groupService: GroupService,
+    private facultyService: FacultyService,
+    private currentUserService: CurrentUserService,
     private fb: FormBuilder
   ) {
+    this.userFacultyId = currentUserService.facultyId();
     this.paymentKey = Object.keys(Payment);
     this.years = [1, 2, 3, 4, 5, 6];
     this.form = this.fb.group({
@@ -50,9 +59,11 @@ export class StudentSpecializationTransferComponent {
 
   openModal(student) {
     this.studentDegree = student;
-    this.specializationService.getSpecializations(true).subscribe((specializations: Specialization[]) =>
-      this.specializations = specializations
+    this.facultyService.getFaculties().subscribe((faculties: Faculty[]) =>
+      this.faculties = faculties
     );
+    this.facultyId = this.userFacultyId.toString();
+    this.getSpecializationsByFaculty(this.facultyId);
     this.form.controls.studentDegreeId.setValue(this.studentDegree.id);
     this.modal.show();
   }
@@ -66,15 +77,23 @@ export class StudentSpecializationTransferComponent {
       const specialization = this.specializations.find(
         specialization => specialization.id === Number(this.form.controls.newSpecializationId.value));
       const group = this.groups.find(group => group.id === Number(this.form.controls.newStudentGroupId.value));
-      const transferData = {group, specialityCode: specialization.speciality.code, ...this.form.value};
+      const transferData = {group, specialization, ...this.form.value};
       this.onSubmit.emit(transferData);
       this.hideModal();
     });
   }
 
+  getSpecializationsByFaculty(facultyId) {
+    this.specializationService.getSpecializations(true, facultyId)
+      .subscribe((specializations: Specialization[]) =>
+        this.specializations = specializations
+    );
+  }
+
   onSpecializationChange(event) {
-    this.groupService.getGroupsBySpecialization(event.target.value).subscribe((groups: StudentGroup[]) => {
-      this.groups = groups;
+    this.groupService.getGroupsBySpecialization(event.target.value)
+      .subscribe((groups: StudentGroup[]) => {
+        this.groups = groups;
     });
   }
 }
