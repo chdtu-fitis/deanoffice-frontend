@@ -69,7 +69,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   onSelect(event: TypeaheadMatch): void {
-    this.course.controls.courseName.setValue(event.item);
+    this.courseName.setValue(event.item);
   }
 
   checkCourseName(courseName) {
@@ -92,7 +92,7 @@ export class EditDialogComponent implements OnInit {
   }
 
   setCredits() {
-    const credits = this.form.controls.hours.value / this.form.controls.hoursPerCredit.value;
+    const credits = this.course.controls.hours.value / this.course.controls.hoursPerCredit.value;
     this.course.controls.credits.setValue(credits);
   }
 
