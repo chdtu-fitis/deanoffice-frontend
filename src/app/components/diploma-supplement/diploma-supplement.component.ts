@@ -27,6 +27,7 @@ export class DiplomaSupplementComponent implements OnInit {
   gradesTableReportLoading = false;
   coursesTableReportLoading = false;
   studentDataCheckLoading = false;
+  studentGradesCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
@@ -107,7 +108,19 @@ export class DiplomaSupplementComponent implements OnInit {
     this.studentDataCheckLoading = true;
     this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(studentsCheckData => {
         this.studentDataCheckLoading = false;
-        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData}});
+        const header = 'Перевірка даних студента для додатку до диплому';
+        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
+      }
+    );
+  }
+
+  onStudentGradesCheck(): void {
+    this.message = '';
+    this.studentGradesCheckLoading = true;
+    this.diplomaSupplementService.checkStudentsGrades('1').subscribe(studentsCheckData => {
+        this.studentGradesCheckLoading = false;
+        const header = 'Перевірка оцінок для додатку до диплому';
+        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
       }
     );
   }
