@@ -117,7 +117,7 @@ export class DiplomaSupplementComponent implements OnInit {
   onStudentGradesCheck(): void {
     this.message = '';
     this.studentGradesCheckLoading = true;
-    this.diplomaSupplementService.checkStudentsGrades('1').subscribe(studentsCheckData => {
+    this.diplomaSupplementService.checkStudentsGrades(this.currentDegreeId).subscribe(studentsCheckData => {
         this.studentGradesCheckLoading = false;
         const header = 'Перевірка оцінок для додатку до диплому';
         this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
