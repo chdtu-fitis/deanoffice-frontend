@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ header }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div *ngIf="coursesTranslationCheckData.length == 0; else  createTable">
+  <h3 class="pl-3"> Дані всіх випускників заповнені </h3>
+</div>
+
+<ng-template #createTable>
+  <div class="list-group">
+    <table class="table table-striped table-sm fs-13">
+      <tr>
+        <th class="pl-3">№</th>
+        <th>Предмет</th>
+        <th class="pr-3">Використовується групами</th>
+      </tr>
+      <tr *ngFor="let courseData of coursesTranslationCheckData; let i = index">
+        <td class="pl-3">{{ i+1 }}</td>
+        <td>{{courseData.name}}</td>
+        <td class="pr-3">{{ courseData.message }}</td>
+      </tr>
+    </table>
+  </div>
+</ng-template>
+
+<footer class="modal-footer">
+  <button type="button" class="btn btn-outline-success" style="margin-left: auto" (click)="bsModalRef.hide()">Ок</button>
+</footer>
+

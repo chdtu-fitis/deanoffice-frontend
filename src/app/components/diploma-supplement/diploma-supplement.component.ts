@@ -8,6 +8,7 @@ import {StudentGroup} from '../../models/StudentGroup';
 import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
 import {StudentsDataCheckComponent} from './students-data-check/students-data-check.component';
+import {CoursesTranslationCheckComponent} from './courses-translation-check/courses-translation-check.component';
 
 @Component({
   selector: 'diploma-supplement',
@@ -28,6 +29,7 @@ export class DiplomaSupplementComponent implements OnInit {
   coursesTableReportLoading = false;
   studentDataCheckLoading = false;
   studentGradesCheckLoading = false;
+  coursesTranslationCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
@@ -121,6 +123,17 @@ export class DiplomaSupplementComponent implements OnInit {
         this.studentGradesCheckLoading = false;
         const header = 'Перевірка оцінок для додатку до диплому';
         this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
+      }
+    );
+  }
+
+  onCoursesTranslationCheck(): void {
+    this.message = '';
+    this.coursesTranslationCheckLoading = true;
+    this.diplomaSupplementService.checkCoursesTranslation(this.currentDegreeId).subscribe(coursesTranslationCheckData => {
+        this.coursesTranslationCheckLoading = false;
+        const header = 'Перевірка перекладів дисциплін для додатку до диплому';
+        this.modalService.show(CoursesTranslationCheckComponent, {initialState: {coursesTranslationCheckData, header}});
       }
     );
   }
