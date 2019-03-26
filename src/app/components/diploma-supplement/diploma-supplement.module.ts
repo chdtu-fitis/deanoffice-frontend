@@ -19,6 +19,6 @@ const diplomaSupplementRoutes: Routes = [
     RouterModule.forChild(diplomaSupplementRoutes)
   ],
   declarations: [DiplomaSupplementComponent, StudentsDataCheckComponent, CoursesTranslationCheckComponent],
-  entryComponents: [StudentsDataCheckComponent]
+  entryComponents: [StudentsDataCheckComponent, CoursesTranslationCheckComponent]
 })
 export class DiplomaSupplementModule { }
