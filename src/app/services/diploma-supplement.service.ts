@@ -44,4 +44,8 @@ export class DiplomaSupplementService {
     return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
   }
 
+  checkCoursesTranslation(degreeId: string): Observable<DataForSupplementStudentCheck[]> {
+    const url = `${this.documentsUrl}/supplements/check-courses-translation`;
+    return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
+  }
 }
