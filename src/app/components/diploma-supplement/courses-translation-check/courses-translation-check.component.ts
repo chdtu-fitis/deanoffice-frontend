@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {DataForSupplementStudentCheck} from '../../../models/custom/DataForSupplementStudentCheck';
+import { Component } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
+import {DataForSupplementCourseTranslationCheck} from '../../../models/custom/DataForSupplementCourseTranslationCheck';
 
 @Component({
   selector: 'courses-translation-check',
@@ -8,7 +8,7 @@ import {BsModalRef} from 'ngx-bootstrap';
   styleUrls: ['./courses-translation-check.component.scss']
 })
 export class CoursesTranslationCheckComponent {
-  coursesTranslationCheckData: DataForSupplementStudentCheck[];
+  coursesTranslationCheckData: DataForSupplementCourseTranslationCheck[];
   header: String;
   constructor(public bsModalRef: BsModalRef) {}
 }
