@@ -21,8 +21,8 @@
         </div>
         <div class="hours-per-credit label">Годин за кредит:</div>
         <div class="col-1">
-        <select name="hoursPerCredit" id="hoursPerCredit" class="form-control mr-2 ng-pristine ng-valid ng-touched"
-                [(ngModel)]="selectedHoursPerCredit" (change)="setCredits()">
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="selectedHoursPerCredit" (change)="onChangeHoursPerCredit()" [disabled]="hoursPerCreditCBDisabled">
           <option [ngValue]="30">30</option>
           <option [ngValue]="36">36</option>
         </select>

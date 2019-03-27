@@ -30,6 +30,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   selectedHoursPerCredit: number;
+  hoursPerCreditCBDisabled: boolean = true;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -93,19 +94,33 @@ export class CoursesForGroupsComponent implements OnInit {
     if (this.selectedSemester) {
       this.onSemesterChange();
     }
+    this.hoursPerCreditCBDisabled = false;
   }
 
   onSemesterChange() {
     this.studiedCoursesLoading = true;
     if (this.selectedSemester) {
-      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
       })
     }
     this.getCoursesForGroup();
     this.courseCreationChild.form.controls.semester.setValue(this.selectedSemester);
+  }
 
+  onChangeHoursPerCredit() {
+    this.studiedCoursesLoading = true;
+    if (this.selectedSemester) {
+      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
+        this.courses = cfg;
+        this.studiedCoursesLoading = false;
+      })
+    }
+  }
+
+  isDisabled() {
+    return this.hoursPerCreditCBDisabled;
   }
 
   changeCoursesForGroup(event) {
