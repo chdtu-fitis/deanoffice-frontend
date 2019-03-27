@@ -19,6 +19,14 @@
             <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
           </select>
         </div>
+        <div class="col-2">Годин за кредит:</div>
+        <div class="col-1">
+        <select name="hoursPerCredit" id="hoursPerCredit" class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                formControlName="hoursPerCredit" (change)="setCredits()">
+          <option [ngValue]="30">30</option>
+          <option [ngValue]="36">36</option>
+        </select>
+      </div>
         <div class="col-5">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
                  class="form-control mr-2 ng-pristine ng-valid ng-touched search">
