@@ -29,6 +29,7 @@ export class CoursesForGroupsComponent implements OnInit {
   groupsForCopy: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
+  selectedHoursPerCredit: number;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -60,6 +61,7 @@ export class CoursesForGroupsComponent implements OnInit {
               private modalService: BsModalService) {}
 
   ngOnInit() {
+    this.selectedHoursPerCredit = 30;
     this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
