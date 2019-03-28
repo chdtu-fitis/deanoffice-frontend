@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Degree} from '../../models/Degree';
 import {StudentGroup} from '../../models/StudentGroup';
@@ -26,6 +26,7 @@ export class AdditionalDocumentsComponent implements OnInit {
   selectedSemester: number;
 
   examReportJournalTableLoading = false;
+  gradesJournalStudentsDocumentLoading = false;
   gradesJournalStudentsTableLoading = false;
   gradesJournalCoursesTableLoadingPdf = false;
   gradesJournalCoursesTableLoadingDocx = false;
@@ -38,7 +39,8 @@ export class AdditionalDocumentsComponent implements OnInit {
   constructor(private groupService: GroupService,
               private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService,
-              private examReportService: ExamReportService) {}
+              private examReportService: ExamReportService) {
+  }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -87,7 +89,7 @@ export class AdditionalDocumentsComponent implements OnInit {
     this.examReportJournalTableLoading = true;
     this.examReportService.buildExamReportJournalDoc(this.selectedYear, this.currentDegree.id,
       (this.selectedYear - 1) * 2 + this.selectedSemester).subscribe(() => {
-        this.examReportJournalTableLoading = false;
+      this.examReportJournalTableLoading = false;
     });
   }
 
@@ -103,6 +105,18 @@ export class AdditionalDocumentsComponent implements OnInit {
     this.examReportService.buildGradesJournalCoursesPdf(this.selectedYear, this.currentDegree.id).subscribe(() => {
       this.gradesJournalCoursesTableLoadingPdf = false;
     });
+  }
+
+  onGradesJournalStudentsDocument() {
+
+    this.gradesJournalStudentsDocumentLoading = true;
+    this.examReportService.buildFormRatingGradeJornalDocx(this.selectedYear,
+      this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm).subscribe(() => {
+      console.log(this.selectedYear, this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm);
+      this.gradesJournalStudentsDocumentLoading = false
+    }
+  )
+    ;
   }
 
   onGradesJournalCoursesListBuildDocx() {
