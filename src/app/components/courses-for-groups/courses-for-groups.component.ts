@@ -315,7 +315,7 @@ export class CoursesForGroupsComponent implements OnInit {
   onCourseCreation() {
     if (this.selectedSemester) {
       this.studiedCoursesLoading = true;
-      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
       })
