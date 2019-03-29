@@ -108,15 +108,11 @@ export class AdditionalDocumentsComponent implements OnInit {
   }
 
   onGradesJournalStudentsDocument() {
-
     this.gradesJournalStudentsDocumentLoading = true;
     this.examReportService.buildFormRatingGradeJornalDocx(this.selectedYear,
       this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm).subscribe(() => {
-      console.log(this.selectedYear, this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm);
       this.gradesJournalStudentsDocumentLoading = false
-    }
-  )
-    ;
+    });
   }
 
   onGradesJournalCoursesListBuildDocx() {
