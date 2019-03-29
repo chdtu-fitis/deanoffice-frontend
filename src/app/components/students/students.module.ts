@@ -37,6 +37,7 @@ import {StudentAllInfoComponent} from './student-all-info/student-all-info.compo
 import {StudentDegreeHistoryComponent} from './student-degree-history/student-degree-history.component';
 import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component';
 import { StudentsTableComponent } from './students-table/students-table.component'
+import {EdeboDiplomaNumberComponent} from './edebo-diploma-number/edebo-diploma-number.component';
 
 
 export const studentRoutes: Routes = [
@@ -48,6 +49,7 @@ export const studentRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    EdeboDiplomaNumberComponent,
     StudentsComponent,
     StudentsColumnsComponent,
     AddStudentComponent,
