@@ -274,7 +274,7 @@ export class CoursesForGroupsComponent implements OnInit {
       updatedCourses.push({
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher.id},
+        teacher: {id: updateCourse.teacher? updateCourse.teacher.id : 0},
         examDate: updateCourse.examDate
       })
     }
