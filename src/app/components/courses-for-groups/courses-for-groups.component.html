@@ -4,22 +4,30 @@
   </div>
   <div *ngIf="showPage" class="selection row">
     <div class="col-7">
-      <div class="row">
-        <div class="col-1 col-name">Група:</div>
-        <div class="col-3">
+      <div class="row bottom-row">
+        <div class="col-1 group-label ">Група:</div>
+        <div class="col-2">
           <select id="group" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedGroup"
                   (change)="onGroupChange()">
             <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
           </select>
         </div>
-        <div class="col-1 col-name-semester">Семестр:</div>
-        <div class="col-2">
+        <div class="col-1 label">Семестр:</div>
+        <div class="col-1">
           <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
                   (change)="onSemesterChange()&&refresh()">
             <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
           </select>
         </div>
-        <div class="col-5">
+        <div class="hours-per-credit label">Годин за кредит:</div>
+        <div class="col-1">
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="selectedHoursPerCredit" (change)="onChangeHoursPerCredit()" [disabled]="hoursPerCreditCBDisabled">
+          <option [ngValue]="30">30</option>
+          <option [ngValue]="36">36</option>
+        </select>
+      </div>
+        <div class="col-4 label">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
                  class="form-control mr-2 ng-pristine ng-valid ng-touched search">
         </div>

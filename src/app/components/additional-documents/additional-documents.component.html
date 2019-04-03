@@ -51,6 +51,12 @@
     </span>
       Списки студентів
     </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocument()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalStudentsDocumentLoading">
+     </span>
+      Журнал оцінок
+    </button>
   </div>
 
   <div class="row">
