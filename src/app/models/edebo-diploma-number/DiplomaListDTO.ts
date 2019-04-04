@@ -1,7 +1,7 @@
 import {DiplomaAndSynchronizedStudentDTO} from './DiplomaAndSynchronizedStudentDTO';
-import {MissingRedDTO} from './MissingRedDTO';
+import {MissingEdeboDiplomaRedDTO} from './MissingEdeboDiplomaRedDTO';
 
 export class DiplomaListDTO {
-  diplomaSynchrozedDTOs: DiplomaAndSynchronizedStudentDTO;
-  missingRed: MissingRedDTO;
+  diplomaAndStudentSynchronizedDataDTOs: DiplomaAndSynchronizedStudentDTO[];
+  missingDataRedDTOs: MissingEdeboDiplomaRedDTO[];
 }
