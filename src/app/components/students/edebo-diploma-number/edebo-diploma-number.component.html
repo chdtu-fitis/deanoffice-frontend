@@ -89,6 +89,18 @@
           <div class="loader__content" *ngIf="uploadInProgress">
             <loading [size]="50"></loading>
           </div>
+
+          <div *ngIf="resultView" class="m-2">
+            <p> Додано номерів дипломів для студентів: {{updatedDiplomaData}}</p>
+            <table class="table table-sm table-striped table-bordered mt-4 result-table"
+                   *ngIf="isNotUpdatedDiplomaData">
+              <caption>Не додані студенти:</caption>
+              <tr *ngFor="let student of notUpdatedDiplomaData">
+                <td>{{ student }}</td>
+              </tr>
+            </table>
+          </div>
+
         </div>
 
         <div class="modal-footer">

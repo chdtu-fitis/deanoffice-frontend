@@ -29,6 +29,9 @@ export class EdeboDiplomaNumberComponent implements OnInit {
   tableView = false;
   diplomaSynchronizedData: DiplomaAndSynchronizedStudentDTO[];
   missingRedData: MissingEdeboDiplomaRedDTO[];
+  notUpdatedDiplomaData: string[];
+  updatedDiplomaData: number;
+  isNotUpdatedDiplomaData: boolean;
 
   constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService) {
   }
@@ -51,7 +54,6 @@ export class EdeboDiplomaNumberComponent implements OnInit {
       res => {
         this.diplomaSynchronizedData = res.diplomaAndStudentSynchronizedDataDTOs;
         this.missingRedData = res.missingDataRedDTOs;
-        console.log(res);
         this.uploadInProgress = false;
         this.downloadButton = false;
         this.changeModal();
@@ -77,12 +79,12 @@ export class EdeboDiplomaNumberComponent implements OnInit {
     const diplomaNumberDataForSaveDTOS = this.getStudentsWithCorrectData();
     this.edeboDiplomaNumberService.updateDiplomaData(diplomaNumberDataForSaveDTOS).subscribe(
       response => {
-        console.log(response);
-        // this.notUpdatedStudentDegrees = response.notUpdatedStudentDegrees;
-        // this.updatedStudentDegrees = response.updatedStudentDegrees;
+        this.updatedDiplomaData = response.updatedDiplomaData;
+        this.notUpdatedDiplomaData = response.notUpdatedDiplomaData;
         this.modalName = 'Дані змінено';
         this.tableView = !this.tableView;
         this.resultView = true;
+        this.isNotUpdatedDiplomaData = this.notUpdatedDiplomaData.length !== 0;
       }
     );
     this.saveButton = true;
