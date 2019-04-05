@@ -14,7 +14,7 @@ import {DiplomaNumberForSaveDTO} from '../../../models/edebo-diploma-number/Dipl
   templateUrl: './edebo-diploma-number.component.html',
   styleUrls: ['./edebo-diploma-number.component.scss']
 })
-export class EdeboDiplomaNumberComponent implements OnInit {
+export class EdeboDiplomaNumberComponent {
 
   @ViewChild('modal') modal: ModalDirective;
   fileName = 'Виберіть файл';
@@ -36,9 +36,6 @@ export class EdeboDiplomaNumberComponent implements OnInit {
   constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService) {
   }
 
-  ngOnInit() {
-  }
-
   setFileName(event) {
     this.fileName = event.target.files[0].name;
     this.selectedFile = event.target.files[0];
@@ -56,13 +53,9 @@ export class EdeboDiplomaNumberComponent implements OnInit {
         this.missingRedData = res.missingDataRedDTOs;
         this.uploadInProgress = false;
         this.downloadButton = false;
-        this.changeModal();
+        this.tableView = true;
       }
     );
-  }
-
-  changeModal() {
-    this.tableView = true;
   }
 
   hideModal() {
