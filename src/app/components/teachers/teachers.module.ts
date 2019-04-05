@@ -6,9 +6,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import {PipeModule} from '../../pipes/pipe.module';
-import {AddGroupComponent} from './teachers/teachers.component';
+import {TeachersComponent} from './teachers.component';
+import {SharedModule} from '../shared/shared.module';
+import {AuthenticationModule} from '../login/authentication.module';
 
-export const groupRoutes: Routes = [
+export const teacherRoutes: Routes = [
   {path: '', component: TeachersComponent}
 ];
 
@@ -19,15 +21,13 @@ export const groupRoutes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     PipeModule.forRoot(),
-    RouterModule.forChild(groupRoutes),
+    RouterModule.forChild(teacherRoutes),
     SimpleNotificationsModule.forRoot(),
   ],
   declarations: [
     TeachersComponent
   ],
   providers: [
-    AcquiredCompetenciesService,
-    QualificationService,
     AuthenticationModule.tokenInterceptor()
   ]
 })

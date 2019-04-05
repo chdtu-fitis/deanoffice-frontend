@@ -1,0 +1,54 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-column">
+    <div class="col content overflow-auto">
+      <div class="d-flex flex-column h-100 overflow-auto">
+        <div class="d-flex my-2 align-items-center">
+          <label class="mr-auto ml-1 m-0">
+            <input type="checkbox"
+                   [checked]=""
+                   (change)="">
+            Актуальні вчителі
+          </label>
+          <div class="float-right">
+            <button type="button" class="btn btn-danger align-middle"
+                    [disabled]=""
+                    (click)="">
+              Видалити
+            </button>
+
+            <button type="button" class="btn btn-warning align-middle"
+                    [disabled]=""
+                    (click)="">
+              Редагувати
+            </button>
+
+            <button type="button" class="btn btn-success align-middle"
+                    (click)="">
+              Новий вчитель
+            </button>
+          </div>
+        </div>
+        <ag-grid-angular
+          class="ag-theme-balham overflow-auto h-100"
+          rowSelection="multiple"
+          rowHeight="80"
+          headerHeight="70"
+          enableCellChangeFlash=true
+          [animateRows]="true"
+          [accentedSort]="true"
+          [rowData]="teachers"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [localeText]="localeText"
+          [getRowNodeId]="getRowNodeId"
+          (columnResized)="onColumnResized($event)"
+          (selectionChanged)="onSelectionChanged($event)"
+          (gridReady)="onGridReady($event)"
+          (modelUpdated)="onModelUpdated($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+
+
