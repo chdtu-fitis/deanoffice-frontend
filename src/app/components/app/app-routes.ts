@@ -69,7 +69,8 @@ export const appRoutes: Routes = [
       },
       {
         path: 'departments',
-        loadChildren: '../department/department.module#DepartmentModule'
+        loadChildren: '../department/department.module#DepartmentModule',
+        data: {title: 'Кафедри'}
       },
       {
         path: 'specializations',
