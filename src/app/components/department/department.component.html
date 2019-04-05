@@ -1,0 +1,31 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-column">
+    <div class="col content overflow-auto">
+      <div class="d-flex flex-column h-100 overflow-auto">
+        <ag-grid-angular
+          class="ag-theme-balham overflow-auto h-100"
+          rowSelection="multiple"
+          rowHeight="80"
+          headerHeight="70"
+          enableCellChangeFlash=true
+          [animateRows]="true"
+          [accentedSort]="true"
+          [rowData]="departments"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [localeText]="localeText"
+          [getRowNodeId]="getRowNodeId"
+          (columnResized)="onColumnResized($event)"
+          (selectionChanged)="onSelectionChanged($event)"
+          (gridReady)="onGridReady($event)"
+          (modelUpdated)="onModelUpdated($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+    <footer class="bg-light px-3 py-2">
+      <span class="mr-3">Всього: {{count || '0'}}</span>
+      <span>Вибрано: {{selectedDepartments.length || '0'}}</span>
+    </footer>
+  </div>
+</div>
