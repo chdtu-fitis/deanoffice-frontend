@@ -7,7 +7,7 @@ import {SharedModule} from '../shared/shared.module';
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {AddDepartmentComponent} from './add-department/add-department.component';
 import {DepartmentFormComponent} from './department-form/department-form.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     DepartmentRoutingModule,
     SharedModule,
     SimpleNotificationsModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     DepartmentComponent,

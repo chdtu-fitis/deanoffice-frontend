@@ -35,7 +35,7 @@ export class AddDepartmentComponent implements OnInit {
 
   submit() {
     const body = this.form.form.getRawValue();
-    console.log(body);
+    body.active = true;
   }
 
 }
