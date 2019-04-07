@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {FormGroup} from '@angular/forms';
 import {Department} from '../../../models/Department';
+import {DepartmentService} from '../../../services/department.service';
 
 @Component({
   selector: 'delete-department',
@@ -17,8 +18,7 @@ export class DeleteDepartmentComponent {
   form = new FormGroup({});
   department: Department;
 
-  constructor() {
-  }
+  constructor(private departmentService: DepartmentService) {}
 
   showModal(department: Department) {
     this.department = department;
@@ -30,7 +30,12 @@ export class DeleteDepartmentComponent {
   }
 
   submit() {
-
+    this.departmentService.delete(this.department.id).subscribe(
+      department => {
+        this.deleteDepartment.emit(department);
+        this.hideModal();
+      }
+    )
   }
 
 }
