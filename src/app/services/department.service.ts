@@ -11,7 +11,6 @@ const DEPARTMENT_URL: string = API_URL + '/departments';
 
 @Injectable()
 export class DepartmentService {
-
   constructor(private httpClient: HttpClient) { }
 
   getDepartments(): Observable<Department[]> {

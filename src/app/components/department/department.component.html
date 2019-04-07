@@ -2,6 +2,14 @@
   <div class="row h-100 flex-column">
     <div class="col content overflow-auto">
       <div class="d-flex flex-column h-100 overflow-auto">
+        <div class="d-flex my-2 align-items-center">
+          <label class="mr-auto ml-1 m-0">
+            <input type="checkbox"
+                   [checked]="actualDepartments"
+                   (change)="actualDepartments = !actualDepartments; filterActive()">
+            Актуальні кафедри
+          </label>
+        </div>
         <ag-grid-angular
           class="ag-theme-balham overflow-auto h-100"
           rowSelection="multiple"

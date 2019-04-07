@@ -1,13 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {StudentGroup} from '../../models/StudentGroup';
-import {Specialization} from '../../models/Specialization';
+import {Component, OnInit} from '@angular/core';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
-import {GroupService} from '../../services/group.service';
 import {NotificationsService} from 'angular2-notifications';
-import {SpecializationService} from '../../services/specialization.service';
 import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
+import {DepartmentService} from '../../services/department.service';
 
 @Component({
   selector: 'app-department',
@@ -16,9 +13,10 @@ import {Department} from '../../models/Department';
 })
 export class DepartmentComponent implements OnInit {
 
+  loadedDepartments: Department[] = [];
   departments: Department[] = [];
   selectedDepartments: Department[] = [];
-  actualGroups = true;
+  actualDepartments = true;
   searchText: string;
   alertOptions = {
     showProgressBar: false,
@@ -37,7 +35,8 @@ export class DepartmentComponent implements OnInit {
   private gridColumnApi;
   getRowNodeId = (data) => data.id;
 
-  constructor(private notificationsService: NotificationsService) {
+  constructor(private departmentService: DepartmentService,
+              private notificationsService: NotificationsService) {
   }
 
 
@@ -46,6 +45,18 @@ export class DepartmentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadDepartments();
+  }
+
+  filterActive() {
+    this.departments = this.loadedDepartments.filter(department => {
+      return this.actualDepartments && department.active;
+    });
+  }
+
+  loadDepartments() {
+    this.departmentService.getDepartments()
+      .subscribe(departments => this.loadedDepartments = departments, null, () => this.filterActive());
   }
 
   onGridReady(params: GridReadyEvent) {
