@@ -24,4 +24,9 @@ export class DepartmentService {
       .catch(forPromise('Створення нової кафедри'));
 
   }
+
+  delete(id: number): Observable<Object> {
+    return this.httpClient.delete(`${DEPARTMENT_URL}/${id}`)
+      .pipe(catchError(forObservable('Видалення кафедри', {})))
+  }
 }
