@@ -1,5 +1,3 @@
-import {TuitionForm} from '../../models/tuition-form.enum';
-import {TuitionTerm} from '../../models/tuition-term.enum';
 
 export const COLUMN_DEFINITIONS_DEPARTMENT = [
   {
@@ -12,6 +10,6 @@ export const COLUMN_DEFINITIONS_DEPARTMENT = [
     headerName: 'Абревіатура',
     field: 'abbr',
     cellStyle: { 'white-space': 'normal' },
-    minWidth: 200
+    minWidth: 150
   }
 ];
