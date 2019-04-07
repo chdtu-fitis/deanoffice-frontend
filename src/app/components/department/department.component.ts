@@ -32,7 +32,7 @@ export class DepartmentComponent implements OnInit {
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS_DEPARTMENT;
   localeText = LOCALE_TEXT;
-  private gridApi;
+  gridApi;
   private gridColumnApi;
   getRowNodeId = (data) => data.id;
 
@@ -50,6 +50,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   filterActive() {
+    console.log(this.loadedDepartments);
     this.departments = this.loadedDepartments.filter(department => {
       return this.actualDepartments && department.active;
     });
@@ -76,7 +77,13 @@ export class DepartmentComponent implements OnInit {
 
   onAddDepartment(department: Department) {
     this.loadedDepartments.push(department);
-    this.gridApi.updateRowData({ add: [department], addIndex: 0 });
+    this.gridApi.updateRowData({add: [department], addIndex: 0});
+  }
+
+  onDeleteDepartment(deletedDepartment: Department) {
+    this.gridApi.updateRowData({remove: this.selectedDepartments});
+    const department = this.loadedDepartments.find(department => department.id === deletedDepartment.id);
+    department.active = false;
   }
 
   showErrorAlert(event) {

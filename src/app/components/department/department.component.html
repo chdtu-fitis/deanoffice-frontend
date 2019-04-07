@@ -52,12 +52,13 @@
 
 <add-department
   #addDepartmentModal
-  (addDepartment)="onAddDepartment($event)">
+  (addDepartment)="onAddDepartment($event)"
+>
 </add-department>
 
-<delete-department>
+<delete-department
   #deleteDepartmentModal
-
+  (deleteDepartment)="onDeleteDepartment($event)"
+>
 </delete-department>
 
-<simple-notifications></simple-notifications>

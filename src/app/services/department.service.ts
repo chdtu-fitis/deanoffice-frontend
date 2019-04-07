@@ -25,8 +25,8 @@ export class DepartmentService {
 
   }
 
-  delete(id: number): Observable<Object> {
-    return this.httpClient.delete(`${DEPARTMENT_URL}/${id}`)
-      .pipe(catchError(forObservable('Видалення кафедри', {})))
+  delete(id: number): Observable<Department> {
+    return this.httpClient.delete<Department>(`${DEPARTMENT_URL}/${id}`)
+      .pipe(catchError(forObservable<Department>('Видалення кафедри')))
   }
 }
