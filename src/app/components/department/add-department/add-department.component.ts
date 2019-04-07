@@ -1,5 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
+import {DepartmentFormComponent} from '../department-form/department-form.component';
 
 @Component({
   selector: 'add-department',
@@ -10,12 +11,18 @@ export class AddDepartmentComponent implements OnInit {
 
 
   @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('form') form: DepartmentFormComponent;
+  @Output() addDepartment: EventEmitter<any> = new EventEmitter<any>();
 
 
   constructor() {
   }
 
   ngOnInit() {
+    this.form.setValues({
+      'name': '',
+      'abbr': ''
+    })
   }
 
   hideModal() {
@@ -24,6 +31,11 @@ export class AddDepartmentComponent implements OnInit {
 
   showModal() {
     this.modal.show()
+  }
+
+  submit() {
+    const body = this.form.form.getRawValue();
+    console.log(body);
   }
 
 }
