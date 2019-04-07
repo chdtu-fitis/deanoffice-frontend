@@ -10,6 +10,12 @@
             Актуальні кафедри
           </label>
           <div class="float-right">
+            <button type="button" class="btn btn-danger align-middle"
+                    [disabled]="selectedDepartments.length === 0"
+                    (click)="deleteDepartmentModal.showModal(gridApi.getSelectedRows()[0])">
+              Видалити
+            </button>
+
             <button type="button" class="btn btn-success align-middle"
                     (click)="addDepartmentModal.showModal()">
               Нова кафедра
@@ -18,7 +24,7 @@
         </div>
         <ag-grid-angular
           class="ag-theme-balham overflow-auto h-100"
-          rowSelection="multiple"
+          rowSelection="single"
           rowHeight="80"
           headerHeight="70"
           enableCellChangeFlash=true
@@ -48,5 +54,10 @@
   #addDepartmentModal
   (addDepartment)="onAddDepartment($event)">
 </add-department>
+
+<delete-department>
+  #deleteDepartmentModal
+
+</delete-department>
 
 <simple-notifications></simple-notifications>

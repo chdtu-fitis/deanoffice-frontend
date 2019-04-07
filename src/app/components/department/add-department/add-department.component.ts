@@ -10,11 +10,9 @@ import {DepartmentService} from '../../../services/department.service';
 })
 export class AddDepartmentComponent implements OnInit {
 
-
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: DepartmentFormComponent;
   @Output() addDepartment: EventEmitter<any> = new EventEmitter<any>();
-
 
   constructor(private departmentService: DepartmentService) {
   }

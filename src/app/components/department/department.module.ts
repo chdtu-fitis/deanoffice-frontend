@@ -8,6 +8,7 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {AddDepartmentComponent} from './add-department/add-department.component';
 import {DepartmentFormComponent} from './department-form/department-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DeleteDepartmentComponent} from './delete-department/delete-department.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   declarations: [
     DepartmentComponent,
     AddDepartmentComponent,
-    DepartmentFormComponent
+    DepartmentFormComponent,
+    DeleteDepartmentComponent
   ]
 
 })

@@ -1,3 +1,26 @@
-<p>
-  delete-department works!
-</p>
+<modal-wrapper #modal heading="Видалити групи" (hideModal)="hideModal()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="modal-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Назва</th>
+          <th scope="col">Скорочена назва</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{department.name}}</td>
+          <td>{{department.abbr}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-danger">Видалити</button>
+      <button type="button" (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+    </div>
+  </form>
+</modal-wrapper>
+
