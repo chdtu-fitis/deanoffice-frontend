@@ -44,8 +44,9 @@
   </div>
 </div>
 
-<add-department #addDepartmentModal>
-
+<add-department
+  #addDepartmentModal
+  (addDepartment)="onAddDepartment($event)">
 </add-department>
 
 <simple-notifications></simple-notifications>

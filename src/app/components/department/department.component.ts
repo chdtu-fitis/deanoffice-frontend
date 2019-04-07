@@ -5,6 +5,7 @@ import {NotificationsService} from 'angular2-notifications';
 import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
 import {DepartmentService} from '../../services/department.service';
+import {StudentGroup} from '../../models/StudentGroup';
 
 @Component({
   selector: 'app-department',
@@ -71,6 +72,11 @@ export class DepartmentComponent implements OnInit {
 
   onSelectionChanged(event: SelectionChangedEvent) {
     this.selectedDepartments = event.api.getSelectedRows();
+  }
+
+  onAddDepartment(department: Department) {
+    this.loadedDepartments.push(department);
+    this.gridApi.updateRowData({ add: [department], addIndex: 0 });
   }
 
   showErrorAlert(event) {
