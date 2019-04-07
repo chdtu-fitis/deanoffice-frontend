@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 
 @Component({
   selector: 'add-department',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddDepartmentComponent implements OnInit {
 
-  constructor() { }
+
+  @ViewChild('modal') modal: ModalWrapperComponent;
+
+
+  constructor() {
+  }
 
   ngOnInit() {
+  }
+
+  hideModal() {
+    this.modal.hide();
+  }
+
+  showModal() {
+    this.modal.show()
   }
 
 }

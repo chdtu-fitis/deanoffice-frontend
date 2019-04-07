@@ -9,6 +9,12 @@
                    (change)="actualDepartments = !actualDepartments; filterActive()">
             Актуальні кафедри
           </label>
+          <div class="float-right">
+            <button type="button" class="btn btn-success align-middle"
+                    (click)="addDepartmentModal.showModal()">
+              Нова кафедра
+            </button>
+          </div>
         </div>
         <ag-grid-angular
           class="ag-theme-balham overflow-auto h-100"
@@ -37,5 +43,9 @@
     </footer>
   </div>
 </div>
+
+<add-department #addDepartmentModal>
+
+</add-department>
 
 <simple-notifications></simple-notifications>
