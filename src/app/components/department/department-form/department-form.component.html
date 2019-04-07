@@ -1,3 +1,19 @@
-<p>
-  department-form works!
-</p>
+<form [formGroup]="form">
+  <div class="modal-body">
+    <div class="form-item">
+      <div class="form-group">
+        <label for="name">Назва :</label>
+        <input type="text" id="name" fromControlName="name" class="form-control"
+        placeholder="Назва">
+      </div>
+      <div class="form-group">
+        <label for="abbr">Скорочена назва :</label>
+        <input type="text" id="abbr" fromControlName="abbr" class="form-control"
+               placeholder="Скорочена назва">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <ng-content></ng-content>
+  </div>
+</form>
