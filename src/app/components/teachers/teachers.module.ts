@@ -9,6 +9,7 @@ import {PipeModule} from '../../pipes/pipe.module';
 import {TeachersComponent} from './teachers.component';
 import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
+import {AgGridModule} from 'ag-grid-angular/src/aggrid.module';
 
 export const teacherRoutes: Routes = [
   {path: '', component: TeachersComponent}
@@ -23,6 +24,7 @@ export const teacherRoutes: Routes = [
     PipeModule.forRoot(),
     RouterModule.forChild(teacherRoutes),
     SimpleNotificationsModule.forRoot(),
+    AgGridModule,
   ],
   declarations: [
     TeachersComponent
