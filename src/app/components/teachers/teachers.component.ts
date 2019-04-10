@@ -90,4 +90,8 @@ export class TeachersComponent implements OnInit {
       event.message,
       this.alertOptions);
   }
+  onRemoveTeacher(){}
+  onAddTeacher(){}
+  onUpdateTeacher(){}
+
 }

@@ -6,24 +6,24 @@
           <label class="mr-auto ml-1 m-0">
             <input type="checkbox"
                    [checked]=""
-                   (change)="">
+                   (change)="filterActive">
             Актуальні вчителі
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
                     [disabled]=""
-                    (click)="">
+                    (click)="onRemoveTeacher">
               Видалити
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
                     [disabled]=""
-                    (click)="">
+                    (click)="onUpdateTeacher">
               Редагувати
             </button>
 
             <button type="button" class="btn btn-success align-middle"
-                    (click)="">
+                    (click)="onAddTeacher">
               Новий вчитель
             </button>
           </div>

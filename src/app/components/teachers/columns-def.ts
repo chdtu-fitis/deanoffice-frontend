@@ -8,13 +8,31 @@ export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Імя',
     field: 'name',
-    checkboxSelection: true,
     minWidth: 150,
   },
   {
     headerName: 'По батькові',
     field: 'patronimic',
-    checkboxSelection: true,
+    minWidth: 150,
+  }
+  {
+    headerName: 'Стать',
+    field: 'sex',
+    minWidth: 150,
+  }
+  {
+    headerName: 'Кафедра',
+    field: 'department.abbr',
+    minWidth: 150,
+  }
+  {
+    headerName: 'Науковий Ступінь',
+    field: 'scientificDegree',
+    minWidth: 150,
+  }
+  {
+    headerName: 'Посада',
+    field: 'position.name',
     minWidth: 150,
   }
 ];
