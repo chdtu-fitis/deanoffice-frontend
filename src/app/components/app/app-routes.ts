@@ -70,7 +70,7 @@ export const appRoutes: Routes = [
       {
         path: 'teachers',
         loadChildren: '../teachers/teachers.module#TeachersModule',
-        data: { title: 'Вчителі' }
+        data: { title: 'Викладачі' }
       },
       {
         path: 'specializations',

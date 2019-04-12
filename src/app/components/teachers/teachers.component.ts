@@ -7,7 +7,6 @@ import {COLUMN_DEFINITIONS} from './columns-def';
 import {Teacher} from '../../models/Teacher';
 import {TeacherService} from '../../services/teacher.service';
 
-
 @Component({
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
@@ -20,7 +19,6 @@ export class TeachersComponent implements OnInit {
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   selectedTeachers: Teacher[] = [];
-  actualTeacher = true;
   searchText: string;
   alertOptions = {
     showProgressBar: false,
@@ -55,24 +53,16 @@ export class TeachersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTeachers();
+    this.loadTeachers(true);
   }
 
-  loadTeachers(): void {
-    this.selectedTeachers = [];
-    const onlyActual = false;
-    this.teacherService.getTeachers(onlyActual)
-      .subscribe((loadedTeachers: Teacher[]) => {
-        this.loadedTeachers = loadedTeachers;
-        this.filterActive();
-      });
+  loadTeachers(actual: boolean): void {
+    this.teacherService.getTeachers(actual).subscribe(
+      (teachers: Teacher[]) => this.teachers = teachers,
+    );
   }
-  filterActive(): void {
-    this.teachers = this.loadedTeachers.filter(item => {
-      return !(this.actualTeacher && !item.active);
-    });
-  }
-  onGridReady(params: GridReadyEvent) {
+
+   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
@@ -85,11 +75,13 @@ export class TeachersComponent implements OnInit {
   onSelectionChanged(event: SelectionChangedEvent) {
     this.selectedTeachers = event.api.getSelectedRows();
   }
+
   showErrorAlert(event) {
     this.notificationsService.error('Помилка',
       event.message,
       this.alertOptions);
   }
+
   onRemoveTeacher(){}
   onAddTeacher(){}
   onUpdateTeacher(){}

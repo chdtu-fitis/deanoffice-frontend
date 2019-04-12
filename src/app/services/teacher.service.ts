@@ -6,16 +6,17 @@ import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
 
+
 @Injectable()
 export class TeacherService {
   private teachersUrl = `${environment.apiUrl}/teachers`;
 
-  constructor(private http: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
-  getTeachers(onlyActual: boolean = true): Observable<Teacher[]> {
-    const params = new HttpParams().set('only-active', onlyActual.toString());
-    return this.http.get<Teacher[]>(`${this.teachersUrl}`, {params: params})
-      .pipe(catchError(forObservable('Отримання вчителів', [])));
+  public getTeachers(actual: boolean): Observable<Teacher[]> {
+    const params =  new HttpParams().set('active', actual.toString());
+    return this._httpClient.get<Teacher[]>(this.teachersUrl, {params})
+      .pipe(catchError(forObservable('Отримання викладачів', [])));
   }
 }

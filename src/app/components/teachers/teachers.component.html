@@ -4,10 +4,8 @@
       <div class="d-flex flex-column h-100 overflow-auto">
         <div class="d-flex my-2 align-items-center">
           <label class="mr-auto ml-1 m-0">
-            <input type="checkbox"
-                   [checked]=""
-                   (change)="filterActive">
-            Актуальні вчителі
+            <input type="checkbox"  id="actual" #actual (change)="loadTeachers(actual.checked)" checked>
+             Актуальні викладачі
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
@@ -31,8 +29,8 @@
         <ag-grid-angular
           class="ag-theme-balham overflow-auto h-100"
           rowSelection="multiple"
-          rowHeight="80"
-          headerHeight="70"
+          rowHeight="40"
+          headerHeight="35"
           enableCellChangeFlash=true
           [animateRows]="true"
           [accentedSort]="true"
@@ -49,7 +47,13 @@
         </ag-grid-angular>
       </div>
     </div>
+    <footer class="bg-light px-3 py-2">
+      <span class="mr-3">Всього: {{count || '0'}}</span>
+      <span>Вибрано: {{selectedTeachers.length || '0'}}</span>
+    </footer>
   </div>
 </div>
+
+<simple-notifications></simple-notifications>
 
 
