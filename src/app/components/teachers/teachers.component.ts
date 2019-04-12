@@ -56,8 +56,8 @@ export class TeachersComponent implements OnInit {
     this.loadTeachers(true);
   }
 
-  loadTeachers(actual: boolean): void {
-    this.teacherService.getTeachers(actual).subscribe(
+  loadTeachers(active: boolean): void {
+    this.teacherService.getTeachers(active).subscribe(
       (teachers: Teacher[]) => this.teachers = teachers,
     );
   }
