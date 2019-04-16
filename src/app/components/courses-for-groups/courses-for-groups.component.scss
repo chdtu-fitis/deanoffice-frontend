@@ -13,37 +13,6 @@
   clear: both;
 }
 
-.hours-per-credit{
-  max-width: 13%;
-  margin-right: 1.2%;
-}
-
-.col-1 {
-  padding-right: 0;
-  margin-left: 0;
-  padding-left: 0;
-  max-width: 9%;
-}
-
-.col-2 {
-  padding-right: 0;
-  padding-left: 0;
-  max-width: 11.6%;
-  margin: 0;
-}
-
-.col-4 {
-  padding: 0px;
-}
-
-.label{
-  margin-left: 20px;
-}
-
-.group-label{
-  max-width: 6%;
-}
-
 .mr-2[_ngcontent-c2], .mx-2[_ngcontent-c2]{
   margin-right: 0 !important;
 }
@@ -68,10 +37,11 @@
 
 .count-label{
   margin-top: 15px;
+  font-size: 15px;
 }
 
 div {
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .div-table {
@@ -93,12 +63,8 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
   padding: 0 0.75rem;
 }
 
-.count-label{
-  font-size: 15px;
-}
-
 .bottom-row{
-  padding-left: 16px;
+  margin-left: 0;
 }
 
 .course-for-group-table{
@@ -118,3 +84,31 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
 .courses-for-groups{
   height: calc(100% - 108px);
 }
+.menu-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.element{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.element-header{
+  min-width: auto;
+}
+.col-1 {
+  min-width: 4.8em;
+  padding: 1px;
+}
+
+.col-2 {
+  padding: 1px;
+  min-width: 10em;
+}
+
+.col-4 {
+  padding: 1px;
+}
+
