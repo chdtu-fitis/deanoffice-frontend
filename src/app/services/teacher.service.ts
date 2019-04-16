@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Teacher} from '../models/Teacher';
 import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
-import {forObservable} from '../components/shared/httpErrors';
+import {forObservable, forPromise} from '../components/shared/httpErrors';
 
 
 @Injectable()
@@ -14,8 +14,8 @@ export class TeacherService {
   constructor(private _httpClient: HttpClient) {
   }
 
-  public getTeachers(actual: boolean): Observable<Teacher[]> {
-    const params =  new HttpParams().set('active', actual.toString());
+  public getTeachers(active: boolean): Observable<Teacher[]> {
+    const params =  new HttpParams().set('active', active.toString());
     return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers`, {params})
       .pipe(catchError(forObservable('Отримання викладачів', [])));
   }
@@ -23,6 +23,11 @@ export class TeacherService {
   public getTeachersShort(): Observable<Teacher[]> {
     const params =  new HttpParams().set('active', 'true');
     return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers-short`, {params})
-      .pipe(catchError(forObservable('Отримання викладачів', [])));
+      .pipe(catchError(forObservable('Отримання короткого списку викладачів', [])));
+  }
+
+  public create(body): Promise<any> {
+    return this._httpClient.post(`${this.teachersUrl}/teachers`, body, {}).toPromise()
+      .catch(forPromise('Створення нового викладача'));
   }
 }
