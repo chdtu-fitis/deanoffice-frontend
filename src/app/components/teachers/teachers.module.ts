@@ -9,6 +9,10 @@ import {PipeModule} from '../../pipes/pipe.module';
 import {TeachersComponent} from './teachers.component';
 import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
+import { TeacherFormComponent } from './teacher-form/teacher-form.component';
+import { AddTeacherComponent } from './add-teacher/add-teacher.component';
+import {TabsModule} from 'ngx-bootstrap';
+
 
 export const teacherRoutes: Routes = [
   {path: '', component: TeachersComponent}
@@ -20,12 +24,15 @@ export const teacherRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    TabsModule.forRoot(),
     PipeModule.forRoot(),
     RouterModule.forChild(teacherRoutes),
     SimpleNotificationsModule.forRoot()
   ],
   declarations: [
-    TeachersComponent
+    TeachersComponent,
+    TeacherFormComponent,
+    AddTeacherComponent
   ],
   providers: [
     AuthenticationModule.tokenInterceptor()
