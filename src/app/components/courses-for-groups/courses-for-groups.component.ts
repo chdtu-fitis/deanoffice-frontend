@@ -30,7 +30,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   selectedHoursPerCredit: number;
-  hoursPerCreditCBDisabled: boolean = true;
+  hoursPerCreditCBDisabled = true;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -274,7 +274,7 @@ export class CoursesForGroupsComponent implements OnInit {
       updatedCourses.push({
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher? updateCourse.teacher.id : 0},
+        teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
         examDate: updateCourse.examDate
       })
     }
@@ -322,15 +322,15 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  changeTeacher(event) {
-    const initialState = {courseForGroups: event};
+  changeTeacher(event: CourseForGroup) {
+    const initialState = {courseForGroup: event};
     const modalRef = this.modalService.show(TeacherDialogComponent, {initialState, class: 'modal-custom'});
     modalRef.content.onTeacherSelect.subscribe(($event) => {
       this.updateCoursesForGroupWithNewTeacher($event);
     });
   }
 
-  updateCoursesForGroupWithNewTeacher(event) {
+  updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
     let isAdded = false;
     for (const addedCourse of this.coursesForAdd) {
       if (event.course.id === addedCourse.course.id) {
@@ -340,14 +340,14 @@ export class CoursesForGroupsComponent implements OnInit {
     }
     if (!isAdded) {
       this.changesExistence = true;
-      this.updatedCourses.push(event);
-    }
-    for (const course of this.coursesForGroup) {
-      if (course.course.id === event.course.id) { course.teacher = event.teacher; }
+      const isAlreadyUpdated = this.updatedCourses.some(course => course.id === event.id);
+      if (!isAlreadyUpdated) {
+        this.updatedCourses.push(event);
+      }
     }
   }
 
-  changeDate(event) {
+  changeDate(event: {index: number}) {
     let isAdded: boolean;
     isAdded = false;
     this.indexForDate = event.index;

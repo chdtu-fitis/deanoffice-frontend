@@ -12,7 +12,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
   providers: [TeacherService]
 })
 export class TeacherDialogComponent implements OnInit {
-  courseForGroups: CourseForGroup;
+  courseForGroup: CourseForGroup;
   @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
   searchText = '';
@@ -26,8 +26,8 @@ export class TeacherDialogComponent implements OnInit {
   }
 
   selectTeacher(teacher: Teacher) {
-    this.courseForGroups.teacher = teacher;
-    this.onTeacherSelect.emit(this.courseForGroups);
+    this.courseForGroup.teacher = teacher;
+    this.onTeacherSelect.emit(this.courseForGroup);
     this.bsModalRef.hide()
   }
 }
