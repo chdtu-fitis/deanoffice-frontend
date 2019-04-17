@@ -3,6 +3,7 @@ import {Course} from "../models/Course";
 import {Observable} from "rxjs/Observable";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {CoursePagination} from '../models/course/CoursePagination';
 
 @Injectable()
 export class CourseService {
@@ -20,6 +21,10 @@ export class CourseService {
 
   getCourseNames() {
     return this.http.get(`${environment.apiUrl}/courses/names`);
+  }
+
+  getCoursesForAdministrator(): Observable<CoursePagination> {
+    return this.http.get<CoursePagination>(`${environment.apiUrl}/all-courses`);
   }
 
 }
