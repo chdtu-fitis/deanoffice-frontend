@@ -24,7 +24,7 @@ export class DiplomaSupplementComponent implements OnInit {
   studentsSelected: boolean;
   message: string;
   supplementLoading = false;
-  gradePercentLoading = false;
+  graduatesReportLoading = false;
   gradesTableReportLoading = false;
   coursesTableReportLoading = false;
   studentDataCheckLoading = false;
@@ -80,11 +80,11 @@ export class DiplomaSupplementComponent implements OnInit {
     }
   }
 
-  onFormGradePercent(): void {
+  onFormGraduatesReport(): void {
     this.message = '';
-    this.gradePercentLoading = true;
-    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(() => {
-        this.gradePercentLoading = false;
+    this.graduatesReportLoading = true;
+    this.diplomaSupplementService.buildGraduatesReport('' + this.currentGroup.id).subscribe(() => {
+        this.graduatesReportLoading = false;
       }
     );
   }
