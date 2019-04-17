@@ -83,7 +83,7 @@ export class DiplomaSupplementComponent implements OnInit {
   onFormGraduatesReport(): void {
     this.message = '';
     this.graduatesReportLoading = true;
-    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(() => {
+    this.diplomaSupplementService.buildGraduatesReport('' + this.currentGroup.id).subscribe(() => {
         this.graduatesReportLoading = false;
       }
     );
