@@ -40,10 +40,10 @@
         <loading *ngIf="supplementLoading" size="20"></loading>
       </div>
       <div class="flex-container">
-        <button class="btn btn-primary w-75 mt-4" [disabled]="gradePercentLoading" (click)="onFormGradePercent()">
-          Таблиця відсотків оцінок студентів
+        <button class="btn btn-primary w-75 mt-4" [disabled]="graduatesReportLoading" (click)="onFormGraduatesReport()">
+          Відомість випускників перед захистом
         </button>
-        <loading *ngIf="gradePercentLoading" size="20"></loading>
+        <loading *ngIf="graduatesReportLoading" size="20"></loading>
       </div>
       <div class="flex-container">
         <button class="btn btn-info w-75 mt-4" [disabled]="gradesTableReportLoading" (click)="onFullGradesTableReport()">
