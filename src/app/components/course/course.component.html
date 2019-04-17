@@ -1,0 +1,16 @@
+<div class="px-3 h-100">
+  <ag-grid-angular
+    class="ag-theme-balham course-table"
+    rowSelection="multiple"
+    enableCellChangeFlash=true
+    [animateRows]="true"
+    [accentedSort]="true"
+    [rowData]="rows"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [localeText]="localeText"
+    [getRowNodeId]="getRowNodeId"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+</div>
