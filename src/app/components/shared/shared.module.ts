@@ -11,6 +11,7 @@ import {BaseReactiveFormComponent} from './base-reactive-form/base-reactive-form
 import {LoadingComponent} from './loading/loading.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
+import {ExpectedNameDirective} from './expected-name.directive';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
     LoadingComponent,
-    ModalWrapperComponent
+    ModalWrapperComponent,
+    ExpectedNameDirective
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
     ValidationErrorsComponent,
     BaseReactiveFormComponent,
     LoadingComponent,
-    ModalWrapperComponent
+    ModalWrapperComponent,
+    ExpectedNameDirective
   ]
 })
 
