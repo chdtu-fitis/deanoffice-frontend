@@ -92,7 +92,11 @@
       </button>
       <button class="btn btn-secondary w-100 mt-3"
               (click)="studentThesisTheme.onShow()">
-        Тема диплому
+        Теми дипломів
+      </button>
+      <button class="btn btn-primary w-100 mt-3"
+              (click)="edeboDiplomaNumber.onShow()">
+        Номери дипломів з ЄДЕБО
       </button>
       <button class="btn btn-warning w-100 mt-3 btn-warning"
               (click)="synchronizeWithEdeboModal.onShow()">
@@ -118,6 +122,7 @@
 
 <student-thesis-theme-input #studentThesisTheme></student-thesis-theme-input>
 <synchronize-with-edebo #synchronizeWithEdeboModal></synchronize-with-edebo>
+<edebo-diploma-number #edeboDiplomaNumber></edebo-diploma-number>
 <app-add-student
   #addStudentModal
   [groups]="groups"

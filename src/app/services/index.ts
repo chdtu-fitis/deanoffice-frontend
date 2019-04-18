@@ -22,6 +22,7 @@ import {StudentStipendService} from './student-stipend.service';
 import {FacultyService} from './faculty.service';
 import {DebtorStatisticsService} from './debtor-statistics.service';
 import {TeacherService} from './teacher.service';
+import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 
 export const SERVICES = [
   DegreeService,
@@ -39,6 +40,7 @@ export const SERVICES = [
   DepartmentService,
   PersonalFileGradesStatementService,
   EdeboService,
+  EdeboDiplomaNumberService,
   AcademicCertificateService,
   AuthenticationService,
   CurrentUserService,
