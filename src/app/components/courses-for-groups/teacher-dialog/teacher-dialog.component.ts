@@ -20,7 +20,7 @@ export class TeacherDialogComponent implements OnInit {
   constructor(private teacherService: TeacherService, public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    this.teacherService.getTeachers().subscribe(teachers => {
+    this.teacherService.getTeachersShort().subscribe(teachers => {
       this.teachers = teachers
     })
   }
