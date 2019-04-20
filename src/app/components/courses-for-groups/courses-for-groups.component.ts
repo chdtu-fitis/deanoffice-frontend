@@ -331,14 +331,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
-    let isAdded = false;
-    for (const addedCourse of this.coursesForAdd) {
-      if (event.course.id === addedCourse.course.id) {
-        addedCourse.teacher = event.teacher;
-        isAdded = true;
-      }
-    }
-    if (!isAdded) {
+    const courseForAdd = this.coursesForAdd.find(course => course.course.id === event.course.id);
+    if (courseForAdd) {
+      courseForAdd.teacher = event.teacher;
+    } else {
       this.changesExistence = true;
       const isAlreadyUpdated = this.updatedCourses.some(course => course.id === event.id);
       if (!isAlreadyUpdated) {
@@ -347,25 +343,15 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  changeDate(event: {index: number}) {
-    let isAdded: boolean;
-    isAdded = false;
-    this.indexForDate = event.index;
-    for (const course of this.coursesForGroup) {
-      if (this.coursesForGroup.indexOf(course) === this.indexForDate) {
-        for (const addedCourse of this.coursesForAdd) {
-          if (course.course.id === addedCourse.course.id) {
-            addedCourse.examDate = course.examDate;
-            isAdded = true;
-          }
-        }
-        if (!isAdded) {
-          this.changesExistence = true;
-          if (course.teacher === undefined) {
-            course.teacher = new Teacher();
-          }
-          this.updatedCourses.push(course);
-        }
+  changeDate(event: CourseForGroup) {
+    const courseForAdd = this.coursesForAdd.find(course => course.course.id === event.course.id);
+    if (courseForAdd) {
+      courseForAdd.examDate = event.examDate;
+    } else {
+      this.changesExistence = true;
+      const isAlreadyUpdated = this.updatedCourses.some(course => course.id === event.id);
+      if (!isAlreadyUpdated) {
+        this.updatedCourses.push(event);
       }
     }
   }
