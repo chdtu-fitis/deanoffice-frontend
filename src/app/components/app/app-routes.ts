@@ -68,6 +68,11 @@ export const appRoutes: Routes = [
         data: { title: 'Групи' }
       },
       {
+        path: 'teachers',
+        loadChildren: '../teachers/teachers.module#TeachersModule',
+        data: { title: 'Викладачі' }
+      },
+      {
         path: 'specializations',
         loadChildren: '../specialization/specialization.module#SpecializationModule',
         data: { title: 'Спеціалізації (освітні програми)' }

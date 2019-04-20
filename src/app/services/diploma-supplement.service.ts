@@ -19,9 +19,9 @@ export class DiplomaSupplementService {
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування додатку до диплома', [])))
   }
 
-  buildGradePercent(groupId: string): any {
-    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
-    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування документу з процентами оцінок студентів', [])))
+  buildGraduatesReport(groupId: string): any {
+    const url = `${this.documentsUrl}/graduates/${groupId}/report`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування відомості випускників', [])))
   }
 
   buildFullGradesTableReport(groupId: string): any {

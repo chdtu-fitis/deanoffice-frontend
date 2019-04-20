@@ -12,6 +12,7 @@ import {SpecializationWithDebtorsStatistics} from '../../../models/reports/debto
 export class DebtorStatisticsComponent implements OnInit {
   specializationDebtors: SpecializationWithDebtorsStatistics[];
   loading: boolean;
+  loadingDocument: boolean;
   sessionSeason: string;
   sessionYears: string;
   currentDate: Date;
@@ -44,5 +45,13 @@ export class DebtorStatisticsComponent implements OnInit {
     const winterSessionStart = new Date(`12/17/${this.currentDate.getFullYear()}`);
     const winterSeason = this.currentDate > winterSessionStart || this.currentDate < summerSessionStart;
     return winterSeason ? 'зимньої' : 'літньої';
+  }
+
+  onMakeDocument() {
+    this.loadingDocument = true;
+    this.report.buildDebtorsStatisticsReport().subscribe(() => {
+      this.loadingDocument = false;
+    }
+  );
   }
 }
