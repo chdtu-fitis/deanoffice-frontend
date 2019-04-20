@@ -330,30 +330,25 @@ export class CoursesForGroupsComponent implements OnInit {
     });
   }
 
-  updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
-    const courseForAdd = this.coursesForAdd.find(course => course.course.id === event.course.id);
+  courseForGroupUpdate(course: CourseForGroup, field: string) {
+    const courseForAdd = this.coursesForAdd.find(courseForAdd => courseForAdd.course.id === course.course.id);
     if (courseForAdd) {
-      courseForAdd.teacher = event.teacher;
+      courseForAdd[field] = course[field];
     } else {
       this.changesExistence = true;
-      const isAlreadyUpdated = this.updatedCourses.some(course => course.id === event.id);
+      const isAlreadyUpdated = this.updatedCourses.some(updatedCourse => updatedCourse.id === course.id);
       if (!isAlreadyUpdated) {
-        this.updatedCourses.push(event);
+        this.updatedCourses.push(course);
       }
     }
   }
 
+  updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'teacher');
+  }
+
   changeDate(event: CourseForGroup) {
-    const courseForAdd = this.coursesForAdd.find(course => course.course.id === event.course.id);
-    if (courseForAdd) {
-      courseForAdd.examDate = event.examDate;
-    } else {
-      this.changesExistence = true;
-      const isAlreadyUpdated = this.updatedCourses.some(course => course.id === event.id);
-      if (!isAlreadyUpdated) {
-        this.updatedCourses.push(event);
-      }
-    }
+    this.courseForGroupUpdate(event, 'examDate');
   }
 
   copyCourses() {
