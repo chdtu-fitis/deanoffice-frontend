@@ -21,8 +21,8 @@ import {ThesisInputService} from './thesis-input.service';
 import {StudentStipendService} from './student-stipend.service';
 import {FacultyService} from './faculty.service';
 import {DebtorStatisticsService} from './debtor-statistics.service';
-import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 import {TeacherService} from './teacher.service';
+import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 
 export const SERVICES = [
   DegreeService,
