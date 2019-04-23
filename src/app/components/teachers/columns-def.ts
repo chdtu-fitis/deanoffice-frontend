@@ -1,5 +1,3 @@
-import {Gender} from '../../models/gender.enum';
-
 export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Прізвище',
@@ -17,16 +15,16 @@ export const COLUMN_DEFINITIONS = [
     field: 'patronimic',
     minWidth: 150,
   },
-  {
-    headerName: 'Стать',
-    field: 'sex',
-    valueGetter: (params) => `${Gender[params.data.sex].toLowerCase().slice(0, 3)}.`,
-    minWidth: 150,
-  },
+  // {
+  //   headerName: 'Стать',
+  //   field: 'sex',
+  //   valueGetter: (params) => `${Gender[params.data.sex].toLowerCase().slice(0, 3)}.`,
+  //   minWidth: 150,
+  // },
   {
     headerName: 'Кафедра',
-    field: 'department.abbr',
-    minWidth: 150,
+    field: 'department.name',
+    minWidth: 500,
   },
   {
     headerName: 'Науковий Ступінь',
