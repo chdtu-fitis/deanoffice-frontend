@@ -6,7 +6,7 @@ export const COLUMN_DEFINITIONS = [
     minWidth: 150,
   },
   {
-    headerName: 'Імя',
+    headerName: 'І’мя',
     field: 'name',
     minWidth: 150,
   },
@@ -27,7 +27,7 @@ export const COLUMN_DEFINITIONS = [
     minWidth: 500,
   },
   {
-    headerName: 'Науковий Ступінь',
+    headerName: 'Науковий ступінь',
     field: 'scientificDegree',
     minWidth: 150,
   },
