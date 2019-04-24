@@ -13,10 +13,9 @@ import {SpecializationService} from '../../../services/specialization.service';
 })
 export class AddTeacherComponent{
 
-  @Output() addSpecialization: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addTeacher: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: TeacherFormComponent;
-  @Input() teachers: Teacher[];
 
   constructor(private teacherService: TeacherService) { }
 
@@ -36,7 +35,7 @@ export class AddTeacherComponent{
     this.teacherService
       .create(this.form.getValue())
       .then((teacher) => {
-        this.addSpecialization.emit(teacher)
+        this.addTeacher.emit(teacher)
       })
       .then(() => this.hideModal())
       .catch(null);

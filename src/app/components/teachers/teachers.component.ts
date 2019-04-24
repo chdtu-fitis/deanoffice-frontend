@@ -83,7 +83,10 @@ export class TeachersComponent implements OnInit {
   }
 
   onRemoveTeacher(){}
-  onAddTeacher(){}
+
+  onAddTeacher(teacher){
+    this.gridApi.updateRowData({ add: [teacher], addIndex: 0 });
+  }
   onUpdateTeacher(){}
 
 }
