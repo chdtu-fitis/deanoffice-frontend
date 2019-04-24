@@ -17,6 +17,7 @@ import {AcquiredCompetenciesService} from '../../specialization/specialization-f
 import {Degree} from '../../../models/Degree';
 import {Department} from '../../../models/Department';
 import {SpecializationCompetenciesComponent} from '../../specialization/specialization-form/specialization-competencies/specialization-competencies.component';
+import {AcquiredCompetencies} from '../../specialization/specialization-form/models/acquired-competencies';
 
 const DEFAULT_NUMBER = 0;
 const DEFAULT_STRING = '';
@@ -30,18 +31,14 @@ const DEFAULT_BOOLEAN = true;
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-  @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
-  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
-  initialData: Teacher = new Teacher();
+   initialData: Teacher = new Teacher();
   isShow = true;
   lang = Lang;
   departments: Department[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _departmentService: DepartmentService,
-    private _acquiredCompetenciesService: AcquiredCompetenciesService
-  ) {
+    private _departmentService: DepartmentService,) {
     super();
     this.setInitialData();
   }
