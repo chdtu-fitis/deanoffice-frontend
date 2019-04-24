@@ -1,25 +1,16 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {FormBuilder,} from '@angular/forms';
 import {Teacher} from '../../../models/Teacher';
-import {Observable} from 'rxjs/Observable';
+
 import {TabsetComponent} from 'ngx-bootstrap';
 
-import {flatMap} from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {Specialization} from '../../../models/Specialization';
-import {Lang} from '../../specialization/specialization-form/enums/lang.enum';
-import {DegreeService} from '../../../services/degree.service';
-import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
-import {AcquiredCompetenciesService} from '../../specialization/specialization-form/services/acquired-competencies.service';
-import {Degree} from '../../../models/Degree';
 import {Department} from '../../../models/Department';
-import {SpecializationCompetenciesComponent} from '../../specialization/specialization-form/specialization-competencies/specialization-competencies.component';
-import {AcquiredCompetencies} from '../../specialization/specialization-form/models/acquired-competencies';
+import {Position} from  '../../../models/Position';
 
-const DEFAULT_NUMBER = 0;
 const DEFAULT_STRING = '';
 const DEFAULT_BOOLEAN = true;
 
@@ -32,9 +23,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
    initialData: Teacher = new Teacher();
-  isShow = true;
-  lang = Lang;
   departments: Department[] = [];
+  positions: Position[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
