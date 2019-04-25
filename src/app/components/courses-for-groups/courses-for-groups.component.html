@@ -48,8 +48,12 @@
       </div>
     </div>
     <div class="col-5">
-      <course-creation (onCourseCreation)="onCourseCreation()" (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
-                       [selectedSemester]="selectedSemester"></course-creation>
+      <course-creation (onCourseCreation)="onCourseCreation()"
+                       (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
+                       [selectedSemester]="selectedSemester"
+                       [courses]="courses"
+      >
+      </course-creation>
     </div>
   </div>
   <div class="row">
