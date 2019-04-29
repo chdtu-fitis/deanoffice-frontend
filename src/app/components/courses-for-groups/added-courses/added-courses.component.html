@@ -12,6 +12,7 @@
           <th>Години</th>
           <th>Кредити</th>
           <th>Викладач</th>
+          <th>А.Р</th>
           <th>Дата іспиту</th>
         <tr>
       </thead>
@@ -27,6 +28,7 @@
             {{ (course.teacher | nameWithInitials) || 'Вибрати' }}
           </button>
         </td>
+        <td><input type="checkbox" #selected [checked]="course.academicDifference"></td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"
                    (change)="dateChange(i)">
         </td>
