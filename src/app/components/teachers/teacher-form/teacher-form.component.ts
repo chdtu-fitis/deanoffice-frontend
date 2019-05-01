@@ -10,6 +10,7 @@ import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-re
 import {DepartmentService} from '../../../services/department.service';
 import {Department} from '../../../models/Department';
 import {Position} from  '../../../models/Position';
+import {ScientificDegree} from  '../../../models/ScientificDegree';
 
 const DEFAULT_STRING = '';
 const DEFAULT_BOOLEAN = true;
@@ -22,9 +23,10 @@ const DEFAULT_BOOLEAN = true;
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-   initialData: Teacher = new Teacher();
-  departments: Department[] = [];
-  positions: Position[] = [];
+  @Input()initialData: Teacher = new Teacher();
+  @Input()departments: Department[] = [];
+  @Input()positions: Position[] = [];
+  //@Input()scientificDegrees: ScientificDegree[]=[];
 
   constructor(
     private _formBuilder: FormBuilder,
