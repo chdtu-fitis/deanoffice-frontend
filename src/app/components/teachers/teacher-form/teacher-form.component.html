@@ -24,7 +24,7 @@
             <label>Стать:</label>
             </div>
           <div class="radio">
-           <p><input formControlName="sex"  id="sexMALE" type="radio" value="MALE">  чоловіча</p>
+            <p><input formControlName="sex"  id="sexMALE" type="radio" value="MALE">  чоловіча</p>
             <p><input formControlName="sex"  id="sexFEMALE" type="radio" value="FEMALE">  жіноча</p>
          </div>
         </div>
@@ -39,7 +39,7 @@
 
         <div class="form-group">
           <label for="position" class="required">Посада:</label>
-          <select formControlName="position" class="form-control" id="position"
+          <select formControlName="positionId" class="form-control" id="position"
                   [appValidation]="form.controls.positionId">
             <option *ngFor="let position of positions " [ngValue]="position.id"  value="{{position.name}}">{{position.name}}</option>
           </select>
@@ -48,7 +48,7 @@
 
         <div class="form-group">
           <label for="department" class="required">Кафедра:</label>
-          <select formControlName="department" class="form-control" id="department"
+          <select formControlName="departmentId" class="form-control" id="department"
                   [appValidation]="form.controls.departmentId">
             <option *ngFor="let department of departments" [ngValue]="department.id"  value="{{department.name}}">{{department.name}}</option>
           </select>

@@ -26,7 +26,7 @@ export class TeacherService {
       .pipe(catchError(forObservable('Отримання короткого списку викладачів', [])));
   }
 
-  public create(body): Promise<any> {
+  public createTeacher(body): Promise<any> {
     return this._httpClient.post(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Створення нового викладача'));
   }

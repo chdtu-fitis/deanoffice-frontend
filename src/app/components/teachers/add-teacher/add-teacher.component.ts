@@ -30,7 +30,7 @@ export class AddTeacherComponent{
       return;
     }
     this.teacherService
-      .create(this.form.getValue())
+      .createTeacher(this.form.getValue())
       .then((teacher) => {
         this.addTeacher.emit(teacher)
       })

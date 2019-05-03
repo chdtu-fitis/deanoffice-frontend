@@ -19,7 +19,7 @@ describe('StudentSpecializationTransferComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should createTeacher', () => {
     expect(component).toBeTruthy();
   });
 });
