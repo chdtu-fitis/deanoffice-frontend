@@ -27,6 +27,12 @@ tab {
      margin-top: 0.6em;
     }
 }
+.ng-invalid {
+  border-color: #dc3545;
+}
+.ng-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
 
 
 @media all and (min-width: 993px) and (min-device-width: 993px) {
