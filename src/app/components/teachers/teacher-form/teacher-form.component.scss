@@ -21,8 +21,13 @@ tab {
 }
 .down-line{
   display: inline-flex;
-  justify-content: space-between;
+
+    label{
+     margin-right: 3em;
+     margin-top: 0.6em;
+    }
 }
+
 
 @media all and (min-width: 993px) and (min-device-width: 993px) {
   .form-layout {

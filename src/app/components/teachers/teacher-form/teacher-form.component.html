@@ -17,25 +17,24 @@
           <input formControlName="patronimic" type="text" class="form-control" id="patronimic">
         </div>
 
-        <div class="down-line">
-          <div class="form-group">
+
+        <div class="form-group">
+          <div class="down-line">
+            <div>
             <label>Стать:</label>
-          </div>
+            </div>
           <div class="radio">
            <p><input formControlName="sex"  id="sexMALE" type="radio" value="MALE">  чоловіча</p>
-         </div>
-         <div class="radio">
             <p><input formControlName="sex"  id="sexFEMALE" type="radio" value="FEMALE">  жіноча</p>
          </div>
         </div>
+       </div>
       </div>
 
       <div class="form-item">
         <div class="form-group">
           <label for="scientificDegree" class="required">Науковий ступінь:</label>
-          <select formControlName="scientificDegree" class="form-control" id="scientificDegree">
-            <option *ngFor="let scientificDegree of scientificDegrees"></option>
-          </select>
+          <input formControlName="scientificDegree" type="text" class="form-control" id="scientificDegree">
         </div>
 
         <div class="form-group">
