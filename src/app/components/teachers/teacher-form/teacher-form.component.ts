@@ -8,9 +8,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {DepartmentService} from '../../../services/department.service';
+import {PositionService} from '../../../services/position.service';
 import {Department} from '../../../models/Department';
 import {Position} from  '../../../models/Position';
-import {ScientificDegree} from  '../../../models/ScientificDegree';
 
 const DEFAULT_STRING = '';
 const DEFAULT_BOOLEAN = true;
@@ -23,14 +23,14 @@ const DEFAULT_BOOLEAN = true;
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-  @Input()initialData: Teacher = new Teacher();
-  @Input()departments: Department[] = [];
-  @Input()positions: Position[] = [];
-  //@Input()scientificDegrees: ScientificDegree[]=[];
+  @Input() initialData: Teacher = new Teacher();
+  @Input() departments: Department[] = [];
+  @Input() positions: Position[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _departmentService: DepartmentService,) {
+    private _departmentService: DepartmentService,
+    private _positionService: PositionService) {
     super();
     this.setInitialData();
   }
@@ -53,6 +53,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   ngOnInit() {
     this._departmentService.getDepartments()
       .subscribe((departments: Department[]) => this.departments = departments);
+    this._positionService.getPositions()
+      .subscribe((positions: Position[]) => this.positions = positions);
   }
   invalid(): boolean {
     super.submit();

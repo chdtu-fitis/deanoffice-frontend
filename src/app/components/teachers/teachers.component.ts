@@ -16,7 +16,6 @@ export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
 
-  loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   selectedTeachers: Teacher[] = [];
   searchText: string;
@@ -28,12 +27,6 @@ export class TeachersComponent implements OnInit {
     maxLength: 10,
     maxStack: 3
   };
-
-  tuitionForms;
-  tuitionFormsKeys;
-
-  tuitionTerms;
-  tuitionTermsKeys;
 
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
