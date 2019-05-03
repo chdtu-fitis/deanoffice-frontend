@@ -39,16 +39,20 @@
 
         <div class="form-group">
           <label for="position" class="required">Посада:</label>
-          <select formControlName="position" class="form-control" id="position">
-            <option *ngFor="let position of positions " [ngValue]="position.id">{{position.name}}</option>
+          <select formControlName="position" class="form-control" id="position"
+                  [appValidation]="form.controls.positionId">
+            <option *ngFor="let position of positions " [ngValue]="position.id"  value="{{position.name}}">{{position.name}}</option>
           </select>
+          <app-validation-errors [control]="form.controls.positionId"></app-validation-errors>
         </div>
 
         <div class="form-group">
           <label for="department" class="required">Кафедра:</label>
-          <select formControlName="department" class="form-control" id="department">
-            <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
+          <select formControlName="department" class="form-control" id="department"
+                  [appValidation]="form.controls.departmentId">
+            <option *ngFor="let department of departments" [ngValue]="department.id"  value="{{department.name}}">{{department.name}}</option>
           </select>
+          <app-validation-errors [control]="form.controls.departmentId"></app-validation-errors>
         </div>
       </div>
     </div>

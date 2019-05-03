@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder,} from '@angular/forms';
+import {FormBuilder, Validators,} from '@angular/forms';
 import {Teacher} from '../../../models/Teacher';
 
 import {TabsetComponent} from 'ngx-bootstrap';
@@ -46,6 +46,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       position: data.position,
       scientificDegree: data.scientificDegree,
       department: data.department,
+      positionId: [data.positionId, Validators.required],
+      departmentId: [data.departmentId, Validators.required],
 
     });
   }
@@ -78,11 +80,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       department: s.department || DEFAULT_STRING,
     } as Teacher;
   }
-
-  selectTap(tabIndex: number): void {
-    this.tabset.tabs[tabIndex].active = true;
-  }
-
+  
   reset() {
   }
 }

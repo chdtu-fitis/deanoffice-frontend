@@ -7,7 +7,10 @@ export class Teacher extends Person {
   sex: string;
   scientificDegree: string;
 
-  constructor() {
+  positionId?: number;
+  departmentId?: number;
+
+    constructor() {
     super();
   }
 }

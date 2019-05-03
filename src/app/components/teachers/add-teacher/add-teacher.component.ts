@@ -2,9 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {TeacherService} from '../../../services/teacher.service';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {TeacherFormComponent} from '../teacher-form/teacher-form.component';
-import {Teacher} from '../../../models/Teacher';
-import {SpecializationFormComponent} from '../../specialization/specialization-form/specialization-form.component';
-import {SpecializationService} from '../../../services/specialization.service';
 
 @Component({
   selector: 'add-teacher',
