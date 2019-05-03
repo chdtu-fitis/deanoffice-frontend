@@ -38,9 +38,9 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   setInitialData(data: Teacher = new Teacher()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
-      name: data.name,
-      surname: data.surname,
-      patronimic: data.patronimic,
+      name: [data.name,  Validators.required],
+      surname: [data.surname, Validators.required],
+      patronimic: [data.patronimic,  Validators.required],
       active: data.active,
       sex: data.sex,
       scientificDegree: data.scientificDegree,
