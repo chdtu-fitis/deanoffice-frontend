@@ -15,7 +15,7 @@ import {TeacherService} from '../../services/teacher.service';
 export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
-
+  private active: boolean;
   teachers: Teacher[] = [];
   selectedTeachers: Teacher[] = [];
   searchText: string;
@@ -37,8 +37,7 @@ export class TeachersComponent implements OnInit {
   getRowNodeId = (data) => data.id;
 
   constructor(
-    private teacherService: TeacherService,
-    private notificationsService: NotificationsService) {
+    private teacherService: TeacherService) {
   }
 
   onColumnResized() {
@@ -68,14 +67,13 @@ export class TeachersComponent implements OnInit {
   onSelectionChanged(event: SelectionChangedEvent) {
     this.selectedTeachers = event.api.getSelectedRows();
   }
-
-  showErrorAlert(event) {
-    this.notificationsService.error('Помилка',
-      event.message,
-      this.alertOptions);
+  buttonIsDisabled(): boolean {
+    return !this.selectedTeachers.length || !this.active;
   }
 
-  onRemoveTeacher(){}
+  onRemoveTeacher(){
+    this.gridApi.updateRowData({ remove: this.selectedTeachers });
+  }
 
   onAddTeacher(teacher){
     this.gridApi.updateRowData({ add: [teacher], addIndex: 0 });

@@ -1,0 +1,9 @@
+<modal-wrapper #modal heading="Видалення викладача(ів)" (hideModal)="hideModal()">
+  <div class="modal-body" *ngIf="teacher">
+    <h5>{{teacher?.surname+" "+teacher?.name+" "+teacher?.patronimic}}</h5>
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="submit()">Видалити</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
+  </div>
+</modal-wrapper>
