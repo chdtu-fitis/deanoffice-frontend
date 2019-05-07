@@ -42,7 +42,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       surname: [data.surname, Validators.required],
       patronimic: [data.patronimic,  Validators.required],
       active: data.active,
-      sex: data.sex,
+      sex: [data.sex, Validators.required],
       scientificDegree: data.scientificDegree,
       positionId: [data.positionId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
