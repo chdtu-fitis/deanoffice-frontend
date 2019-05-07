@@ -9,14 +9,12 @@
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
-                    (click)="deleteTeacherModal.openModal(selectedTeachers[0])"
-                    [disabled]="buttonIsDisabled()">
+                    (click)="deleteTeacherModal.openModal(selectedTeachers[0])">
               Видалити
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
-                    (click)="onUpdateTeacher"
-                    [disabled]="buttonIsDisabled()">
+                    (click)="onUpdateTeacher">
               Редагувати
             </button>
 
