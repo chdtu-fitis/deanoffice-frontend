@@ -10,6 +10,7 @@ import {TeacherService} from '../../../services/teacher.service';
 })
 export class DeleteTeacherComponent {
   teacher: Teacher;
+  teacherArr: Teacher[] = [];
   @Output() deleteTeacher: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 
@@ -22,11 +23,11 @@ export class DeleteTeacherComponent {
 
   submit(): void {
     this.teacherService
-      .deleteTeacher(this.teacher.id)
-      .then(() => {
-        this.deleteTeacher.emit(null);
-        this.modal.hide()
-      });
+      .deleteTeacher(this.teacherArr.map(x => x.id))
+      .subscribe((deletedTeachers: Teacher[]) => {
+        this.deleteTeacher.emit(deletedTeachers);
+        this.modal.hide();
+      })
   }
 
   hideModal(): void {

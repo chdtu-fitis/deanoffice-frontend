@@ -32,8 +32,8 @@ export class TeacherService {
       .catch(forPromise('Створення нового викладача'));
   }
 
-  public deleteTeacher (itemId: number): Promise<any> {
-    return this._httpClient.delete(`${this.teachersUrl}/teachers/${itemId}`).toPromise()
-      .catch(forPromise('Видалення викладача'));
+  public deleteTeacher (ids: number[]): Observable<Object>  {
+    const url = `${this.teachersUrl}/teachers/${ids.join(', ')}`;
+    return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача')));
   }
 }
