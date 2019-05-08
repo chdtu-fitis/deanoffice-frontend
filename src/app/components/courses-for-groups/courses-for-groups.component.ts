@@ -30,7 +30,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   selectedHoursPerCredit: number;
-  hoursPerCreditCBDisabled: boolean = true;
+  hoursPerCreditCBDisabled = true;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -117,6 +117,7 @@ export class CoursesForGroupsComponent implements OnInit {
         this.studiedCoursesLoading = false;
       })
     }
+    this.courseCreationChild.form.controls.hoursPerCredit.setValue(this.selectedHoursPerCredit);
   }
 
   isDisabled() {
@@ -274,7 +275,7 @@ export class CoursesForGroupsComponent implements OnInit {
       updatedCourses.push({
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher? updateCourse.teacher.id : 0},
+        teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
         examDate: updateCourse.examDate
       })
     }
