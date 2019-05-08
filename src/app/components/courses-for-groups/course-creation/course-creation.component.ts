@@ -84,7 +84,7 @@ export class CourseCreationComponent implements OnInit {
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
     this.checkCourseName(this.courseName.value);
-    const courseIsAlreadyExist = this.courses.some(c => Course.same(c, this.form.value));
+    const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
       this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
     } else {
