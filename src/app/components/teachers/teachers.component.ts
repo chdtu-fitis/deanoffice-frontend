@@ -5,6 +5,7 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS} from './columns-def';
 import {Teacher} from '../../models/Teacher';
 import {TeacherService} from '../../services/teacher.service';
+import {StudentGroup} from '../../models/StudentGroup';
 
 @Component({
   selector: 'app-teachers',
@@ -66,12 +67,9 @@ export class TeachersComponent implements OnInit {
   onSelectionChanged(event: SelectionChangedEvent) {
     this.selectedTeachers = event.api.getSelectedRows();
   }
-  buttonIsDisabled(): boolean {
-    return !this.selectedTeachers.length || !this.active;
-  }
 
-  onRemoveTeacher(){
-    this.gridApi.updateRowData({ remove: this.selectedTeachers });
+  onRemoveTeacher() {
+      this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 
   onAddTeacher(teacher){

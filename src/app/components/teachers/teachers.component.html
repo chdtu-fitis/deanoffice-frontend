@@ -9,7 +9,7 @@
           </label>
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
-                    (click)="deleteTeacherModal.openModal(selectedTeachers[0])"
+                    (click)="deleteTeacherModal.openModal(gridApi.getSelectedRows())"
                     [disabled]="selectedTeachers.length === 0">
               Видалити
             </button>

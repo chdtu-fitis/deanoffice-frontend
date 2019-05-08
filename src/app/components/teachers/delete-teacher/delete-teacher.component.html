@@ -1,5 +1,5 @@
 <modal-wrapper #modal heading="Видалення викладачів" (hideModal)="hideModal()">
-  <div class="modal-body" *ngIf="teacher">
+  <div class="modal-body" *ngIf="teacherArr">
     <table class="table">
       <thead>
       <tr>
@@ -9,7 +9,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let teacher of teacher">
+      <tr *ngFor="let teacher of teacherArr">
         <td>{{teacher?.surname}}</td>
         <td>{{teacher?.name}}</td>
         <td>{{teacher?.patronimic}}</td>

@@ -34,6 +34,6 @@ export class TeacherService {
 
   public deleteTeacher (ids: number[]): Observable<Object>  {
     const url = `${this.teachersUrl}/teachers/${ids.join(', ')}`;
-    return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача')));
+    return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача', [])));
   }
 }

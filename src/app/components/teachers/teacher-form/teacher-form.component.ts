@@ -41,7 +41,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       name: [data.name,  Validators.required],
       surname: [data.surname, Validators.required],
       patronimic: [data.patronimic,  Validators.required],
-      active: data.active,
+      active: true,
       sex: [data.sex, Validators.required],
       scientificDegree: data.scientificDegree,
       positionId: [data.positionId, Validators.required],
@@ -69,13 +69,13 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
     return {
       ...s,
       name: s.name || DEFAULT_STRING,
-      active: s.active || DEFAULT_BOOLEAN,
+      active: true,
       surname: s.surname || DEFAULT_STRING,
       patronimic: s.patronimic || DEFAULT_STRING,
       sex: s.sex || DEFAULT_STRING,
-      position: s.position || null,
+      position: s.position || DEFAULT_STRING,
       scientificDegree: s.scientificDegree || DEFAULT_STRING,
-      department: s.department || null,
+      department: s.department || DEFAULT_STRING,
     } as Teacher;
   }
 

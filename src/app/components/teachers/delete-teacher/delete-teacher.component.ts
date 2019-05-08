@@ -10,14 +10,14 @@ import {TeacherService} from '../../../services/teacher.service';
 })
 export class DeleteTeacherComponent {
   teacher: Teacher;
-  teacherArr: Teacher[] = [];
+  teacherArr: Teacher[];
   @Output() deleteTeacher: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 
   constructor(private teacherService: TeacherService) { }
 
-  openModal(item: Teacher): void {
-    this.teacher = item;
+  openModal(item: Teacher[]): void {
+    this.teacherArr = item;
     this.modal.show();
   }
 
