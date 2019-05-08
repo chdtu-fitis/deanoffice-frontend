@@ -211,15 +211,10 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   sortCoursesForGroup() {
-    this.addedCoursesChild.coursesForGroup.sort((a, b) => {
-      if (a.course.courseName.name > b.course.courseName.name) {
-        return 1;
-      }
-      if (a.course.courseName.name < b.course.courseName.name) {
-        return -1;
-      }
-      return 0;
-    })
+    this.addedCoursesChild.coursesForGroup.sort((a, b) =>
+      Number(b.academicDifference) - Number(a.academicDifference) ||
+      a.course.knowledgeControl.id - b.course.knowledgeControl.id ||
+      Number(a.course.courseName.name > b.course.courseName.name));
   }
 
   addCourse(newCourseForGroup: CourseForGroup, isDeleted: boolean) {
