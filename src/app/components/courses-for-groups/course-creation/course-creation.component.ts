@@ -70,19 +70,6 @@ export class CourseCreationComponent implements OnInit {
     return this.form.controls.courseName as FormGroup;
   }
 
-  get hours() {
-    return this.form.controls.hours as FormGroup;
-  }
-
-  get hoursPerCredit() {
-    return this.form.controls.hoursPerCredit as FormGroup;
-  }
-
-  get knowledgeControlId() {
-    return this.form.controls.knowledgeControl.value.id;
-  }
-
-
   onSelect(event: TypeaheadMatch): void {
     this.form.controls.courseName.setValue(event.item);
   }
@@ -94,19 +81,10 @@ export class CourseCreationComponent implements OnInit {
     }
   }
 
-  isSameCourse(course: Course) {
-    return this.hours.value === course.hours && this.hoursPerCredit.value === course.hoursPerCredit && this.knowledgeControlId === course.knowledgeControl.id;
-  }
-
-  checkCourse(course: Course) {
-    const sameName = this.courses.filter(c => c.courseName.name === course.courseName.name);
-    return sameName.some(this.isSameCourse, this);
-  }
-
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
     this.checkCourseName(this.courseName.value);
-    const courseIsAlreadyExist = this.checkCourse(this.form.value);
+    const courseIsAlreadyExist = this.courses.some(c => Course.same(c, this.form.value));
     if (courseIsAlreadyExist) {
       this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
     } else {
