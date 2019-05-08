@@ -23,6 +23,7 @@ export class AddedCoursesComponent implements OnInit {
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
+  @Output() academicDifferenceChange = new EventEmitter();
   allRowsIsSelected = false;
 
   constructor(private courseForGroupService: CourseForGroupService,
@@ -61,6 +62,10 @@ export class AddedCoursesComponent implements OnInit {
 
   dateChange(course) {
     this.onDateChange.emit(course);
+  }
+
+  onAcademicDifferenceChange(course) {
+    this.academicDifferenceChange.emit(course);
   }
 
   changeCourse(course) {

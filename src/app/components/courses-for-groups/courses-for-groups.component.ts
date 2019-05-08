@@ -251,14 +251,16 @@ export class CoursesForGroupsComponent implements OnInit {
     class courseForGroupNewCoursesType {
       course: { id: number };
       teacher: { id: number };
-      examDate: Date
+      examDate: Date;
+      academicDifference: boolean;
     }
 
     class courseForGroupUpdateCoursesType {
       id: number;
       course: { id: number };
       teacher: { id: number };
-      examDate: Date
+      examDate: Date;
+      academicDifference: boolean;
     }
 
     const newCourses: courseForGroupNewCoursesType[] = [];
@@ -267,7 +269,8 @@ export class CoursesForGroupsComponent implements OnInit {
       newCourses.push({
         course: {id: newCourse.course.id},
         teacher: {id: newCourse.teacher.id},
-        examDate: newCourse.examDate
+        examDate: newCourse.examDate,
+        academicDifference: newCourse.academicDifference
       })
     }
     for (const updateCourse of this.updatedCourses) {
@@ -275,7 +278,8 @@ export class CoursesForGroupsComponent implements OnInit {
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
         teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
-        examDate: updateCourse.examDate
+        examDate: updateCourse.examDate,
+        academicDifference: updateCourse.academicDifference
       })
     }
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
@@ -349,6 +353,10 @@ export class CoursesForGroupsComponent implements OnInit {
 
   changeDate(event: CourseForGroup) {
     this.courseForGroupUpdate(event, 'examDate');
+  }
+
+  onAcademicDifferenceChange(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'academicDifference');
   }
 
   copyCourses() {

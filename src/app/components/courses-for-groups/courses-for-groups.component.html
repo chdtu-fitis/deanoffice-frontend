@@ -68,6 +68,7 @@
   <div class="course-for-group-table">
     <added-courses (onDateChange)="changeDate($event)"
                    (onTeacherChange)="changeTeacher($event)"
+                   (academicDifferenceChange)="onAcademicDifferenceChange($event)"
                    (onCoursesForGroup)="changeCoursesForGroup($event)"
                    (onCoursesForDeleteChange)="changeCoursesForDelete($event)"
                    [selectedSemester]="selectedSemester"
