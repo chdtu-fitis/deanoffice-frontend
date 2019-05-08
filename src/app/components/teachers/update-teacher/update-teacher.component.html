@@ -1,0 +1,10 @@
+<modal-wrapper #modal heading="Редагувати інформацію про викладача" (hideModal)="hideModal()">
+  <teacher-form #form
+              [teacher]="teacher">
+    <button type="button" (click)="submit()"
+            [disabled]="form.form.invalid"
+            class="btn btn-warning">Редагувати</button>
+    <button type="button" (click)="hideModal()"
+            class="btn btn-outline-danger">Скасувати</button>
+  </teacher-form>
+</modal-wrapper>
