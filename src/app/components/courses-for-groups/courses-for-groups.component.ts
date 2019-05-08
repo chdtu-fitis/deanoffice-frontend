@@ -30,7 +30,7 @@ export class CoursesForGroupsComponent implements OnInit {
   selectedGroup: StudentGroup;
   selectedSemester: number;
   selectedHoursPerCredit: number;
-  hoursPerCreditCBDisabled: boolean = true;
+  hoursPerCreditCBDisabled = true;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -274,7 +274,7 @@ export class CoursesForGroupsComponent implements OnInit {
       updatedCourses.push({
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher? updateCourse.teacher.id : 0},
+        teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
         examDate: updateCourse.examDate
       })
     }
@@ -322,52 +322,33 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  changeTeacher(event) {
-    const initialState = {courseForGroups: event};
+  changeTeacher(event: CourseForGroup) {
+    const initialState = {courseForGroup: event};
     const modalRef = this.modalService.show(TeacherDialogComponent, {initialState, class: 'modal-custom'});
     modalRef.content.onTeacherSelect.subscribe(($event) => {
       this.updateCoursesForGroupWithNewTeacher($event);
     });
   }
 
-  updateCoursesForGroupWithNewTeacher(event) {
-    let isAdded = false;
-    for (const addedCourse of this.coursesForAdd) {
-      if (event.course.id === addedCourse.course.id) {
-        addedCourse.teacher = event.teacher;
-        isAdded = true;
-      }
-    }
-    if (!isAdded) {
+  courseForGroupUpdate(course: CourseForGroup, field: string) {
+    const courseForAdd = this.coursesForAdd.find(courseForAdd => courseForAdd.course.id === course.course.id);
+    if (courseForAdd) {
+      courseForAdd[field] = course[field];
+    } else {
       this.changesExistence = true;
-      this.updatedCourses.push(event);
-    }
-    for (const course of this.coursesForGroup) {
-      if (course.course.id === event.course.id) { course.teacher = event.teacher; }
+      const isAlreadyUpdated = this.updatedCourses.some(updatedCourse => updatedCourse.id === course.id);
+      if (!isAlreadyUpdated) {
+        this.updatedCourses.push(course);
+      }
     }
   }
 
-  changeDate(event) {
-    let isAdded: boolean;
-    isAdded = false;
-    this.indexForDate = event.index;
-    for (const course of this.coursesForGroup) {
-      if (this.coursesForGroup.indexOf(course) === this.indexForDate) {
-        for (const addedCourse of this.coursesForAdd) {
-          if (course.course.id === addedCourse.course.id) {
-            addedCourse.examDate = course.examDate;
-            isAdded = true;
-          }
-        }
-        if (!isAdded) {
-          this.changesExistence = true;
-          if (course.teacher === undefined) {
-            course.teacher = new Teacher();
-          }
-          this.updatedCourses.push(course);
-        }
-      }
-    }
+  updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'teacher');
+  }
+
+  changeDate(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'examDate');
   }
 
   copyCourses() {

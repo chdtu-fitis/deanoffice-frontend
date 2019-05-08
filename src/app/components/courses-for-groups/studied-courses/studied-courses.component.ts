@@ -23,12 +23,12 @@ export class StudiedCoursesComponent implements OnInit {
 
   changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
     if (!checked) {
-      for (let course of this.selectedCourses)
+      for (const course of this.selectedCourses) {
         if (course.id === selectedCourse.id) {
           this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
         }
-    }
-    else {
+      }
+    } else {
       this.selectedCourses.push(selectedCourse)
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);

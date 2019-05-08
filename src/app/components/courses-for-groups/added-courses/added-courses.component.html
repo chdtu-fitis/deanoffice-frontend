@@ -30,7 +30,7 @@
         </td>
         <td><input type="checkbox" #selected [checked]="course.academicDifference"></td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"
-                   (change)="dateChange(i)">
+                   (change)="dateChange(course)">
         </td>
         <td (click)="changeCourse(course)">
           <button type="button" class="btn btn-outline-info" [disabled]="changesExistence">
