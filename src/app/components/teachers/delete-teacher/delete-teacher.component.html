@@ -1,6 +1,21 @@
 <modal-wrapper #modal heading="Видалення викладачів" (hideModal)="hideModal()">
   <div class="modal-body" *ngIf="teacher">
-    <h5>{{teacher?.surname+" "+teacher?.name+" "+teacher?.patronimic}}</h5>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Прізвище</th>
+        <th scope="col">Ім'я</th>
+        <th scope="col">По батькові</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let teacher of teacher">
+        <td>{{teacher?.surname}}</td>
+        <td>{{teacher?.name}}</td>
+        <td>{{teacher?.patronimic}}</td>
+      </tr>
+      </tbody>
+    </table>
     </div>
     <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="submit()">Видалити</button>
