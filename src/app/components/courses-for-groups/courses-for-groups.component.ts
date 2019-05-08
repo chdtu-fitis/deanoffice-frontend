@@ -119,14 +119,8 @@ export class CoursesForGroupsComponent implements OnInit {
     }
   }
 
-  isDisabled() {
-    return this.hoursPerCreditCBDisabled;
-  }
-
-  changeCoursesForGroup(event) {
-    for (let i = 0; i < event.length; i++) {
-      this.coursesForGroup.push(event[i])
-    }
+  changeCoursesForGroup(event: CourseForGroup[]) {
+    this.coursesForGroup.push(...event)
   }
 
   changeCoursesForDelete(event) {
