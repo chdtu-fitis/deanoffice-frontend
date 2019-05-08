@@ -13,6 +13,7 @@ import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { AddTeacherComponent } from './add-teacher/add-teacher.component';
 import {TabsModule} from 'ngx-bootstrap';
 import { DeleteTeacherComponent } from './delete-teacher/delete-teacher.component';
+import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
 
 
 export const teacherRoutes: Routes = [
@@ -34,7 +35,8 @@ export const teacherRoutes: Routes = [
     TeachersComponent,
     TeacherFormComponent,
     AddTeacherComponent,
-    DeleteTeacherComponent
+    DeleteTeacherComponent,
+    UpdateTeacherComponent
   ],
   providers: [
     AuthenticationModule.tokenInterceptor()

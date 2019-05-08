@@ -15,7 +15,7 @@
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
-                    (click)="onUpdateTeacher"
+                    (click)="updateTeacherModal.openModal(gridApi.getSelectedRows()[0])"
                     [disabled]="selectedTeachers.length === 0 || selectedTeachers.length > 1">
               Редагувати
             </button>
@@ -61,4 +61,7 @@
 <delete-teacher #deleteTeacherModal
                 (deleteTeacher)="onRemoveTeacher()">
 </delete-teacher>
+<update-teacher #updateTeacherModal
+                (updateTeacher)="onUpdateTeacher()">
+</update-teacher>
 

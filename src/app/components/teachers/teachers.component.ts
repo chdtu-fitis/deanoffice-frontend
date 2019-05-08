@@ -16,6 +16,7 @@ export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
   private active: boolean;
+  loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   selectedTeachers: Teacher[] = [];
   searchText: string;
@@ -75,6 +76,12 @@ export class TeachersComponent implements OnInit {
   onAddTeacher(teacher){
     this.gridApi.updateRowData({ add: [teacher], addIndex: 0 });
   }
-  onUpdateTeacher(){}
+  onUpdateTeacher(updatedTeacher: Teacher){
+    const rowNode = this.gridApi.getRowNode(this.selectedTeachers[0].id);
+    rowNode.setData(updatedTeacher);
+
+    const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
+    this.loadedTeachers[index] = updatedTeacher;
+  }
 
 }
