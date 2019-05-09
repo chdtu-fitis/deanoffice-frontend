@@ -97,26 +97,23 @@ export class CoursesForGroupsComponent implements OnInit {
     this.hoursPerCreditCBDisabled = false;
   }
 
-  onSemesterChange() {
+  loadCoursesBySemester() {
     this.studiedCoursesLoading = true;
-    if (this.selectedSemester) {
-      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
-        this.courses = cfg;
-        this.studiedCoursesLoading = false;
-      })
-    }
+    this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
+      this.courses = cfg;
+      this.studiedCoursesLoading = false;
+    });
+  }
+
+  onSemesterChange() {
+    this.loadCoursesBySemester();
     this.getCoursesForGroup();
     this.courseCreationChild.form.controls.semester.setValue(this.selectedSemester);
   }
 
   onChangeHoursPerCredit() {
-    this.studiedCoursesLoading = true;
-    if (this.selectedSemester) {
-      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
-        this.courses = cfg;
-        this.studiedCoursesLoading = false;
-      })
-    }
+    this.loadCoursesBySemester();
+    this.courseCreationChild.form.controls.hoursPerCredit.setValue(this.selectedHoursPerCredit);
   }
 
   isDisabled() {
@@ -315,7 +312,7 @@ export class CoursesForGroupsComponent implements OnInit {
   onCourseCreation() {
     if (this.selectedSemester) {
       this.studiedCoursesLoading = true;
-      this.courseService.getCoursesBySemester(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
+      this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
       })

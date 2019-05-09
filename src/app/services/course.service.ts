@@ -10,7 +10,7 @@ export class CourseService {
   constructor(private http: HttpClient) {
   }
 
-  getCoursesBySemester(semester, hoursPerCredit): Observable<Course[]> {
+  getCoursesBySemesterAndHoursPerCredit(semester, hoursPerCredit): Observable<Course[]> {
     return this.http.get<Course[]>(`${environment.apiUrl}/courses/hours-per-credit?semester=${semester}&hoursPerCredit=${hoursPerCredit}`);
   }
 
