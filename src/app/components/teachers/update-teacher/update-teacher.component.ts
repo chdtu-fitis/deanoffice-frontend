@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {TeacherService} from '../../../services/teacher.service';
 import {TeacherFormComponent} from '../teacher-form/teacher-form.component';
 import {Teacher} from '../../../models/Teacher';
-
 
 @Component({
   selector: 'update-teacher',
@@ -11,41 +10,40 @@ import {Teacher} from '../../../models/Teacher';
   styleUrls: ['./update-teacher.component.scss']
 })
 export class UpdateTeacherComponent {
+  source: Teacher;
   @Output() updateTeacher: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
   @ViewChild('form') form: TeacherFormComponent;
-  @Input() teacher: Teacher[];
-  selectedTeacher: Teacher;
 
   constructor(private teacherService: TeacherService) { }
 
-  openModal(selectedTeacher): void {
-    this.selectedTeacher = selectedTeacher;
-    this.form.setValues({
-      'name': selectedTeacher.name,
-      'surname': selectedTeacher.surname,
-      'patronimic': selectedTeacher.patronimic,
-      'position': selectedTeacher.position,
-      'scientificDegree': selectedTeacher.scientificDegree,
-      'department': selectedTeacher.department
-    });
-    this.modal.show();
+  getTitle(): string {
+    const info: string = (this.source) ? `${this.source.surname} ${this.source.name} ${this.source.patronimic}` : '';
+    return `Оновлення інформації про викладача: ${info}`;
+  }
+
+  openModal(sourceId: number): void {
+    this.teacherService.getById(sourceId)
+      .subscribe((source: Teacher) => {
+        this.source = source;
+        this.form.setInitialData(this.source);
+        this.modal.show();
+      });
   }
 
   hideModal(): void {
     this.modal.hide();
+    this.form.reset();
   }
 
   submit(): void {
-    const body = this.form.form.getRawValue();
-    body.id = this.selectedTeacher.id;
-    body.active = this.selectedTeacher.active;
-    body.teacher = {id: body.teacher};
-    this.teacherService.updateTeacher(body)
-      .then(group => this.updateTeacher.emit(group))
+    if (this.form.invalid()) {
+      return;
+    }
+    this.teacherService
+      .updateTeacher(this.form.getValue())
+      .then((teacher) => this.updateTeacher.emit(teacher))
       .then(() => this.hideModal())
       .catch(null);
   }
-
 }
-

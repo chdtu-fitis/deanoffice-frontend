@@ -5,6 +5,8 @@ import {Teacher} from '../models/Teacher';
 import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable, forPromise} from '../components/shared/httpErrors';
+import {Specialization} from '../models/Specialization';
+import {SPECIALIZATION_URL} from './specialization.service';
 
 @Injectable()
 export class TeacherService {
@@ -37,5 +39,10 @@ export class TeacherService {
   public updateTeacher(body): Promise<any> {
     return this._httpClient.put(`${this.teachersUrl}/teachers`, body).toPromise()
       .catch(forPromise('Оновлення викладача'));
+  }
+  public  getById(sourceId: number): Observable<Teacher> {
+    return this._httpClient.get<Teacher>(`${this.teachersUrl}/teachers/${sourceId}`)
+      .pipe(catchError(forObservable('Отриманная викладача по Id')))
+      .map(data => data as Teacher)
   }
 }
