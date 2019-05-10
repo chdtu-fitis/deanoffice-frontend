@@ -1,7 +1,7 @@
 import {Course} from '../Course';
 
 export class CoursePagination {
-  items?: Course[];
-  currentPage?: string;
-  totalPage?: string;
+  items: Course[];
+  currentPage: number;
+  totalPage: number;
 }
