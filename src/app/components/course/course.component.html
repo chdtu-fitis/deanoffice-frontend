@@ -1,4 +1,4 @@
-<div class="px-3 h-100">
+<div class="px-3 h-100" *ngFor="let item of rows | paginate: {itemsPerPage: 1, currentPage: currentPage}">
   <ag-grid-angular
     class="ag-theme-balham course-table"
     rowSelection="multiple"
@@ -13,4 +13,8 @@
     (gridReady)="onGridReady($event)"
   >
   </ag-grid-angular>
-</div>
+  <div class="text-center">
+    <pagination-controls (pageChange)="getCoursesForAdministrator($event)" previousLabel="Попередня" nextLabel="Наступна"></pagination-controls>
+  </div>
+  </div>
+

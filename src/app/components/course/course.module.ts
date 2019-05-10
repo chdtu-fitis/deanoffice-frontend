@@ -5,6 +5,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import { CourseComponent } from './course.component';
 import {SharedModule} from '../shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export const courseRoutes: Routes = [
   {path: '', component: CourseComponent}
@@ -15,6 +16,7 @@ export const courseRoutes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
+    NgxPaginationModule,
     RouterModule.forChild(courseRoutes)
   ],
   declarations: [CourseComponent]

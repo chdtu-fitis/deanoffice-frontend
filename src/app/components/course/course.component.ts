@@ -11,11 +11,13 @@ import {CoursePagination} from '../../models/course/CoursePagination';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
-
-  isActual = true;
   selected: Course[] = [];
   courses: Course[] = [];
   rows: Course[] = [];
+  total: number;
+  collection = [];
+  currentPage: number;
+  totalPages: number;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
   localeText = LOCALE_TEXT;
@@ -26,7 +28,8 @@ export class CourseComponent implements OnInit {
   constructor(private courseServise: CourseService) { }
 
   ngOnInit() {
-    this.getCoursesForAdministrator();
+    this.currentPage = 1;
+    this.getCoursesForAdministrator(this.currentPage);
   }
   onGridReady(params) {
     this.gridApi = params.api;
@@ -34,10 +37,13 @@ export class CourseComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  getCoursesForAdministrator() {
-    this.courseServise.getCoursesForAdministrator()
-      .subscribe((coursePaginationDTO: CoursePagination) => {
-        this.rows = coursePaginationDTO.items;
+  getCoursesForAdministrator(page: number) {
+    this.courseServise.getCoursesForAdministrator(page)
+      .subscribe((coursePagination: CoursePagination) => {
+        this.rows = coursePagination.items;
+        this.currentPage = coursePagination.currentPage;
+        this.totalPages = coursePagination.totalPage;
+        this.total = this.rows.length;
       });
   }
 }
