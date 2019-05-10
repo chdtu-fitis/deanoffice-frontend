@@ -23,8 +23,8 @@ export class CourseService {
     return this.http.get(`${environment.apiUrl}/courses/names`);
   }
 
-  getCoursesForAdministrator(): Observable<CoursePagination> {
-    return this.http.get<CoursePagination>(`${environment.apiUrl}/all-courses`);
+  getCoursesForAdministrator(page: any): Observable<CoursePagination> {
+    return this.http.get<CoursePagination>(`${environment.apiUrl}/all-courses`, {params: {page}});
   }
 
 }
