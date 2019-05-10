@@ -11,7 +11,6 @@ import {DepartmentService} from '../../../services/department.service';
 import {PositionService} from '../../../services/position.service';
 import {Department} from '../../../models/Department';
 import {Position} from  '../../../models/Position';
-import {Specialization} from '../../../models/Specialization';
 
 const DEFAULT_STRING = '';
 
@@ -46,8 +45,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       sex: [data.sex, Validators.required],
       scientificDegree: data.scientificDegree,
       positionId: [data.positionId, Validators.required],
-      departmentId: [data.departmentId, Validators.required],
-
+      departmentId: [data.departmentId, Validators.required]
     });
   }
 
@@ -77,17 +75,11 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       position: s.position || DEFAULT_STRING,
       scientificDegree: s.scientificDegree || DEFAULT_STRING,
       department: s.department || DEFAULT_STRING,
+      departmentId: s.departmentId,
+      positionId: s.positionId
     } as Teacher;
   }
 
   reset() {
-  }
-  setValues(values) {
-    this.form.controls.name.setValue(values['name']);
-    this.form.controls.surname.setValue(values['surname']);
-    this.form.controls.patronimic.setValue(values['patronimic']);
-    this.form.controls.position.setValue(values['position']);
-    this.form.controls.scientificDegree.setValue(values['scientificDegree']);
-    this.form.controls.department.setValue(values['department']);
   }
 }

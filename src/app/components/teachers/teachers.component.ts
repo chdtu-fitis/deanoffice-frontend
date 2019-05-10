@@ -5,7 +5,6 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS} from './columns-def';
 import {Teacher} from '../../models/Teacher';
 import {TeacherService} from '../../services/teacher.service';
-import {StudentGroup} from '../../models/StudentGroup';
 
 @Component({
   selector: 'app-teachers',
@@ -15,10 +14,10 @@ import {StudentGroup} from '../../models/StudentGroup';
 export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
+  selectedTeachers: Teacher[] = [];
   private active: boolean;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
-  selectedTeachers: Teacher[] = [];
   searchText: string;
   alertOptions = {
     showProgressBar: false,
@@ -83,5 +82,4 @@ export class TeachersComponent implements OnInit {
     const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
     this.loadedTeachers[index] = updatedTeacher;
   }
-
 }
