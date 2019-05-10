@@ -8,8 +8,8 @@ export const COLUMN_DEFINITIONS = [
     field: 'semester',
   },
   {
-    headerName: 'Освітній рівень',
-    field: 'knowledgeControl',
+    headerName: 'Тип контролю',
+    field: 'knowledgeControl.name',
   },
   {
     headerName: 'Години',
