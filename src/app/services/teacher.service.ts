@@ -35,7 +35,6 @@ export class TeacherService {
     return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача', [])));
   }
   public updateTeacher(body): Promise<any> {
-    //const params =  new HttpParams().set('department', 'кафедра прикладної математики').set( 'position', 'асистент');
     return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Оновлення інформації про викладача'));
   }
