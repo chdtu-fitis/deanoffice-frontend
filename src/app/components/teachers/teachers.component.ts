@@ -72,13 +72,15 @@ export class TeachersComponent implements OnInit {
       this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 
-  onAddTeacher(teacher){
+  onAddTeacher(teacher) {
     this.gridApi.updateRowData({ add: [teacher], addIndex: 0 });
   }
-  onUpdateTeacher(updatedTeacher: Teacher){
+
+  onUpdateTeacher(updatedTeacher: Teacher) {
     const rowNode = this.gridApi.getRowNode(this.selectedTeachers[0].id);
     rowNode.setData(updatedTeacher);
-
+    this.selectedTeachers = [];
+    this.selectedTeachers.push(updatedTeacher);
     const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
     this.loadedTeachers[index] = updatedTeacher;
   }
