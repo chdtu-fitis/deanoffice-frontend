@@ -1,6 +1,5 @@
 import {Person} from './basemodels/Person';
 import {Department} from './Department';
-import {NameWithActiveEntity} from './basemodels/NameWithActiveEntity';
 
 export class Teacher extends Person {
   department: Department;
@@ -8,7 +7,10 @@ export class Teacher extends Person {
   sex: string;
   scientificDegree: string;
 
-  constructor() {
+  positionId?: number;
+  departmentId?: number;
+
+    constructor() {
     super();
   }
 }

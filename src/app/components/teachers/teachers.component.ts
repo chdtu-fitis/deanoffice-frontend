@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NotificationsService} from 'angular2-notifications';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
 
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
@@ -15,10 +14,10 @@ import {TeacherService} from '../../services/teacher.service';
 export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
-
+  selectedTeachers: Teacher[] = [];
+  private active: boolean;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
-  selectedTeachers: Teacher[] = [];
   searchText: string;
   alertOptions = {
     showProgressBar: false,
@@ -29,12 +28,6 @@ export class TeachersComponent implements OnInit {
     maxStack: 3
   };
 
-  tuitionForms;
-  tuitionFormsKeys;
-
-  tuitionTerms;
-  tuitionTermsKeys;
-
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
@@ -44,8 +37,7 @@ export class TeachersComponent implements OnInit {
   getRowNodeId = (data) => data.id;
 
   constructor(
-    private teacherService: TeacherService,
-    private notificationsService: NotificationsService) {
+    private teacherService: TeacherService) {
   }
 
   onColumnResized() {
@@ -76,14 +68,20 @@ export class TeachersComponent implements OnInit {
     this.selectedTeachers = event.api.getSelectedRows();
   }
 
-  showErrorAlert(event) {
-    this.notificationsService.error('Помилка',
-      event.message,
-      this.alertOptions);
+  onRemoveTeacher() {
+      this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 
-  onRemoveTeacher(){}
-  onAddTeacher(){}
-  onUpdateTeacher(){}
+  onAddTeacher(teacher) {
+    this.gridApi.updateRowData({ add: [teacher], addIndex: 0 });
+  }
 
+  onUpdateTeacher(updatedTeacher: Teacher) {
+    const rowNode = this.gridApi.getRowNode(this.selectedTeachers[0].id);
+    rowNode.setData(updatedTeacher);
+    this.selectedTeachers = [];
+    this.selectedTeachers.push(updatedTeacher);
+    const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
+    this.loadedTeachers[index] = updatedTeacher;
+  }
 }

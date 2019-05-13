@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable, forPromise} from '../components/shared/httpErrors';
 
-
 @Injectable()
 export class TeacherService {
   private teachersUrl = `${environment.apiUrl}`;
@@ -26,8 +25,17 @@ export class TeacherService {
       .pipe(catchError(forObservable('Отримання короткого списку викладачів', [])));
   }
 
-  public create(body): Promise<any> {
+  public createTeacher(body): Promise<any> {
     return this._httpClient.post(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Створення нового викладача'));
+  }
+
+  public deleteTeacher (ids: number[]): Observable<Object>  {
+    const url = `${this.teachersUrl}/teachers/${ids.join(', ')}`;
+    return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача', [])));
+  }
+  public updateTeacher(body): Promise<any> {
+    return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
+      .catch(forPromise('Оновлення інформації про викладача'));
   }
 }

@@ -6,7 +6,7 @@ export const COLUMN_DEFINITIONS = [
     minWidth: 150,
   },
   {
-    headerName: 'Імя',
+    headerName: 'І’мя',
     field: 'name',
     minWidth: 150,
   },
@@ -15,18 +15,19 @@ export const COLUMN_DEFINITIONS = [
     field: 'patronimic',
     minWidth: 150,
   },
-  {
-    headerName: 'Стать',
-    field: 'sex',
-    minWidth: 150,
-  },
+  // {
+  //   headerName: 'Стать',
+  //   field: 'sex',
+  //   valueGetter: (params) => `${Gender[params.data.sex].toLowerCase().slice(0, 3)}.`,
+  //   minWidth: 150,
+  // },
   {
     headerName: 'Кафедра',
-    field: 'department.abbr',
-    minWidth: 150,
+    field: 'department.name',
+    minWidth: 500,
   },
   {
-    headerName: 'Науковий Ступінь',
+    headerName: 'Науковий ступінь',
     field: 'scientificDegree',
     minWidth: 150,
   },

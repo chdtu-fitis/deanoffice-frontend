@@ -1,26 +1,18 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import {FormBuilder, Validators,} from '@angular/forms';
 import {Teacher} from '../../../models/Teacher';
-import {Observable} from 'rxjs/Observable';
+
 import {TabsetComponent} from 'ngx-bootstrap';
 
-import {flatMap} from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {Specialization} from '../../../models/Specialization';
-import {Lang} from '../../specialization/specialization-form/enums/lang.enum';
-import {DegreeService} from '../../../services/degree.service';
-import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
-import {AcquiredCompetenciesService} from '../../specialization/specialization-form/services/acquired-competencies.service';
-import {Degree} from '../../../models/Degree';
+import {PositionService} from '../../../services/position.service';
 import {Department} from '../../../models/Department';
-import {SpecializationCompetenciesComponent} from '../../specialization/specialization-form/specialization-competencies/specialization-competencies.component';
+import {Position} from  '../../../models/Position';
 
-const DEFAULT_NUMBER = 0;
 const DEFAULT_STRING = '';
-const DEFAULT_BOOLEAN = true;
 
 @Component({
   selector: 'teacher-form',
@@ -30,18 +22,15 @@ const DEFAULT_BOOLEAN = true;
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset') tabset: TabsetComponent;
-  @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
-  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
-  initialData: Teacher = new Teacher();
-  isShow = true;
-  lang = Lang;
-  departments: Department[] = [];
+  @Input() initialData: Teacher = new Teacher();
+  @Input() departments: Department[] = [];
+  @Input() positions: Position[] = [];
+  @Input() teacher: Teacher[];
 
   constructor(
     private _formBuilder: FormBuilder,
     private _departmentService: DepartmentService,
-    private _acquiredCompetenciesService: AcquiredCompetenciesService
-  ) {
+    private _positionService: PositionService) {
     super();
     this.setInitialData();
   }
@@ -49,21 +38,25 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   setInitialData(data: Teacher = new Teacher()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
-      name: data.name,
-      surname: data.surname,
-      patronimic: data.patronimic,
-      active: data.active,
-      sex: data.sex,
+      name: [data.name,  Validators.required],
+      surname: [data.surname, Validators.required],
+      patronimic: [data.patronimic,  Validators.required],
+      active: true,
       position: data.position,
-      scientificDegree: data.scientificDegree,
       department: data.department,
-
+      id: data.id,
+      sex: [data.sex, Validators.required],
+      scientificDegree: data.scientificDegree,
+      positionId: [data.positionId, Validators.required],
+      departmentId: [data.departmentId, Validators.required]
     });
   }
 
   ngOnInit() {
     this._departmentService.getDepartments()
       .subscribe((departments: Department[]) => this.departments = departments);
+    this._positionService.getPositions()
+      .subscribe((positions: Position[]) => this.positions = positions);
   }
   invalid(): boolean {
     super.submit();
@@ -78,18 +71,17 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
     return {
       ...s,
       name: s.name || DEFAULT_STRING,
-      active: s.active || DEFAULT_BOOLEAN,
+      active: true,
+      id: s.id,
       surname: s.surname || DEFAULT_STRING,
       patronimic: s.patronimic || DEFAULT_STRING,
       sex: s.sex || DEFAULT_STRING,
-      position: s.position || DEFAULT_STRING,
+      position: s.position || null,
       scientificDegree: s.scientificDegree || DEFAULT_STRING,
-      department: s.department || DEFAULT_STRING,
+      department: s.department || null,
+      departmentId: s.departmentId,
+      positionId: s.positionId
     } as Teacher;
-  }
-
-  selectTap(tabIndex: number): void {
-    this.tabset.tabs[tabIndex].active = true;
   }
 
   reset() {
