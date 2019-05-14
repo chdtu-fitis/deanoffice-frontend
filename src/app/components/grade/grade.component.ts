@@ -37,17 +37,13 @@ export class GradeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getGroups();
+      this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
+        this.groups = groups;
+      });
     }
 
     changeMode() {
         this.isDeleteMode = !this.isDeleteMode;
-    }
-
-    getGroups(): void {
-        this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
-            this.groups = groups;
-        });
     }
 
     setStudentGroup(group: StudentGroup): void {
@@ -68,7 +64,8 @@ export class GradeComponent implements OnInit {
     updateRequest(semester: number, groupId: number): void {
         this.loading = false;
         this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
-            this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
+          console.log(grades);
+          this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
                 this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
                     this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courses);
                 });
