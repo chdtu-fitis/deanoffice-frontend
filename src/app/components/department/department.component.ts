@@ -6,6 +6,7 @@ import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
 import {DepartmentService} from '../../services/department.service';
 import {StudentGroup} from '../../models/StudentGroup';
+import {Teacher} from '../../models/Teacher';
 
 @Component({
   selector: 'app-department',
@@ -78,6 +79,15 @@ export class DepartmentComponent implements OnInit {
   onAddDepartment(department: Department) {
     this.loadedDepartments.push(department);
     this.gridApi.updateRowData({add: [department], addIndex: 0});
+  }
+
+  onUpdateDepartment(updatedDepartment: Department) {
+    const rowNode = this.gridApi.getRowNode(this.selectedDepartments[0].id);
+    rowNode.setData(updatedDepartment);
+    this.selectedDepartments = [];
+    this.selectedDepartments.push(updatedDepartment);
+    const index = this.loadedDepartments.findIndex(loadedDepartment => loadedDepartment.id === updatedDepartment.id);
+    this.loadedDepartments[index] = updatedDepartment;
   }
 
   onDeleteDepartment(deletedDepartment: Department) {
