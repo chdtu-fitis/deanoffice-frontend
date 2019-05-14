@@ -16,13 +16,11 @@
               Видалити
             </button>
 
-
-
-            <!--<button type="button" class="btn btn-warning align-middle"
-                    (click)="updateTeacherModal.openModal(selectedTeachers[0])"
-                    [disabled]="selectedTeachers.length === 0 || selectedTeachers.length > 1">
+            <button type="button" class="btn btn-warning align-middle"
+                    (click)="updateDepartmentModal.openModal(selectedDepartments[0])"
+                    [disabled]="selectedDepartments.length === 0 || selectedDepartments.length > 1">
               Редагувати
-            </button>-->
+            </button>
 
             <button type="button" class="btn btn-success align-middle"
                     (click)="addDepartmentModal.showModal()">
@@ -63,6 +61,15 @@
   (addDepartment)="onAddDepartment($event)"
 >
 </add-department>
+
+<update-department
+  #updateDepartmentModal
+  (updateDepartment)="onUpdateDepartment($event)">
+</update-department>
+
+<!--<update-teacher #updateTeacherModal
+                (updateTeacher)="onUpdateTeacher($event)">
+</update-teacher>-->
 
 <delete-department
   #deleteDepartmentModal
