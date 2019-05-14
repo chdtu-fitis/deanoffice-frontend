@@ -56,15 +56,13 @@ export class GradeComponent implements OnInit {
     }
 
     getGrades(): void {
-        if (!this.selectGroup) return;
-        this.resetSelectGradeForDelete();
-        this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
+      this.resetSelectGradeForDelete();
+      this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
     }
 
     updateRequest(semester: number, groupId: number): void {
         this.loading = false;
         this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
-          console.log(grades);
           this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
                 this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
                     this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courses);
@@ -112,7 +110,9 @@ export class GradeComponent implements OnInit {
                 return grade;
             }
         }
-        if (!check) return new EmptyGrade(null, true, course.course.id, studentDegree.id, false);
+        if (!check) {
+          return new EmptyGrade(null, true, course.course.id, studentDegree.id, false);
+        }
     }
 
     setStudentDegree(studentsDegree): void {
@@ -128,7 +128,9 @@ export class GradeComponent implements OnInit {
     }
 
     addErrorMessage(err, clear): void {
-        if (clear) this.errorsMessage = [];
+        if (clear) {
+          this.errorsMessage = [];
+        }
         this.errorsMessage.push(err);
     }
 
@@ -188,10 +190,11 @@ export class GradeComponent implements OnInit {
     }
 
     deleteSelectedGrade(): void {
-        if (!this.isConfirmToDeleteGrade(this.selectGradeForDelete)) return;
-        this.gradeService.deleteGradeById(this.selectGradeForDelete.id).subscribe(res => {
-            this.getGrades();
+      if (this.isConfirmToDeleteGrade(this.selectGradeForDelete)) {
+        this.gradeService.deleteGradeById(this.selectGradeForDelete.id).subscribe(() => {
+          this.getGrades();
         });
+      }
     }
 
     isConfirmToDeleteGrade(grade: any) {
@@ -203,9 +206,9 @@ export class GradeComponent implements OnInit {
         });
         const value = 'Оцiнку не мсжна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
         try {
-            let str = `Видалення оцiнки для студента: ${st.student.surname} ${st.student.name[0]}.${st.student.patronimic[0]}.\n`;
-            str += `Предмет: ${c.course.courseName.name}\n`;
-            str += `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
+            const str = `Видалення оцiнки для студента: ${st.student.surname} ${st.student.name[0]}.${st.student.patronimic[0]}.\n`
+            + `Предмет: ${c.course.courseName.name}\n`
+            + `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
             return confirm(str + value);
         } catch (e) {
             return confirm(value);
@@ -214,11 +217,13 @@ export class GradeComponent implements OnInit {
     }
 
     fixEntytyGrades(grades) {
-        if (!grades.length) return [];
-        const tempGrades = [];
-        for (const grade of grades) {
-            tempGrades.push(new PostGrade(grade));
-        }
-        return tempGrades;
+      if (!grades.length) {
+        return [];
+      }
+      const tempGrades = [];
+      for (const grade of grades) {
+          tempGrades.push(new PostGrade(grade));
+      }
+      return tempGrades;
     }
 }
