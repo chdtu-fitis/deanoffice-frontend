@@ -1,0 +1,14 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+   </button>
+  <div>
+    <tr *ngFor="let group of foreignGroupsAndCourses">
+      <td>{{group.otherGroup}}</td>
+      <td>{{group.foreignGroup}}</td>
+    </tr>
+    <tr *ngFor="let group of foreignGroupsAndCourses">
+      <td>{{group.differentOtherCourses}}</td>
+      <td>{{group.differentForeignCourses}}</td>
+    </tr>
+</div>
+
