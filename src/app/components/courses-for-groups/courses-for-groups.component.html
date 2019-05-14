@@ -64,7 +64,7 @@
               *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи
       </button>
       <button type="button" class="btn btn-warning" (click)="showGroupsDifferents()"
-      *ngIf="selectedGroup&&selectedSemester&&currentUserService.facultyId()==8">Порівняти предмети
+      *ngIf="currentUserService.facultyId()==8">Порівняти предмети
       </button>
     </div>
   </div>

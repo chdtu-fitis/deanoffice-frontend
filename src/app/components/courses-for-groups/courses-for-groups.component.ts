@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
 
 import {NotificationsService} from 'angular2-notifications';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -16,12 +16,14 @@ import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dia
 import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
+import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
+import {GroupsDifferentDialogService} from '../../services/groups-different-dialog.service';
 
 @Component({
   selector: 'courses-for-groups',
   templateUrl: './courses-for-groups.component.html',
   styleUrls: ['./courses-for-groups.component.scss'],
-  providers: [CourseService, GroupService]
+  providers: [CourseService, GroupService, GroupsDifferentDialogService]
 })
 export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
@@ -61,7 +63,9 @@ export class CoursesForGroupsComponent implements OnInit {
               private groupService: GroupService,
               private _service: NotificationsService,
               private modalService: BsModalService,
-              private currentUserService: CurrentUserService) {}
+              private currentUserService: CurrentUserService,
+              private groupsDifferentDialogComponent: GroupsDifferentDialogComponent
+              ) {}
 
   ngOnInit() {
     this.selectedHoursPerCredit = 30;
@@ -385,5 +389,7 @@ export class CoursesForGroupsComponent implements OnInit {
     });
   }
 
-  showGroupsDifferents(){}
+  showGroupsDifferents(){
+    this.groupsDifferentDialogComponent.ngOnInit();
+  }
 }
