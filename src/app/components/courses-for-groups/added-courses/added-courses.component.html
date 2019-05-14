@@ -28,7 +28,7 @@
             {{ (course.teacher | nameWithInitials) || 'Вибрати' }}
           </button>
         </td>
-        <td><input type="checkbox" #selected [checked]="course.academicDifference"
+        <td><input type="checkbox" [checked]="course.academicDifference"
                    [(ngModel)]="course.academicDifference"
                    (change)="onAcademicDifferenceChange(course)"
         ></td>

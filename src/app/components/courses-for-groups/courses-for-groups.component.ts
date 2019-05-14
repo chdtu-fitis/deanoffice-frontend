@@ -24,7 +24,7 @@ import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component'
 })
 export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
-  indexForDate: number;
+  showAcademicDifference = false;
   groups: StudentGroup[];
   groupsForCopy: StudentGroup[];
   selectedGroup: StudentGroup;
@@ -84,7 +84,7 @@ export class CoursesForGroupsComponent implements OnInit {
 
   getCoursesForGroup() {
     setTimeout(() => {
-      this.addedCoursesChild.getCoursesForGroup();
+      this.addedCoursesChild.getCoursesForGroup(this.showAcademicDifference);
     }, 0);
   }
 
@@ -120,10 +120,11 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   changeCoursesForGroup(event: CourseForGroup[]) {
-    this.coursesForGroup.push(...event)
+    this.coursesForGroup.push(...event);
+    this.sortCoursesForGroup();
   }
 
-  changeCoursesForDelete(event) {
+  changeCoursesForDelete(event: CourseForGroup[]) {
     this.coursesForDelete = event;
   }
 
@@ -147,6 +148,7 @@ export class CoursesForGroupsComponent implements OnInit {
   private deleteCourseFromCoursesForGroups(courseIsAdded: boolean, deletedCourse) {
     this.coursesForGroup.splice(this.coursesForGroup.indexOf(deletedCourse), 1);
     this.addedCoursesChild.coursesForGroup.splice(this.addedCoursesChild.coursesForGroup.indexOf(deletedCourse), 1);
+    this.addedCoursesChild.loadedCoursesForGroup.splice(this.addedCoursesChild.loadedCoursesForGroup.indexOf(deletedCourse), 1);
     if (courseIsAdded) {
       this.coursesForAdd.splice(this.coursesForAdd.indexOf(deletedCourse), 1);
     } else {
@@ -213,12 +215,16 @@ export class CoursesForGroupsComponent implements OnInit {
 
   addCourse(newCourseForGroup: CourseForGroup, isDeleted: boolean) {
     this.changesExistence = true;
+    newCourseForGroup.academicDifference = false;
     if (isDeleted) {
       const id = newCourseForGroup.id;
       this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id), 1)
-    } else { this.coursesForAdd.push(newCourseForGroup); }
+    } else {
+      this.coursesForAdd.push(newCourseForGroup);
+    }
     this.coursesForGroup.push(newCourseForGroup);
     this.addedCoursesChild.coursesForGroup.push(newCourseForGroup);
+    this.addedCoursesChild.loadedCoursesForGroup.push(newCourseForGroup);
   }
 
   transferCourseToCourseForGroup(course: Course) {
@@ -346,6 +352,10 @@ export class CoursesForGroupsComponent implements OnInit {
 
   onAcademicDifferenceChange(event: CourseForGroup) {
     this.courseForGroupUpdate(event, 'academicDifference');
+  }
+
+  onShowAcademicDifference() {
+    this.addedCoursesChild.filterByAcademicDifference(this.showAcademicDifference);
   }
 
   copyCourses() {
