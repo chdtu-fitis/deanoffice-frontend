@@ -7,8 +7,8 @@ import {Grade} from '../../models/Grade';
 import {StudentDegree} from '../../models/StudentDegree';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentService} from '../../services/student.service';
-import {EmptyGrade} from './EmptyGrade';
-import {ModalDirective} from 'ngx-bootstrap';
+import {EmptyGrade} from './models/EmptyGrade';
+import {PostGrade} from './models/PostGrade';
 
 @Component({
     selector: 'app-grade',
@@ -220,24 +220,8 @@ export class GradeComponent implements OnInit {
         if (!grades.length) return [];
         const tempGrades = [];
         for (const grade of grades) {
-            tempGrades.push(this.gradeEntity(grade));
+            tempGrades.push(new PostGrade(grade));
         }
         return tempGrades;
-    }
-
-    gradeEntity(grade: any) {
-        const tempGrade: any = {
-            studentDegree: {
-                id: grade.studentDegreeId || grade.studentDegree.id
-            },
-            course: {
-                id: grade.courseId || grade.course.id
-            },
-            points: grade.points,
-            onTime: grade.onTime || false
-        };
-        if (grade.id) tempGrade.id = grade.id;
-
-        return tempGrade;
     }
 }
