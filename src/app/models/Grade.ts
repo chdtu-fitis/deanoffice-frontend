@@ -1,13 +1,12 @@
 import {BaseEntity} from './basemodels/BaseEntity';
-import {Course} from './Course';
-import {StudentDegree} from './StudentDegree';
 
 export class Grade extends BaseEntity {
-  course: Course;
-  studentDegree: StudentDegree;
+  grade?: number;
+  academicDifference: boolean;
+  courseId: number;
   onTime: boolean;
-  grade: number;
   points: number;
+  studentDegreeId: number;
   // view property
   wrongInterval: boolean;
   changed: boolean;
