@@ -17,13 +17,12 @@ import {StudiedCoursesComponent} from './studied-courses/studied-courses.compone
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
 import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
-import {GroupsDifferentDialogService} from '../../services/groups-different-dialog.service';
 
 @Component({
   selector: 'courses-for-groups',
   templateUrl: './courses-for-groups.component.html',
   styleUrls: ['./courses-for-groups.component.scss'],
-  providers: [CourseService, GroupService, GroupsDifferentDialogService]
+  providers: [CourseService, GroupService]
 })
 export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;

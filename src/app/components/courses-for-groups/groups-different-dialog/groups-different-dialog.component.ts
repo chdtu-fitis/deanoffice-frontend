@@ -1,6 +1,6 @@
 import {Component,  OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
-import {GroupsDifferentDialogService} from '../../../services/groups-different-dialog.service';
+import {CourseForGroupService} from '../../../services/course-for-group.service';
 import {ForeignCourses} from '../../../models/ForeignCourses';
 
 
@@ -8,14 +8,14 @@ import {ForeignCourses} from '../../../models/ForeignCourses';
   selector: 'groups-different-dialog',
   templateUrl: './groups-different-dialog.component.html',
   styleUrls: ['./groups-different-dialog.component.scss'],
-  providers: [GroupsDifferentDialogService]
+  providers: []
 })
 export class GroupsDifferentDialogComponent implements OnInit {
 
   foreignGroupsAndCourses: ForeignCourses[] = [];
 
   constructor(public bsModalRef: BsModalRef,
-              private foreignGroupsAndCoursesService: GroupsDifferentDialogService) { }
+              private foreignGroupsAndCoursesService: CourseForGroupService) { }
 
   ngOnInit() {
     this.foreignGroupsAndCoursesService.getForeignCourseAndGroups().subscribe((foreignGroupsAndCourses: ForeignCourses[]) => {
