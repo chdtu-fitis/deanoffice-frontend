@@ -83,9 +83,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   getCoursesForGroup() {
-    setTimeout(() => {
-      this.addedCoursesChild.getCoursesForGroup(this.showAcademicDifference);
-    }, 0);
+    this.addedCoursesChild.getCoursesForGroup(this.selectedGroup, this.selectedSemester, this.showAcademicDifference);
   }
 
   onGroupChange() {
@@ -283,9 +281,7 @@ export class CoursesForGroupsComponent implements OnInit {
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
         this.refresh();
-        setTimeout(() => {
-          this.onSemesterChange();
-        }, 10);
+        this.onSemesterChange();
       },
       error => {
         if (error.status === 422) {
