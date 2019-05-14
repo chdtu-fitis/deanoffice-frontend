@@ -54,16 +54,17 @@ export class GradesTableComponent {
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
-        const id = this.getElementId(studentId, gradeId);
         const points = Number(e.target.valueAsNumber || e.target.value);
         if (points > 100 || points < 0 || !points) {
-            this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
-            this.updateVisible(id, 'bg-danger');
+          grade.wrongInterval = true;
+          grade.changed = true;
+          this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
         } else {
-            this.setError('');
-            grade.points = points;
-            this.addGradeForUpdate(grade);
-            this.updateVisible(id, 'bg-warning');
+          this.setError('');
+          grade.wrongInterval = false;
+          grade.changed = true;
+          grade.points = points;
+          this.addGradeForUpdate(grade);
         }
     }
 
@@ -88,12 +89,6 @@ export class GradesTableComponent {
 
     setError(error: string): void {
         this.errors.emit(error);
-    }
-
-    updateVisible(id, style): void {
-        const element = document.getElementById(id).parentElement;
-        const styles = 'text-center align-middle';
-        element.setAttribute('class', `${styles} ${style}`);
     }
 
     sendSelectGrade(): void {

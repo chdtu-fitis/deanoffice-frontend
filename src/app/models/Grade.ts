@@ -8,5 +8,7 @@ export class Grade extends BaseEntity {
   onTime: boolean;
   grade: number;
   points: number;
-  ects: string;
+  // view property
+  wrongInterval: boolean;
+  changed: boolean;
 }
