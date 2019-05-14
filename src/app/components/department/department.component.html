@@ -16,6 +16,14 @@
               Видалити
             </button>
 
+
+
+            <!--<button type="button" class="btn btn-warning align-middle"
+                    (click)="updateTeacherModal.openModal(selectedTeachers[0])"
+                    [disabled]="selectedTeachers.length === 0 || selectedTeachers.length > 1">
+              Редагувати
+            </button>-->
+
             <button type="button" class="btn btn-success align-middle"
                     (click)="addDepartmentModal.showModal()">
               Нова кафедра
@@ -25,7 +33,7 @@
         <ag-grid-angular
           class="ag-theme-balham overflow-auto h-100"
           rowSelection="single"
-          rowHeight="80"
+          rowHeight="30"
           headerHeight="70"
           enableCellChangeFlash=true
           [animateRows]="true"

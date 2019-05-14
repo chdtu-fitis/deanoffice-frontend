@@ -9,6 +9,7 @@ import {AddDepartmentComponent} from './add-department/add-department.component'
 import {DepartmentFormComponent} from './department-form/department-form.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteDepartmentComponent} from './delete-department/delete-department.component';
+import { UpdateDepartmentComponent } from './update-department/update-department.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {DeleteDepartmentComponent} from './delete-department/delete-department.c
     DepartmentComponent,
     AddDepartmentComponent,
     DepartmentFormComponent,
-    DeleteDepartmentComponent
+    DeleteDepartmentComponent,
+    UpdateDepartmentComponent
   ]
 
 })
