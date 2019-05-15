@@ -22,7 +22,7 @@ export class DepartmentService {
       .pipe(catchError(forObservable('Отримання списку кафедр', [])));
   }
 
-  getDepartments(active: boolean): Observable<Department[]> {
+  getDepartmentsByActive(active: boolean): Observable<Department[]> {
     const params = new HttpParams().set('active', active.toString());
     return this.httpClient.get<Department[]>(DEPARTMENT_URL, {params})
       .pipe(catchError(forObservable('Отримання списку кафедр', [])));
