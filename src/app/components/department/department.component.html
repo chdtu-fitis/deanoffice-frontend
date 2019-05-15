@@ -17,8 +17,8 @@
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
-                    (click)="updateDepartmentModal.openModal(selectedDepartments[0])"
-                    [disabled]="selectedDepartments.length === 0 || selectedDepartments.length > 1">
+                    (click)="updateDepartmentModal.showModal(gridApi.getSelectedRows()[0])"
+                    [disabled]="selectedDepartments.length === 0">
               Редагувати
             </button>
 
@@ -58,8 +58,7 @@
 
 <add-department
   #addDepartmentModal
-  (addDepartment)="onAddDepartment($event)"
->
+  (addDepartment)="onAddDepartment($event)">
 </add-department>
 
 <update-department
@@ -69,7 +68,6 @@
 
 <delete-department
   #deleteDepartmentModal
-  (deleteDepartment)="onDeleteDepartment($event)"
->
+  (deleteDepartment)="onDeleteDepartment($event)">
 </delete-department>
 

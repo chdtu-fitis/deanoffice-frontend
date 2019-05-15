@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, Input, ViewChild, OnInit, ViewChild, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Output, Input, ViewChild, OnInit} from '@angular/core';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {DepartmentService} from '../../../services/department.service';
 import {DepartmentFormComponent} from '../department-form/department-form.component';
@@ -22,8 +22,9 @@ export class UpdateDepartmentComponent implements OnInit {
   ngOnInit() {
     this.form.setValues({
       'name': '',
-      'abbr': ''
+      'abbr': '',
     })
+
   }
 
   showModal(department: Department) {
@@ -47,36 +48,11 @@ export class UpdateDepartmentComponent implements OnInit {
   submit() {
     const body = this.form.form.getRawValue();
     body.active = true;
-    this.departmentService.create(body)
-      .then(department => this.addDepartment.emit(department))
+    body.id=this.source.id;
+    this.departmentService.updateDepartment(body)
+      .then(department => this.updateDepartment.emit(department))
       .then(() => this.hideModal())
       .catch(null);
   }
-
-  /*getTitle(): string {
-    const info: string = (this.source) ? `${this.source.surname} ${this.source.name} ${this.source.patronimic}` : '';
-    return `Оновлення інформації про викладача: ${info}`;
-  }
-
-  openModal(argument): void {
-    this.form.setInitialData(argument);
-    this.modal.show();
-  }
-
-  hideModal(): void {
-    this.modal.hide();
-    this.form.reset();
-  }
-
-  submit(): void {
-    if (this.form.invalid()) {
-      return;
-    }
-    this.teacherService
-      .updateTeacher(this.form.getValue())
-      .then((teacher) => this.updateTeacher.emit(teacher))
-      .then(() => this.hideModal())
-      .catch(null);
-  }*/
 
 }

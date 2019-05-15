@@ -11,6 +11,9 @@ const DEPARTMENT_URL: string = API_URL + '/departments';
 
 @Injectable()
 export class DepartmentService {
+
+  private departmentsUrl = `${environment.apiUrl}`;
+
   constructor(private httpClient: HttpClient) {
   }
 
@@ -24,6 +27,21 @@ export class DepartmentService {
       .catch(forPromise('Створення нової кафедри'));
 
   }
+
+  updateDepartment(body): Promise<any> {
+    return this.httpClient.put(`${this.departmentsUrl}/departments`, body).toPromise()
+      .catch(forPromise('Оновлення інформації про кафедру'));
+  }
+
+  /*updateDepartment(body): Promise<any> {
+    return this.httpClient.put(DEPARTMENT_URL, body).toPromise()
+      .catch(forPromise('Оновлення інформації про кафедру'));
+  }*/
+
+  /*public updateTeacher(body): Promise<any> {
+    return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
+      .catch(forPromise('Оновлення інформації про викладача'));
+  }*/
 
   delete(id: number): Observable<Department> {
     return this.httpClient.delete<Department>(`${DEPARTMENT_URL}/${id}`)

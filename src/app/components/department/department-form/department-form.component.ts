@@ -20,7 +20,7 @@ export class DepartmentFormComponent {
       Validators.minLength(2),
       Validators.maxLength(30),
       Validators.pattern('[A-zА-яІіЇї0-9-]*')
-    ])
+    ]),
   });
 
   constructor() {
