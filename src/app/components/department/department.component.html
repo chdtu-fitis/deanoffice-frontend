@@ -3,10 +3,16 @@
     <div class="col content overflow-auto">
       <div class="d-flex flex-column h-100 overflow-auto">
         <div class="d-flex my-2 align-items-center">
+
+          <!--<label class="mr-auto ml-1 m-0">
+            <input type="checkbox"  id="active" #active (change)="loadDepartmentsByActive(active.checked)" checked>
+            Актуальні кафедри
+          </label>-->
+
           <label class="mr-auto ml-1 m-0">
             <input type="checkbox"
                    [checked]="actualDepartments"
-                   (change)="actualDepartments = !actualDepartments; filterActive()">
+                   (change)="actualDepartments = !actualDepartments; loadDepartmentsByActive(actualDepartments); filterActive()">
             Актуальні кафедри
           </label>
 
