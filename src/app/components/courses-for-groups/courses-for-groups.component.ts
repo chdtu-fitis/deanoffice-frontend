@@ -46,6 +46,7 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) addedCoursesChild: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(CourseCreationComponent) courseCreationChild: CourseCreationComponent;
+  @ViewChild(GroupsDifferentDialogComponent) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
   studiedCoursesLoading = false;
   showPage = false;
   alertOptions = {
@@ -62,8 +63,7 @@ export class CoursesForGroupsComponent implements OnInit {
               private groupService: GroupService,
               private _service: NotificationsService,
               private modalService: BsModalService,
-              private currentUserService: CurrentUserService,
-              private groupsDifferentDialogComponent: GroupsDifferentDialogComponent
+              private currentUserService: CurrentUserService
               ) {}
 
   ngOnInit() {
@@ -389,6 +389,9 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   showGroupsDifferents(){
-    this.groupsDifferentDialogComponent.ngOnInit();
+    this.changesExistence = true;
+    const initialState = this.groupsDifferentDialogComponent.foreignGroupsAndCourses;
+    const bsModalRef = this.modalService.show(GroupsDifferentDialogComponent, {initialState, class: 'modal-custom'});
+    bsModalRef.content.showDifferents.subscribe(() => { });
   }
 }

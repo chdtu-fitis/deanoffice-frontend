@@ -17,7 +17,7 @@ import { CourseCreationComponent } from './course-creation/course-creation.compo
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
-import { GroupsDifferentDialogComponent } from './groups-different-dialog/groups-different-dialog.component';
+import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
 
 
 const coursesForGroupsRoutes: Routes = [
@@ -48,7 +48,8 @@ const coursesForGroupsRoutes: Routes = [
   entryComponents: [
     EditDialogComponent,
     CopyCoursesDialogComponent,
-    TeacherDialogComponent
+    TeacherDialogComponent,
+    GroupsDifferentDialogComponent
   ],
   providers: [AuthenticationModule.tokenInterceptor()]
 })

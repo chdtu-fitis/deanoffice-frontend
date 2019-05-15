@@ -29,6 +29,7 @@ export class CourseForGroupService {
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
     return this.http.get<CourseForGroup[]>(`${this.url}/groups/${groupId}/courses?semester=${semester}`);
   }
+
   getForeignCourseAndGroups(): Observable<ForeignCourses[]> {
     return this.http.get<ForeignCourses[]>(`${environment.apiUrl}/courses/foreign/synchronization`);
   }
