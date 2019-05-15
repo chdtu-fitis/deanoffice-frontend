@@ -21,7 +21,7 @@ export class GroupsDifferentDialogComponent implements OnInit {
   ngOnInit() {
     this.foreignGroupsAndCoursesService.getForeignCourseAndGroups().subscribe((foreignGroupsAndCourses: ForeignCourses[]) => {
       this.foreignGroupsAndCourses = foreignGroupsAndCourses;
-    }
+    })
   }
 }
 
