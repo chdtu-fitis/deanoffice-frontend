@@ -3,5 +3,46 @@
 }
 
 ::ng-deep .modal-content {
-  width: fit-content;
+ // width: fit-content;
 }
+.close-button{
+  float: right;
+  span{
+    font-size: 50px;
+    margin: 0 20px 20px ;
+  }
+}
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+
+
+
+  .body-item {
+    padding: 10px 20px 10px 20px;
+    min-width: 48%;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    }
+}
+table {
+  border: solid 2px;
+  border-color: grey;
+  margin-bottom: 0;
+
+  thead {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  tr td {
+    vertical-align: middle;
+    padding: 0.05rem 0.3rem 0.1rem;
+  }
+  th{
+    vertical-align:middle
+  }
+}
+
