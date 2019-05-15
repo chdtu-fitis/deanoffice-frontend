@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Department} from '../models/Department';
 import {catchError} from 'rxjs/operators';
@@ -21,6 +21,19 @@ export class DepartmentService {
     return this.httpClient.get<Department[]>(DEPARTMENT_URL)
       .pipe(catchError(forObservable('Отримання списку кафедр', [])));
   }
+
+  getDepartments(active: boolean): Observable<Department[]> {
+    const params = new HttpParams().set('active', active.toString());
+    return this.httpClient.get<Department[]>(DEPARTMENT_URL, {params})
+      .pipe(catchError(forObservable('Отримання списку кафедр', [])));
+  }
+
+  /*public getTeachers(active: boolean): Observable<Teacher[]> {
+    const params =  new HttpParams().set('active', active.toString());
+    return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers`, {params})
+      .pipe(catchError(forObservable('Отримання викладачів', [])));
+  }*/
+
 
   create(body): Promise<any> {
     return this.httpClient.post(DEPARTMENT_URL, body).toPromise()

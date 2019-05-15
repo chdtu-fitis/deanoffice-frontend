@@ -9,6 +9,12 @@
                    (change)="actualDepartments = !actualDepartments; filterActive()">
             Актуальні кафедри
           </label>
+
+          <!--<label class="mr-auto ml-1 m-0">
+            <input type="checkbox"  id="active" #active (change)="loadTeachers(active.checked)" checked>
+            Актуальні викладачі
+          </label>-->
+
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
                     [disabled]="selectedDepartments.length === 0"

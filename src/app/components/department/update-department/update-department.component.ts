@@ -48,7 +48,7 @@ export class UpdateDepartmentComponent implements OnInit {
   submit() {
     const body = this.form.form.getRawValue();
     body.active = true;
-    body.id=this.source.id;
+    body.id = this.source.id;
     this.departmentService.updateDepartment(body)
       .then(department => this.updateDepartment.emit(department))
       .then(() => this.hideModal())
