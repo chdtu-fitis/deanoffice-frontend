@@ -2,14 +2,17 @@
   <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
    </button>
-  <div *ngFor="let group of foreignGroupsAndCourses">
-    <tr >
-      <td>{{group.otherGroup}}</td>
-      <td>{{group.foreignGroup}}</td>
-    </tr>
-    <tr>
-      <td>{{group.differentOtherCourses}}</td>
-      <td>{{group.differentForeignCourses}}</td>
-    </tr>
 </div>
-
+<div *ngFor="let group of foreignGroupsAndCourses">
+  <tr>
+    <td>{{group.otherGroup.name}}</td>
+    <td>{{group.foreignGroup.name}}</td>
+  </tr>
+  <tr>
+    <td>
+      <div *ngFor="let course of group.differentOtherCourses">
+        <p>{{course.courseName.name}}</p>
+      </div>
+    </td>
+  </tr>
+</div>
