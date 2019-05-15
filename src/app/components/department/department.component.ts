@@ -62,6 +62,11 @@ export class DepartmentComponent implements OnInit {
       .subscribe(departments => this.loadedDepartments = departments, null, () => this.filterActive());
   }
 
+  loadDepartmentsByActive(active: boolean) {
+    this.departmentService.getDepartmentsByActive(active)
+      .subscribe(departments => this.loadedDepartments = departments, null, () => this.filterActive());
+  }
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
