@@ -33,16 +33,6 @@ export class DepartmentService {
       .catch(forPromise('Оновлення інформації про кафедру'));
   }
 
-  /*updateDepartment(body): Promise<any> {
-    return this.httpClient.put(DEPARTMENT_URL, body).toPromise()
-      .catch(forPromise('Оновлення інформації про кафедру'));
-  }*/
-
-  /*public updateTeacher(body): Promise<any> {
-    return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
-      .catch(forPromise('Оновлення інформації про викладача'));
-  }*/
-
   delete(id: number): Observable<Department> {
     return this.httpClient.delete<Department>(`${DEPARTMENT_URL}/${id}`)
       .pipe(catchError(forObservable<Department>('Видалення кафедри')))

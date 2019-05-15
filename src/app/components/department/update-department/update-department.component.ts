@@ -22,7 +22,7 @@ export class UpdateDepartmentComponent implements OnInit {
   ngOnInit() {
     this.form.setValues({
       'name': '',
-      'abbr': '',
+      'abbr': ''
     })
 
   }
