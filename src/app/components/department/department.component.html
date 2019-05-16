@@ -10,9 +10,9 @@
           </label>-->
 
           <label class="mr-auto ml-1 m-0">
-            <input type="checkbox"
+            <input type="checkbox" id="active"
                    [checked]="actualDepartments"
-                   (change)="actualDepartments = !actualDepartments; loadDepartmentsByActive(actualDepartments); filterActive()">
+                   (change)="actualDepartments = !actualDepartments; loadDepartmentsByActive(actualDepartments); selectedDepartments = []; filterActive()">
             Актуальні кафедри
           </label>
 
@@ -23,14 +23,14 @@
 
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"
-                    [disabled]="selectedDepartments.length === 0"
+                    [disabled]="selectedDepartments.length === 0 || actualDepartments === false"
                     (click)="deleteDepartmentModal.showModal(gridApi.getSelectedRows()[0])">
               Видалити
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
                     (click)="updateDepartmentModal.showModal(gridApi.getSelectedRows()[0])"
-                    [disabled]="selectedDepartments.length === 0">
+                    [disabled]="selectedDepartments.length === 0 || actualDepartments === false">
               Редагувати
             </button>
 
