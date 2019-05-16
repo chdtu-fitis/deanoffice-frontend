@@ -26,6 +26,7 @@ export class StudentSpecializationTransferComponent {
   groups: StudentGroup[] = [];
   faculties: Faculty[];
   facultyId: string;
+  degreeId: string;
   userFacultyId: number;
   paymentType = Payment;
   paymentKey: Array<string>;
@@ -63,7 +64,8 @@ export class StudentSpecializationTransferComponent {
       this.faculties = faculties
     );
     this.facultyId = this.userFacultyId.toString();
-    this.getSpecializationsByFaculty(this.facultyId);
+    this.degreeId = this.studentDegree.specialization.degree.id.toString();
+    this.getSpecializationsByFacultyIdAndDegreeId(this.facultyId, this.degreeId);
     this.form.controls.studentDegreeId.setValue(this.studentDegree.id);
     this.modal.show();
   }
@@ -83,8 +85,8 @@ export class StudentSpecializationTransferComponent {
     });
   }
 
-  getSpecializationsByFaculty(facultyId) {
-    this.specializationService.getSpecializations(true, facultyId)
+  getSpecializationsByFacultyIdAndDegreeId(facultyId, degreeId) {
+    this.specializationService.getSpecializationsByActualAndFacultyIdAndDegreeId(true, facultyId, degreeId)
       .subscribe((specializations: Specialization[]) =>
         this.specializations = specializations
     );
