@@ -58,13 +58,13 @@ export class DepartmentComponent implements OnInit {
   }
 
   loadDepartments() {
-    this.departmentService.getDepartments()
-      .subscribe(departments => this.loadedDepartments = departments, null, () => this.filterActive());
+    this.departmentService.getDepartments().subscribe(
+      departments => this.loadedDepartments = departments, null, () => this.filterActive());
   }
 
   loadDepartmentsByActive(active: boolean) {
-    this.departmentService.getDepartmentsByActive(active)
-      .subscribe(departments => this.loadedDepartments = departments, null, () => this.filterActive());
+    this.departmentService.getDepartmentsByActive(active).subscribe(
+      departments => this.departments = departments, null);
   }
 
   onGridReady(params: GridReadyEvent) {
