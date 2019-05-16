@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
 
 import {NotificationsService} from 'angular2-notifications';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -15,6 +15,8 @@ import {CourseCreationComponent} from './course-creation/course-creation.compone
 import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
 import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
+import {CurrentUserService} from '../../services/auth/current-user.service';
+import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
 
 @Component({
   selector: 'courses-for-groups',
@@ -44,6 +46,7 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) addedCoursesChild: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(CourseCreationComponent) courseCreationChild: CourseCreationComponent;
+  @ViewChild(GroupsDifferentDialogComponent) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
   studiedCoursesLoading = false;
   showPage = false;
   alertOptions = {
@@ -59,7 +62,9 @@ export class CoursesForGroupsComponent implements OnInit {
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
               private _service: NotificationsService,
-              private modalService: BsModalService) {}
+              private modalService: BsModalService,
+              private currentUserService: CurrentUserService
+              ) {}
 
   ngOnInit() {
     this.selectedHoursPerCredit = 30;
@@ -362,5 +367,12 @@ export class CoursesForGroupsComponent implements OnInit {
     bsModalRef.content.alertMessage.subscribe(($event) => {
       this.showErrorAlert($event);
     });
+  }
+
+  showGroupsDifferents(){
+    this.changesExistence = true;
+    const initialState = {};
+    const bsModalRef = this.modalService.show(GroupsDifferentDialogComponent, {initialState, class: 'modal-custom'});
+    bsModalRef.content.showDifferents.subscribe(() => { });
   }
 }
