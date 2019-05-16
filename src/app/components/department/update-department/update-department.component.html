@@ -1,5 +1,5 @@
 <modal-wrapper #modal heading="Редагувати кафедру" (hideModal)="hideModal()">
-  <department-form #form>
+  <department-form #form >
     <button type="button" (click)="submit()"
             [disabled]="form.form.invalid"
             class="btn btn-success btn-submit">Оновити</button>

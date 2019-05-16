@@ -24,6 +24,7 @@ export class DepartmentFormComponent {
   });
 
   constructor() {
+
   }
 
   setValues (values) {
