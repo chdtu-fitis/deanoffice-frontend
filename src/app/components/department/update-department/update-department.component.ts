@@ -29,6 +29,7 @@ export class UpdateDepartmentComponent implements OnInit {
 
   showModal(department: Department) {
     this.source = department;
+    this.form.setValues(department);
     this.modal.show();
   }
 
