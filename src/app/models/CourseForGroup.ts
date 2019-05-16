@@ -8,5 +8,6 @@ export class CourseForGroup extends BaseEntity {
   studentGroup: StudentGroup;
   teacher?: Teacher;
   examDate?: Date;
+  academicDifference?: boolean;
   selected?: boolean;
 }

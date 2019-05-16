@@ -18,7 +18,7 @@
           <div class="element-header">Семестр:</div>
           <div class="col-1">
             <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
-                  (change)="onSemesterChange()&&refresh()">
+                  (change)="onSemesterChange()">
               <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
             </select>
           </div>
@@ -48,8 +48,12 @@
       </div>
     </div>
     <div class="col-5">
-      <course-creation (onCourseCreation)="onCourseCreation()" (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
-                       [selectedSemester]="selectedSemester"></course-creation>
+      <course-creation (onCourseCreation)="onCourseCreation()"
+                       (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
+                       [selectedSemester]="selectedSemester"
+                       [courses]="courses"
+      >
+      </course-creation>
     </div>
   </div>
   <div class="row">
@@ -66,11 +70,18 @@
       <button type="button" class="btn btn-warning" (click)="showGroupsDifferents()"
       *ngIf="currentUserService.facultyId()==8">Порівняти предмети
       </button>
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="showAcademicDifference"
+               (change)="onShowAcademicDifference()">
+        Відобразити академ.різницю
+      </label>
     </div>
   </div>
   <div class="course-for-group-table">
     <added-courses (onDateChange)="changeDate($event)"
                    (onTeacherChange)="changeTeacher($event)"
+                   (academicDifferenceChange)="onAcademicDifferenceChange($event)"
                    (onCoursesForGroup)="changeCoursesForGroup($event)"
                    (onCoursesForDeleteChange)="changeCoursesForDelete($event)"
                    [selectedSemester]="selectedSemester"

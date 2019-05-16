@@ -45,17 +45,17 @@
     </span>
       Виписка в журнал відомостей
     </button>
-    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsListBuild()">
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-          *ngIf="gradesJournalStudentsTableLoading">
-    </span>
-      Списки студентів
-    </button>
-    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocument()">
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocumentDocx()">
      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-           *ngIf="gradesJournalStudentsDocumentLoading">
+           *ngIf="gradesJournalStudentsDocumentLoadingDocx">
      </span>
-      Журнал оцінок
+      Журнал оцінок DOCX
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocumentPdf()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalStudentsDocumentLoadingDocx">
+     </span>
+      Журнал оцінок PDF
     </button>
   </div>
 
@@ -64,18 +64,26 @@
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
           *ngIf="gradesJournalCoursesTableLoadingPdf">
     </span>
-      Списки предметів PDF
+      Списки предметів в журнал оцінок PDF
     </button>
     <button class="btn btn-info w-30 ml-1 mt-1" (click)="onGradesJournalCoursesListBuildDocx()">
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
           *ngIf="gradesJournalCoursesTableLoadingDocx">
     </span>
-      Списки предметів DOCX
+      Списки предметів в журнал оцінок DOCX
     </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsListBuild()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="gradesJournalStudentsTableLoading">
+    </span>
+      Списки студентів
+    </button>
+  </div>
+  <div class="row">
     <button class="btn btn-info w-30 ml-1 mt-1" (click)="onStudentsListBuild()" [disabled]="!selectedTuitionForm">
-     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-           *ngIf="studentsListLoading">
-     </span>
+       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+             *ngIf="studentsListLoading">
+       </span>
       Повні списки студентів
     </button>
   </div>

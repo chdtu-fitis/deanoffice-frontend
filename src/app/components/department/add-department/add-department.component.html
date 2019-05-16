@@ -1,0 +1,9 @@
+<modal-wrapper #modal heading="Додати нову кафедру" (hideModal)="hideModal()">
+  <department-form #form>
+    <button type="button" (click)="submit()"
+            [disabled]="form.form.invalid"
+            class="btn btn-success btn-submit">Створити</button>
+    <button type="button" (click)="hideModal()"
+            class="btn btn-outline-danger">Скасувати</button>
+  </department-form>
+</modal-wrapper>

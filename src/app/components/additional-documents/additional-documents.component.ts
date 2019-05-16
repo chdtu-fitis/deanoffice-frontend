@@ -26,10 +26,11 @@ export class AdditionalDocumentsComponent implements OnInit {
   selectedSemester: number;
 
   examReportJournalTableLoading = false;
-  gradesJournalStudentsDocumentLoading = false;
+  gradesJournalStudentsDocumentLoadingDocx = false;
   gradesJournalStudentsTableLoading = false;
   gradesJournalCoursesTableLoadingPdf = false;
   gradesJournalCoursesTableLoadingDocx = false;
+  gradesJournalStudentsDocumentLoadingPdf = false;
   studentsListLoading = false;
 
   tuitionFormType = TuitionForm;
@@ -107,11 +108,19 @@ export class AdditionalDocumentsComponent implements OnInit {
     });
   }
 
-  onGradesJournalStudentsDocument() {
-    this.gradesJournalStudentsDocumentLoading = true;
+  onGradesJournalStudentsDocumentDocx() {
+    this.gradesJournalStudentsDocumentLoadingDocx = true;
     this.examReportService.buildFormRatingGradeJornalDocx(this.selectedYear,
       this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm).subscribe(() => {
-      this.gradesJournalStudentsDocumentLoading = false
+      this.gradesJournalStudentsDocumentLoadingDocx = false
+    });
+  }
+
+  onGradesJournalStudentsDocumentPdf() {
+    this.gradesJournalStudentsDocumentLoadingPdf = true;
+    this.examReportService.buildFormRatingGradeJornalPdf(this.selectedYear,
+      this.currentDegree.id, this.selectedSemester, this.selectedTuitionForm).subscribe(() => {
+      this.gradesJournalStudentsDocumentLoadingPdf = false
     });
   }
 
