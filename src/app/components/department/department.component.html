@@ -4,22 +4,12 @@
       <div class="d-flex flex-column h-100 overflow-auto">
         <div class="d-flex my-2 align-items-center">
 
-          <!--<label class="mr-auto ml-1 m-0">
-            <input type="checkbox"  id="active" #active (change)="loadDepartmentsByActive(active.checked)" checked>
-            Актуальні кафедри
-          </label>-->
-
           <label class="mr-auto ml-1 m-0">
             <input type="checkbox" id="active"
                    [checked]="actualDepartments"
                    (change)="actualDepartments = !actualDepartments; loadDepartmentsByActive(actualDepartments); selectedDepartments = []; filterActive()">
             Актуальні кафедри
           </label>
-
-          <!--<label class="mr-auto ml-1 m-0">
-            <input type="checkbox"  id="active" #active (change)="loadTeachers(active.checked)" checked>
-            Актуальні викладачі
-          </label>-->
 
           <div class="float-right">
             <button type="button" class="btn btn-danger align-middle"

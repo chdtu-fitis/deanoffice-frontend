@@ -28,13 +28,6 @@ export class DepartmentService {
       .pipe(catchError(forObservable('Отримання списку кафедр', [])));
   }
 
-  /*public getTeachers(active: boolean): Observable<Teacher[]> {
-    const params =  new HttpParams().set('active', active.toString());
-    return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers`, {params})
-      .pipe(catchError(forObservable('Отримання викладачів', [])));
-  }*/
-
-
   create(body): Promise<any> {
     return this.httpClient.post(DEPARTMENT_URL, body).toPromise()
       .catch(forPromise('Створення нової кафедри'));
