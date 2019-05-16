@@ -23,6 +23,11 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
+  buildFormRatingGradeJornalPdf(year: number, degree: number, semester: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}/pdf?semester=${semester}&tuitionForm=${tuitionForm}`;
+    return this.fileService.downloadFile(url);
+  }
+
   buildGradesJournalStudentsPdf(year: number, degreeId: number): any {
     const url = `${this.documentsUrl}/grades-journal/students?degreeId=${degreeId}&year=${year}`;
     return this.fileService.downloadFile(url);
