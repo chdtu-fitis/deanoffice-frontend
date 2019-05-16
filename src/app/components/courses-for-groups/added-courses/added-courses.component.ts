@@ -14,6 +14,7 @@ import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 })
 export class AddedCoursesComponent implements OnInit {
 
+  loadedCoursesForGroup: CourseForGroup[] = [];
   coursesForGroup: CourseForGroup[] = [];
   coursesForGroupForDelete: CourseForGroup[] = [];
   @Input() selectedGroup: StudentGroup;
@@ -23,6 +24,7 @@ export class AddedCoursesComponent implements OnInit {
   @Output() onCoursesForGroup = new EventEmitter();
   @Output() onTeacherChange = new EventEmitter();
   @Output() onDateChange = new EventEmitter();
+  @Output() academicDifferenceChange = new EventEmitter();
   allRowsIsSelected = false;
 
   constructor(private courseForGroupService: CourseForGroupService,
@@ -30,11 +32,16 @@ export class AddedCoursesComponent implements OnInit {
 
   ngOnInit() {}
 
-  getCoursesForGroup() {
-    this.courseForGroupService.getCoursesForGroupAndSemester(this.selectedGroup.id, this.selectedSemester).subscribe(courses => {
-      this.coursesForGroup = courses;
-      this.onCoursesForGroup.emit(this.coursesForGroup);
+  getCoursesForGroup(selectedGroup: StudentGroup, selectedSemester: number, academicDifference: boolean) {
+    this.courseForGroupService.getCoursesForGroupAndSemester(selectedGroup.id, selectedSemester).subscribe(courses => {
+      this.loadedCoursesForGroup = courses;
+      this.filterByAcademicDifference(academicDifference);
     });
+  }
+
+  filterByAcademicDifference(academicDifference: boolean) {
+    this.coursesForGroup = this.loadedCoursesForGroup.filter(cfg => !(cfg.academicDifference && !academicDifference));
+    this.onCoursesForGroup.emit(this.coursesForGroup);
   }
 
   changeAllIsSelected(isSelected: boolean): void {
@@ -61,6 +68,10 @@ export class AddedCoursesComponent implements OnInit {
 
   dateChange(course) {
     this.onDateChange.emit(course);
+  }
+
+  onAcademicDifferenceChange(course) {
+    this.academicDifferenceChange.emit(course);
   }
 
   changeCourse(course) {

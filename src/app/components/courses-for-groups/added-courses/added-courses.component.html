@@ -12,10 +12,11 @@
           <th>Години</th>
           <th>Кредити</th>
           <th>Викладач</th>
+          <th>А.Р</th>
           <th>Дата іспиту</th>
         <tr>
       </thead>
-      <tr *ngFor="let course of coursesForGroup; let i = index">
+      <tr *ngFor="let course of coursesForGroup" [class.academic-difference]="course.academicDifference">
         <td><input type="checkbox" #selected (change)="changeCoursesForDelete($event.target.checked, course)"
                    [checked]="allRowsIsSelected"></td>
         <td>{{ course.course.courseName.name }}</td>
@@ -27,6 +28,10 @@
             {{ (course.teacher | nameWithInitials) || 'Вибрати' }}
           </button>
         </td>
+        <td><input type="checkbox" [checked]="course.academicDifference"
+                   [(ngModel)]="course.academicDifference"
+                   (change)="onAcademicDifferenceChange(course)"
+        ></td>
         <td><input class="form-control mr-2 ng-pristine ng-valid ng-touched" type="date" [(ngModel)]="course.examDate"
                    (change)="dateChange(course)">
         </td>
