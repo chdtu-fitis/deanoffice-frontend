@@ -15,7 +15,6 @@ export class StatementComponent implements IAppModal {
     @ViewChild('modal') modal: ModalDirective;
     @Input() studentsDegree;
     @Input() selectGroup;
-    @Input() courses;
     @Output() sendGrades = new EventEmitter();
     @Output() resetGradesForTable = new EventEmitter();
     selectedCourse: any;

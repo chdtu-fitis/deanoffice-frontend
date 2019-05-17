@@ -9,7 +9,7 @@ import {Grade} from '../../../models/Grade';
 export class GradesTableComponent {
     @ViewChild('statement') statement;
     @Input() studentsDegree;
-    @Input() courses;
+    @Input() coursesForGroup;
     @Input() selectGroup;
     @Input() selectSemester;
     @Output() gradesUpdate = new EventEmitter();

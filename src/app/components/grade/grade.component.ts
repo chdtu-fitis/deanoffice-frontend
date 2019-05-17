@@ -21,7 +21,7 @@ export class GradeComponent implements OnInit {
     groups: StudentGroup[];
     selectGroup: StudentGroup;
     selectSemester = 1;
-    courses: any = [];
+    coursesForGroup: CourseForGroup[] = [];
     studentsDegree: any = [];
     loading = false;
     errorsMessage = [];
@@ -61,24 +61,24 @@ export class GradeComponent implements OnInit {
     }
 
     updateRequest(semester: number, groupId: number): void {
-        this.loading = false;
-        this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
-          this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
-                this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courses: CourseForGroup[]) => {
-                    this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courses);
-                });
-            });
+      this.loading = false;
+      this.gradeService.getGradesByGroupIdAndBySemester(groupId, semester).subscribe((grades: Grade[]) => {
+      this.studentService.getStudentsByGroupId(groupId).subscribe((studentsDegree: StudentDegree[]) => {
+          this.courseForGroupService.getCoursesForGroupAndSemester(groupId, semester).subscribe((courseForGroups: CourseForGroup[]) => {
+              this.updateGradesAndStudentsAndCourses(grades, studentsDegree, courseForGroups);
+          });
         });
+      });
     }
 
-    updateGradesAndStudentsAndCourses(grades, studentsDegree, courses): void {
-        this.checkForErrorsAfterQueryingDataFetches(courses, studentsDegree, grades);
-        const joinGrades = this.joinGradesForStudents(grades, studentsDegree, courses);
-        this.setStudentDegree(joinGrades.studentsTemp || []);
-        this.setEmptyGradesList(joinGrades.emptyGrades || []);
-        this.setCourses(courses || []);
-        this.clearUpdateGrades();
-        this.loading = true;
+    updateGradesAndStudentsAndCourses(grades, studentsDegree, courseForGroup): void {
+      this.checkForErrorsAfterQueryingDataFetches(courseForGroup, studentsDegree, grades);
+      const joinGrades = this.joinGradesForStudents(grades, studentsDegree, courseForGroup);
+      this.setStudentDegree(joinGrades.studentsTemp || []);
+      this.setEmptyGradesList(joinGrades.emptyGrades || []);
+      this.setCourses(courseForGroup);
+      this.clearUpdateGrades();
+      this.loading = true;
     }
 
     joinGradesForStudents(grades: any, students: any, courses: any): any {
@@ -123,8 +123,8 @@ export class GradeComponent implements OnInit {
         this.emptyGradesList = grades;
     }
 
-    setCourses(courses): void {
-        this.courses = courses;
+    setCourses(courseForGroup: CourseForGroup[]): void {
+      this.coursesForGroup = courseForGroup;
     }
 
     addErrorMessage(err, clear): void {
@@ -164,14 +164,14 @@ export class GradeComponent implements OnInit {
     }
 
     updateGradesForGroup(): void {
-        this.gradeService.updateGrades(this.fixEntytyGrades(this.gradesUpdate)).subscribe(grades => {
+        this.gradeService.updateGrades(this.fixEntytyGrades(this.gradesUpdate)).subscribe(() => {
             this.getGrades();
             this.gradeTable.resetGrades();
         });
     }
 
     fillInWithZerosGrades(): void {
-        this.gradeService.updateGrades(this.fixEntytyGrades(this.emptyGradesList)).subscribe(grades => {
+        this.gradeService.updateGrades(this.fixEntytyGrades(this.emptyGradesList)).subscribe(() => {
             this.getGrades();
         });
     }
@@ -198,22 +198,21 @@ export class GradeComponent implements OnInit {
     }
 
     isConfirmToDeleteGrade(grade: any) {
-        const st = this.studentsDegree.find(student => {
-            return student.id === grade.studentDegreeId;
-        });
-        const c = this.courses.find(course => {
-            return course.course.id === grade.courseId;
-        });
-        const value = 'Оцiнку не мсжна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
-        try {
-            const str = `Видалення оцiнки для студента: ${st.student.surname} ${st.student.name[0]}.${st.student.patronimic[0]}.\n`
-            + `Предмет: ${c.course.courseName.name}\n`
-            + `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
-            return confirm(str + value);
-        } catch (e) {
-            return confirm(value);
-        }
-
+      const studentDegree = this.studentsDegree.find(studentDegree => {
+        return studentDegree.id === grade.studentDegreeId;
+      });
+      const courseForGroup = this.coursesForGroup.find(courseForGroup => {
+        return courseForGroup.course.id === grade.courseId;
+      });
+      const default_message = 'Оцiнку не мсжна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
+      try {
+        const message = `Видалення оцiнки для студента: ${studentDegree.student.surname} ${studentDegree.student.name[0]}.${studentDegree.student.patronimic[0]}.\n`
+        + `Предмет: ${courseForGroup.course.courseName.name}\n`
+        + `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
+        return confirm(message + default_message);
+      } catch (e) {
+        return confirm(default_message);
+      }
     }
 
     fixEntytyGrades(grades) {
