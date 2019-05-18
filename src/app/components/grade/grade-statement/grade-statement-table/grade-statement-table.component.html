@@ -21,7 +21,7 @@
                        [value] ="studentDegree.grade.points"
                        (change)="editGrade(studentDegree.id, studentId, studentDegree.grade, $event)"
                        (keyup)="nextCell(studentDegree.id, studentId, studentDegree.grade, $event)"
-                       id="id{{studentDegree.id}}{{selectedCourse.course.id}}"/>
+                       id="id{{studentDegree.id}}{{selectedCourseForGroup.course.id}}"/>
             </td>
             <td *ngIf="studentDegree.grade.points || studentDegree.grade.onTime">
                 <button class="btn btn-sm float-right" (click)="changeOnTime(studentId)" [ngClass]="{'btn-danger' : onTime,

@@ -4,6 +4,7 @@ import {BaseEntity} from './basemodels/BaseEntity';
 import {Specialization} from './Specialization';
 import {DiplomaType} from './diploma-type.enum';
 import {StudentPreviousUniversity} from './StudentPreviousUniversity';
+import {Grade} from './Grade';
 
 export class StudentDegree extends BaseEntity {
   student: Student;
@@ -33,5 +34,9 @@ export class StudentDegree extends BaseEntity {
   previousDiplomaIssuedByEng?: string;
   payment?: string;
   active?: boolean;
+
+  grade?: Grade;
+  grades?: Grade[];
+
   selected?: boolean;
 }

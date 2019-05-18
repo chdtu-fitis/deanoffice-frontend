@@ -3,7 +3,9 @@ import {ModalDirective} from 'ngx-bootstrap';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {GradeService} from '../../../services/grade.service';
-import {EmptyGrade} from '../models/EmptyGrade';
+import {CourseForGroup} from '../../../models/CourseForGroup';
+import {StudentDegree} from '../../../models/StudentDegree';
+import {Grade} from '../../../models/Grade';
 
 @Component({
     selector: 'app-grades-statement',
@@ -17,24 +19,24 @@ export class StatementComponent implements IAppModal {
     @Input() selectGroup;
     @Output() sendGrades = new EventEmitter();
     @Output() resetGradesForTable = new EventEmitter();
-    selectedCourse: any;
-    updateGrades = [];
+    selectedCourseForGroup: CourseForGroup;
+    updateGrades: Grade[] = [];
     error = '';
-    statement = [];
-    passedOnTime = [];
-    grades: any;
+    statement: StudentDegree[] = [];
+    passedOnTime: StudentDegree[]  = [];
+    grades: Grade[];
     loadingGrades = false;
-    students = [];
+    studentDegrees: StudentDegree[] = [];
 
     constructor(private gradeService: GradeService) {
     }
 
     updateGradesByGroupIdAndCourseId() {
         this.loadingGrades = false;
-        return this.gradeService.getGradesByGroupIdAndCourseId(this.selectGroup.id, this.selectedCourse.course.id)
+        return this.gradeService.getGradesByGroupIdAndCourseId(this.selectGroup.id, this.selectedCourseForGroup.course.id)
             .subscribe(grades => {
                 this.grades = grades;
-                this.students = this.joinGradeForStudentsDegree();
+                this.studentDegrees = this.joinGradeForStudentsDegree();
                 this.updateStatementAndPassedOnTime();
                 this.loadingGrades = true;
             });
@@ -52,7 +54,7 @@ export class StatementComponent implements IAppModal {
                 }
             }
             if (!t) {
-                studentDegree.grade = new EmptyGrade(null, true, this.selectedCourse.course.id, studentDegree.id, false);
+                studentDegree.grade = new Grade(null, true, this.selectedCourseForGroup.course.id, studentDegree.id, false);
                 students.push(studentDegree);
             }
         }
@@ -70,25 +72,26 @@ export class StatementComponent implements IAppModal {
         this.setPassedOnTime(temp.passedOnTime);
     }
 
-    getStatementAndPassedOfTimeStudents(): any {
-        const statement = [];
-        const passedOnTime = [];
-        for (const student of this.students) {
-            if (student.grade.onTime) {
-                statement.push(student);
-            } else {
-                passedOnTime.push(student);
-            }
+    getStatementAndPassedOfTimeStudents(): {statement: StudentDegree[], passedOnTime: StudentDegree[]} {
+      const statement = [];
+      const passedOnTime = [];
+      for (const student of this.studentDegrees) {
+        if (student.grade.onTime) {
+          statement.push(student);
+        } else {
+          passedOnTime.push(student);
         }
-        return {statement, passedOnTime};
+      }
+      return {statement, passedOnTime};
     }
 
     toUpdateGrades(options: any): void {
         const studentDegree = options.studentDegree;
         const onTime = options.onTime;
         const grade = options.studentDegree.grade;
-        if (onTime !== studentDegree.grade.onTime && this.statement.length)
+        if (onTime !== studentDegree.grade.onTime && this.statement.length) {
             this.changeOnTimeForGrade(options.studentDegree, options.onTime);
+        }
         const findGrade = g => {
             return g.studentDegreeId === grade.studentDegreeId &&
                 g.courseId === grade.courseId
@@ -101,10 +104,8 @@ export class StatementComponent implements IAppModal {
         }
     }
 
-    changeOnTimeForGrade(studentDegree: any, onTime: boolean): void {
-        const findStudentIndex = student => {
-            return student.id === studentDegree.id;
-        };
+    changeOnTimeForGrade(studentDegree: StudentDegree, onTime: boolean): void {
+        const findStudentIndex = student => student.id === studentDegree.id;
         if (onTime) {
             const index = this.statement.findIndex(findStudentIndex);
             if (index > -1) {
@@ -120,20 +121,20 @@ export class StatementComponent implements IAppModal {
         }
     }
 
-    setStatement(statement: any): void {
-        this.statement = statement;
+    setStatement(statement: StudentDegree[]): void {
+      this.statement = statement;
     }
 
-    setPassedOnTime(passedOnTime: any): void {
-        this.passedOnTime = passedOnTime;
+    setPassedOnTime(passedOnTime: StudentDegree[]): void {
+      this.passedOnTime = passedOnTime;
     }
 
     setError(error: string): void {
         this.error = error;
     }
 
-    setSelectedCourse(selectedCourse: any): void {
-        this.selectedCourse = selectedCourse;
+    setSelectedCourseForGroup(selectedCourseForGroup: CourseForGroup): void {
+      this.selectedCourseForGroup = selectedCourseForGroup;
     }
 
     resetGrades(): void {

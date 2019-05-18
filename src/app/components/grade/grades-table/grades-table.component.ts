@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Grade} from '../../../models/Grade';
+import {CourseForGroup} from '../../../models/CourseForGroup';
 
 @Component({
     selector: 'app-grades-table',
@@ -16,18 +17,18 @@ export class GradesTableComponent {
     @Output() errors = new EventEmitter();
     @Output() sendUpdateGrades = new EventEmitter();
     @Output() setGradeForDelete = new EventEmitter();
-    grades = [];
+    grades: Grade[] = [];
     @Input() loadingGrades = false;
     @Input() isDeleteMode = false;
-    selectedGradeForDelete: any;
+    selectedGradeForDelete: Grade;
 
     resetGrades() {
         this.grades = [];
     };
 
-    openStatement(selectedCourse: any): void {
+    openStatement(selectedCourseForGroup: CourseForGroup): void {
         this.resetGrades();
-        this.statement.setSelectedCourse(selectedCourse);
+        this.statement.setSelectedCourseForGroup(selectedCourseForGroup);
         this.statement.openModalAndUpdateGradesForCourse();
     }
 
@@ -37,7 +38,7 @@ export class GradesTableComponent {
         }
     }
 
-    focusElement(studentId: number, gradeId: number, vertically: boolean): any {
+    focusElement(studentId: number, gradeId: number, vertically: boolean): void {
         const id = this.getElementId(studentId, gradeId);
         try {
             document.getElementById(id).focus();

@@ -1,6 +1,6 @@
-import {EmptyGrade} from './EmptyGrade';
 import {Course} from '../../../models/Course';
 import {StudentDegree} from '../../../models/StudentDegree';
+import {Grade} from '../../../models/Grade';
 
 export class PostGrade {
   id: number;
@@ -9,7 +9,7 @@ export class PostGrade {
   onTime: boolean;
   points: number;
 
-  constructor(grade: EmptyGrade) {
+  constructor(grade: Grade) {
     this.id = 'id' in grade ? grade.id : undefined;
     this.course = new Course();
     this.course.id = grade.courseId;

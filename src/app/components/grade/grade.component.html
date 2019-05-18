@@ -36,8 +36,8 @@
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
             </div>
-            <ng-container *ngIf="errorsMessage.length && loading">
-                <div *ngFor="let error of errorsMessage" class="alert-danger">
+            <ng-container *ngIf="errorMessages.length && loading">
+                <div *ngFor="let error of errorMessages" class="alert-danger">
                     {{ error }}
                 </div>
             </ng-container>

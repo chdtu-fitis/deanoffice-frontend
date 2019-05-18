@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Grade} from '../../../../models/Grade';
+import {StudentDegree} from '../../../../models/StudentDegree';
+import {CourseForGroup} from '../../../../models/CourseForGroup';
 
 @Component({
     selector: 'app-grade-statement-table',
@@ -7,22 +9,22 @@ import {Grade} from '../../../../models/Grade';
     styleUrls: ['./grade-statement-table.component.scss']
 })
 export class GradeStatementTableComponent {
-    @Input() studentsDegree;
-    @Input() selectedCourse: any;
+    @Input() studentsDegree: StudentDegree[];
+    @Input() selectedCourseForGroup: CourseForGroup;
     @Input() onTime = false;
     @Input() loadingGrades = false;
     @Output() setGrade = new EventEmitter();
     @Output() error = new EventEmitter();
 
-    isCorrectGrade(studentDegree: any): any {
-        return {
+    isCorrectGrade(studentDegree: StudentDegree): any {
+      return {
             'notCorrect': !studentDegree.grade.empty &&
             (studentDegree.grade.points < 60 || studentDegree.grade.points > 100)
         };
     }
 
-    setUpdateGrades(studentDegree: any): any {
-        return this.setGrade.emit({studentDegree, onTime: this.onTime});
+    setUpdateGrades(studentDegree: StudentDegree): any {
+      return this.setGrade.emit({studentDegree, onTime: this.onTime});
     }
 
     changeOnTime(studentId: number) {
@@ -42,7 +44,7 @@ export class GradeStatementTableComponent {
         }
     }
 
-    focusElement(studentDegreeId: number): any {
+    focusElement(studentDegreeId: number): void {
         const id = this.getElementId(studentDegreeId);
         try {
             document.getElementById(id).focus();
@@ -51,7 +53,7 @@ export class GradeStatementTableComponent {
     }
 
     getElementId(studentDegreeId: number): string {
-        return `id${studentDegreeId}${this.selectedCourse.course.id}`;
+        return `id${studentDegreeId}${this.selectedCourseForGroup.course.id}`;
     }
 
     editGrade(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {

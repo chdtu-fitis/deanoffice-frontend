@@ -1,13 +1,23 @@
-import {BaseEntity} from './basemodels/BaseEntity';
-
-export class Grade extends BaseEntity {
+export class Grade {
+  id?: number;
   grade?: number;
   academicDifference: boolean;
   courseId: number;
   onTime: boolean;
   points: number;
   studentDegreeId: number;
+
   // view property
-  wrongInterval: boolean;
-  changed: boolean;
+  empty?: boolean;
+  wrongInterval?: boolean;
+  changed?: boolean;
+
+  constructor(points: number, empty: boolean, courseId: number, studentDegreeId: number, onTime: boolean) {
+    this.points = points;
+    this.empty = empty;
+    this.courseId = courseId;
+    this.studentDegreeId = studentDegreeId;
+    this.onTime = onTime;
+  }
+
 }
