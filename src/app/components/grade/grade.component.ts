@@ -204,7 +204,7 @@ export class GradeComponent implements OnInit {
       const courseForGroup = this.coursesForGroup.find(courseForGroup => {
         return courseForGroup.course.id === grade.courseId;
       });
-      const default_message = 'Оцiнку не мсжна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
+      const default_message = 'Оцiнку не можна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
       try {
         const message = `Видалення оцiнки для студента: ${studentDegree.student.surname} ${studentDegree.student.name[0]}.${studentDegree.student.patronimic[0]}.\n`
         + `Предмет: ${courseForGroup.course.courseName.name}\n`
