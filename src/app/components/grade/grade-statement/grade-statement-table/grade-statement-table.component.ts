@@ -11,7 +11,6 @@ import {CourseForGroup} from '../../../../models/CourseForGroup';
 export class GradeStatementTableComponent {
     @Input() studentsDegree: StudentDegree[];
     @Input() selectedCourseForGroup: CourseForGroup;
-    @Input() onTime = false;
     @Input() loadingGrades = false;
     @Output() setGrade = new EventEmitter();
     @Output() error = new EventEmitter();
@@ -24,12 +23,12 @@ export class GradeStatementTableComponent {
     }
 
     setUpdateGrades(studentDegree: StudentDegree): any {
-      return this.setGrade.emit({studentDegree, onTime: this.onTime});
+      return this.setGrade.emit(studentDegree);
     }
 
-    changeOnTime(studentId: number) {
-        this.studentsDegree[studentId].grade.onTime = !this.studentsDegree[studentId].grade.onTime;
-        this.setUpdateGrades(this.studentsDegree[studentId]);
+    changeOnTime(studentDegree: StudentDegree) {
+      studentDegree.grade.onTime = !studentDegree.grade.onTime;
+      this.setUpdateGrades(studentDegree);
     }
 
     nextCell(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {

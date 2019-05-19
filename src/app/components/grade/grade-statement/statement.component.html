@@ -20,14 +20,13 @@
                     <h6 class="card-title">Вiдомiсть</h6>
                     <app-grade-statement-table [studentsDegree]="statement"
                                                [selectedCourseForGroup]="selectedCourseForGroup"
-                                               [onTime]="true"
                                                [loadingGrades]="loadingGrades"
                                                (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
                 <div *ngIf="passedOnTime.length">
-                    <h6 class="card-title">{{!statement.length ? 'Вiдомiсть': 'Здали невчасно'}}</h6>
+                    <h6 class="card-title">Здали невчасно</h6>
                     <app-grade-statement-table [studentsDegree]="passedOnTime"
                                                [selectedCourseForGroup]="selectedCourseForGroup"
                                                [loadingGrades]="loadingGrades"

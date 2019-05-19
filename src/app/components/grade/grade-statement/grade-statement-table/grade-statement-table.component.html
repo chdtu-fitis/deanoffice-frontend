@@ -23,9 +23,9 @@
                        (keyup)="nextCell(studentDegree.id, studentId, studentDegree.grade, $event)"
                        id="id{{studentDegree.id}}{{selectedCourseForGroup.course.id}}"/>
             </td>
-            <td *ngIf="studentDegree.grade.points || studentDegree.grade.onTime">
-                <button class="btn btn-sm float-right" (click)="changeOnTime(studentId)" [ngClass]="{'btn-danger' : onTime,
-                'btn-success': !onTime}">{{ onTime? 'Невчасно':'Вчасно' }}
+            <td *ngIf="studentDegree.grade.points">
+                <button class="btn btn-sm float-right" (click)="changeOnTime(studentDegree)" [ngClass]="{'btn-danger' : studentDegree.grade.onTime,
+                'btn-success': !studentDegree.grade.onTime}">{{ studentDegree.grade.onTime? 'Невчасно':'Вчасно' }}
                 </button>
             </td>
         </tr>

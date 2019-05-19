@@ -85,40 +85,35 @@ export class StatementComponent implements IAppModal {
       return {statement, passedOnTime};
     }
 
-    toUpdateGrades(options: any): void {
-        const studentDegree = options.studentDegree;
-        const onTime = options.onTime;
-        const grade = options.studentDegree.grade;
-        if (onTime !== studentDegree.grade.onTime && this.statement.length) {
-            this.changeOnTimeForGrade(options.studentDegree, options.onTime);
-        }
-        const findGrade = g => {
-            return g.studentDegreeId === grade.studentDegreeId &&
-                g.courseId === grade.courseId
-        };
-        const gradeId = this.updateGrades.findIndex(findGrade);
-        if (gradeId > -1) {
-            this.updateGrades[gradeId] = grade;
-        } else {
-            this.updateGrades.push(grade);
-        }
+    toUpdateGrades(studentDegree: StudentDegree): void {
+      const grade = studentDegree.grade;
+      this.changeOnTimeForGrade(studentDegree, studentDegree.grade.onTime);
+      const findGrade = g => {
+        return g.studentDegreeId === grade.studentDegreeId && g.courseId === grade.courseId
+      };
+      const gradeId = this.updateGrades.findIndex(findGrade);
+      if (gradeId > -1) {
+        this.updateGrades[gradeId] = grade;
+      } else {
+        this.updateGrades.push(grade);
+      }
     }
 
     changeOnTimeForGrade(studentDegree: StudentDegree, onTime: boolean): void {
-        const findStudentIndex = student => student.id === studentDegree.id;
-        if (onTime) {
-            const index = this.statement.findIndex(findStudentIndex);
-            if (index > -1) {
-                this.passedOnTime.push(studentDegree);
-                this.statement.splice(index, 1);
-            }
-        } else {
-            const index = this.passedOnTime.findIndex(findStudentIndex);
-            if (index > -1) {
-                this.statement.push(studentDegree);
-                this.passedOnTime.splice(index, 1);
-            }
+      const findStudentIndex = student => student.id === studentDegree.id;
+      if (onTime) {
+        const index = this.passedOnTime.findIndex(findStudentIndex);
+        if (index > -1) {
+          this.statement.push(studentDegree);
+          this.passedOnTime.splice(index, 1);
         }
+      } else {
+        const index = this.statement.findIndex(findStudentIndex);
+        if (index > -1) {
+          this.passedOnTime.push(studentDegree);
+          this.statement.splice(index, 1);
+        }
+      }
     }
 
     setStatement(statement: StudentDegree[]): void {
