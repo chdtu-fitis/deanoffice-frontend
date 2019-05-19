@@ -58,9 +58,10 @@ export class GradeStatementTableComponent {
     editGrade(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {
       const studentDegree = this.studentsDegree[studentId];
       const points = Number(e.target.valueAsNumber || e.target.value);
+      grade.changed = true;
+      grade.empty = false;
       if (points > 100 || points < 0 || !points) {
         grade.wrongInterval = true;
-        grade.changed = true;
         this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
       } else {
         this.setError('');
@@ -72,7 +73,6 @@ export class GradeStatementTableComponent {
           delete studentDegree.grade.empty;
           this.setUpdateGrades(studentDegree);
           grade.wrongInterval = false;
-          grade.changed = true;
         }
       }
     }

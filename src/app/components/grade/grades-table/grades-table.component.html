@@ -26,9 +26,8 @@
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-          <td [ngClass]="{ 'bg-danger' : grade?.empty && !isDeleteMode, '': true}"
-              [class.bg-danger]="grade?.wrongInterval"
-              [class.bg-warning]="grade?.changed"
+          <td [class.bg-warning]="grade?.changed"
+              [class.bg-danger]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
           >
                 <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                        (change)="editGrade(grade, studentId, gradeId, $event)"

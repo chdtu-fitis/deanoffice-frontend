@@ -55,18 +55,18 @@ export class GradesTableComponent {
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
-        const points = Number(e.target.valueAsNumber || e.target.value);
-        if (points > 100 || points < 0 || !points) {
-          grade.wrongInterval = true;
-          grade.changed = true;
-          this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
-        } else {
-          this.setError('');
-          grade.wrongInterval = false;
-          grade.changed = true;
-          grade.points = points;
-          this.addGradeForUpdate(grade);
-        }
+      const points = Number(e.target.valueAsNumber || e.target.value);
+      grade.empty = false;
+      grade.changed = true;
+      if (points > 100 || points < 0 || !points) {
+        grade.wrongInterval = true;
+        this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
+      } else {
+        this.setError('');
+        grade.wrongInterval = false;
+        grade.points = points;
+        this.addGradeForUpdate(grade);
+      }
     }
 
     updateGradesByStatement(grades: Grade[]) {

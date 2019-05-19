@@ -11,9 +11,8 @@
             <td class="td-student">{{studentDegree.student.surname}}
                 {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
             </td>
-            <td [ngClass]="{ 'bg-danger' : studentDegree.grade?.empty}"
-                [class.bg-danger]="studentDegree.grade?.wrongInterval"
-                [class.bg-warning]="studentDegree.grade?.changed"
+            <td [class.bg-warning]="studentDegree.grade?.changed"
+                [class.bg-danger]="studentDegree.grade?.empty || studentDegree.grade?.wrongInterval"
             >
                 <input type="number"
                        [ngClass]="isCorrectGrade(studentDegree)"
