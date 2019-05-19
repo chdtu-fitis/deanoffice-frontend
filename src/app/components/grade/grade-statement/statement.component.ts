@@ -143,14 +143,16 @@ export class StatementComponent implements IAppModal {
     };
 
     closeModal(): void {
-        this.resetGrades();
-        this.modal.hide();
+      this.resetGrades();
+      this.error =  '';
+      this.modal.hide();
     }
 
     cancelChanges(): void {
-        this.resetGrades();
-        this.loadingGrades = false;
-        this.updateGradesByGroupIdAndCourseId();
+      this.resetGrades();
+      this.loadingGrades = false;
+      this.error =  '';
+      this.updateGradesByGroupIdAndCourseId();
     }
 
     sendUpdateGrades() {
