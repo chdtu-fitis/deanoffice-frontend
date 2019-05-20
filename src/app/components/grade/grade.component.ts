@@ -111,7 +111,7 @@ export class GradeComponent implements OnInit {
             }
         }
         if (!check) {
-          return new Grade(null, true, courseForGroup.course.id, studentDegree.id, false);
+          return new Grade(null, true, courseForGroup.course.id, studentDegree.id, true);
         }
     }
 
