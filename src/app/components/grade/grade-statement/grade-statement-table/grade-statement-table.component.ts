@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Grade} from '../../../../models/Grade';
+import {StudentDegree} from '../../../../models/StudentDegree';
+import {CourseForGroup} from '../../../../models/CourseForGroup';
 
 @Component({
     selector: 'app-grade-statement-table',
@@ -7,27 +9,26 @@ import {Grade} from '../../../../models/Grade';
     styleUrls: ['./grade-statement-table.component.scss']
 })
 export class GradeStatementTableComponent {
-    @Input() studentsDegree;
-    @Input() selectedCourse: any;
-    @Input() onTime = false;
+    @Input() studentsDegree: StudentDegree[];
+    @Input() selectedCourseForGroup: CourseForGroup;
     @Input() loadingGrades = false;
     @Output() setGrade = new EventEmitter();
     @Output() error = new EventEmitter();
 
-    isCorrectGrade(studentDegree: any): any {
-        return {
+    isCorrectGrade(studentDegree: StudentDegree): any {
+      return {
             'notCorrect': !studentDegree.grade.empty &&
             (studentDegree.grade.points < 60 || studentDegree.grade.points > 100)
         };
     }
 
-    setUpdateGrades(studentDegree: any): any {
-        return this.setGrade.emit({studentDegree, onTime: this.onTime});
+    setUpdateGrades(studentDegree: StudentDegree): any {
+      return this.setGrade.emit(studentDegree);
     }
 
-    changeOnTime(studentId: number) {
-        this.studentsDegree[studentId].grade.onTime = !this.studentsDegree[studentId].grade.onTime;
-        this.setUpdateGrades(this.studentsDegree[studentId]);
+    changeOnTime(studentDegree: StudentDegree) {
+      studentDegree.grade.onTime = !studentDegree.grade.onTime;
+      this.setUpdateGrades(studentDegree);
     }
 
     nextCell(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {
@@ -42,7 +43,7 @@ export class GradeStatementTableComponent {
         }
     }
 
-    focusElement(studentDegreeId: number): any {
+    focusElement(studentDegreeId: number): void {
         const id = this.getElementId(studentDegreeId);
         try {
             document.getElementById(id).focus();
@@ -51,37 +52,32 @@ export class GradeStatementTableComponent {
     }
 
     getElementId(studentDegreeId: number): string {
-        return `id${studentDegreeId}${this.selectedCourse.course.id}`;
+        return `id${studentDegreeId}${this.selectedCourseForGroup.course.id}`;
     }
 
     editGrade(studentDegreeId: number, studentId: number, grade: Grade, e: any): void {
-        const elementId = this.getElementId(studentDegreeId);
-        const studentDegree = this.studentsDegree[studentId];
-        const points = Number(e.target.valueAsNumber || e.target.value);
-        if (points > 100 || points < 0 || !points) {
-            this.updateVisible(elementId, 'bg-danger');
-            this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
-        } else {
-            this.setError('');
-            if (studentDegree.grade.points !== points) {
-                if (!studentDegree.grade.points) {
-                    studentDegree.grade.onTime = true;
-                }
-                studentDegree.grade.points = points;
-                delete studentDegree.grade.empty;
-                this.setUpdateGrades(studentDegree);
-                this.updateVisible(elementId, 'bg-warning');
-            }
+      const studentDegree = this.studentsDegree[studentId];
+      const points = Number(e.target.valueAsNumber || e.target.value);
+      grade.changed = true;
+      grade.empty = false;
+      if (points > 100 || points < 0 || !points) {
+        grade.wrongInterval = true;
+        this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
+      } else {
+        this.setError('');
+        if (studentDegree.grade.points !== points) {
+          if (!studentDegree.grade.points) {
+              studentDegree.grade.onTime = true;
+          }
+          studentDegree.grade.points = points;
+          delete studentDegree.grade.empty;
+          this.setUpdateGrades(studentDegree);
+          grade.wrongInterval = false;
         }
+      }
     }
 
     setError(error: string): void {
         this.error.emit(error);
-    }
-
-    updateVisible(id, style): void {
-        const element = document.getElementById(id).parentElement;
-        const styles = 'text-center align-middle';
-        element.setAttribute('class', `${styles} ${style}`);
     }
 }

@@ -1,5 +1,4 @@
 <app-grades-statement #statement
-                      [courses]="courses"
                       [selectGroup]="selectGroup"
                       [studentsDegree]="studentsDegree"
                       (sendGrades)="updateGradesByStatement($event)"
@@ -7,16 +6,16 @@
 </app-grades-statement>
 <loading *ngIf="!loadingGrades && selectGroup" [size]="100"></loading>
 
-<table *ngIf="courses.length && studentsDegree.length && loadingGrades">
+<table *ngIf="coursesForGroup.length && studentsDegree.length && loadingGrades">
     <thead>
     <tr>
         <td>№</td>
         <td>{{selectGroup?.name}}<br>
             Семестр: {{ selectSemester }}
         </td>
-        <td *ngFor="let course of courses" scope="row" class="btn-courses"
-            (click)="openStatement(course)">
-            {{course.course.courseName?.name}} (<b>{{ course.course.knowledgeControl.name }}</b>)
+        <td *ngFor="let courseForGroup of coursesForGroup" scope="row" class="btn-courses"
+            (click)="openStatement(courseForGroup)">
+          {{courseForGroup.course.courseName?.name}} (<b>{{ courseForGroup.course.knowledgeControl.name }}</b>)
         </td>
     </tr>
     </thead>
@@ -27,7 +26,9 @@
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-            <td [ngClass]="{ 'bg-danger' : grade?.empty && !isDeleteMode, 'text-center align-middle': true}">
+          <td [class.bg-warning]="grade?.changed"
+              [class.bg-danger]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
+          >
                 <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                        (change)="editGrade(grade, studentId, gradeId, $event)"
                        (keyup)="nextCell($event, studentId, gradeId);"
