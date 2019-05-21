@@ -13,13 +13,13 @@ export class DepartmentFormComponent {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(100),
-      Validators.pattern('[ A-zА-яІіЇї0-9-]*')
+      Validators.pattern('[ A-zА-яІіЇїҐґЄє,\.0-9-]*')
     ]),
     abbr: new FormControl(null, [
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(30),
-      Validators.pattern('[A-zА-яІіЇї0-9-]*')
+      Validators.pattern('[A-zА-яІіЇїҐґЄє,\.0-9-]*')
     ])
   });
 
