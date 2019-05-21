@@ -21,6 +21,7 @@ export class GradesTableComponent {
     @Input() loadingGrades = false;
     @Input() isDeleteMode = false;
     selectedGradeForDelete: Grade;
+    focusGrade: Grade;
 
     resetGrades() {
         this.grades = [];
@@ -104,4 +105,8 @@ export class GradesTableComponent {
     resetSelectGradeForDelete(): void {
         this.selectedGradeForDelete = null;
     }
+
+  onFocusGrade(grade: Grade) {
+    this.focusGrade = grade
+  }
 }

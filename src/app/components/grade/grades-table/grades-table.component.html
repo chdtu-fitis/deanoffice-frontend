@@ -28,10 +28,12 @@
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
           <td [class.bg-warning]="grade?.changed"
               [class.bg-danger]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
+              [class.bg-primary]="grade.academicDifference"
           >
                 <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                        (change)="editGrade(grade, studentId, gradeId, $event)"
                        (keyup)="nextCell($event, studentId, gradeId);"
+                       (focus)="onFocusGrade(grade)"
                        id="grade{{studentId}}{{gradeId}}id"
                        [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
 

@@ -35,6 +35,10 @@
                         (click)="changeMode()" *ngIf="selectGroup">
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
+              <button class="btn btn-primary" [disabled]="!gradeTable.focusGrade?.points"
+                      (click)="setAcademicDifference()" *ngIf="selectGroup">
+                Змінити А.Р
+              </button>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
                 <div *ngFor="let error of errorMessages" class="alert-danger">
