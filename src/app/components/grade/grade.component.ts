@@ -49,13 +49,13 @@ export class GradeComponent implements OnInit {
 
     setStudentGroup(group: StudentGroup): void {
       this.selectGroup = group;
-      this.gradeTable.focusGrade = null;
+      this.gradeTable.focusGrade = {} as Grade;
       this.gradeTable.resetGrades();
     }
 
     setSemester(selectSemester: number): void {
       this.selectSemester = selectSemester;
-      this.gradeTable.focusGrade = null;
+      this.gradeTable.focusGrade = {} as Grade;
     }
 
     getGrades(): void {
