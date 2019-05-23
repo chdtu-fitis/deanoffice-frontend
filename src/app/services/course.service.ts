@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {CoursePagination} from '../models/course/CoursePagination';
+import {CourseFilter} from '../components/course/models/CourseFilter';
 
 @Injectable()
 export class CourseService {
@@ -27,21 +28,8 @@ export class CourseService {
     return this.http.get<CoursePagination>(`${environment.apiUrl}/all-courses`, {params: {page}});
   }
 
-  getFilteredCoursesForAdministrator(page: any, courseName: any, hours: any,
-                                     hoursPerCredit: any, knowledgeControl: any,
-                                     nameStartingWith: any, nameContains: any, semester: any) {
-    return this.http.get<CoursePagination>(`${environment.apiUrl}/filtered-courses`, {
-      params: {
-        page,
-        courseName,
-        hours,
-        hoursPerCredit,
-        knowledgeControl,
-        nameStartingWith,
-        nameContains,
-        semester
-      }
-    });
+  getFilteredCoursesForAdministrator(filterCourse) {
+    return this.http.get<CoursePagination>(`${environment.apiUrl}/filtered-courses`, {params: filterCourse});
   }
 
 }
