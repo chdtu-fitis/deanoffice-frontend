@@ -2,7 +2,8 @@
   <div class="in-left">
     <div class="form-row">
       <select formControlName="cmbValue">
-        <option *ngFor="let item of comboBoxChoise" [ngValue]="item"> {{item}} </option>
+        <option *ngFor="let CourseNameSearchParamKey of CourseNameSearchParamKeys"
+                [attr.data-index]="i" value="{{CourseNameSearchParamKey}}">{{courseNameSearchParam[CourseNameSearchParamKey]}}</option>
       </select>
       <input type="text" placeholder="Назва чи її частина" formControlName="name">
 

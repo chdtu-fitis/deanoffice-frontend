@@ -4,8 +4,9 @@ import { Course } from '../../models/Course';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS} from './column-set';
 import {CoursePagination} from '../../models/course/CoursePagination';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CourseFilter} from './models/CourseFilter';
+import {CourseNameSearchParam} from './models/CourseNameSearchParam.enum';
 
 @Component({
   selector: 'app-course',
@@ -13,21 +14,20 @@ import {CourseFilter} from './models/CourseFilter';
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
+  CourseNameSearchParamKeys;
+  courseNameSearchParam = CourseNameSearchParam;
+
   selected: Course[] = [];
   courses: Course[] = [];
   rows: Course[] = [];
-  comboBoxChoise = [];
   semesters = [];
   hoursPerCreditList = [];
   knowledgeControlList = [];
   items = [];
 
-  hoursPerCredit: number;
-  knowledgeControl: string;
   total: number;
   currentPage: number;
   totalPages: number;
-  filter: boolean;
 
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
@@ -43,6 +43,8 @@ export class CourseComponent implements OnInit {
               private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.CourseNameSearchParamKeys = Object.keys(this.courseNameSearchParam);
+
     this.currentPage = 1;
     this.searchForm = this.fb.group({
       cmbValue: '',
@@ -53,36 +55,22 @@ export class CourseComponent implements OnInit {
       knowledgeControl: ''
     });
 
-    this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm));
-    this.comboBoxChoise = ['Повна назва предмета', 'Назва починаєтья з', 'Назва містить в собі'];
+    this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm.value));
     this.semesters = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     this.hoursPerCreditList = ['', 30, 36];
-    this.filter = true;
     this.knowledgeControlList = ['', 'іспит', 'залік', 'курсова робота', 'курсовий проект',
       'диференційований залік', 'державний іспит', 'атестація', 'практика',
       'практика (як залік)'];
   }
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
   }
 
-  getCoursesForAdministrator(page: number) {
-    this.courseServise.getCoursesForAdministrator(page)
-      .subscribe((coursePagination: CoursePagination) => {
-        this.rows = coursePagination.items;
-        this.currentPage = coursePagination.currentPage;
-        this.totalPages = coursePagination.totalPages;
-        this.total = this.rows.length;
-      });
-  }
-
-  onViewFilteredCourses(page: number) {
-    if (page === null || page === undefined) {
-      page = 1;
-    }
-    this.getFilteredCoursesForAdministrator(new CourseFilter(page, this.searchForm));
+  onViewFilteredCourses() {
+    this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm.value));
   }
 
   getFilteredCoursesForAdministrator(filterCourse: CourseFilter) {
