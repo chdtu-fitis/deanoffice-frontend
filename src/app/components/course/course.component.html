@@ -1,4 +1,34 @@
-<div class="px-3 h-100" *ngFor="let item of rows | paginate: {itemsPerPage: 1, currentPage: currentPage}">
+<form [formGroup]="searchForm" (ngSubmit)="onViewFilteredCourses()">
+  <div class="in-left">
+    <div class="form-row">
+      <select formControlName="cmbValue">
+        <option *ngFor="let item of comboBoxChoise" [ngValue]="item"> {{item}} </option>
+      </select>
+      <input type="text" placeholder="Назва чи її частина" formControlName="name">
+
+      <label for="cmbSemester">Семестр</label>
+      <select id="cmbSemester" formControlName="semester">
+        <option *ngFor="let sem of semesters" value="{{sem}}" [ngValue]="sem"> {{sem}} </option>
+      </select>
+
+      <label for="tfHours">Кількість годин</label>
+      <input type="text" placeholder="Годин" id="tfHours" formControlName="hours">
+
+      <label for="cmbHoursPerCredit">Годин на кредит</label>
+      <select id="cmbHoursPerCredit" formControlName="hoursPerCredit">
+        <option *ngFor="let hpc of hoursPerCreditList" [ngValue]="hpc"> {{hpc}} </option>
+      </select>
+
+      <label for="cmbKnowledgeControl">Тип контролю</label>
+      <select id="cmbKnowledgeControl" formControlName="knowledgeControl">
+        <option *ngFor="let kc of knowledgeControlList" [ngValue]="kc"> {{kc}} </option>
+      </select>
+
+      <button class="btn btn-info mr-2">Пошук</button>
+    </div>
+  </div>
+</form>
+<div class="px-3 h-100" *ngFor="let item of items | paginate: {itemsPerPage: 1, currentPage: currentPage}">
   <ag-grid-angular
     class="ag-theme-balham course-table"
     rowSelection="multiple"
@@ -13,8 +43,9 @@
     (gridReady)="onGridReady($event)"
   >
   </ag-grid-angular>
+
   <div class="text-center">
-    <pagination-controls (pageChange)="getCoursesForAdministrator($event)" previousLabel="Попередня" nextLabel="Наступна"></pagination-controls>
+    <pagination-controls (pageChange)="onViewFilteredCourses($event)" previousLabel="Попередня" nextLabel="Наступна"></pagination-controls>
   </div>
-  </div>
+</div>
 

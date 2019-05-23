@@ -21,6 +21,6 @@ export const COLUMN_DEFINITIONS = [
   },
   {
     headerName: 'Годин на кредит',
-    field: 'hoursPerCredit',
+    field: 'hoursPerCreditList',
   }
 ];
