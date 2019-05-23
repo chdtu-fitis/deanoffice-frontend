@@ -3,5 +3,5 @@ import {Course} from '../Course';
 export class CoursePagination {
   items: Course[];
   currentPage: number;
-  totalPage: number;
+  totalPages: number;
 }
