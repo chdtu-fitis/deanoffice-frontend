@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Course} from "../models/Course";
-import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {Course} from '../models/Course';
+import {Observable} from 'rxjs/Observable';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 import {CoursePagination} from '../models/course/CoursePagination';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class CourseService {
     return this.http.get<Course[]>(`${environment.apiUrl}/courses/hours-per-credit?semester=${semester}&hoursPerCredit=${hoursPerCredit}`);
   }
 
-  createCourse(course: Course){
+  createCourse(course: Course) {
     return this.http.post(`${environment.apiUrl}/courses`, course);
   }
 
@@ -25,6 +25,23 @@ export class CourseService {
 
   getCoursesForAdministrator(page: any): Observable<CoursePagination> {
     return this.http.get<CoursePagination>(`${environment.apiUrl}/all-courses`, {params: {page}});
+  }
+
+  getFilteredCoursesForAdministrator(page: any, courseName: any, hours: any,
+                                     hoursPerCredit: any, knowledgeControl: any,
+                                     nameStartingWith: any, nameContains: any, semester: any) {
+    return this.http.get<CoursePagination>(`${environment.apiUrl}/filtered-courses`, {
+      params: {
+        page,
+        courseName,
+        hours,
+        hoursPerCredit,
+        knowledgeControl,
+        nameStartingWith,
+        nameContains,
+        semester
+      }
+    });
   }
 
 }
