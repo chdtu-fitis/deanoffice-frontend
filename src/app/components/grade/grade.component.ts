@@ -8,6 +8,7 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentService} from '../../services/student.service';
 import {PostGrade} from './models/PostGrade';
+import {GradeUpdateAcademicDifference} from './models/GradeUpdateAcademicDifference';
 
 @Component({
     selector: 'app-grade',
@@ -47,12 +48,14 @@ export class GradeComponent implements OnInit {
     }
 
     setStudentGroup(group: StudentGroup): void {
-        this.selectGroup = group;
-        this.gradeTable.resetGrades();
+      this.selectGroup = group;
+      this.gradeTable.focusGrade = {} as Grade;
+      this.gradeTable.resetGrades();
     }
 
     setSemester(selectSemester: number): void {
-        this.selectSemester = selectSemester;
+      this.selectSemester = selectSemester;
+      this.gradeTable.focusGrade = {} as Grade;
     }
 
     getGrades(): void {
@@ -225,4 +228,12 @@ export class GradeComponent implements OnInit {
       }
       return tempGrades;
     }
+
+  setAcademicDifference() {
+      const newAcademicDifference = !this.gradeTable.focusGrade.academicDifference;
+      const AD = new GradeUpdateAcademicDifference(newAcademicDifference, [this.gradeTable.focusGrade.id]);
+      this.gradeService.putAcademicDifference(AD).subscribe(() =>
+        this.gradeTable.focusGrade.academicDifference = newAcademicDifference
+      );
+  }
 }
