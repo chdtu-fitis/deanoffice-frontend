@@ -6,6 +6,7 @@ import {Grade} from '../models/Grade';
 import {environment} from '../../environments/environment';
 import {forObservable} from '../components/shared/httpErrors';
 import {GradeUpdateAcademicDifference} from '../components/grade/models/GradeUpdateAcademicDifference';
+import {PostGrade} from '../components/grade/models/PostGrade';
 
 @Injectable()
 export class GradeService {
@@ -24,7 +25,7 @@ export class GradeService {
             .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним предметом', [])));
     }
 
-    public updateGrades(grades: Grade[]): Observable<Grade[]> {
+    public updateGrades(grades: PostGrade[]): Observable<Grade[]> {
         return this.http.put<Grade[]>(`${this.url}/`, grades)
             .pipe(catchError(forObservable('Відправка оновлених оцінок', [])));
     }

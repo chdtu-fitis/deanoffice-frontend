@@ -30,6 +30,7 @@ export class GradeComponent implements OnInit {
     gradesUpdate: Grade[] = [];
     isDeleteMode = false;
     selectGradeForDelete: Grade;
+  defaultOnTime = true;
 
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
@@ -114,7 +115,7 @@ export class GradeComponent implements OnInit {
             }
         }
         if (!check) {
-          return new Grade(null, true, courseForGroup.course.id, studentDegree.id, true);
+          return new Grade(null, true, courseForGroup.course.id, studentDegree.id, this.defaultOnTime);
         }
     }
 
@@ -235,5 +236,10 @@ export class GradeComponent implements OnInit {
       this.gradeService.putAcademicDifference(AD).subscribe(() =>
         this.gradeTable.focusGrade.academicDifference = newAcademicDifference
       );
+  }
+
+  setOnTime() {
+    this.gradeTable.focusGrade.onTime = !this.gradeTable.focusGrade.onTime;
+    this.gradeService.updateGrades([new PostGrade(this.gradeTable.focusGrade)]).subscribe(() => {});
   }
 }
