@@ -26,16 +26,20 @@
             {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
         </td>
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-          <td [class.bg-warning]="grade?.changed"
-              [class.bg-danger]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
-              [class.bg-primary]="grade.academicDifference"
+          <td
+              [class.without-course]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
+              [class.academic-difference]="grade.academicDifference && !grade?.changed"
+              [class.updated-academic-difference]="grade.academicDifference && grade?.changed"
+              [class.updated-grade]="grade?.changed && !grade.academicDifference"
           >
                 <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                        (change)="editGrade(grade, studentId, gradeId, $event)"
                        (keyup)="nextCell($event, studentId, gradeId);"
                        (focus)="onFocusGrade(grade)"
                        id="grade{{studentId}}{{gradeId}}id"
-                       [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
+                       [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
+                       [class.not-on-time]="!grade.onTime && !(grade.points < 60)"
+                />
 
                 <input type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
                        [checked]="selectedGradeForDelete?.id === grade.id" (click)="selectGradeForDelete(grade)"
@@ -44,4 +48,28 @@
         </ng-container>
     </tr>
     </tbody>
+</table>
+
+<table class="mt-3">
+  <thead>
+    <tr>
+      <td>не було предмету</td>
+      <td>не задано (< 60)</td>
+      <td>невчасно</td>
+      <td>оновлена оцінка</td>
+      <td>академ різниця</td>
+      <td>оновлена академ різниця</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr height="25">
+      <td class="without-course"></td>
+      <td><input type="text" class="not-correct"></td>
+      <td><input type="text" class="not-on-time"></td>
+      <td class="updated-grade"></td>
+      <td class="academic-difference"></td>
+      <td class="updated-academic-difference"></td>
+    </tr>
+  </tbody>
+
 </table>
