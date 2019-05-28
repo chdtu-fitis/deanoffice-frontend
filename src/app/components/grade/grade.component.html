@@ -35,11 +35,11 @@
                         (click)="changeMode()" *ngIf="selectGroup">
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
-              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.points < 60"
+              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
                       (click)="setAcademicDifference()" *ngIf="selectGroup">
                 Змінити А.Р
               </button>
-              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.points < 60"
+              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
                       (click)="setOnTime()" *ngIf="selectGroup">
                 {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
               </button>
