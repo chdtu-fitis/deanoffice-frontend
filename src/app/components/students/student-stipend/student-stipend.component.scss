@@ -2,9 +2,9 @@
   color: red;
 }
 
-table, th, td {
+ table, th, td {
   border: 1px solid black;
-  padding: 4px;
+  padding: 4px 4px 4px 4px;
 }
 
 .group-header {
@@ -37,4 +37,14 @@ table, th, td {
 }
 .main-table td:nth-child(9) {
   width: 100px;
+}
+.main-table td:nth-child(10) {
+  width: 120px;
+}
+.main-table td:nth-child(11) {
+  width: 100px;
+}
+.group-header-line{
+  display:flex;
+  justify-content: space-between;
 }
