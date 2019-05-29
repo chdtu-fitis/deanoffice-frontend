@@ -7,6 +7,7 @@ import {CoursePagination} from '../../models/course/CoursePagination';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CourseFilter} from './models/CourseFilter';
 import {CourseNameSearchParam} from './models/CourseNameSearchParam.enum';
+import {KnowledgeControlType} from './models/KnowledgeControlType.enum';
 
 @Component({
   selector: 'app-course',
@@ -16,6 +17,8 @@ import {CourseNameSearchParam} from './models/CourseNameSearchParam.enum';
 export class CourseComponent implements OnInit {
   CourseNameSearchParamKeys;
   courseNameSearchParam = CourseNameSearchParam;
+  KnowledgeControlTypeKeys;
+  knowledgeControlType = KnowledgeControlType;
 
   selected: Course[] = [];
   courses: Course[] = [];
@@ -44,6 +47,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
     this.CourseNameSearchParamKeys = Object.keys(this.courseNameSearchParam);
+    this.KnowledgeControlTypeKeys = Object.keys(this.knowledgeControlType);
 
     this.currentPage = 1;
     this.searchForm = this.fb.group({
@@ -58,9 +62,9 @@ export class CourseComponent implements OnInit {
     this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm.value));
     this.semesters = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     this.hoursPerCreditList = ['', 30, 36];
-    this.knowledgeControlList = ['', 'іспит', 'залік', 'курсова робота', 'курсовий проект',
-      'диференційований залік', 'державний іспит', 'атестація', 'практика',
-      'практика (як залік)'];
+    // this.knowledgeControlList = ['', 'іспит', 'залік', 'курсова робота', 'курсовий проект',
+    //   'диференційований залік', 'державний іспит', 'атестація', 'практика',
+    //   'практика (як залік)'];
   }
 
   onGridReady(params) {
@@ -69,8 +73,11 @@ export class CourseComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  onViewFilteredCourses() {
-    this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm.value));
+  onViewFilteredCourses(page: number) {
+    if (page === null || page === undefined) {
+      page = 1;
+    }
+    this.getFilteredCoursesForAdministrator(new CourseFilter(page, this.searchForm.value));
   }
 
   getFilteredCoursesForAdministrator(filterCourse: CourseFilter) {

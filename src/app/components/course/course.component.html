@@ -22,7 +22,8 @@
 
       <label for="cmbKnowledgeControl">Тип контролю</label>
       <select id="cmbKnowledgeControl" formControlName="knowledgeControl">
-        <option *ngFor="let kc of knowledgeControlList" [ngValue]="kc"> {{kc}} </option>
+        <option *ngFor="let KnowledgeControlTypeKey of KnowledgeControlTypeKeys"
+                value="{{KnowledgeControlTypeKey}}"> {{knowledgeControlType[KnowledgeControlTypeKey]}} </option>
       </select>
 
       <button class="btn btn-info mr-2">Пошук</button>
