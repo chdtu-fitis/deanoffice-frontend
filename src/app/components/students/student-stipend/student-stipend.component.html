@@ -25,11 +25,12 @@
           <tr class="group-header">
             <td colspan = 11>
               <div class="group-header-line">
-              <div>{{group}}</div>
-              <div>
-                <button class="btn btn-warning align-middle">Редагувати</button>
-                <button class="btn btn-success align-middle">Зберегти</button>
-              </div>
+                <div>{{group}}</div>
+                <div>
+                  <button class="btn btn-warning align-middle" (click)="openInput=true">Редагувати</button>
+                  <button class="btn btn-success align-middle" [disabled]="openInput==false"
+                          (click)="openInput=false">Зберегти</button>
+                </div>
               </div>
             </td>
           </tr>
@@ -43,8 +44,10 @@
             <td>{{ssi.year}}</td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input type="text" style="width: 100px"></td>
-            <td>test</td>
+            <td><input [value]="ssi.extraPoints" type="text" style="width: 100px "
+                       *ngIf="isDebtor(ssi)==''" [disabled]="openInput==false"
+                       (keypress)="getFinalPoints(ssi.finalPoints,2*0.9,2)"></td>
+            <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
                 <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->

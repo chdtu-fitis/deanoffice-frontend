@@ -9,6 +9,7 @@ import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipend
   styleUrls: ['./student-stipend.component.scss']
 })
 export class StudentStipendComponent implements OnInit {
+  openInput = false;
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
 
   constructor(private studentStipendService: StudentStipendService) {
@@ -46,5 +47,8 @@ export class StudentStipendComponent implements OnInit {
 
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
+  }
+  getFinalPoints(finalPoints, grade, extraPoints) {
+    return finalPoints = Number(grade) + Number(extraPoints);
   }
 }
