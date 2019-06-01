@@ -6,6 +6,7 @@ import { StudentDegree } from '../../models/StudentDegree';
 import { CourseForGroupService } from '../../services/course-for-group.service';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {DegreeService} from '../../services/degree.service';
+import {ConsolidatedDocumentService} from '../../services/consolidated-document.service';
 
 @Component({
   selector: 'consolidated-document',
@@ -35,7 +36,8 @@ export class ConsolidatedDocumentComponent implements OnInit {
 
   constructor(private groupService: GroupService,
               private courseForGroupService: CourseForGroupService,
-              private degreeService: DegreeService) { }
+              private degreeService: DegreeService,
+              private consolidatedDocumentService: ConsolidatedDocumentService) { }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -67,7 +69,7 @@ export class ConsolidatedDocumentComponent implements OnInit {
   }
 
   onSemesterOrGroupChange(): void {
-    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, (this.selectedYear-1)*2+this.selectedSemester)
+    this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id, (this.selectedYear - 1) * 2 + this.selectedSemester)
       .subscribe(coursesForGroup => {
         this.coursesForGroup = coursesForGroup;
         this.coursesSelected = true;
