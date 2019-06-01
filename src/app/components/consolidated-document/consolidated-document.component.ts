@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Degree } from '../../models/Degree';
-import { GroupService } from '../../services/group.service';
-import { StudentGroup } from '../../models/StudentGroup';
-import { StudentDegree } from '../../models/StudentDegree';
-import { CourseForGroupService } from '../../services/course-for-group.service';
+import {Component, OnInit} from '@angular/core';
+import {Degree} from '../../models/Degree';
+import {GroupService} from '../../services/group.service';
+import {StudentGroup} from '../../models/StudentGroup';
+import {StudentDegree} from '../../models/StudentDegree';
+import {CourseForGroupService} from '../../services/course-for-group.service';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {DegreeService} from '../../services/degree.service';
 import {ConsolidatedDocumentService} from '../../services/consolidated-document.service';
+import {Course} from '../../models/Course';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'consolidated-document',
@@ -23,11 +25,15 @@ export class ConsolidatedDocumentComponent implements OnInit {
 
   coursesForGroup: CourseForGroup[];
   coursesSelected: boolean;
+  coursesForGroup$ = new BehaviorSubject<Array<CourseForGroup>>([]);
 
   years: Array<number>;
   selectedYear: number;
   semesters: Array<number>;
   selectedSemester: number;
+  courseForGroupToStudentGroups: Map<CourseForGroup, Array<StudentGroup>> = new Map<CourseForGroup, Array<StudentGroup>>();
+  selectedCourseForGroup: CourseForGroup;
+  selectedStudentGroups: StudentGroup[];
 
   static getInitialSemester(): number {
     const currentDate = new Date();
@@ -75,6 +81,8 @@ export class ConsolidatedDocumentComponent implements OnInit {
         this.coursesSelected = true;
         // this.onSelectAllCourses(true);
         this.students = this.currentGroup.studentDegrees;
+
+        this.loadStudentGroupByCourses(coursesForGroup.map(value => value.course), coursesForGroup);
       });
   }
 
@@ -88,6 +96,55 @@ export class ConsolidatedDocumentComponent implements OnInit {
           this.onSemesterOrGroupChange();
         }
       });
+  }
+
+  private loadStudentGroupByCourses(courses: Course[], coursesForGroup: CourseForGroup[]) {
+    this.consolidatedDocumentService.getGroupThatLearnSameCourses(courses)
+      .subscribe(coursesToStudentGroupMap => {
+        const coursesForGroupToStudentGroup = new Map<CourseForGroup, Array<StudentGroup>>();
+        coursesToStudentGroupMap.forEach((studentGroups, course) => {
+          const courseForGroup = coursesForGroup
+            .find(courseForGroupValue => courseForGroupValue.course.id === course.id);
+          coursesForGroupToStudentGroup.set(courseForGroup, studentGroups);
+        });
+        this.courseForGroupToStudentGroups.clear();
+        coursesForGroupToStudentGroup.forEach((v, k) => {
+          this.courseForGroupToStudentGroups.set(k, v);
+        });
+        const arr = [];
+        this.courseForGroupToStudentGroups.forEach((ignore, key) => {
+          arr.push(key);
+        });
+        this.coursesForGroup$.next(arr);
+        const value = this.courseForGroupToStudentGroups[Symbol.iterator]().next().value;
+        this.selectedCourseForGroup = value[0];
+        this.selectedStudentGroups = value[1];
+      });
+  }
+
+  handleCourseForGroupClick(courseForGroup: CourseForGroup) {
+    this.selectedCourseForGroup = courseForGroup;
+    this.selectedStudentGroups = this.courseForGroupToStudentGroups.get(courseForGroup);
+  }
+
+  getGroupCountForCourse(courseForGroup: CourseForGroup): number {
+    return this.courseForGroupToStudentGroups.get(courseForGroup).length;
+  }
+
+  handleMarkStudentGroupClick(studentGroup: StudentGroup) {
+    studentGroup.selected = !studentGroup.selected;
+  }
+
+  handlerFormConsolidatedDocumentClick(event: MouseEvent) {
+    const obj: any = {};
+    this.courseForGroupToStudentGroups.forEach((value, key) => {
+      const studentGroups = value.filter(studentGroup => studentGroup.selected);
+      if (studentGroups.length !== 0) {
+        obj[key.id] = studentGroups.map(studentGroup => studentGroup.id);
+      }
+    });
+    console.log(obj);
+    this.consolidatedDocumentService.formConsolidatedDocument(obj);
   }
 
 }

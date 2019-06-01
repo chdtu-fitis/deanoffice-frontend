@@ -47,8 +47,12 @@
       <div style="display: flex; justify-content: space-between">
         <h3>Список предметів</h3>
         <div>
-          <button type="button" class="btn btn-success">Створити відомість</button>
-          <button type="button" class="btn btn-secondary">Заповнити автоматично</button>
+          <button type="button"
+                  class="btn btn-success"
+                  (click)="handlerFormConsolidatedDocumentClick($event)">
+            Створити відомість
+          </button>
+          <!--<button type="button" class="btn btn-secondary">Заповнити автоматично</button>-->
         </div>
       </div>
       <table class="table table-sm table-striped table-hover">
@@ -60,17 +64,20 @@
             <td scope="col">Годин</td>
             <td scope="col">Викладач</td>
             <td scope="col">Дата екзамену</td>
+            <td scope="col">Груп</td>
           </tr>
           </thead>
         <tbody>
 
-        <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
+        <tr *ngFor="let courseForGroup of coursesForGroup$ | async; let i = index"
+            (click)="handleCourseForGroupClick(courseForGroup)">
           <td>{{ i + 1 }}</td>
           <td>{{ courseForGroup.course.courseName.name }}</td>
           <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
           <td>{{ courseForGroup.course.hours }}</td>
           <td>{{ courseForGroup.teacher | nameWithInitials }}</td>
           <td>{{ courseForGroup.examDate | date:"dd-MM-yyyy" }}</td>
+          <td>{{ getGroupCountForCourse(courseForGroup) }}</td>
         </tr>
 
         </tbody>
@@ -84,18 +91,23 @@
           <tr>
             <td>№</td>
             <td>
-              <input type="checkbox">
+              <label>
+              </label>
             </td>
             <td>Назва</td>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let studentDegree of students; let i = index">
-            <td>{{ i+1 }}</td>
+          <tr *ngFor="let studentGroup of selectedStudentGroups; let i = index">
+            <td>{{ i + 1 }}</td>
             <td>
-              <input type="checkbox">
+              <label>
+                <input type="checkbox"
+                       [checked]="studentGroup?.selected"
+                       (click)="handleMarkStudentGroupClick(studentGroup)">
+              </label>
             </td>
-            <td>{{studentDegree.student | nameWithInitials}}</td>
+            <td>{{ studentGroup.name }}</td>
           </tr>
           </tbody>
         </table>
