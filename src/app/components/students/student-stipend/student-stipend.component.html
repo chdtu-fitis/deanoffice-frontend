@@ -29,7 +29,7 @@
                 <div>
                   <button class="btn btn-warning align-middle" (click)="openInput=true">Редагувати</button>
                   <button class="btn btn-success align-middle" [disabled]="openInput==false"
-                          (click)="openInput=false">Зберегти</button>
+                          (click)="openInput = false; sendDateToBackend()">Зберегти</button>
                 </div>
               </div>
             </td>
@@ -44,9 +44,9 @@
             <td>{{ssi.year}}</td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input [value]="ssi.extraPoints" type="text" style="width: 100px "
+            <td><input type="text" style="width: 100px " #extraPoint
                        *ngIf="isDebtor(ssi)==''" [disabled]="openInput==false"
-                       (keypress)="getFinalPoints(ssi.finalPoints,2*0.9,2)"></td>
+                       (focusout)="ssi.finalPoints = makeFinalPoint(extraPoint.value,extraPoints,ssi.averageGrade)"></td>
             <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->

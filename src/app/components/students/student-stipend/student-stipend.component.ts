@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentService} from "../../../services/student.service";
 import {StudentStipendService} from "../../../services/student-stipend.service";
 import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipendInfo";
 
@@ -11,6 +10,7 @@ import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipend
 export class StudentStipendComponent implements OnInit {
   openInput = false;
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
+  extraPoints: number;
 
   constructor(private studentStipendService: StudentStipendService) {
   }
@@ -48,7 +48,11 @@ export class StudentStipendComponent implements OnInit {
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
-  getFinalPoints(finalPoints, grade, extraPoints) {
-    return finalPoints = Number(grade) + Number(extraPoints);
+  makeFinalPoint(inputValue, extraPoint, grade) {
+    extraPoint = Number(inputValue);
+    return extraPoint + (grade * 0.9);
+  }
+  sendDateToBackend() {
+    console.log('делаю вид что работаю');
   }
 }
