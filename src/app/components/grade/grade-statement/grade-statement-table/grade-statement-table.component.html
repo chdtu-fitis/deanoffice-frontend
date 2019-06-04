@@ -11,18 +11,20 @@
             <td class="td-student">{{studentDegree.student.surname}}
                 {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
             </td>
-            <td [ngClass]="{ 'bg-danger' : studentDegree.grade?.empty}">
+            <td [class.bg-warning]="studentDegree.grade?.changed"
+                [class.bg-danger]="studentDegree.grade?.empty || studentDegree.grade?.wrongInterval"
+            >
                 <input type="number"
                        [ngClass]="isCorrectGrade(studentDegree)"
                        class="text-center align-middle"
                        [value] ="studentDegree.grade.points"
                        (change)="editGrade(studentDegree.id, studentId, studentDegree.grade, $event)"
                        (keyup)="nextCell(studentDegree.id, studentId, studentDegree.grade, $event)"
-                       id="id{{studentDegree.id}}{{selectedCourse.course.id}}"/>
+                       id="id{{studentDegree.id}}{{selectedCourseForGroup.course.id}}"/>
             </td>
-            <td *ngIf="studentDegree.grade.points || studentDegree.grade.onTime">
-                <button class="btn btn-sm float-right" (click)="changeOnTime(studentId)" [ngClass]="{'btn-danger' : onTime,
-                'btn-success': !onTime}">{{ onTime? 'Невчасно':'Вчасно' }}
+            <td *ngIf="studentDegree.grade.points">
+                <button class="btn btn-sm float-right" (click)="changeOnTime(studentDegree)" [ngClass]="{'btn-danger' : studentDegree.grade.onTime,
+                'btn-success': !studentDegree.grade.onTime}">{{ studentDegree.grade.onTime? 'Невчасно':'Вчасно' }}
                 </button>
             </td>
         </tr>

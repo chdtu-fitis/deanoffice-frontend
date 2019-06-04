@@ -19,7 +19,12 @@ export class ExamReportService {
   }
 
   buildFormRatingGradeJornalDocx(year: number, degree: number, semester: number, tuitionForm: string): any {
-    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}?semester=${semester}&tuitionForm=${tuitionForm}`;
+    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}/docx?semester=${semester}&tuitionForm=${tuitionForm}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildFormRatingGradeJornalPdf(year: number, degree: number, semester: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}/pdf?semester=${semester}&tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
   }
 

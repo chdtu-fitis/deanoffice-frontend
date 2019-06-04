@@ -9,7 +9,6 @@ import {CurrentUserService} from './auth/current-user.service';
 
 const API_URL: string = environment.apiUrl;
 export const SPECIALIZATION_URL: string = API_URL + '/specializations';
-
 @Injectable()
 export class SpecializationService {
   constructor(private _httpClient: HttpClient,
@@ -19,6 +18,15 @@ export class SpecializationService {
     actual: boolean = true,
     facultyId: string = this.currentUserService.facultyId().toString()): Observable<Specialization[]> {
     const params = {actual: actual.toString(), facultyId};
+    return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
+      .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
+  }
+
+  public getSpecializationsByActualAndFacultyIdAndDegreeId(
+    actual: boolean = true,
+    facultyId: string = this.currentUserService.facultyId().toString(),
+    degreeId: string ): Observable<Specialization[]> {
+    const params = {actual: actual.toString(), facultyId, degreeId};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }

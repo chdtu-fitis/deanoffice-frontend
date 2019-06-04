@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {MatListModule, MatSidenavModule} from '@angular/material';
+import {MatListModule, MatSidenavModule, MatSlideToggleModule} from '@angular/material';
 
 import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
@@ -33,6 +33,7 @@ export const gradeRoutes: Routes = [
         RouterModule.forChild(gradeRoutes),
         MatListModule,
         MatSidenavModule,
+        MatSlideToggleModule,
         PipeModule
     ],
     providers: [AuthenticationModule.tokenInterceptor()]

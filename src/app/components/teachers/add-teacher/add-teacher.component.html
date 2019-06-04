@@ -1,0 +1,10 @@
+<modal-wrapper #modal heading="Додати нового викладача" (hideModal)="hideModal()">
+  <div class="modal-body">
+    <teacher-form #form></teacher-form>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="submit()" class="btn btn-success btn-submit">Створити</button>
+    <button (click)="hideModal()" class="btn btn-outline-danger">Скасувати</button>
+  </div>
+</modal-wrapper>

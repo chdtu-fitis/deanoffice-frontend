@@ -5,8 +5,7 @@
                 <app-grades-panel [groups]="groups"
                                   (changeGroup)="setStudentGroup($event)"
                                   (changeSemester)="setSemester($event)"
-                                  (sendRequestGetGrades)="getGrades()"
-                                  (reloadGroupList)="getGroups()">
+                                  (sendRequestGetGrades)="getGrades()">
                 </app-grades-panel>
             </mat-nav-list>
         </mat-sidenav>
@@ -36,9 +35,23 @@
                         (click)="changeMode()" *ngIf="selectGroup">
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
+              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+                      (click)="setAcademicDifference()" *ngIf="selectGroup">
+                Змінити А.Р
+              </button>
+              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+                      (click)="setOnTime()" *ngIf="selectGroup">
+                {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
+              </button>
+              <mat-slide-toggle
+                class="ml-1"
+                [checked]="defaultOnTime"
+                [(ngModel)]="defaultOnTime">
+                {{defaultOnTime ? 'Вчасно': 'Невчасно'}}
+              </mat-slide-toggle>
             </div>
-            <ng-container *ngIf="errorsMessage.length && loading">
-                <div *ngFor="let error of errorsMessage" class="alert-danger">
+            <ng-container *ngIf="errorMessages.length && loading">
+                <div *ngFor="let error of errorMessages" class="alert-danger">
                     {{ error }}
                 </div>
             </ng-container>
@@ -46,12 +59,13 @@
                 Оберiть группу
             </div>
             <app-grades-table [studentsDegree]="studentsDegree"
-                              [courses]="courses"
+                              [coursesForGroup]="coursesForGroup"
                               [isDeleteMode]="isDeleteMode"
                               [loadingGrades]="loading"
+                              [selectGroup]="selectGroup"
+                              [defaultOnTime]="defaultOnTime"
                               (gradesUpdate)="addGradesForUpdate($event)"
                               (errors)="setErrorsFromTable($event)"
-                              [selectGroup]="selectGroup"
                               (sendUpdateGrades)="updateGradesForGroup()"
                               (setGradeForDelete)="setSelectGradeForDelete($event)"
                               [selectSemester]="selectSemester" #gradeTable>

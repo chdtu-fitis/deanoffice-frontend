@@ -30,8 +30,28 @@ input::-webkit-inner-spin-button {
   cursor: pointer;
 }
 
-.notCorrect {
-  outline: 1px solid #FF5722;
+.not-correct {
+  outline: 3px solid #FF5722;
+}
+
+.not-on-time {
+  outline: 3px solid #ff8a42 !important;
+}
+
+.without-course {
+  background-color: #dc3545 !important;
+}
+
+.updated-grade {
+  background-color: #ffc107 !important;
+}
+
+.updated-academic-difference {
+  background-color: #ff9307 !important;
+}
+
+.academic-difference {
+  background-color: #28a745 !important;
 }
 
 input[type="checkbox"] {
