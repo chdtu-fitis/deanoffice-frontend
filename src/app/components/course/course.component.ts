@@ -25,7 +25,6 @@ export class CourseComponent implements OnInit {
   rows: Course[] = [];
   semesters = [];
   hoursPerCreditList = [];
-  knowledgeControlList = [];
   items = [];
 
   total: number;
@@ -62,9 +61,6 @@ export class CourseComponent implements OnInit {
     this.getFilteredCoursesForAdministrator(new CourseFilter(this.currentPage, this.searchForm.value));
     this.semesters = ['', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     this.hoursPerCreditList = ['', 30, 36];
-    // this.knowledgeControlList = ['', 'іспит', 'залік', 'курсова робота', 'курсовий проект',
-    //   'диференційований залік', 'державний іспит', 'атестація', 'практика',
-    //   'практика (як залік)'];
   }
 
   onGridReady(params) {
