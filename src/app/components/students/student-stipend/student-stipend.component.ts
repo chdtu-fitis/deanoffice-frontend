@@ -55,4 +55,7 @@ export class StudentStipendComponent implements OnInit {
   sendDateToBackend() {
     console.log('делаю вид что работаю');
   }
+  test(e) {
+    console.log(e);
+  }
 }
