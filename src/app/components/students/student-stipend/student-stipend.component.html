@@ -45,8 +45,10 @@
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
             <td><input type="number" min="0" max="10" style="width: 100px " #extraPoint
-                       *ngIf="isDebtor(ssi)==''" [disabled]="openInput==false" (keydown)="extraPoint.value = ''"
-                       (focusout)="ssi.finalPoints = makeFinalPoint(extraPoint.value,extraPoints,ssi.averageGrade)"></td>
+                       *ngIf="isDebtor(ssi)==''" [disabled]="openInput==false"
+                       (keypress)="extraPoint.value != 1 ? extraPoint.value = '' : extraPoint.value = 1"
+                       (focusout)="extraPoint.value = equatingToTen(extraPoint.value);
+                       ssi.finalPoints = makeFinalPoint(extraPoint.value,extraPoints,ssi.averageGrade)"></td>
             <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->

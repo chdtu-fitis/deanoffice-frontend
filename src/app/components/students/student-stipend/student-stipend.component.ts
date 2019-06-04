@@ -55,7 +55,11 @@ export class StudentStipendComponent implements OnInit {
   sendDateToBackend() {
     console.log('делаю вид что работаю');
   }
-  test(e) {
-    console.log(e);
+  equatingToTen(extraPoint) {
+    if (extraPoint > 10) {
+      return extraPoint=10;
+    } else {
+      return  extraPoint;
+    }
   }
 }
