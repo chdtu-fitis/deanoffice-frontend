@@ -12,9 +12,6 @@ export class StudentStipendComponent implements OnInit {
   openInput = false;
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
   extraPoints: number;
-  studentId: number;
-  studentsArray = [];
-  studentIds: StudentIds;
 
   constructor(private studentStipendService: StudentStipendService) {
   }
@@ -52,25 +49,27 @@ export class StudentStipendComponent implements OnInit {
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
+
   makeFinalPoint(extraPoint, grade) {
     extraPoint = Number(extraPoint);
     return extraPoint + (grade * 0.9);
   }
-  sendDateToBackend(group) {
-    for (let element of this.studentStipendInfo[group]) {
+
+  saveExtraPoints(group) {
+    let studentsExtraPoints = [];
+    let groupStipendInfo = this.studentStipendInfo[group];
+    for (let element of groupStipendInfo) {
       if (isNaN(element.extraPoints) === false) {
-        this.studentId = element.id;
-        this.extraPoints = element.extraPoints;
-        this.studentIds.studentDegreeId = this.studentId;
-        this.studentIds.extraPoints = this.extraPoints;
+        studentsExtraPoints.push({studentDegreeId: element.id, extraPoints: element.extraPoints});
+        // this.studentsExtraPoints.extraPoints = this.extraPoints;
         //this.studentsArray.push(`${element.groupName} ${this.studentId}  ${this.extraPoints}`);
       }
     }
-    console.log(this.studentsArray);
    }
-  equatingToTen(extraPoint) {
+
+   equatingToTen(extraPoint) {
     if (extraPoint > 10) {
-      return extraPoint=10;
+      return extraPoint = 10;
     } else {
       return  extraPoint;
     }
