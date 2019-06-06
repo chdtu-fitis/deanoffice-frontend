@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentStipendService} from "../../../services/student-stipend.service";
-import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipendInfo";
+import {StudentStipendService} from '../../../services/student-stipend.service';
+import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipendInfo';
+import {StudentIds} from '../../../models/student-stipend/StudentIds';
 
 @Component({
   selector: 'app-student-stipend',
@@ -11,6 +12,9 @@ export class StudentStipendComponent implements OnInit {
   openInput = false;
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
   extraPoints: number;
+  studentId: number;
+  studentsArray = [];
+  studentIds: StudentIds;
 
   constructor(private studentStipendService: StudentStipendService) {
   }
@@ -48,13 +52,22 @@ export class StudentStipendComponent implements OnInit {
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
-  makeFinalPoint(inputValue, extraPoint, grade) {
-    extraPoint = Number(inputValue);
+  makeFinalPoint(extraPoint, grade) {
+    extraPoint = Number(extraPoint);
     return extraPoint + (grade * 0.9);
   }
-  sendDateToBackend() {
-    console.log('делаю вид что работаю');
-  }
+  sendDateToBackend(group) {
+    for (let element of this.studentStipendInfo[group]) {
+      if (isNaN(element.extraPoints) === false) {
+        this.studentId = element.id;
+        this.extraPoints = element.extraPoints;
+        this.studentIds.id = this.studentId;
+        this.studentIds.extraPoints = this.extraPoints;
+        //this.studentsArray.push(`${element.groupName} ${this.studentId}  ${this.extraPoints}`);
+      }
+    }
+    console.log(this.studentsArray);
+   }
   equatingToTen(extraPoint) {
     if (extraPoint > 10) {
       return extraPoint=10;
@@ -62,4 +75,4 @@ export class StudentStipendComponent implements OnInit {
       return  extraPoint;
     }
   }
-}
+ }

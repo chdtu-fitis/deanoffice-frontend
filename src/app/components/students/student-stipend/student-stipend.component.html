@@ -29,7 +29,7 @@
                 <div>
                   <button class="btn btn-warning align-middle" (click)="openInput=true">Редагувати</button>
                   <button class="btn btn-success align-middle" [disabled]="openInput==false"
-                          (click)="openInput = false; sendDateToBackend()">Зберегти</button>
+                          (click)="openInput = false; sendDateToBackend(group)">Зберегти</button>
                 </div>
               </div>
             </td>
@@ -47,8 +47,8 @@
             <td><input type="number" min="0" max="10" style="width: 100px " #extraPoint
                        *ngIf="isDebtor(ssi)==''" [disabled]="openInput==false"
                        (keypress)="extraPoint.value != 1 ? extraPoint.value = '' : extraPoint.value = 1"
-                       (focusout)="extraPoint.value = equatingToTen(extraPoint.value);
-                       ssi.finalPoints = makeFinalPoint(extraPoint.value,extraPoints,ssi.averageGrade)"></td>
+                       (focusout)="ssi.extraPoints = equatingToTen(extraPoint.value);
+                       ssi.finalPoints = makeFinalPoint(ssi.extraPoints,ssi.averageGrade)"></td>
             <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
