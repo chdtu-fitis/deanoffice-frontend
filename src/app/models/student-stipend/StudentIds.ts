@@ -1,4 +1,4 @@
 export class StudentIds {
-  id: number;
+  studentDegreeId: number;
   extraPoints: number;
 }

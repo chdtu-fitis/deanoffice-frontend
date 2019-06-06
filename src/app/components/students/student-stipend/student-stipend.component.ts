@@ -61,7 +61,7 @@ export class StudentStipendComponent implements OnInit {
       if (isNaN(element.extraPoints) === false) {
         this.studentId = element.id;
         this.extraPoints = element.extraPoints;
-        this.studentIds.id = this.studentId;
+        this.studentIds.studentDegreeId = this.studentId;
         this.studentIds.extraPoints = this.extraPoints;
         //this.studentsArray.push(`${element.groupName} ${this.studentId}  ${this.extraPoints}`);
       }
