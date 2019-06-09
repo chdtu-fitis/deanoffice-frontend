@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentStipendService} from '../../../services/student-stipend.service';
 import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipendInfo';
-import {StudentIds} from '../../../models/student-stipend/StudentIds';
 
 @Component({
   selector: 'app-student-stipend',
@@ -9,9 +8,11 @@ import {StudentIds} from '../../../models/student-stipend/StudentIds';
   styleUrls: ['./student-stipend.component.scss']
 })
 export class StudentStipendComponent implements OnInit {
-  openInput = false;
+  openInput = 'sting';
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
   extraPoints: number;
+  selectedStudentGroupName = '';
+  numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   constructor(private studentStipendService: StudentStipendService) {
   }
@@ -49,9 +50,14 @@ export class StudentStipendComponent implements OnInit {
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
-
+  toNumber(e) {
+    if (e !== '') {
+      return Number(e);
+    } else {
+      return e = 0;
+    }
+  }
   makeFinalPoint(extraPoint, grade) {
-    extraPoint = Number(extraPoint);
     return extraPoint + (grade * 0.9);
   }
 
@@ -59,19 +65,11 @@ export class StudentStipendComponent implements OnInit {
     let studentsExtraPoints = [];
     let groupStipendInfo = this.studentStipendInfo[group];
     for (let element of groupStipendInfo) {
-      if (isNaN(element.extraPoints) === false) {
-        studentsExtraPoints.push({studentDegreeId: element.id, extraPoints: element.extraPoints});
-        // this.studentsExtraPoints.extraPoints = this.extraPoints;
-        //this.studentsArray.push(`${element.groupName} ${this.studentId}  ${this.extraPoints}`);
+      if ( element.extraPoints > 0 && element.extraPoints !== element.oldExtraPoints) {
+        studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
+    console.log(studentsExtraPoints);
    }
 
-   equatingToTen(extraPoint) {
-    if (extraPoint > 10) {
-      return extraPoint = 10;
-    } else {
-      return  extraPoint;
-    }
-  }
  }
