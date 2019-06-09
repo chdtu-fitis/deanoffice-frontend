@@ -4,7 +4,22 @@
 
 .top-select-container {
   display: flex;
+  flex-wrap: wrap;
   border-bottom: 1px solid #EEEEEE;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    .select-wrapper {
+      flex-basis: unset;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .max-width-sm {
+    max-width: 40px;
+  }
 }
 
 .select-wrapper {
@@ -32,4 +47,9 @@ thead tr td {
   &:hover {
     color: #076185;
   }
+}
+
+.dots {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

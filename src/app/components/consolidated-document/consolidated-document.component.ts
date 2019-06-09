@@ -99,7 +99,7 @@ export class ConsolidatedDocumentComponent implements OnInit {
   }
 
   private loadStudentGroupByCourses(courses: Course[], coursesForGroup: CourseForGroup[]) {
-    this.consolidatedDocumentService.getGroupThatLearnSameCourses(courses)
+    this.consolidatedDocumentService.getGroupThatLearnSameCourses(courses, this.currentDegree.id)
       .subscribe(coursesToStudentGroupMap => {
         const coursesForGroupToStudentGroup = new Map<CourseForGroup, Array<StudentGroup>>();
         coursesToStudentGroupMap.forEach((studentGroups, course) => {

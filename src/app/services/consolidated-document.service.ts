@@ -14,10 +14,12 @@ export class ConsolidatedDocumentService {
 
   constructor(private http: HttpClient) { }
 
-  public getGroupThatLearnSameCourses(courses: Course[]): Observable<Map<Course, Array<StudentGroup>>> {
+  public getGroupThatLearnSameCourses(courses: Course[], degreeId: number): Observable<Map<Course, Array<StudentGroup>>> {
     const courseIds = courses.map(value => value.id);
     return this.http
-      .post<Map<number, Array<StudentGroup>>>(`${ConsolidatedDocumentService.BASE_URL}/groups/subjects`, courseIds)
+      .post<Map<number, Array<StudentGroup>>>(
+        `${ConsolidatedDocumentService.BASE_URL}/groups/subjects?degreeId=${degreeId}`, courseIds
+      )
       .pipe(
         map(value => {
           const input = new Map<number, Array<StudentGroup>>();

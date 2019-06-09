@@ -55,13 +55,22 @@
           <!--<button type="button" class="btn btn-secondary">Заповнити автоматично</button>-->
         </div>
       </div>
-      <table class="table table-sm table-striped table-hover clickable">
+      <table class="table table-sm table-striped table-hover clickable table-responsive-sm">
         <thead>
           <tr>
             <td scope="col">№</td>
-            <td scope="col">Назва предмету</td>
-            <td scope="col">Семестровий контроль</td>
-            <td scope="col">Годин</td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Назва предмету</span>
+              <span class="d-block d-sm-none">Предмет</span>
+            </td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Семестровий контроль</span>
+              <span class="d-block d-sm-none">Сем. кон.</span>
+            </td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Годин</span>
+              <span class="d-block d-sm-none">Год.</span>
+            </td>
             <td scope="col">Викладач</td>
             <td scope="col">Дата екзамену</td>
             <td scope="col">Груп</td>
@@ -75,7 +84,7 @@
             [class.selected-row]="courseForGroup === selectedCourseForGroup">
           <td>{{ i + 1 }}</td>
           <td>{{ courseForGroup.course.courseName.name }}</td>
-          <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
+          <td class="dots max-width-sm">{{ courseForGroup.course.knowledgeControl.name }}</td>
           <td>{{ courseForGroup.course.hours }}</td>
           <td>{{ courseForGroup.teacher | nameWithInitials }}</td>
           <td>{{ courseForGroup.examDate | date:"dd-MM-yyyy" }}</td>
