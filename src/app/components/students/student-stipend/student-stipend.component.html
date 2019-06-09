@@ -45,7 +45,7 @@
             <td>{{ssi.year}}</td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input type="text" style="width: 100px " #extraPoint
+            <td><input type="text" style="width: 100px " #extraPoint [value]="showValueInput(ssi.oldExtraPoints)"
                        *ngIf="isDebtor(ssi)==''" [disabled]="openInput !== ssi.groupName" [maxLength]="2"
                        (keyup)="numbers.indexOf( extraPoint.value) == - 1 ? extraPoint.value = '' : extraPoint.value;
                         ssi.extraPoints = toNumber(extraPoint.value);

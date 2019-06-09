@@ -10,7 +10,6 @@ import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipend
 export class StudentStipendComponent implements OnInit {
   openInput = 'sting';
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
-  extraPoints: number;
   selectedStudentGroupName = '';
   numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
@@ -43,6 +42,7 @@ export class StudentStipendComponent implements OnInit {
            this.studentStipendInfo[ssi.groupName] = [];
            this.studentStipendInfo[ssi.groupName].push(ssi);
          }
+         ssi.oldExtraPoints = ssi.extraPoints;
        })
     });
   }
@@ -60,12 +60,20 @@ export class StudentStipendComponent implements OnInit {
   makeFinalPoint(extraPoint, grade) {
     return extraPoint + (grade * 0.9);
   }
+  showValueInput(e) {
+    if (e === null || e === undefined) {
+      return '';
+    } else {
+      return e;
+    }
+  }
 
   saveExtraPoints(group) {
     let studentsExtraPoints = [];
     let groupStipendInfo = this.studentStipendInfo[group];
     for (let element of groupStipendInfo) {
-      if ( element.extraPoints > 0 && element.extraPoints !== element.oldExtraPoints) {
+      if ( element.extraPoints >= 0) {
+        element.extraPoints === 0 ? element.extraPoints = null : element.extraPoints;
         studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
