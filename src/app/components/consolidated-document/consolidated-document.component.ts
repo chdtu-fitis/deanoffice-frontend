@@ -109,7 +109,8 @@ export class ConsolidatedDocumentComponent implements OnInit {
         });
         this.courseForGroupToStudentGroups.clear();
         coursesForGroupToStudentGroup.forEach((v, k) => {
-          this.courseForGroupToStudentGroups.set(k, v);
+          const studentGroupsWithoutCurrent = v.filter(studentGroup => studentGroup.id !== this.currentGroup.id);
+          this.courseForGroupToStudentGroups.set(k, studentGroupsWithoutCurrent);
         });
         const arr = [];
         this.courseForGroupToStudentGroups.forEach((ignore, key) => {
@@ -133,14 +134,23 @@ export class ConsolidatedDocumentComponent implements OnInit {
 
   handleMarkStudentGroupClick(studentGroup: StudentGroup) {
     studentGroup.selected = !studentGroup.selected;
+    if (studentGroup.selected) {
+      this.selectedCourseForGroup.selected = true;
+    }
   }
 
   handlerFormConsolidatedDocumentClick(event: MouseEvent) {
     const obj: any = {};
     this.courseForGroupToStudentGroups.forEach((value, key) => {
+      if (!key.selected) {
+        return;
+      }
       const studentGroups = value.filter(studentGroup => studentGroup.selected);
+      obj[key.id] = [this.currentGroup.id];
       if (studentGroups.length !== 0) {
-        obj[key.id] = studentGroups.map(studentGroup => studentGroup.id);
+        obj[key.id].push(...studentGroups
+                        .filter(studentGroup => studentGroup.id !== this.currentGroup.id)
+                        .map(studentGroup => studentGroup.id));
       }
     });
     console.log(obj);

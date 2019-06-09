@@ -55,7 +55,7 @@
           <!--<button type="button" class="btn btn-secondary">Заповнити автоматично</button>-->
         </div>
       </div>
-      <table class="table table-sm table-striped table-hover">
+      <table class="table table-sm table-striped table-hover clickable">
         <thead>
           <tr>
             <td scope="col">№</td>
@@ -65,12 +65,14 @@
             <td scope="col">Викладач</td>
             <td scope="col">Дата екзамену</td>
             <td scope="col">Груп</td>
+            <td scope="col"></td>
           </tr>
           </thead>
         <tbody>
 
         <tr *ngFor="let courseForGroup of coursesForGroup$ | async; let i = index"
-            (click)="handleCourseForGroupClick(courseForGroup)">
+            (click)="handleCourseForGroupClick(courseForGroup)"
+            [class.selected-row]="courseForGroup === selectedCourseForGroup">
           <td>{{ i + 1 }}</td>
           <td>{{ courseForGroup.course.courseName.name }}</td>
           <td>{{ courseForGroup.course.knowledgeControl.name }}</td>
@@ -78,6 +80,11 @@
           <td>{{ courseForGroup.teacher | nameWithInitials }}</td>
           <td>{{ courseForGroup.examDate | date:"dd-MM-yyyy" }}</td>
           <td>{{ getGroupCountForCourse(courseForGroup) }}</td>
+          <td>
+            <label>
+              <input type="checkbox" [(ngModel)]="courseForGroup.selected">
+            </label>
+          </td>
         </tr>
 
         </tbody>

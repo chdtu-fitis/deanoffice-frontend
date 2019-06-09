@@ -18,6 +18,18 @@ thead tr td {
   font-weight: bold;
 }
 
+.clickable tbody tr {
+  cursor: pointer;
+}
+
 .consolidated-main-container {
   margin-top: 16px;
+}
+
+.selected-row {
+  color: #076185;
+
+  &:hover {
+    color: #076185;
+  }
 }
