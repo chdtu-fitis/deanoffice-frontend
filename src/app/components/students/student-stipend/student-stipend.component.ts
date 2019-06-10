@@ -54,7 +54,7 @@ export class StudentStipendComponent implements OnInit {
     if (e !== '') {
       return Number(e);
     } else {
-      return e = 0;
+      return e = null;
     }
   }
   makeFinalPoint(extraPoint, grade) {
@@ -72,12 +72,11 @@ export class StudentStipendComponent implements OnInit {
     let studentsExtraPoints = [];
     let groupStipendInfo = this.studentStipendInfo[group];
     for (let element of groupStipendInfo) {
-      if ( element.extraPoints >= 0) {
-        element.extraPoints === 0 ? element.extraPoints = null : element.extraPoints;
-        studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
+      if ( element.extraPoints !== null) {
+          studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
-    console.log(studentsExtraPoints);
+    this.studentStipendService.sendExtraPoints(studentsExtraPoints);
    }
 
  }

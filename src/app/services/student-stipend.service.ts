@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {StudentStipendInfo} from "../models/student-stipend/StudentStipendInfo";
 
@@ -13,5 +13,8 @@ export class StudentStipendService {
 
   getStudentsStipendInfo(): Observable<StudentStipendInfo[]> {
     return this.http.get<StudentStipendInfo[]>(this.studentStipendUrl);
+  }
+  sendExtraPoints(array: Array<Object>) {
+    return this.http.post(`${this.studentStipendUrl}/extra-points-update`, array);
   }
 }
