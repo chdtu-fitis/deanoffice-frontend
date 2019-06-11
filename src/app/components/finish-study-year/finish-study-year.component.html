@@ -33,14 +33,17 @@
           <input type="text" class="form-control" id="orderNumber" formControlName="orderNumber">
         </div>
         <div class="form-group required">
-          <label for="expelDate">Дата наказу</label>
+          <label for="expelDate">Дата відрахування</label>
           <input type="date" class="form-control" id="expelDate" formControlName="expelDate">
         </div>
-        <div class="form-group">
-          <label for="orderDate">Дата контракту</label>
+        <div class="form-group required">
+          <label for="orderDate">Дата наказу</label>
           <input type="date" class="form-control" id="orderDate" formControlName="orderDate">
         </div>
-        <button class="btn btn-success btn-build" (click)="finish()">
+        <button class="btn btn-success btn-build" [disabled]="form.invalid" (click)="finish()">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                *ngIf="finishingStudyYear">
+          </span>
           Закінчити н.р
         </button>
       </form>

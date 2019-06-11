@@ -23,6 +23,7 @@ export class FinishStudyYearComponent implements OnInit {
   masterGroupsExtramural: StudentGroup[];
   allGroups: StudentGroup[];
   tuitionForm = TuitionForm;
+  finishingStudyYear = false;
   form;
 
   constructor(private groupService: GroupService,
@@ -37,14 +38,16 @@ export class FinishStudyYearComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getGroupsByAllDegrees();
+  }
+
+  getGroupsByAllDegrees() {
     const bachelorGroups$ = this.groupService.getGroupsByDegree(String(Degree.BACHELOR));
     const masterGroups$ = this.groupService.getGroupsByDegree(String(Degree.MASTER));
     combineLatest(bachelorGroups$, masterGroups$, (bachelorGroups, masterGroups) => ({bachelorGroups, masterGroups}))
       .subscribe(pair => {
         this.bachelorGroups = pair.bachelorGroups;
         this.masterGroups = pair.masterGroups;
-        console.log(this.bachelorGroups);
-        console.log(this.masterGroups);
         [this.bachelorGroupsFullTime, this.bachelorGroupsExtramural] = Utils.partition(
           this.bachelorGroups,
           group => this.tuitionForm[group.tuitionForm] === this.tuitionForm.FULL_TIME);
@@ -68,6 +71,7 @@ export class FinishStudyYearComponent implements OnInit {
   }
 
   finish() {
+    this.finishingStudyYear = true;
     const selectedGroups = this.allGroups.filter(bachelorGroup => bachelorGroup.selected);
     const studentIds = [];
     for (const group of selectedGroups) {
@@ -79,7 +83,8 @@ export class FinishStudyYearComponent implements OnInit {
     }
     this.form.controls.ids.setValue(studentIds);
     this.studyYearFinishService.finishStudyYear(this.form.value).subscribe(() => {
-      console.log('submitted');
+      this.finishingStudyYear = false;
+      this.getGroupsByAllDegrees();
     });
   }
 }
