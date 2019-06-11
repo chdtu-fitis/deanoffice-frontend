@@ -53,8 +53,7 @@ export const SERVICES = [
   FacultyService,
   DebtorStatisticsService,
   TeacherService,
-  PositionService
-  DebtorStatisticsService,
+  PositionService,
   StudyYearFinishService
 ];
 
