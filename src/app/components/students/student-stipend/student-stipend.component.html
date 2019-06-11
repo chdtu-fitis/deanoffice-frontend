@@ -1,4 +1,4 @@
-<div class="wrap">
+<div onload="test()" class="wrap">
   <h5>Студенти</h5>
   <div class="table-wrapper">
     <table class="main-table">
@@ -51,7 +51,7 @@
                         ssi.extraPoints = toNumber(extraPoint.value);
                         ssi.finalPoints = makeFinalPoint(ssi.extraPoints,ssi.averageGrade)"
                         (focusin)="selectedStudentGroupName = ssi.groupName"></td>
-            <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints}}</div></td>
+            <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints | number:'2.2-2'}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
                 <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->

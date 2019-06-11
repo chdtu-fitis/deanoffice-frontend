@@ -15,7 +15,7 @@ export class StudentStipendInfo {
   departmentAbbreviation: string;
   averageGrade: number;
   extraPoints: number;
-  oldExtraPoints: number;
+  oldExtraPoints: string;
   finalPoints: number;
   debtCourses: CourseForStipend[];
 }

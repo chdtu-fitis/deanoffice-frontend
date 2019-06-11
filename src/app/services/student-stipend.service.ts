@@ -14,7 +14,7 @@ export class StudentStipendService {
   getStudentsStipendInfo(): Observable<StudentStipendInfo[]> {
     return this.http.get<StudentStipendInfo[]>(this.studentStipendUrl);
   }
-  sendExtraPoints(array: Array<Object>) {
+  sendExtraPoints(array) {
     return this.http.post(`${this.studentStipendUrl}/extra-points-update`, array);
   }
 }
