@@ -35,7 +35,7 @@ export class StudentsSearchComponent {
     if (!surname) {
       return;
     }
-    const index = this.rows.findIndex(row => {
+    const index = this.rows.find(row => {
       const student = this.deepFind(row, this.studentField);
       const isSurnameMatch = !surname || !!student.surname.match(new RegExp(`^${surname}`, 'i'));
       const isNameMatch = !name || !!student.name.match(new RegExp(`^${name}`, 'i'));

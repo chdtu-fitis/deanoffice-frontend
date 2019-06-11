@@ -94,11 +94,11 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  onSelect(index) {
-    if (index !== -1) {
-      this.gridApi.ensureIndexVisible(index, 'top');
-      const node = this.gridApi.getRowNode(this.students[index].id);
-      node.setSelected(true, true);
+  onSearch(student?: StudentDegree) {
+    if (student) {
+      this.gridApi.ensureNodeVisible(node => node.id === student.id);
+      const studentNode = this.gridApi.getRowNode(student.id);
+      studentNode.setSelected(true, true);
     }
   }
 
