@@ -5,8 +5,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title">
-                    {{selectedCourse?.course.courseName.name || 'Не було обрано предмет!'}}
-                    ({{selectedCourse?.course.knowledgeControl.name}})
+                  {{selectedCourseForGroup?.course.courseName.name || 'Не було обрано предмет!'}}
+                  ({{selectedCourseForGroup?.course.knowledgeControl.name}})
                 </h6>
                 <button type="button" class="close" aria-label="Close" (click)="closeModal()">
                     <span aria-hidden="true">&times;</span>
@@ -19,17 +19,16 @@
                 <div *ngIf="statement.length">
                     <h6 class="card-title">Вiдомiсть</h6>
                     <app-grade-statement-table [studentsDegree]="statement"
-                                               [selectedCourse]="selectedCourse"
-                                               [onTime]="true"
+                                               [selectedCourseForGroup]="selectedCourseForGroup"
                                                [loadingGrades]="loadingGrades"
                                                (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">
                     </app-grade-statement-table>
                 </div>
                 <div *ngIf="passedOnTime.length">
-                    <h6 class="card-title">{{!statement.length ? 'Вiдомiсть': 'Здали невчасно'}}</h6>
+                    <h6 class="card-title">Здали невчасно</h6>
                     <app-grade-statement-table [studentsDegree]="passedOnTime"
-                                               [selectedCourse]="selectedCourse"
+                                               [selectedCourseForGroup]="selectedCourseForGroup"
                                                [loadingGrades]="loadingGrades"
                                                (setGrade)="toUpdateGrades($event);"
                                                (error)="setError($event)">

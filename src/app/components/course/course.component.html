@@ -1,0 +1,63 @@
+<form [formGroup]="searchForm" (ngSubmit)="onViewFilteredCourses()">
+  <div class="in-left">
+    <div class="form-row">
+      <div>
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" formControlName="cmbValue">
+          <option *ngFor="let CourseNameSearchParamKey of CourseNameSearchParamKeys"
+                  value="{{CourseNameSearchParamKey}}">{{courseNameSearchParam[CourseNameSearchParamKey]}}</option>
+        </select>
+      </div>
+      <input type="text" placeholder="Назва чи її частина" formControlName="name">
+
+      <label class="margin-label" for="cmbSemester">Семестр:</label>
+      <div>
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" id="cmbSemester" formControlName="semester">
+          <option *ngFor="let sem of semesters" value="{{sem}}" [ngValue]="sem"> {{sem}} </option>
+        </select>
+      </div>
+
+      <label class="margin-label" for="cmbKnowledgeControl">Тип контролю:</label>
+      <div>
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" id="cmbKnowledgeControl" formControlName="knowledgeControl">
+          <option *ngFor="let KnowledgeControlTypeKey of KnowledgeControlTypeKeys"
+                  value="{{knowledgeControlType[KnowledgeControlTypeKey]}}"> {{knowledgeControlType[KnowledgeControlTypeKey]}} </option>
+        </select>
+      </div>
+
+      <label class="margin-label" for="tfHours">Кількість годин:</label>
+      <div>
+        <input class="hours-tf-size" type="text" placeholder="Годин" id="tfHours" formControlName="hours">
+      </div>
+
+      <label class="margin-label" for="cmbHoursPerCredit">Годин на кредит:</label>
+      <div>
+        <select class="form-control mr-2 ng-pristine ng-valid ng-touched" id="cmbHoursPerCredit" formControlName="hoursPerCredit">
+          <option *ngFor="let hpc of hoursPerCreditList" [ngValue]="hpc"> {{hpc}} </option>
+        </select>
+      </div>
+
+      <button class="btn btn-info mr-2 margin-button">Пошук</button>
+    </div>
+  </div>
+</form>
+<div class="px-3 h-100" *ngFor="let item of items | paginate: {itemsPerPage: 1, currentPage: currentPage}">
+  <ag-grid-angular
+    class="ag-theme-balham course-table"
+    rowSelection="multiple"
+    enableCellChangeFlash=true
+    [animateRows]="true"
+    [accentedSort]="true"
+    [rowData]="rows"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [localeText]="localeText"
+    [getRowNodeId]="getRowNodeId"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+
+  <div class="text-center">
+    <pagination-controls (pageChange)="onViewFilteredCourses($event)" previousLabel="Попередня" nextLabel="Наступна"></pagination-controls>
+  </div>
+</div>
+

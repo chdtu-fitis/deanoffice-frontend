@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Grade} from '../../../models/Grade';
+import {CourseForGroup} from '../../../models/CourseForGroup';
 
 @Component({
     selector: 'app-grades-table',
@@ -9,25 +10,27 @@ import {Grade} from '../../../models/Grade';
 export class GradesTableComponent {
     @ViewChild('statement') statement;
     @Input() studentsDegree;
-    @Input() courses;
+    @Input() coursesForGroup;
     @Input() selectGroup;
     @Input() selectSemester;
+    @Input() defaultOnTime;
     @Output() gradesUpdate = new EventEmitter();
     @Output() errors = new EventEmitter();
     @Output() sendUpdateGrades = new EventEmitter();
     @Output() setGradeForDelete = new EventEmitter();
-    grades = [];
+    grades: Grade[] = [];
     @Input() loadingGrades = false;
     @Input() isDeleteMode = false;
-    selectedGradeForDelete: any;
+    selectedGradeForDelete: Grade;
+    focusGrade: Grade;
 
     resetGrades() {
         this.grades = [];
     };
 
-    openStatement(selectedCourse: any): void {
+    openStatement(selectedCourseForGroup: CourseForGroup): void {
         this.resetGrades();
-        this.statement.setSelectedCourse(selectedCourse);
+        this.statement.setSelectedCourseForGroup(selectedCourseForGroup);
         this.statement.openModalAndUpdateGradesForCourse();
     }
 
@@ -37,7 +40,7 @@ export class GradesTableComponent {
         }
     }
 
-    focusElement(studentId: number, gradeId: number, vertically: boolean): any {
+    focusElement(studentId: number, gradeId: number, vertically: boolean): void {
         const id = this.getElementId(studentId, gradeId);
         try {
             document.getElementById(id).focus();
@@ -54,17 +57,19 @@ export class GradesTableComponent {
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
-        const id = this.getElementId(studentId, gradeId);
-        const points = Number(e.target.valueAsNumber || e.target.value);
-        if (points > 100 || points < 0 || !points) {
-            this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
-            this.updateVisible(id, 'bg-danger');
-        } else {
-            this.setError('');
-            grade.points = points;
-            this.addGradeForUpdate(grade);
-            this.updateVisible(id, 'bg-warning');
-        }
+      const points = Number(e.target.valueAsNumber || e.target.value);
+      grade.empty = false;
+      grade.changed = true;
+      grade.onTime = this.defaultOnTime;
+      if (points > 100 || points < 0 || !points) {
+        grade.wrongInterval = true;
+        this.setError('Помилка, оцiнка повинна бути бiльша 0 та менша або рiвна 100!');
+      } else {
+        this.setError('');
+        grade.wrongInterval = false;
+        grade.points = points;
+        this.addGradeForUpdate(grade);
+      }
     }
 
     updateGradesByStatement(grades: Grade[]) {
@@ -90,12 +95,6 @@ export class GradesTableComponent {
         this.errors.emit(error);
     }
 
-    updateVisible(id, style): void {
-        const element = document.getElementById(id).parentElement;
-        const styles = 'text-center align-middle';
-        element.setAttribute('class', `${styles} ${style}`);
-    }
-
     sendSelectGrade(): void {
         this.setGradeForDelete.emit(this.selectedGradeForDelete);
     }
@@ -108,4 +107,8 @@ export class GradesTableComponent {
     resetSelectGradeForDelete(): void {
         this.selectedGradeForDelete = null;
     }
+
+  onFocusGrade(grade: Grade) {
+    this.focusGrade = grade;
+  }
 }

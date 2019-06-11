@@ -28,7 +28,7 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     this.form = this.fb.group({
       orderNumber: ['', Validators.required],
       orderDate: ['', Validators.required],
-      applicationDate: ['', Validators.required],
+      applicationDate: '',
       expelDate: ['', Validators.required],
       orderReasonId: ['', Validators.required],
       studentDegreeIds: this.fb.array([]),

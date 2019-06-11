@@ -12,7 +12,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
   providers: [TeacherService]
 })
 export class TeacherDialogComponent implements OnInit {
-  courseForGroups: CourseForGroup;
+  courseForGroup: CourseForGroup;
   @Output() onTeacherSelect = new EventEmitter();
   teachers: Teacher[] = [];
   searchText = '';
@@ -20,14 +20,14 @@ export class TeacherDialogComponent implements OnInit {
   constructor(private teacherService: TeacherService, public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-    this.teacherService.getTeachers().subscribe(teachers => {
+    this.teacherService.getTeachersShort().subscribe(teachers => {
       this.teachers = teachers
     })
   }
 
   selectTeacher(teacher: Teacher) {
-    this.courseForGroups.teacher = teacher;
-    this.onTeacherSelect.emit(this.courseForGroups);
+    this.courseForGroup.teacher = teacher;
+    this.onTeacherSelect.emit(this.courseForGroup);
     this.bsModalRef.hide()
   }
 }

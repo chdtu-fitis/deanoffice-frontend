@@ -5,8 +5,9 @@ import {Teacher} from './Teacher';
 
 export class CourseForGroup extends BaseEntity {
   course: Course;
-  studentGroup: StudentGroup;
+  studentGroup?: StudentGroup;
   teacher?: Teacher;
   examDate?: Date;
+  academicDifference?: boolean;
   selected?: boolean;
 }

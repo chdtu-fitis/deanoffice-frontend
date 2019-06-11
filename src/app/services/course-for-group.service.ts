@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 import {CourseForGroup} from '../models/CourseForGroup';
+import {ForeignCourses} from '../models/ForeignCourses';
 import {environment} from '../../environments/environment';
 
 @Injectable()
@@ -27,5 +28,9 @@ export class CourseForGroupService {
 
   getCoursesForGroupAndSemester(groupId, semester): Observable<CourseForGroup[]> {
     return this.http.get<CourseForGroup[]>(`${this.url}/groups/${groupId}/courses?semester=${semester}`);
+  }
+
+  getForeignCourseAndGroups(): Observable<ForeignCourses[]> {
+    return this.http.get<ForeignCourses[]>(`${environment.apiUrl}/courses/foreign/synchronization`);
   }
 }

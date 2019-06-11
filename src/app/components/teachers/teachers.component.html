@@ -1,0 +1,67 @@
+<div class="container-fluid h-100">
+  <div class="row h-100 flex-column">
+    <div class="col content overflow-auto">
+      <div class="d-flex flex-column h-100 overflow-auto">
+        <div class="d-flex my-2 align-items-center">
+          <label class="mr-auto ml-1 m-0">
+            <input type="checkbox"  id="active" #active (change)="loadTeachers(active.checked)" checked>
+             Актуальні викладачі
+          </label>
+          <div class="float-right">
+            <button type="button" class="btn btn-danger align-middle"
+                    (click)="deleteTeacherModal.openModal(gridApi.getSelectedRows())"
+                    [disabled]="selectedTeachers.length === 0">
+              Видалити
+            </button>
+
+            <button type="button" class="btn btn-warning align-middle"
+                    (click)="updateTeacherModal.openModal(selectedTeachers[0])"
+                    [disabled]="selectedTeachers.length === 0 || selectedTeachers.length > 1">
+              Редагувати
+            </button>
+
+            <button type="button" class="btn btn-success align-middle"
+                    (click)="addTeacherModal.openModal()">
+              Новий викладач
+            </button>
+          </div>
+        </div>
+        <ag-grid-angular
+          class="ag-theme-balham overflow-auto h-100"
+          rowSelection="multiple"
+          rowHeight="40"
+          headerHeight="35"
+          enableCellChangeFlash=true
+          [animateRows]="true"
+          [accentedSort]="true"
+          [rowData]="teachers"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [localeText]="localeText"
+          [getRowNodeId]="getRowNodeId"
+          (columnResized)="onColumnResized($event)"
+          (selectionChanged)="onSelectionChanged($event)"
+          (gridReady)="onGridReady($event)"
+          (modelUpdated)="onModelUpdated($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+    <footer class="bg-light px-3 py-2">
+      <span class="mr-3">Всього: {{count || '0'}}</span>
+      <span>Вибрано: {{selectedTeachers.length || '0'}}</span>
+    </footer>
+  </div>
+</div>
+
+<simple-notifications></simple-notifications>
+<add-teacher #addTeacherModal
+              (addTeacher)="onAddTeacher($event)">
+</add-teacher>
+<delete-teacher #deleteTeacherModal
+                (deleteTeacher)="onRemoveTeacher()">
+</delete-teacher>
+<update-teacher #updateTeacherModal
+                (updateTeacher)="onUpdateTeacher($event)">
+</update-teacher>
+

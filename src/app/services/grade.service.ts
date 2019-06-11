@@ -5,6 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {Grade} from '../models/Grade';
 import {environment} from '../../environments/environment';
 import {forObservable} from '../components/shared/httpErrors';
+import {GradeUpdateAcademicDifference} from '../components/grade/models/GradeUpdateAcademicDifference';
+import {PostGrade} from '../components/grade/models/PostGrade';
 
 @Injectable()
 export class GradeService {
@@ -23,7 +25,7 @@ export class GradeService {
             .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним предметом', [])));
     }
 
-    public updateGrades(grades: Grade[]): Observable<Grade[]> {
+    public updateGrades(grades: PostGrade[]): Observable<Grade[]> {
         return this.http.put<Grade[]>(`${this.url}/`, grades)
             .pipe(catchError(forObservable('Відправка оновлених оцінок', [])));
     }
@@ -32,5 +34,10 @@ export class GradeService {
         return this.http.delete<Grade[]>(`${this.url}?gradeId=${gradeId}`)
             .pipe(catchError(forObservable('Видалення оцiнок', [])));
     }
+
+  public putAcademicDifference(academicDifferenceGradeId: GradeUpdateAcademicDifference): Observable<any> {
+    return this.http.put(`${this.url}/academic-difference`, academicDifferenceGradeId)
+      .pipe(catchError(forObservable('Призначення академ різниці', [])));
+  }
 }
 

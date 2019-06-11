@@ -18,6 +18,7 @@ import {CourseName} from '../../../models/CourseName';
 })
 export class CourseCreationComponent implements OnInit {
   @Input() selectedSemester: number;
+  @Input() courses: Course[];
   @Output() onCourseAdding = new EventEmitter();
   @Output() onCourseCreation = new EventEmitter();
   knowledgeControl: KnowledgeControl[] = [];
@@ -83,25 +84,30 @@ export class CourseCreationComponent implements OnInit {
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
     this.checkCourseName(this.courseName.value);
-    this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
-        this.success = true;
-        this.failCreated = false;
-        this.fail = false;
-        this.onCourseCreation.emit();
-        if (isAddingToCourseForGroup) {
-          this.onCourseAdding.emit(course);
-        }
-      },
-      error => {
-        if (error.status === 422) {
-          this.failCreated = true;
-          this.success = false;
-        } else {
-          this.success = false;
-          this.fail = true;
-        }
-        this.showAlert();
-      });
+    const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
+    if (courseIsAlreadyExist) {
+      this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
+    } else {
+      this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
+          this.success = true;
+          this.failCreated = false;
+          this.fail = false;
+          this.onCourseCreation.emit();
+          if (isAddingToCourseForGroup) {
+            this.onCourseAdding.emit(course);
+          }
+        },
+        error => {
+          if (error.status === 422) {
+            this.failCreated = true;
+            this.success = false;
+          } else {
+            this.success = false;
+            this.fail = true;
+          }
+          this.showAlert();
+        });
+    }
   }
 
   showAlert() {

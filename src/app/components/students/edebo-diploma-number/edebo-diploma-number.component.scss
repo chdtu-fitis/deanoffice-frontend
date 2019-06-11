@@ -1,0 +1,29 @@
+.modal-full {
+  min-width: 95%;
+  margin: 0 auto;
+}
+
+.modal-full .modal-content {
+  height: 98vh;
+}
+
+.modal-full .tab-body {
+  height: 70vh;
+  overflow: auto;
+}
+
+.loader__content {
+  padding: 60px 0 70px 0;
+}
+
+.input-group {
+  margin: 80px auto;
+}
+
+[heading = 'Коректні дані'] table{
+  border:2px solid green;
+}
+
+[heading = 'Некоректні дані'] table{
+  border:2px solid red;
+}

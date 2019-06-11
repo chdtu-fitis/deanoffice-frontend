@@ -58,6 +58,11 @@ export const appRoutes: Routes = [
         data: { title: 'Предмети для груп' }
       },
       {
+        path: 'course',
+        loadChildren: '../course/course.module#CourseModule',
+        data: { title: 'Предмети' }
+      },
+      {
         path: 'specialities',
         loadChildren: '../speciality/speciality.module#SpecialityModule',
         data: { title: 'Спеціальності' }
@@ -66,6 +71,16 @@ export const appRoutes: Routes = [
         path: 'groups',
         loadChildren: '../group/group.module#GroupModule',
         data: { title: 'Групи' }
+      },
+      {
+        path: 'teachers',
+        loadChildren: '../teachers/teachers.module#TeachersModule',
+        data: { title: 'Викладачі' }
+      },
+      {
+        path: 'departments',
+        loadChildren: '../department/department.module#DepartmentModule',
+        data: {title: 'Кафедри'}
       },
       {
         path: 'specializations',
