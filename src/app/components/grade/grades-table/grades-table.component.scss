@@ -31,11 +31,11 @@ input::-webkit-inner-spin-button {
 }
 
 .not-correct {
-  outline: 3px solid #FF5722;
+  outline: 1px solid #007bff;
 }
 
 .not-on-time {
-  outline: 3px solid #ff8a42 !important;
+  outline: 1px solid #ff8a42 !important;
 }
 
 .without-course {
@@ -52,6 +52,13 @@ input::-webkit-inner-spin-button {
 
 .academic-difference {
   background-color: #28a745 !important;
+}
+
+.course-with-academic-difference {
+  background-color: #aeea00;
+  &:hover {
+    background-color: #79b700;
+  }
 }
 
 input[type="checkbox"] {

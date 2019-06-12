@@ -104,19 +104,19 @@ export class GradeComponent implements OnInit {
     }
 
     joinGrades(studentDegree: StudentDegree, grades: Grade[], courseForGroup: CourseForGroup): any {
-        let check = false;
-        for (const grade of grades) {
-            if (studentDegree.id === grade.studentDegreeId && grade.courseId === courseForGroup.course.id) {
-                check = true;
-                if (!grade.points) {
-                    grade.points = null;
-                }
-                return grade;
-            }
+      let check = false;
+      for (const grade of grades) {
+        if (studentDegree.id === grade.studentDegreeId && grade.courseId === courseForGroup.course.id) {
+          check = true;
+          if (!grade.points) {
+            grade.points = null;
+          }
+          return grade;
         }
-        if (!check) {
-          return new Grade(null, true, courseForGroup.course.id, studentDegree.id, this.defaultOnTime);
-        }
+      }
+      if (!check) {
+        return new Grade(null, true, courseForGroup.course.id, courseForGroup.academicDifference,  studentDegree.id, this.defaultOnTime);
+      }
     }
 
     setStudentDegree(studentsDegree: StudentDegree[]): void {

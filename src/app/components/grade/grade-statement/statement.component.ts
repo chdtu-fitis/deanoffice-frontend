@@ -54,7 +54,8 @@ export class StatementComponent implements IAppModal {
                 }
             }
             if (!t) {
-                studentDegree.grade = new Grade(null, true, this.selectedCourseForGroup.course.id, studentDegree.id, true);
+                studentDegree.grade = new Grade(null, true, this.selectedCourseForGroup.course.id,
+                  this.selectedCourseForGroup.academicDifference, studentDegree.id, true);
                 students.push(studentDegree);
             }
         }
