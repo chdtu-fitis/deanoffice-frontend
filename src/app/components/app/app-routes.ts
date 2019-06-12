@@ -90,6 +90,11 @@ export const appRoutes: Routes = [
       {
         path: 'reports',
         loadChildren: '../reports/reports.module#ReportsModule',
+      },
+      {
+        path: 'analytics',
+        loadChildren: '../analytics/analytics.module#AnalyticsModule',
+        data: { title: 'Аналітика' }
       }
     ]
   },
