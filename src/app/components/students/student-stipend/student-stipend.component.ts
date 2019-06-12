@@ -78,6 +78,8 @@ export class StudentStipendComponent implements OnInit {
           studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
-    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {});
+    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
+      this.openInput = this.selectedStudentGroupName = '';
+    });
    }
  }

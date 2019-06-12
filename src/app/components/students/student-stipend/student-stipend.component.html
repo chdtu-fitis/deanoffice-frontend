@@ -30,7 +30,7 @@
                   <button class="btn btn-warning align-middle" [disabled]="selectedStudentGroupName != ''"
                           (click)="openInput = group">Редагувати</button>
                   <button class="btn btn-success align-middle" [disabled]="group !== selectedStudentGroupName"
-                          (click)="openInput = ''; selectedStudentGroupName = ''; saveExtraPoints(group)">Зберегти</button>
+                          (click)="saveExtraPoints(group)">Зберегти</button>
                 </div>
               </div>
             </td>
