@@ -34,8 +34,8 @@ export class StudentsInVacationComponent implements OnInit {
     this.count = count;
   }
 
-  onSelect(index) {
-    this.studentsInVacationTable.showByIndex(index);
+  onSearch(student: StudentDegree) {
+    this.studentsInVacationTable.showStudent(student);
   }
 
   onRenew() {

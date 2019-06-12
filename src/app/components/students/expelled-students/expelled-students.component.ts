@@ -78,8 +78,8 @@ export class ExpelledStudentsComponent implements OnInit {
     this.allExpelledStudentsTable.onRenew(this.selectedAll);
   }
 
-  onSelect(index) {
-    this.expelledStudentsTable.showByIndex(index);
+  onSearch(student) {
+    this.expelledStudentsTable.showStudent(student);
   }
 
   onFormAcademicCertificate(selected: StudentDegree) {
