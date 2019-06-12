@@ -43,15 +43,14 @@ export class StudentStipendComponent implements OnInit {
            this.studentStipendInfo[ssi.groupName].push(ssi);
          }
          ssi.oldExtraPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ?  '' : ssi.extraPoints + '';
-         ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 :
-           ssi.extraPoints + (ssi.averageGrade * 0.9);
-       })
+        })
     });
   }
 
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
+
   toNumber(e) {
     if (e !== '') {
       return Number(e);
@@ -59,9 +58,7 @@ export class StudentStipendComponent implements OnInit {
       return e = null;
     }
   }
-  makeFinalPoint(extraPoint, grade) {
-    return extraPoint + (grade * 0.9);
-  }
+
   showValueInput(e) {
     if (e === 'null' || e === undefined) {
       return '';
@@ -69,17 +66,4 @@ export class StudentStipendComponent implements OnInit {
       return e;
     }
   }
-
-  saveExtraPoints(group) {
-    let studentsExtraPoints = [];
-    let groupStipendInfo = this.studentStipendInfo[group];
-    for (let element of groupStipendInfo) {
-      if ( element.extraPoints !== null) {
-          studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
-      }
-    }
-    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
-      this.openInput = this.selectedStudentGroupName = '';
-    });
-   }
  }

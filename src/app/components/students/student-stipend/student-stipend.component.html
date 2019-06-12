@@ -14,7 +14,7 @@
         <td>Середній бал</td>
         <td>Середній бал * 0,9</td>
         <td>Додаткові бали</td>
-        <td>Загальний результат</td>
+        <!--<td>Загальний результат</td>-->
         <!--<td>Заборгованості</td>-->
       </tr>
       </thead>
@@ -27,10 +27,8 @@
               <div class="group-header-line">
                 <div>{{group}}</div>
                 <div>
-                  <button class="btn btn-warning align-middle" [disabled]="selectedStudentGroupName != ''"
-                          (click)="openInput = group">Редагувати</button>
-                  <button class="btn btn-success align-middle" [disabled]="group !== selectedStudentGroupName"
-                          (click)="saveExtraPoints(group)">Зберегти</button>
+                  <button class="btn btn-warning align-middle">Редагувати</button>
+                  <button class="btn btn-success align-middle">Зберегти</button>
                 </div>
               </div>
             </td>
@@ -45,13 +43,11 @@
             <td>{{ssi.year}}</td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input type="text" style="width: 100px " #extraPoint [value]="showValueInput(ssi.oldExtraPoints)"
-                       *ngIf="isDebtor(ssi)==''" [disabled]="openInput !== ssi.groupName" [maxLength]="2"
+            <td><input type="text" style="width: 100px " #extraPoint
+                       *ngIf="isDebtor(ssi)==''" [maxLength]="2"
                        (keyup)="numbers.indexOf( extraPoint.value) == - 1 ? extraPoint.value = '' : extraPoint.value;
-                        ssi.extraPoints = toNumber(extraPoint.value);
-                        ssi.finalPoints = makeFinalPoint(ssi.extraPoints,ssi.averageGrade)"
-                        (focusin)="selectedStudentGroupName = ssi.groupName"></td>
-            <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints | number:'2.2-2'}}</div></td>
+                        ssi.extraPoints = toNumber(extraPoint.value)"></td>
+            <!--<td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints | number:'2.2-2'}}</div></td>-->
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
                 <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->
