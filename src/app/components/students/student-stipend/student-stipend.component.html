@@ -1,63 +1,90 @@
-<div onload="test()" class="wrap">
-  <h5>Студенти</h5>
-  <div class="table-wrapper">
-    <table class="main-table">
-      <thead>
-      <tr>
-        <td>№</td>
-        <td>ПІБ</td>
-        <td>Група</td>
-        <td>Ступінь</td>
-        <td>Форма</td>
-        <td>Спеціальність</td>
-        <td>Курс</td>
-        <td>Середній бал</td>
-        <td>Середній бал * 0,9</td>
-        <td>Додаткові бали</td>
-        <!--<td>Загальний результат</td>-->
-        <!--<td>Заборгованості</td>-->
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let group of getStudentStipendGroups()">
-        <td colspan=11>
-        <table class="main-table">
-          <tr class="group-header">
-            <td colspan = 11>
-              <div class="group-header-line">
-                <div>{{group}}</div>
-                <div>
-                  <button class="btn btn-warning align-middle">Редагувати</button>
-                  <button class="btn btn-success align-middle">Зберегти</button>
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr *ngFor="let ssi of studentStipendInfo[group]; let i = index" [ngClass]="isDebtor(ssi)">
-            <td>{{i+1}}</td>
-            <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
-            <td>{{ssi.groupName}}</td>
-            <td>{{ssi.degreeName.substring(0,3)}}</td>
-            <td>{{getTuitionTermUkr(ssi.tuitionTerm)}}</td>
-            <td>{{ssi.specialityCode}}</td>
-            <td>{{ssi.year}}</td>
-            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
-            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input type="text" style="width: 100px " #extraPoint
-                       *ngIf="isDebtor(ssi)==''" [maxLength]="2"
-                       (keyup)="numbers.indexOf( extraPoint.value) == - 1 ? extraPoint.value = '' : extraPoint.value;
-                        ssi.extraPoints = toNumber(extraPoint.value)"></td>
-            <!--<td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints | number:'2.2-2'}}</div></td>-->
-            <!--<td>-->
-              <!--<p *ngFor="let course of ssi.debtCourses">-->
-                <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->
-              <!--</p>-->
-            <!--</td>-->
-          </tr>
-        </table>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+<div class="container-fluid">
+  <div class="d-flex">
+    <div class="p-3">
+      <h4>Ступінь</h4>
+      <select [(ngModel)]="currentDegree"  (change)="onDegreeChange()" class="form-control">
+        <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Курс</h4>
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+        <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Група</h4>
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Семестр</h4>
+      <div class="custom-control custom-radio" *ngFor="let semester of semesters">
+        <input type="radio" [id]="semester + 3" name="semesterRadios" class="custom-control-input"
+               [value]="semester" [(ngModel)]="selectedSemester">
+        <label class="custom-control-label" [for]="semester + 3">{{semester}}</label>
+      </div>
+    </div>
+    <div class="p-3">
+      <h4>Форма</h4>
+      <div class="custom-control custom-radio" *ngFor="let key of tuitionFormKey">
+        <input type="radio" [id]="key" name="tuitionFormRadio" class="custom-control-input"
+               [value]="key" [(ngModel)]="selectedTuitionForm"
+               (change)="onTuitionFormChange()">
+        <label class="custom-control-label" [for]="key">{{tuitionFormType[key]}}</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <button class="btn btn-info w-30 ml-3" (click)="onExamReportJournalBuild()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="examReportJournalTableLoading">
+    </span>
+      Виписка в журнал відомостей
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocumentDocx()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalStudentsDocumentLoadingDocx">
+     </span>
+      Журнал оцінок DOCX
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsDocumentPdf()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalStudentsDocumentLoadingDocx">
+     </span>
+      Журнал оцінок PDF
+    </button>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-info w-30 ml-3 mt-1" (click)="onGradesJournalCoursesListBuildPdf()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="gradesJournalCoursesTableLoadingPdf">
+    </span>
+      Списки предметів в журнал оцінок PDF
+    </button>
+    <button class="btn btn-info w-30 ml-1 mt-1" (click)="onGradesJournalCoursesListBuildDocx()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="gradesJournalCoursesTableLoadingDocx">
+    </span>
+      Списки предметів в журнал оцінок DOCX
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalStudentsListBuild()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="gradesJournalStudentsTableLoading">
+    </span>
+      Списки студентів
+    </button>
+  </div>
+  <div class="row">
+    <button class="btn btn-info w-30 ml-1 mt-1" (click)="onStudentsListBuild()" [disabled]="!selectedTuitionForm">
+       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+             *ngIf="studentsListLoading">
+       </span>
+      Повні списки студентів
+    </button>
   </div>
 </div>
