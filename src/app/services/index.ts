@@ -21,6 +21,7 @@ import {ThesisInputService} from './thesis-input.service';
 import {StudentStipendService} from './student-stipend.service';
 import {FacultyService} from './faculty.service';
 import {DebtorStatisticsService} from './debtor-statistics.service';
+import {StudyYearFinishService} from './study-year-finish.service';
 import {TeacherService} from './teacher.service';
 import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 import {CourseService} from './course.service';
@@ -52,7 +53,8 @@ export const SERVICES = [
   FacultyService,
   DebtorStatisticsService,
   TeacherService,
-  PositionService
+  PositionService,
+  StudyYearFinishService
 ];
 
 export const GUARDS = [

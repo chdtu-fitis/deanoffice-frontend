@@ -88,6 +88,11 @@ export const appRoutes: Routes = [
         data: { title: 'Спеціалізації (освітні програми)' }
       },
       {
+        path: 'finish-study-year',
+        loadChildren: '../finish-study-year/finish-study-year.module#FinishStudyYearModule',
+        data: { title: 'Закінчити навчальний рік' }
+      },
+      {
         path: 'reports',
         loadChildren: '../reports/reports.module#ReportsModule',
       }

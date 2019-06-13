@@ -1,0 +1,23 @@
+<table class="table table-sm table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>
+        <input
+          type="checkbox"
+          checked
+          [(ngModel)]="allGroupIsSelected"
+          (click)="onSelectAllGroups($event.target.checked)"
+        >
+      </th>
+      <th>Назва</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let group of groups">
+      <td>
+        <input type="checkbox" [(ngModel)]="group.selected" (change)="onGroupSelect()">
+      </td>
+      <td>{{ group.name }}</td>
+    </tr>
+  </tbody>
+</table>
