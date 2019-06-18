@@ -51,4 +51,5 @@ const analyticsRoutes: Routes = [
   ],
   providers: [AuthenticationModule.tokenInterceptor()]
 })
+
 export class AnalyticsModule { }
