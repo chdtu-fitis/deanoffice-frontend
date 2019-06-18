@@ -1,1 +1,4 @@
 <button type="button" class="btn btn-info"  *ngIf='!isLoggedIn()' (click)="signIn()">Увійти в Google account</button>
+
+<button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="setToken()">Google account token</button>
+<button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="signOut()">Вийти з Google account</button>

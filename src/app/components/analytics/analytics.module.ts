@@ -16,7 +16,7 @@ import {
 } from "ng-gapi";
 
 import {AnalyticsComponent} from "./analytics.component";
-import {GoogleAnalyticsAuthService} from "../../google-analytics-auth.service";
+import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "1099349836573-dlcq5gbttttj702il50gs8rkq074dunu.apps.googleusercontent.com",
