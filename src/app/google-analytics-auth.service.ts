@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from "lodash";
 import GoogleUser = gapi.auth2.GoogleUser;
 import {GoogleAuthService} from "ng-gapi";
 declare const gapi : any;
@@ -25,6 +26,10 @@ export class GoogleAnalyticsAuthService {
       throw new Error("no token set , authentication required");
     }
     return sessionStorage.getItem(GoogleAnalyticsAuthService.SESSION_STORAGE_KEY);
+  }
+
+  public isUserSignedIn(): boolean {
+    return !_.isEmpty(sessionStorage.getItem(GoogleAnalyticsAuthService.SESSION_STORAGE_KEY));
   }
 
   public signIn() {

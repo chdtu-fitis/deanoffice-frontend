@@ -16,9 +16,10 @@ import {
 } from "ng-gapi";
 
 import {AnalyticsComponent} from "./analytics.component";
+import {GoogleAnalyticsAuthService} from "../../google-analytics-auth.service";
 
 let gapiClientConfig: NgGapiClientConfig = {
-  client_id: "1099349836573-fethd0t8kqgi7igl20l1r01cns6bkit9.apps.googleusercontent.com",
+  client_id: "1099349836573-dlcq5gbttttj702il50gs8rkq074dunu.apps.googleusercontent.com",
   discoveryDocs: ["https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"],
   scope: [
     "https://www.googleapis.com/auth/analytics.readonly",
@@ -41,15 +42,12 @@ const analyticsRoutes: Routes = [
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
-    }),
-    GoogleApiService,
-    GoogleAuthService,
-    GoogleApiConfig
+    })
   ],
   declarations: [
     AnalyticsComponent
   ],
-  providers: [AuthenticationModule.tokenInterceptor()]
+  providers: [AuthenticationModule.tokenInterceptor(), GoogleAnalyticsAuthService]
 })
 
 export class AnalyticsModule { }
