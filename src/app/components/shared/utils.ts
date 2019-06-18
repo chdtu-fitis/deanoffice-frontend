@@ -19,4 +19,11 @@ export class Utils {
 
   static formatDate = date => new DatePipe('en-US').transform(date, 'dd.MM.yyyy');
 
+  static partition(array: Array<any>, isValid: Function) {
+    return array.reduce(([pass, fail], elem) => {
+      return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
+    }, [[], []]);
+  }
+
+
 }

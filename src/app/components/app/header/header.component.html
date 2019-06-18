@@ -42,7 +42,8 @@
           Кінець року
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-year-end">
-          <a class="dropdown-item" routerLinkActive="active" href="#">Закінчити навчальний рік</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/finish-study-year">Закінчити навчальний рік</a>
         </div>
       </li>
 

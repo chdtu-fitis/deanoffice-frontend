@@ -1,4 +1,3 @@
-import {BaseEntity} from './BaseEntity';
 
 export class Person {
   id: number;

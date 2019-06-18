@@ -13,7 +13,9 @@
         <td>{{selectGroup?.name}}<br>
             Семестр: {{ selectSemester }}
         </td>
-        <td *ngFor="let courseForGroup of coursesForGroup" scope="row" class="btn-courses"
+        <td *ngFor="let courseForGroup of coursesForGroup" scope="row"
+            class="btn-courses"
+            [class.course-with-academic-difference]="courseForGroup.academicDifference"
             (click)="openStatement(courseForGroup)">
           {{courseForGroup.course.courseName?.name}} (<b>{{ courseForGroup.course.knowledgeControl.name }}</b>)
         </td>
@@ -28,7 +30,7 @@
         <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
           <td
               [class.without-course]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
-              [class.academic-difference]="grade.academicDifference && !grade?.changed"
+              [class.academic-difference]="grade.academicDifference && !grade?.changed && !grade?.empty"
               [class.updated-academic-difference]="grade.academicDifference && grade?.changed"
               [class.updated-grade]="grade?.changed && !grade.academicDifference"
           >
@@ -54,7 +56,7 @@
   <thead>
     <tr>
       <td>не було предмету</td>
-      <td>не задано (< 60)</td>
+      <td>не здано (< 60)</td>
       <td>невчасно</td>
       <td>оновлена оцінка</td>
       <td>академ різниця</td>

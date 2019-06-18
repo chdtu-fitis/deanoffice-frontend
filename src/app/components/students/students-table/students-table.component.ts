@@ -48,11 +48,11 @@ export class StudentsTableComponent {
     this.gridApi.updateRowData({ remove: forRenew });
   }
 
-  showByIndex(index: number) {
-    if (index !== -1) {
-      this.gridApi.ensureIndexVisible(index, 'top');
-      const node = this.gridApi.getRowNode(this.rows[index].id);
-      node.setSelected(true, true);
+  showStudent(student?: StudentDegree) {
+    if (student) {
+      this.gridApi.ensureNodeVisible(node => node.id === student.id);
+      const studentNode = this.gridApi.getRowNode(student.id);
+      studentNode.setSelected(true, true);
     }
   }
 }
