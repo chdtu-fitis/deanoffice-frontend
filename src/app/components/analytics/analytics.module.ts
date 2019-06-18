@@ -6,8 +6,25 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
 import {PipeModule} from '../../pipes/pipe.module';
+import {
+  GoogleApiModule,
+  GoogleApiService,
+  GoogleAuthService,
+  NgGapiClientConfig,
+  NG_GAPI_CONFIG,
+  GoogleApiConfig
+} from "ng-gapi";
 
 import {AnalyticsComponent} from "./analytics.component";
+
+let gapiClientConfig: NgGapiClientConfig = {
+  client_id: "1099349836573-fethd0t8kqgi7igl20l1r01cns6bkit9.apps.googleusercontent.com",
+  discoveryDocs: ["https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"],
+  scope: [
+    "https://www.googleapis.com/auth/analytics.readonly",
+    "https://www.googleapis.com/auth/analytics"
+  ].join(" ")
+};
 
 const analyticsRoutes: Routes = [
   {path: '', component: AnalyticsComponent}
@@ -21,6 +38,10 @@ const analyticsRoutes: Routes = [
     SharedModule,
     PipeModule,
     RouterModule.forChild(analyticsRoutes),
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
+    }),
   ],
   declarations: [
     AnalyticsComponent
