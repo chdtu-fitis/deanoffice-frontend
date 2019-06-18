@@ -42,6 +42,9 @@ const analyticsRoutes: Routes = [
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
+    GoogleApiService,
+    GoogleAuthService,
+    GoogleApiConfig
   ],
   declarations: [
     AnalyticsComponent
