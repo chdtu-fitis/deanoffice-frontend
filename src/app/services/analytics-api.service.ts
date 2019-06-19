@@ -16,6 +16,7 @@ export class AnalyticsApiService {
   }
 
   getAnalytics(body) {
+    console.log(this.http.post(this.url, body, this.httpOptions));
     return this.http.post(this.url, body, this.httpOptions)
   }
 }

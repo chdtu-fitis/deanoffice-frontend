@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GoogleApiService} from 'ng-gapi';
-import { GoogleAuthService } from 'ng-gapi';
+import {GoogleAuthService} from 'ng-gapi';
 import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
 import {AnalyticsApiService} from "../../services/analytics-api.service";
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'analytics',
@@ -17,6 +18,8 @@ export class AnalyticsComponent implements OnInit {
   private sessionsResponse;
   private users = [];
   private sessions = [];
+  public usersChart = {};
+  public sessionsChart = {};
 
 
   constructor(
@@ -71,11 +74,118 @@ export class AnalyticsComponent implements OnInit {
     });
   }
 
-  public getUsers (startDate, endDate) {
+  public getUsers (startDate, endDate): object {
     this.setReportRequest(startDate, endDate, "ga:users");
     this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
       this.usersResponse = cfg;
       console.log(this.usersResponse)
     });
+    return this.usersResponse
   }
+
+  public setSessions(){
+    let respond = {
+      "reports": [
+        {
+          "columnHeader": {
+            "metricHeader": {
+              "metricHeaderEntries": [
+                {
+                  "name": "ga:sessions",
+                  "type": "INTEGER"
+                }
+              ]
+            }
+          },
+          "data": {
+            "rows": [
+              {
+                "metrics": [
+                  {
+                    "values": [
+                      "39"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "totals": [
+              {
+                "values": [
+                  "39"
+                ]
+              }
+            ],
+            "rowCount": 1,
+            "minimums": [
+              {
+                "values": [
+                  "39"
+                ]
+              }
+            ],
+            "maximums": [
+              {
+                "values": [
+                  "39"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    };
+    // this.users.push(this.getSessions('7daysAgo','today'));
+    this.users.push(respond.reports);
+  }
+
+  public setCharts (){
+    // this.getUsers('today','today');
+    // this.getSessions('today','today');
+    this.setUsersChart();
+    this.setSessionsChart();
+  }
+
+  public setUsersChart (){
+    this.usersChart = new Chart('usersCanvas', {
+      type: 'line',
+      data: {
+        labels: ['...','...','...','...','...','...','Today'],
+        datasets: [{
+          data: [3,15,12,1,4,2,13],
+          label: "Users",
+          borderColor: "#3e95cd",
+          fill: false
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Users for last week'
+        }
+      }
+    });
+  }
+
+  public setSessionsChart (){
+    this.sessionsChart = new Chart('sessionsCanvas', {
+      type: 'line',
+      data: {
+        labels: ['...','...','...','...','...','...','Today'],
+        datasets: [{
+          data: [4,25,23,2,6,4,37],
+          label: "Sessions",
+          borderColor: "#cd683d",
+          fill: false
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Sessions for last week'
+        }
+      }
+    });
+  }
+
 }

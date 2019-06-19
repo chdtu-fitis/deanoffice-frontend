@@ -1,14 +1,25 @@
-<div class="row">
+<div class="row" *ngIf='!isLoggedIn()'>
   <div class="col-6">
-    <button type="button" class="btn btn-info"  *ngIf='!isLoggedIn()' (click)="signIn()">Увійти в Google account</button>
+    <button type="button" class="btn btn-info" (click)="signIn()">Увійти в Google account</button>
   </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf='isLoggedIn()'>
   <div class="col-lg-4">
-    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="getUsers('today', 'today')">Сформувати звіти</button>
+    <button type="button" class="btn btn-info" (click)="setCharts()">Сформувати звіти</button>
   </div>
   <div class="col-8">
-    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="signOut()">Вийти з Google account</button>
+    <button type="button" class="btn btn-info"(click)="signOut()">Вийти з Google account</button>
   </div>
 </div>
+
+  <div class="row" *ngIf='isLoggedIn()'>
+    <div *ngIf="usersChart">
+      <canvas class="chartCanvas" id="usersCanvas">{{ usersChart }}</canvas>
+    </div>
+    <div *ngIf="sessionsChart">
+      <canvas class="chartCanvas" id="sessionsCanvas">{{ sessionsChart }}</canvas>
+    </div>
+  </div>
+
+https://drive.google.com/drive/folders/1U2x4ZFvxgiZPheS9_T-dxk_IGzaArV4P?usp=sharing
