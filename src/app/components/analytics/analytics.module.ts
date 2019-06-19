@@ -17,6 +17,7 @@ import {
 
 import {AnalyticsComponent} from "./analytics.component";
 import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
+import {AnalyticsApiService} from "../../services/analytics-api.service";
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "1099349836573-dlcq5gbttttj702il50gs8rkq074dunu.apps.googleusercontent.com",
@@ -47,7 +48,7 @@ const analyticsRoutes: Routes = [
   declarations: [
     AnalyticsComponent
   ],
-  providers: [AuthenticationModule.tokenInterceptor(), GoogleAnalyticsAuthService]
+  providers: [AuthenticationModule.tokenInterceptor(), GoogleAnalyticsAuthService, AnalyticsApiService]
 })
 
 export class AnalyticsModule { }

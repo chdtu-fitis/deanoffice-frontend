@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GoogleApiService} from 'ng-gapi';
 import { GoogleAuthService } from 'ng-gapi';
 import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
-// import HttpBatch = gapi.client.HttpBatch;
+import {AnalyticsApiService} from "../../services/analytics-api.service";
 
 @Component({
   selector: 'analytics',
@@ -11,10 +11,29 @@ import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.s
 })
 export class AnalyticsComponent implements OnInit {
 
-  private token: String;
+  private viewID = '196449903';
+  private reportRequest = [
+    {
+      viewId: this.viewID,
+      dateRanges: [
+        {
+          startDate: '7daysAgo',
+          endDate: 'today'
+        }
+      ],
+      metrics: [
+        {
+          expression: 'ga:sessions'
+        }
+      ]
+    }
+    ];
+  private users;
+  private sessions;
 
   constructor(
     private googleAnalyticsAuthService: GoogleAnalyticsAuthService,
+    private analyticsApi: AnalyticsApiService,
     private authService: GoogleAuthService,
     gapiService: GoogleApiService) {
     gapiService.onLoad().subscribe();
@@ -35,37 +54,51 @@ export class AnalyticsComponent implements OnInit {
     this.googleAnalyticsAuthService.signOut();
   }
 
-  public setToken () {
-    this.token = this.googleAnalyticsAuthService.getToken();
+  getSessions (){
+    this.reportRequest = [
+      {
+        viewId: this.viewID,
+        dateRanges: [
+          {
+            startDate: '7daysAgo',
+            endDate: 'today'
+          }
+        ],
+        metrics: [
+          {
+            expression: 'ga:sessions'
+          }
+        ]
+      }
+    ];
+    console.log(this.reportRequest);
+    this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
+      this.sessions = cfg;
+      console.log(this.sessions)
+    });
   }
 
-  // public queryReports() {
-  //   gapi.client.request({
-  //     path: '/v4/reports:batchGet',
-  //     root: 'https://analyticsreporting.googleapis.com/',
-  //     method: 'POST',
-  //     body: {
-  //       reportRequests: [
-  //         {
-  //           viewId: this.token,
-  //           dateRanges: [
-  //             {
-  //               startDate: '7daysAgo',
-  //               endDate: 'today'
-  //             }
-  //           ],
-  //           metrics: [
-  //             {
-  //               expression: 'ga:sessions'
-  //             }
-  //           ]
-  //         }
-  //       ]
-  //     }
-  //   }).then(this.displayResults, console.error.bind(console));
-  // }
-  //
-  // public displayResults(response) {
-  //   var formattedJson = JSON.stringify(response.result, null, 2);
-  // }
+  public getUsers () {
+    this.reportRequest = [
+      {
+        viewId: this.viewID,
+        dateRanges: [
+          {
+            startDate: '7daysAgo',
+            endDate: 'today'
+          }
+        ],
+        metrics: [
+          {
+            expression: 'ga:users'
+          }
+        ]
+      }
+    ];
+    console.log(this.reportRequest);
+    this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
+      this.users = cfg;
+      console.log(this.users)
+    });
+  }
 }

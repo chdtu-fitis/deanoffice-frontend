@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as _ from "lodash";
 import GoogleUser = gapi.auth2.GoogleUser;
 import {GoogleAuthService} from "ng-gapi";
-declare const gapi : any;
 
 @Injectable()
 export class GoogleAnalyticsAuthService {

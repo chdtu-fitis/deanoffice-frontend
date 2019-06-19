@@ -1,4 +1,14 @@
-<button type="button" class="btn btn-info"  *ngIf='!isLoggedIn()' (click)="signIn()">Увійти в Google account</button>
+<div class="row">
+  <div class="col-6">
+    <button type="button" class="btn btn-info"  *ngIf='!isLoggedIn()' (click)="signIn()">Увійти в Google account</button>
+  </div>
+</div>
 
-<button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="setToken()">Google account token</button>
-<button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="signOut()">Вийти з Google account</button>
+<div class="row">
+  <div class="col-lg-4">
+    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="getUsers()">Сформувати звіти</button>
+  </div>
+  <div class="col-8">
+    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="signOut()">Вийти з Google account</button>
+  </div>
+</div>
