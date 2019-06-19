@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-lg-4">
-    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="getUsers()">Сформувати звіти</button>
+    <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="getUsers('today', 'today')">Сформувати звіти</button>
   </div>
   <div class="col-8">
     <button type="button" class="btn btn-info"  *ngIf='isLoggedIn()' (click)="signOut()">Вийти з Google account</button>

@@ -11,25 +11,13 @@ import {AnalyticsApiService} from "../../services/analytics-api.service";
 })
 export class AnalyticsComponent implements OnInit {
 
-  private viewID = '196449903';
-  private reportRequest = [
-    {
-      viewId: this.viewID,
-      dateRanges: [
-        {
-          startDate: '7daysAgo',
-          endDate: 'today'
-        }
-      ],
-      metrics: [
-        {
-          expression: 'ga:sessions'
-        }
-      ]
-    }
-    ];
-  private users;
-  private sessions;
+  private viewID = "196449903";
+  private reportRequest;
+  private usersResponse;
+  private sessionsResponse;
+  private users = [];
+  private sessions = [];
+
 
   constructor(
     private googleAnalyticsAuthService: GoogleAnalyticsAuthService,
@@ -54,51 +42,40 @@ export class AnalyticsComponent implements OnInit {
     this.googleAnalyticsAuthService.signOut();
   }
 
-  getSessions (){
-    this.reportRequest = [
-      {
-        viewId: this.viewID,
-        dateRanges: [
-          {
-            startDate: '7daysAgo',
-            endDate: 'today'
-          }
-        ],
-        metrics: [
-          {
-            expression: 'ga:sessions'
-          }
-        ]
-      }
-    ];
-    console.log(this.reportRequest);
+  public setReportRequest (startDate, endDate, expression){
+    this.reportRequest = {
+      "reportRequests": [
+        {
+          "viewId": this.viewID,
+          "dateRanges": [
+            {
+              "startDate": startDate,
+              "endDate": endDate
+            }
+          ],
+          "metrics": [
+            {
+              "expression": expression
+            }
+          ]
+        }
+      ]
+    }
+  }
+
+  public getSessions (startDate, endDate){
+    this.setReportRequest(startDate, endDate, "ga:sessions");
     this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
-      this.sessions = cfg;
-      console.log(this.sessions)
+      this.sessionsResponse = cfg;
+      console.log(this.sessionsResponse)
     });
   }
 
-  public getUsers () {
-    this.reportRequest = [
-      {
-        viewId: this.viewID,
-        dateRanges: [
-          {
-            startDate: '7daysAgo',
-            endDate: 'today'
-          }
-        ],
-        metrics: [
-          {
-            expression: 'ga:users'
-          }
-        ]
-      }
-    ];
-    console.log(this.reportRequest);
+  public getUsers (startDate, endDate) {
+    this.setReportRequest(startDate, endDate, "ga:users");
     this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
-      this.users = cfg;
-      console.log(this.users)
+      this.usersResponse = cfg;
+      console.log(this.usersResponse)
     });
   }
 }
