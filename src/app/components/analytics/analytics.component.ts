@@ -16,8 +16,8 @@ export class AnalyticsComponent implements OnInit {
   private reportRequest;
   private usersResponse;
   private sessionsResponse;
-  private users = [];
-  private sessions = [];
+  private users = [3,15,12,1,4,2,13];
+  private sessions = [4,25,23,2,6,4,37];
   public usersChart = {};
   public sessionsChart = {};
 
@@ -136,7 +136,7 @@ export class AnalyticsComponent implements OnInit {
       ]
     };
     // this.users.push(this.getSessions('7daysAgo','today'));
-    this.users.push(respond.reports);
+    // this.users.push(respond.reports);
   }
 
   public setCharts (){
@@ -152,7 +152,7 @@ export class AnalyticsComponent implements OnInit {
       data: {
         labels: ['...','...','...','...','...','...','Today'],
         datasets: [{
-          data: [3,15,12,1,4,2,13],
+          data: this.users,
           label: "Users",
           borderColor: "#3e95cd",
           fill: false
@@ -173,7 +173,7 @@ export class AnalyticsComponent implements OnInit {
       data: {
         labels: ['...','...','...','...','...','...','Today'],
         datasets: [{
-          data: [4,25,23,2,6,4,37],
+          data: this.sessions,
           label: "Sessions",
           borderColor: "#cd683d",
           fill: false
