@@ -27,7 +27,7 @@
         <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
           <td class="sticky-col first-col z-index-1">{{studentId + 1}}</td>
           <td class="td-student sticky-col second-col z-index-1">
-            {{studentDegree.student.surname}} {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
+            {{studentDegree.student | nameWithInitials}}
           </td>
           <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
             <td
