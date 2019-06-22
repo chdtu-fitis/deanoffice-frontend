@@ -5,7 +5,7 @@ import {GoogleAuthService} from "ng-gapi";
 
 @Injectable()
 export class GoogleAnalyticsAuthService {
-  public static readonly SESSION_STORAGE_KEY: string = "accessToken";
+  public static readonly SESSION_STORAGE_KEY: string = "GaAccessToken";
   private user: GoogleUser = undefined;
 
   constructor(private googleAuthService: GoogleAuthService) {
@@ -33,8 +33,8 @@ export class GoogleAnalyticsAuthService {
 
   public signIn() {
     this.googleAuthService.getAuth().subscribe((auth) => {
-      auth.signIn().then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
-    });
+      auth.signIn().then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err))
+    })
   }
 
   public signOut(): void {
@@ -50,6 +50,7 @@ export class GoogleAnalyticsAuthService {
 
   private signInSuccessHandler(res: GoogleUser) {
       this.user = res;
+      console.log(this.user.getAuthResponse().access_token);
       sessionStorage.setItem(
         GoogleAnalyticsAuthService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token
       );

@@ -11,6 +11,7 @@ import {AuthenticationService} from './authentication.service';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -22,12 +23,13 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authService = this.injector.get(AuthenticationService);
-
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.authService.getToken()}`
-      }
-    });
+    if (request.url.includes(environment.apiUrl)) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${this.authService.getToken()}`
+        }
+      });
+    }
     return next.handle(request).do((ev) => {
     }).catch((response: any) => {
       if (response instanceof HttpErrorResponse) {

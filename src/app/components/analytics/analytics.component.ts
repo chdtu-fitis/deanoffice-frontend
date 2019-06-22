@@ -3,7 +3,7 @@ import {GoogleApiService} from 'ng-gapi';
 import {GoogleAuthService} from 'ng-gapi';
 import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
 import {AnalyticsApiService} from "../../services/analytics-api.service";
-import { Chart } from 'chart.js';
+import {Chart} from 'chart.js';
 
 @Component({
   selector: 'analytics',
@@ -12,15 +12,14 @@ import { Chart } from 'chart.js';
 })
 export class AnalyticsComponent implements OnInit {
 
-  private viewID = "196449903";
   private reportRequest;
   private usersResponse;
   private sessionsResponse;
-  private users = [3,15,12,1,4,2,13];
-  private sessions = [4,25,23,2,6,4,37];
+  private users = [3, 15, 12, 1, 4, 2, 13];
+  private sessions = [4, 25, 23, 2, 6, 4, 37];
   public usersChart = {};
   public sessionsChart = {};
-
+  private labels = ['...', '...', '...', '...', '...', '...'];
 
   constructor(
     private googleAnalyticsAuthService: GoogleAnalyticsAuthService,
@@ -45,112 +44,42 @@ export class AnalyticsComponent implements OnInit {
     this.googleAnalyticsAuthService.signOut();
   }
 
-  public setReportRequest (startDate, endDate, expression){
-    this.reportRequest = {
-      "reportRequests": [
-        {
-          "viewId": this.viewID,
-          "dateRanges": [
-            {
-              "startDate": startDate,
-              "endDate": endDate
-            }
-          ],
-          "metrics": [
-            {
-              "expression": expression
-            }
-          ]
-        }
-      ]
-    }
-  }
-
-  public getSessions (startDate, endDate){
-    this.setReportRequest(startDate, endDate, "ga:sessions");
-    this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
+  public getSessions(startDate, endDate): object {
+    this.analyticsApi.getAnalytics(startDate, endDate, "ga:sessions").subscribe(cfg => {
       this.sessionsResponse = cfg;
       console.log(this.sessionsResponse)
     });
+    return this.sessionsResponse
   }
 
-  public getUsers (startDate, endDate): object {
-    this.setReportRequest(startDate, endDate, "ga:users");
-    this.analyticsApi.getAnalytics(this.reportRequest).subscribe(cfg => {
+  public getUsers(startDate, endDate){
+    this.analyticsApi.getAnalytics(startDate, endDate, "ga:sessions").subscribe(cfg => {
       this.usersResponse = cfg;
-      console.log(this.usersResponse)
     });
-    return this.usersResponse
   }
 
-  public setSessions(){
-    let respond = {
-      "reports": [
-        {
-          "columnHeader": {
-            "metricHeader": {
-              "metricHeaderEntries": [
-                {
-                  "name": "ga:sessions",
-                  "type": "INTEGER"
-                }
-              ]
-            }
-          },
-          "data": {
-            "rows": [
-              {
-                "metrics": [
-                  {
-                    "values": [
-                      "39"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "totals": [
-              {
-                "values": [
-                  "39"
-                ]
-              }
-            ],
-            "rowCount": 1,
-            "minimums": [
-              {
-                "values": [
-                  "39"
-                ]
-              }
-            ],
-            "maximums": [
-              {
-                "values": [
-                  "39"
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    };
+  public setSessions() {
+    // this.users.push(this.getSessions('7daysAgo','today'));
+    // this.users.push(respond.reports);
+  }
+  public setUsers() {
     // this.users.push(this.getSessions('7daysAgo','today'));
     // this.users.push(respond.reports);
   }
 
-  public setCharts (){
-    // this.getUsers('today','today');
-    // this.getSessions('today','today');
+  public setCharts() {
+    this.getUsers('today', 'today');
+    console.log(this.usersResponse);
+    // this.getSessions('7daysAgo','today');
     this.setUsersChart();
     this.setSessionsChart();
   }
 
-  public setUsersChart (){
+  public setUsersChart() {
     this.usersChart = new Chart('usersCanvas', {
       type: 'line',
       data: {
-        labels: ['...','...','...','...','...','...','Today'],
+        labels: [...this.labels, 'Today'],
         datasets: [{
           data: this.users,
           label: "Users",
@@ -167,11 +96,11 @@ export class AnalyticsComponent implements OnInit {
     });
   }
 
-  public setSessionsChart (){
+  public setSessionsChart() {
     this.sessionsChart = new Chart('sessionsCanvas', {
       type: 'line',
       data: {
-        labels: ['...','...','...','...','...','...','Today'],
+        labels: [...this.labels, 'Today'],
         datasets: [{
           data: this.sessions,
           label: "Sessions",
@@ -187,5 +116,4 @@ export class AnalyticsComponent implements OnInit {
       }
     });
   }
-
 }
