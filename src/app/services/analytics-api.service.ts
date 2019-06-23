@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {GoogleAnalyticsAuthService} from "./google-analytics-auth.service";
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AnalyticsApiService {
 
-  private viewID = "196449903";
+  private viewID = environment.view_id;
   private url = 'https://analyticsreporting.googleapis.com/v4/reports:batchGet';
 
   private httpOptions = {
@@ -17,17 +18,12 @@ export class AnalyticsApiService {
   constructor(private http: HttpClient) {
   }
 
-  setReportRequestBody(startDate, endDate, expression): object {
+  setReportRequestBody(dateRanges, expression): object {
     return {
       "reportRequests": [
         {
           "viewId": this.viewID,
-          "dateRanges": [
-            {
-              "startDate": startDate,
-              "endDate": endDate
-            }
-          ],
+          "dateRanges": dateRanges,
           "metrics": [
             {
               "expression": expression
@@ -38,8 +34,8 @@ export class AnalyticsApiService {
     }
   }
 
-  getAnalytics(startDate, endDate, expression) {
-    let body = this.setReportRequestBody(startDate, endDate, expression);
+  getAnalytics(dateRanges, expression) {
+    let body = this.setReportRequestBody(dateRanges, expression);
     return this.http.post(this.url, body, this.httpOptions)
   }
 }

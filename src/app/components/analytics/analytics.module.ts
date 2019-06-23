@@ -18,9 +18,10 @@ import {
 import {AnalyticsComponent} from "./analytics.component";
 import {GoogleAnalyticsAuthService} from "../../services/google-analytics-auth.service";
 import {AnalyticsApiService} from "../../services/analytics-api.service";
+import {environment} from '../../../environments/environment';
 
 let gapiClientConfig: NgGapiClientConfig = {
-  client_id: "1099349836573-dlcq5gbttttj702il50gs8rkq074dunu.apps.googleusercontent.com",
+  client_id: environment.client_id,
   discoveryDocs: ["https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"],
   scope: [
     "https://www.googleapis.com/auth/analytics.readonly",

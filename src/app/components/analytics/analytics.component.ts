@@ -12,7 +12,7 @@ import {Chart} from 'chart.js';
 })
 export class AnalyticsComponent implements OnInit {
 
-  private reportRequest;
+  showCharts = false;
   private usersResponse;
   private sessionsResponse;
   private users = [3, 15, 12, 1, 4, 2, 13];
@@ -44,33 +44,70 @@ export class AnalyticsComponent implements OnInit {
     this.googleAnalyticsAuthService.signOut();
   }
 
-  public getSessions(startDate, endDate): object {
-    this.analyticsApi.getAnalytics(startDate, endDate, "ga:sessions").subscribe(cfg => {
+  public generateDataRanges(startDate, endDate): object {
+    let dataRanges = [
+      {
+        "startDate": startDate,
+        "endDate": startDate
+      },
+      {
+        "startDate": '6DaysAgo',
+        "endDate": '6DaysAgo'
+      },
+      {
+        "startDate": '5DaysAgo',
+        "endDate": '5DaysAgo'
+      },
+      {
+        "startDate": '4DaysAgo',
+        "endDate": '4DaysAgo'
+      },
+      {
+        "startDate": '3DaysAgo',
+        "endDate": '3DaysAgo'
+      },
+      {
+        "startDate": '2DaysAgo',
+        "endDate": '2DaysAgo'
+      },
+      {
+        "startDate": '1DaysAgo',
+        "endDate": '1DaysAgo'
+      },
+      {
+        "startDate": endDate,
+        "endDate": endDate
+      }];
+    return dataRanges
+  }
+
+  public getSessions(dateRanges) {
+    this.analyticsApi.getAnalytics(dateRanges, "ga:sessions").subscribe(cfg => {
       this.sessionsResponse = cfg;
-      console.log(this.sessionsResponse)
+      console.log(cfg);
+      this.showCharts = true;
     });
-    return this.sessionsResponse
   }
 
-  public getUsers(startDate, endDate){
-    this.analyticsApi.getAnalytics(startDate, endDate, "ga:sessions").subscribe(cfg => {
+  public getUsers(dateRanges) {
+    this.analyticsApi.getAnalytics(dateRanges, "ga:sessions").subscribe(cfg => {
       this.usersResponse = cfg;
+      console.log(cfg);
+      this.showCharts = true;
     });
   }
 
-  public setSessions() {
-    // this.users.push(this.getSessions('7daysAgo','today'));
-    // this.users.push(respond.reports);
+  public setSessions(dateRanges) {
+    this.getSessions(dateRanges)
   }
-  public setUsers() {
-    // this.users.push(this.getSessions('7daysAgo','today'));
-    // this.users.push(respond.reports);
+
+  public setUsers(dateRanges) {
+    this.getUsers(dateRanges);
   }
 
   public setCharts() {
-    this.getUsers('today', 'today');
-    console.log(this.usersResponse);
-    // this.getSessions('7daysAgo','today');
+    this.setUsers(this.generateDataRanges('7daysAgo', 'today'));
+    this.setSessions(this.generateDataRanges('7daysAgo', 'today'));
     this.setUsersChart();
     this.setSessionsChart();
   }

@@ -6,14 +6,18 @@
     <button type="button" class="btn btn-info" (click)="setCharts()">Сформувати звіти</button>
     <button type="button" class="btn btn-info" onClick='location.href="https://analytics.google.com/analytics/web/"'>Перейти в Google Analytics</button>
     <button type="button" class="btn btn-info" onClick='location.href="https://drive.google.com/drive/folders/1U2x4ZFvxgiZPheS9_T-dxk_IGzaArV4P?usp=sharing"'>Перейти в архів звітів</button>
-    <button type="button" class="btn btn-info"(click)="signOut()">Вийти з Google account</button>
+    <button type="button" class="btn btn-info" (click)="signOut()">Вийти з Google account</button>
 </div>
 
+<div *ngIf="showCharts">
   <div class="row" *ngIf='isLoggedIn()'>
-    <div class="chart-container" style="position: relative; height:20vh; width:40vw" *ngIf="usersChart">
-      <canvas class="chartCanvas" id="usersCanvas">{{ usersChart }}</canvas>
-    </div>
-    <div class="chart-container" style="position: relative; height:20vh; width:40vw" *ngIf="sessionsChart">
-      <canvas class="chartCanvas" id="sessionsCanvas">{{ sessionsChart }}</canvas>
+    <div class="row" *ngIf="!showCharts">
+      <div class="chart-container" style="position: relative; height:20vh; width:40vw" *ngIf="usersChart">
+        <canvas class="chartCanvas" id="usersCanvas">{{ usersChart }}</canvas>
+      </div>
+      <div class="chart-container" style="position: relative; height:20vh; width:40vw" *ngIf="sessionsChart">
+        <canvas class="chartCanvas" id="sessionsCanvas">{{ sessionsChart }}</canvas>
+      </div>
     </div>
   </div>
+</div>
