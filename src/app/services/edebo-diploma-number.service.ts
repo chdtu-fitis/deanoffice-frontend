@@ -20,8 +20,9 @@ export class EdeboDiplomaNumberService {
       .pipe(catchError(forObservable<DiplomaListDTO>('upload diplomaNumbers')))
   }
 
-  updateDiplomaData(data: DiplomaNumberForSaveDTO[]) {
-    return this._http.put<UpdateDiplomaAnalytics>(this.url, data)
+  updateDiplomaData(data: DiplomaNumberForSaveDTO[], dates) {
+    return this._http.put<UpdateDiplomaAnalytics>(
+      `${this.url}?diplomaDate=${dates.diplomaDate}&supplementDate=${dates.supplementDate}`, data)
       .pipe(catchError(forObservable<UpdateDiplomaAnalytics>('save diplomaNumbers')))
   }
 

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DebtorStatisticsService} from '../../../services/debtor-statistics.service';
 import {SpecializationWithDebtorsStatistics} from '../../../models/reports/debtors-statistics/SpecializationWithDebtorsStatistics';
+import {Utils} from '../../shared/utils';
 
 
 @Component({
@@ -14,7 +15,6 @@ export class DebtorStatisticsComponent implements OnInit {
   loading: boolean;
   loadingDocument: boolean;
   sessionSeason: string;
-  sessionYears: string;
   currentDate: Date;
 
   constructor(private report: DebtorStatisticsService) {
@@ -23,8 +23,7 @@ export class DebtorStatisticsComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.currentDate = new Date();
-    this.sessionSeason = this.getSessionSeason();
-    this.sessionYears = this.getSessionYears();
+    this.sessionSeason = Utils.isWinterSeason() ? 'зимньої' : 'літньої';
     this.report.getDebts().subscribe(result => {
       this.specializationDebtors = result;
       this.loading = !this.loading;
@@ -35,16 +34,9 @@ export class DebtorStatisticsComponent implements OnInit {
     return value !== 'ФІТС' ? value : 'ФІТІС';
   }
 
-  private getSessionYears() {
+  get sessionYears() {
     const currentYear = this.currentDate.getFullYear();
-    return (currentYear - 1) + ' - ' + currentYear;
-  }
-
-  private getSessionSeason() {
-    const summerSessionStart = new Date(`06/10/${this.currentDate.getFullYear()}`);
-    const winterSessionStart = new Date(`12/17/${this.currentDate.getFullYear()}`);
-    const winterSeason = this.currentDate > winterSessionStart || this.currentDate < summerSessionStart;
-    return winterSeason ? 'зимньої' : 'літньої';
+    return `${(currentYear - 1)} - ${currentYear}`;
   }
 
   onMakeDocument() {

@@ -1,7 +1,7 @@
 
 export class Person {
   id: number;
-  active: boolean;
+  active?: boolean;
   surname: string;
   name: string;
   patronimic: string;

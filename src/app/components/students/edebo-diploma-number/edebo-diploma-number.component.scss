@@ -1,15 +1,19 @@
 .modal-full {
   min-width: 95%;
   margin: 0 auto;
-}
 
-.modal-full .modal-content {
-  height: 98vh;
-}
+  .tab-body {
+    height: 70vh;
+    overflow: auto;
 
-.modal-full .tab-body {
-  height: 70vh;
-  overflow: auto;
+    &.correct-data table {
+      border:2px solid green;
+    }
+
+    &.wrong-data table {
+      border:2px solid red;
+    }
+  }
 }
 
 .loader__content {
@@ -20,10 +24,4 @@
   margin: 80px auto;
 }
 
-[heading = 'Коректні дані'] table{
-  border:2px solid green;
-}
 
-[heading = 'Некоректні дані'] table{
-  border:2px solid red;
-}
