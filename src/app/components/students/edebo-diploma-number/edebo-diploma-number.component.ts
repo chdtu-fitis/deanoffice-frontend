@@ -1,13 +1,11 @@
-import {Component, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap';
-import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups';
-import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingThesisDataRed';
-import {ThesisInputService} from '../../../services/thesis-input.service';
-import {DiplomaListDTO} from '../../../models/edebo-diploma-number/DiplomaListDTO';
+
 import {EdeboDiplomaNumberService} from '../../../services/edebo-diploma-number.service';
 import {DiplomaAndSynchronizedStudentDTO} from '../../../models/edebo-diploma-number/DiplomaAndSynchronizedStudentDTO';
 import {MissingEdeboDiplomaRedDTO} from '../../../models/edebo-diploma-number/MissingEdeboDiplomaRedDTO';
 import {DiplomaNumberForSaveDTO} from '../../../models/edebo-diploma-number/DiplomaNumberForSaveDTO';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'edebo-diploma-number',
@@ -32,8 +30,10 @@ export class EdeboDiplomaNumberComponent {
   notUpdatedDiplomaData: string[];
   updatedDiplomaData: number;
   isNotUpdatedDiplomaData: boolean;
+  form: FormGroup;
 
-  constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService) {
+  constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService, private fb: FormBuilder) {
+
   }
 
   setFileName(event) {
@@ -70,7 +70,7 @@ export class EdeboDiplomaNumberComponent {
 
   saveDiplomaNumbers() {
     const diplomaNumberDataForSaveDTOS = this.getStudentsWithCorrectData();
-    this.edeboDiplomaNumberService.updateDiplomaData(diplomaNumberDataForSaveDTOS).subscribe(
+    this.edeboDiplomaNumberService.updateDiplomaData(diplomaNumberDataForSaveDTOS, this.form.value).subscribe(
       response => {
         this.updatedDiplomaData = response.updatedDiplomaData;
         this.notUpdatedDiplomaData = response.notUpdatedDiplomaData;
@@ -101,6 +101,10 @@ export class EdeboDiplomaNumberComponent {
     this.fileName = 'Виберіть файл';
     this.fileField = true;
     this.downloadButton = true;
+    this.form = this.fb.group({
+      diplomaDate: ['', Validators.required],
+      supplementDate: ['', Validators.required],
+    });
     this.modal.show();
   }
 }
