@@ -25,5 +25,12 @@ export class Utils {
     }, [[], []]);
   }
 
+  static isWinterSeason() {
+    const currentDate = new Date();
+    const summerSessionStart = new Date(`06/10/${currentDate.getFullYear()}`);
+    const winterSessionStart = new Date(`12/17/${currentDate.getFullYear()}`);
+    return currentDate > winterSessionStart || currentDate < summerSessionStart;
+  }
+
 
 }

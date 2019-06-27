@@ -6,6 +6,7 @@ import {DiplomaAndSynchronizedStudentDTO} from '../../../models/edebo-diploma-nu
 import {MissingEdeboDiplomaRedDTO} from '../../../models/edebo-diploma-number/MissingEdeboDiplomaRedDTO';
 import {DiplomaNumberForSaveDTO} from '../../../models/edebo-diploma-number/DiplomaNumberForSaveDTO';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Utils} from '../../shared/utils';
 
 @Component({
   selector: 'edebo-diploma-number',
@@ -33,8 +34,35 @@ export class EdeboDiplomaNumberComponent {
   form: FormGroup;
   allRowsIsSelected = true;
 
-  constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService, private fb: FormBuilder) {
+  constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService, private fb: FormBuilder) {}
 
+  onShow() {
+    this.fileName = 'Виберіть файл';
+    this.fileField = true;
+    this.downloadButton = true;
+    const currentYear = new Date().getFullYear();
+    this.form = this.fb.group({
+      diplomaDate: ['', Validators.required],
+      supplementDate: ['', Validators.required],
+    });
+    if (Utils.isWinterSeason()) {
+      this.form.controls.diplomaDate.setValue(`${currentYear}-01-30`);
+      this.form.controls.supplementDate.setValue(`${currentYear}-01-30`);
+    } else {
+      this.form.controls.diplomaDate.setValue(`${currentYear}-06-30`);
+      this.form.controls.supplementDate.setValue(`${currentYear}-06-30`);
+    }
+    this.modal.show();
+  }
+
+  hideModal() {
+    this.modal.hide();
+
+    setTimeout(() => {
+      this.tableView = false;
+      this.saveButton = false;
+      this.resultView = false;
+    }, 500);
   }
 
   setFileName(event) {
@@ -60,16 +88,6 @@ export class EdeboDiplomaNumberComponent {
     );
   }
 
-  hideModal() {
-    this.modal.hide();
-
-    setTimeout(() => {
-      this.tableView = false;
-      this.saveButton = false;
-      this.resultView = false;
-    }, 500);
-  }
-
   saveDiplomaNumbers() {
     const diplomaNumberDataForSaveDTOS = this.getStudentsWithCorrectData();
     this.edeboDiplomaNumberService.updateDiplomaData(diplomaNumberDataForSaveDTOS, this.form.value).subscribe(
@@ -86,29 +104,8 @@ export class EdeboDiplomaNumberComponent {
   }
 
   private getStudentsWithCorrectData(): DiplomaNumberForSaveDTO[] {
-    const diplomaSynchronizedData = this.diplomaSynchronizedData.filter(student => student.selected);
-    return diplomaSynchronizedData
-      .map(student => {
-        return {
-          id: student.id,
-          surname: student.surname,
-          name: student.name,
-          patronimic: student.patronimic,
-          diplomaSeriesAndNumber: student.diplomaSeriesAndNumber,
-          honor: student.honor
-        }
-      });
-  }
-
-  onShow() {
-    this.fileName = 'Виберіть файл';
-    this.fileField = true;
-    this.downloadButton = true;
-    this.form = this.fb.group({
-      diplomaDate: ['', Validators.required],
-      supplementDate: ['', Validators.required],
-    });
-    this.modal.show();
+    const selectedStudents = this.diplomaSynchronizedData.filter(student => student.selected);
+    return selectedStudents.map(student => new DiplomaNumberForSaveDTO(student));
   }
 
   changeAllIsSelected(isSelected: boolean): void {
