@@ -43,16 +43,21 @@
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <tr>
-                <td>№</td>
-                <td>Прізвище</td>
-                <td>Ім'я</td>
-                <td>По-батькові</td>
-                <td>Серія та номер диплому</td>
-                <td>Спеціальність</td>
-                <td>Група</td>
+                <th>
+                  <input type="checkbox" (change)="changeAllIsSelected($event.target.checked)"
+                         [ngModel]="allRowsIsSelected">
+                </th>
+                <th>№</th>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Серія та номер диплому</th>
+                <th>Спеціальність</th>
+                <th>Група</th>
               </tr>
               </thead>
               <tr *ngFor="let student of diplomaSynchronizedData let i = index">
+                <td><input type="checkbox" checked [(ngModel)]="student.selected" (change)="onStudentSelect()"></td>
                 <td>{{ i + 1 }}</td>
                 <td>{{ student?.surname}}</td>
                 <td>{{ student?.name }}</td>
@@ -67,14 +72,14 @@
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
               <tr>
-                <td>№</td>
-                <td>Прізвище</td>
-                <td>Ім'я</td>
-                <td>По-батькові</td>
-                <td>Серія та номер диплому</td>
-                <td>Спеціальність</td>
-                <td>Група</td>
-                <td>Повідомлення</td>
+                <th>№</th>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Серія та номер диплому</th>
+                <th>Спеціальність</th>
+                <th>Група</th>
+                <th>Повідомлення</th>
               </tr>
               </thead>
               <tr *ngFor="let student of missingRedData; let i = index">

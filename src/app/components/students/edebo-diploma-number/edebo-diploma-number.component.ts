@@ -31,6 +31,7 @@ export class EdeboDiplomaNumberComponent {
   updatedDiplomaData: number;
   isNotUpdatedDiplomaData: boolean;
   form: FormGroup;
+  allRowsIsSelected = true;
 
   constructor(private edeboDiplomaNumberService: EdeboDiplomaNumberService, private fb: FormBuilder) {
 
@@ -50,6 +51,7 @@ export class EdeboDiplomaNumberComponent {
     this.edeboDiplomaNumberService.uploadDiplomaNumberDoc(formData).subscribe(
       res => {
         this.diplomaSynchronizedData = res.diplomaAndStudentSynchronizedDataDTOs;
+        this.diplomaSynchronizedData.map(student => student.selected = true);
         this.missingRedData = res.missingDataRedDTOs;
         this.uploadInProgress = false;
         this.downloadButton = false;
@@ -84,7 +86,8 @@ export class EdeboDiplomaNumberComponent {
   }
 
   private getStudentsWithCorrectData(): DiplomaNumberForSaveDTO[] {
-    return this.diplomaSynchronizedData
+    const diplomaSynchronizedData = this.diplomaSynchronizedData.filter(student => student.selected);
+    return diplomaSynchronizedData
       .map(student => {
         return {
           id: student.id,
@@ -107,4 +110,14 @@ export class EdeboDiplomaNumberComponent {
     });
     this.modal.show();
   }
+
+  changeAllIsSelected(isSelected: boolean): void {
+    this.diplomaSynchronizedData.forEach(student => student.selected = isSelected);
+    this.allRowsIsSelected = isSelected;
+  }
+
+  onStudentSelect() {
+    this.allRowsIsSelected = this.diplomaSynchronizedData.every(student => student.selected);
+  }
+
 }
