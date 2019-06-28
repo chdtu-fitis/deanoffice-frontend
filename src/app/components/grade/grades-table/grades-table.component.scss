@@ -7,13 +7,10 @@ table {
   @extend .table-responsive;
   @extend .table-sm;
   font-size: 14px;
-}
-
-td > input {
-  background: none;
-  border: none;
-  text-align: center;
-  width: 100%;
+  th, td {
+    outline: 1px solid #dee2e6;
+    border: none !important;
+  }
 }
 
 input::-webkit-outer-spin-button,
@@ -21,91 +18,86 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.td-student {
-  white-space: nowrap;
-}
+input {
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
 
-.btn-courses {
-  @extend .btn-light;
-  cursor: pointer;
-}
+  &.not-correct {
+    outline: 1px solid red !important;
+  }
 
-.not-correct {
-  outline: 1px solid red;
-}
+  &.not-on-time {
+    outline: 1px solid black !important;
+  }
 
-.not-on-time {
-  outline: 1px solid black !important;
-}
-
-.without-course {
-  background-color: #dc3545 !important;
-}
-
-.updated-grade {
-  background-color: #ffc107 !important;
-}
-
-.updated-academic-difference {
-  background-color: #ff9307 !important;
-}
-
-.academic-difference {
-  background-color: #28a745 !important;
-}
-
-.course-with-academic-difference {
-  background-color: #aeea00;
-  &:hover {
-    background-color: #79b700;
+  &.remove-grade {
+    height: 20px;
+    cursor: pointer;
+    &:disabled {
+      cursor: auto;
+    }
   }
 }
 
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+td {
+  &.without-course {
+    background-color: #dc3545 !important;
+  }
+
+  &.academic-difference {
+    background-color: #28a745 !important;
+  }
+
+  &.updated-academic-difference {
+    background-color: #ff9307 !important;
+  }
+
+  &.updated-grade {
+    background-color: #ffc107 !important;
+  }
 }
 
-input[type="checkbox"]:disabled {
-  cursor: auto;
-}
-
-
-.btn-courses {
-  position: sticky;
-  top: 0;
+.course-with-academic-difference {
+  background-color: #aeea00 !important;
+  &:hover {
+    background-color: #79b700 !important;
+  }
 }
 
 .grades-table {
-  height: 450px;
+  height: 100%;
   overflow: auto;
+
+  .sticky-col {
+    position: sticky;
+    top: 0;
+    background-color: white;
+
+    &.btn-courses {
+      cursor: pointer;
+    }
+  }
+
+  .first-col {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    left: 0;
+    text-align: center;
+  }
+
+  .second-col {
+    width: 150px;
+    left: 50px;
+  }
 }
 
 .grades-table-wrapper {
   position: relative;
+  height: 80%;
   overflow: auto;
-}
-
-
-.sticky-col {
-  position: sticky;
-  top: 0;
-  background-color: white;
-}
-
-.first-col {
-  width: 100px;
-  min-width: 100px;
-  max-width: 100px;
-  left: 0;
-}
-
-.second-col {
-  width: 150px;
-  min-width: 150px;
-  max-width: 150px;
-  left: 100px;
 }
 
 .z-index-2 {
@@ -115,4 +107,3 @@ input[type="checkbox"]:disabled {
 .z-index-1 {
   z-index: 1;
 }
-

@@ -16,7 +16,7 @@
           Семестр: {{ selectSemester }}
         </th>
         <th *ngFor="let courseForGroup of coursesForGroup" scope="row"
-            class="btn-courses"
+            class="sticky-col btn-courses"
             [class.course-with-academic-difference]="courseForGroup.academicDifference"
             (click)="openStatement(courseForGroup)">
             {{courseForGroup.course.courseName?.name}} (<b>{{ courseForGroup.course.knowledgeControl.name }}</b>)
@@ -26,7 +26,7 @@
       <tbody>
         <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
           <td class="sticky-col first-col z-index-1">{{studentId + 1}}</td>
-          <td class="td-student sticky-col second-col z-index-1">
+          <td class="text-nowrap sticky-col second-col z-index-1">
             {{studentDegree.student | nameWithInitials}}
           </td>
           <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
@@ -44,7 +44,7 @@
                      [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
                      [class.not-on-time]="!grade.onTime && !(grade.points < 60)"
               />
-              <input type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
+              <input class="remove-grade" type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
                      [checked]="selectedGradeForDelete?.id === grade.id" (click)="selectGradeForDelete(grade)"
                      title="{{grade.points}}">
             </td>
@@ -54,7 +54,7 @@
   </table>
 </div>
 
-<table class="mt-3">
+<table class="mt-3" *ngIf="loadingGrades">
   <thead>
     <tr>
       <td>не було предмету</td>
