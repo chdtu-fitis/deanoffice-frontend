@@ -8,7 +8,7 @@
     <tbody>
     <ng-container *ngFor="let studentDegree of studentsDegree; let studentId=index">
         <tr>
-            <td class="td-student">{{studentDegree.student.surname}}
+            <td class="text-nowrap">{{studentDegree.student.surname}}
                 {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
             </td>
             <td [class.bg-warning]="studentDegree.grade?.changed"
