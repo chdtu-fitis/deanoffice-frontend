@@ -26,6 +26,7 @@ import {TeacherService} from './teacher.service';
 import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 import {CourseService} from './course.service';
 import {PositionService} from './position.service';
+import {ConsolidatedDocumentService} from './consolidated-document.service';
 
 export const SERVICES = [
   DegreeService,
@@ -54,7 +55,9 @@ export const SERVICES = [
   DebtorStatisticsService,
   TeacherService,
   PositionService,
-  StudyYearFinishService
+  StudyYearFinishService,
+  PositionService,
+  ConsolidatedDocumentService,
 ];
 
 export const GUARDS = [
