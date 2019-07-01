@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {StudentService} from "../../../services/student.service";
-import {StudentStipendService} from "../../../services/student-stipend.service";
-import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipendInfo";
+import {StudentStipendService} from '../../../services/student-stipend.service';
+import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipendInfo';
 
 @Component({
   selector: 'app-student-stipend',
@@ -9,13 +8,16 @@ import {StudentStipendInfo} from "../../../models/student-stipend/StudentStipend
   styleUrls: ['./student-stipend.component.scss']
 })
 export class StudentStipendComponent implements OnInit {
+  openInput = 'sting';
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
+  selectedStudentGroupName = '';
+  numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   constructor(private studentStipendService: StudentStipendService) {
   }
 
   isDebtor(ssi: StudentStipendInfo): string {
-    if(ssi.debtCourses.length > 0)
+    if (ssi.debtCourses.length > 0)
       return 'debtor';
     else
       return '';
@@ -40,6 +42,9 @@ export class StudentStipendComponent implements OnInit {
            this.studentStipendInfo[ssi.groupName] = [];
            this.studentStipendInfo[ssi.groupName].push(ssi);
          }
+         ssi.oldExtraPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ?  '' : ssi.extraPoints + '';
+         ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 :
+           ssi.extraPoints + (ssi.averageGrade * 0.9);
        })
     });
   }
@@ -47,4 +52,34 @@ export class StudentStipendComponent implements OnInit {
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
-}
+  toNumber(e) {
+    if (e !== '') {
+      return Number(e);
+    } else {
+      return e = null;
+    }
+  }
+  makeFinalPoint(extraPoint, grade) {
+    return extraPoint + (grade * 0.9);
+  }
+  showValueInput(e) {
+    if (e === 'null' || e === undefined) {
+      return '';
+    } else {
+      return e;
+    }
+  }
+
+  saveExtraPoints(group) {
+    let studentsExtraPoints = [];
+    let groupStipendInfo = this.studentStipendInfo[group];
+    for (let element of groupStipendInfo) {
+      if ( element.extraPoints !== null) {
+          studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
+      }
+    }
+    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
+      this.openInput = this.selectedStudentGroupName = '';
+    });
+   }
+ }

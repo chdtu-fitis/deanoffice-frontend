@@ -3,12 +3,15 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class CurrentUserService {
 
-  facultyId() {
+  facultyId(): number {
     return this.getUser().facultyId
   }
 
   name() {
-    return this.getUser().username
+    const user = this.getUser();
+    if (user) {
+      return user.username
+    }
   }
 
   private getUser() {

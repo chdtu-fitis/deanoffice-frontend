@@ -3,10 +3,10 @@ import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
-import {Degree} from "../models/Degree";
 import {HttpClient} from "@angular/common/http";
-import {DataForSupplementStudentCheck} from "../models/custom/DataForSupplementStudentCheck";
 import {Observable} from "rxjs";
+import {DataForSupplementStudentCheck} from "../models/custom/DataForSupplementStudentCheck";
+import {DataForSupplementCourseTranslationCheck} from '../models/custom/DataForSupplementCourseTranslationCheck';
 
 @Injectable()
 export class DiplomaSupplementService {
@@ -19,9 +19,9 @@ export class DiplomaSupplementService {
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування додатку до диплома', [])))
   }
 
-  buildGradePercent(groupId: string): any {
-    const url = `${this.documentsUrl}/percentagereport/groups/${groupId}/docx`;
-    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування документу з процентами оцінок студентів', [])))
+  buildGraduatesReport(groupId: string): any {
+    const url = `${this.documentsUrl}/graduates/${groupId}/report`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування відомості випускників', [])))
   }
 
   buildFullGradesTableReport(groupId: string): any {
@@ -39,5 +39,13 @@ export class DiplomaSupplementService {
     return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
   }
 
+  checkStudentsGrades(degreeId: string): Observable<DataForSupplementStudentCheck[]> {
+    const url = `${this.documentsUrl}/supplements/grade-check`;
+    return this.http.get<DataForSupplementStudentCheck[]>(url,{params: {degreeId}});
+  }
 
+  checkCoursesTranslation(degreeId: string): Observable<DataForSupplementCourseTranslationCheck[]> {
+    const url = `${this.documentsUrl}/supplements/check-courses-translation`;
+    return this.http.get<DataForSupplementCourseTranslationCheck[]>(url,{params: {degreeId}});
+  }
 }

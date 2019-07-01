@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 import { StudentService } from '../../../services/student.service';
-import {academicVacationColumnDefs, academicVacationColumns, defaultColDef, LOCALE_TEXT} from '../constants';
+import {academicVacationColumnDefs} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
+import {StudentsTableComponent} from '../students-table/students-table.component';
 
 @Component({
   selector: 'app-students-in-vacation',
@@ -10,21 +11,14 @@ import { StudentDegree } from '../../../models/StudentDegree';
   styleUrls: ['./students-in-vacation.component.scss'],
 })
 export class StudentsInVacationComponent implements OnInit {
-  columns: string[] = academicVacationColumns;
+  @ViewChild('studentsInVacationTable') studentsInVacationTable: StudentsTableComponent;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   loading: boolean;
-  private gridApi;
-  private gridColumnApi;
   columnDefs = academicVacationColumnDefs;
-  defaultColDef = defaultColDef;
-  localeText = LOCALE_TEXT;
   count;
-  getRowNodeId = (data) => data.id;
 
-  constructor(
-    private studentService: StudentService,
-  ) { }
+  constructor(private studentService: StudentService) { }
 
   ngOnInit() {
     this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]) => {
@@ -32,27 +26,19 @@ export class StudentsInVacationComponent implements OnInit {
     });
   }
 
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    this.gridApi.sizeColumnsToFit();
+  onSelectionChanged(selected) {
+    this.selected = selected;
   }
 
-  onSelectionChanged() {
-    this.selected = this.gridApi.getSelectedRows();
+  onItemsCountUpdate(count) {
+    this.count = count;
   }
 
-  onModelUpdated(params) {
-    this.count = params.api.getDisplayedRowCount();
-  }
-
-  onSelect(index) {
-    this.gridApi.ensureIndexVisible(index, 'top');
-    const node = this.gridApi.getRowNode(this.rows[index].id);
-    node.setSelected(true, true);
+  onSearch(student: StudentDegree) {
+    this.studentsInVacationTable.showStudent(student);
   }
 
   onRenew() {
-    this.gridApi.updateRowData({ remove: this.selected });
+    this.studentsInVacationTable.onRenew(this.selected);
   }
 }

@@ -13,8 +13,10 @@
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/specialities">Спеціальності</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/specializations">Спеціалізації (освітні програми)</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/groups">Групи</a>
-          <a class="dropdown-item" routerLinkActive="active" href="#">Предмети</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/course">Предмети</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/courses-for-groups">Предмети для груп</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/teachers">Викладачі</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/departments">Кафедри</a>
         </div>
       </li>
 
@@ -31,6 +33,7 @@
              routerLink="/dashboard/students/in-vacation" [routerLinkActiveOptions]="{exact: true}">Студенти в академ. відпустці</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/grades">Оцінки</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/stipend" [routerLinkActiveOptions]="{exact: true}">Стипендія</a>
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/reports/debts" [routerLinkActiveOptions]="{exact: true}">Звіт з успішності</a>
         </div>
       </li>
 
@@ -39,7 +42,8 @@
           Кінець року
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-year-end">
-          <a class="dropdown-item" routerLinkActive="active" href="#">Закінчити навчальний рік</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/finish-study-year">Закінчити навчальний рік</a>
         </div>
       </li>
 
@@ -56,7 +60,8 @@
              routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
              routerLink="/dashboard/documents/personal-file-statement">Виписки в особові справи</a>
-          <a class="dropdown-item" routerLinkActive="active" href="#">Виписки в журнали</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/documents/additional-documents">Додаткові документи</a>
         </div>
       </li>
     </ul>

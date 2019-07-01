@@ -1,19 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import {NotificationsService} from 'angular2-notifications';
+import {TypeaheadMatch} from 'ngx-bootstrap';
+
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {CourseName} from '../../../models/CourseName';
-import {Subject} from 'rxjs/Subject';
-import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import {NotificationsService} from "angular2-notifications";
-import {StudentGroup} from "../../../models/StudentGroup";
 
 @Component({
   selector: 'course-creation',
@@ -22,21 +17,17 @@ import {StudentGroup} from "../../../models/StudentGroup";
   providers: [CourseService, KnowledgeControlService]
 })
 export class CourseCreationComponent implements OnInit {
-  @Input() selectedGroup: StudentGroup;
   @Input() selectedSemester: number;
+  @Input() courses: Course[];
   @Output() onCourseAdding = new EventEmitter();
   @Output() onCourseCreation = new EventEmitter();
-  course = new Course();
   knowledgeControl: KnowledgeControl[] = [];
-  // TODO use Reactive forms
-  form;
+  form: FormGroup;
   success = false;
   failCreated = undefined;
   fail = undefined;
   courseNames: CourseName[];
-  @ViewChild('instance') instance: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
+  courseNamesArray: string[];
   alertOptions = {
     showProgressBar: false,
     timeOut: 5000,
@@ -48,98 +39,98 @@ export class CourseCreationComponent implements OnInit {
 
   constructor(private courseService: CourseService,
               private knowledgeControlService: KnowledgeControlService,
-              private _service: NotificationsService) {
-    this.course.hoursPerCredit = 30;
+              private _service: NotificationsService,
+              private fb: FormBuilder) {
+    this.form = fb.group({
+      courseName: this.fb.group({
+        id: '',
+        name: ['', Validators.required],
+      }),
+      hours: ['',  Validators.min(0)],
+      semester: '',
+      hoursPerCredit: ['', Validators.required],
+      knowledgeControl: ['', Validators.required],
+      credits: ''
+    });
+    this.form.controls.hoursPerCredit.setValue(30);
   }
-
 
   ngOnInit() {
     this.knowledgeControlService.getAll().subscribe(kc => {
       this.knowledgeControl = kc;
-      this.course.knowledgeControl = this.knowledgeControl[0];
+      this.form.controls.knowledgeControl.setValue(this.knowledgeControl[0]);
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+      this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
   }
 
-  formatter = (result: CourseName) => result.name;
+  get courseName() {
+    return this.form.controls.courseName as FormGroup;
+  }
 
+  onSelect(event: TypeaheadMatch): void {
+    this.form.controls.courseName.setValue(event.item);
+  }
 
-  search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200).distinctUntilChanged()
-      .merge(this.focus$)
-      .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
-      .map(term => term === '' ? []
-        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 16));
-
-  checkCourseName(name) {
-    if (!name.id) {
-      const courseName = new CourseName();
-      courseName.name = name;
-      this.course.courseName = courseName;
+  checkCourseName(courseName) {
+    if (!this.courseNamesArray.includes(courseName.name)) {
+      this.courseName.controls.id.setValue('');
+      this.courseName.controls.name.setValue(courseName.name);
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.course.courseName);
-    this.courseService.createCourse(this.course).subscribe((course: Course) => {
-        this.success = true;
-        this.failCreated = false;
-        this.fail = false;
-        this.onCourseCreation.emit();
-        if (isAddingToCourseForGroup){
-          this.onCourseAdding.emit(course);
-        }
-      },
-      error => {
-        if (error.status === 422) {
-          this.failCreated = true;
-          this.success = false;
-        }
-        else {
-          this.success = false;
-          this.fail = true;
-        }
-        this.showAlert();
-      });
+    this.checkCourseName(this.courseName.value);
+    const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
+    if (courseIsAlreadyExist) {
+      this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
+    } else {
+      this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
+          this.success = true;
+          this.failCreated = false;
+          this.fail = false;
+          this.onCourseCreation.emit();
+          if (isAddingToCourseForGroup) {
+            this.onCourseAdding.emit(course);
+          }
+        },
+        error => {
+          if (error.status === 422) {
+            this.failCreated = true;
+            this.success = false;
+          } else {
+            this.success = false;
+            this.fail = true;
+          }
+          this.showAlert();
+        });
+    }
   }
 
   showAlert() {
-    if (this.success)
+    if (this.success) {
       this._service.success('Предмет створено',
         '',
         this.alertOptions);
-    if (this.failCreated)
+    }
+    if (this.failCreated) {
       this._service.error('Помилка',
         'Предмет вже існує або поля заповнені невірно!',
         this.alertOptions);
-    if (this.fail)
+    }
+    if (this.fail) {
       this._service.error('Невідома помилка',
         '',
         this.alertOptions);
-  }
-
-  get courseName() {
-    return this.form.get('courseName');
-  }
-
-  get semester() {
-    return this.form.get('semester');
-  }
-
-  get hours() {
-    return this.form.get('hours');
-  }
-
-  get kc() {
-    return this.form.get('kc');
+    }
   }
 
   private setCredits() {
-    this.course.credits = this.course.hours / this.course.hoursPerCredit;
+    const credits = this.form.controls.hours.value / this.form.controls.hoursPerCredit.value;
+    this.form.controls.credits.setValue(credits);
   }
 
 }

@@ -4,22 +4,36 @@
   </div>
   <div *ngIf="showPage" class="selection row">
     <div class="col-7">
-      <div class="row">
-        <div class="col-1 col-name">Група:</div>
-        <div class="col-3">
-          <select id="group" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedGroup"
+      <div class="menu-row">
+        <div class="element">
+          <div class="element-header">Група:</div>
+          <div class="col-2">
+            <select id="group" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedGroup"
                   (change)="onGroupChange()">
-            <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
-          </select>
+              <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+            </select>
+          </div>
         </div>
-        <div class="col-1 col-name-semester">Семестр:</div>
-        <div class="col-2">
-          <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
-                  (change)="onSemesterChange()&&refresh()">
-            <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
-          </select>
+        <div class="element">
+          <div class="element-header">Семестр:</div>
+          <div class="col-1">
+            <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
+                  (change)="onSemesterChange()">
+              <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+            </select>
+          </div>
         </div>
-        <div class="col-5">
+        <div class="element">
+          <div class="element-header">Годин за кредит:</div>
+          <div class="col-1">
+            <select class="form-control mr-2 ng-pristine ng-valid ng-touched"
+                [(ngModel)]="selectedHoursPerCredit" (change)="onChangeHoursPerCredit()" [disabled]="hoursPerCreditCBDisabled">
+            <option [ngValue]="30">30</option>
+            <option [ngValue]="36">36</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-4">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
                  class="form-control mr-2 ng-pristine ng-valid ng-touched search">
         </div>
@@ -34,8 +48,12 @@
       </div>
     </div>
     <div class="col-5">
-      <course-creation (onCourseCreation)="onCourseCreation()" (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
-                       [selectedGroup]="selectedGroup" [selectedSemester]="selectedSemester"></course-creation>
+      <course-creation (onCourseCreation)="onCourseCreation()"
+                       (onCourseAdding)="selectedCourses.push($event)&&addCoursesToCoursesForGroup()"
+                       [selectedSemester]="selectedSemester"
+                       [courses]="courses"
+      >
+      </course-creation>
     </div>
   </div>
   <div class="row">
@@ -49,11 +67,21 @@
       <button type="button" class="btn btn-info copy" (click)="copyCourses()"
               *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи
       </button>
+      <button type="button" class="btn btn-warning" (click)="showGroupsDifferents()"
+      *ngIf="currentUserService.facultyId()==8">Порівняти предмети
+      </button>
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="showAcademicDifference"
+               (change)="onShowAcademicDifference()">
+        Відобразити академ.різницю
+      </label>
     </div>
   </div>
   <div class="course-for-group-table">
     <added-courses (onDateChange)="changeDate($event)"
                    (onTeacherChange)="changeTeacher($event)"
+                   (academicDifferenceChange)="onAcademicDifferenceChange($event)"
                    (onCoursesForGroup)="changeCoursesForGroup($event)"
                    (onCoursesForDeleteChange)="changeCoursesForDelete($event)"
                    [selectedSemester]="selectedSemester"

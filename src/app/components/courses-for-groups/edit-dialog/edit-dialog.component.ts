@@ -1,16 +1,16 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgbActiveModal, NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
-import {KnowledgeControl} from "../../../models/KnowlegeControl";
-import {KnowledgeControlService} from "../../../services/knowledge-control.service";
-import {CourseService} from "../../../services/course.service";
-import {CourseName} from "../../../models/CourseName";
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
+import {BsModalRef, TypeaheadMatch} from 'ngx-bootstrap';
+
+import {KnowledgeControl} from '../../../models/KnowlegeControl';
+import {KnowledgeControlService} from '../../../services/knowledge-control.service';
+import {CourseService} from '../../../services/course.service';
+import {CourseName} from '../../../models/CourseName';
 import {StudentGroup} from '../../../models/StudentGroup';
-import {Subject} from "rxjs/Subject";
-import {Observable} from "rxjs/Observable";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
-import {CourseForGroup} from "../../../models/CourseForGroup";
-import {FormGroup} from "@angular/forms";
-import {Course} from "../../../models/Course";
+import {CourseForGroupService} from '../../../services/course-for-group.service';
+import {CourseForGroup} from '../../../models/CourseForGroup';
+import {Course} from '../../../models/Course';
 
 @Component({
   selector: 'edit-dialog',
@@ -19,88 +19,81 @@ import {Course} from "../../../models/Course";
   providers: [CourseService, KnowledgeControlService, CourseForGroupService]
 })
 export class EditDialogComponent implements OnInit {
-  @Input() selectedGroup: StudentGroup = new StudentGroup();
-  @Input() courseFromTable = new CourseForGroup();
-  course: CourseForGroup = JSON.parse(JSON.stringify(this.courseFromTable));
-  // TODO use Reactive forms
+  selectedGroup: StudentGroup = new StudentGroup();
+  courseFromTable = new CourseForGroup();
   form: FormGroup;
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
-  @ViewChild('instance') instance: NgbTypeahead;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
+  courseNamesArray: string[];
 
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
-              public activeModal: NgbActiveModal) {
+              private fb: FormBuilder,
+              public bsModalRef: BsModalRef) {
+    this.form = fb.group({
+      id: '',
+      course: this.fb.group({
+        id: '',
+        courseName: this.fb.group({
+          id: '',
+          name: ['', Validators.required],
+        }),
+        hours: ['', Validators.required],
+        semester: '',
+        hoursPerCredit: ['', Validators.required],
+        knowledgeControl: ['', Validators.required],
+        credits: ''
+      })
+    });
   }
 
   ngOnInit() {
+    const oldCourse = JSON.parse(JSON.stringify(this.courseFromTable));
+    this.form.patchValue(oldCourse);
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+      this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
-    this.knowledgeControlService.getAll().subscribe(kc => {
-      this.knowledgeControl = kc;
+    this.knowledgeControlService.getAll().subscribe(knowledgeControl => {
+      this.knowledgeControl = knowledgeControl;
     });
   }
 
-  formatter = (result: CourseName) => result.name;
-
-  search = (text$: Observable<string>) =>
-    text$
-      .debounceTime(200).distinctUntilChanged()
-      .merge(this.focus$)
-      .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
-      .map(term => term === '' ? []
-        : this.courseNames.filter(v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
-
-  checkCourseName(name) {
-    if (!name.id) {
-      const courseName = new CourseName();
-      courseName.name = name;
-      this.course.course.courseName = courseName;
-    }
-  }
-
-  canselChanges() {
-    this.activeModal.close('Close click')
-  }
-
-  saveChanges() {
-    this.checkCourseName(this.course.course.courseName);
-    this.courseForGroupService.changeCourse(this.selectedGroup.id, {
-      courseForGroupId: this.course.id,
-      oldCourseId: this.course.course.id,
-      newCourse: this.course.course
-    }).subscribe((course: Course) => {
-      this.courseFromTable.course = course;
-    });
-    this.activeModal.close('Close click')
-  }
-
-  calculateCredits(course: Course){
-    return course.hours/course.hoursPerCredit;
-  }
-
-  setCredits(){
-    this.course.course.credits = this.calculateCredits(this.course.course);
-  }
-
-  roundCredits(){
-    this.course.course.credits = Math.round(this.course.course.credits);
+  get course() {
+    return this.form.controls.course as FormGroup;
   }
 
   get courseName() {
-    return this.form.get('courseName');
+    return this.course.controls.courseName as FormGroup;
   }
 
-  get semester() {
-    return this.form.get('semester');
+  onSelect(event: TypeaheadMatch): void {
+    this.courseName.setValue(event.item);
   }
 
-  get kc() {
-    return this.form.get('kc');
+  checkCourseName(courseName) {
+    if (!this.courseNamesArray.includes(courseName.name)) {
+      this.courseName.controls.id.setValue('');
+      this.courseName.controls.name.setValue(courseName.name);
+    }
+  }
+
+  saveChanges() {
+    this.checkCourseName(this.courseName.value);
+    this.courseForGroupService.changeCourse(this.selectedGroup.id, {
+      courseForGroupId: this.form.controls.id.value,
+      oldCourseId: this.course.controls.id.value,
+      newCourse: this.course.value
+    }).subscribe((course: Course) => {
+      this.courseFromTable.course = course;
+    });
+    this.bsModalRef.hide()
+  }
+
+  setCredits() {
+    const credits = this.course.controls.hours.value / this.course.controls.hoursPerCredit.value;
+    this.course.controls.credits.setValue(credits);
   }
 
   compareById(item1, item2) {

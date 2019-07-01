@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GroupService} from "../../../services/group.service";
-import {Course} from "../../../models/Course";
-import {CourseForGroupService} from "../../../services/course-for-group.service";
+import {GroupService} from '../../../services/group.service';
+import {Course} from '../../../models/Course';
+import {CourseForGroupService} from '../../../services/course-for-group.service';
 
 @Component({
   selector: 'studied-courses',
@@ -23,12 +23,12 @@ export class StudiedCoursesComponent implements OnInit {
 
   changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
     if (!checked) {
-      for (let course of this.selectedCourses)
+      for (const course of this.selectedCourses) {
         if (course.id === selectedCourse.id) {
           this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
         }
-    }
-    else {
+      }
+    } else {
       this.selectedCourses.push(selectedCourse)
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);

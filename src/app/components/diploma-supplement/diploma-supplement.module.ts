@@ -5,7 +5,7 @@ import {SharedModule} from '../shared/shared.module';
 import {RouterModule, Routes} from '@angular/router';
 import {DiplomaSupplementComponent} from './diploma-supplement.component';
 import { StudentsDataCheckComponent } from './students-data-check/students-data-check.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { CoursesTranslationCheckComponent } from './courses-translation-check/courses-translation-check.component';
 
 const diplomaSupplementRoutes: Routes = [
   {path: '', component: DiplomaSupplementComponent}
@@ -16,10 +16,9 @@ const diplomaSupplementRoutes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
-    NgbModule.forRoot(),
     RouterModule.forChild(diplomaSupplementRoutes)
   ],
-  declarations: [DiplomaSupplementComponent, StudentsDataCheckComponent],
-  entryComponents: [StudentsDataCheckComponent]
+  declarations: [DiplomaSupplementComponent, StudentsDataCheckComponent, CoursesTranslationCheckComponent],
+  entryComponents: [StudentsDataCheckComponent, CoursesTranslationCheckComponent]
 })
 export class DiplomaSupplementModule { }

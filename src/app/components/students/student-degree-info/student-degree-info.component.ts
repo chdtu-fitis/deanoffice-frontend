@@ -9,6 +9,7 @@ import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {DiplomaType} from '../../../models/diploma-type.enum';
 import {StudentPreviousUniversity} from '../../../models/StudentPreviousUniversity';
+import {CurrentUserService} from '../../../services/auth/current-user.service';
 
 @Component({
     selector: 'app-student-degree-info',
@@ -22,6 +23,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   diplomaType = DiplomaType;
   diplomaTypeKey: Array<string>;
   tabValidity: Array<boolean> = [];
+  userFacultyId: number;
+  degreeIdFromOtherFaculty: number[] = [];
   @ViewChild('modal') modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
@@ -35,9 +38,11 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private studentService: StudentService) {
+    private studentService: StudentService,
+    private currentUserService: CurrentUserService) {
     super();
     this.diplomaTypeKey = Object.keys(DiplomaType);
+    this.userFacultyId = currentUserService.facultyId();
   }
 
   selectGroup(group) {
@@ -49,6 +54,17 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
     this.studentService.getDegreesByStudentId(id).subscribe((studentDegrees: StudentDegree) => {
       this.model = studentDegrees;
       this.model['degrees'].sort( (a, b) => b.active - a.active );
+      this.degreeIdFromOtherFaculty = [];
+      this.model['degrees'].map((degre) => {
+        if (degre.specialization.facultyId !== this.userFacultyId) {
+          this.degreeIdFromOtherFaculty.push(degre.id);
+        }
+      });
+      this.model['degrees'].sort( (a, ) => {
+        if (this.degreeIdFromOtherFaculty.includes(a.id)) {
+          return 1;
+        }
+      });
       this.buildForm();
     });
   }
@@ -102,10 +118,10 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
       }))
     });
     this.form.controls.degrees['controls'].map(control => {
-      if (!control.controls.active.value) {
+      if (!control.controls.active.value || this.degreeIdFromOtherFaculty.includes(control.controls.id.value)) {
         control.disable()
-      }}
-    );
+      }
+    });
   }
 
   getTabHeader(i: number) {

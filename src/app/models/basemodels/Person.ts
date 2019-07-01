@@ -1,9 +1,8 @@
-import {BaseEntity} from './BaseEntity';
 
-export class Person extends BaseEntity {
-  active: boolean;
+export class Person {
+  id: number;
+  active?: boolean;
   surname: string;
   name: string;
   patronimic: string;
-  id: number;
 }

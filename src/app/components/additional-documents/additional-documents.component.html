@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="d-flex">
+    <div class="p-3">
+      <h4>Ступінь</h4>
+      <select [(ngModel)]="currentDegree"  (change)="onDegreeChange()" class="form-control">
+        <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Курс</h4>
+      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+        <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Група</h4>
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+      </select>
+    </div>
+    <div class="p-3">
+      <h4>Семестр</h4>
+      <div class="custom-control custom-radio" *ngFor="let semester of semesters">
+        <input type="radio" [id]="semester + 3" name="semesterRadios" class="custom-control-input"
+               [value]="semester" [(ngModel)]="selectedSemester">
+        <label class="custom-control-label" [for]="semester + 3">{{semester}}</label>
+      </div>
+    </div>
+    <div class="p-3">
+      <h4>Форма</h4>
+      <div class="custom-control custom-radio" *ngFor="let key of tuitionFormKey">
+        <input type="radio" [id]="key" name="tuitionFormRadio" class="custom-control-input"
+               [value]="key" [(ngModel)]="selectedTuitionForm"
+               (change)="onTuitionFormChange()">
+        <label class="custom-control-label" [for]="key">{{tuitionFormType[key]}}</label>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <button class="btn btn-info w-30 ml-3" (click)="onExamReportJournalBuild()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="examReportJournalTableLoading">
+    </span>
+      Виписка в журнал відомостей
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalDocumentDocx()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalDocumentLoadingDocx">
+     </span>
+      Журнал оцінок DOCX
+    </button>
+    <button class="btn btn-info w-30 ml-1" (click)="onGradesJournalDocumentPdf()">
+     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+           *ngIf="gradesJournalDocumentLoadingPdf">
+     </span>
+      Журнал оцінок PDF
+    </button>
+  </div>
+
+  <div class="row">
+    <button class="btn btn-info w-30 ml-3 mt-1" (click)="onGradesJournalCoursesListBuildPdf()">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            *ngIf="gradesJournalCoursesTableLoadingPdf">
+      </span>
+      Списки предметів в журнал оцінок PDF
+    </button>
+    <button class="btn btn-info w-30 ml-1 mt-1" (click)="onGradesJournalCoursesListBuildDocx()">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            *ngIf="gradesJournalCoursesTableLoadingDocx">
+      </span>
+      Списки предметів в журнал оцінок DOCX
+    </button>
+    <button class="btn btn-info w-30 ml-1 mt-1" (click)="onGradesJournalStudentsListBuild()">
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+            *ngIf="gradesJournalStudentsTableLoading">
+      </span>
+      Списки студентів
+    </button>
+  </div>
+  <div class="row">
+    <button class="btn btn-info w-30 ml-3 mt-1" (click)="onStudentsListBuild()" [disabled]="!selectedTuitionForm">
+       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+             *ngIf="studentsListLoading">
+       </span>
+      Повні списки студентів
+    </button>
+  </div>
+</div>

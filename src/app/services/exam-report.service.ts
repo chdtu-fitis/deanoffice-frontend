@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {FileService} from "./file-service";
+import {FileService} from './file-service';
 
 @Injectable()
 export class ExamReportService {
@@ -15,6 +15,16 @@ export class ExamReportService {
 
   buildExamReportJournalDoc(year: number, degreeId: number, semester: number): any {
     const url = `${this.documentsUrl}/exam-reports-journal-courses/year/${year}/degree/${degreeId}?semester=${semester}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildFormRatingGradeJornalDocx(year: number, degree: number, semester: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}/docx?semester=${semester}&tuitionForm=${tuitionForm}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildFormRatingGradeJornalPdf(year: number, degree: number, semester: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/form-rating/year/${year}/degree/${degree}/pdf?semester=${semester}&tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
   }
 
@@ -33,8 +43,8 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
-  buildStudentsList(year: number, degreeId: number): any {
-    const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=FULL_TIME`;
+  buildStudentsList(year: number, degreeId: number, tuitionForm: string): any {
+    const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
   }
 }

@@ -1,0 +1,46 @@
+tab {
+  padding-top: 3px;
+}
+
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 10px;
+
+  .form-item {
+    flex-grow: 1;
+    min-width: 48%;
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.radio p{
+  margin-bottom: 0rem;
+}
+.down-line{
+  display: inline-flex;
+
+    label{
+     margin-right: 3em;
+     margin-top: 0.6em;
+    }
+}
+.ng-invalid {
+  border-color: #dc3545;
+}
+.ng-invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+}
+
+
+@media all and (min-width: 993px) and (min-device-width: 993px) {
+  .form-layout {
+    flex-direction: row;
+
+    .form-item {
+      max-width: 48%;
+    }
+  }
+}

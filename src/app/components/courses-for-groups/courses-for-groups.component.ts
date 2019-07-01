@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, ViewChild} from '@angular/core';
 
 import {NotificationsService} from 'angular2-notifications';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 import {StudentGroup} from '../../models/StudentGroup';
 import {Course} from '../../models/Course';
@@ -15,6 +15,8 @@ import {CourseCreationComponent} from './course-creation/course-creation.compone
 import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
 import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
+import {CurrentUserService} from '../../services/auth/current-user.service';
+import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
 
 @Component({
   selector: 'courses-for-groups',
@@ -24,11 +26,13 @@ import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component'
 })
 export class CoursesForGroupsComponent implements OnInit {
   changesExistence = false;
-  indexForDate: number;
+  showAcademicDifference = false;
   groups: StudentGroup[];
   groupsForCopy: StudentGroup[];
   selectedGroup: StudentGroup;
   selectedSemester: number;
+  selectedHoursPerCredit: number;
+  hoursPerCreditCBDisabled = true;
   semesters: number[] = [];
   courses: Course[];
   coursesForAdd: CourseForGroup[] = [];
@@ -42,6 +46,7 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(AddedCoursesComponent) addedCoursesChild: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(CourseCreationComponent) courseCreationChild: CourseCreationComponent;
+  @ViewChild(GroupsDifferentDialogComponent) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
   studiedCoursesLoading = false;
   showPage = false;
   alertOptions = {
@@ -57,9 +62,12 @@ export class CoursesForGroupsComponent implements OnInit {
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
               private _service: NotificationsService,
-              private modalService: NgbModal) {}
+              private modalService: BsModalService,
+              private currentUserService: CurrentUserService
+              ) {}
 
   ngOnInit() {
+    this.selectedHoursPerCredit = 30;
     this.groupService.getGroups().subscribe(groups => {
       this.groups = groups;
       this.showPage = true;
@@ -80,9 +88,7 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   getCoursesForGroup() {
-    setTimeout(() => {
-      this.addedCoursesChild.getCoursesForGroup();
-    }, 0);
+    this.addedCoursesChild.getCoursesForGroup(this.selectedGroup, this.selectedSemester, this.showAcademicDifference);
   }
 
   onGroupChange() {
@@ -91,35 +97,45 @@ export class CoursesForGroupsComponent implements OnInit {
     if (this.selectedSemester) {
       this.onSemesterChange();
     }
+    this.hoursPerCreditCBDisabled = false;
+  }
+
+  loadCoursesBySemester() {
+    this.studiedCoursesLoading = true;
+    this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
+      this.courses = cfg;
+      this.studiedCoursesLoading = false;
+    });
   }
 
   onSemesterChange() {
-    this.studiedCoursesLoading = true;
-    if (this.selectedSemester) {
-      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
-        this.courses = cfg;
-        this.studiedCoursesLoading = false;
-      })
-    }
+    this.loadCoursesBySemester();
     this.getCoursesForGroup();
-    this.courseCreationChild.course.semester = this.selectedSemester;
+    this.courseCreationChild.form.controls.semester.setValue(this.selectedSemester);
   }
 
-  changeCoursesForGroup(event) {
-    for (let i = 0; i < event.length; i++) {
-      this.coursesForGroup.push(event[i])
-    }
+  onChangeHoursPerCredit() {
+    this.loadCoursesBySemester();
+    this.courseCreationChild.form.controls.hoursPerCredit.setValue(this.selectedHoursPerCredit);
   }
 
-  changeCoursesForDelete(event) {
+  changeCoursesForGroup(event: CourseForGroup[]) {
+    this.coursesForGroup.push(...event);
+    this.sortCoursesForGroup();
+  }
+
+  changeCoursesForDelete(event: CourseForGroup[]) {
     this.coursesForDelete = event;
   }
 
   checkAddedCoursesForDeleting() {
-    for (let deletedCourse of this.coursesForDelete) {
+    for (const deletedCourse of this.coursesForDelete) {
       let coursesIsAdded = false;
-      for (let addedCourse of this.coursesForAdd)
-        if (addedCourse.course.id === deletedCourse.course.id) coursesIsAdded = true;
+      for (const addedCourse of this.coursesForAdd) {
+        if (addedCourse.course.id === deletedCourse.course.id) {
+          coursesIsAdded = true;
+        }
+      }
       this.deleteCourseFromCoursesForGroups(coursesIsAdded, deletedCourse);
     }
     this.changesExistence = true;
@@ -129,13 +145,13 @@ export class CoursesForGroupsComponent implements OnInit {
     this.sortCoursesForGroup();
   }
 
-  private deleteCourseFromCoursesForGroups(courseIsAdded: boolean, deletedCourse){
+  private deleteCourseFromCoursesForGroups(courseIsAdded: boolean, deletedCourse) {
     this.coursesForGroup.splice(this.coursesForGroup.indexOf(deletedCourse), 1);
     this.addedCoursesChild.coursesForGroup.splice(this.addedCoursesChild.coursesForGroup.indexOf(deletedCourse), 1);
-    if (courseIsAdded){
+    this.addedCoursesChild.loadedCoursesForGroup.splice(this.addedCoursesChild.loadedCoursesForGroup.indexOf(deletedCourse), 1);
+    if (courseIsAdded) {
       this.coursesForAdd.splice(this.coursesForAdd.indexOf(deletedCourse), 1);
-    }
-    else {
+    } else {
       this.deleteCoursesIds.push(deletedCourse.id);
       this.deleteCoursesIdsForCheck.push(deletedCourse.course.id);
       this.updatedCourses.splice(this.updatedCourses.indexOf(deletedCourse), 1);
@@ -148,30 +164,41 @@ export class CoursesForGroupsComponent implements OnInit {
 
   checkIfAddedCourseIsInDeleted(addedCourse) {
     let courseIsDeleted = false;
-    for (let deletedCourseId of this.deleteCoursesIdsForCheck) {
-      if (deletedCourseId === addedCourse.id) courseIsDeleted = true;
+    for (const deletedCourseId of this.deleteCoursesIdsForCheck) {
+      if (deletedCourseId === addedCourse.id) {
+        courseIsDeleted = true;
+      }
     }
     return courseIsDeleted;
   }
 
   addCoursesToCoursesForGroup() {
-    for (let course of this.selectedCourses) {
-      let newCourseForGroup = this.transferCourseToCourseForGroup(course);
+    for (const course of this.selectedCourses) {
+      const newCourseForGroup = this.transferCourseToCourseForGroup(course);
       let courseIsExist = false;
       if (this.coursesForGroup.length) {
-        for (let courseForGroup of this.coursesForGroup) {
-          if (newCourseForGroup.course.id === courseForGroup.course.id) courseIsExist = true;
+        for (const courseForGroup of this.coursesForGroup) {
+          if (newCourseForGroup.course.id === courseForGroup.course.id) {
+            courseIsExist = true;
+          }
         }
       }
       if (this.coursesForAdd.length) {
         let courseIsAdded = false;
-        for (let courseForAdd of this.coursesForAdd)
-          if (newCourseForGroup.course.id === courseForAdd.course.id) courseIsAdded = true;
-        if (!courseIsAdded && !courseIsExist)
+        for (const courseForAdd of this.coursesForAdd) {
+          if (newCourseForGroup.course.id === courseForAdd.course.id) {
+            courseIsAdded = true;
+          }
+        }
+        if (!courseIsAdded && !courseIsExist) {
           this.addCourse(newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
-      } else if (!courseIsExist)
+        }
+      } else if (!courseIsExist) {
         this.addCourse(newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
-      if (courseIsExist) this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
+      }
+      if (courseIsExist) {
+        this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
+      }
     }
     this.sortCoursesForGroup();
     this.studiedCoursesChild.courses.forEach(course => course.selected = false);
@@ -180,27 +207,29 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   sortCoursesForGroup() {
-    this.addedCoursesChild.coursesForGroup.sort((a, b) => {
-      if (a.course.courseName.name > b.course.courseName.name) return 1;
-      if (a.course.courseName.name < b.course.courseName.name) return -1;
-      return 0;
-    })
+    this.addedCoursesChild.coursesForGroup.sort((a, b) =>
+      Number(b.academicDifference) - Number(a.academicDifference) ||
+      a.course.knowledgeControl.id - b.course.knowledgeControl.id ||
+      Number(a.course.courseName.name > b.course.courseName.name));
   }
 
   addCourse(newCourseForGroup: CourseForGroup, isDeleted: boolean) {
     this.changesExistence = true;
+    newCourseForGroup.academicDifference = false;
     if (isDeleted) {
-      let id = newCourseForGroup.id;
+      const id = newCourseForGroup.id;
       this.deleteCoursesIds.splice(this.deleteCoursesIds.indexOf(id), 1)
+    } else {
+      this.coursesForAdd.push(newCourseForGroup);
     }
-    else this.coursesForAdd.push(newCourseForGroup);
     this.coursesForGroup.push(newCourseForGroup);
     this.addedCoursesChild.coursesForGroup.push(newCourseForGroup);
+    this.addedCoursesChild.loadedCoursesForGroup.push(newCourseForGroup);
   }
 
   transferCourseToCourseForGroup(course: Course) {
-    let newCourseForGroup = new CourseForGroup();
-    let teacher = new Teacher();
+    const newCourseForGroup = new CourseForGroup();
+    const teacher = new Teacher();
     newCourseForGroup.course = course;
     newCourseForGroup.teacher = teacher;
     return newCourseForGroup;
@@ -217,31 +246,35 @@ export class CoursesForGroupsComponent implements OnInit {
     class courseForGroupNewCoursesType {
       course: { id: number };
       teacher: { id: number };
-      examDate: Date
+      examDate: Date;
+      academicDifference: boolean;
     }
 
     class courseForGroupUpdateCoursesType {
       id: number;
       course: { id: number };
       teacher: { id: number };
-      examDate: Date
+      examDate: Date;
+      academicDifference: boolean;
     }
 
-    let newCourses: courseForGroupNewCoursesType[] = [];
-    let updatedCourses: courseForGroupUpdateCoursesType[] = [];
-    for (let newCourse of this.coursesForAdd) {
+    const newCourses: courseForGroupNewCoursesType[] = [];
+    const updatedCourses: courseForGroupUpdateCoursesType[] = [];
+    for (const newCourse of this.coursesForAdd) {
       newCourses.push({
         course: {id: newCourse.course.id},
         teacher: {id: newCourse.teacher.id},
-        examDate: newCourse.examDate
+        examDate: newCourse.examDate,
+        academicDifference: newCourse.academicDifference
       })
     }
-    for (let updateCourse of this.updatedCourses) {
+    for (const updateCourse of this.updatedCourses) {
       updatedCourses.push({
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
-        teacher: {id: updateCourse.teacher.id},
-        examDate: updateCourse.examDate
+        teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
+        examDate: updateCourse.examDate,
+        academicDifference: updateCourse.academicDifference
       })
     }
     this.courseForGroupService.createCoursesForGroup(this.selectedGroup.id, {
@@ -250,15 +283,13 @@ export class CoursesForGroupsComponent implements OnInit {
       deleteCoursesIds: this.deleteCoursesIds
     }).subscribe(() => {
         this.refresh();
-        setTimeout(() => {
-          this.onSemesterChange();
-        }, 10);
+        this.onSemesterChange();
       },
       error => {
         if (error.status === 422) {
-          this.showErrorAlert('Предмет вже існує або дані введені невірно!');
+          this.showErrorAlert(error.error);
         } else {
-          this.showErrorAlert('Невідома помилка при сбереженні');
+          this.showErrorAlert('Невідома помилка при збереженні');
         }
       });
     this.changesExistence = false;
@@ -281,76 +312,67 @@ export class CoursesForGroupsComponent implements OnInit {
   onCourseCreation() {
     if (this.selectedSemester) {
       this.studiedCoursesLoading = true;
-      this.courseService.getCoursesBySemester(this.selectedSemester).subscribe(cfg => {
+      this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, this.selectedHoursPerCredit).subscribe(cfg => {
         this.courses = cfg;
         this.studiedCoursesLoading = false;
       })
     }
   }
 
-  changeTeacher(event) {
-    const modalRef = this.modalService.open(TeacherDialogComponent);
-    modalRef.componentInstance.courseForGroups = event;
-    modalRef.componentInstance.onTeacherSelect.subscribe(($event) => {
+  changeTeacher(event: CourseForGroup) {
+    const initialState = {courseForGroup: event};
+    const modalRef = this.modalService.show(TeacherDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onTeacherSelect.subscribe(($event) => {
       this.updateCoursesForGroupWithNewTeacher($event);
     });
   }
 
-  updateCoursesForGroupWithNewTeacher(event) {
-    let isAdded = false;
-    for (let addedCourse of this.coursesForAdd) {
-      if (event.course.id === addedCourse.course.id) {
-        addedCourse.teacher = event.teacher;
-        isAdded = true;
-      }
-    }
-    if (!isAdded){
+  courseForGroupUpdate(course: CourseForGroup, field: string) {
+    const courseForAdd = this.coursesForAdd.find(courseForAdd => courseForAdd.course.id === course.course.id);
+    if (courseForAdd) {
+      courseForAdd[field] = course[field];
+    } else {
       this.changesExistence = true;
-      this.updatedCourses.push(event);
-    }
-    for (let course of this.coursesForGroup) {
-      if (course.course.id === event.course.id) course.teacher = event.teacher;
+      const isAlreadyUpdated = this.updatedCourses.some(updatedCourse => updatedCourse.id === course.id);
+      if (!isAlreadyUpdated) {
+        this.updatedCourses.push(course);
+      }
     }
   }
 
-  changeDate(event) {
-    let isAdded: boolean;
-    isAdded = false;
-    this.indexForDate = event.index;
-    for (let course of this.coursesForGroup) {
-      if (this.coursesForGroup.indexOf(course) == this.indexForDate) {
-        for (let addedCourse of this.coursesForAdd) {
-          if (course.course.id === addedCourse.course.id) {
-            addedCourse.examDate = course.examDate;
-            isAdded = true;
-          }
-        }
-        if (!isAdded) {
-          this.changesExistence = true;
-          if (course.teacher == undefined) {
-            let teacher = new Teacher();
-            course.teacher = teacher;
-          }
-          this.updatedCourses.push(course);
-        }
-      }
-    }
+  updateCoursesForGroupWithNewTeacher(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'teacher');
+  }
+
+  changeDate(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'examDate');
+  }
+
+  onAcademicDifferenceChange(event: CourseForGroup) {
+    this.courseForGroupUpdate(event, 'academicDifference');
+  }
+
+  onShowAcademicDifference() {
+    this.addedCoursesChild.filterByAcademicDifference(this.showAcademicDifference);
   }
 
   copyCourses() {
     this.changesExistence = true;
-    const modalRef = this.modalService.open(CopyCoursesDialogComponent);
-    modalRef.componentInstance.groups = this.groupsForCopy;
-    modalRef.componentInstance.selectedSemesterTo = this.selectedSemester;
-    modalRef.componentInstance.selectedSemesterFrom = this.selectedSemester;
-    modalRef.componentInstance.selectedGroupToCopyId = this.selectedGroup.id;
-    modalRef.componentInstance.coursesForGroups = this.coursesForGroup;
-    modalRef.componentInstance.addedCoursesForGroups = this.coursesForAdd;
-    modalRef.componentInstance.copiedCourse.subscribe(($event) => {
+    const initialState = {groups: this.groupsForCopy, selectedSemesterTo: this.selectedSemester,
+      selectedSemesterFrom: this.selectedSemester, coursesForGroups: this.coursesForGroup};
+    const bsModalRef = this.modalService.show(CopyCoursesDialogComponent, {initialState, class: 'modal-custom'});
+    bsModalRef.content.copiedCourse.subscribe(($event) => {
       this.addCourse($event, this.checkIfAddedCourseIsInDeleted($event.course));
     });
-    modalRef.componentInstance.alertMessage.subscribe(($event) => {
+    bsModalRef.content.alertMessage.subscribe(($event) => {
       this.showErrorAlert($event);
     });
+  }
+
+  showGroupsDifferents(){
+    this.changesExistence = true;
+    const initialState = {};
+    const bsModalRef = this.modalService.show(GroupsDifferentDialogComponent, {initialState, class: 'modal-custom'});
+    bsModalRef.content.showDifferents.subscribe(() => { });
   }
 }

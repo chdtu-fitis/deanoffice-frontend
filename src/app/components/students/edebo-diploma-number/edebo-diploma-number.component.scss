@@ -1,0 +1,27 @@
+.modal-full {
+  min-width: 95%;
+  margin: 0 auto;
+
+  .tab-body {
+    height: 70vh;
+    overflow: auto;
+
+    &.correct-data table {
+      border:2px solid green;
+    }
+
+    &.wrong-data table {
+      border:2px solid red;
+    }
+  }
+}
+
+.loader__content {
+  padding: 60px 0 70px 0;
+}
+
+.input-group {
+  margin: 80px auto;
+}
+
+

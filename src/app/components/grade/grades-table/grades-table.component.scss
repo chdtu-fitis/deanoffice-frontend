@@ -7,13 +7,10 @@ table {
   @extend .table-responsive;
   @extend .table-sm;
   font-size: 14px;
-}
-
-td > input {
-  background: none;
-  border: none;
-  text-align: center;
-  width: 100%;
+  th, td {
+    outline: 1px solid #dee2e6;
+    border: none !important;
+  }
 }
 
 input::-webkit-outer-spin-button,
@@ -21,25 +18,92 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.td-student {
-  white-space: nowrap;
+input {
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
+
+  &.not-correct {
+    outline: 1px solid red !important;
+  }
+
+  &.not-on-time {
+    outline: 1px solid black !important;
+  }
+
+  &.remove-grade {
+    height: 20px;
+    cursor: pointer;
+    &:disabled {
+      cursor: auto;
+    }
+  }
 }
 
-.btn-courses {
-  @extend .btn-light;
-  cursor: pointer;
+td {
+  &.without-course {
+    background-color: #dc3545 !important;
+  }
+
+  &.academic-difference {
+    background-color: #28a745 !important;
+  }
+
+  &.updated-academic-difference {
+    background-color: #ff9307 !important;
+  }
+
+  &.updated-grade {
+    background-color: #ffc107 !important;
+  }
 }
 
-.notCorrect {
-  outline: 1px solid #FF5722;
+.course-with-academic-difference {
+  background-color: #aeea00 !important;
+  &:hover {
+    background-color: #79b700 !important;
+  }
 }
 
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+.grades-table {
+  height: 100%;
+  overflow: auto;
+
+  .sticky-col {
+    position: sticky;
+    top: 0;
+    background-color: white;
+
+    &.btn-courses {
+      cursor: pointer;
+    }
+  }
+
+  .first-col {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    left: 0;
+    text-align: center;
+  }
+
+  .second-col {
+    width: 150px;
+    left: 50px;
+  }
 }
 
-input[type="checkbox"]:disabled {
-  cursor: auto;
+.grades-table-wrapper {
+  position: relative;
+  height: 80%;
+  overflow: auto;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+.z-index-1 {
+  z-index: 1;
 }

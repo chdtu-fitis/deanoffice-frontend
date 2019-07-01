@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {Degree} from '../../models/Degree';
+import {BsModalService} from 'ngx-bootstrap';
+
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';
+import {Degree} from '../../models/Degree';
 import {StudentGroup} from '../../models/StudentGroup';
-import {StudentService} from '../../services/student.service';
 import {StudentDegree} from '../../models/StudentDegree';
 import {DiplomaSupplementService} from '../../services/diploma-supplement.service';
-import {EditDialogComponent} from "../courses-for-groups/edit-dialog/edit-dialog.component";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {StudentsDataCheckComponent} from "./students-data-check/students-data-check.component";
+import {StudentsDataCheckComponent} from './students-data-check/students-data-check.component';
+import {CoursesTranslationCheckComponent} from './courses-translation-check/courses-translation-check.component';
 
 @Component({
   selector: 'diploma-supplement',
@@ -24,14 +24,16 @@ export class DiplomaSupplementComponent implements OnInit {
   studentsSelected: boolean;
   message: string;
   supplementLoading = false;
-  gradePercentLoading = false;
+  graduatesReportLoading = false;
   gradesTableReportLoading = false;
   coursesTableReportLoading = false;
   studentDataCheckLoading = false;
+  studentGradesCheckLoading = false;
+  coursesTranslationCheckLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
-              private modalService: NgbModal) {
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -52,42 +54,44 @@ export class DiplomaSupplementComponent implements OnInit {
   }
 
   onGroupChange(groupId: string): void {
-    this.currentGroup = this.groups.find(x => x.id == Number(groupId));
+    this.currentGroup = this.groups.find(group => group.id === Number(groupId));
     this.students = this.currentGroup.studentDegrees;
-    for (let student of this.students) {student.selected = true;}
+    for (const student of this.students) {
+      student.selected = true;
+    }
     this.studentsSelected = true;
   }
 
   onSelectAllStudents(checked: boolean): void {
-    for (let student of this.students) {
+    for (const student of this.students) {
       student.selected = checked;
     }
   }
 
   onFormSupplement(): void {
     this.message = '';
-    for (let student of this.students) {
+    for (const student of this.students) {
       this.supplementLoading = true;
       if (student.selected) {
-        this.diplomaSupplementService.buildDiplomaSupplement(''+student.id).subscribe(a => {
+        this.diplomaSupplementService.buildDiplomaSupplement('' + student.id).subscribe(() => {
           this.supplementLoading = false;
         });
       }
     }
   }
 
-  onFormGradePercent(): void {
+  onFormGraduatesReport(): void {
     this.message = '';
-    this.gradePercentLoading = true;
-    this.diplomaSupplementService.buildGradePercent('' + this.currentGroup.id).subscribe(a => {
-        this.gradePercentLoading = false;
+    this.graduatesReportLoading = true;
+    this.diplomaSupplementService.buildGraduatesReport('' + this.currentGroup.id).subscribe(() => {
+        this.graduatesReportLoading = false;
       }
     );
   }
 
   onFullGradesTableReport(): void {
     this.gradesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(a => {
+    this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(() => {
         this.gradesTableReportLoading = false;
       }
     );
@@ -95,7 +99,7 @@ export class DiplomaSupplementComponent implements OnInit {
 
   onFullCoursesTableReport(): void {
     this.coursesTableReportLoading = true;
-    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(a => {
+    this.diplomaSupplementService.buildFullCoursesTableReport('' + this.currentGroup.id).subscribe(() => {
         this.coursesTableReportLoading = false;
       }
     );
@@ -104,10 +108,32 @@ export class DiplomaSupplementComponent implements OnInit {
   onStudentDataCheck(): void {
     this.message = '';
     this.studentDataCheckLoading = true;
-    this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(res => {
+    this.diplomaSupplementService.checkStudentsData(this.currentDegreeId).subscribe(studentsCheckData => {
         this.studentDataCheckLoading = false;
-        const modalRef = this.modalService.open(StudentsDataCheckComponent, { centered: true, size: "lg" });
-        modalRef.componentInstance.studentsCheckData = res;
+        const header = 'Перевірка даних студента для додатку до диплому';
+        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
+      }
+    );
+  }
+
+  onStudentGradesCheck(): void {
+    this.message = '';
+    this.studentGradesCheckLoading = true;
+    this.diplomaSupplementService.checkStudentsGrades(this.currentDegreeId).subscribe(studentsCheckData => {
+        this.studentGradesCheckLoading = false;
+        const header = 'Перевірка оцінок для додатку до диплому';
+        this.modalService.show(StudentsDataCheckComponent, {initialState: {studentsCheckData, header}});
+      }
+    );
+  }
+
+  onCoursesTranslationCheck(): void {
+    this.message = '';
+    this.coursesTranslationCheckLoading = true;
+    this.diplomaSupplementService.checkCoursesTranslation(this.currentDegreeId).subscribe(coursesTranslationCheckData => {
+        this.coursesTranslationCheckLoading = false;
+        const header = 'Перевірка перекладів дисциплін для додатку до диплому';
+        this.modalService.show(CoursesTranslationCheckComponent, {initialState: {coursesTranslationCheckData, header}});
       }
     );
   }

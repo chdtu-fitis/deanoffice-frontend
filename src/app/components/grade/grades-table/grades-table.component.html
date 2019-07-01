@@ -1,5 +1,4 @@
 <app-grades-statement #statement
-                      [courses]="courses"
                       [selectGroup]="selectGroup"
                       [studentsDegree]="studentsDegree"
                       (sendGrades)="updateGradesByStatement($event)"
@@ -7,38 +6,73 @@
 </app-grades-statement>
 <loading *ngIf="!loadingGrades && selectGroup" [size]="100"></loading>
 
-<table *ngIf="courses.length && studentsDegree.length && loadingGrades">
+<div class="grades-table-wrapper">
+  <table *ngIf="coursesForGroup.length && studentsDegree.length && loadingGrades" class="grades-table">
     <thead>
-    <tr>
-        <td>№</td>
-        <td>{{selectGroup?.name}}<br>
-            Семестр: {{ selectSemester }}
-        </td>
-        <td *ngFor="let course of courses" scope="row" class="btn-courses"
-            (click)="openStatement(course)">
-            {{course.course.courseName?.name}} (<b>{{ course.course.knowledgeControl.name }}</b>)
-        </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
-        <td>{{studentId + 1}}</td>
-        <td class="td-student">{{studentDegree.student.surname}}
-            {{studentDegree.student.name[0]}}.{{studentDegree.student.patronimic[0]}}.
-        </td>
-        <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
-            <td [ngClass]="{ 'bg-danger' : grade?.empty && !isDeleteMode, 'text-center align-middle': true}">
-                <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
-                       (change)="editGrade(grade, studentId, gradeId, $event)"
-                       (keyup)="nextCell($event, studentId, gradeId);"
-                       id="grade{{studentId}}{{gradeId}}id"
-                       [ngClass]="{'notCorrect': !grade?.empty && (grade.points < 60 || grade.points >100)}"/>
-
-                <input type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
-                       [checked]="selectedGradeForDelete?.id === grade.id" (click)="selectGradeForDelete(grade)"
-                       title="{{grade.points}}">
+      <tr>
+        <th class="sticky-col first-col z-index-2">№</th>
+        <th class="sticky-col second-col z-index-2">
+          {{selectGroup?.name}}<br>
+          Семестр: {{ selectSemester }}
+        </th>
+        <th *ngFor="let courseForGroup of coursesForGroup" scope="row"
+            class="sticky-col btn-courses"
+            [class.course-with-academic-difference]="courseForGroup.academicDifference"
+            (click)="openStatement(courseForGroup)">
+            {{courseForGroup.course.courseName?.name}} (<b>{{ courseForGroup.course.knowledgeControl.name }}</b>)
+          </th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
+          <td class="sticky-col first-col z-index-1">{{studentId + 1}}</td>
+          <td class="text-nowrap sticky-col second-col z-index-1">
+            {{studentDegree.student | nameWithInitials}}
+          </td>
+          <ng-container *ngFor="let grade of studentDegree.grades; let gradeId = index">
+            <td
+              [class.without-course]="(grade?.empty && !isDeleteMode) || grade?.wrongInterval"
+              [class.academic-difference]="grade.academicDifference && !grade?.changed && !grade?.empty"
+              [class.updated-academic-difference]="grade.academicDifference && grade?.changed"
+              [class.updated-grade]="grade?.changed && !grade.academicDifference"
+            >
+              <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
+                     (change)="editGrade(grade, studentId, gradeId, $event)"
+                     (keyup)="nextCell($event, studentId, gradeId);"
+                     (focus)="onFocusGrade(grade)"
+                     id="grade{{studentId}}{{gradeId}}id"
+                     [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
+                     [class.not-on-time]="!grade.onTime && !(grade.points < 60)"
+              />
+              <input class="remove-grade" type="checkbox" [disabled]="grade?.empty" *ngIf="isDeleteMode"
+                     [checked]="selectedGradeForDelete?.id === grade.id" (click)="selectGradeForDelete(grade)"
+                     title="{{grade.points}}">
             </td>
-        </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+  </table>
+</div>
+
+<table class="mt-3" *ngIf="loadingGrades">
+  <thead>
+    <tr>
+      <td>не було предмету</td>
+      <td>не здано (< 60)</td>
+      <td>невчасно</td>
+      <td>оновлена оцінка</td>
+      <td>академ різниця</td>
+      <td>оновлена академ різниця</td>
     </tr>
-    </tbody>
+  </thead>
+  <tbody>
+    <tr height="25">
+      <td class="without-course"></td>
+      <td><input type="text" class="not-correct"></td>
+      <td><input type="text" class="not-on-time"></td>
+      <td class="updated-grade"></td>
+      <td class="academic-difference"></td>
+      <td class="updated-academic-difference"></td>
+    </tr>
+  </tbody>
 </table>

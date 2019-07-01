@@ -117,7 +117,7 @@ export class GroupComponent implements OnInit {
 
   onAddGroup(group: StudentGroup) {
     this.loadedGroups.push(group);
-    this.gridApi.updateRowData({ add: [group] });
+    this.gridApi.updateRowData({ add: [group], addIndex: 0 });
   }
 
   onUpdateGroup(updatedGroup: StudentGroup) {

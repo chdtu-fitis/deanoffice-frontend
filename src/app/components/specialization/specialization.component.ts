@@ -60,7 +60,7 @@ export class SpecializationComponent implements OnInit {
   }
 
   onAddSpecialization(specialization) {
-    this.gridApi.updateRowData({ add: [specialization] });
+    this.gridApi.updateRowData({ add: [specialization], addIndex: 0 });
   }
 
   onUpdateSpecialization(specialization) {

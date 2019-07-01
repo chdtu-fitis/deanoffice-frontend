@@ -1,0 +1,140 @@
+<div class="modal"
+     bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" [ngClass]="tableView && 'modal-full'" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{modalName}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form #inputFileForm="ngForm">
+          <div class="input-group" *ngIf="fileField">
+            <input
+              type="file"
+              name="file"
+              class="custom-file-input"
+              id="importFile"
+              accept=".xlsx,.xls"
+              #file="ngModel"
+              [ngModel]="fileNameValid"
+              appExpectedName=".+.((xls)|(xlsx))$"
+              (change)="setFileName($event)"
+              required
+            >
+            <label class="custom-file-label" for="importFile">{{fileName}}</label>
+
+            <div class="w-100 mt-4" *ngIf="!file.valid && file.dirty">
+              <p class="alert alert-danger" *ngIf="file.errors?.appExpectedName">
+                Некоректне розширення файлу
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <div class="loader__content" *ngIf="uploadInProgress">
+          <loading [size]="50"></loading>
+        </div>
+
+        <tabset *ngIf="tableView">
+          <tab class="tab-body correct-data" heading="Коректні дані">
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" (change)="changeAllIsSelected($event.target.checked)"
+                         [ngModel]="allRowsIsSelected">
+                </th>
+                <th>№</th>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Серія та номер диплому</th>
+                <th>Спеціальність</th>
+                <th>Група</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let student of diplomaSynchronizedData let i = index">
+                <td><input type="checkbox" checked [(ngModel)]="student.selected" (change)="onStudentSelect()"></td>
+                <td>{{ i + 1 }}</td>
+                <td>{{ student?.surname}}</td>
+                <td>{{ student?.name }}</td>
+                <td>{{ student?.patronimic}}</td>
+                <td>{{ student?.diplomaSeriesAndNumber}}</td>
+                <td>{{ student?.fullSpecialityName}}</td>
+                <td>{{ student?.groupName }}</td>
+              </tr>
+            </table>
+          </tab>
+          <tab class="tab-body wrong-data" heading="Некоректні дані">
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <tr>
+                <th>№</th>
+                <th>Прізвище</th>
+                <th>Ім'я</th>
+                <th>По-батькові</th>
+                <th>Серія та номер диплому</th>
+                <th>Спеціальність</th>
+                <th>Група</th>
+                <th>Повідомлення</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let student of missingRedData; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.surname }}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.name }}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.patronimic }}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.diplomaSeriesAndNumber}}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.fullSpecialityName}}</td>
+                <td>{{ student?.diplomaAndStudentSynchronizedDataBean.groupName}}</td>
+                <td>{{ student?.message}}</td>
+              </tr>
+            </table>
+          </tab>
+        </tabset>
+
+        <div *ngIf="resultView" class="m-2">
+          <p> Додано номерів дипломів для студентів: {{updatedDiplomaData}}</p>
+          <table class="table table-sm table-striped table-bordered mt-4 result-table"
+                 *ngIf="isNotUpdatedDiplomaData">
+            <caption>Не додані студенти:</caption>
+            <tr *ngFor="let student of notUpdatedDiplomaData">
+              <td>{{ student }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer d-inline">
+        <button class="btn btn-success" *ngIf="downloadButton" (click)="onFileUpload()"
+                [disabled]="uploadInProgress || !inputFileForm.form.valid">
+          Завантажити
+        </button>
+
+        <ng-container *ngIf="tableView">
+          <form [formGroup]="form">
+            <div class="form-group row">
+              <label class="col col-form-label" for="diplomaDate">Дата диплому:</label>
+              <div class="col">
+                <input type="date" class="form-control" id="diplomaDate" formControlName="diplomaDate">
+              </div>
+              <label class="col col-form-label" for="supplementDate">Дата додатку до диплому:</label>
+              <div class="col">
+                <input type="date" class="form-control" id="supplementDate" formControlName="supplementDate">
+              </div>
+              <button class="btn btn-success mr-2" type="button"  (click)="saveDiplomaNumbers()"
+                      [disabled]="saveButton">
+                Зберегти
+              </button>
+              <button class="btn btn-primary mr-2" type="button" (click)="hideModal()">Відмінити</button>
+            </div>
+          </form>
+        </ng-container>
+        <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="hideModal()">Закрити</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {StudentGroup} from '../../../models/StudentGroup';
 
 @Component({
     selector: 'app-grades-panel',
@@ -11,7 +12,7 @@ export class GradesPanelComponent {
     @Output() changeSemester = new EventEmitter();
     @Output() sendRequestGetGrades = new EventEmitter();
     autoSemesterSelect = true;
-    selectGroup: any = false;
+    selectGroup = new StudentGroup();
     studySemesters = 12;
     selectSemester = 1;
     degree = 1;
@@ -31,7 +32,7 @@ export class GradesPanelComponent {
     }
 
     checkAutoSelectSemester(e: any) {
-        const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
+      const currentSemester = this.getCurrentSemester(this.selectGroup.creationYear);
         if (this.selectGroup && this.selectSemester !== currentSemester && e.srcElement.checked) {
             this.setCurrentSemester();
             this.toggleSemester();
@@ -46,15 +47,16 @@ export class GradesPanelComponent {
     }
 
     getSelectGroup(group) {
-        if (this.selectGroup.id === group.id) return;
+      if (this.selectGroup.id !== group.id) {
         this.setGroups(group);
         this.setStudySemester(group.studySemesters);
         if (this.autoSemesterSelect) {
-            this.selectSemester = this.getCurrentSemester(this.selectGroup.creationYear);
-            this.setSelectedSemester();
+          this.selectSemester = this.getCurrentSemester(this.selectGroup.creationYear);
+          this.setSelectedSemester();
         }
         this.changeGroup.emit(group);
         this.getGrades();
+      }
     }
 
     setStudySemester(studySemesters): void {
@@ -69,7 +71,9 @@ export class GradesPanelComponent {
         const date = new Date();
         const currentYear = date.getFullYear();
         const semester = date.getMonth() >= 8 ? 1 : 2;
-        if (currentYear - year === 0) return semester;
+        if (currentYear - year === 0) {
+          return semester;
+        }
         return (currentYear - year - 1) * 2 + semester;
     }
 }
