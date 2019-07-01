@@ -31,8 +31,8 @@ export const appRoutes: Routes = [
             data: { title: 'Відомості' }
           },
           {
-            path: 'consolidated-document',
-            loadChildren: '../consolidated-document/consolidated-document.module#ConsolidatedDocumentModule',
+            path: 'consolidated-exam-report',
+            loadChildren: '../consolidated-exam-report/consolidated-exam-report.module#ConsolidatedExamReportModule',
             data: { title: 'Зведені відомості' }
           },
           {

@@ -8,7 +8,7 @@ import {saveAs} from 'file-saver';
 import {Course} from '../models/Course';
 
 @Injectable()
-export class ConsolidatedDocumentService {
+export class ConsolidatedExamReportService {
 
   static BASE_URL = `${environment.apiUrl}/documents/consolidated-report`;
 
@@ -18,7 +18,7 @@ export class ConsolidatedDocumentService {
     const courseIds = courses.map(value => value.id);
     return this.http
       .post<Map<number, Array<StudentGroup>>>(
-        `${ConsolidatedDocumentService.BASE_URL}/groups/subjects?degreeId=${degreeId}`, courseIds
+        `${ConsolidatedExamReportService.BASE_URL}/groups/subjects?degreeId=${degreeId}`, courseIds
       )
       .pipe(
         map(value => {
@@ -37,7 +37,7 @@ export class ConsolidatedDocumentService {
   }
 
   public formConsolidatedDocument(courseForGroupIdsToStudentGroupIds: any) {
-    this.http.post(`${ConsolidatedDocumentService.BASE_URL}/create-document`,
+    this.http.post(`${ConsolidatedExamReportService.BASE_URL}/create-document`,
       courseForGroupIdsToStudentGroupIds,
       {
         responseType: 'blob',
@@ -52,6 +52,6 @@ export class ConsolidatedDocumentService {
   }
 
   public getGroupByCourse(course: Course): Observable<StudentGroup[]> {
-    return this.http.get<StudentGroup[]>(`${ConsolidatedDocumentService.BASE_URL}/course/${course.id}`);
+    return this.http.get<StudentGroup[]>(`${ConsolidatedExamReportService.BASE_URL}/course/${course.id}`);
   }
 }

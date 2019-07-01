@@ -6,16 +6,16 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {CourseForGroupService} from '../../services/course-for-group.service';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {DegreeService} from '../../services/degree.service';
-import {ConsolidatedDocumentService} from '../../services/consolidated-document.service';
+import {ConsolidatedExamReportService} from '../../services/consolidated-exam-report.service';
 import {Course} from '../../models/Course';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Component({
-  selector: 'consolidated-document',
-  templateUrl: './consolidated-document.component.html',
-  styleUrls: ['./consolidated-document.component.scss']
+  selector: 'consolidated-exam-report',
+  templateUrl: './consolidated-exam-report.component.html',
+  styleUrls: ['./consolidated-exam-report.component.scss']
 })
-export class ConsolidatedDocumentComponent implements OnInit {
+export class ConsolidatedExamReportComponent implements OnInit {
   degrees: Degree[];
   currentDegree: Degree;
 
@@ -43,13 +43,13 @@ export class ConsolidatedDocumentComponent implements OnInit {
   constructor(private groupService: GroupService,
               private courseForGroupService: CourseForGroupService,
               private degreeService: DegreeService,
-              private consolidatedDocumentService: ConsolidatedDocumentService) { }
+              private consolidatedDocumentService: ConsolidatedExamReportService) { }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
     this.semesters = [1, 2];
     this.selectedYear = 1;
-    this.selectedSemester = ConsolidatedDocumentComponent.getInitialSemester();
+    this.selectedSemester = ConsolidatedExamReportComponent.getInitialSemester();
 
     this.degreeService.getDegrees()
       .subscribe(degrees => {
@@ -139,7 +139,7 @@ export class ConsolidatedDocumentComponent implements OnInit {
     }
   }
 
-  handlerFormConsolidatedDocumentClick(event: MouseEvent) {
+  handlerFormConsolidatedExamReportClick(event: MouseEvent) {
     const obj: any = {};
     this.courseForGroupToStudentGroups.forEach((value, key) => {
       if (!key.selected) {
