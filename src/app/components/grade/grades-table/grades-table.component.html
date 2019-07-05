@@ -24,7 +24,8 @@
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let studentDegree of studentsDegree; let studentId = index">
+      <ng-container *ngFor="let studentDegree of studentsDegree; let studentId = index">
+        <tr [class.student-grades]="studentId == focusStudentId">
           <td class="sticky-col first-col z-index-1">{{studentId + 1}}</td>
           <td class="text-nowrap sticky-col second-col z-index-1">
             {{studentDegree.student | nameWithInitials}}
@@ -39,7 +40,7 @@
               <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
                      (change)="editGrade(grade, studentId, gradeId, $event)"
                      (keyup)="nextCell($event, studentId, gradeId);"
-                     (focus)="onFocusGrade(grade)"
+                     (focus)="onFocusGrade(grade, studentId)"
                      id="grade{{studentId}}{{gradeId}}id"
                      [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
                      [class.not-on-time]="!grade.onTime && !(grade.points < 60)"
@@ -50,6 +51,7 @@
             </td>
           </ng-container>
         </tr>
+      </ng-container>
       </tbody>
   </table>
 </div>
