@@ -8,7 +8,7 @@
         <div class="element">
           <div class="element-header">Група:</div>
           <div class="col-2">
-            <select id="group" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedGroup"
+            <select id="group" class="form-control mr-2" [(ngModel)]="selectedGroup"
                   (change)="onGroupChange()">
               <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
             </select>
@@ -17,7 +17,7 @@
         <div class="element">
           <div class="element-header">Семестр:</div>
           <div class="col-1">
-            <select id="semester" class="form-control mr-2 ng-pristine ng-valid ng-touched" [(ngModel)]="selectedSemester"
+            <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
                   (change)="onSemesterChange()">
               <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
             </select>
@@ -26,7 +26,7 @@
         <div class="element">
           <div class="element-header">Годин за кредит:</div>
           <div class="col-1">
-            <select class="form-control mr-2 ng-pristine ng-valid ng-touched"
+            <select class="form-control mr-2"
                 [(ngModel)]="selectedHoursPerCredit" (change)="onChangeHoursPerCredit()" [disabled]="hoursPerCreditCBDisabled">
             <option [ngValue]="30">30</option>
             <option [ngValue]="36">36</option>
@@ -35,7 +35,7 @@
         </div>
         <div class="col-4">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
-                 class="form-control mr-2 ng-pristine ng-valid ng-touched search">
+                 class="form-control mr-2 search">
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-info" (click)="addCoursesToCoursesForGroup()"
+      <button type="button" class="btn btn-info ml-0" (click)="addCoursesToCoursesForGroup()"
               [disabled]="!selectedCourses.length">Призначити
       </button>
       <button type="button" class="btn btn-danger" (click)="checkAddedCoursesForDeleting()"
@@ -88,11 +88,11 @@
                    [selectedGroup]="selectedGroup"
                    [changesExistence]="changesExistence"></added-courses>
   </div>
-  <div class="bg-white fixed-bottom p-1">
+  <div class="bg-white fixed-bottom">
     <simple-notifications></simple-notifications>
-    <div class="row bottom-row">
+    <div class="row">
       <div class="col-11">
-        <button type="button" class="btn btn-success" (click)="saveCoursesForGroup()"
+        <button type="button" class="btn btn-success ml-3" (click)="saveCoursesForGroup()"
                 [disabled]="!changesExistence">Зберегти
         </button>
         <button type="button" class="btn btn-danger" (click)="onGroupChange()"
