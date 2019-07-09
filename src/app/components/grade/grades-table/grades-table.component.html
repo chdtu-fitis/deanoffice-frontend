@@ -25,7 +25,7 @@
       </thead>
       <tbody>
       <ng-container *ngFor="let studentDegree of studentsDegree; let studentId = index">
-        <tr [class.student-grades]="studentId == focusStudentId">
+        <tr [class.student-grades]="studentId === focusStudentId">
           <td class="sticky-col first-col z-index-1">{{studentId + 1}}</td>
           <td class="text-nowrap sticky-col second-col z-index-1">
             {{studentDegree.student | nameWithInitials}}
