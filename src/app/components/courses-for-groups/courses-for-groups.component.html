@@ -58,13 +58,13 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-info ml-0" (click)="addCoursesToCoursesForGroup()"
+      <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesToCoursesForGroup()"
               [disabled]="!selectedCourses.length">Призначити
       </button>
-      <button type="button" class="btn btn-danger" (click)="checkAddedCoursesForDeleting()"
+      <button type="button" class="btn btn-danger btn-medium" (click)="checkAddedCoursesForDeleting()"
               [disabled]="!coursesForDelete.length">Видалити
       </button>
-      <button type="button" class="btn btn-info copy" (click)="copyCourses()"
+      <button type="button" class="btn btn-info" (click)="copyCourses()"
               *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи
       </button>
       <button type="button" class="btn btn-warning" (click)="showGroupsDifferents()"
@@ -88,14 +88,14 @@
                    [selectedGroup]="selectedGroup"
                    [changesExistence]="changesExistence"></added-courses>
   </div>
-  <div class="bg-white fixed-bottom">
+  <div class="bg-white fixed-bottom ml-3">
     <simple-notifications></simple-notifications>
     <div class="row">
       <div class="col-11">
-        <button type="button" class="btn btn-success ml-3" (click)="saveCoursesForGroup()"
+        <button type="button" class="btn btn-success btn-medium ml-1 " (click)="saveCoursesForGroup()"
                 [disabled]="!changesExistence">Зберегти
         </button>
-        <button type="button" class="btn btn-danger" (click)="onGroupChange()"
+        <button type="button" class="btn btn-danger btn-medium" (click)="onGroupChange()"
                 [disabled]="!changesExistence">Відмінити зміни
         </button>
       </div>

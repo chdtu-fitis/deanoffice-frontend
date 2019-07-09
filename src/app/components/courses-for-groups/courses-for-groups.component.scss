@@ -22,6 +22,11 @@ div {
   height: 2rem;
   margin: 7px;
   padding: 0.2rem 0.75rem;
+
+  &.btn-medium {
+    width: 145px;
+  }
+
 }
 
 .menu-row {
