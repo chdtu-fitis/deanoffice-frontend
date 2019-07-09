@@ -7,17 +7,17 @@
           <th *ngIf="courses"></th>
           <th>Назва</th>
           <th>Контроль</th>
-          <th>Години</th>
-          <th>Кредити</th>
+          <th class="text-right">Години</th>
+          <th class="text-right">Кредити</th>
         </tr>
       </thead>
       <tr *ngFor="let course of courses | coursesSearch : searchText">
-        <td><input type="checkbox" [(ngModel)]="course.selected"
+        <td class="text-center"><input type="checkbox" [(ngModel)]="course.selected"
                    (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
         <td>{{ course.courseName.name }}</td>
         <td>{{ course.knowledgeControl.name }}</td>
-        <td>{{ course.hours }}</td>
-        <td>{{ course.credits }}</td>
+        <td class="text-right">{{ course.hours }}</td>
+        <td class="text-right">{{ course.credits }}</td>
       </tr>
     </table>
     <loading *ngIf="loading"></loading>
