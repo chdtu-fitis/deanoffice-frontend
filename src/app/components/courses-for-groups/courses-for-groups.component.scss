@@ -1,90 +1,35 @@
-.selection{
+div {
+  font-size: 15px;
+}
+
+.courses-for-groups {
+  height: calc(100% - 108px);
+}
+
+.selection {
   margin-top: 10px;
   margin-bottom: 10px;
   overflow: hidden;
-}
 
-.btn-info{
-  margin: 10px;
-}
-
-.search {
-  float: right;
-  clear: both;
-}
-
-.mr-2[_ngcontent-c2], .mx-2[_ngcontent-c2]{
-  margin-right: 0 !important;
-}
-
-.btn-info[_ngcontent-c2] {
-  margin-left: 0;
-}
-
-.btn-success[_ngcontent-c2] {
-  margin-left: 0;
-}
-
-.copy[_ngcontent-c2] {
-  margin-left: 10px;
+  .form-control {
+    height: 1.5rem;
+    font-size: 15px;
+    padding: 0 0.75rem;
+  }
 }
 
 .btn {
   height: 2rem;
   margin: 7px;
   padding: 0.2rem 0.75rem;
+
+  &.btn-medium {
+    width: 145px;
+  }
+
 }
 
-.count-label{
-  margin-top: 15px;
-  font-size: 15px;
-}
-
-div {
-  font-size: 15px;
-}
-
-.div-table {
-  height: 100%;
-}
-
-.form-control .mr-2 .ng-pristine .ng-valid .ng-touched{
-  height: 1.5rem;
-  font-size: 15px;
-}
-
-.form-control {
-  height: 1.5rem;
-  font-size: 15px;
-}
-
-select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
-  height: 1.5rem;
-  padding: 0 0.75rem;
-}
-
-.bottom-row{
-  margin-left: 0;
-}
-
-.course-for-group-table{
-  height: 50%;
-  overflow: auto;
-}
-
-.courses{
-  height: 40%;
-}
-
-.studied-courses{
-  height: 100%;
-  overflow: auto;
-}
-
-.courses-for-groups{
-  height: calc(100% - 108px);
-}
-.menu-row{
+.menu-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -94,14 +39,31 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
   display: inline-flex;
   flex-direction: row;
   justify-content: flex-start;
+
+  .element-header {
+    margin-right: 5px;
+    min-width: auto;
+  }
 }
-.element-header{
-  margin-right: 5px;
-  min-width: auto;
+
+.courses{
+  height: 40%;
+
+  .studied-courses{
+    height: 100%;
+    overflow: auto;
+  }
+
 }
+
+.course-for-group-table{
+  height: 50%;
+  overflow: auto;
+}
+
 .col-1 {
-  min-width: 4.8em;
   padding: 1px;
+  min-width: 4.8em;
 }
 
 .col-2 {
@@ -113,3 +75,6 @@ select.form-control[_ngcontent-c2]:not([size]):not([multiple]) {
   padding: 1px;
 }
 
+.count-label {
+  margin-top: 15px;
+}
