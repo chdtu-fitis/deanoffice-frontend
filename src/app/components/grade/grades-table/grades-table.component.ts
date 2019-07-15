@@ -36,9 +36,11 @@ export class GradesTableComponent {
     }
 
     nextCell(e: any, studentId: number, gradeId: number): void {
-        if (e.keyCode === 13) {
-            this.focusElement(studentId + 1, gradeId, true);
-        }
+      if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        this.focusElement(studentId + 1, gradeId, true);
+      } else if (e.key === 'ArrowUp') {
+        this.focusElement(studentId - 1, gradeId, true);
+      }
     }
 
     focusElement(studentId: number, gradeId: number, vertically: boolean): void {

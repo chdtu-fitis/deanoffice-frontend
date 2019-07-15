@@ -37,9 +37,9 @@
               [class.updated-academic-difference]="grade.academicDifference && grade?.changed"
               [class.updated-grade]="grade?.changed && !grade.academicDifference"
             >
-              <input type="number" [value]="grade.points" *ngIf="!isDeleteMode"
+              <input type="text" [value]="grade.points" *ngIf="!isDeleteMode"
                      (change)="editGrade(grade, studentId, gradeId, $event)"
-                     (keyup)="nextCell($event, studentId, gradeId);"
+                     (keydown)="nextCell($event, studentId, gradeId);"
                      (focus)="onFocusGrade(grade, studentId)"
                      id="grade{{studentId}}{{gradeId}}id"
                      [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
