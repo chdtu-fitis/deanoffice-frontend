@@ -44,19 +44,19 @@ export class GradesTableComponent {
     }
 
     focusElement(studentId: number, gradeId: number, vertically: boolean): void {
-        const id = this.getElementId(studentId, gradeId);
-        try {
-            document.getElementById(id).focus();
-        } catch (err) {
-            if (!vertically) {
-                return;
-            }
-            this.focusElement(0, gradeId + 1, false);
+      const id = this.getElementId(studentId, gradeId);
+      try {
+        document.getElementById(id).focus();
+      } catch (err) {
+        if (!vertically) {
+          return;
         }
+        this.focusElement(0, gradeId + 1, false);
+      }
     }
 
     getElementId(studentId: number, gradeId: number): string {
-        return `grade${studentId}${gradeId}id`;
+        return `grade-${gradeId}student-${studentId}`;
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
