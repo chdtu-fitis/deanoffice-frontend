@@ -36,25 +36,27 @@ export class GradesTableComponent {
     }
 
     nextCell(e: any, studentId: number, gradeId: number): void {
-        if (e.keyCode === 13) {
-            this.focusElement(studentId + 1, gradeId, true);
-        }
+      if (e.key === 'ArrowDown' || e.key === 'Enter') {
+        this.focusElement(studentId + 1, gradeId, true);
+      } else if (e.key === 'ArrowUp') {
+        this.focusElement(studentId - 1, gradeId, true);
+      }
     }
 
     focusElement(studentId: number, gradeId: number, vertically: boolean): void {
-        const id = this.getElementId(studentId, gradeId);
-        try {
-            document.getElementById(id).focus();
-        } catch (err) {
-            if (!vertically) {
-                return;
-            }
-            this.focusElement(0, gradeId + 1, false);
+      const id = this.getElementId(studentId, gradeId);
+      try {
+        document.getElementById(id).focus();
+      } catch (err) {
+        if (!vertically) {
+          return;
         }
+        this.focusElement(0, gradeId + 1, false);
+      }
     }
 
     getElementId(studentId: number, gradeId: number): string {
-        return `grade${studentId}${gradeId}id`;
+        return `grade-${gradeId}student-${studentId}`;
     }
 
     editGrade(grade: Grade, studentId: number, gradeId: number, e: any): void {
