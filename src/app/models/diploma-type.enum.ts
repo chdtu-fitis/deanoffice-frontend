@@ -8,5 +8,6 @@ export enum DiplomaType {
   OTHER_FOREIGN = 'Іноземний документ',
   QUALIFIED_WORKER_DIPLOMA = 'Диплом кваліфікованого робітника',
   WORKER_QUALIFICATION_DIPLOMA = 'Свідоцтво про присвоєння(підвищення) робітничої кваліфікації',
-  SPECIALIST_DIPLOMA = 'Диплом спеціаліста'
+  SPECIALIST_DIPLOMA = 'Диплом спеціаліста',
+  SECONDARY_SCHOOL_CERTIFICATE1 = 'Свідоцтво про здобуття повної загальної середньої освіти'
 }
