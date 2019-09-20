@@ -31,6 +31,11 @@ export const appRoutes: Routes = [
             data: { title: 'Відомості' }
           },
           {
+            path: 'consolidated-exam-report',
+            loadChildren: '../consolidated-exam-report/consolidated-exam-report.module#ConsolidatedExamReportModule',
+            data: { title: 'Зведені відомості' }
+          },
+          {
             path: 'personal-file-statement',
             loadChildren: '../personal-file-grades-statement/personal-file-grades-statement.module#PersonalFileGradesStatementModule',
             data: { title: 'Виписка в особову справу' }
@@ -39,7 +44,7 @@ export const appRoutes: Routes = [
             path: 'additional-documents',
             loadChildren: '../additional-documents/additional-documents.module#AdditionalDocumentsModule',
             data: { title: 'Додаткові документи' }
-          }
+          },
         ]
       },
       {
@@ -58,11 +63,6 @@ export const appRoutes: Routes = [
         data: { title: 'Предмети для груп' }
       },
       {
-        path: 'course',
-        loadChildren: '../course/course.module#CourseModule',
-        data: { title: 'Предмети' }
-      },
-      {
         path: 'specialities',
         loadChildren: '../speciality/speciality.module#SpecialityModule',
         data: { title: 'Спеціальності' }
@@ -73,28 +73,9 @@ export const appRoutes: Routes = [
         data: { title: 'Групи' }
       },
       {
-        path: 'teachers',
-        loadChildren: '../teachers/teachers.module#TeachersModule',
-        data: { title: 'Викладачі' }
-      },
-      {
-        path: 'departments',
-        loadChildren: '../department/department.module#DepartmentModule',
-        data: {title: 'Кафедри'}
-      },
-      {
         path: 'specializations',
         loadChildren: '../specialization/specialization.module#SpecializationModule',
         data: { title: 'Спеціалізації (освітні програми)' }
-      },
-      {
-        path: 'finish-study-year',
-        loadChildren: '../finish-study-year/finish-study-year.module#FinishStudyYearModule',
-        data: { title: 'Закінчити навчальний рік' }
-      },
-      {
-        path: 'reports',
-        loadChildren: '../reports/reports.module#ReportsModule',
       }
     ]
   },

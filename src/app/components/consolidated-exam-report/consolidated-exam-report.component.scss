@@ -1,0 +1,55 @@
+.consolidated-document-wrapper {
+  padding: 8px;
+}
+
+.top-select-container {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #EEEEEE;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    .select-wrapper {
+      flex-basis: unset;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .max-width-sm {
+    max-width: 40px;
+  }
+}
+
+.select-wrapper {
+  flex-basis: 150px;
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+thead tr td {
+  font-weight: bold;
+}
+
+.clickable tbody tr {
+  cursor: pointer;
+}
+
+.consolidated-main-container {
+  margin-top: 16px;
+}
+
+.selected-row {
+  color: #076185;
+
+  &:hover {
+    color: #076185;
+  }
+}
+
+.dots {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
