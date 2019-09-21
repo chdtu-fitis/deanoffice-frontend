@@ -44,7 +44,7 @@ export const appRoutes: Routes = [
             path: 'additional-documents',
             loadChildren: '../additional-documents/additional-documents.module#AdditionalDocumentsModule',
             data: { title: 'Додаткові документи' }
-          },
+          }
         ]
       },
       {
@@ -63,6 +63,11 @@ export const appRoutes: Routes = [
         data: { title: 'Предмети для груп' }
       },
       {
+        path: 'course',
+        loadChildren: '../course/course.module#CourseModule',
+        data: { title: 'Предмети' }
+      },
+      {
         path: 'specialities',
         loadChildren: '../speciality/speciality.module#SpecialityModule',
         data: { title: 'Спеціальності' }
@@ -73,12 +78,32 @@ export const appRoutes: Routes = [
         data: { title: 'Групи' }
       },
       {
+        path: 'teachers',
+        loadChildren: '../teachers/teachers.module#TeachersModule',
+        data: { title: 'Викладачі' }
+      },
+      {
+        path: 'departments',
+        loadChildren: '../department/department.module#DepartmentModule',
+        data: {title: 'Кафедри'}
+      },
+      {
         path: 'specializations',
         loadChildren: '../specialization/specialization.module#SpecializationModule',
         data: { title: 'Спеціалізації (освітні програми)' }
+      },
+      {
+        path: 'finish-study-year',
+        loadChildren: '../finish-study-year/finish-study-year.module#FinishStudyYearModule',
+        data: { title: 'Закінчити навчальний рік' }
+      },
+      {
+        path: 'reports',
+        loadChildren: '../reports/reports.module#ReportsModule',
       }
     ]
   },
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
+
