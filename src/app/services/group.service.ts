@@ -14,8 +14,8 @@ export class GroupService {
   constructor(private http: HttpClient) {
   }
 
-  getGroups(onlyActual: boolean = true): Observable<StudentGroup[]> {
-    const params = new HttpParams().set('only-active', onlyActual.toString());
+  getGroups(active: boolean = true): Observable<StudentGroup[]> {
+    const params = new HttpParams().set('active', active.toString());
     return this.http.get<StudentGroup[]>(`${this.groupsUrl}`, {params: params})
       .pipe(catchError(forObservable('Отримання груп', [])));
   }

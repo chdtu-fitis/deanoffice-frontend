@@ -5,8 +5,8 @@
         <div class="d-flex my-2 align-items-center">
           <label class="mr-auto ml-1 m-0">
             <input type="checkbox"
-                   [checked]="actualGroups"
-                   (change)="actualGroups =!actualGroups; filterActive()">
+                   [checked]="active"
+                   (change)="active =!active; loadGroups(active)">
             Актуальні групи
           </label>
           <div class="float-right">

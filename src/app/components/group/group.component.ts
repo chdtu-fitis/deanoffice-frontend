@@ -24,7 +24,7 @@ export class GroupComponent implements OnInit {
   loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
-  actualGroups = true;
+  active = true;
   searchText: string;
   alertOptions = {
     showProgressBar: false,
@@ -99,20 +99,12 @@ export class GroupComponent implements OnInit {
       this.alertOptions);
   }
 
-  loadGroups(): void {
+  loadGroups(active: boolean = true) {
     this.selectedGroups = [];
-    const onlyActual = false;
-    this.groupService.getGroups(onlyActual)
-      .subscribe((loadedGroups: StudentGroup[]) => {
-        this.loadedGroups = loadedGroups;
-        this.filterActive();
+    this.groupService.getGroups(active)
+      .subscribe((groups: StudentGroup[]) => {
+        return this.groups = groups;
       });
-  }
-
-  filterActive(): void {
-    this.groups = this.loadedGroups.filter(item => {
-      return !(this.actualGroups && !item.active);
-    });
   }
 
   onAddGroup(group: StudentGroup) {
