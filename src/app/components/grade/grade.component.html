@@ -39,9 +39,12 @@
                       (click)="setAcademicDifference()" *ngIf="selectGroup">
                 Змінити А.Р
               </button>
-              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+              <button class="btn btn-primary"
                       (click)="setOnTime()" *ngIf="selectGroup">
                 {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
+              </button>
+              <button class="btn btn-success" (click)="makeBigunoc(gradeTable.focusGrade?.courseId, gradeTable.focusGrade?.id)">
+                Сформувати бігунок
               </button>
               <mat-slide-toggle
                 class="ml-1"

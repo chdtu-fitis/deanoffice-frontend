@@ -7,12 +7,13 @@ import {environment} from '../../environments/environment';
 import {forObservable} from '../components/shared/httpErrors';
 import {GradeUpdateAcademicDifference} from '../components/grade/models/GradeUpdateAcademicDifference';
 import {PostGrade} from '../components/grade/models/PostGrade';
+import {FileService} from './file-service';
 
 @Injectable()
 export class GradeService {
     private url = `${environment.apiUrl}/grades`;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private fileService: FileService) {
     }
 
     public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {
@@ -38,6 +39,10 @@ export class GradeService {
   public putAcademicDifference(academicDifferenceGradeId: GradeUpdateAcademicDifference): Observable<any> {
     return this.http.put(`${this.url}/academic-difference`, academicDifferenceGradeId)
       .pipe(catchError(forObservable('Призначення академ різниці', [])));
+  }
+
+  getBigunoc(studentId: Array<number>, coursesId: Array<number>) {
+    this.fileService.downloadFile(this.url + `/students/${studentId}/courses/${coursesId}`)
   }
 }
 

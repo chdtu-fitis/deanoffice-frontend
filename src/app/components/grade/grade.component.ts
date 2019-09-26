@@ -242,4 +242,8 @@ export class GradeComponent implements OnInit {
     this.gradeTable.focusGrade.onTime = !this.gradeTable.focusGrade.onTime;
     this.gradeService.updateGrades([new PostGrade(this.gradeTable.focusGrade)]).subscribe(() => {});
   }
+
+  makeBigunoc(idCourse: Array<number>, idStudent: Array<number>) {
+    this.gradeService.getBigunoc(idCourse, idStudent)
+  }
 }
