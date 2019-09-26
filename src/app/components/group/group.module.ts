@@ -12,6 +12,7 @@ import {AddGroupComponent} from './add-group/add-group.component';
 import {DeleteGroupComponent} from './delete-group/delete-group.component';
 import { UpdateGroupComponent } from './update-group/update-group.component';
 import { GroupFormComponent } from './group-form/group-form.component';
+import {MatSlideToggleModule} from '@angular/material';
 
 export const groupRoutes: Routes = [
   {path: '', component: GroupComponent}
@@ -26,6 +27,7 @@ export const groupRoutes: Routes = [
     PipeModule.forRoot(),
     RouterModule.forChild(groupRoutes),
     SimpleNotificationsModule.forRoot(),
+    MatSlideToggleModule,
   ],
   declarations: [
     AddGroupComponent,
