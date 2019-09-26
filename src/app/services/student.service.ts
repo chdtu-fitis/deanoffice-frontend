@@ -6,12 +6,14 @@ import {environment} from '../../environments/environment';
 import {StudentDegree} from '../models/StudentDegree';
 import {Student} from '../models/Student';
 import {ExpelsAndRenews} from '../components/students/student-degree-history/ExpelsAndRenews';
+import {FileService} from './file-service';
 
 @Injectable()
 export class StudentService {
   private url = `${environment.apiUrl}/students`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private fileService: FileService) {
   }
 
   getInitialStudents(): Observable<StudentDegree[]> {
@@ -103,5 +105,9 @@ export class StudentService {
 
   createStudentTransfer(transferData) {
     return this.http.post(`${this.url}/degrees/transfers`, transferData);
+  }
+
+  getBigunoc(studentId, groupId) {
+    // this.fileService.downloadFile()
   }
 }
