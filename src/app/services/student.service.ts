@@ -12,8 +12,7 @@ import {FileService} from './file-service';
 export class StudentService {
   private url = `${environment.apiUrl}/students`;
 
-  constructor(private http: HttpClient,
-              private fileService: FileService) {
+  constructor(private http: HttpClient) {
   }
 
   getInitialStudents(): Observable<StudentDegree[]> {
@@ -105,9 +104,5 @@ export class StudentService {
 
   createStudentTransfer(transferData) {
     return this.http.post(`${this.url}/degrees/transfers`, transferData);
-  }
-
-  getBigunoc(studentId, groupId) {
-    // this.fileService.downloadFile()
   }
 }

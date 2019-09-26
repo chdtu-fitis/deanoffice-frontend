@@ -169,7 +169,5 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  makeBigunoc() {
-    // this.studentService.getBigunoc()
-  }
+
 }
