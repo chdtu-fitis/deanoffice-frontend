@@ -61,8 +61,8 @@ export class GroupService {
   }
 
   restore(ids: number[]): Observable <any> {
-    console.log(ids);
+    const params = new HttpParams().set('groupIds', ids.toString());
     const url = `${this.groupsUrl}/restore`;
-    return this.http.put(url, ids).pipe(catchError(forObservable('Відновлення групи')));
+    return this.http.put(url, ids, { params: params});
   }
 }

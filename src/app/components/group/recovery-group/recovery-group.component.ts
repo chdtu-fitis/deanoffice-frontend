@@ -3,6 +3,7 @@ import {GroupService} from '../../../services/group.service';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {FormGroup} from '@angular/forms';
+import {GroupComponent} from '../group.component';
 
 @Component({
   selector: 'recovery-group',
@@ -19,7 +20,10 @@ export class RecoveryGroupComponent {
 
   form = new FormGroup({});
 
-  constructor(private groupService: GroupService) { }
+  constructor(
+    private groupService: GroupService,
+    private groupComponent: GroupComponent,
+  ) { }
 
   openModal(items: StudentGroup[]): void {
     this.groups = items;
@@ -29,7 +33,10 @@ export class RecoveryGroupComponent {
   submit(): void {
     this.groupService
       .restore(this.groups.map(x => x.id))
-      .subscribe(() => this.modal.hide());
+      .subscribe(() => {
+        this.modal.hide();
+        this.groupComponent.onRecoveryGroup(this.groups);
+      });
   }
 
   hideModal(): void {
