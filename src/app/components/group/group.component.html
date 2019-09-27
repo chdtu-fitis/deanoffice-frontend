@@ -13,22 +13,30 @@
             </mat-slide-toggle>
           </label>
           <div class="float-right">
-            <button type="button" class="btn btn-danger align-middle"
-                    [disabled]="selectedGroups.length === 0"
-                    (click)="deleteGroupModal.openModal(gridApi.getSelectedRows())">
-              Видалити
-            </button>
+            <div *ngIf="active === true">
+              <button type="button" class="btn btn-danger align-middle"
+                      [disabled]="selectedGroups.length === 0"
+                      (click)="deleteGroupModal.openModal(gridApi.getSelectedRows())">
+                Видалити
+              </button>
 
-            <button type="button" class="btn btn-warning align-middle"
-                    [disabled]="selectedGroups.length === 0 || selectedGroups.length > 1"
-                    (click)="updateGroupModal.openModal(gridApi.getSelectedRows()[0])">
-              Редагувати
-            </button>
+              <button type="button" class="btn btn-warning align-middle"
+                      [disabled]="selectedGroups.length === 0 || selectedGroups.length > 1"
+                      (click)="updateGroupModal.openModal(gridApi.getSelectedRows()[0])">
+                Редагувати
+              </button>
 
-            <button type="button" class="btn btn-success align-middle"
-                    (click)="addGroupModal.openModal()">
-              Нова група
-            </button>
+              <button type="button" class="btn btn-success align-middle"
+                      (click)="addGroupModal.openModal()">
+                Нова група
+              </button>
+            </div>
+            <div *ngIf="active === false">
+              <button type="button" class="btn btn-success align-middle"
+                      (click)="recoveryGroupModal.openModal(gridApi.getSelectedRows())">
+                Відновити
+              </button>
+            </div>
           </div>
         </div>
         <ag-grid-angular
@@ -78,5 +86,9 @@
               [tuitionTerms]="tuitionTerms"
               [tuitionTermsKeys]="tuitionTermsKeys"
 ></update-group>
+
+<recovery-group #recoveryGroupModal (recoveryGroup)="onRecoveryGroup($event)"
+              (showErrorAlert)="showErrorAlert($event)"
+></recovery-group>
 
 <simple-notifications></simple-notifications>

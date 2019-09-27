@@ -59,4 +59,10 @@ export class GroupService {
     return this.http.put(this.groupsUrl, body).toPromise()
       .catch(forPromise('Оновлення групи'));
   }
+
+  restore(ids: number[]): Observable <any> {
+    console.log(ids);
+    const url = `${this.groupsUrl}/restore`;
+    return this.http.put(url, ids).pipe(catchError(forObservable('Відновлення групи')));
+  }
 }

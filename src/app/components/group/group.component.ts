@@ -135,5 +135,10 @@ export class GroupComponent implements OnInit {
       }
     }
   }
+  onRecoveryGroup(recoveredGroups: StudentGroup[]) {
+    const recoveredGroupsIds = recoveredGroups.map(group => group.id);
+    const groupsForRecovery = this.selectedGroups.filter(group => recoveredGroupsIds.includes(group.id));
+    this.gridApi.updateRowData({ remove: groupsForRecovery });
+  }
 
 }
