@@ -135,5 +135,8 @@ export class GroupComponent implements OnInit {
       }
     }
   }
+  onRecoveryGroup(recoveredGroups: StudentGroup[]) {
+    this.gridApi.updateRowData({ remove: recoveredGroups });
+  }
 
 }

@@ -13,6 +13,7 @@ import {DeleteGroupComponent} from './delete-group/delete-group.component';
 import { UpdateGroupComponent } from './update-group/update-group.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import {MatSlideToggleModule} from '@angular/material';
+import { RecoveryGroupComponent } from './recovery-group/recovery-group.component';
 
 export const groupRoutes: Routes = [
   {path: '', component: GroupComponent}
@@ -34,7 +35,8 @@ export const groupRoutes: Routes = [
     DeleteGroupComponent,
     GroupComponent,
     UpdateGroupComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    RecoveryGroupComponent
   ]
 })
 export class GroupModule { }
