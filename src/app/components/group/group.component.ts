@@ -117,8 +117,7 @@ export class GroupComponent implements OnInit {
 
   onDeleteGroup(deletedGroups: StudentGroup[]) {
     const deletedGroupsIds = deletedGroups.map(group => group.id);
-    const groupsForRemove = this.selectedGroups.filter(group => deletedGroupsIds.includes(group.id));
-    this.gridApi.updateRowData({ remove: groupsForRemove });
+    this.gridApi.updateRowData({ remove: deletedGroups });
 
     for (const selectedGroup of this.selectedGroups) {
       if (!deletedGroupsIds.includes(selectedGroup.id)) {
