@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {saveAs} from 'file-saver';
 
 @Injectable()
 export class ExamReportService {
   private documentsUrl = `${environment.apiUrl}/documents`;
 
-  constructor(private fileService: FileService) { }
+  constructor(private fileService: FileService,
+              private http: HttpClient) { }
 
   buildExamReport(groupId: number, courseIds: number[]): any {
       const url = `${this.documentsUrl}/exam-report/groups/${groupId}/docx?courseIds=${courseIds}`;
@@ -46,5 +49,18 @@ export class ExamReportService {
   buildStudentsList(year: number, degreeId: number, tuitionForm: string): any {
     const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
+  }
+
+  makeSingleStudentAndCourseExamReport(studentIds: Array<number>, coursesIds: Array<number>) {
+    const url = environment.apiUrl + `/documents/single-student-and-course-exam-report`;
+    const myHeaders = new HttpHeaders();
+    myHeaders.append('content-filename', 'file');
+
+    const params = new HttpParams().set('student_ids', studentIds.toString()).set('course_ids', coursesIds.toString());
+    const response = this.http.get(url, { responseType: 'blob', observe: 'response', headers: myHeaders, params });
+    response.subscribe((res: any) => {
+      saveAs(res.body, res.headers.get('content-filename'));
+    });
+    return response
   }
 }

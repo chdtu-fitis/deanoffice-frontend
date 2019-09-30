@@ -40,9 +40,5 @@ export class GradeService {
     return this.http.put(`${this.url}/academic-difference`, academicDifferenceGradeId)
       .pipe(catchError(forObservable('Призначення академ різниці', [])));
   }
-
-  getBigunoc(studentId: Array<number>, coursesId: Array<number>) {
-    this.fileService.downloadFile(this.url + `/students/${studentId}/courses/${coursesId}`)
-  }
 }
 
