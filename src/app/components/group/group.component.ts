@@ -21,7 +21,6 @@ export class GroupComponent implements OnInit {
   @ViewChild('table') table;
   @ViewChild('addGroupModal') addGroupModal;
 
-  loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
   active = true;
@@ -108,30 +107,22 @@ export class GroupComponent implements OnInit {
   }
 
   onAddGroup(group: StudentGroup) {
-    this.loadedGroups.push(group);
     this.gridApi.updateRowData({ add: [group], addIndex: 0 });
   }
 
   onUpdateGroup(updatedGroup: StudentGroup) {
     const rowNode = this.gridApi.getRowNode(this.selectedGroups[0].id);
     rowNode.setData(updatedGroup);
-
-    const index = this.loadedGroups.findIndex(loadedGroup => loadedGroup.id === updatedGroup.id);
-    this.loadedGroups[index] = updatedGroup;
   }
 
   onDeleteGroup(deletedGroups: StudentGroup[]) {
     const deletedGroupsIds = deletedGroups.map(group => group.id);
-    const groupsForRemove = this.selectedGroups.filter(group => deletedGroupsIds.includes(group.id));
-    this.gridApi.updateRowData({ remove: groupsForRemove });
+    this.gridApi.updateRowData({ remove: deletedGroups });
 
     for (const selectedGroup of this.selectedGroups) {
       if (!deletedGroupsIds.includes(selectedGroup.id)) {
         const message = {message: `Неможливе видалення групи ${selectedGroup.name} <br>(в групі є студенти)`};
         this.showErrorAlert(message);
-      } else {
-        const group = this.loadedGroups.find(group => group.id === selectedGroup.id);
-        group.active = false;
       }
     }
   }
