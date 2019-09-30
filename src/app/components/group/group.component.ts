@@ -21,7 +21,6 @@ export class GroupComponent implements OnInit {
   @ViewChild('table') table;
   @ViewChild('addGroupModal') addGroupModal;
 
-  loadedGroups: StudentGroup[] = [];
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
   active = true;
@@ -108,16 +107,12 @@ export class GroupComponent implements OnInit {
   }
 
   onAddGroup(group: StudentGroup) {
-    this.loadedGroups.push(group);
     this.gridApi.updateRowData({ add: [group], addIndex: 0 });
   }
 
   onUpdateGroup(updatedGroup: StudentGroup) {
     const rowNode = this.gridApi.getRowNode(this.selectedGroups[0].id);
     rowNode.setData(updatedGroup);
-
-    const index = this.loadedGroups.findIndex(loadedGroup => loadedGroup.id === updatedGroup.id);
-    this.loadedGroups[index] = updatedGroup;
   }
 
   onDeleteGroup(deletedGroups: StudentGroup[]) {
