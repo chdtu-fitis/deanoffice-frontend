@@ -95,6 +95,10 @@ export const appRoutes: Routes = [
       {
         path: 'reports',
         loadChildren: '../reports/reports.module#ReportsModule',
+      },
+      {
+        path: 'orders',
+        loadChildren: '../orders/orders.module#OrdersModule'
       }
     ]
   },
