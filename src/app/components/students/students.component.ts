@@ -10,7 +10,6 @@ import {PaymentFilterComponent} from './payment-filter/payment-filter.component'
 import {BsModalService} from 'ngx-bootstrap';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
-import {FileService} from '../../services/file-service';
 
 @Component({
   selector: 'app-students',
@@ -149,7 +148,6 @@ export class StudentsComponent implements OnInit {
     this.gridApi.updateRowData({ add: [student], addIndex: 0});
   };
 
-
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
     this.selected = this.selected.filter(degree => idsToRemove.includes(degree.id));
@@ -168,6 +166,4 @@ export class StudentsComponent implements OnInit {
       this.gridApi.updateRowData({ remove: this.selected });
     }
   }
-
-
 }

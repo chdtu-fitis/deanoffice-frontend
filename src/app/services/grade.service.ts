@@ -7,13 +7,12 @@ import {environment} from '../../environments/environment';
 import {forObservable} from '../components/shared/httpErrors';
 import {GradeUpdateAcademicDifference} from '../components/grade/models/GradeUpdateAcademicDifference';
 import {PostGrade} from '../components/grade/models/PostGrade';
-import {FileService} from './file-service';
 
 @Injectable()
 export class GradeService {
     private url = `${environment.apiUrl}/grades`;
 
-    constructor(private http: HttpClient, private fileService: FileService) {
+    constructor(private http: HttpClient) {
     }
 
     public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {

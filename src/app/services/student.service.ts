@@ -6,7 +6,6 @@ import {environment} from '../../environments/environment';
 import {StudentDegree} from '../models/StudentDegree';
 import {Student} from '../models/Student';
 import {ExpelsAndRenews} from '../components/students/student-degree-history/ExpelsAndRenews';
-import {FileService} from './file-service';
 
 @Injectable()
 export class StudentService {
