@@ -51,12 +51,12 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
-  makeSingleStudentAndCourseExamReport(studentIds: Array<number>, coursesIds: Array<number>) {
+  makeSingleStudentAndCourseExamReport(studentDegreeIds: Array<number>, courseIds: Array<number>) {
     const url = environment.apiUrl + `/documents/single-student-and-course-exam-report`;
     const myHeaders = new HttpHeaders();
     myHeaders.append('content-filename', 'file');
 
-    const params = new HttpParams().set('student_ids', studentIds.toString()).set('course_ids', coursesIds.toString());
+    const params = new HttpParams().set('student_ids', studentDegreeIds.toString()).set('course_ids', courseIds.toString());
     const response = this.http.get(url, { responseType: 'blob', observe: 'response', headers: myHeaders, params });
     response.subscribe((res: any) => {
       saveAs(res.body, res.headers.get('content-filename'));

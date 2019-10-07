@@ -245,7 +245,7 @@ export class GradeComponent implements OnInit {
     this.gradeService.updateGrades([new PostGrade(this.gradeTable.focusGrade)]).subscribe(() => {});
   }
 
-  makeRunner(idCourse: Array<number>, idStudent: Array<number>) {
-    this.examReportService.makeSingleStudentAndCourseExamReport(idCourse, idStudent)
+  makeSingleStudentAndCourseExamReport(courseIds: Array<number>, studentDegreeIds: Array<number>) {
+    this.examReportService.makeSingleStudentAndCourseExamReport(courseIds, studentDegreeIds)
   }
 }
