@@ -3,6 +3,8 @@ import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {saveAs} from 'file-saver';
+import {catchError} from "rxjs/operators";
+import {forObservable} from "../components/shared/httpErrors";
 
 @Injectable()
 export class ExamReportService {
@@ -52,15 +54,7 @@ export class ExamReportService {
   }
 
   makeSingleStudentAndCourseExamReport(studentDegreeIds: Array<number>, courseIds: Array<number>) {
-    const url = environment.apiUrl + `/documents/single-student-and-course-exam-report`;
-    const myHeaders = new HttpHeaders();
-    myHeaders.append('content-filename', 'file');
-
-    const params = new HttpParams().set('student_ids', studentDegreeIds.toString()).set('course_ids', courseIds.toString());
-    const response = this.http.get(url, { responseType: 'blob', observe: 'response', headers: myHeaders, params });
-    response.subscribe((res: any) => {
-      saveAs(res.body, res.headers.get('content-filename'));
-    });
-    return response
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${studentDegreeIds}&course_ids=${courseIds}`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
   }
 }
