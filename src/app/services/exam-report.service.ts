@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {saveAs} from 'file-saver';
+import {HttpClient} from '@angular/common/http';
 import {catchError} from "rxjs/operators";
 import {forObservable} from "../components/shared/httpErrors";
+import {Grade} from "../models/Grade";
 
 @Injectable()
 export class ExamReportService {
@@ -53,8 +53,8 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
-  makeSingleStudentAndCourseExamReport(studentDegreeIds: Array<number>, courseIds: Array<number>) {
-    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${studentDegreeIds}&course_ids=${courseIds}`;
+  makeSingleStudentAndCourseExamReport(grade: Grade) {
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${grade.studentDegreeId}&course_ids=${grade.courseId}`;
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
   }
 }
