@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
-import {HttpClient} from '@angular/common/http';
 import {catchError} from "rxjs/operators";
 import {forObservable} from "../components/shared/httpErrors";
 import {Grade} from "../models/Grade";
@@ -10,8 +9,7 @@ import {Grade} from "../models/Grade";
 export class ExamReportService {
   private documentsUrl = `${environment.apiUrl}/documents`;
 
-  constructor(private fileService: FileService,
-              private http: HttpClient) { }
+  constructor(private fileService: FileService) { }
 
   buildExamReport(groupId: number, courseIds: number[]): any {
       const url = `${this.documentsUrl}/exam-report/groups/${groupId}/docx?courseIds=${courseIds}`;
