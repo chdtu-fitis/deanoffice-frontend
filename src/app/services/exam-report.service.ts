@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
+import {catchError} from "rxjs/operators";
+import {forObservable} from "../components/shared/httpErrors";
+import {Grade} from "../models/Grade";
 
 @Injectable()
 export class ExamReportService {
@@ -46,5 +49,10 @@ export class ExamReportService {
   buildStudentsList(year: number, degreeId: number, tuitionForm: string): any {
     const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
+  }
+
+  makeSingleStudentAndCourseExamReport(grade: Grade) {
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${grade.studentDegreeId}&course_ids=${grade.courseId}`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
   }
 }

@@ -43,6 +43,9 @@
                       (click)="setOnTime()" *ngIf="selectGroup">
                 {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
               </button>
+              <button class="btn btn-success" (click)="makeSingleStudentAndCourseExamReport()">
+                Сформувати бігунок
+              </button>
               <mat-slide-toggle
                 class="ml-1"
                 [checked]="defaultOnTime"

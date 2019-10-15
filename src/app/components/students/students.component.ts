@@ -148,7 +148,6 @@ export class StudentsComponent implements OnInit {
     this.gridApi.updateRowData({ add: [student], addIndex: 0});
   };
 
-
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
     this.selected = this.selected.filter(degree => idsToRemove.includes(degree.id));

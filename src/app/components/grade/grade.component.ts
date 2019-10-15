@@ -9,12 +9,13 @@ import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentService} from '../../services/student.service';
 import {PostGrade} from './models/PostGrade';
 import {GradeUpdateAcademicDifference} from './models/GradeUpdateAcademicDifference';
+import {ExamReportService} from '../../services/exam-report.service';
 
 @Component({
     selector: 'app-grade',
     templateUrl: './grade.component.html',
     styleUrls: ['./grade.component.scss'],
-    providers: [GradeService, GroupService, StudentService, CourseForGroupService]
+    providers: [GradeService, GroupService, StudentService, CourseForGroupService, ExamReportService]
 })
 export class GradeComponent implements OnInit {
     @ViewChild('gradeTable') gradeTable;
@@ -35,7 +36,8 @@ export class GradeComponent implements OnInit {
     constructor(private gradeService: GradeService,
                 private groupService: GroupService,
                 private studentService: StudentService,
-                private courseForGroupService: CourseForGroupService) {
+                private courseForGroupService: CourseForGroupService,
+                private examReportService: ExamReportService) {
     }
 
     ngOnInit() {
@@ -241,5 +243,10 @@ export class GradeComponent implements OnInit {
   setOnTime() {
     this.gradeTable.focusGrade.onTime = !this.gradeTable.focusGrade.onTime;
     this.gradeService.updateGrades([new PostGrade(this.gradeTable.focusGrade)]).subscribe(() => {});
+  }
+
+  makeSingleStudentAndCourseExamReport() {
+    if (this.gradeTable.focusGrade)
+      this.examReportService.makeSingleStudentAndCourseExamReport(this.gradeTable.focusGrade);
   }
 }
