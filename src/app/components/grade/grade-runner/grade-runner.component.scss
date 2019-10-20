@@ -2,6 +2,12 @@
   margin-left: 5px;
   position: relative;
 
+  .grade-runner__add {
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 0;
+  }
+
   .grade-runner__cart-btn {
     background-image: url('/assets/img/reading.svg');
     background-size: 30px;
