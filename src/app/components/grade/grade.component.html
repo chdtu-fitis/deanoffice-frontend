@@ -43,15 +43,19 @@
                       (click)="setOnTime()" *ngIf="selectGroup">
                 {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
               </button>
-              <button class="btn btn-success" (click)="makeSingleStudentAndCourseExamReport()">
-                Сформувати бігунок
-              </button>
               <mat-slide-toggle
                 class="ml-1"
                 [checked]="defaultOnTime"
                 [(ngModel)]="defaultOnTime">
                 {{defaultOnTime ? 'Вчасно': 'Невчасно'}}
               </mat-slide-toggle>
+              <app-grade-runner
+                [activeGradeRunner]="activeGradeRunner"
+                [gradeRunners]="gradeRunners"
+                (addGradeRunner)="addGradeRunner()"
+                (clearGradeRunner)="clearGradeRunner()"
+                (removeCourseFromGradeRunners)="removeCourseFromGradeRunners($event)"
+              ></app-grade-runner>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
                 <div *ngFor="let error of errorMessages" class="alert-danger">
@@ -71,6 +75,7 @@
                               (errors)="setErrorsFromTable($event)"
                               (sendUpdateGrades)="updateGradesForGroup()"
                               (setGradeForDelete)="setSelectGradeForDelete($event)"
+                              (setActiveGradeRunner)="setActiveGradeRunner($event)"
                               [selectSemester]="selectSemester" #gradeTable>
             </app-grades-table>
         </mat-sidenav-content>

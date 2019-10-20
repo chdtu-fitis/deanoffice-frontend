@@ -1,0 +1,104 @@
+.grade-runner {
+  margin-left: 5px;
+  position: relative;
+
+  .grade-runner__cart-btn {
+    background-image: url('/assets/img/reading.svg');
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+
+    .grade-runner__cart-counter {
+      position: absolute;
+      right: -3px;
+      bottom: -5px;
+      background: #667787;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .grade-runner__cart {
+    display: none;
+    position: absolute;
+    top: 42px;
+    z-index: 2;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 350px;
+
+    &.grade-runner__cart-open {
+      display: block;
+    }
+
+    .grade-runner__students {
+      height: 300px;
+      overflow-y: scroll;
+      padding: 10px;
+
+      .grade-runner__student {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+
+        .grade-runner__student-name::before {
+          content: '';
+          background: url('/assets/img/student.svg');
+          background-size: 15px;
+          width: 15px;
+          height: 15px;
+          display: inline-block;
+        }
+
+        .grade-runner__subjects {
+          list-style: none;
+          margin-bottom: 0;
+
+          .grade-runner__subject {
+            &::before {
+              content: '';
+              background: url('/assets/img/agenda.svg');
+              background-size: 15px;
+              width: 15px;
+              height: 15px;
+              display: inline-block;
+            }
+
+            .grade-runner__subject-name {
+              display: inline-block;
+              vertical-align: middle;
+              width: calc(100% - 39px);
+            }
+
+            .grade-runner__subject-delete {
+              display: inline-block;
+              vertical-align: middle;
+              width: 15px;
+              height: 15px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .grade-runner__generate-nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+      border-top: 1px solid #ced4da;
+    }
+  }
+}
+

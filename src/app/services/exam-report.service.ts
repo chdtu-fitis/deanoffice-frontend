@@ -50,9 +50,4 @@ export class ExamReportService {
     const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
     return this.fileService.downloadFile(url);
   }
-
-  makeSingleStudentAndCourseExamReport(grade: Grade) {
-    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${grade.studentDegreeId}&course_ids=${grade.courseId}`;
-    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
-  }
 }

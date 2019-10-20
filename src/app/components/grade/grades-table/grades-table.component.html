@@ -40,7 +40,7 @@
               <input type="text" [value]="grade.points" *ngIf="!isDeleteMode"
                      (change)="editGrade(grade, studentId, gradeId, $event)"
                      (keydown)="nextCell($event, studentId, gradeId);"
-                     (focus)="onFocusGrade(grade, studentId)"
+                     (focus)="onFocusGrade(grade, studentId);focusStudentAndCourse(studentDegree.student, grade.courseId)"
                      id="grade-{{gradeId}}student-{{studentId}}"
                      [class.not-correct]="(grade.points < 60 || grade.points >100) && !grade.empty"
                      [class.not-on-time]="!grade.onTime && !(grade.points < 60)"
