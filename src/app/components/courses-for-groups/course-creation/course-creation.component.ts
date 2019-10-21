@@ -45,6 +45,7 @@ export class CourseCreationComponent implements OnInit {
       courseName: this.fb.group({
         id: '',
         name: ['', Validators.required],
+        nameEng: '',
       }),
       hours: ['',  Validators.min(0)],
       semester: '',
