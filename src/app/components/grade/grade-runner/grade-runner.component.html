@@ -18,12 +18,12 @@
     <div class="grade-runner__students">
       <div class="grade-runner__student" *ngFor="let gradeRunner of gradeRunners">
         <div class="grade-runner__student-name">
-          {{ gradeRunner.student | nameWithInitials }}
+          {{ gradeRunner.student.person | nameWithInitials }}
         </div>
         <ul class="grade-runner__subjects">
           <li class="grade-runner__subject" *ngFor="let course of gradeRunner.courses">
             <span class="grade-runner__subject-name">
-              {{ course.name }}
+              {{ course.name }}, {{ course.semester }} Семестр
             </span>
             <img
               class="grade-runner__subject-delete"

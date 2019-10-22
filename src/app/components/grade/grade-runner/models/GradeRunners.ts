@@ -1,24 +1,30 @@
-import {Person} from '../../../../models/basemodels/Person';
-import {NameEntity} from '../../../../models/basemodels/NameEntity';
+import {Course} from './Course';
+import {Student} from './Student';
 
 export class GradeRunners {
-  student: Person;
-  courses: NameEntity[] = [];
+  student: Student;
+  courses: Course[] = [];
 
-  constructor(student: Person) {
+  constructor(student: Student) {
     this.student = student;
   }
 
-  addCourse(course: NameEntity): void {
-    const indexOfCourse = this.courses.findIndex(findCourse => findCourse.id === course.id);
+  addCourse(course: Course): void {
+    const indexOfCourse = this
+      .courses
+      .findIndex(findCourse => findCourse.id === course.id && findCourse.semester === course.semester)
+    ;
 
     if (indexOfCourse === -1) {
       this.courses.push(course);
     }
   }
 
-  removeCourse(course: NameEntity): void {
-    const indexOfCourse = this.courses.findIndex(findCourse => findCourse.id === course.id);
+  removeCourse(course: Course): void {
+    const indexOfCourse = this
+      .courses
+      .findIndex(findCourse => findCourse.id === course.id && findCourse.semester === course.semester)
+    ;
 
     if (indexOfCourse !== -1) {
       this.courses.splice(indexOfCourse, 1);

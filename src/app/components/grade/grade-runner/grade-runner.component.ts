@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GradeRunners} from './models/GradeRunners';
-import {Person} from '../../../models/basemodels/Person';
-import {NameEntity} from '../../../models/basemodels/NameEntity';
 import {GradeRunner} from './models/GradeRunner';
+import {Course} from './models/Course';
+import {ExamReportService} from '../../../services/exam-report.service';
+import {Student} from './models/Student';
 
 @Component({
   selector: 'app-grade-runner',
@@ -19,6 +20,8 @@ export class GradeRunnerComponent implements OnInit {
 
   private isShowCart: boolean;
 
+  constructor(private examReportService: ExamReportService) {}
+
   ngOnInit(): void {
   }
 
@@ -26,7 +29,7 @@ export class GradeRunnerComponent implements OnInit {
     this.isShowCart = !this.isShowCart;
   }
 
-  removeCourse(student: Person, course: NameEntity): void {
+  removeCourse(student: Student, course: Course): void {
     this.removeCourseFromGradeRunners.emit(new GradeRunner(student, course));
   }
 
@@ -35,8 +38,7 @@ export class GradeRunnerComponent implements OnInit {
   }
 
   generate(): void {
-    // :TODO send request to backend
-
+    this.examReportService.buildStudentsAndCoursesReport(this.gradeRunners);
     this.clearGradeRunner.emit();
   }
 }

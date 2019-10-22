@@ -1,11 +1,11 @@
-import {Person} from '../../../../models/basemodels/Person';
-import {NameEntity} from '../../../../models/basemodels/NameEntity';
+import {Course} from './Course';
+import {Student} from './Student';
 
 export class GradeRunner {
-  student: Person;
-  course: NameEntity;
+  student: Student;
+  course: Course;
 
-  constructor(student: Person, course: NameEntity) {
+  constructor(student: Student, course: Course) {
     this.student = student;
     this.course = course;
   }

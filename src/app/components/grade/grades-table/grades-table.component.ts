@@ -3,6 +3,8 @@ import {Grade} from '../../../models/Grade';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {Person} from '../../../models/basemodels/Person';
 import {GradeRunner} from '../grade-runner/models/GradeRunner';
+import {Course} from '../grade-runner/models/Course';
+import {Student} from '../grade-runner/models/Student';
 
 @Component({
   selector: 'app-grades-table',
@@ -119,9 +121,15 @@ export class GradesTableComponent {
     this.focusGrade = grade;
   }
 
-  focusStudentAndCourse(student: Person, courseId: number) {
-    const course = this.coursesForGroup.find(courseForGroup => courseForGroup.course.id === courseId);
-    const gradeRunner = new GradeRunner(student, course.course.courseName);
+  focusStudentAndCourse(person: Person, grade: Grade) {
+    if (grade.empty) {
+      return;
+    }
+
+    const course = this.coursesForGroup.find(courseForGroup => courseForGroup.course.id === grade.courseId);
+    const subject = new Course(course.course.courseName, Number(this.selectSemester));
+    const student = new Student(person, grade.studentDegreeId);
+    const gradeRunner = new GradeRunner(student, subject);
 
     this.setActiveGradeRunner.emit(gradeRunner);
   }

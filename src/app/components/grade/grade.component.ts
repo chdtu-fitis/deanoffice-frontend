@@ -215,7 +215,8 @@ export class GradeComponent implements OnInit {
     });
     const default_message = 'Оцiнку не можна буде вiдновити!\nВи дiйсно хочете видалити оцiнку?';
     try {
-      const message = `Видалення оцiнки для студента: ${studentDegree.student.surname} ${studentDegree.student.name[0]}.${studentDegree.student.patronimic[0]}.\n`
+      const message = `Видалення оцiнки для студента:`
+        + ` ${studentDegree.student.surname} ${studentDegree.student.name[0]}.${studentDegree.student.patronimic[0]}.\n`
         + `Предмет: ${courseForGroup.course.courseName.name}\n`
         + `Оцiнка: ${grade.points ? grade.points : 'не виставлена.'}\n`;
       return confirm(message + default_message);
@@ -260,7 +261,7 @@ export class GradeComponent implements OnInit {
 
     let gradeRunners = this
       .gradeRunners
-      .find(findGradeRunners => findGradeRunners.student.id === this.activeGradeRunner.student.id)
+      .find(findGradeRunners => findGradeRunners.student.studentDegreeId === this.activeGradeRunner.student.studentDegreeId)
     ;
 
     if (gradeRunners === undefined) {
@@ -277,7 +278,7 @@ export class GradeComponent implements OnInit {
   removeCourseFromGradeRunners(gradeRunner: GradeRunner): void {
     const gradeRunners = this
       .gradeRunners
-      .find(findGradeRunners => findGradeRunners.student.id === gradeRunner.student.id)
+      .find(findGradeRunners => findGradeRunners.student.studentDegreeId === gradeRunner.student.studentDegreeId)
     ;
 
     if (gradeRunners !== undefined) {
@@ -286,7 +287,7 @@ export class GradeComponent implements OnInit {
       if (gradeRunners.countCourses() === 0) {
         const indexOfGradeRunners = this
           .gradeRunners
-          .findIndex(findGradeRunners => findGradeRunners.student.id === gradeRunner.student.id)
+          .findIndex(findGradeRunners => findGradeRunners.student.studentDegreeId === gradeRunner.student.studentDegreeId)
         ;
 
         this.gradeRunners.splice(indexOfGradeRunners, 1);
