@@ -23,6 +23,7 @@
           <th>Вид</th>
           <th>Години</th>
           <th>Годин за кредит</th>
+          <th>Семестер</th>
         <tr>
         </thead>
         <tr *ngFor="let course of group.differentForeignCourses">
@@ -30,6 +31,7 @@
           <td>{{course.knowledgeControl.name}}</td>
           <td>{{course.hours}}</td>
           <td>{{course.hoursPerCredit}}</td>
+          <td>{{course.semester}}</td>
         </tr>
       </table>
   </div>
@@ -51,6 +53,7 @@
           <th>Вид</th>
           <th>Години</th>
           <th>Годин за кредит</th>
+          <th>Семестер</th>
         <tr>
         </thead>
         <tr *ngFor="let course of group.differentOtherCourses">
@@ -58,6 +61,7 @@
             <td>{{course.knowledgeControl.name}}</td>
             <td>{{course.hours}}</td>
             <td>{{course.hoursPerCredit}}</td>
+            <td>{{course.semester}}</td>
         </tr>
       </table>
    </div>
