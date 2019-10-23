@@ -10,7 +10,7 @@ import {Course} from '../models/Course';
 @Injectable()
 export class ConsolidatedExamReportService {
 
-  static BASE_URL = `${environment.apiUrl}/documents/consolidated-report`;
+  static BASE_URL = `${environment.apiUrl}/documents/consolidated-exam-report`;
 
   constructor(private http: HttpClient) { }
 
