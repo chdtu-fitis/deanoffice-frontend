@@ -132,7 +132,7 @@ export class DiplomaSupplementComponent implements OnInit {
     this.coursesTranslationCheckLoading = true;
     this.diplomaSupplementService.checkCoursesTranslation(this.currentDegreeId).subscribe(coursesTranslationCheckData => {
         this.coursesTranslationCheckLoading = false;
-        const header = 'Перевірка перекладів дисциплін для додатку до диплому';
+        const header = 'Список дисциплін та груп, в яких немає перекладів дисциплін';
         this.modalService.show(CoursesTranslationCheckComponent, {initialState: {coursesTranslationCheckData, header}});
       }
     );
