@@ -65,7 +65,7 @@ export class ExamReportService {
 
     const studentsCoursesJSON = JSON.stringify(studentsCourses);
 
-    const url = `${this.documentsUrl}/students-and-courses-report?studentsCoursesJson=${studentsCoursesJSON}`;
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?studentsCoursesJson=${studentsCoursesJSON}`;
 
     return this.fileService.downloadFile(url);
   }
