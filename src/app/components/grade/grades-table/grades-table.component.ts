@@ -116,12 +116,14 @@ export class GradesTableComponent {
     this.selectedGradeForDelete = null;
   }
 
-  onFocusGrade(grade: Grade, studentId: number) {
+  onFocusGrade(grade: Grade, studentId: number, person: Person) {
     this.focusStudentId = studentId;
     this.focusGrade = grade;
+
+    this.focusStudentAndCourse(person, grade);
   }
 
-  focusStudentAndCourse(person: Person, grade: Grade) {
+  private focusStudentAndCourse(person: Person, grade: Grade) {
     if (grade.empty) {
       return;
     }

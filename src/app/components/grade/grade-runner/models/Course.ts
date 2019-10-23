@@ -9,4 +9,8 @@ export class Course extends NameEntity {
     this.name = course.name;
     this.semester = semester;
   }
+
+  isEqual(course: Course): boolean {
+    return this.id === course.id && this.semester === course.semester;
+  }
 }

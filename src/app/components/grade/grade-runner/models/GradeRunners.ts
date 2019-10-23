@@ -2,28 +2,27 @@ import {Course} from './Course';
 import {Student} from './Student';
 
 export class GradeRunners {
-  student: Student;
   courses: Course[] = [];
 
-  constructor(student: Student) {
-    this.student = student;
-  }
+  constructor(public student: Student) {}
 
   addCourse(course: Course): void {
-    const indexOfCourse = this
+    const foundCourse = this
       .courses
-      .findIndex(findCourse => findCourse.id === course.id && findCourse.semester === course.semester)
+      .find(coursesItem => coursesItem.isEqual(course))
     ;
 
-    if (indexOfCourse === -1) {
-      this.courses.push(course);
+    if (foundCourse) {
+      return;
     }
+
+    this.courses.push(course);
   }
 
   removeCourse(course: Course): void {
     const indexOfCourse = this
       .courses
-      .findIndex(findCourse => findCourse.id === course.id && findCourse.semester === course.semester)
+      .findIndex(coursesItem => coursesItem.isEqual(course))
     ;
 
     if (indexOfCourse !== -1) {
@@ -31,7 +30,7 @@ export class GradeRunners {
     }
   }
 
-  countCourses(): number {
+  getCountCourses(): number {
     return this.courses.length;
   }
 }

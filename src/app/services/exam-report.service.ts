@@ -53,13 +53,11 @@ export class ExamReportService {
 
   buildStudentsAndCoursesReport(gradeRunners: GradeRunners[]): Observable<HttpResponse<Blob>> {
     const studentsCourses = gradeRunners.map(gradeRunner => {
-      const courses = gradeRunner.courses.map(course => {
-        return course.id;
-      });
+      const courses = gradeRunner.courses.map(course => course.id);
 
       return {
         studentDegreeId: gradeRunner.student.studentDegreeId,
-        courses: courses,
+        courses,
       };
     });
 

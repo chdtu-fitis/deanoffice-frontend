@@ -1,45 +1,43 @@
 <div class="grade-runner">
   <button
-    *ngIf="activeGradeRunner !== null"
+    *ngIf="!getIsActiveGradeRunnerEmpty()"
     class="btn btn-success grade-runner__add"
     (click)="addToGradeRunners()"
   >
     Додати бігунок
   </button>
 
-  <span class="grade-runner__cart-btn" (click)="toggleCart()">
-    <span class="grade-runner__cart-counter" *ngIf="gradeRunners.length > 0">
+  <button class="grade-runner__cart-btn" (click)="toggleCart()">
+    <span class="grade-runner__cart-counter" *ngIf="!getIsEmptyGradeRunners()">
       {{ gradeRunners.length }}
     </span>
-  </span>
+  </button>
 
   <div class="grade-runner__cart" [ngClass]="{'grade-runner__cart-open' : isShowCart}">
 
-    <div class="grade-runner__students">
-      <div class="grade-runner__student" *ngFor="let gradeRunner of gradeRunners">
-        <div class="grade-runner__student-name">
+    <ul class="grade-runner__students">
+      <li class="grade-runner__student" *ngFor="let gradeRunner of gradeRunners">
+        <h4 class="grade-runner__student-name">
           {{ gradeRunner.student.person | nameWithInitials }}
-        </div>
+        </h4>
         <ul class="grade-runner__subjects">
           <li class="grade-runner__subject" *ngFor="let course of gradeRunner.courses">
             <span class="grade-runner__subject-name">
               {{ course.name }}, {{ course.semester }} Семестр
             </span>
-            <img
-              class="grade-runner__subject-delete"
-              src="assets/img/delete.svg"
-              alt="Видалити предмет"
+            <button
+              class="grade-runner__subject-delete-btn"
               (click)="removeCourse(gradeRunner.student, course)"
-            >
+            ></button>
           </li>
         </ul>
-      </div>
-    </div>
+      </li>
+    </ul>
 
     <div class="grade-runner__generate-nav">
       <button
         class="btn btn-sm btn-success"
-        [disabled]="gradeRunners.length === 0"
+        [disabled]="getIsEmptyGradeRunners()"
         (click)="generate()"
       >
         Сформувати бігунки

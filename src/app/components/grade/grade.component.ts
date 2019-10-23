@@ -284,7 +284,7 @@ export class GradeComponent implements OnInit {
     if (gradeRunners !== undefined) {
       gradeRunners.removeCourse(gradeRunner.course);
 
-      if (gradeRunners.countCourses() === 0) {
+      if (gradeRunners.getCountCourses() === 0) {
         const indexOfGradeRunners = this
           .gradeRunners
           .findIndex(findGradeRunners => findGradeRunners.student.studentDegreeId === gradeRunner.student.studentDegreeId)

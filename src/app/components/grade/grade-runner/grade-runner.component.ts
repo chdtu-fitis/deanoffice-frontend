@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {GradeRunners} from './models/GradeRunners';
 import {GradeRunner} from './models/GradeRunner';
 import {Course} from './models/Course';
@@ -10,7 +10,7 @@ import {Student} from './models/Student';
   templateUrl: './grade-runner.component.html',
   styleUrls: ['./grade-runner.component.scss']
 })
-export class GradeRunnerComponent implements OnInit {
+export class GradeRunnerComponent {
 
   @Input() gradeRunners: GradeRunners[];
   @Input() activeGradeRunner: GradeRunner;
@@ -21,9 +21,6 @@ export class GradeRunnerComponent implements OnInit {
   private isShowCart: boolean;
 
   constructor(private examReportService: ExamReportService) {}
-
-  ngOnInit(): void {
-  }
 
   toggleCart(): void {
     this.isShowCart = !this.isShowCart;
@@ -40,5 +37,13 @@ export class GradeRunnerComponent implements OnInit {
   generate(): void {
     this.examReportService.buildStudentsAndCoursesReport(this.gradeRunners);
     this.clearGradeRunner.emit();
+  }
+
+  getIsEmptyGradeRunners(): boolean {
+    return this.gradeRunners.length === 0;
+  }
+
+  getIsActiveGradeRunnerEmpty(): boolean {
+    return this.activeGradeRunner === null;
   }
 }
