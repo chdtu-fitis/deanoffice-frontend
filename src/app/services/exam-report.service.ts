@@ -54,10 +54,7 @@ export class ExamReportService {
   buildStudentsAndCoursesReport(gradeRunners: GradeRunners[]): Observable<HttpResponse<Blob>> {
     const studentsCourses = gradeRunners.map(gradeRunner => {
       const courses = gradeRunner.courses.map(course => {
-        return {
-          courseId: course.id,
-          semester: course.semester,
-        };
+        return course.id;
       });
 
       return {
@@ -68,7 +65,6 @@ export class ExamReportService {
 
     const studentsCoursesJSON = JSON.stringify(studentsCourses);
 
-    // :TODO may be change the URL or parameters
     const url = `${this.documentsUrl}/students-and-courses-report?studentsCoursesJson=${studentsCoursesJSON}`;
 
     return this.fileService.downloadFile(url);
