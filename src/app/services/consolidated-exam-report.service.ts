@@ -37,18 +37,20 @@ export class ConsolidatedExamReportService {
   }
 
   public formConsolidatedDocument(courseForGroupIdsToStudentGroupIds: any) {
-    this.http.post(`${ConsolidatedExamReportService.BASE_URL}/create-document`,
+    const response = this.http.post(`${ConsolidatedExamReportService.BASE_URL}/create-document`,
       courseForGroupIdsToStudentGroupIds,
       {
         responseType: 'blob',
         observe: 'response',
         headers: new HttpHeaders().append('content-filename', 'file'),
       }
-    ).subscribe((res: any) => {
+    );
+    response.subscribe((res: any) => {
       saveAs(res.body, res.headers.get('content-filename'))
     }, error => {
-      console.log('Hello', error);
+      console.log(error);
     });
+    return response;
   }
 
   public getGroupByCourse(course: Course): Observable<StudentGroup[]> {

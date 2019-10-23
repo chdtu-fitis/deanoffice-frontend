@@ -47,9 +47,10 @@
       <div style="display: flex; justify-content: space-between">
         <h3>Список предметів</h3>
         <div>
-          <button type="button"
-                  class="btn btn-success"
-                  (click)="handlerFormConsolidatedExamReportClick($event)">
+          <button type="button" class="btn btn-success" (click)="handlerFormConsolidatedExamReportClick($event)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                  *ngIf="examReportLoading">
+        </span>
             Створити відомість
           </button>
           <!--<button type="button" class="btn btn-secondary">Заповнити автоматично</button>-->

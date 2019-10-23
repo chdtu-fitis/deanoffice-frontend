@@ -53,6 +53,6 @@ export class ExamReportService {
 
   makeSingleStudentAndCourseExamReport(grade: Grade) {
     const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${grade.studentDegreeId}&course_ids=${grade.courseId}`;
-    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])));
   }
 }
