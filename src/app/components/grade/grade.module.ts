@@ -13,6 +13,7 @@ import {GradesTableComponent} from './grades-table/grades-table.component';
 import {StatementComponent} from './grade-statement/statement.component';
 import {GradeStatementTableComponent} from './grade-statement/grade-statement-table/grade-statement-table.component';
 import {PipeModule} from '../../pipes/pipe.module';
+import {GradeRunnerComponent} from './grade-runner/grade-runner.component';
 
 export const gradeRoutes: Routes = [
     {path: '', component: GradeComponent}
@@ -23,6 +24,7 @@ export const gradeRoutes: Routes = [
         GradeComponent,
         GradesPanelComponent,
         GradesTableComponent,
+        GradeRunnerComponent,
         StatementComponent,
         GradeStatementTableComponent
     ],
