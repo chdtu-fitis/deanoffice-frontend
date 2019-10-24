@@ -11,6 +11,8 @@ import {PostGrade} from './models/PostGrade';
 import {GradeUpdateAcademicDifference} from './models/GradeUpdateAcademicDifference';
 import {GradeRunner} from './grade-runner/models/GradeRunner';
 import {GradeRunners} from './grade-runner/models/GradeRunners';
+import {Course} from './grade-runner/models/Course';
+import {Student} from './grade-runner/models/Student';
 
 @Component({
   selector: 'app-grade',
@@ -35,7 +37,7 @@ export class GradeComponent implements OnInit {
   defaultOnTime = true;
 
   gradeRunners: GradeRunners[] = [];
-  activeGradeRunner: GradeRunner = null;
+  isFocusedGrade: boolean;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -250,29 +252,40 @@ export class GradeComponent implements OnInit {
     });
   }
 
-  setActiveGradeRunner(gradeRunner: GradeRunner): void {
-    this.activeGradeRunner = gradeRunner;
+  setIsFocusGrade(isFocusedGrade: boolean): void {
+    this.isFocusedGrade = isFocusedGrade;
   }
 
   addGradeRunner(): void {
-    if (this.activeGradeRunner === null) {
+    if (this.gradeTable.focusGrade === undefined || this.gradeTable.focusGrade.empty) {
       return;
     }
 
+    const foundStudentDegree = this.studentsDegree[this.gradeTable.focusStudentId];
+
+    if (foundStudentDegree === undefined) {
+      return;
+    }
+
+    const course = this.coursesForGroup.find(courseForGroup => courseForGroup.course.id === this.gradeTable.focusGrade.courseId);
+    const subject = new Course(course.course.courseName, Number(this.selectSemester));
+    const student = new Student(foundStudentDegree.student, this.gradeTable.focusGrade.studentDegreeId);
+    const gradeRunner = new GradeRunner(student, subject);
+
     let gradeRunners = this
       .gradeRunners
-      .find(findGradeRunners => findGradeRunners.student.studentDegreeId === this.activeGradeRunner.student.studentDegreeId)
+      .find(findGradeRunners => findGradeRunners.student.studentDegreeId === gradeRunner.student.studentDegreeId)
     ;
 
     if (gradeRunners === undefined) {
-      gradeRunners = new GradeRunners(this.activeGradeRunner.student);
+      gradeRunners = new GradeRunners(gradeRunner.student);
 
       this.gradeRunners.push(gradeRunners);
     }
 
-    gradeRunners.addCourse(this.activeGradeRunner.course);
+    gradeRunners.addCourse(gradeRunner.course);
 
-    this.activeGradeRunner = null;
+    this.setIsFocusGrade(false);
   }
 
   removeCourseFromGradeRunners(gradeRunner: GradeRunner): void {

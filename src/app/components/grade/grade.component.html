@@ -50,7 +50,7 @@
                 {{defaultOnTime ? 'Вчасно': 'Невчасно'}}
               </mat-slide-toggle>
               <app-grade-runner
-                [activeGradeRunner]="activeGradeRunner"
+                [isFocusedGrade]="isFocusedGrade"
                 [gradeRunners]="gradeRunners"
                 (addGradeRunner)="addGradeRunner()"
                 (clearGradeRunner)="clearGradeRunner()"
@@ -75,7 +75,7 @@
                               (errors)="setErrorsFromTable($event)"
                               (sendUpdateGrades)="updateGradesForGroup()"
                               (setGradeForDelete)="setSelectGradeForDelete($event)"
-                              (setActiveGradeRunner)="setActiveGradeRunner($event)"
+                              (setIsFocusGrade)="setIsFocusGrade($event)"
                               [selectSemester]="selectSemester" #gradeTable>
             </app-grades-table>
         </mat-sidenav-content>

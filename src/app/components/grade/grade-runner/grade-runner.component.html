@@ -1,6 +1,6 @@
 <div class="grade-runner">
   <button
-    *ngIf="!getIsActiveGradeRunnerEmpty()"
+    *ngIf="isFocusedGrade"
     class="btn btn-success grade-runner__add"
     (click)="addToGradeRunners()"
   >

@@ -1,10 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {Grade} from '../../../models/Grade';
 import {CourseForGroup} from '../../../models/CourseForGroup';
-import {Person} from '../../../models/basemodels/Person';
-import {GradeRunner} from '../grade-runner/models/GradeRunner';
-import {Course} from '../grade-runner/models/Course';
-import {Student} from '../grade-runner/models/Student';
 
 @Component({
   selector: 'app-grades-table',
@@ -22,7 +18,7 @@ export class GradesTableComponent {
   @Output() errors = new EventEmitter();
   @Output() sendUpdateGrades = new EventEmitter();
   @Output() setGradeForDelete = new EventEmitter();
-  @Output() setActiveGradeRunner = new EventEmitter();
+  @Output() setIsFocusGrade = new EventEmitter();
   grades: Grade[] = [];
   @Input() loadingGrades = false;
   @Input() isDeleteMode = false;
@@ -116,23 +112,9 @@ export class GradesTableComponent {
     this.selectedGradeForDelete = null;
   }
 
-  onFocusGrade(grade: Grade, studentId: number, person: Person) {
+  onFocusGrade(grade: Grade, studentId: number) {
     this.focusStudentId = studentId;
     this.focusGrade = grade;
-
-    this.focusStudentAndCourse(person, grade);
-  }
-
-  private focusStudentAndCourse(person: Person, grade: Grade) {
-    if (grade.empty) {
-      return;
-    }
-
-    const course = this.coursesForGroup.find(courseForGroup => courseForGroup.course.id === grade.courseId);
-    const subject = new Course(course.course.courseName, Number(this.selectSemester));
-    const student = new Student(person, grade.studentDegreeId);
-    const gradeRunner = new GradeRunner(student, subject);
-
-    this.setActiveGradeRunner.emit(gradeRunner);
+    this.setIsFocusGrade.emit(true);
   }
 }

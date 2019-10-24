@@ -13,7 +13,7 @@ import {Student} from './models/Student';
 export class GradeRunnerComponent {
 
   @Input() gradeRunners: GradeRunners[];
-  @Input() activeGradeRunner: GradeRunner;
+  @Input() isFocusedGrade: boolean;
   @Output() removeCourseFromGradeRunners = new EventEmitter();
   @Output() addGradeRunner = new EventEmitter();
   @Output() clearGradeRunner = new EventEmitter();
@@ -41,9 +41,5 @@ export class GradeRunnerComponent {
 
   getIsEmptyGradeRunners(): boolean {
     return this.gradeRunners.length === 0;
-  }
-
-  getIsActiveGradeRunnerEmpty(): boolean {
-    return this.activeGradeRunner === null;
   }
 }
