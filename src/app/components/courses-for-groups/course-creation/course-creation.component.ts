@@ -45,6 +45,7 @@ export class CourseCreationComponent implements OnInit {
       courseName: this.fb.group({
         id: '',
         name: ['', Validators.required],
+        nameEng: '',
       }),
       hours: ['',  Validators.min(0)],
       semester: '',
@@ -62,6 +63,7 @@ export class CourseCreationComponent implements OnInit {
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+      this.courseNames.forEach(courseName => courseName.nameEng = '');
       this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
   }

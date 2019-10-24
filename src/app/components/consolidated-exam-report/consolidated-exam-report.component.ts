@@ -34,6 +34,7 @@ export class ConsolidatedExamReportComponent implements OnInit {
   courseForGroupToStudentGroups: Map<CourseForGroup, Array<StudentGroup>> = new Map<CourseForGroup, Array<StudentGroup>>();
   selectedCourseForGroup: CourseForGroup;
   selectedStudentGroups: StudentGroup[];
+  examReportLoading = false;
 
   static getInitialSemester(): number {
     const currentDate = new Date();
@@ -153,8 +154,8 @@ export class ConsolidatedExamReportComponent implements OnInit {
                         .map(studentGroup => studentGroup.id));
       }
     });
-    console.log(obj);
-    this.consolidatedDocumentService.formConsolidatedDocument(obj);
+    this.examReportLoading = true;
+    this.consolidatedDocumentService.formConsolidatedDocument(obj).subscribe(() => this.examReportLoading = false);
   }
 
 }
