@@ -268,7 +268,7 @@ export class GradeComponent implements OnInit {
     }
 
     const course = this.coursesForGroup.find(courseForGroup => courseForGroup.course.id === this.gradeTable.focusGrade.courseId);
-    const subject = new Course(course.course.courseName, Number(this.selectSemester));
+    const subject = new Course(course.course.id, course.course.courseName, Number(this.selectSemester));
     const student = new Student(foundStudentDegree.student, this.gradeTable.focusGrade.studentDegreeId);
     const gradeRunner = new GradeRunner(student, subject);
 

@@ -3,10 +3,10 @@ import {NameEntity} from '../../../../models/basemodels/NameEntity';
 export class Course extends NameEntity {
   semester: number;
 
-  constructor(course: NameEntity, semester: number) {
+  constructor(id: number, courseName: NameEntity, semester: number) {
     super();
-    this.id = course.id;
-    this.name = course.name;
+    this.id = id;
+    this.name = courseName.name;
     this.semester = semester;
   }
 
