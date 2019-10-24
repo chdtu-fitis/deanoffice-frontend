@@ -114,7 +114,11 @@
         Зарахувати
       </button>
       <button class="btn btn-dark w-100 mt-3"
-              (click)="onAbstractOfScholasticRecords(selected[0]?.id)">
+              (click)="onAbstractOfScholasticRecords(selected[0]?.id)"
+              *ngIf="selected.length === 1">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+              *ngIf="abstractOfScholasticRecordsLoading">
+        </span>
         Сформувати виписку з залікової книжки
       </button>
     </div>
