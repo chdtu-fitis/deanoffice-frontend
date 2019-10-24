@@ -115,6 +115,7 @@ export class GradesTableComponent {
   onFocusGrade(grade: Grade, studentId: number) {
     this.focusStudentId = studentId;
     this.focusGrade = grade;
-    this.setIsFocusGrade.emit(true);
+
+    this.setIsFocusGrade.emit(!(grade.empty === true));
   }
 }
