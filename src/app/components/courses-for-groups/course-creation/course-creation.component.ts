@@ -118,6 +118,8 @@ export class CourseCreationComponent implements OnInit {
           this.showAlert();
         });
     }
+    this.form.controls.courseName.reset();
+    this.form.controls.hours.reset();
   }
 
   showAlert() {
