@@ -76,16 +76,19 @@ export class CourseCreationComponent implements OnInit {
     this.form.controls.courseName.setValue(event.item);
   }
 
-  checkCourseName(courseName) {
+  checkCourseNameForNew(courseName) {
     if (!this.courseNamesArray.includes(courseName.name)) {
       this.courseName.controls.id.setValue('');
       this.courseName.controls.name.setValue(courseName.name);
+      return true;
+    } else {
+      return false;
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.courseName.value);
+    const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
       this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
@@ -97,6 +100,11 @@ export class CourseCreationComponent implements OnInit {
           this.onCourseCreation.emit();
           if (isAddingToCourseForGroup) {
             this.onCourseAdding.emit(course);
+          }
+          if (isNewCourseName) {
+            delete course.courseName.abbreviation;
+            this.courseNames.push(course.courseName);
+            this.courseNamesArray.push(course.courseName.name);
           }
         },
         error => {
