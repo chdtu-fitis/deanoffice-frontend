@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {NotificationsService} from 'angular2-notifications';
 import {TypeaheadMatch} from 'ngx-bootstrap';
-
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
@@ -103,6 +102,7 @@ export class CourseCreationComponent implements OnInit {
           }
           if (isNewCourseName) {
             delete course.courseName.abbreviation;
+            course.courseName.nameEng = '';
             this.courseNames.push(course.courseName);
             this.courseNamesArray.push(course.courseName.name);
           }
