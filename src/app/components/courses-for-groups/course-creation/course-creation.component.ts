@@ -90,7 +90,7 @@ export class CourseCreationComponent implements OnInit {
     const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
+      this._service.error('Помилка', 'Предмет вже існує або поля заповнені неправильно!', this.alertOptions);
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
           this.success = true;
