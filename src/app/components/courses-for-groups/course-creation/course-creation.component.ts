@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {NotificationsService} from 'angular2-notifications';
 import {TypeaheadMatch} from 'ngx-bootstrap';
-
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
@@ -76,19 +75,22 @@ export class CourseCreationComponent implements OnInit {
     this.form.controls.courseName.setValue(event.item);
   }
 
-  checkCourseName(courseName) {
+  checkCourseNameForNew(courseName) {
     if (!this.courseNamesArray.includes(courseName.name)) {
       this.courseName.controls.id.setValue('');
       this.courseName.controls.name.setValue(courseName.name);
+      return true;
+    } else {
+      return false;
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.courseName.value);
+    const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
+      this._service.error('Помилка', 'Предмет вже існує або поля заповнені неправильно!', this.alertOptions);
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
           this.success = true;
@@ -97,6 +99,12 @@ export class CourseCreationComponent implements OnInit {
           this.onCourseCreation.emit();
           if (isAddingToCourseForGroup) {
             this.onCourseAdding.emit(course);
+          }
+          if (isNewCourseName) {
+            delete course.courseName.abbreviation;
+            course.courseName.nameEng = '';
+            this.courseNames.push(course.courseName);
+            this.courseNamesArray.push(course.courseName.name);
           }
         },
         error => {
@@ -110,6 +118,8 @@ export class CourseCreationComponent implements OnInit {
           this.showAlert();
         });
     }
+    this.form.controls.courseName.reset();
+    this.form.controls.hours.reset();
   }
 
   showAlert() {
