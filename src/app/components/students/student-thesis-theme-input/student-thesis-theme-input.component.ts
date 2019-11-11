@@ -5,6 +5,7 @@ import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups
 import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingThesisDataRed';
 import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
 import {ImportedThesisData} from '../../../models/thesis-theme-models/ImportedThesisData';
+import {element} from 'protractor';
 
 @Component({
   selector: 'student-thesis-theme-input',
@@ -28,6 +29,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
   missingThesisDataRed: MissingThesisDataRed[];
   updatedStudentDegrees: number;
   notUpdatedStudentDegrees: string[];
+  isSaveButtonEnabled: boolean = false;
 
   constructor(private thesisService: ThesisInputService) {
   }
@@ -103,6 +105,11 @@ export class StudentThesisThemeInputComponent implements OnInit {
     for (const student of this.listThesisDataForGroup[index].thesisDataBeans) {
       student.selected = checked;
     }
+    if (checked) {
+      this.isSaveButtonEnabled = true;
+    } else {
+      this.onStudentSelectCheckboxClick();
+    }
   }
 
   private getSelectedStudents() {
@@ -125,5 +132,17 @@ export class StudentThesisThemeInputComponent implements OnInit {
     this.fileField = true;
     this.downloadButton = true;
     this.modal.show();
+  }
+
+  onStudentSelectCheckboxClick() {
+    this.isSaveButtonEnabled = false;
+    for (const group of this.listThesisDataForGroup) {
+      for (const student of group.thesisDataBeans) {
+        if (student.selected) {
+          this.isSaveButtonEnabled = true;
+          return;
+        }
+      }
+    }
   }
 }
