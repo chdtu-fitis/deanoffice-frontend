@@ -27,11 +27,11 @@
         <tr>
         </thead>
         <tr *ngFor="let course of group.differentForeignCourses">
-          <td>{{course.courseName.name}}</td>
-          <td>{{course.knowledgeControl.name}}</td>
-          <td>{{course.hours}}</td>
-          <td>{{course.hoursPerCredit}}</td>
-          <td>{{course.semester}}</td>
+          <td>{{course.courseName.name? course.courseName.name : ''}}</td>
+          <td>{{course.knowledgeControl.name? course.knowledgeControl.name : ''}}</td>
+          <td>{{course.hours? course.hours : ''}}</td>
+          <td>{{course.hoursPerCredit? course.hoursPerCredit : ''}}</td>
+          <td>{{course.semester? course.semester : ''}}</td>
         </tr>
       </table>
   </div>
@@ -57,11 +57,11 @@
         <tr>
         </thead>
         <tr *ngFor="let course of group.differentOtherCourses">
-            <td>{{course.courseName.name}}</td>
-            <td>{{course.knowledgeControl.name}}</td>
-            <td>{{course.hours}}</td>
-            <td>{{course.hoursPerCredit}}</td>
-            <td>{{course.semester}}</td>
+          <td>{{course.courseName.name? course.courseName.name : ''}}</td>
+          <td>{{course.knowledgeControl.name? course.knowledgeControl.name : ''}}</td>
+          <td>{{course.hours? course.hours : ''}}</td>
+          <td>{{course.hoursPerCredit? course.hoursPerCredit : ''}}</td>
+          <td>{{course.semester? course.semester : ''}}</td>
         </tr>
       </table>
    </div>
