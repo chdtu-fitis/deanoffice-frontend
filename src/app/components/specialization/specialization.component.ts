@@ -15,6 +15,7 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 export class SpecializationComponent implements OnInit {
   specializations: Specialization[] = [];
   selectedSpecialization: Specialization[] = [];
+  active = true;
   count;
   private actual: boolean;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
@@ -44,15 +45,15 @@ export class SpecializationComponent implements OnInit {
     this.selectedSpecialization = event.api.getSelectedRows();
   }
 
-  getSpecializations(actual: boolean): void {
-    this.actual = actual;
-    this.specializationService.getSpecializations(actual).subscribe(
-      (specializations: Specialization[]) => this.specializations = specializations,
-    );
+  getSpecializations(active: boolean): void {
+    this.specializationService.getSpecializations(active)
+      .subscribe((specializations: Specialization[]) => {
+        return this.specializations = specializations
+      });
   }
 
   buttonIsDisabled(): boolean {
-    return !this.selectedSpecialization.length || !this.actual;
+    return !this.selectedSpecialization.length || !this.active;
   }
 
   onDeleteSpecialization() {

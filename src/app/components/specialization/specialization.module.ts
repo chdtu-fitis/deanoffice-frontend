@@ -18,6 +18,7 @@ import { SpecializationQualificationComponent } from './specialization-form/spec
 import {QualificationService} from './specialization-form/services/qualification.service';
 import { ChangeQualificationComponent } from './specialization-form/specialization-qualification/change-qualification/change-qualification.component';
 import {PipeModule} from '../../pipes/pipe.module';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -33,6 +34,7 @@ export const specializationRoutes: Routes = [
     AlertModule.forRoot(),
     RouterModule.forChild(specializationRoutes),
     PipeModule.forRoot(),
+    MatSlideToggleModule,
   ],
   declarations: [
     SpecializationComponent,
