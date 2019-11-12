@@ -15,18 +15,18 @@ export class SpecializationService {
               private currentUserService: CurrentUserService) {}
 
   public getSpecializations(
-    actual: boolean = true,
+    active: boolean = true,
     facultyId: string = this.currentUserService.facultyId().toString()): Observable<Specialization[]> {
-    const params = {actual: actual.toString(), facultyId};
+    const params = {active: active.toString(), facultyId};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
 
   public getSpecializationsByActualAndFacultyIdAndDegreeId(
-    actual: boolean = true,
+    active: boolean = true,
     facultyId: string = this.currentUserService.facultyId().toString(),
     degreeId: string ): Observable<Specialization[]> {
-    const params = {actual: actual.toString(), facultyId, degreeId};
+    const params = {active: active.toString(), facultyId, degreeId};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
