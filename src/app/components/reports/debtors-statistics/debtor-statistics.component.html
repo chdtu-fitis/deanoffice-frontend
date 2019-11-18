@@ -23,12 +23,12 @@
               <th colspan="3">Контингент</th>
               <th class="align-middle row-size" colspan="4" rowspan="2"> Всього
                 <br>{{course.key != 7 ? 'по ' + course.key + ' курсу' : ''}}</th>
-              <th colspan="4">{{course.key != 7 ? course.key + ' курс' : 'Всього'}} </th>
+              <th colspan="6">{{course.key != 7 ? course.key + ' курс' : 'Всього'}} </th>
             </tr>
             <tr>
               <th colspan="3">{{course.key != 7 ? 'по ' + course.key + ' курсу' : 'Всього'}}</th>
-              <th colspan="2">1 і 2 заб.</th>
-              <th colspan="2">3 і більше</th>
+              <th colspan="3">1 і 2 заб.</th>
+              <th colspan="3">3 і більше</th>
             </tr>
             <tr>
               <th>всього</th>
@@ -40,8 +40,10 @@
               <th>%</th>
               <th>бюдж</th>
               <th>контр</th>
+              <th>%</th>
               <th>бюдж</th>
               <th>контр</th>
+              <th>%</th>
             </tr>
           </thead>
           <tbody>
@@ -52,14 +54,13 @@
               <td>{{course.value.budgetDebtors + course.value.contractDebtors}}</td>
               <td>{{course.value.budgetDebtors}}</td>
               <td>{{course.value.contractDebtors}}</td>
-              <td>{{ course.value.debtorsPercent
-              ? (course.value.debtorsPercent | number:'2.1-3')
-              : course.value.debtorsPercent
-              }}</td>
+              <td>{{ course.value.debtorsPercent.toFixed(2) | number:'2.2'}}</td>
               <td class="bg-debts">{{course.value.lessThanThreeDebtsForBudgetDebtors}}</td>
               <td class="bg-debts">{{course.value.lessThanThreeDebtsForContractDebtors}}</td>
+              <td class="bg-debts">{{course.value.lessThanThreeDebtsPercent.toFixed(2) | number:'2.2'}}</td>
               <td class="bg-debts">{{course.value.threeOrMoreDebtsForBudgetDebtors}}</td>
               <td class="bg-debts">{{course.value.threeOrMoreDebtsForContractDebtors}}</td>
+              <td class="bg-debts">{{course.value.threeOrMoreDebtsPercent.toFixed(2) | number:'2.2'}}</td>
             </tr>
           </tbody>
         </table>
