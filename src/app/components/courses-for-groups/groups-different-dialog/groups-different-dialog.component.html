@@ -4,66 +4,104 @@
   </button>
 </div>
 
-<div class="modal-body" *ngFor="let group of foreignGroupsAndCourses" >
-
-  <div class="body-item">
+<div class="modal-body" *ngFor="let group of foreignGroupsAndCourses">
+  <table class="table table-striped table-sm fs-13">
     <tr>
-      <td>
-        <div class="half-of-body">
-          <h5>
-            Назва інозменої групи: {{group.foreignGroup.name}}
-          </h5>
-        </div>
-      </td>
+      <th><h5>Назва інозменої групи: {{group.foreignGroup.name}}</h5></th>
+      <th><h5>Назва групи: {{group.otherGroup.name}}</h5></th>
     </tr>
-      <table class="table table-striped table-sm fs-13">
-        <thead>
-        <tr>
-          <th>Назва</th>
-          <th>Вид</th>
-          <th>Години</th>
-          <th>Годин за кредит</th>
-          <th>Семестер</th>
-        <tr>
-        </thead>
-        <tr *ngFor="let course of group.differentForeignCourses">
-          <td>{{course.courseName.name? course.courseName.name : ''}}</td>
-          <td>{{course.knowledgeControl.name? course.knowledgeControl.name : ''}}</td>
-          <td>{{course.hours? course.hours : ''}}</td>
-          <td>{{course.hoursPerCredit? course.hoursPerCredit : ''}}</td>
-          <td>{{course.semester? course.semester : ''}}</td>
-        </tr>
-      </table>
-  </div>
-
-  <div class="body-item">
+    <td>
     <tr>
-      <td>
-        <div>
-        <h5>
-          Назва групи: {{group.otherGroup.name}}
-        </h5>
-        </div>
-      </td>
+      <th>Назва</th>
+      <th>Вид</th>
+      <th>Години</th>
+      <th>Годин за кредит</th>
+      <th>Семестер</th>
     </tr>
-      <table class="table table-striped table-sm fs-13">
-        <thead>
-        <tr>
-          <th>Назва</th>
-          <th>Вид</th>
-          <th>Години</th>
-          <th>Годин за кредит</th>
-          <th>Семестер</th>
-        <tr>
-        </thead>
-        <tr *ngFor="let course of group.differentOtherCourses">
-          <td>{{course.courseName.name? course.courseName.name : ''}}</td>
-          <td>{{course.knowledgeControl.name? course.knowledgeControl.name : ''}}</td>
-          <td>{{course.hours? course.hours : ''}}</td>
-          <td>{{course.hoursPerCredit? course.hoursPerCredit : ''}}</td>
-          <td>{{course.semester? course.semester : ''}}</td>
-        </tr>
-      </table>
-   </div>
-
+      <tr *ngFor="let course of group.differentForeignCourses">
+        <td>{{course.courseName.name}}</td>
+        <td>{{course.knowledgeControl.name}}</td>
+        <td>{{course.hours}}</td>
+        <td>{{course.hoursPerCredit}}</td>
+        <td>{{course.semester}}</td>
+      </tr></td>
+    <td><tr>
+      <th>Назва</th>
+      <th>Вид</th>
+      <th>Години</th>
+      <th>Годин за кредит</th>
+      <th>Семестер</th>
+    </tr>
+      <tr *ngFor="let course of group.differentOtherCourses">
+        <td>{{course.courseName.name}}</td>
+        <td>{{course.knowledgeControl.name}}</td>
+        <td>{{course.hours}}</td>
+        <td>{{course.hoursPerCredit}}</td>
+        <td>{{course.semester}}</td>
+      </tr></td>
+  </table>
 </div>
+<!--<div class="modal-body" *ngFor="let group of foreignGroupsAndCourses" >-->
+
+  <!--<div class="body-item">-->
+    <!--<tr>-->
+      <!--<td>-->
+        <!--<div class="half-of-body">-->
+          <!--<h5>-->
+            <!--Назва інозменої групи: {{group.foreignGroup.name}}-->
+            <!--&lt;!&ndash;Назва групи: {{group.otherGroup.name}}&ndash;&gt;-->
+          <!--</h5>-->
+        <!--</div>-->
+      <!--</td>-->
+    <!--</tr>-->
+      <!--<table class="table table-striped table-sm fs-13">-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Назва</th>-->
+          <!--<th>Вид</th>-->
+          <!--<th>Години</th>-->
+          <!--<th>Годин за кредит</th>-->
+          <!--<th>Семестер</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tr *ngFor="let course of group.differentForeignCourses">-->
+          <!--<td>{{course.courseName.name}}</td>-->
+          <!--<td>{{course.knowledgeControl.name}}</td>-->
+          <!--<td>{{course.hours}}</td>-->
+          <!--<td>{{course.hoursPerCredit}}</td>-->
+          <!--<td>{{course.semester}}</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+  <!--</div>-->
+
+  <!--<div class="body-item">-->
+    <!--<tr>-->
+      <!--<td>-->
+        <!--<div>-->
+        <!--<h5>-->
+          <!--Назва групи: {{group.otherGroup.name}}-->
+        <!--</h5>-->
+        <!--</div>-->
+      <!--</td>-->
+    <!--</tr>-->
+      <!--<table class="table table-striped table-sm fs-13">-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>Назва</th>-->
+          <!--<th>Вид</th>-->
+          <!--<th>Години</th>-->
+          <!--<th>Годин за кредит</th>-->
+          <!--<th>Семестер</th>-->
+        <!--<tr>-->
+        <!--</thead>-->
+        <!--<tr *ngFor="let course of group.differentOtherCourses">-->
+          <!--<td>{{course.courseName.name}}</td>-->
+          <!--<td>{{course.knowledgeControl.name}}</td>-->
+          <!--<td>{{course.hours}}</td>-->
+          <!--<td>{{course.hoursPerCredit}}</td>-->
+          <!--<td>{{course.semester}}</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+   <!--</div>-->
+
+<!--</div>-->
