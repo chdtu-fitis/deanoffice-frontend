@@ -5,6 +5,7 @@ import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+import {StudentGroup} from '../../models/StudentGroup';
 
 
 @Component({
@@ -17,7 +18,6 @@ export class SpecializationComponent implements OnInit {
   selectedSpecialization: Specialization[] = [];
   active = true;
   count;
-  private actual: boolean;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
   localeText = LOCALE_TEXT;
@@ -53,7 +53,7 @@ export class SpecializationComponent implements OnInit {
   }
 
   buttonIsDisabled(): boolean {
-    return !this.selectedSpecialization.length || !this.active;
+    return !this.selectedSpecialization.length;
   }
 
   onDeleteSpecialization() {
@@ -69,4 +69,7 @@ export class SpecializationComponent implements OnInit {
     rowNode.setData(specialization)
   }
 
+  onRecoverySpecialization(recoveredSpecializations: Specialization[]) {
+    this.gridApi.updateRowData({ remove: this.selectedSpecialization });
+  }
 }

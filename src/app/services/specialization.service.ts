@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Specialization} from '../models/Specialization';
 import {catchError} from 'rxjs/operators';
@@ -50,5 +50,11 @@ export class SpecializationService {
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch(forPromise('Оновлення спеціалізації'));
+  }
+
+  restore(itemId: number): Observable<any> {
+    const body = new HttpParams().set('specializationId', itemId.toString());
+    const url = `${SPECIALIZATION_URL}/restore`;
+    return this._httpClient.put(url, body);
   }
 }

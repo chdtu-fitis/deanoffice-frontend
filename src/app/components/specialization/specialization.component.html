@@ -32,7 +32,9 @@
           </button>
         </div>
         <div *ngIf="active === false">
-          <button type="button" class="btn btn-success mr-1">
+          <button type="button" class="btn btn-success mr-1"
+                  (click)="recoverySpecializationModal.openModal(selectedSpecialization[0])"
+                  [disabled]="buttonIsDisabled()">
             Відновити
           </button>
         </div>
@@ -73,3 +75,7 @@
 <update-specialization #updateSpecializationModal
                        (updateSpecialization)="onUpdateSpecialization($event)">
 </update-specialization>
+
+<recovery-specialization #recoverySpecializationModal
+                         (recoverySpecialization)="onRecoverySpecialization($event)"
+></recovery-specialization>
