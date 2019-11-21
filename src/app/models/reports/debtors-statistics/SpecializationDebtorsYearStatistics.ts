@@ -7,6 +7,8 @@ export class SpecializationDebtorsYearStatistics {
   debtorsPercent: number;
   lessThanThreeDebtsForBudgetDebtors: number;
   lessThanThreeDebtsForContractDebtors: number;
+  lessThanThreeDebtsPercent: number;
   threeOrMoreDebtsForBudgetDebtors: number;
   threeOrMoreDebtsForContractDebtors: number;
+  threeOrMoreDebtsPercent: number;
 }
