@@ -12,15 +12,25 @@ export class StudentStipendComponent implements OnInit {
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
   selectedStudentGroupName = '';
   numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  studentRatingLoading = false;
 
-  constructor(private studentStipendService: StudentStipendService) {
+  constructor(private studentStipendService: StudentStipendService) {}
+
+  onMakeDocument(): void {
+    this.studentStipendService.buildStudentRatingDocument();
+    this.studentRatingLoading = true;
+    this.studentStipendService.buildStudentRatingDocument().subscribe(() => {
+        this.studentRatingLoading = false;
+      }
+    );
   }
 
   isDebtor(ssi: StudentStipendInfo): string {
-    if (ssi.debtCourses.length > 0)
+    if (ssi.debtCourses.length > 0) {
       return 'debtor';
-    else
+    } else {
       return '';
+    }
   }
 
   getTuitionTermUkr(tuitionTerm: string) {
@@ -33,9 +43,9 @@ export class StudentStipendComponent implements OnInit {
 
   ngOnInit() {
      this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: StudentStipendInfo[]) => {
-       var info = studentStipendInfo;
+       const info = studentStipendInfo;
        info.forEach(ssi => {
-         let currentStudentStipendGroup = this.studentStipendInfo[ssi.groupName];
+         const currentStudentStipendGroup = this.studentStipendInfo[ssi.groupName];
          if (currentStudentStipendGroup) {
            currentStudentStipendGroup.push(ssi);
          } else {
@@ -71,9 +81,9 @@ export class StudentStipendComponent implements OnInit {
   }
 
   saveExtraPoints(group) {
-    let studentsExtraPoints = [];
-    let groupStipendInfo = this.studentStipendInfo[group];
-    for (let element of groupStipendInfo) {
+    const studentsExtraPoints = [];
+    const groupStipendInfo = this.studentStipendInfo[group];
+    for (const element of groupStipendInfo) {
       if ( element.extraPoints !== null) {
           studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
