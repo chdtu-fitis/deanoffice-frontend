@@ -58,11 +58,11 @@ export class GroupsDifferentDialogComponent implements OnInit {
     course.id = 0;
     course.courseName = new CourseName();
     course.courseName.name = '';
-    course.semester = '';
+    course.semester = 0;
     course.knowledgeControl = new KnowledgeControl();
     course.knowledgeControl.name = '';
-    course.hoursPerCredit = '';
-    course.hours = '';
+    course.hoursPerCredit = 0;
+    course.hours = 0;
     return course;
   }
 }
