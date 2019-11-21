@@ -24,6 +24,11 @@ export class DiplomaSupplementService {
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування відомості випускників', [])))
   }
 
+  buildGraduateWorkReport(groupId: string): any {
+    const url = `${this.documentsUrl}/graduates/qualification-work-report?groupId=${groupId}`;
+    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування відомості випускників', [])))
+  }
+
   buildFullGradesTableReport(groupId: string): any {
     const url = `${this.documentsUrl}/grouptablereport/groups/${groupId}`;
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування шахматки', [])))
