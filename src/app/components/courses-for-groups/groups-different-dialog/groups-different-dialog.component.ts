@@ -31,7 +31,8 @@ export class GroupsDifferentDialogComponent implements OnInit {
           for (let j = 0; j < differentOtherCourses.length; j++) {
             if (differentOtherCourses[j].id !== 0
               && differentForeignCourses[i].courseName.id === differentOtherCourses[j].courseName.id
-              && differentForeignCourses[i].semester === differentOtherCourses[j].semester) {
+              && differentForeignCourses[i].semester === differentOtherCourses[j].semester
+              && differentForeignCourses[i].knowledgeControl.id === differentOtherCourses[j].knowledgeControl.id) {
               const temp = differentOtherCourses[j];
               differentOtherCourses[j] = differentOtherCourses[i];
               differentOtherCourses[i] = temp;
@@ -57,11 +58,11 @@ export class GroupsDifferentDialogComponent implements OnInit {
     course.id = 0;
     course.courseName = new CourseName();
     course.courseName.name = '';
-    course.semester = 0;
+    course.semester = '';
     course.knowledgeControl = new KnowledgeControl();
     course.knowledgeControl.name = '';
-    course.hoursPerCredit = 0;
-    course.hours = 0;
+    course.hoursPerCredit = '';
+    course.hours = '';
     return course;
   }
 }

@@ -3,105 +3,37 @@
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-
 <div class="modal-body" *ngFor="let group of foreignGroupsAndCourses">
   <table class="table table-striped table-sm fs-13">
     <tr>
-      <th><h5>Назва інозменої групи: {{group.foreignGroup.name}}</h5></th>
-      <th><h5>Назва групи: {{group.otherGroup.name}}</h5></th>
+      <th colspan="6"><h5>Назва інозменої групи: {{group.foreignGroup.name}}</h5></th>
+      <th colspan="5"><h5>Назва групи: {{group.otherGroup.name}}</h5></th>
     </tr>
-    <td>
     <tr>
       <th>Назва</th>
       <th>Вид</th>
       <th>Години</th>
       <th>Годин за кредит</th>
       <th>Семестер</th>
-    </tr>
-      <tr *ngFor="let course of group.differentForeignCourses">
-        <td>{{course.courseName.name}}</td>
-        <td>{{course.knowledgeControl.name}}</td>
-        <td>{{course.hours}}</td>
-        <td>{{course.hoursPerCredit}}</td>
-        <td>{{course.semester}}</td>
-      </tr></td>
-    <td><tr>
+      <th border="1"></th>
       <th>Назва</th>
       <th>Вид</th>
       <th>Години</th>
       <th>Годин за кредит</th>
       <th>Семестер</th>
     </tr>
-      <tr *ngFor="let course of group.differentOtherCourses">
+      <tr *ngFor="let course of group.differentForeignCourses; index as i">
         <td>{{course.courseName.name}}</td>
         <td>{{course.knowledgeControl.name}}</td>
         <td>{{course.hours}}</td>
         <td>{{course.hoursPerCredit}}</td>
         <td>{{course.semester}}</td>
-      </tr></td>
+        <td> </td>
+        <td>{{group.differentOtherCourses[i].courseName.name}}</td>
+        <td>{{group.differentOtherCourses[i].knowledgeControl.name}}</td>
+        <td>{{group.differentOtherCourses[i].hours}}</td>
+        <td>{{group.differentOtherCourses[i].hoursPerCredit}}</td>
+        <td>{{group.differentOtherCourses[i].semester}}</td>
+      </tr>
   </table>
 </div>
-<!--<div class="modal-body" *ngFor="let group of foreignGroupsAndCourses" >-->
-
-  <!--<div class="body-item">-->
-    <!--<tr>-->
-      <!--<td>-->
-        <!--<div class="half-of-body">-->
-          <!--<h5>-->
-            <!--Назва інозменої групи: {{group.foreignGroup.name}}-->
-            <!--&lt;!&ndash;Назва групи: {{group.otherGroup.name}}&ndash;&gt;-->
-          <!--</h5>-->
-        <!--</div>-->
-      <!--</td>-->
-    <!--</tr>-->
-      <!--<table class="table table-striped table-sm fs-13">-->
-        <!--<thead>-->
-        <!--<tr>-->
-          <!--<th>Назва</th>-->
-          <!--<th>Вид</th>-->
-          <!--<th>Години</th>-->
-          <!--<th>Годин за кредит</th>-->
-          <!--<th>Семестер</th>-->
-        <!--</tr>-->
-        <!--</thead>-->
-        <!--<tr *ngFor="let course of group.differentForeignCourses">-->
-          <!--<td>{{course.courseName.name}}</td>-->
-          <!--<td>{{course.knowledgeControl.name}}</td>-->
-          <!--<td>{{course.hours}}</td>-->
-          <!--<td>{{course.hoursPerCredit}}</td>-->
-          <!--<td>{{course.semester}}</td>-->
-        <!--</tr>-->
-      <!--</table>-->
-  <!--</div>-->
-
-  <!--<div class="body-item">-->
-    <!--<tr>-->
-      <!--<td>-->
-        <!--<div>-->
-        <!--<h5>-->
-          <!--Назва групи: {{group.otherGroup.name}}-->
-        <!--</h5>-->
-        <!--</div>-->
-      <!--</td>-->
-    <!--</tr>-->
-      <!--<table class="table table-striped table-sm fs-13">-->
-        <!--<thead>-->
-        <!--<tr>-->
-          <!--<th>Назва</th>-->
-          <!--<th>Вид</th>-->
-          <!--<th>Години</th>-->
-          <!--<th>Годин за кредит</th>-->
-          <!--<th>Семестер</th>-->
-        <!--<tr>-->
-        <!--</thead>-->
-        <!--<tr *ngFor="let course of group.differentOtherCourses">-->
-          <!--<td>{{course.courseName.name}}</td>-->
-          <!--<td>{{course.knowledgeControl.name}}</td>-->
-          <!--<td>{{course.hours}}</td>-->
-          <!--<td>{{course.hoursPerCredit}}</td>-->
-          <!--<td>{{course.semester}}</td>-->
-        <!--</tr>-->
-      <!--</table>-->
-   <!--</div>-->
-
-<!--</div>-->
