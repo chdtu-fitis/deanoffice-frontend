@@ -8,7 +8,7 @@ import {FileService} from './file-service';
 @Injectable()
 export class StudentStipendService {
   private studentStipendUrl = `${environment.apiUrl}/student-degree/stipend`;
-  private ratingPapersUrl = `${environment.apiUrl}`;
+  private studentsRatingUrl = `${environment.apiUrl}/student-degree/stipend/docx`;
   constructor(private http: HttpClient, private fileService: FileService) {
   }
 
@@ -20,7 +20,6 @@ export class StudentStipendService {
   }
 
   buildRatingPapers(): any {
-    const url = this.ratingPapersUrl;
-    return this.fileService.downloadFile(url);
+    return this.fileService.downloadFile(this.studentsRatingUrl);
   }
 }
