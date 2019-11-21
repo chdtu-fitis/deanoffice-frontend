@@ -12,11 +12,17 @@ export class StudentStipendComponent implements OnInit {
   studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
   selectedStudentGroupName = '';
   numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  studentRatingLoading = false;
 
   constructor(private studentStipendService: StudentStipendService) {}
 
   onMakeDocument(): void {
-    this.studentStipendService.buildRatingPapers();
+    this.studentStipendService.buildStudentRatingDocument();
+    this.studentRatingLoading = true;
+    this.studentStipendService.buildStudentRatingDocument().subscribe(() => {
+        this.studentRatingLoading = false;
+      }
+    );
   }
 
   isDebtor(ssi: StudentStipendInfo): string {

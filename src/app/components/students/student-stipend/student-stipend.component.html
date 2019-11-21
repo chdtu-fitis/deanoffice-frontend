@@ -1,5 +1,9 @@
 <div class="wrap">
-  <button class="btn btn-success align-middle" (click)="onMakeDocument()">Завантажити рейтинг студентів</button>
+  <button class="btn btn-success align-middle" (click)="onMakeDocument()">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+          *ngIf="studentRatingLoading">
+        </span>
+    Завантажити рейтинг студентів</button>
   <h5>Студенти</h5>
   <div class="table-wrapper">
     <table class="main-table">

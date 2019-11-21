@@ -19,7 +19,7 @@ export class StudentStipendService {
     return this.http.post(`${this.studentStipendUrl}/extra-points-update`, array);
   }
 
-  buildRatingPapers(): any {
+  buildStudentRatingDocument(): any {
     return this.fileService.downloadFile(this.studentsRatingUrl);
   }
 }
