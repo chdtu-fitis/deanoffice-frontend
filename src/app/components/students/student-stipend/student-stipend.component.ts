@@ -17,7 +17,6 @@ export class StudentStipendComponent implements OnInit {
   constructor(private studentStipendService: StudentStipendService) {}
 
   onMakeDocument(): void {
-    this.studentStipendService.buildStudentRatingDocument();
     this.studentRatingLoading = true;
     this.studentStipendService.buildStudentRatingDocument().subscribe(() => {
         this.studentRatingLoading = false;
