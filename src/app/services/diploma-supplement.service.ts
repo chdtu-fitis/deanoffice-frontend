@@ -25,7 +25,7 @@ export class DiplomaSupplementService {
   }
 
   buildGraduateWorkReport(groupId: string): any {
-    const url = `${this.documentsUrl}/graduates/qualification-work-report?groupId=${groupId}`;
+    const url = `${this.documentsUrl}/qualification-work-report?groupId=${groupId}`;
     return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування відомості випускників', [])))
   }
 
