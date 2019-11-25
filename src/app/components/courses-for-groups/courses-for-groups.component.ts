@@ -272,8 +272,11 @@ export class CoursesForGroupsComponent implements OnInit {
         this.onSemesterChange();
       },
       error => {
-        const message = error.status === 422 ? error.error : 'Невідома помилка при збереженні';
-        this._alerts.showError({ body: message });
+        if ( error.status === 422 ) {
+          this._alerts.showError({ body: error.error });
+        } else {
+          this._alerts.showUnknownError();
+        }
       });
     this.changesExistence = false;
   }
