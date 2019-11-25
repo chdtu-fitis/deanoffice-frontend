@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {NotificationsService} from 'angular2-notifications';
+import {AlertsService} from '../shared/alerts/alerts.service';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
 
 import {StudentGroup} from '../../models/StudentGroup';
@@ -25,14 +25,6 @@ export class GroupComponent implements OnInit {
   selectedGroups: StudentGroup[] = [];
   active = true;
   searchText: string;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
 
   specializations: Specialization[];
 
@@ -52,7 +44,7 @@ export class GroupComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private notificationsService: NotificationsService,
+    private _alerts: AlertsService,
     private specializationService: SpecializationService) {
   }
 
@@ -92,12 +84,6 @@ export class GroupComponent implements OnInit {
     this.selectedGroups = event.api.getSelectedRows();
   }
 
-  showErrorAlert(event) {
-    this.notificationsService.error('Помилка',
-      event.message,
-      this.alertOptions);
-  }
-
   loadGroups(active: boolean = true) {
     this.selectedGroups = [];
     this.groupService.getGroups(active)
@@ -121,8 +107,8 @@ export class GroupComponent implements OnInit {
 
     for (const selectedGroup of this.selectedGroups) {
       if (!deletedGroupsIds.includes(selectedGroup.id)) {
-        const message = {message: `Неможливе видалення групи ${selectedGroup.name} <br>(в групі є студенти)`};
-        this.showErrorAlert(message);
+        const message = `Неможливо видалити групу "${selectedGroup.name}"<br/>(в групі є студенти)`;
+        this._alerts.showError({ body: message })
       }
     }
   }

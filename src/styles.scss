@@ -48,10 +48,11 @@ body {
 
 // Toastr overrides
 
-.toast {
-  box-shadow: none !important;
+#toast-container .toast.toast.toast {
+  box-shadow: none;
+  width: 400px;
 
   &:hover {
-    box-shadow: 0 0 5px #999 !important;
+    box-shadow: 0 0 5px #999;
   }
 }

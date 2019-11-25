@@ -75,9 +75,7 @@
            [tuitionTermsKeys]="tuitionTermsKeys"
 ></add-group>
 
-<delete-group #deleteGroupModal (deleteGroup)="onDeleteGroup($event)"
-              (showErrorAlert)="showErrorAlert($event)"
-></delete-group>
+<delete-group #deleteGroupModal (deleteGroup)="onDeleteGroup($event)"></delete-group>
 
 <update-group #updateGroupModal (updateGroup)="onUpdateGroup($event)"
               [specializations]="specializations"
@@ -87,8 +85,6 @@
               [tuitionTermsKeys]="tuitionTermsKeys"
 ></update-group>
 
-<recovery-group #recoveryGroupModal (recoveryGroup)="onRecoveryGroup($event)"
-              (showErrorAlert)="showErrorAlert($event)"
-></recovery-group>
+<recovery-group #recoveryGroupModal (recoveryGroup)="onRecoveryGroup($event)"></recovery-group>
 
 <simple-notifications></simple-notifications>
