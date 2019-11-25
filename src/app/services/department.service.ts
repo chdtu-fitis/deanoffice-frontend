@@ -39,9 +39,9 @@ export class DepartmentService {
       .catch(forPromise('Оновлення інформації про кафедру'));
   }
 
-  delete(id: number): Observable<Department> {
-    return this.httpClient.delete<Department>(`${DEPARTMENT_URL}/${id}`)
-      .pipe(catchError(forObservable<Department>('Видалення кафедри')))
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete(`${DEPARTMENT_URL}/${id}`)
+      .pipe(catchError(forObservable('Видалення кафедри')))
   }
 
   restore(id: number): Observable<any> {

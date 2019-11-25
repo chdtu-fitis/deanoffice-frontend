@@ -18,15 +18,6 @@ export class DepartmentComponent implements OnInit {
   selectedDepartments: Department[] = [];
   searchText: string;
   active = true;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
-
   count: number;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS_DEPARTMENT;
@@ -35,10 +26,8 @@ export class DepartmentComponent implements OnInit {
   private gridColumnApi;
   getRowNodeId = (data) => data.id;
 
-  constructor(private departmentService: DepartmentService,
-              private notificationsService: NotificationsService) {
+  constructor(private departmentService: DepartmentService) {
   }
-
 
   ngOnInit() {
     this.loadDepartmentsByActive(true);
@@ -77,20 +66,11 @@ export class DepartmentComponent implements OnInit {
     this.loadedDepartments[index] = updatedDepartment;
   }
 
-  onDeleteDepartment(deletedDepartment: Department) {
+  onDeleteDepartment() {
     this.gridApi.updateRowData({remove: this.selectedDepartments});
-    const department = this.loadedDepartments.find(department => department.id === deletedDepartment.id);
-    department.active = false;
-  }
-  onRecoveryDepartment(recoveredDepartment: Department) {
-    this.gridApi.updateRowData({remove: this.selectedDepartments});
-    const department = this.loadedDepartments.find(department => department.id === recoveredDepartment.id);
-    department.active = true;
   }
 
-  showErrorAlert(event) {
-    this.notificationsService.error('Помилка',
-      event.message,
-      this.alertOptions);
+  onRecoveryDepartment() {
+    this.gridApi.updateRowData({remove: this.selectedDepartments});
   }
 }
