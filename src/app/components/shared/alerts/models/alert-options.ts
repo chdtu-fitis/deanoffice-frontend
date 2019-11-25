@@ -3,5 +3,3 @@ export interface AlertOptions {
   body: string;
   timeout: number;
 }
-
-export type AlertOptionsPartial = Partial<AlertOptions>;
