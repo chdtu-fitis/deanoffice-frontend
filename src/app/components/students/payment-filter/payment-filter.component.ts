@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IDoesFilterPassParams, IFilterParams, RowNode} from 'ag-grid-community';
+import {IDoesFilterPassParams, IFilterParams, RowNode} from '@ag-grid-community/all-modules';
 import {IFilterAngularComp} from '@ag-grid-community/angular';
 import {FormArray, FormBuilder} from '@angular/forms';
 
