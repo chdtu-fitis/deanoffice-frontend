@@ -1,16 +1,13 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators,} from '@angular/forms';
 import {Teacher} from '../../../models/Teacher';
-
 import {TabsetComponent} from 'ngx-bootstrap';
 
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {DepartmentService} from '../../../services/department.service';
 import {PositionService} from '../../../services/position.service';
 import {Department} from '../../../models/Department';
-import {Position} from  '../../../models/Position';
+import {Position} from '../../../models/Position';
 
 const DEFAULT_STRING = '';
 

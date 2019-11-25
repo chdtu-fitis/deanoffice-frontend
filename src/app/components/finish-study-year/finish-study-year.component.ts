@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {combineLatest} from 'rxjs/observable/combineLatest';
+import {combineLatest} from 'rxjs';
 
 import {GroupService} from '../../services/group.service';
 import {Degree} from '../../models/degree.enum';

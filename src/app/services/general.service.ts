@@ -1,7 +1,7 @@
+import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs/observable/of';
-import 'rxjs/add/operator/do'
+import {of} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 @Injectable()
@@ -17,8 +17,9 @@ export class GeneralService {
     if (this.expelReasons) {
       return of(this.expelReasons);
     }
-    return this.http.get(`${this.apiUrl}/reasons/fired-students`)
-      .do(res => this.expelReasons = res);
+    return this.http.get(`${this.apiUrl}/reasons/fired-students`).pipe(
+      tap(res => this.expelReasons = res)
+    );
   }
 
   getAcademicVacationReasons() {
