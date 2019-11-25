@@ -1,6 +1,5 @@
-import {Component, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
-import {NotificationsService} from 'angular2-notifications';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
 import {StudentGroup} from '../../models/StudentGroup';
@@ -17,6 +16,7 @@ import {StudiedCoursesComponent} from './studied-courses/studied-courses.compone
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
 import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
+import {AlertsService} from '../shared/alerts/alerts.service';
 
 @Component({
   selector: 'courses-for-groups',
@@ -49,19 +49,11 @@ export class CoursesForGroupsComponent implements OnInit {
   @ViewChild(GroupsDifferentDialogComponent) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
   studiedCoursesLoading = false;
   showPage = false;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 5000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
 
   constructor(private courseService: CourseService,
               private courseForGroupService: CourseForGroupService,
               private groupService: GroupService,
-              private _service: NotificationsService,
+              private _alerts: AlertsService,
               private modalService: BsModalService,
               private currentUserService: CurrentUserService
               ) {}
@@ -197,7 +189,7 @@ export class CoursesForGroupsComponent implements OnInit {
         this.addCourse(newCourseForGroup, this.checkIfAddedCourseIsInDeleted(newCourseForGroup.course));
       }
       if (courseIsExist) {
-        this.showErrorAlert('Предмет "' + course.courseName.name + '" не було додано, тому що він існує');
+        this._alerts.showError({ body: `Предмет "${course.courseName.name}" вже призначено групі` });
       }
     }
     this.sortCoursesForGroup();
@@ -233,12 +225,6 @@ export class CoursesForGroupsComponent implements OnInit {
     newCourseForGroup.course = course;
     newCourseForGroup.teacher = teacher;
     return newCourseForGroup;
-  }
-
-  showErrorAlert(alertString: String) {
-    this._service.error('Помилка',
-      alertString,
-      this.alertOptions);
   }
 
   saveCoursesForGroup() {
@@ -286,11 +272,8 @@ export class CoursesForGroupsComponent implements OnInit {
         this.onSemesterChange();
       },
       error => {
-        if (error.status === 422) {
-          this.showErrorAlert(error.error);
-        } else {
-          this.showErrorAlert('Невідома помилка при збереженні');
-        }
+        const message = error.status === 422 ? error.error : 'Невідома помилка при збереженні';
+        this._alerts.showError({ body: message });
       });
     this.changesExistence = false;
   }
@@ -364,8 +347,8 @@ export class CoursesForGroupsComponent implements OnInit {
     bsModalRef.content.copiedCourse.subscribe(($event) => {
       this.addCourse($event, this.checkIfAddedCourseIsInDeleted($event.course));
     });
-    bsModalRef.content.alertMessage.subscribe(($event) => {
-      this.showErrorAlert($event);
+    bsModalRef.content.alertMessage.subscribe((message) => {
+      this._alerts.showError({ body: message });
     });
   }
 
