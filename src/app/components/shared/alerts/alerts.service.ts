@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {AlertOptions, AlertOptionsPartial} from './models/alert-options';
-import {pipe} from '../utils';
 import {ToastrAdapter} from './models/toastr-adapter';
 
 @Injectable()
@@ -14,12 +13,9 @@ export class AlertsService {
     this._toastr.error(body, title, config);
   }
 
-  private _formatOptions(options: AlertOptionsPartial, defaults: AlertOptionsPartial): ToastrAdapter {
-    return pipe(options, [ this._setDefaultsOptions(defaults), ToastrAdapter.new ]);
-  }
-
-  private _setDefaultsOptions(defaults: AlertOptionsPartial): (options: AlertOptionsPartial) => AlertOptions {
-    return (alertOptions: AlertOptions) => ({ ...defaults, ...alertOptions });
+  private _formatOptions(optionsOverrides: AlertOptionsPartial, defaults: AlertOptionsPartial): ToastrAdapter {
+    const options = {...defaults, ...optionsOverrides} as AlertOptions;
+    return new ToastrAdapter(options);
   }
 
   public showUnknownError() {

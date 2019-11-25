@@ -6,10 +6,6 @@ export class ToastrAdapter {
   public body?: string;
   public config?: Partial<IndividualConfig>;
 
-  static new(options: AlertOptions): ToastrAdapter {
-    return new ToastrAdapter(options);
-  }
-
   constructor({ title, body, ...config }: AlertOptions) {
     this.title = title;
 
