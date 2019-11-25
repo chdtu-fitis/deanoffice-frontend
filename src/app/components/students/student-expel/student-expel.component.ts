@@ -16,7 +16,7 @@ import {GeneralService} from '../../../services/general.service';
 export class StudentExpelComponent extends BaseReactiveFormComponent implements IAppModal {
   students;
   reasons;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
   constructor(

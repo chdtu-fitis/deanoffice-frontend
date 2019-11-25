@@ -18,7 +18,7 @@ const DEFAULT_STRING = '';
 })
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
-  @ViewChild('tabset') tabset: TabsetComponent;
+  @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
   @Input() initialData: Teacher = new Teacher();
   @Input() departments: Department[] = [];
   @Input() positions: Position[] = [];

@@ -13,20 +13,12 @@ import {TeacherService} from '../../services/teacher.service';
 })
 export class TeachersComponent implements OnInit {
 
-  @ViewChild('table') table;
+  @ViewChild('table', { static: false }) table;
   selectedTeachers: Teacher[] = [];
   private active: boolean;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   searchText: string;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
 
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;

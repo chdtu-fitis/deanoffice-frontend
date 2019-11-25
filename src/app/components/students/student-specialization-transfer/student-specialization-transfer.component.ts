@@ -30,7 +30,7 @@ export class StudentSpecializationTransferComponent {
   userFacultyId: number;
   paymentType = Payment;
   paymentKey: Array<string>;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
   constructor(

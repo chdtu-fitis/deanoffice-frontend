@@ -15,7 +15,7 @@ export class ChangeQualificationComponent {
   @Input() qualificationsYear: number;
   @Output() onSubmit: EventEmitter<ProfessionalQualification[]> = new EventEmitter<ProfessionalQualification[]>();
   @Output() allowEditing: EventEmitter<null> = new EventEmitter<null>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
   isOpen = false;

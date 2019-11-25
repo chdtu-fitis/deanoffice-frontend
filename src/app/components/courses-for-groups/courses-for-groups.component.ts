@@ -43,10 +43,10 @@ export class CoursesForGroupsComponent implements OnInit {
   coursesForGroup: CourseForGroup[] = [];
   deleteCoursesIds: number[] = [];
   deleteCoursesIdsForCheck: number[] = [];
-  @ViewChild(AddedCoursesComponent) addedCoursesChild: AddedCoursesComponent;
-  @ViewChild(StudiedCoursesComponent) studiedCoursesChild: StudiedCoursesComponent;
-  @ViewChild(CourseCreationComponent) courseCreationChild: CourseCreationComponent;
-  @ViewChild(GroupsDifferentDialogComponent) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
+  @ViewChild(AddedCoursesComponent, { static: false }) addedCoursesChild: AddedCoursesComponent;
+  @ViewChild(StudiedCoursesComponent, { static: false }) studiedCoursesChild: StudiedCoursesComponent;
+  @ViewChild(CourseCreationComponent, { static: false }) courseCreationChild: CourseCreationComponent;
+  @ViewChild(GroupsDifferentDialogComponent, { static: false }) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
   studiedCoursesLoading = false;
   showPage = false;
 

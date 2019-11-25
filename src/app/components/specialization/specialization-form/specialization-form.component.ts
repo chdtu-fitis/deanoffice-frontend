@@ -31,10 +31,10 @@ const DEFAULT_STRING = '';
 })
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
-  @ViewChild('tabset') tabset: TabsetComponent;
-  @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
-  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
-  @ViewChild('qualification') qualification: SpecializationQualificationComponent;
+  @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
+  @ViewChild('competencies', { static: false }) competencies: SpecializationCompetenciesComponent;
+  @ViewChild('competenciesEng', { static: false }) competenciesEng: SpecializationCompetenciesComponent;
+  @ViewChild('qualification', { static: false }) qualification: SpecializationQualificationComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];

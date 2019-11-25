@@ -18,8 +18,8 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 })
 export class GroupComponent implements OnInit {
 
-  @ViewChild('table') table;
-  @ViewChild('addGroupModal') addGroupModal;
+  @ViewChild('table', { static: false }) table;
+  @ViewChild('addGroupModal', { static: false }) addGroupModal;
 
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];

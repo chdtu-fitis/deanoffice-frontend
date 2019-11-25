@@ -13,8 +13,8 @@ export class StudentDegreeInfoModalComponent {
   modalStyles = modalLarge;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('studentDegreeInfo') studentDegreeInfo: StudentDegreeInfoComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('studentDegreeInfo', { static: false }) studentDegreeInfo: StudentDegreeInfoComponent;
 
   openModal(id) {
     this.studentDegreeInfo.renderForm(id);

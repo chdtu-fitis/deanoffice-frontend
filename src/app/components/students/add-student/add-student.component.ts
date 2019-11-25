@@ -23,8 +23,8 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
   activeTab: Tabs = Tabs.Existing;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter<StudentDegree>();
-  @ViewChild('modal') modal: ModalDirective;
-  @ViewChild('tabset') tabset: TabsetComponent;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
+  @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
 
   constructor(
     private fb: FormBuilder,
