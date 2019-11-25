@@ -7,7 +7,7 @@ import {catchError} from 'rxjs/operators';
 import {forObservable, forPromise} from '../components/shared/httpErrors';
 
 const API_URL: string = environment.apiUrl;
-const DEPARTMENT_URL: string = API_URL + '/departments';
+export const DEPARTMENT_URL: string = API_URL + '/departments';
 
 @Injectable()
 export class DepartmentService {
@@ -42,5 +42,11 @@ export class DepartmentService {
   delete(id: number): Observable<Department> {
     return this.httpClient.delete<Department>(`${DEPARTMENT_URL}/${id}`)
       .pipe(catchError(forObservable<Department>('Видалення кафедри')))
+  }
+
+  restore(id: number): Observable<any> {
+    const body = new HttpParams().set('departmentId', id.toString());
+    const url = `${DEPARTMENT_URL}/restore`;
+    return this.httpClient.put(url, body);
   }
 }

@@ -10,6 +10,8 @@ import {DepartmentFormComponent} from './department-form/department-form.compone
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteDepartmentComponent} from './delete-department/delete-department.component';
 import { UpdateDepartmentComponent } from './update-department/update-department.component';
+import {MatSlideToggleModule} from '@angular/material';
+import { RecoveryDepartmentComponent } from './recovery-department/recovery-department.component';
 
 
 @NgModule({
@@ -19,14 +21,17 @@ import { UpdateDepartmentComponent } from './update-department/update-department
     SharedModule,
     SimpleNotificationsModule.forRoot(),
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
   ],
   declarations: [
     DepartmentComponent,
     AddDepartmentComponent,
     DepartmentFormComponent,
     DeleteDepartmentComponent,
-    UpdateDepartmentComponent
+    UpdateDepartmentComponent,
+    RecoveryDepartmentComponent,
+    RecoveryDepartmentComponent
   ]
 
 })

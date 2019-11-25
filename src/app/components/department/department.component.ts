@@ -16,8 +16,8 @@ export class DepartmentComponent implements OnInit {
   loadedDepartments: Department[] = [];
   departments: Department[] = [];
   selectedDepartments: Department[] = [];
-  actualDepartments = true;
   searchText: string;
+  active = true;
   alertOptions = {
     showProgressBar: false,
     timeOut: 50000,
@@ -40,18 +40,14 @@ export class DepartmentComponent implements OnInit {
   }
 
 
-  onColumnResized() {
-    this.gridApi.resetRowHeights();
-  }
-
   ngOnInit() {
-    this.loadDepartments();
+    this.loadDepartmentsByActive(true);
   }
 
   filterActive() {
     console.log(this.loadedDepartments);
     this.departments = this.loadedDepartments.filter(department => {
-      return this.actualDepartments && department.active;
+      return this.active && department.active;
     });
   }
 
@@ -97,6 +93,11 @@ export class DepartmentComponent implements OnInit {
     this.gridApi.updateRowData({remove: this.selectedDepartments});
     const department = this.loadedDepartments.find(department => department.id === deletedDepartment.id);
     department.active = false;
+  }
+  onRecoveryDepartment(recoveredDepartment: Department) {
+    this.gridApi.updateRowData({remove: this.selectedDepartments});
+    const department = this.loadedDepartments.find(department => department.id === recoveredDepartment.id);
+    department.active = true;
   }
 
   showErrorAlert(event) {
