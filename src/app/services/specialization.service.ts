@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Specialization} from '../models/Specialization';
 import {catchError} from 'rxjs/operators';
@@ -15,18 +15,18 @@ export class SpecializationService {
               private currentUserService: CurrentUserService) {}
 
   public getSpecializations(
-    actual: boolean = true,
+    active: boolean = true,
     facultyId: string = this.currentUserService.facultyId().toString()): Observable<Specialization[]> {
-    const params = {actual: actual.toString(), facultyId};
+    const params = {active: active.toString(), facultyId};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
 
   public getSpecializationsByActualAndFacultyIdAndDegreeId(
-    actual: boolean = true,
+    active: boolean = true,
     facultyId: string = this.currentUserService.facultyId().toString(),
     degreeId: string ): Observable<Specialization[]> {
-    const params = {actual: actual.toString(), facultyId, degreeId};
+    const params = {active: active.toString(), facultyId, degreeId};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
@@ -50,5 +50,11 @@ export class SpecializationService {
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
       .catch(forPromise('Оновлення спеціалізації'));
+  }
+
+  restore(itemId: number): Observable<any> {
+    const body = new HttpParams().set('specializationId', itemId.toString());
+    const url = `${SPECIALIZATION_URL}/restore`;
+    return this._httpClient.put(url, body);
   }
 }

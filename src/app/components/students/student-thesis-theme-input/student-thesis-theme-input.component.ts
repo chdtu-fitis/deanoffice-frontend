@@ -3,8 +3,6 @@ import {ModalDirective} from 'ngx-bootstrap';
 import {ThesisInputService} from '../../../services/thesis-input.service';
 import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups';
 import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingThesisDataRed';
-import {StudentDegreeFullEdeboData} from '../../../models/synchronization-edebo-models/StudentDegreeFullEdeboData';
-import {ImportedThesisData} from '../../../models/thesis-theme-models/ImportedThesisData';
 
 @Component({
   selector: 'student-thesis-theme-input',
@@ -28,6 +26,7 @@ export class StudentThesisThemeInputComponent implements OnInit {
   missingThesisDataRed: MissingThesisDataRed[];
   updatedStudentDegrees: number;
   notUpdatedStudentDegrees: string[];
+  isSaveButtonEnabled: boolean = false;
 
   constructor(private thesisService: ThesisInputService) {
   }
@@ -85,8 +84,8 @@ export class StudentThesisThemeInputComponent implements OnInit {
   }
 
   saveChanges() {
-    const thesisDataForSaveDTOs = this.getSelectedStudents();
-    this.thesisService.updateData(thesisDataForSaveDTOs).subscribe(
+    const thesisDataForSave = this.getSelectedStudents();
+    this.thesisService.updateData(thesisDataForSave).subscribe(
       response => {
         this.notUpdatedStudentDegrees = response.notUpdatedStudentDegrees;
         this.updatedStudentDegrees = response.updatedStudentDegrees;
@@ -102,6 +101,11 @@ export class StudentThesisThemeInputComponent implements OnInit {
   onAllThesisThemeSelected(checked: boolean, index: number) {
     for (const student of this.listThesisDataForGroup[index].thesisDataBeans) {
       student.selected = checked;
+    }
+    if (checked) {
+      this.isSaveButtonEnabled = true;
+    } else {
+      this.onStudentSelectCheckboxClick();
     }
   }
 
@@ -125,5 +129,17 @@ export class StudentThesisThemeInputComponent implements OnInit {
     this.fileField = true;
     this.downloadButton = true;
     this.modal.show();
+  }
+
+  onStudentSelectCheckboxClick() {
+    this.isSaveButtonEnabled = false;
+    for (const group of this.listThesisDataForGroup) {
+      for (const student of group.thesisDataBeans) {
+        if (student.selected) {
+          this.isSaveButtonEnabled = true;
+          return;
+        }
+      }
+    }
   }
 }

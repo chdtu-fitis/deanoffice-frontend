@@ -2,13 +2,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {TypeaheadMatch} from 'ngx-bootstrap';
+import {AlertsService} from '../../shared/alerts/alerts.service';
 
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
 import {CourseName} from '../../../models/CourseName';
-import {AlertsService} from '../../shared/alerts/alerts.service';
 
 @Component({
   selector: 'course-creation',
@@ -68,19 +68,22 @@ export class CourseCreationComponent implements OnInit {
     this.form.controls.courseName.setValue(event.item);
   }
 
-  checkCourseName(courseName) {
+  checkCourseNameForNew(courseName) {
     if (!this.courseNamesArray.includes(courseName.name)) {
       this.courseName.controls.id.setValue('');
       this.courseName.controls.name.setValue(courseName.name);
+      return true;
+    } else {
+      return false;
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.courseName.value);
+    const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._alerts.showError({ body: 'Предмет вже існує або поля заповнені невірно!' });
+      this._alerts.showError({ body: 'Предмет вже існує або поля заповнені неправильно' });
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
           this.failCreated = false;
@@ -89,6 +92,12 @@ export class CourseCreationComponent implements OnInit {
           if (isAddingToCourseForGroup) {
             this.onCourseAdding.emit(course);
           }
+          if (isNewCourseName) {
+            delete course.courseName.abbreviation;
+            course.courseName.nameEng = '';
+            this.courseNames.push(course.courseName);
+            this.courseNamesArray.push(course.courseName.name);
+          }
         },
         error => {
           this.fail = error.status !== 422;
@@ -96,6 +105,8 @@ export class CourseCreationComponent implements OnInit {
           this.showAlert();
         });
     }
+    this.form.controls.courseName.reset();
+    this.form.controls.hours.reset();
   }
 
   showAlert() {

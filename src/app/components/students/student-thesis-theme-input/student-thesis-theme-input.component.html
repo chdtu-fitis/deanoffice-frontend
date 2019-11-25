@@ -28,7 +28,7 @@
               </thead>
               <tr *ngFor="let student of group.thesisDataBeans let i = index">
                 <td>{{ i+1 }}</td>
-                <td><input type="checkbox" [(ngModel)]="student.selected"></td>
+                <td><input  name="checkbox"  type="checkbox" [(ngModel)]="student.selected" (change)="onStudentSelectCheckboxClick()"></td>
                 <td>{{ student?.fullName }}</td>
                 <td>{{ student?.thesisName }}</td>
                 <td>{{ student?.thesisNameEng }}</td>
@@ -81,7 +81,6 @@
             </tr>
           </table>
         </div>
-
       </div>
 
       <div class="modal-footer">
@@ -89,7 +88,7 @@
                 (click)="onFileUpload()" [disabled]="uploadInProgress || wrongExtension">
           Завантажити
         </button>
-        <button class="btn btn-success" *ngIf="tableView" type="button" (click)="saveChanges()" [disabled]="saveButton">
+        <button class="btn btn-success" *ngIf="tableView" type="button" [disabled]="!isSaveButtonEnabled" (click)="saveChanges()">
           Зберегти
         </button>
         <button class="btn btn-primary" *ngIf="tableView" type="button" (click)="hideModal()">Відмінити</button>

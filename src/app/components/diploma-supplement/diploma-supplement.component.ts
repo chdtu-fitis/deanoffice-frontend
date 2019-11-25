@@ -30,6 +30,7 @@ export class DiplomaSupplementComponent implements OnInit {
   studentDataCheckLoading = false;
   studentGradesCheckLoading = false;
   coursesTranslationCheckLoading = false;
+  graduateWorkReportLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
@@ -85,6 +86,15 @@ export class DiplomaSupplementComponent implements OnInit {
     this.graduatesReportLoading = true;
     this.diplomaSupplementService.buildGraduatesReport('' + this.currentGroup.id).subscribe(() => {
         this.graduatesReportLoading = false;
+      }
+    );
+  }
+
+  onFormGraduateWorkReport(): void {
+    this.message = '';
+    this.graduateWorkReportLoading = true;
+    this.diplomaSupplementService.buildGraduateWorkReport('' + this.currentGroup.id).subscribe(() => {
+        this.graduateWorkReportLoading = false;
       }
     );
   }
