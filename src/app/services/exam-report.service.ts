@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
+import {GradeRunners} from '../components/grade/grade-runner/models/GradeRunners';
+import {Observable} from 'rxjs/Observable';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class ExamReportService {
@@ -45,6 +48,23 @@ export class ExamReportService {
 
   buildStudentsList(year: number, degreeId: number, tuitionForm: string): any {
     const url = `${this.documentsUrl}/student-list/year/${year}/degree/${degreeId}?tuitionForm=${tuitionForm}`;
+    return this.fileService.downloadFile(url);
+  }
+
+  buildStudentsAndCoursesReport(gradeRunners: GradeRunners[]): Observable<HttpResponse<Blob>> {
+    const studentsCourses = gradeRunners.map(gradeRunner => {
+      const courses = gradeRunner.courses.map(course => course.id);
+
+      return {
+        studentDegreeId: gradeRunner.student.studentDegreeId,
+        courses,
+      };
+    });
+
+    const studentsCoursesJSON = JSON.stringify(studentsCourses);
+
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?studentsCoursesJson=${studentsCoursesJSON}`;
+
     return this.fileService.downloadFile(url);
   }
 }

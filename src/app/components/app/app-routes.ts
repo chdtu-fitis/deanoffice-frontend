@@ -31,6 +31,11 @@ export const appRoutes: Routes = [
             data: { title: 'Відомості' }
           },
           {
+            path: 'consolidated-exam-report',
+            loadChildren: '../consolidated-exam-report/consolidated-exam-report.module#ConsolidatedExamReportModule',
+            data: { title: 'Зведені відомості' }
+          },
+          {
             path: 'personal-file-statement',
             loadChildren: '../personal-file-grades-statement/personal-file-grades-statement.module#PersonalFileGradesStatementModule',
             data: { title: 'Виписка в особову справу' }
@@ -105,3 +110,4 @@ export const appRoutes: Routes = [
   {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ];
+

@@ -14,8 +14,8 @@ export class GroupService {
   constructor(private http: HttpClient) {
   }
 
-  getGroups(onlyActual: boolean = true): Observable<StudentGroup[]> {
-    const params = new HttpParams().set('only-active', onlyActual.toString());
+  getGroups(active: boolean = true): Observable<StudentGroup[]> {
+    const params = new HttpParams().set('active', active.toString());
     return this.http.get<StudentGroup[]>(`${this.groupsUrl}`, {params: params})
       .pipe(catchError(forObservable('Отримання груп', [])));
   }
@@ -58,5 +58,11 @@ export class GroupService {
   update(body): Promise<any> {
     return this.http.put(this.groupsUrl, body).toPromise()
       .catch(forPromise('Оновлення групи'));
+  }
+
+  restore(ids: number[]): Observable <any> {
+    const body = new HttpParams().set('groupIds', ids.toString());
+    const url = `${this.groupsUrl}/restore`;
+    return this.http.put(url, body);
   }
 }

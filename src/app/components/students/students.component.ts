@@ -10,6 +10,7 @@ import {PaymentFilterComponent} from './payment-filter/payment-filter.component'
 import {BsModalService} from 'ngx-bootstrap';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
+import {AcademicCertificateService} from "../../services/academic-certificate.service";
 
 @Component({
   selector: 'app-students',
@@ -33,12 +34,14 @@ export class StudentsComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
   frameworkComponents;
+  abstractOfScholasticRecordsLoading = false;
   getRowNodeId = (data) => data.id;
 
   constructor(private studentService: StudentService,
               private groupService: GroupService,
               private modalService: BsModalService,
-              private currentUserService: CurrentUserService) {
+              private currentUserService: CurrentUserService,
+              private academicCertificateService: AcademicCertificateService) {
     this.userFacultyId = currentUserService.facultyId();
     this.frameworkComponents = {
       groupFilter: GroupFilterComponent,
@@ -148,7 +151,6 @@ export class StudentsComponent implements OnInit {
     this.gridApi.updateRowData({ add: [student], addIndex: 0});
   };
 
-
   onRemove(ids) {
     const idsToRemove = [].concat(ids);
     this.selected = this.selected.filter(degree => idsToRemove.includes(degree.id));
@@ -166,5 +168,12 @@ export class StudentsComponent implements OnInit {
   } else {
       this.gridApi.updateRowData({ remove: this.selected });
     }
+  }
+
+  onAbstractOfScholasticRecords(studentDegreeId: number) {
+    this.abstractOfScholasticRecordsLoading = true;
+    this.academicCertificateService.buildAbstractOfScholasticRecords(studentDegreeId).subscribe(() => {
+      this.abstractOfScholasticRecordsLoading = false;
+    });
   }
 }

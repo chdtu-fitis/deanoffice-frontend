@@ -13,4 +13,9 @@ export class AcademicCertificateService {
     const url = `${this.documentsUrl}/academic-certificate/${studentExpelId}`;
     return this.fileService.downloadFile(url);
   }
+
+  buildAbstractOfScholasticRecords(studentDegreeId: number): any {
+    const url = `${this.documentsUrl}/abstract-scholastic-records/${studentDegreeId}`;
+    return this.fileService.downloadFile(url);
+  }
 }

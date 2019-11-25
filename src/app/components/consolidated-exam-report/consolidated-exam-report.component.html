@@ -1,0 +1,135 @@
+<div class="consolidated-document-wrapper">
+
+  <div class="top-select-container">
+    <div class="select-wrapper form-group">
+      <label for="cmbDegree">Ступінь</label>
+      <select class="form-control-sm" id="cmbDegree" [(ngModel)]="currentDegree" (change)="onDegreeChange()">
+        <option *ngFor="let degree of degrees" [ngValue]="degree">{{ degree.name }}</option>
+      </select>
+    </div>
+
+    <div class="select-wrapper form-group">
+      <label for="years">Курс</label>
+      <select class="form-control-sm"
+              id="years"
+              [(ngModel)]="selectedYear"
+              (change)="onYearChange()">
+        <option [ngValue]="year"
+                *ngFor="let year of years">{{ year }}</option>
+      </select>
+    </div>
+
+    <div class="select-wrapper form-group">
+      <label for="cmbGroup">Група</label>
+      <select class="cmbGroup form-control-sm"
+              id="cmbGroup"
+              [(ngModel)]="currentGroup"
+              (change)="onSemesterOrGroupChange()">
+        <option *ngFor="let group of groups"
+                [ngValue]="group">{{ group.name }}</option>
+      </select>
+    </div>
+
+    <div class="select-wrapper form-group">
+      <label for="semester">Семестр</label>
+      <select class="form-control-sm"
+              id="semester"
+              [(ngModel)]="selectedSemester"
+              (change)="onSemesterOrGroupChange()" >
+        <option [ngValue]="semester"
+                *ngFor="let semester of semesters">{{ semester }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="consolidated-main-container row">
+    <div class="table-wrapper col-md-9 col-sm-12">
+      <div style="display: flex; justify-content: space-between">
+        <h3>Список предметів</h3>
+        <div>
+          <button type="button" class="btn btn-success" (click)="handlerFormConsolidatedExamReportClick($event)">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                  *ngIf="examReportLoading">
+        </span>
+            Створити відомість
+          </button>
+          <!--<button type="button" class="btn btn-secondary">Заповнити автоматично</button>-->
+        </div>
+      </div>
+      <table class="table table-sm table-striped table-hover clickable table-responsive-sm">
+        <thead>
+          <tr>
+            <td scope="col">№</td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Назва предмету</span>
+              <span class="d-block d-sm-none">Предмет</span>
+            </td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Семестровий контроль</span>
+              <span class="d-block d-sm-none">Сем. кон.</span>
+            </td>
+            <td scope="col">
+              <span class="d-none d-sm-block">Годин</span>
+              <span class="d-block d-sm-none">Год.</span>
+            </td>
+            <td scope="col">Викладач</td>
+            <td scope="col">Дата екзамену</td>
+            <td scope="col">Груп</td>
+            <td scope="col"></td>
+          </tr>
+          </thead>
+        <tbody>
+
+        <tr *ngFor="let courseForGroup of coursesForGroup$ | async; let i = index"
+            (click)="handleCourseForGroupClick(courseForGroup)"
+            [class.selected-row]="courseForGroup === selectedCourseForGroup">
+          <td>{{ i + 1 }}</td>
+          <td>{{ courseForGroup.course.courseName.name }}</td>
+          <td class="dots max-width-sm">{{ courseForGroup.course.knowledgeControl.name }}</td>
+          <td>{{ courseForGroup.course.hours }}</td>
+          <td>{{ courseForGroup.teacher | nameWithInitials }}</td>
+          <td>{{ courseForGroup.examDate | date:"dd-MM-yyyy" }}</td>
+          <td>{{ getGroupCountForCourse(courseForGroup) }}</td>
+          <td>
+            <label>
+              <input type="checkbox" [(ngModel)]="courseForGroup.selected">
+            </label>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <h3>Список груп</h3>
+      <div>
+        <table class="table table-sm table-striped">
+          <thead>
+          <tr>
+            <td>№</td>
+            <td>
+              <label>
+              </label>
+            </td>
+            <td>Назва</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let studentGroup of selectedStudentGroups; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <label>
+                <input type="checkbox"
+                       [checked]="studentGroup?.selected"
+                       (click)="handleMarkStudentGroupClick(studentGroup)">
+              </label>
+            </td>
+            <td>{{ studentGroup.name }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

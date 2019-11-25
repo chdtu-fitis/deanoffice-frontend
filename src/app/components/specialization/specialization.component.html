@@ -3,12 +3,17 @@
     <div class="col content d-flex flex-column overflow-auto">
       <div class="py-2 d-flex align-items-center">
         <div class="mr-auto">
-          <label for="active" class="ml-1 m-0">
-            <input type="checkbox" id="active" #active (change)="getSpecializations(active.checked)" checked>
-            Актуальні спеціалізації
+          <label class="ml-1 m-0">
+            <mat-slide-toggle
+              class="ml-1"
+              [checked]="active"
+              [(ngModel)]="active"
+              (change)="getSpecializations($event.checked)">
+              {{active ? 'Активні': 'Неактивні'}} спеціалізіції
+            </mat-slide-toggle>
           </label>
         </div>
-        <div>
+        <div *ngIf="active === true">
           <button type="button" class="btn btn-danger"
                   (click)="deleteSpecializationModal.openModal(selectedSpecialization[0])"
                   [disabled]="buttonIsDisabled()">
@@ -24,6 +29,13 @@
           <button type="button" class="btn btn-success mr-1"
                   (click)="addSpecializationModal.openModal()">
             Нова спеціалізація
+          </button>
+        </div>
+        <div *ngIf="active === false">
+          <button type="button" class="btn btn-success mr-1"
+                  (click)="recoverySpecializationModal.openModal(selectedSpecialization[0])"
+                  [disabled]="buttonIsDisabled()">
+            Відновити
           </button>
         </div>
       </div>
@@ -63,3 +75,7 @@
 <update-specialization #updateSpecializationModal
                        (updateSpecialization)="onUpdateSpecialization($event)">
 </update-specialization>
+
+<recovery-specialization #recoverySpecializationModal
+                         (recoverySpecialization)="onRecoverySpecialization($event)"
+></recovery-specialization>

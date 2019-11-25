@@ -22,7 +22,7 @@
 
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" href="#" id="nav-year-middle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Впродовж року
+          Впродовж семестру
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-year-middle">
           <a class="dropdown-item" routerLinkActive="active"
@@ -40,7 +40,7 @@
 
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" href="#" id="nav-year-end" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Кінець року
+          Кінець семестру
         </a>
         <div class="dropdown-menu" aria-labelledby="nav-year-end">
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
@@ -55,7 +55,8 @@
         <div class="dropdown-menu" aria-labelledby="nav-documents">
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
              routerLink="/dashboard/documents/exam-report">Відомості</a>
-          <a class="dropdown-item" routerLinkActive="active" href="#">Зведені відомості</a>
+          <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+             routerLink="/dashboard/documents/consolidated-exam-report" >Зведені відомості</a>
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
              routerLink="/dashboard/documents/diploma-supplement">Додатки до диплому</a>
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"

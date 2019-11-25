@@ -1,0 +1,14 @@
+<modal-wrapper #modal heading="Відновлення спеціалізації" (hideModal)="hideModal()">
+  <div class="modal-body" *ngIf="specialization">
+    <h5>{{specialization?.name}}</h5>
+    <div>
+      <div><b>Ступінь:</b> {{specialization?.degree?.name}}</div>
+      <div><b>Спеціалізація:</b> {{specialization?.speciality?.code}} {{specialization?.speciality?.name}}</div>
+      <div *ngIf="specialization.educationalProgramHeadName"><b>Гарант програми:</b> {{specialization?.educationalProgramHeadName}}</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-submit" (click)="submit()">Відновити</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
+  </div>
+</modal-wrapper>

@@ -1,0 +1,26 @@
+<modal-wrapper #modal heading="Відновити групи" (hideModal)="hideModal()">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="modal-body">
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">Назва</th>
+          <th scope="col">Ступінь</th>
+          <th scope="col">Рік створення</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let group of groups">
+          <td>{{group.name}}</td>
+          <td>{{group.specialization.degree.name}}</td>
+          <td>{{group.creationYear}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success">Відновити</button>
+      <button type="button" (click)="hideModal()" class="btn btn-outline-success">Скасувати</button>
+    </div>
+  </form>
+</modal-wrapper>

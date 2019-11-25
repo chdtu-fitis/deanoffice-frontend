@@ -1,0 +1,53 @@
+<div class="grade-runner">
+  <button
+    *ngIf="isFocusedGrade"
+    class="btn btn-success grade-runner__add"
+    (click)="addToGradeRunners()"
+  >
+    Додати бігунок
+  </button>
+
+  <button class="grade-runner__cart-btn" (click)="toggleCart()">
+    <span class="grade-runner__cart-counter" *ngIf="!getIsEmptyGradeRunners()">
+      {{ gradeRunners.length }}
+    </span>
+  </button>
+
+  <div class="grade-runner__cart" [ngClass]="{'grade-runner__cart-open' : isShowCart}">
+
+    <ul class="grade-runner__students">
+      <li class="grade-runner__student" *ngFor="let gradeRunner of gradeRunners">
+        <h4 class="grade-runner__student-name">
+          {{ gradeRunner.student.person | nameWithInitials }}
+        </h4>
+        <ul class="grade-runner__subjects">
+          <li class="grade-runner__subject" *ngFor="let course of gradeRunner.courses">
+            <span class="grade-runner__subject-name">
+              {{ course.name }}, {{ course.semester }} Семестр
+            </span>
+            <button
+              class="grade-runner__subject-delete-btn"
+              (click)="removeCourse(gradeRunner.student, course)"
+            ></button>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="grade-runner__generate-nav">
+      <button
+        class="btn btn-sm btn-success"
+        [disabled]="getIsEmptyGradeRunners()"
+        (click)="generate()"
+      >
+        Сформувати бігунки
+      </button>
+      <button
+        class="btn btn-sm btn-danger"
+        (click)="toggleCart()"
+      >
+        Закрити
+      </button>
+    </div>
+  </div>
+</div>

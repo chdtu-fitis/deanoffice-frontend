@@ -49,6 +49,13 @@
                 [(ngModel)]="defaultOnTime">
                 {{defaultOnTime ? 'Вчасно': 'Невчасно'}}
               </mat-slide-toggle>
+              <app-grade-runner
+                [isFocusedGrade]="isFocusedGrade"
+                [gradeRunners]="gradeRunners"
+                (addGradeRunner)="addGradeRunner()"
+                (clearGradeRunner)="clearGradeRunner()"
+                (removeCourseFromGradeRunners)="removeCourseFromGradeRunners($event)"
+              ></app-grade-runner>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
                 <div *ngFor="let error of errorMessages" class="alert-danger">
@@ -68,6 +75,7 @@
                               (errors)="setErrorsFromTable($event)"
                               (sendUpdateGrades)="updateGradesForGroup()"
                               (setGradeForDelete)="setSelectGradeForDelete($event)"
+                              (setIsFocusGrade)="setIsFocusGrade($event)"
                               [selectSemester]="selectSemester" #gradeTable>
             </app-grades-table>
         </mat-sidenav-content>
