@@ -10,8 +10,6 @@ import {FormGroup} from '@angular/forms';
   styleUrls: ['./delete-group.component.scss']
 })
 export class DeleteGroupComponent {
-
-  @Output() showErrorAlert: EventEmitter<any> = new EventEmitter<any>();
   @Output() deleteGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 

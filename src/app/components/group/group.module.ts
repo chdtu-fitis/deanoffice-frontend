@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { SimpleNotificationsModule } from 'angular2-notifications';
-
 import {SharedModule} from '../shared/shared.module';
 import {GroupComponent} from './group.component';
 import {PipeModule} from '../../pipes/pipe.module';
@@ -27,7 +25,6 @@ export const groupRoutes: Routes = [
     SharedModule,
     PipeModule.forRoot(),
     RouterModule.forChild(groupRoutes),
-    SimpleNotificationsModule.forRoot(),
     MatSlideToggleModule,
   ],
   declarations: [

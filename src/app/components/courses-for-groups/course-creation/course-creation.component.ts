@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {NotificationsService} from 'angular2-notifications';
 import {TypeaheadMatch} from 'ngx-bootstrap';
+import {AlertsService} from '../../shared/alerts/alerts.service';
+
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {CourseService} from '../../../services/course.service';
@@ -27,18 +28,10 @@ export class CourseCreationComponent implements OnInit {
   fail = undefined;
   courseNames: CourseName[];
   courseNamesArray: string[];
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 5000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3,
-  };
 
   constructor(private courseService: CourseService,
               private knowledgeControlService: KnowledgeControlService,
-              private _service: NotificationsService,
+              private _alerts: AlertsService,
               private fb: FormBuilder) {
     this.form = fb.group({
       courseName: this.fb.group({
@@ -90,10 +83,9 @@ export class CourseCreationComponent implements OnInit {
     const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._service.error('Помилка', 'Предмет вже існує або поля заповнені неправильно!', this.alertOptions);
+      this._showExistingOrInvalidCourseError();
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
-          this.success = true;
           this.failCreated = false;
           this.fail = false;
           this.onCourseCreation.emit();
@@ -109,35 +101,18 @@ export class CourseCreationComponent implements OnInit {
         },
         error => {
           if (error.status === 422) {
-            this.failCreated = true;
-            this.success = false;
+            this._showExistingOrInvalidCourseError()
           } else {
-            this.success = false;
-            this.fail = true;
+            this._alerts.showUnknownError();
           }
-          this.showAlert();
         });
     }
     this.form.controls.courseName.reset();
     this.form.controls.hours.reset();
   }
 
-  showAlert() {
-    if (this.success) {
-      this._service.success('Предмет створено',
-        '',
-        this.alertOptions);
-    }
-    if (this.failCreated) {
-      this._service.error('Помилка',
-        'Предмет вже існує або поля заповнені невірно!',
-        this.alertOptions);
-    }
-    if (this.fail) {
-      this._service.error('Невідома помилка',
-        '',
-        this.alertOptions);
-    }
+  private _showExistingOrInvalidCourseError() {
+    this._alerts.showError({ body: 'Предмет вже існує або поля заповнені неправильно' });
   }
 
   private setCredits() {

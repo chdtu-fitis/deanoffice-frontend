@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
-import {NotificationsService} from 'angular2-notifications';
 import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
 import {DepartmentService} from '../../services/department.service';
@@ -18,14 +17,6 @@ export class DepartmentComponent implements OnInit {
   selectedDepartments: Department[] = [];
   actualDepartments = true;
   searchText: string;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
 
   count: number;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
@@ -35,9 +26,7 @@ export class DepartmentComponent implements OnInit {
   private gridColumnApi;
   getRowNodeId = (data) => data.id;
 
-  constructor(private departmentService: DepartmentService,
-              private notificationsService: NotificationsService) {
-  }
+  constructor(private departmentService: DepartmentService) {}
 
 
   onColumnResized() {
@@ -97,11 +86,5 @@ export class DepartmentComponent implements OnInit {
     this.gridApi.updateRowData({remove: this.selectedDepartments});
     const department = this.loadedDepartments.find(department => department.id === deletedDepartment.id);
     department.active = false;
-  }
-
-  showErrorAlert(event) {
-    this.notificationsService.error('Помилка',
-      event.message,
-      this.alertOptions);
   }
 }

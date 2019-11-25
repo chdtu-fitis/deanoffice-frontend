@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~ngx-toastr/toastr';
 
 $ag-icons-path: "~/ag-grid-community/src/styles/ag-theme-balham/icons/";
 $font-size: 14px;
@@ -43,4 +44,15 @@ body {
 
 .svg-icon {
   height: 1em;
+}
+
+// Toastr overrides
+
+#toast-container .toast.toast.toast {
+  box-shadow: none;
+  width: 400px;
+
+  &:hover {
+    box-shadow: 0 0 5px #999;
+  }
 }
