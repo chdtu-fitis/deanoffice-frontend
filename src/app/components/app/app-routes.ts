@@ -103,7 +103,8 @@ export const appRoutes: Routes = [
       },
       {
         path: 'orders',
-        loadChildren: '../orders/orders.module#OrdersModule'
+        loadChildren: '../orders/orders.module#OrdersModule',
+        data: {title: 'Накази'}
       }
     ]
   },

@@ -1,10 +1,30 @@
-<p>
-  orders works!
+<section class="orders container-fluid h-100">
+  <div class="orders-controls">
+    <form [formGroup]="orders" class="d-flex h-100">
+        <div class="order-control">
+          <div class="toggle active">
+            <mat-slide-toggle [disableRipple]="true" formControlName="activeOrder">
+              {{'Активні накази'}}
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="order-control">
+          <div class="toggle draft">
+            <mat-slide-toggle [disableRipple]="true" formControlName="draftOrder">
+              {{'Проекти наказів'}}
+            </mat-slide-toggle>
+          </div>
+        </div>
+        <div class="order-control">
+          <div class="toggle rejected">
+            <mat-slide-toggle [disableRipple]="true" formControlName="rejectedOrder">
+              {{'Відхилені накази'}}
+            </mat-slide-toggle>
+          </div>
+        </div>
+    </form>
+  </div>
+  <div class="orders-container">
+  </div>
 
-  sdfsa
-  df
-  sd
-  sd
-  f
-
-</p>
+</section>

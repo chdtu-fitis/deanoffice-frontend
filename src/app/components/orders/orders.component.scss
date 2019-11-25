@@ -1,0 +1,59 @@
+$active-order: #5cb85c;
+$draft-order: #ffc71f;
+$rejected-order: rgba(255, 61, 29, 0.92);
+
+
+.orders {
+    .orders-controls {
+      height: 15%;
+
+      .order-control {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+      }
+    }
+
+  .orders-container {
+    height: 85%;
+  }
+}
+
+::ng-deep .orders {
+  .orders-controls {
+    .order-control {
+      .toggle {
+        &.active {
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+            background-color: rgba($active-order, 0.6);
+          }
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+            background-color: $active-order;
+            box-shadow: 0 0 2px 0 rgba(0 ,0 , 0, 0.2);
+          }
+        }
+
+        &.draft {
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+            background-color: rgba($draft-order, 0.6);
+          }
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+            background-color: $draft-order;
+            box-shadow: 0 0 2px 0 rgba(0 ,0 , 0, 0.2);
+          }
+        }
+
+        &.rejected {
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+            background-color: rgba($rejected-order, 0.6);
+          }
+          .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+            background-color: $rejected-order;
+            box-shadow: 0 0 2px 0 rgba(0 ,0 , 0, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
