@@ -83,7 +83,7 @@ export class CourseCreationComponent implements OnInit {
     const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._alerts.showError({ body: 'Предмет вже існує або поля заповнені неправильно' });
+      this._showExistingOrInvalidCourseError();
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
           this.failCreated = false;
@@ -100,23 +100,19 @@ export class CourseCreationComponent implements OnInit {
           }
         },
         error => {
-          this.fail = error.status !== 422;
-          this.failCreated = !this.fail;
-          this.showAlert();
+          if (error.status === 422) {
+            this._showExistingOrInvalidCourseError()
+          } else {
+            this._alerts.showUnknownError();
+          }
         });
     }
     this.form.controls.courseName.reset();
     this.form.controls.hours.reset();
   }
 
-  showAlert() {
-    if (this.failCreated) {
-      this._alerts.showError({ body: 'Предмет вже існує або поля заповнені невірно' });
-    }
-    if (this.fail) {
-      this._alerts.showUnknownError();
-
-    }
+  private _showExistingOrInvalidCourseError() {
+    this._alerts.showError({ body: 'Предмет вже існує або поля заповнені неправильно' });
   }
 
   private setCredits() {
