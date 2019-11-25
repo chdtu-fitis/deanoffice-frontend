@@ -107,7 +107,7 @@ export class GroupComponent implements OnInit {
 
     for (const selectedGroup of this.selectedGroups) {
       if (!deletedGroupsIds.includes(selectedGroup.id)) {
-        const message = `Неможливо видалити групу "${selectedGroup.name}"<br/>(в групі є студенти)`;
+        const message = `Неможливо видалити групу "${selectedGroup.name}" з студентами`;
         this._alerts.showError({ body: message })
       }
     }
