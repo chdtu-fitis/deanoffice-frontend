@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {IDoesFilterPassParams, IFilterParams, RowNode} from 'ag-grid-community';
-import {IFilterAngularComp} from 'ag-grid-angular';
+import {IFilterAngularComp} from '@ag-grid-community/angular';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
 
