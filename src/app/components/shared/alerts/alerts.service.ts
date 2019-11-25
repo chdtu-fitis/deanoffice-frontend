@@ -8,10 +8,10 @@ import {ToastrAdapter} from './models/toastr-adapter';
 export class AlertsService {
   constructor(private _toastr: ToastrService) {}
 
-  public showSuccess(options: AlertOptionsPartial) {
-    const { body, title, config } = this._formatOptions(options, { title: 'Успіх' });
+  public showError(options: AlertOptionsPartial) {
+    const { body, title, config } = this._formatOptions(options, { title: 'Помилка' });
 
-    this._toastr.success(body, title, config);
+    this._toastr.error(body, title, config);
   }
 
   private _formatOptions(options: AlertOptionsPartial, defaults: AlertOptionsPartial): ToastrAdapter {
@@ -20,12 +20,6 @@ export class AlertsService {
 
   private _setDefaultsOptions(defaults: AlertOptionsPartial): (options: AlertOptionsPartial) => AlertOptions {
     return (alertOptions: AlertOptions) => ({ ...defaults, ...alertOptions });
-  }
-
-  public showError(options: AlertOptionsPartial) {
-    const { body, title, config } = this._formatOptions(options, { title: 'Помилка' });
-
-    this._toastr.error(body, title, config);
   }
 
   public showUnknownError() {
