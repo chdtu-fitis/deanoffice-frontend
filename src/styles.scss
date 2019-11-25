@@ -45,3 +45,13 @@ body {
 .svg-icon {
   height: 1em;
 }
+
+// Toastr overrides
+
+.toast {
+  box-shadow: none !important;
+
+  &:hover {
+    box-shadow: 0 0 5px #999 !important;
+  }
+}

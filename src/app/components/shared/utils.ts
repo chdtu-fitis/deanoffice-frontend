@@ -34,3 +34,7 @@ export class Utils {
 
 
 }
+
+export function pipe(data, transforms: Function[]) {
+  return transforms.reduce((result, transform) => transform(result), data);
+}

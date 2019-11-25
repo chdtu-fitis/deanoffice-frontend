@@ -1,34 +1,34 @@
 import {Injectable} from '@angular/core';
-import {IndividualConfig, ToastrService} from 'ngx-toastr';
-import {AlertOptions} from './alert-options';
-
-interface AlertAdapter {
-  title: string;
-  body: string;
-  config?: Partial<IndividualConfig>
-}
+import {ToastrService} from 'ngx-toastr';
+import {AlertOptions, AlertOptionsPartial} from './models/alert-options';
+import {pipe} from '../utils';
+import {ToastrAdapter} from './models/toastr-adapter';
 
 @Injectable()
 export class AlertsService {
   constructor(private _toastr: ToastrService) {}
 
-  public showSuccess(options: AlertOptions) {
-    const { body, title, config } = this._formatOptions(options);
+  public showSuccess(options: AlertOptionsPartial) {
+    const { body, title, config } = this._formatOptions(options, { title: 'Успіх' });
+
     this._toastr.success(body, title, config);
   }
 
-  public showError(options: AlertOptions) {
-    const { body, title, config } = this._formatOptions(options);
+  private _formatOptions(options: AlertOptionsPartial, defaults: AlertOptionsPartial): ToastrAdapter {
+    return pipe(options, [ this._setDefaultsOptions(defaults), ToastrAdapter.new ]);
+  }
+
+  private _setDefaultsOptions(defaults: AlertOptionsPartial): (options: AlertOptionsPartial) => AlertOptions {
+    return (alertOptions: AlertOptions) => ({ ...defaults, ...alertOptions });
+  }
+
+  public showError(options: AlertOptionsPartial) {
+    const { body, title, config } = this._formatOptions(options, { title: 'Помилка' });
+
     this._toastr.error(body, title, config);
   }
 
-  private _formatOptions({ title, body, ...config }: AlertOptions): AlertAdapter {
-    const options: AlertAdapter = { title, body };
-    if ( Object.keys(options).length ) {
-      options.config = {
-        timeOut: config.timeout
-      }
-    }
-    return options;
+  public showUnknownError() {
+    this.showError({ title: 'Невідома помилка' });
   }
 }
