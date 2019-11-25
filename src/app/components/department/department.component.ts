@@ -44,18 +44,6 @@ export class DepartmentComponent implements OnInit {
     this.loadDepartmentsByActive(true);
   }
 
-  filterActive() {
-    console.log(this.loadedDepartments);
-    this.departments = this.loadedDepartments.filter(department => {
-      return this.active && department.active;
-    });
-  }
-
-  loadDepartments() {
-    this.departmentService.getDepartments().subscribe(
-      departments => this.loadedDepartments = departments, null, () => this.filterActive());
-  }
-
   loadDepartmentsByActive(active: boolean) {
     this.departmentService.getDepartmentsByActive(active).subscribe(
       departments => this.departments = departments, null);
