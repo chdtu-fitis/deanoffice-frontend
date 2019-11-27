@@ -10,6 +10,7 @@ import {Specialization} from '../../models/Specialization';
 import {SpecializationService} from '../../services/specialization.service';
 import {COLUMN_DEFINITIONS} from './columns-def';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-group',
@@ -21,6 +22,7 @@ export class GroupComponent implements OnInit {
   @ViewChild('table', { static: false }) table;
   @ViewChild('addGroupModal', { static: false }) addGroupModal;
 
+  agGridModules: AgGridModules = commonAgGridModules;
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
   active = true;

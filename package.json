@@ -12,6 +12,9 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-community/all-modules": "^22.0.0",
+    "@ag-grid-community/angular": "^22.0.0",
+    "@ag-grid-community/client-side-row-model": "^22.0.0",
     "@angular/animations": "~8.2.14",
     "@angular/cdk": "^8.2.3",
     "@angular/common": "~8.2.14",
@@ -22,8 +25,6 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "@ag-grid-community/angular": "^22.0.0",
-    "@ag-grid-community/all-modules": "^22.0.0",
     "bootstrap": "^4.3.1",
     "core-js": "^2.4.1",
     "file-saver": "^1.3.4",
@@ -32,8 +33,8 @@
     "ngx-pagination": "^3.2.1",
     "ngx-toastr": "^11.2.1",
     "popper.js": "^1.12.9",
-    "rxjs-compat": "^6.0.0-rc.0",
     "rxjs": "~6.5.3",
+    "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

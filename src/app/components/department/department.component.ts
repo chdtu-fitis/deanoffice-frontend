@@ -4,6 +4,7 @@ import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid
 import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
 import {DepartmentService} from '../../services/department.service';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-department',
@@ -11,7 +12,7 @@ import {DepartmentService} from '../../services/department.service';
   styleUrls: ['./department.component.scss']
 })
 export class DepartmentComponent implements OnInit {
-
+  agGridModules: AgGridModules = commonAgGridModules;
   loadedDepartments: Department[] = [];
   departments: Department[] = [];
   selectedDepartments: Department[] = [];

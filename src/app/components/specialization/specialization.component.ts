@@ -5,6 +5,7 @@ import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
   styleUrls: ['./specialization.component.scss']
 })
 export class SpecializationComponent implements OnInit {
+  agGridModules: AgGridModules = commonAgGridModules;
   specializations: Specialization[] = [];
   selectedSpecialization: Specialization[] = [];
   active = true;
