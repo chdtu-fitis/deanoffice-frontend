@@ -33,7 +33,7 @@
           </div>
           <div class="float-right" *ngIf="!active">
           <button type="button" class="btn btn-success align-middle"
-                  [disabled]="!selectedDepartments.length || !active"
+                  [disabled]="!selectedDepartments.length || active"
                   (click)="recoveryDepartmentModal.showModal(gridApi.getSelectedRows()[0])">
             Відновити
           </button>
