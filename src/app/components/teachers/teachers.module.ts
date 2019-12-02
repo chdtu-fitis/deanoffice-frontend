@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { SimpleNotificationsModule } from 'angular2-notifications';
-
 import {PipeModule} from '../../pipes/pipe.module';
 import {TeachersComponent} from './teachers.component';
 import {SharedModule} from '../shared/shared.module';
@@ -28,8 +26,7 @@ export const teacherRoutes: Routes = [
     SharedModule,
     TabsModule.forRoot(),
     PipeModule.forRoot(),
-    RouterModule.forChild(teacherRoutes),
-    SimpleNotificationsModule.forRoot()
+    RouterModule.forChild(teacherRoutes)
   ],
   declarations: [
     TeachersComponent,

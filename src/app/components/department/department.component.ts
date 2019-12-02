@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
-import {NotificationsService} from 'angular2-notifications';
 import {COLUMN_DEFINITIONS_DEPARTMENT} from './columns-def-department';
 import {Department} from '../../models/Department';
 import {DepartmentService} from '../../services/department.service';

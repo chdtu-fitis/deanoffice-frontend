@@ -54,14 +54,7 @@
   </div>
 </div>
 
-<simple-notifications></simple-notifications>
-<add-teacher #addTeacherModal
-              (addTeacher)="onAddTeacher($event)">
-</add-teacher>
-<delete-teacher #deleteTeacherModal
-                (deleteTeacher)="onRemoveTeacher()">
-</delete-teacher>
-<update-teacher #updateTeacherModal
-                (updateTeacher)="onUpdateTeacher($event)">
-</update-teacher>
+<add-teacher #addTeacherModal (addTeacher)="onAddTeacher($event)"></add-teacher>
+<delete-teacher #deleteTeacherModal (deleteTeacher)="onRemoveTeacher()"></delete-teacher>
+<update-teacher #updateTeacherModal (updateTeacher)="onUpdateTeacher($event)"></update-teacher>
 
