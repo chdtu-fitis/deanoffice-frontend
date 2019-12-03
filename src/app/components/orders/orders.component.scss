@@ -17,6 +17,16 @@ $rejected-order: rgba(255, 61, 29, 0.92);
 
   .orders-container {
     height: 85%;
+
+    .orders-table-container {
+      flex-basis: 70%;
+      height: 100%;
+    }
+
+    .orders-action-container {
+      flex-basis: 30%;
+      height: 100%;
+    }
   }
 }
 

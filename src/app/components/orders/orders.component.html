@@ -24,7 +24,20 @@
         </div>
     </form>
   </div>
-  <div class="orders-container">
+  <div class="orders-container d-flex">
+    <div class="orders-table-container">
+      <ag-grid-angular
+        class="w-100 h-75"
+        [columnDefs]="colDefaults"
+        [rowData]="rowData"
+        [animateRows]="true"
+        [defaultColDef]="columnColDef"
+      >
+      </ag-grid-angular>
+    </div>
+    <div class="orders-action-container">
+
+    </div>
   </div>
 
 </section>

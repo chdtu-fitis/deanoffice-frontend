@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+import {defaultColDef, ordersDefaults} from './constants';
 
 
 @Component({
@@ -10,7 +11,16 @@ import {FormControl, FormGroup} from '@angular/forms';
 export class OrdersComponent implements OnInit {
 
   orders: FormGroup;
-  constructor() { }
+  colDefaults = ordersDefaults;
+  columnColDef = defaultColDef;
+
+  rowData = [
+    {number: '15H0O-T'},
+    {number: '75PO-8'}
+    ];
+
+  constructor() {
+  }
 
   ngOnInit() {
     this.buildForm();
