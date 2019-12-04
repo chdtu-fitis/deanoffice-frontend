@@ -26,6 +26,7 @@ export const colDefOrderStatus = {
   headerName: 'Статус',
   field: 'status',
   minWidth: 250,
+  maxWidth: 270,
   cellStyle: (statusCell) => {
     switch (statusCell.value) {
       case 'Активний': return {color: '#5cb85c', fontWeight: 900};

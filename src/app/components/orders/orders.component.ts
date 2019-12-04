@@ -17,12 +17,14 @@ export class OrdersComponent implements OnInit, OnDestroy {
   colDefaults = ordersDefaults;
   columnColDef = defaultColDef;
   rowData;
+  lastSelectedRowIndex = null;
 
   private gridApi;
   private gridColumnApi;
 
 
   private ngUnsubscribe: Subject<any> = new Subject();
+  private selectedOrder: any[];
 
   constructor(private ordersService: OrdersService) {
   }
@@ -43,11 +45,29 @@ export class OrdersComponent implements OnInit, OnDestroy {
     })
   }
 
+  onSelectionChanged() {
+    this.selectedOrder = this.gridApi.getSelectedRows();
+  }
+
+  onRowClicked(row) {
+    const rowNode = this.gridApi.getRowNode(row.rowIndex);
+    if (this.lastSelectedRowIndex === row.rowIndex) {
+      rowNode.setSelected(false);
+      this.lastSelectedRowIndex = null;
+    } else {
+      rowNode.setSelected(true);
+      this.lastSelectedRowIndex = row.rowIndex;
+    }
+  }
 
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
+  }
+
+  onModelUpdated(params) {
+    console.log(params);
   }
 
   buildForm() {

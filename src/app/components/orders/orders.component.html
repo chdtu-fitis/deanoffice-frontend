@@ -34,6 +34,9 @@
         [animateRows]="true"
         [defaultColDef]="columnColDef"
         (gridReady)="onGridReady($event)"
+        (modelUpdated)="onModelUpdated($event)"
+        (selectionChanged)="onSelectionChanged()"
+        (rowClicked)="onRowClicked($event)"
       >
       </ag-grid-angular>
     </div>
@@ -41,5 +44,7 @@
 
     </div>
   </div>
-
+  <div class="bg-light fixed-bottom p-1">
+    Всього: {{rowData.length }}
+  </div>
 </section>
