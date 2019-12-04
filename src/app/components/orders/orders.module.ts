@@ -5,6 +5,7 @@ import {OrdersComponent} from './orders.component';
 import {MatSlideToggleModule} from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
+import {OrdersService} from '../../services/orders.service';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {SharedModule} from '../shared/shared.module';
   ],
   declarations: [
     OrdersComponent
-  ]
+  ],
+  providers: [OrdersService]
 })
 export class OrdersModule {
 }

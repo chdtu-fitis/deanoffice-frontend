@@ -1,6 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {defaultColDef, ordersDefaults} from './constants';
+import {OrdersService} from '../../services/orders.service';
+import {flatMap, takeUntil} from 'rxjs/operators';
+import {Subject} from 'rxjs/Subject';
 
 
 @Component({
@@ -8,27 +11,35 @@ import {defaultColDef, ordersDefaults} from './constants';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss']
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
 
-  orders: FormGroup;
+  ordersForm: FormGroup;
   colDefaults = ordersDefaults;
   columnColDef = defaultColDef;
-
-  rowData = [
-    {number: '15H0O-T',  type: 'Про переведення', date: new Date().toISOString(), status: 'Активний'},
-    {number: '75PO-8', type: 'Про відрахування', date: new Date().toISOString(), status: 'Проект'},
-    {number: '75EG-8', type: 'Про відрахування', date: new Date().toISOString(), status: 'Відхилений'}
-    ];
+  rowData;
 
   private gridApi;
   private gridColumnApi;
 
-  constructor() {
+
+  private ngUnsubscribe: Subject<any> = new Subject();
+
+  constructor(private ordersService: OrdersService) {
   }
 
   ngOnInit() {
     this.buildForm();
-    this.orders.valueChanges.subscribe(result => {
+    this.ordersService.getOrders(this.ordersForm.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(ordersData => {
+        this.rowData = ordersData;
+      });
+
+    this.ordersForm.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
+      flatMap(ordersStatuses => this.ordersService.getOrders(ordersStatuses).pipe(takeUntil(this.ngUnsubscribe)))
+    ).subscribe(ordersData => {
+      this.rowData = ordersData;
     })
   }
 
@@ -40,11 +51,16 @@ export class OrdersComponent implements OnInit {
   }
 
   buildForm() {
-    this.orders = new FormGroup({
+    this.ordersForm = new FormGroup({
       activeOrder: new FormControl(true),
       draftOrder: new FormControl(false),
       rejectedOrder: new FormControl(false)
     })
   }
 
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 }
