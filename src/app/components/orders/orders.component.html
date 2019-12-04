@@ -27,11 +27,13 @@
   <div class="orders-container d-flex">
     <div class="orders-table-container">
       <ag-grid-angular
-        class="w-100 h-75"
+        class="ag-theme-balham orders-table"
+        enableCellChangeFlash=true
         [columnDefs]="colDefaults"
         [rowData]="rowData"
         [animateRows]="true"
         [defaultColDef]="columnColDef"
+        (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
     </div>

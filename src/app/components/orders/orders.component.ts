@@ -20,6 +20,9 @@ export class OrdersComponent implements OnInit {
     {number: '75EG-8', type: 'Про відрахування', date: new Date().toISOString(), status: 'Відхилений'}
     ];
 
+  private gridApi;
+  private gridColumnApi;
+
   constructor() {
   }
 
@@ -29,6 +32,12 @@ export class OrdersComponent implements OnInit {
     })
   }
 
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.gridApi.sizeColumnsToFit();
+  }
 
   buildForm() {
     this.orders = new FormGroup({
