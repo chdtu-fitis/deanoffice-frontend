@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   rowData;
   lastSelectedRowIndex = null;
   selectedRowStatus = null;
+  renderedRows: any[] = [];
 
   private gridApi;
   private gridColumnApi;
@@ -46,13 +47,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
     })
   }
 
+  getAppropriateNodeIndex(rowIndex) {
+    const node = this.renderedRows.find((row) => rowIndex === row.data.number);
+    return node.id;
+  }
+
   onSelectionChanged() {
     this.selectedOrder = this.gridApi.getSelectedRows();
     this.selectedRowStatus = this.selectedOrder.length ? this.selectedOrder[0].status : null;
+    this.renderedRows = this.gridApi.getRenderedNodes();
   }
 
   onRowClicked(row) {
-    const rowNode = this.gridApi.getRowNode(row.rowIndex);
+    const rowIndex = this.getAppropriateNodeIndex(row.data.number);
+    const rowNode = this.gridApi.getRowNode(rowIndex);
     if (this.lastSelectedRowIndex === row.rowIndex) {
       rowNode.setSelected(false);
       this.lastSelectedRowIndex = null;
@@ -66,10 +74,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
+    this.renderedRows = this.gridApi.getRenderedNodes();
   }
 
   onModelUpdated(params) {
-    console.log(params);
+    console.log(this.renderedRows);
   }
 
   buildForm() {
