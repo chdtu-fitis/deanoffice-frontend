@@ -18,6 +18,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   columnColDef = defaultColDef;
   rowData;
   lastSelectedRowIndex = null;
+  selectedRowStatus = null;
 
   private gridApi;
   private gridColumnApi;
@@ -47,6 +48,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   onSelectionChanged() {
     this.selectedOrder = this.gridApi.getSelectedRows();
+    this.selectedRowStatus = this.selectedOrder.length ? this.selectedOrder[0].status : null;
   }
 
   onRowClicked(row) {

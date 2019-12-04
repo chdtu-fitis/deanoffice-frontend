@@ -1,7 +1,58 @@
 $active-order: #5cb85c;
 $draft-order: #ffc71f;
 $rejected-order: rgba(255, 61, 29, 0.92);
+$show-order: #2488f4;
 
+
+.order-btn {
+  border-radius: 5px;
+  background-color: unset;
+  padding: 12px;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+
+  &.shift-btn {
+    display: inherit;
+    height: 0;
+    padding: 0;
+    margin: 0 !important;
+  }
+
+  &.success {
+    background-color: $active-order;
+  }
+
+  &.draft {
+    background-color: $draft-order;
+  }
+
+  &.show {
+    background-color: $show-order;
+  }
+
+  &.reject {
+    background-color: $rejected-order;
+  }
+
+  &.sign {
+    background-color: $active-order;
+  }
+
+  &:hover {
+    box-shadow: 1px 1px 0 2px rgba(0, 0, 0, 0.2);
+    filter: brightness(106%);
+  }
+
+  &:active {
+    filter: brightness(90%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+}
 
 .orders {
   .orders-controls {
@@ -31,6 +82,7 @@ $rejected-order: rgba(255, 61, 29, 0.92);
     .orders-action-container {
       flex-basis: 30%;
       height: 100%;
+      padding: 0 20px;
     }
   }
 }

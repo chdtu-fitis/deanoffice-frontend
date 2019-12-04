@@ -41,7 +41,21 @@
       </ag-grid-angular>
     </div>
     <div class="orders-action-container">
-
+      <button class="order-btn success w-100">
+        Створити наказ
+      </button>
+      <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Проект'}" class="order-btn draft w-100 mt-3">
+        Редагувати
+      </button>
+      <button [ngClass]="{'shift-btn' : selectedRowStatus === null}" class="order-btn show w-100 mt-3">
+        Переглянути
+      </button>
+      <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Відхилений'}" class="order-btn reject w-100 mt-3">
+        Відхилити
+      </button>
+      <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Проект'}" class="order-btn sign w-100 mt-3">
+        Підписати
+      </button>
     </div>
   </div>
   <div class="bg-light fixed-bottom p-1">
