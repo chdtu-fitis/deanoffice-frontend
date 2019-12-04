@@ -15,8 +15,9 @@ export class OrdersComponent implements OnInit {
   columnColDef = defaultColDef;
 
   rowData = [
-    {number: '15H0O-T'},
-    {number: '75PO-8'}
+    {number: '15H0O-T',  type: 'Про переведення', date: new Date().toISOString(), status: 'Активний'},
+    {number: '75PO-8', type: 'Про відрахування', date: new Date().toISOString(), status: 'Проект'},
+    {number: '75EG-8', type: 'Про відрахування', date: new Date().toISOString(), status: 'Відхилений'}
     ];
 
   constructor() {

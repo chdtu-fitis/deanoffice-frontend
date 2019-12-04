@@ -1,6 +1,5 @@
 export const defaultColDef = {
   sortable: true,
-  filter: true,
   resizable: true,
 };
 
@@ -29,14 +28,9 @@ export const colDefOrderStatus = {
   minWidth: 140
 };
 
-
-/*
-number
-type
-date
-status
- */
-
 export const ordersDefaults = [
   colDefOrderNumber,
+  colDefOrderType,
+  colDefOrderDate,
+  colDefOrderStatus
 ];
