@@ -41,7 +41,10 @@
       </ag-grid-angular>
     </div>
     <div class="orders-action-container">
-      <button class="order-btn success w-100">
+      <button
+        class="order-btn success w-100"
+        (click)="addOrder.modal.show()"
+      >
         Створити наказ
       </button>
       <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Проект'}" class="order-btn draft w-100 mt-3">
@@ -62,3 +65,7 @@
     Всього: {{rowData.length }}
   </div>
 </section>
+
+<add-order #addOrder>
+
+</add-order>
