@@ -54,10 +54,13 @@
         Переглянути
       </button>
       <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Відхилений'}" class="order-btn reject w-100 mt-3">
-        Відхилити
+        Видалити
       </button>
       <button [ngClass]="{'shift-btn' : selectedRowStatus !== 'Проект'}" class="order-btn sign w-100 mt-3">
-        Підписати
+        Позначити як підписаний
+      </button>
+      <button [ngClass]="{'shift-btn' : selectedRowStatus === null}" class="order-btn show w-100 mt-3">
+        Завантажити
       </button>
     </div>
   </div>

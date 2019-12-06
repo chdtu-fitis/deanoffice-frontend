@@ -17,6 +17,11 @@ $show-order: #2488f4;
     height: 0;
     padding: 0;
     margin: 0 !important;
+    visibility: hidden;
+
+    &:hover {
+      box-shadow: unset;
+    }
   }
 
   &.success {

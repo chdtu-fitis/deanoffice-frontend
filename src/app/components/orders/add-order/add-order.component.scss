@@ -1,0 +1,22 @@
+.modal-container {
+  height: calc(100% - 10px);
+  margin: 5px;
+
+  .modal-body {
+    padding: 0;
+
+    .controls {
+      border-right: 1px solid #dee2e6;
+    }
+
+    .document-overview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .controls, .document-overview {
+      flex-basis: 50%;
+    }
+  }
+}
