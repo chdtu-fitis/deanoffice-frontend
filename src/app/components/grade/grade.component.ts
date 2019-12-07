@@ -26,7 +26,9 @@ export class GradeComponent implements OnInit {
   selectGroup: StudentGroup;
   selectSemester = 1;
   coursesForGroup: CourseForGroup[] = [];
+  coursesForGroupAll: CourseForGroup[] = [];
   studentsDegree: StudentDegree[] = [];
+  studentsDegreeAll: StudentDegree[] = [];
   loading = false;
   errorMessages: string[] = [];
   emptyGradesList: Grade[] = [];
@@ -38,6 +40,7 @@ export class GradeComponent implements OnInit {
 
   gradeRunners: GradeRunners[] = [];
   isFocusedGrade: boolean;
+  showAcademicDifference: boolean;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -127,7 +130,22 @@ export class GradeComponent implements OnInit {
   }
 
   setStudentDegree(studentsDegree: StudentDegree[]): void {
-    this.studentsDegree = studentsDegree;
+    this.studentsDegreeAll = studentsDegree;
+    this.updateFilteredStudentDegree();
+  }
+
+  updateFilteredStudentDegree(): void {
+    this.studentsDegree = this.studentsDegreeAll.map(
+      sd => {
+        const copyStudentDegree = Object.assign({}, sd);
+
+        copyStudentDegree.grades = copyStudentDegree.grades.filter(
+          grade => !(grade.academicDifference && !this.showAcademicDifference)
+        );
+
+        return copyStudentDegree;
+      }
+    );
   }
 
   setEmptyGradesList(grades: Grade[]): void {
@@ -135,7 +153,12 @@ export class GradeComponent implements OnInit {
   }
 
   setCourses(courseForGroup: CourseForGroup[]): void {
-    this.coursesForGroup = courseForGroup;
+    this.coursesForGroupAll = courseForGroup;
+    this.updateFilteredCourses();
+  }
+
+  updateFilteredCourses(): void {
+    this.coursesForGroup = this.coursesForGroupAll.filter(course => !(course.academicDifference && !this.showAcademicDifference));
   }
 
   addErrorMessage(err, clear): void {
@@ -310,5 +333,10 @@ export class GradeComponent implements OnInit {
 
   clearGradeRunner(): void {
     this.gradeRunners = [];
+  }
+
+  onShowAcademicDifference(): void {
+    this.updateFilteredCourses();
+    this.updateFilteredStudentDegree();
   }
 }
