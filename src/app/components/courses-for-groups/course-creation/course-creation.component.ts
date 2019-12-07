@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {NotificationsService} from 'angular2-notifications';
 import {TypeaheadMatch} from 'ngx-bootstrap';
+import {AlertsService} from '../../shared/alerts/alerts.service';
 
 import {Course} from '../../../models/Course';
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
@@ -28,23 +28,16 @@ export class CourseCreationComponent implements OnInit {
   fail = undefined;
   courseNames: CourseName[];
   courseNamesArray: string[];
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 5000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3,
-  };
 
   constructor(private courseService: CourseService,
               private knowledgeControlService: KnowledgeControlService,
-              private _service: NotificationsService,
+              private _alerts: AlertsService,
               private fb: FormBuilder) {
     this.form = fb.group({
       courseName: this.fb.group({
         id: '',
         name: ['', Validators.required],
+        nameEng: '',
       }),
       hours: ['',  Validators.min(0)],
       semester: '',
@@ -62,6 +55,7 @@ export class CourseCreationComponent implements OnInit {
     });
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
+      this.courseNames.forEach(courseName => courseName.nameEng = '');
       this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
     });
   }
@@ -74,58 +68,51 @@ export class CourseCreationComponent implements OnInit {
     this.form.controls.courseName.setValue(event.item);
   }
 
-  checkCourseName(courseName) {
+  checkCourseNameForNew(courseName) {
     if (!this.courseNamesArray.includes(courseName.name)) {
       this.courseName.controls.id.setValue('');
       this.courseName.controls.name.setValue(courseName.name);
+      return true;
+    } else {
+      return false;
     }
   }
 
   createCourse(isAddingToCourseForGroup: boolean) {
     this.setCredits();
-    this.checkCourseName(this.courseName.value);
+    const isNewCourseName = this.checkCourseNameForNew(this.courseName.value);
     const courseIsAlreadyExist = this.courses.some(c => Course.equal(c, this.form.value));
     if (courseIsAlreadyExist) {
-      this._service.error('Помилка', 'Предмет вже існує або поля заповнені невірно!', this.alertOptions);
+      this._showExistingOrInvalidCourseError();
     } else {
       this.courseService.createCourse(this.form.value).subscribe((course: Course) => {
-          this.success = true;
           this.failCreated = false;
           this.fail = false;
           this.onCourseCreation.emit();
           if (isAddingToCourseForGroup) {
             this.onCourseAdding.emit(course);
           }
+          if (isNewCourseName) {
+            delete course.courseName.abbreviation;
+            course.courseName.nameEng = '';
+            this.courseNames.push(course.courseName);
+            this.courseNamesArray.push(course.courseName.name);
+          }
         },
         error => {
           if (error.status === 422) {
-            this.failCreated = true;
-            this.success = false;
+            this._showExistingOrInvalidCourseError()
           } else {
-            this.success = false;
-            this.fail = true;
+            this._alerts.showUnknownError();
           }
-          this.showAlert();
         });
     }
+    this.form.controls.courseName.reset();
+    this.form.controls.hours.reset();
   }
 
-  showAlert() {
-    if (this.success) {
-      this._service.success('Предмет створено',
-        '',
-        this.alertOptions);
-    }
-    if (this.failCreated) {
-      this._service.error('Помилка',
-        'Предмет вже існує або поля заповнені невірно!',
-        this.alertOptions);
-    }
-    if (this.fail) {
-      this._service.error('Невідома помилка',
-        '',
-        this.alertOptions);
-    }
+  private _showExistingOrInvalidCourseError() {
+    this._alerts.showError({ body: 'Предмет вже існує або поля заповнені неправильно' });
   }
 
   private setCredits() {

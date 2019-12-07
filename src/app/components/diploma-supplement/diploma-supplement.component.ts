@@ -30,6 +30,7 @@ export class DiplomaSupplementComponent implements OnInit {
   studentDataCheckLoading = false;
   studentGradesCheckLoading = false;
   coursesTranslationCheckLoading = false;
+  graduateWorkReportLoading = false;
 
   constructor(private degreeService: DegreeService, private groupService: GroupService,
               private diplomaSupplementService: DiplomaSupplementService,
@@ -89,6 +90,15 @@ export class DiplomaSupplementComponent implements OnInit {
     );
   }
 
+  onFormGraduateWorkReport(): void {
+    this.message = '';
+    this.graduateWorkReportLoading = true;
+    this.diplomaSupplementService.buildGraduateWorkReport('' + this.currentGroup.id).subscribe(() => {
+        this.graduateWorkReportLoading = false;
+      }
+    );
+  }
+
   onFullGradesTableReport(): void {
     this.gradesTableReportLoading = true;
     this.diplomaSupplementService.buildFullGradesTableReport('' + this.currentGroup.id).subscribe(() => {
@@ -132,7 +142,7 @@ export class DiplomaSupplementComponent implements OnInit {
     this.coursesTranslationCheckLoading = true;
     this.diplomaSupplementService.checkCoursesTranslation(this.currentDegreeId).subscribe(coursesTranslationCheckData => {
         this.coursesTranslationCheckLoading = false;
-        const header = 'Перевірка перекладів дисциплін для додатку до диплому';
+        const header = 'Список дисциплін та груп, в яких немає перекладів дисциплін';
         this.modalService.show(CoursesTranslationCheckComponent, {initialState: {coursesTranslationCheckData, header}});
       }
     );

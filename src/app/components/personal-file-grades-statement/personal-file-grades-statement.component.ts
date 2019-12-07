@@ -31,6 +31,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   isBuildDocumentButtonDisabled = false;
 
   personalFileGradesStatementLoading = false;
+  personalFileFrontPageLoading = false;
+  personalFileBackPageLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private personalFileGradesStatementService: PersonalFileGradesStatementService) {
@@ -169,20 +171,43 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     return isUnchecked;
   }
 
-  buildPersonalFileGradesStatement(): void {
+  getStudentIds() {
     let studentIds = [];
     for(let group of this.selectedGroups) {
-      for(let studentDegree of group.studentDegrees) {
-        if(studentDegree.selected) {
+      for (let studentDegree of group.studentDegrees) {
+        if (studentDegree.selected) {
           studentIds.push(studentDegree.id);
         }
       }
     }
+    return studentIds;
+  }
+
+  buildPersonalFileGradesStatement(): void {
+    const studentIds = this.getStudentIds();
     this.personalFileGradesStatementLoading = true;
     this.personalFileGradesStatementService.buildPersonalFileGradesStatement(
       this.selectedStudyYearForDocument, studentIds
     ).subscribe(a => {
         this.personalFileGradesStatementLoading = false;
+      }
+    );
+  }
+
+  buildPersonalFileFrontPage(): void {
+    const studentIds = this.getStudentIds();
+    this.personalFileFrontPageLoading = true;
+    this.personalFileGradesStatementService.buildPersonalFileFrontPage(studentIds).subscribe(a => {
+        this.personalFileFrontPageLoading = false;
+      }
+    );
+  }
+
+  buildPersonalFileBackPage(): void {
+    const studentIds = this.getStudentIds();
+    this.personalFileBackPageLoading = true;
+    this.personalFileGradesStatementService.buildPersonalFileBackPage(studentIds).subscribe(a => {
+        this.personalFileBackPageLoading = false;
       }
     );
   }

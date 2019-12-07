@@ -46,6 +46,12 @@
         <loading *ngIf="graduatesReportLoading" size="20"></loading>
       </div>
       <div class="flex-container">
+        <button class="btn btn-primary w-75 mt-4" [disabled]="graduateWorkReportLoading" (click)="onFormGraduateWorkReport()">
+          Відомість захисту випускникної роботи
+        </button>
+        <loading *ngIf="graduateWorkReportLoading" size="20"></loading>
+      </div>
+      <div class="flex-container">
         <button class="btn btn-info w-75 mt-4" [disabled]="gradesTableReportLoading" (click)="onFullGradesTableReport()">
           Шахматка оцінок студентів
         </button>

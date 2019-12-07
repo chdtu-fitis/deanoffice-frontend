@@ -11,6 +11,7 @@ import {HeaderComponent} from './header/header.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {AuthenticationModule} from '../login/authentication.module';
 import {SharedModule} from '../shared/shared.module';
+import {AlertsModule} from '../shared/alerts/alerts.module';
 
 import {appRoutes} from './app-routes';
 import {GUARDS, SERVICES} from '../../services';
@@ -27,7 +28,8 @@ import {GUARDS, SERVICES} from '../../services';
     SharedModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    PipeModule
+    PipeModule,
+    AlertsModule
   ],
   providers: [
     ...SERVICES,

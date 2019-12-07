@@ -11,8 +11,6 @@ import {GroupComponent} from '../group.component';
   styleUrls: ['./recovery-group.component.scss']
 })
 export class RecoveryGroupComponent {
-
-  @Output() showErrorAlert: EventEmitter<any> = new EventEmitter<any>();
   @Output() recoveryGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal') modal: ModalWrapperComponent;
 

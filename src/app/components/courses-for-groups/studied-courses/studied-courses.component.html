@@ -5,13 +5,13 @@
       <thead>
         <tr>
           <th *ngIf="courses"></th>
-          <th>Назва</th>
+          <th>Назва (перші 250 за алфавітом)</th>
           <th>Контроль</th>
           <th class="text-right">Години</th>
           <th class="text-right">Кредити</th>
         </tr>
       </thead>
-      <tr *ngFor="let course of courses | coursesSearch : searchText">
+      <tr *ngFor="let course of courses | coursesSearch : searchText | slice : 0 : 250">
         <td class="text-center"><input type="checkbox" [(ngModel)]="course.selected"
                    (change)="changeSelectedCoursesList($event.target.checked, course)"></td>
         <td>{{ course.courseName.name }}</td>

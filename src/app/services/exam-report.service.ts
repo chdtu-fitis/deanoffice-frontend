@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
-import {catchError} from "rxjs/operators";
-import {forObservable} from "../components/shared/httpErrors";
-import {Grade} from "../models/Grade";
+import {GradeRunners} from '../components/grade/grade-runner/models/GradeRunners';
+import {Observable} from 'rxjs/Observable';
+import {HttpResponse} from '@angular/common/http';
 
 @Injectable()
 export class ExamReportService {
@@ -51,8 +51,20 @@ export class ExamReportService {
     return this.fileService.downloadFile(url);
   }
 
-  makeSingleStudentAndCourseExamReport(grade: Grade) {
-    const url = `${this.documentsUrl}/single-student-and-course-exam-report?student_ids=${grade.studentDegreeId}&course_ids=${grade.courseId}`;
-    return this.fileService.downloadFile(url).pipe(catchError(forObservable('Формування бігунка', [])))
+  buildStudentsAndCoursesReport(gradeRunners: GradeRunners[]): Observable<HttpResponse<Blob>> {
+    const studentsCourses = gradeRunners.map(gradeRunner => {
+      const courses = gradeRunner.courses.map(course => course.id);
+
+      return {
+        studentDegreeId: gradeRunner.student.studentDegreeId,
+        courses,
+      };
+    });
+
+    const studentsCoursesJSON = JSON.stringify(studentsCourses);
+
+    const url = `${this.documentsUrl}/single-student-and-course-exam-report?studentsCoursesJson=${studentsCoursesJSON}`;
+
+    return this.fileService.downloadFile(url);
   }
 }
