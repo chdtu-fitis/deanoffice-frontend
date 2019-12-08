@@ -13,7 +13,7 @@ export class AddGroupComponent implements OnInit {
 
   @Output() addGroup: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
-  @ViewChild('form', { static: false }) form: GroupFormComponent;
+  @ViewChild('form', { static: true }) form: GroupFormComponent;
   @Input() tuitionFormsKeys;
   @Input() tuitionForms;
   @Input() tuitionTermsKeys;
