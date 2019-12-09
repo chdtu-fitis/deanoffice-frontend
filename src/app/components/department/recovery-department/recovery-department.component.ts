@@ -11,7 +11,7 @@ import {DepartmentService} from '../../../services/department.service';
 })
 export class RecoveryDepartmentComponent {
 
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   @Output() recoveryDepartment: EventEmitter<any> = new EventEmitter<any>();
 
   form = new FormGroup({});
