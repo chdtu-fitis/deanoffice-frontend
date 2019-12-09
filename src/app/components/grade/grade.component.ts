@@ -40,7 +40,7 @@ export class GradeComponent implements OnInit {
 
   gradeRunners: GradeRunners[] = [];
   isFocusedGrade: boolean;
-  showAcademicDifference: boolean;
+  showAcademicDifference = true;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
