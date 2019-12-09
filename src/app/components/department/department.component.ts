@@ -16,9 +16,8 @@ export class DepartmentComponent implements OnInit {
   loadedDepartments: Department[] = [];
   departments: Department[] = [];
   selectedDepartments: Department[] = [];
-  actualDepartments = true;
   searchText: string;
-
+  active = true;
   count: number;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS_DEPARTMENT;
@@ -27,26 +26,11 @@ export class DepartmentComponent implements OnInit {
   private gridColumnApi;
   getRowNodeId = (data) => data.id;
 
-  constructor(private departmentService: DepartmentService) {}
-
-
-  onColumnResized() {
-    this.gridApi.resetRowHeights();
+  constructor(private departmentService: DepartmentService) {
   }
 
   ngOnInit() {
-    this.loadDepartments();
-  }
-
-  filterActive() {
-    this.departments = this.loadedDepartments.filter(department => {
-      return this.actualDepartments && department.active;
-    });
-  }
-
-  loadDepartments() {
-    this.departmentService.getDepartments().subscribe(
-      departments => this.loadedDepartments = departments, null, () => this.filterActive());
+    this.loadDepartmentsByActive(true);
   }
 
   loadDepartmentsByActive(active: boolean) {
@@ -82,9 +66,11 @@ export class DepartmentComponent implements OnInit {
     this.loadedDepartments[index] = updatedDepartment;
   }
 
-  onDeleteDepartment(deletedDepartment: Department) {
+  onDeleteDepartment() {
     this.gridApi.updateRowData({remove: this.selectedDepartments});
-    const department = this.loadedDepartments.find(department => department.id === deletedDepartment.id);
-    department.active = false;
+  }
+
+  onRecoveryDepartment() {
+    this.gridApi.updateRowData({remove: this.selectedDepartments});
   }
 }
