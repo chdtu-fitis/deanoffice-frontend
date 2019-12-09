@@ -11,7 +11,7 @@ import {DepartmentService} from '../../../services/department.service';
 export class AddDepartmentComponent implements OnInit {
 
   @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
-  @ViewChild('form', { static: false }) form: DepartmentFormComponent;
+  @ViewChild('form', { static: true }) form: DepartmentFormComponent;
   @Output() addDepartment: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private departmentService: DepartmentService) {

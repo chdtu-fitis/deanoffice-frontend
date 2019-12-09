@@ -39,7 +39,6 @@ export class DepartmentComponent implements OnInit {
   }
 
   filterActive() {
-    console.log(this.loadedDepartments);
     this.departments = this.loadedDepartments.filter(department => {
       return this.actualDepartments && department.active;
     });

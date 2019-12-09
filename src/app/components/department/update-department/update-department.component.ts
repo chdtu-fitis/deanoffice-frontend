@@ -15,7 +15,7 @@ export class UpdateDepartmentComponent implements OnInit {
   @Input () selectedDepartments;
   @Output () updateDepartment: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
-  @ViewChild('form', { static: false }) form: DepartmentFormComponent;
+  @ViewChild('form', { static: true }) form: DepartmentFormComponent;
 
   constructor(private departmentService: DepartmentService) { }
 

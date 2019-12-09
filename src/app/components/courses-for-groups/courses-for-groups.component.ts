@@ -43,7 +43,7 @@ export class CoursesForGroupsComponent implements OnInit {
   coursesForGroup: CourseForGroup[] = [];
   deleteCoursesIds: number[] = [];
   deleteCoursesIdsForCheck: number[] = [];
-  @ViewChild(AddedCoursesComponent, { static: false }) addedCoursesChild: AddedCoursesComponent;
+  @ViewChild(AddedCoursesComponent, { static: true }) addedCoursesChild: AddedCoursesComponent;
   @ViewChild(StudiedCoursesComponent, { static: false }) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(CourseCreationComponent, { static: false }) courseCreationChild: CourseCreationComponent;
   @ViewChild(GroupsDifferentDialogComponent, { static: false }) groupsDifferentDialogComponent: GroupsDifferentDialogComponent;
