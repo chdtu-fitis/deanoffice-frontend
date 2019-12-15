@@ -88,9 +88,9 @@ export class GradeComponent implements OnInit {
   updateGradesAndStudentsAndCourses(grades: Grade[], studentsDegree: StudentDegree[], coursesForGroup: CourseForGroup[]): void {
     this.checkForErrorsAfterQueryingDataFetches(coursesForGroup, studentsDegree, grades);
     const joinGrades = this.joinGradesForStudents(grades, studentsDegree, coursesForGroup);
+    this.setCourses(coursesForGroup);
     this.setStudentDegree(joinGrades.studentsTemp || []);
     this.setEmptyGradesList(joinGrades.emptyGrades || []);
-    this.setCourses(coursesForGroup);
     this.clearUpdateGrades();
     this.loading = true;
   }
@@ -135,16 +135,13 @@ export class GradeComponent implements OnInit {
   }
 
   updateFilteredStudentDegree(): void {
+    const coursesIDs = this.coursesForGroup.map(courseForGroup => courseForGroup.course.id);
+
     this.studentsDegree = this.studentsDegreeAll.map(
-      sd => {
-        const copyStudentDegree = Object.assign({}, sd);
-
-        copyStudentDegree.grades = copyStudentDegree.grades.filter(
-          grade => !(grade.academicDifference && !this.showAcademicDifference)
-        );
-
-        return copyStudentDegree;
-      }
+      studentDegree => ({
+        ...studentDegree,
+        grades: studentDegree.grades.filter(grade => coursesIDs.includes(grade.courseId))
+      })
     );
   }
 
@@ -158,7 +155,7 @@ export class GradeComponent implements OnInit {
   }
 
   updateFilteredCourses(): void {
-    this.coursesForGroup = this.coursesForGroupAll.filter(course => !(course.academicDifference && !this.showAcademicDifference));
+    this.coursesForGroup = this.coursesForGroupAll.filter(course => !course.academicDifference || this.showAcademicDifference);
   }
 
   addErrorMessage(err, clear): void {
@@ -335,7 +332,8 @@ export class GradeComponent implements OnInit {
     this.gradeRunners = [];
   }
 
-  onShowAcademicDifference(): void {
+  onShowAcademicDifference($event): void {
+    this.showAcademicDifference = $event.target.checked;
     this.updateFilteredCourses();
     this.updateFilteredStudentDegree();
   }

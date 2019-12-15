@@ -60,9 +60,8 @@
                 <input
                   type="checkbox"
                   [checked]="showAcademicDifference"
-                  [(ngModel)]="showAcademicDifference"
-                  (change)="onShowAcademicDifference()">
-                  Відобразити академ.різницю
+                  (change)="onShowAcademicDifference($event)">
+                  Відобразити А.Р.
               </label>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
