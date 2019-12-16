@@ -15,19 +15,11 @@ export class TeachersComponent implements OnInit {
 
   @ViewChild('table') table;
   selectedTeachers: Teacher[] = [];
-  private active: boolean;
+  private active = true;
+  private allFaculties = false;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   searchText: string;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
-
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
@@ -45,13 +37,19 @@ export class TeachersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTeachers(true);
+    this.loadTeachers(true, false);
   }
 
-  loadTeachers(active: boolean): void {
-    this.teacherService.getTeachers(active).subscribe(
-      (teachers: Teacher[]) => this.teachers = teachers,
-    );
+  loadTeachers(active: boolean, allFaculties: boolean): void {
+    if (allFaculties) {
+      this.teacherService.getTeachersShort().subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    } else {
+      this.teacherService.getTeachers(active).subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    }
   }
 
    onGridReady(params: GridReadyEvent) {
@@ -83,5 +81,9 @@ export class TeachersComponent implements OnInit {
     this.selectedTeachers.push(updatedTeacher);
     const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
     this.loadedTeachers[index] = updatedTeacher;
+  }
+
+  onRecoveryTeacher() {
+    this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 }

@@ -1,0 +1,24 @@
+<modal-wrapper #modal heading="Видалення викладачів" (hideModal)="hideModal()">
+  <div class="modal-body" *ngIf="teacherArr">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Прізвище</th>
+        <th scope="col">Ім'я</th>
+        <th scope="col">По батькові</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let teacher of teacherArr">
+        <td>{{teacher?.surname}}</td>
+        <td>{{teacher?.name}}</td>
+        <td>{{teacher?.patronimic}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="submit()">Відновити</button>
+    <button type="button" class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
+  </div>
+</modal-wrapper>
