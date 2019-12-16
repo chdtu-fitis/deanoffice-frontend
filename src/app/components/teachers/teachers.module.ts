@@ -12,6 +12,8 @@ import { AddTeacherComponent } from './add-teacher/add-teacher.component';
 import {TabsModule} from 'ngx-bootstrap';
 import { DeleteTeacherComponent } from './delete-teacher/delete-teacher.component';
 import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
+import {MatSlideToggleModule} from '@angular/material';
+import { RecoveryTeacherComponent } from './recovery-teacher/recovery-teacher.component';
 
 
 export const teacherRoutes: Routes = [
@@ -26,14 +28,16 @@ export const teacherRoutes: Routes = [
     SharedModule,
     TabsModule.forRoot(),
     PipeModule.forRoot(),
-    RouterModule.forChild(teacherRoutes)
+    RouterModule.forChild(teacherRoutes),
+    MatSlideToggleModule
   ],
   declarations: [
     TeachersComponent,
     TeacherFormComponent,
     AddTeacherComponent,
     DeleteTeacherComponent,
-    UpdateTeacherComponent
+    UpdateTeacherComponent,
+    RecoveryTeacherComponent
   ],
   providers: [
     AuthenticationModule.tokenInterceptor()
