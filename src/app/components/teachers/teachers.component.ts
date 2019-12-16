@@ -17,11 +17,11 @@ export class TeachersComponent implements OnInit {
   @ViewChild('table', { static: false }) table;
   agGridModules: AgGridModules = commonAgGridModules;
   selectedTeachers: Teacher[] = [];
-  private active: boolean;
+  private active = true;
+  private allFaculties = false;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   searchText: string;
-
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
@@ -39,13 +39,19 @@ export class TeachersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTeachers(true);
+    this.loadTeachers(true, false);
   }
 
-  loadTeachers(active: boolean): void {
-    this.teacherService.getTeachers(active).subscribe(
-      (teachers: Teacher[]) => this.teachers = teachers,
-    );
+  loadTeachers(active: boolean, allFaculties: boolean): void {
+    if (allFaculties) {
+      this.teacherService.getTeachersShort().subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    } else {
+      this.teacherService.getTeachers(active).subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    }
   }
 
    onGridReady(params: GridReadyEvent) {
@@ -77,5 +83,9 @@ export class TeachersComponent implements OnInit {
     this.selectedTeachers.push(updatedTeacher);
     const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
     this.loadedTeachers[index] = updatedTeacher;
+  }
+
+  onRecoveryTeacher() {
+    this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 }
