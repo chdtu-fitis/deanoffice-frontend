@@ -41,6 +41,7 @@ export class GradeComponent implements OnInit {
   gradeRunners: GradeRunners[] = [];
   isFocusedGrade: boolean;
   showAcademicDifference = true;
+  isSortableCoursesForGroup = false;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -336,5 +337,43 @@ export class GradeComponent implements OnInit {
     this.showAcademicDifference = $event.target.checked;
     this.updateFilteredCourses();
     this.updateFilteredStudentDegree();
+  }
+
+  toggleSortableCoursesForGroup(): void {
+    this.isSortableCoursesForGroup = !this.isSortableCoursesForGroup;
+  }
+
+  moveCourseForGroupLeft(fromCourseForGroupIndex: number): void {
+    let toCourseForGroupIndex = fromCourseForGroupIndex - 1;
+
+    if (toCourseForGroupIndex < 0) {
+      toCourseForGroupIndex = 0;
+    }
+
+    this.swapCourseForGroupPosition(fromCourseForGroupIndex, toCourseForGroupIndex);
+  }
+
+  moveCourseForGroupRight(fromCourseForGroupIndex: number): void {
+    let toCourseForGroupIndex = fromCourseForGroupIndex + 1;
+    const coursesForGroupLength = this.coursesForGroup.length;
+
+    if (toCourseForGroupIndex === coursesForGroupLength) {
+      toCourseForGroupIndex = coursesForGroupLength - 1;
+    }
+
+    this.swapCourseForGroupPosition(fromCourseForGroupIndex, toCourseForGroupIndex);
+  }
+
+  swapCourseForGroupPosition(fromCourseForGroupIndex: number, toCourseForGroupIndex): void {
+    const courseForGroup = this.coursesForGroup.splice(fromCourseForGroupIndex, 1);
+    this.coursesForGroup.splice(toCourseForGroupIndex, 0, courseForGroup[0]);
+
+    this.studentsDegree = this.studentsDegree.map(studentDegree => {
+        const grade = studentDegree.grades.splice(fromCourseForGroupIndex, 1);
+        studentDegree.grades.splice(toCourseForGroupIndex, 0, grade[0]);
+
+        return studentDegree;
+      }
+    );
   }
 }
