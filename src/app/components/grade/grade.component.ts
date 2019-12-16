@@ -26,7 +26,9 @@ export class GradeComponent implements OnInit {
   selectGroup: StudentGroup;
   selectSemester = 1;
   coursesForGroup: CourseForGroup[] = [];
+  coursesForGroupAll: CourseForGroup[] = [];
   studentsDegree: StudentDegree[] = [];
+  studentsDegreeAll: StudentDegree[] = [];
   loading = false;
   errorMessages: string[] = [];
   emptyGradesList: Grade[] = [];
@@ -38,6 +40,7 @@ export class GradeComponent implements OnInit {
 
   gradeRunners: GradeRunners[] = [];
   isFocusedGrade: boolean;
+  showAcademicDifference = true;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -85,9 +88,9 @@ export class GradeComponent implements OnInit {
   updateGradesAndStudentsAndCourses(grades: Grade[], studentsDegree: StudentDegree[], coursesForGroup: CourseForGroup[]): void {
     this.checkForErrorsAfterQueryingDataFetches(coursesForGroup, studentsDegree, grades);
     const joinGrades = this.joinGradesForStudents(grades, studentsDegree, coursesForGroup);
+    this.setCourses(coursesForGroup);
     this.setStudentDegree(joinGrades.studentsTemp || []);
     this.setEmptyGradesList(joinGrades.emptyGrades || []);
-    this.setCourses(coursesForGroup);
     this.clearUpdateGrades();
     this.loading = true;
   }
@@ -127,7 +130,19 @@ export class GradeComponent implements OnInit {
   }
 
   setStudentDegree(studentsDegree: StudentDegree[]): void {
-    this.studentsDegree = studentsDegree;
+    this.studentsDegreeAll = studentsDegree;
+    this.updateFilteredStudentDegree();
+  }
+
+  updateFilteredStudentDegree(): void {
+    const coursesIDs = this.coursesForGroup.map(courseForGroup => courseForGroup.course.id);
+
+    this.studentsDegree = this.studentsDegreeAll.map(
+      studentDegree => ({
+        ...studentDegree,
+        grades: studentDegree.grades.filter(grade => coursesIDs.includes(grade.courseId))
+      })
+    );
   }
 
   setEmptyGradesList(grades: Grade[]): void {
@@ -135,7 +150,12 @@ export class GradeComponent implements OnInit {
   }
 
   setCourses(courseForGroup: CourseForGroup[]): void {
-    this.coursesForGroup = courseForGroup;
+    this.coursesForGroupAll = courseForGroup;
+    this.updateFilteredCourses();
+  }
+
+  updateFilteredCourses(): void {
+    this.coursesForGroup = this.coursesForGroupAll.filter(course => !course.academicDifference || this.showAcademicDifference);
   }
 
   addErrorMessage(err, clear): void {
@@ -310,5 +330,11 @@ export class GradeComponent implements OnInit {
 
   clearGradeRunner(): void {
     this.gradeRunners = [];
+  }
+
+  onShowAcademicDifference($event): void {
+    this.showAcademicDifference = $event.target.checked;
+    this.updateFilteredCourses();
+    this.updateFilteredStudentDegree();
   }
 }

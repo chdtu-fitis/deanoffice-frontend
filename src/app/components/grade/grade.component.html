@@ -56,6 +56,13 @@
                 (clearGradeRunner)="clearGradeRunner()"
                 (removeCourseFromGradeRunners)="removeCourseFromGradeRunners($event)"
               ></app-grade-runner>
+              <label class="grades__academic_difference">
+                <input
+                  type="checkbox"
+                  [checked]="showAcademicDifference"
+                  (change)="onShowAcademicDifference($event)">
+                  Відобразити А.Р.
+              </label>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
                 <div *ngFor="let error of errorMessages" class="alert-danger">
