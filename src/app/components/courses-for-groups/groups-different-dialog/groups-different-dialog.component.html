@@ -25,15 +25,22 @@
       <tr *ngFor="let course of group.differentForeignCourses; index as i">
         <td>{{course.courseName.name}}</td>
         <td>{{course.knowledgeControl.name}}</td>
-        <td>{{course.hours}}</td>
-        <td>{{course.hoursPerCredit}}</td>
-        <td>{{course.semester}}</td>
+        <td>{{course.id != 0 ? course.hours : ''}}</td>
+        <td>{{course.id != 0 ? course.hoursPerCredit : ''}}</td>
+        <td>{{course.id != 0 ? course.semester : ''}}</td>
+        <!--<td><button type="button" class="btn btn-success" (click)="copyCourses()">-->
+          <!--<- -->
+        <!--</button></td>-->
         <td> </td>
         <td>{{group.differentOtherCourses[i].courseName.name}}</td>
         <td>{{group.differentOtherCourses[i].knowledgeControl.name}}</td>
-        <td>{{group.differentOtherCourses[i].hours}}</td>
-        <td>{{group.differentOtherCourses[i].hoursPerCredit}}</td>
-        <td>{{group.differentOtherCourses[i].semester}}</td>
+        <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].hours : ''}}</td>
+        <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].hoursPerCredit : ''}}</td>
+        <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].semester : ''}}</td>
       </tr>
+    <!--<tr><td><button type="button" class="btn btn-success" (click)="bsModalRef.hide()">-->
+      <!--Зберегти-->
+    <!--</button></td></tr>-->
   </table>
 </div>
+
