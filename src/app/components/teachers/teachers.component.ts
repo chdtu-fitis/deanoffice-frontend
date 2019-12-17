@@ -42,7 +42,7 @@ export class TeachersComponent implements OnInit {
 
   loadTeachers(active: boolean, allFaculties: boolean): void {
     if (allFaculties) {
-      this.teacherService.getTeachersShort().subscribe(
+      this.teacherService.getTeachersAllFaculties(active).subscribe(
         (teachers: Teacher[]) => this.teachers = teachers,
       );
     } else {

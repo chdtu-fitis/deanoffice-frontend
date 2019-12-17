@@ -25,6 +25,12 @@ export class TeacherService {
       .pipe(catchError(forObservable('Отримання короткого списку викладачів', [])));
   }
 
+  public getTeachersAllFaculties(active: boolean): Observable<Teacher[]> {
+    const params =  new HttpParams().set('active', active.toString());
+    return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers-full`, {params})
+      .pipe(catchError(forObservable('Отримання повного списку викладачів по всьому університету', [])));
+  }
+
   public createTeacher(body): Promise<any> {
     return this._httpClient.post(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Створення нового викладача'));
