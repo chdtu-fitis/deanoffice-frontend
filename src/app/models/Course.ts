@@ -13,9 +13,8 @@ export class Course extends BaseEntity {
 
   static equal(c, course: Course) {
     return c.courseName.name === course.courseName.name &&
-           c.hours === course.hours &&
-           c.hoursPerCredit === course.hoursPerCredit &&
-           c.knowledgeControl.id === course.knowledgeControl.id
+      c.hours === course.hours &&
+      c.hoursPerCredit === course.hoursPerCredit &&
+      c.knowledgeControl.id === course.knowledgeControl.id
   }
-
 }
