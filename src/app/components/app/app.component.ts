@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { ScannedDocument } from '../scanned-docs/models/scanned-document';
 
 @Component({
   selector: 'root',
