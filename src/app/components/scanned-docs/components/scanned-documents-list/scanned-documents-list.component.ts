@@ -11,7 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 export class ScannedDocumentsListComponent implements OnInit {
   @Output() editDocument = new EventEmitter<ScannedDocument>();
   scannedDocumentList: ScannedDocument[] = [];
-  readonly Lang = LangEnum; // Reassigned so it can be used in template
+  readonly Lang = LangEnum;
 
   constructor(private sd: ScannedDocsService) { }
 
@@ -29,6 +29,5 @@ export class ScannedDocumentsListComponent implements OnInit {
       .subscribe((docs: ScannedDocument[]) => {
         this.scannedDocumentList = docs;
       });
-    ;
   }
 }

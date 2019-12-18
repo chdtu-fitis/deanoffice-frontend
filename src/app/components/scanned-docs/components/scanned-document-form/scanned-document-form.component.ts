@@ -11,7 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 })
 export class ScannedDocumentFormComponent implements OnChanges {
   @Input() scannedDocument: ScannedDocument;
-  readonly Lang = LangEnum; // Reassigned so it can be used in template
+  readonly Lang = LangEnum;
 
   scannedDocumentForm = this.fb.group({
     courseName: ['', Validators.required],
@@ -84,6 +84,5 @@ export class ScannedDocumentFormComponent implements OnChanges {
         this.resetForm();
         this.fillForm(doc);
       });
-    ;
   }
 }

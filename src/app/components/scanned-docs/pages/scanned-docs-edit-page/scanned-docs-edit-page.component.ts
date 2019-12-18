@@ -11,7 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 })
 export class ScannedDocsEditPageComponent implements OnInit {
   scannedDocument: ScannedDocument;
-  readonly Lang = LangEnum; // Reassigned so it can be used in template
+  readonly Lang = LangEnum;
 
   constructor(
     private router: Router,
