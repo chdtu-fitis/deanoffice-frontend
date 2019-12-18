@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ScannedDocument } from '../scanned-docs/models/scanned-document';
 
 @Component({
   selector: 'root',
@@ -8,6 +9,8 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  scannedDocument: ScannedDocument;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -25,5 +28,9 @@ export class AppComponent implements OnInit {
       .filter((route) => route.outlet === 'primary')
       .mergeMap((route) => route.data)
       .subscribe((event) => this.titleService.setTitle(`Деканат - ${event['title']}`));
+  }
+
+  editDocument(d: ScannedDocument): void {
+    this.scannedDocument = d;
   }
 }

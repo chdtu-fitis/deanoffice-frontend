@@ -2,7 +2,9 @@
   <app-header></app-header>
   <div class="app-content">
     <router-outlet></router-outlet>
+
+    <scanned-documents-list (editDocument)="editDocument($event)"></scanned-documents-list>
+
+    <scanned-document-form *ngIf="scannedDocument" [scannedDocument]="scannedDocument"></scanned-document-form>
   </div>
 </div>
-
-

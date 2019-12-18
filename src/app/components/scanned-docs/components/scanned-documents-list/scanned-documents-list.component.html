@@ -1,0 +1,8 @@
+<section class="scanned-documents-list">
+  <ul>
+    <li *ngFor="let d of scannedDocumentList; let i = index;">
+      {{ d.courseName }}, {{ d.groupName }}
+      <button (click)="onEdit(i)">Edit</button>
+    </li>
+  </ul>
+</section>

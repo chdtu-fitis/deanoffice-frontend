@@ -1,0 +1,17 @@
+.scanned-document-form {
+  margin: 20px;
+
+  label {
+    display: block;
+    padding-bottom: 20px;
+    
+    input {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  button {
+    margin-bottom: 20px;
+  }
+}

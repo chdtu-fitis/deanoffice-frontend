@@ -1,0 +1,31 @@
+<form
+  class="scanned-document-form"
+  [formGroup]="scannedDocumentForm"
+  (ngSubmit)="onSubmit($event)"
+>
+  <label>
+    <span>Course name</span>
+    <input type="text" formControlName="courseName">
+  </label>
+
+  <label>
+    <span>Group name</span>
+    <input type="text" formControlName="groupName">
+  </label>
+
+  <p>Students</p>
+  <ol formArrayName="students">
+    <li *ngFor="let s of students.controls; let i = index;">
+      <ng-container [formGroupName]="i">
+        <input type="text" formControlName="name">
+        <input type="text" formControlName="grade">
+        <button (click)="onRemoveStudent(i)">x</button>
+      </ng-container>
+    </li>
+  </ol>
+
+  <button type="submit">Confirm</button>
+
+  <pre>Form value: {{ scannedDocumentForm.value | json }}</pre>
+  <pre>Form status: {{ scannedDocumentForm.status | json }}</pre>
+</form>
