@@ -9,6 +9,23 @@
 <div class="grades-table-wrapper">
   <table *ngIf="coursesForGroup.length && studentsDegree.length && loadingGrades" class="grades-table">
     <thead>
+      <tr *ngIf="isSortableCoursesForGroup">
+        <th colspan="2"></th>
+        <th nowrap *ngFor="let courseForGroup of coursesForGroup; let courseForGroupIndex = index">
+          <button
+            *ngIf="courseForGroupIndex !== 0"
+            (click)="moveCourseLeft(courseForGroupIndex)"
+          >
+            <
+          </button>
+          <button
+            *ngIf="coursesForGroup.length !== courseForGroupIndex + 1"
+            (click)="moveCourseRight(courseForGroupIndex)"
+          >
+            >
+          </button>
+        </th>
+      </tr>
       <tr>
         <th class="sticky-col first-col z-index-2">№</th>
         <th class="sticky-col second-col z-index-2">
