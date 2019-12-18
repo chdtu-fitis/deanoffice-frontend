@@ -1,4 +1,4 @@
-export const Lang = {
+export const LangEnum = {
   SCANNED_DOCS: {
     COURSE_NAME: 'Course name',
     GROUP_NAME: 'Group name',
@@ -6,6 +6,7 @@ export const Lang = {
     REMOVE: 'x',
     EDIT: 'Edit',
     CONFIRM: 'Confirm',
+    BACK: 'Back',
     FORM_VALUE: 'Form value',
     FORM_STATUS: 'Form status'
   }

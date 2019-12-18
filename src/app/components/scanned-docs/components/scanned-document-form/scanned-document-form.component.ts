@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { ScannedDocsService } from '../../services/scanned-docs.service';
 import { ScannedDocument, ScannedDocumentStudent } from '../../models/scanned-document';
-import { Lang } from '../../i18n/en';
+import { LangEnum } from '../../models/lang.enum';
 
 @Component({
   selector: 'scanned-document-form',
@@ -11,7 +11,7 @@ import { Lang } from '../../i18n/en';
 })
 export class ScannedDocumentFormComponent implements OnChanges {
   @Input() scannedDocument: ScannedDocument;
-  readonly Lang = Lang; // Reassigned so it can be used in template
+  readonly Lang = LangEnum; // Reassigned so it can be used in template
 
   scannedDocumentForm = this.fb.group({
     courseName: ['', Validators.required],

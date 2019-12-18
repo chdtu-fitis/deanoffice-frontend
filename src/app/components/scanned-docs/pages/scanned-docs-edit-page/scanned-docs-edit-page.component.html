@@ -1,0 +1,16 @@
+<section class="edit-page">
+  <button
+    type="button"
+    class="edit-page__back"
+    (click)="backToList()"
+  >
+    {{ Lang.SCANNED_DOCS.BACK }}
+  </button>
+
+  <scanned-document-form
+    *ngIf="scannedDocument"
+    [scannedDocument]="scannedDocument"
+  ></scanned-document-form>
+</section>
+
+

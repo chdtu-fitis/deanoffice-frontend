@@ -1,5 +1,6 @@
 import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
 import {Routes} from '@angular/router';
+import {ScannedDocsRoutingEnum} from '../scanned-docs/models/scanned-docs-routing.enum';
 
 
 /**
@@ -11,15 +12,24 @@ import {Routes} from '@angular/router';
 
 export const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: 'login',
     loadChildren: '../login/authentication.module#AuthenticationModule',
     canActivate: [LoginGuard],
     data: { title: 'Вхід' }
   },
   {
-    path: 'dashboard', canActivate: [DashboardGuard], data: { title: 'Головна' }, children: [
+    path: 'dashboard',
+    canActivate: [DashboardGuard],
+    data: { title: 'Головна' },
+    children: [
       {
-        path: 'documents', children: [
+        path: 'documents',
+        children: [
           {
             path: 'diploma-supplement',
             loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule',
@@ -44,6 +54,11 @@ export const appRoutes: Routes = [
             path: 'additional-documents',
             loadChildren: '../additional-documents/additional-documents.module#AdditionalDocumentsModule',
             data: { title: 'Додаткові документи' }
+          },
+          {
+            path: ScannedDocsRoutingEnum.BASE,
+            loadChildren: '../scanned-docs/scanned-docs.module#ScannedDocsModule',
+            data: { title: '' }
           }
         ]
       },
@@ -103,7 +118,10 @@ export const appRoutes: Routes = [
       }
     ]
   },
-  {path: '**', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  }
 ];
 

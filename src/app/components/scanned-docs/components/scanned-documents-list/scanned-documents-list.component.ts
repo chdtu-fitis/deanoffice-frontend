@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { ScannedDocsService } from '../../services/scanned-docs.service';
 import { ScannedDocument } from '../../models/scanned-document';
-import { Lang } from '../../i18n/en';
+import { LangEnum } from '../../models/lang.enum';
 
 @Component({
   selector: 'scanned-documents-list',
@@ -11,7 +11,7 @@ import { Lang } from '../../i18n/en';
 export class ScannedDocumentsListComponent implements OnInit {
   @Output() editDocument = new EventEmitter<ScannedDocument>();
   scannedDocumentList: ScannedDocument[] = [];
-  readonly Lang = Lang; // Reassigned so it can be used in template
+  readonly Lang = LangEnum; // Reassigned so it can be used in template
 
   constructor(private sd: ScannedDocsService) { }
 
