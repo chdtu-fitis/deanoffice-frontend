@@ -24,7 +24,7 @@
     </li>
   </ol>
 
-  <button type="submit">Confirm</button>
+  <button type="submit" [disabled]="scannedDocumentForm.invalid">Confirm</button>
 
   <pre>Form value: {{ scannedDocumentForm.value | json }}</pre>
   <pre>Form status: {{ scannedDocumentForm.status | json }}</pre>

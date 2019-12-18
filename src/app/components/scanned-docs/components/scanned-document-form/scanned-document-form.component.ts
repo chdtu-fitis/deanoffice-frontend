@@ -52,7 +52,11 @@ export class ScannedDocumentFormComponent implements OnChanges {
   private addStudent(stud: ScannedDocumentStudent): void {
     this.students.push(this.fb.group({
       name: [stud.name],
-      grade: [stud.grade]
+      grade: [stud.grade, [
+        Validators.required,
+        Validators.min(60),
+        Validators.max(100)
+      ]]
     }));
   }
 
