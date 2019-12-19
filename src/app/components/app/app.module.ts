@@ -15,7 +15,6 @@ import {AlertsModule} from '../shared/alerts/alerts.module';
 
 import {appRoutes} from './app-routes';
 import {GUARDS, SERVICES} from '../../services';
-import {ScannedDocsModule} from '../scanned-docs/scanned-docs.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import {ScannedDocsModule} from '../scanned-docs/scanned-docs.module';
     BrowserAnimationsModule,
     FormsModule,
     SharedModule,
-    ScannedDocsModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     PipeModule,
