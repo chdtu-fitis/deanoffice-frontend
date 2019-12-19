@@ -57,7 +57,8 @@ export class ScannedDocumentFormComponent implements OnChanges {
       grade: [stud.grade, [
         Validators.required,
         Validators.min(60),
-        Validators.max(100)
+        Validators.max(100),
+        Validators.pattern(/^\d\d+$/),
       ]]
     }));
   }
