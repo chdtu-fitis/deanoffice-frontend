@@ -43,7 +43,7 @@ export class ScannedDocumentFormComponent implements OnChanges {
   onSubmit(event: Event): void {
     event.preventDefault();
     event.stopImmediatePropagation();
-    console.log(this.scannedDocumentForm);
+    console.log(this.scannedDocumentForm.value);
   }
 
   onRemoveStudent(id: number): void {
@@ -52,7 +52,12 @@ export class ScannedDocumentFormComponent implements OnChanges {
 
   private addStudent(stud: ScannedDocumentStudent): void {
     this.students.push(this.fb.group({
-      name: [stud.name],
+      name: [
+        stud.name,
+        [
+          Validators.required,
+        ]
+      ],
       grade: [
         stud.grade,
         [
@@ -60,7 +65,7 @@ export class ScannedDocumentFormComponent implements OnChanges {
           Validators.min(60),
           Validators.max(100),
           Validators.pattern(/^\d\d+$/),
-        ],
+        ]
       ]
     }));
   }
