@@ -19,7 +19,7 @@ export class ScannedDocsEditPageComponent implements OnInit {
     private cache: DocumentCacheService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.scannedDocument = this.cache.document;
   }
 

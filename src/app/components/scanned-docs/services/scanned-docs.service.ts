@@ -6,8 +6,6 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class ScannedDocsService {
 
-  constructor() { }
-
   fetch(): Observable<ScannedDocument[]> {
     // TODO: call backend to fetch this data
     console.warn('Fetching scanned documents from server');
