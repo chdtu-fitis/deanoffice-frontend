@@ -3,7 +3,7 @@
     <li *ngFor="let d of scannedDocumentList; let i = index;">
       {{ d.courseName }}, {{ d.groupName }}
       <button (click)="onEdit(i)">
-        {{ Lang.SCANNED_DOCS.EDIT }}
+        {{ LangEnum.SCANNED_DOCS.EDIT }}
       </button>
     </li>
   </ul>

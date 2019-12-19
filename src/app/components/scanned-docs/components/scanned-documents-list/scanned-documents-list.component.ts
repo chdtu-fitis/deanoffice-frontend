@@ -11,7 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 export class ScannedDocumentsListComponent implements OnInit {
   @Output() editDocument = new EventEmitter<ScannedDocument>();
   scannedDocumentList: ScannedDocument[] = [];
-  readonly Lang = LangEnum;
+  readonly LangEnum = LangEnum;
 
   constructor(private sd: ScannedDocsService) { }
 

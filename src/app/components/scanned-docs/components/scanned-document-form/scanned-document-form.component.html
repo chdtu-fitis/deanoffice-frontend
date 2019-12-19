@@ -4,32 +4,32 @@
   (ngSubmit)="onSubmit($event)"
 >
   <label>
-    <span>{{ Lang.SCANNED_DOCS.COURSE_NAME }}</span>
+    <span>{{ LangEnum.SCANNED_DOCS.COURSE_NAME }}</span>
     <input type="text" formControlName="courseName">
   </label>
 
   <label>
-    <span>{{ Lang.SCANNED_DOCS.GROUP_NAME }}</span>
+    <span>{{ LangEnum.SCANNED_DOCS.GROUP_NAME }}</span>
     <input type="text" formControlName="groupName">
   </label>
 
-  <p>{{ Lang.SCANNED_DOCS.STUDENTS }}</p>
+  <p>{{ LangEnum.SCANNED_DOCS.STUDENTS }}</p>
   <ol formArrayName="students">
     <li *ngFor="let s of students.controls; let i = index;">
       <ng-container [formGroupName]="i">
         <input type="text" formControlName="name">
         <input type="text" formControlName="grade">
         <button (click)="onRemoveStudent(i)">
-          {{ Lang.SCANNED_DOCS.REMOVE }}
+          {{ LangEnum.SCANNED_DOCS.REMOVE }}
         </button>
       </ng-container>
     </li>
   </ol>
 
   <button type="submit" [disabled]="scannedDocumentForm.invalid">
-    {{ Lang.SCANNED_DOCS.CONFIRM }}
+    {{ LangEnum.SCANNED_DOCS.CONFIRM }}
   </button>
 
-  <pre>{{ Lang.SCANNED_DOCS.FORM_VALUE }}: {{ scannedDocumentForm.value | json }}</pre>
-  <pre>{{ Lang.SCANNED_DOCS.FORM_STATUS }}: {{ scannedDocumentForm.status | json }}</pre>
+  <pre>{{ LangEnum.SCANNED_DOCS.FORM_VALUE }}: {{ scannedDocumentForm.value | json }}</pre>
+  <pre>{{ LangEnum.SCANNED_DOCS.FORM_STATUS }}: {{ scannedDocumentForm.status | json }}</pre>
 </form>

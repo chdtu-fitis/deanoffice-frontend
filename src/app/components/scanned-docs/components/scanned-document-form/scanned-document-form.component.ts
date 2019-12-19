@@ -11,7 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 })
 export class ScannedDocumentFormComponent implements OnChanges {
   @Input() scannedDocument: ScannedDocument;
-  readonly Lang = LangEnum;
+  readonly LangEnum = LangEnum;
 
   scannedDocumentForm = this.fb.group({
     courseName: ['', Validators.required],
@@ -43,7 +43,6 @@ export class ScannedDocumentFormComponent implements OnChanges {
   onSubmit(event: Event): void {
     event.preventDefault();
     event.stopImmediatePropagation();
-
     console.log(this.scannedDocumentForm);
   }
 
@@ -54,12 +53,15 @@ export class ScannedDocumentFormComponent implements OnChanges {
   private addStudent(stud: ScannedDocumentStudent): void {
     this.students.push(this.fb.group({
       name: [stud.name],
-      grade: [stud.grade, [
-        Validators.required,
-        Validators.min(60),
-        Validators.max(100),
-        Validators.pattern(/^\d\d+$/),
-      ]]
+      grade: [
+        stud.grade,
+        [
+          Validators.required,
+          Validators.min(60),
+          Validators.max(100),
+          Validators.pattern(/^\d\d+$/),
+        ],
+      ]
     }));
   }
 
