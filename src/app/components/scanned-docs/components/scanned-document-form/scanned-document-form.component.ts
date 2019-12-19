@@ -11,6 +11,7 @@ import { LangEnum } from '../../models/lang.enum';
 })
 export class ScannedDocumentFormComponent implements OnChanges {
   @Input() scannedDocument: ScannedDocument;
+  areProtectedFieldsLocked = true;
   readonly LangEnum = LangEnum;
 
   scannedDocumentForm = this.fb.group({
@@ -48,6 +49,10 @@ export class ScannedDocumentFormComponent implements OnChanges {
 
   onRemoveStudent(id: number): void {
     this.students.removeAt(id);
+  }
+
+  onToggleLock(): void {
+    this.areProtectedFieldsLocked = !this.areProtectedFieldsLocked;
   }
 
   private addStudent(stud: ScannedDocumentStudent): void {

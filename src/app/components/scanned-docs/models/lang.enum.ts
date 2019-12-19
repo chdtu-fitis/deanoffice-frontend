@@ -7,7 +7,7 @@ export const LangEnum = {
     EDIT: 'Edit',
     CONFIRM: 'Confirm',
     BACK: 'Back',
-    FORM_VALUE: 'Form value',
-    FORM_STATUS: 'Form status'
+    LOCK: 'Lock protected fields',
+    UNLOCK: 'Unlock protected fields',
   }
 };

@@ -1,20 +1,11 @@
 .scanned-document-form {
-  label {
-    display: block;
-    padding-bottom: 20px;
-    
-    input {
-      display: block;
-      width: 100%;
-    }
-  }
 
-  button {
-    margin-bottom: 20px;
+  .form-row {
+    padding-bottom: 10px;
   }
 
   input.ng-invalid {
-    border: 1px solid red;
+    border-color: red;
     outline-color: red;
     color: red;
   }

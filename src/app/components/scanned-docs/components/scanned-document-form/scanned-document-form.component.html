@@ -3,33 +3,87 @@
   [formGroup]="scannedDocumentForm"
   (ngSubmit)="onSubmit($event)"
 >
-  <label>
-    <span>{{ LangEnum.SCANNED_DOCS.COURSE_NAME }}</span>
-    <input type="text" formControlName="courseName">
-  </label>
+  <div class="form-group">
+    <label>
+      {{ LangEnum.SCANNED_DOCS.COURSE_NAME }}
+    </label>
+    <input
+      formControlName="courseName"
+      type="text"
+      class="form-control"
+      [readonly]="areProtectedFieldsLocked"
+    >
+  </div>
 
-  <label>
-    <span>{{ LangEnum.SCANNED_DOCS.GROUP_NAME }}</span>
-    <input type="text" formControlName="groupName">
-  </label>
+  <div class="form-group">
+    <label>
+      {{ LangEnum.SCANNED_DOCS.GROUP_NAME }}
+    </label>
+    <input
+      formControlName="groupName"
+      type="text"
+      class="form-control"
+      [readonly]="areProtectedFieldsLocked"
+    >
+  </div>
 
-  <p>{{ LangEnum.SCANNED_DOCS.STUDENTS }}</p>
-  <ol formArrayName="students">
-    <li *ngFor="let s of students.controls; let i = index;">
+  <div class="form-group" formArrayName="students">
+    <label>
+      {{ LangEnum.SCANNED_DOCS.STUDENTS }}
+    </label>
+
+    <div
+      class="form-row"
+      *ngFor="let s of students.controls; let i = index;"
+    >
       <ng-container [formGroupName]="i">
-        <input type="text" formControlName="name">
-        <input type="text" formControlName="grade">
-        <button (click)="onRemoveStudent(i)">
-          {{ LangEnum.SCANNED_DOCS.REMOVE }}
-        </button>
+        <div class="col">
+          <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            [readonly]="areProtectedFieldsLocked"
+          >
+        </div>
+        <div class="col">
+          <input
+            formControlName="grade"
+            type="text"
+            class="form-control"
+          >
+        </div>
+        <div class="col">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="onRemoveStudent(i)"
+          >
+            {{ LangEnum.SCANNED_DOCS.REMOVE }}
+          </button>
+        </div>
       </ng-container>
-    </li>
-  </ol>
+    </div>
+  </div>
 
-  <button type="submit" [disabled]="scannedDocumentForm.invalid">
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="scannedDocumentForm.invalid"
+  >
     {{ LangEnum.SCANNED_DOCS.CONFIRM }}
   </button>
 
-  <pre>{{ LangEnum.SCANNED_DOCS.FORM_VALUE }}: {{ scannedDocumentForm.value | json }}</pre>
-  <pre>{{ LangEnum.SCANNED_DOCS.FORM_STATUS }}: {{ scannedDocumentForm.status | json }}</pre>
+  <button
+    type="button"
+    class="btn"
+    [class.btn-secondary]="areProtectedFieldsLocked"
+    [class.btn-success]="!areProtectedFieldsLocked"
+    (click)="onToggleLock()"
+  >
+    {{
+      areProtectedFieldsLocked
+        ? LangEnum.SCANNED_DOCS.UNLOCK
+        : LangEnum.SCANNED_DOCS.LOCK
+    }}
+  </button>
 </form>
