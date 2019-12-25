@@ -100,6 +100,10 @@ export const appRoutes: Routes = [
       {
         path: 'reports',
         loadChildren: '../reports/reports.module#ReportsModule',
+      },
+      {
+        path: 'administration-tool',
+        loadChildren: '../administration-tool/administration-tool.module#AdministrationToolModule',
       }
     ]
   },

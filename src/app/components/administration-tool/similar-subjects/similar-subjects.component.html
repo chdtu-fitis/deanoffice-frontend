@@ -1,0 +1,46 @@
+<div class="header">
+  <h4>
+    Схожі предмети
+  </h4>
+  <section>
+    Всього предметів: {{ getSimilarCourse().length }}
+  </section>
+</div>
+<div class="accordion" id="accordionExample">
+  <ng-container *ngFor="let similarCourses of getSimilarCourse(); let index = index">
+    <div class="card">
+      <div [id]="'heading' + index"
+           class="card-header">
+        <h5 class="mb-0">
+          <button [attr.aria-controls]="'collapse' + index"
+                  [attr.data-target]="'#collapse' + index"
+                  aria-expanded="true"
+                  class="btn btn-link collapse-button"
+                  data-toggle="collapse"
+                  type="button">
+            {{ similarCourses[0].name }}
+          </button>
+        </h5>
+        <small>
+          Варіантів: {{ similarCourses.length }}
+          (<ng-container *ngFor="let similarCourse of similarCourses; let innerIndex = index"><code>{{ similarCourse.id }}</code><span *ngIf="innerIndex != similarCourses.length - 1">, </span></ng-container>)
+        </small>
+      </div>
+      <div [attr.aria-labelledby]="'heading' + index"
+           [id]="'collapse' + index"
+           class="collapse"
+           data-parent="#accordionExample">
+        <div class="card-body">
+          <p>Знайдені варіанти</p>
+          <ul>
+            <ng-container *ngFor="let similarCourse of similarCourses">
+              <li>
+                [<pre class="d-inline">{{ padId(similarCourse.id, similarCourses) }}</pre>] {{ similarCourse.name }}
+              </li>
+            </ng-container>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
