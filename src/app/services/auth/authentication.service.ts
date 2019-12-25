@@ -43,4 +43,14 @@ export class AuthenticationService {
   public getToken(): string {
     return this.token;
   }
+
+  public hasRole(roleName: string, token: string): boolean {
+    try {
+      const roles: Array<string> = JSON.parse(atob(token.split('.')[1]))['rol'];
+      return !!roles.find(role => role === roleName);
+    } catch (e) {
+      return false;
+    }
+  }
+
 }

@@ -1,4 +1,4 @@
-import {DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
+import {AdministrationGuard, DashboardGuard, LoginGuard} from '../../services/auth/auth.guard';
 import {Routes} from '@angular/router';
 
 
@@ -104,6 +104,9 @@ export const appRoutes: Routes = [
       {
         path: 'administration-tool',
         loadChildren: '../administration-tool/administration-tool.module#AdministrationToolModule',
+        canActivate: [
+          AdministrationGuard,
+        ]
       }
     ]
   },

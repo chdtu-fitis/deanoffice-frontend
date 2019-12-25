@@ -12,7 +12,7 @@ import {GradeService} from './grade.service';
 import {FileService} from './file-service';
 import {DegreeService} from './degree.service';
 
-import {DashboardGuard, LoginGuard} from './auth/auth.guard';
+import {AdministrationGuard, DashboardGuard, LoginGuard} from './auth/auth.guard';
 import {PersonalFileGradesStatementService} from './personal-file-grades-statement.service';
 import {AcademicCertificateService} from './academic-certificate.service';
 import {EdeboService} from './edebo.service';
@@ -64,5 +64,6 @@ export const SERVICES = [
 
 export const GUARDS = [
   DashboardGuard,
-  LoginGuard
+  LoginGuard,
+  AdministrationGuard,
 ];

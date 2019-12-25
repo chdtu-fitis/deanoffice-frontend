@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
 import {CurrentUserService} from '../../../services/auth/current-user.service';
+import {UserRole} from '../../../models/UserRole.enum';
 
 @Component({
   selector: 'app-header',
@@ -19,5 +20,9 @@ export class HeaderComponent {
 
   logout() {
     this.auth.logout();
+  }
+
+  hasRoleAdmin(): boolean {
+    return this.auth.hasRole(String(UserRole.ROLE_ADMIN), this.auth.getToken());
   }
 }
