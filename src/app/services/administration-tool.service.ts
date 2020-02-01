@@ -20,4 +20,8 @@ export class AdministrationToolService {
     return this.httpClient.get<SimilarCourse[][]>(AdministrationToolService.BASE_URL + '/course-names/similar');
   }
 
+  public mergeSimilarCourses(mergeStructure: {[key: string]: number[]}): Observable<void> {
+    return this.httpClient.post(AdministrationToolService.BASE_URL + '/merge', mergeStructure);
+  }
+
 }
