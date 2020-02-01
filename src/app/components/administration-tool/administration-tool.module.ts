@@ -7,6 +7,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import { SimilarSubjectsComponent } from './similar-subjects/similar-subjects.component';
+import { FixWrongCreditsComponent } from './fix-wrong-credits/fix-wrong-credits.component';
 
 export const abstractRoutes: Routes = [
   {
@@ -17,6 +18,10 @@ export const abstractRoutes: Routes = [
   {
     path: 'similar-subjects',
     component: SimilarSubjectsComponent,
+  },
+  {
+    path: 'wrong-credits',
+    component: FixWrongCreditsComponent,
   }
 ];
 
@@ -27,8 +32,11 @@ export const abstractRoutes: Routes = [
     SharedModule,
     PipeModule.forRoot(),
     MatRadioModule,
-    RouterModule.forChild(abstractRoutes)
+    RouterModule.forChild(abstractRoutes),
   ],
-  declarations: [SimilarSubjectsComponent]
+  declarations: [
+    SimilarSubjectsComponent,
+    FixWrongCreditsComponent,
+  ]
 })
 export class AdministrationToolModule { }
