@@ -26,11 +26,11 @@ export const COLUMN_DEFINITIONS: [{
   {
     headerName: 'Назва англ.',
     field: 'nameEng',
-    maxWidth: 120,
+    maxWidth: 250,
   },
   {
     headerName: 'Аббревіатура',
-    field: 'abbr',
-    maxWidth: 160,
+    field: 'abbreviation',
+    maxWidth: 200,
   },
 ];

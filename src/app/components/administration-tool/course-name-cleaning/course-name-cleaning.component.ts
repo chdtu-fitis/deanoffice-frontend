@@ -64,6 +64,7 @@ export class CourseNameCleaningComponent implements OnInit {
       )
       .subscribe(() => {
         this.getUnusedCourseNames();
+        this.selectedCourseNames = [];
       });
   }
 }

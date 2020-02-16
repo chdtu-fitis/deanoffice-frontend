@@ -30,7 +30,11 @@ export class AdministrationToolService {
   }
 
   public deleteUnusedCourseNames(courseNameIds: number[]): Observable<void> {
-    return this.httpClient.delete<void>(AdministrationToolService.BASE_URL + '/course-names/unused');
+    return this.httpClient.delete<void>(AdministrationToolService.BASE_URL + '/course-names', {
+      params: {
+        ids: courseNameIds,
+      }
+    });
   }
 
 }
