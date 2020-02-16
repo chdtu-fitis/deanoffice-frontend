@@ -7,6 +7,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import { SimilarSubjectsComponent } from './similar-subjects/similar-subjects.component';
+import { CourseNameCleaningComponent } from './course-name-cleaning/course-name-cleaning.component';
 
 export const abstractRoutes: Routes = [
   {
@@ -17,6 +18,10 @@ export const abstractRoutes: Routes = [
   {
     path: 'similar-subjects',
     component: SimilarSubjectsComponent,
+  },
+  {
+    path: 'course-name-cleaning',
+    component: CourseNameCleaningComponent,
   }
 ];
 
@@ -29,6 +34,6 @@ export const abstractRoutes: Routes = [
     MatRadioModule,
     RouterModule.forChild(abstractRoutes)
   ],
-  declarations: [SimilarSubjectsComponent]
+  declarations: [SimilarSubjectsComponent, CourseNameCleaningComponent]
 })
 export class AdministrationToolModule { }

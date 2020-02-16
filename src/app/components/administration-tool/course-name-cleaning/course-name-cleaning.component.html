@@ -1,0 +1,40 @@
+<div class="header">
+  <div>
+    <h4>
+      Назви предметів, які не використовуються
+    </h4>
+    <section title="Кількість груп предметів, які схожі між собою">
+      Всього предметів: {{ (courseNames$ | async)?.length }}
+    </section>
+  </div>
+  <div>
+    <button class="btn btn-primary" (click)="deleteUnusedCourseNames()" [attr.disabled]="selectedCourseNames?.length <= 0 ? true : null">
+      <ng-container *ngIf="!dataProcessing; else data_processing">
+        Виправити
+        ({{ selectedCourseNames?.length }})
+      </ng-container>
+      <ng-template #data_processing>
+        Обробка даних...
+      </ng-template>
+    </button>
+  </div>
+</div>
+<div class="accordion" id="similarCourseAccordion">
+  <ag-grid-angular
+    class="ag-theme-balham overflow-auto h-100"
+    rowHeight="50"
+    rowSelection="multiple"
+    enableCellChangeFlash=true
+    [animateRows]="true"
+    [accentedSort]="true"
+    [rowData]="courseNames$ | async"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [localeText]="localeText"
+    [getRowNodeId]="getRowNodeId"
+    (selectionChanged)="onSelectionChanged($event)"
+    (gridReady)="onGridReady($event)"
+    (modelUpdated)="onModelUpdated($event)"
+  >
+  </ag-grid-angular>
+</div>

@@ -194,7 +194,7 @@ export class CoursesForGroupsComponent implements OnInit {
     }
     this.sortCoursesForGroup();
     this.studiedCoursesChild.courses.forEach(course => course.selected = false);
-    this.studiedCoursesChild.selectedCourses = [];
+    this.studiedCoursesChild.selectedCourseNames = [];
     this.selectedCourses = [];
   }
 
@@ -291,7 +291,7 @@ export class CoursesForGroupsComponent implements OnInit {
     this.coursesForGroup = [];
     this.addedCoursesChild.coursesForGroup = [];
     this.selectedCourses = [];
-    this.studiedCoursesChild.selectedCourses = [];
+    this.studiedCoursesChild.selectedCourseNames = [];
     this.changesExistence = false;
   }
 
