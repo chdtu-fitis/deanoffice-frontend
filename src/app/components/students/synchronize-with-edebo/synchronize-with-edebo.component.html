@@ -10,7 +10,7 @@
     </div>
     <div class="modal-body">
       <tabset #tabset *ngIf="!(importView)">
-        <tab heading="Повне співпадіння" class="tab-body" (select)="setNumberOfStudents('green')">
+        <tab heading="Повне співпадіння" class="tab-body" (selectTab)="setNumberOfStudents('green')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -36,7 +36,7 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Часткове співпадіння" class="tab-body" (select)="setNumberOfStudents('blue')">
+        <tab heading="Часткове співпадіння" class="tab-body" (selectTab)="setNumberOfStudents('blue')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
                   <td>№</td>
@@ -173,7 +173,7 @@
             </tbody>
           </table>
         </tab>
-        <tab heading="Немає в базі" class="tab-body" (select)="setNumberOfStudents('orange')">
+        <tab heading="Немає в базі" class="tab-body" (selectTab)="setNumberOfStudents('orange')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>
@@ -203,7 +203,7 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Некоректна інформація" class="tab-body" (select)="setNumberOfStudents('red')">
+        <tab heading="Некоректна інформація" class="tab-body" (selectTab)="setNumberOfStudents('red')">
           <table class="table table-sm table-striped table-bordered mt-4" >
             <thead>
             <td>№</td>
@@ -229,7 +229,7 @@
             </tr>
           </table>
         </tab>
-        <tab heading="Немає в ЄДЕБО" class="tab-body" (select)="setNumberOfStudents('yellow')">
+        <tab heading="Немає в ЄДЕБО" class="tab-body" (selectTab)="setNumberOfStudents('yellow')">
           <table class="table table-sm table-striped table-bordered mt-4">
             <thead>
             <td>№</td>

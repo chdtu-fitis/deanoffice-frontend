@@ -11,7 +11,7 @@ import {FormGroup} from '@angular/forms';
 })
 export class DeleteGroupComponent {
   @Output() deleteGroup: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   groups: StudentGroup[];
 

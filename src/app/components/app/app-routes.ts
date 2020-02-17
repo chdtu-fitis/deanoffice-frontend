@@ -12,7 +12,7 @@ import {Routes} from '@angular/router';
 export const appRoutes: Routes = [
   {
     path: 'login',
-    loadChildren: '../login/authentication.module#AuthenticationModule',
+    loadChildren: () => import('../login/authentication.module').then(m => m.AuthenticationModule),
     canActivate: [LoginGuard],
     data: { title: 'Вхід' }
   },
@@ -22,84 +22,84 @@ export const appRoutes: Routes = [
         path: 'documents', children: [
           {
             path: 'diploma-supplement',
-            loadChildren: '../diploma-supplement/diploma-supplement.module#DiplomaSupplementModule',
+            loadChildren: () => import('../diploma-supplement/diploma-supplement.module').then(m => m.DiplomaSupplementModule),
             data: { title: 'Додатки до диплому' }
           },
           {
             path: 'exam-report',
-            loadChildren: '../exam-report/exam-report.module#ExamReportModule',
+            loadChildren: () => import('../exam-report/exam-report.module').then(m => m.ExamReportModule),
             data: { title: 'Відомості' }
           },
           {
             path: 'consolidated-exam-report',
-            loadChildren: '../consolidated-exam-report/consolidated-exam-report.module#ConsolidatedExamReportModule',
+            loadChildren: () => import('../consolidated-exam-report/consolidated-exam-report.module').then(m => m.ConsolidatedExamReportModule),
             data: { title: 'Зведені відомості' }
           },
           {
             path: 'personal-file-statement',
-            loadChildren: '../personal-file-grades-statement/personal-file-grades-statement.module#PersonalFileGradesStatementModule',
+            loadChildren: () => import('../personal-file-grades-statement/personal-file-grades-statement.module').then(m => m.PersonalFileGradesStatementModule),
             data: { title: 'Виписка в особову справу' }
           },
           {
             path: 'additional-documents',
-            loadChildren: '../additional-documents/additional-documents.module#AdditionalDocumentsModule',
+            loadChildren: () => import('../additional-documents/additional-documents.module').then(m => m.AdditionalDocumentsModule),
             data: { title: 'Додаткові документи' }
           }
         ]
       },
       {
         path: 'students',
-        loadChildren: '../students/students.module#StudentsModule',
+        loadChildren: () => import('../students/students.module').then(m => m.StudentsModule),
         data: { title: 'Студенти' }
       },
       {
         path: 'grades',
-        loadChildren: '../grade/grade.module#GradeModule',
+        loadChildren: () => import('../grade/grade.module').then(m => m.GradeModule),
         data: { title: 'Оцінки' }
       },
       {
         path: 'courses-for-groups',
-        loadChildren: '../courses-for-groups/courses-for-groups.module#CoursesForGroupsModule',
+        loadChildren: () => import('../courses-for-groups/courses-for-groups.module').then(m => m.CoursesForGroupsModule),
         data: { title: 'Предмети для груп' }
       },
       {
         path: 'course',
-        loadChildren: '../course/course.module#CourseModule',
+        loadChildren: () => import('../course/course.module').then(m => m.CourseModule),
         data: { title: 'Предмети' }
       },
       {
         path: 'specialities',
-        loadChildren: '../speciality/speciality.module#SpecialityModule',
+        loadChildren: () => import('../speciality/speciality.module').then(m => m.SpecialityModule),
         data: { title: 'Спеціальності' }
       },
       {
         path: 'groups',
-        loadChildren: '../group/group.module#GroupModule',
+        loadChildren: () => import('../group/group.module').then(m => m.GroupModule),
         data: { title: 'Групи' }
       },
       {
         path: 'teachers',
-        loadChildren: '../teachers/teachers.module#TeachersModule',
+        loadChildren: () => import('../teachers/teachers.module').then(m => m.TeachersModule),
         data: { title: 'Викладачі' }
       },
       {
         path: 'departments',
-        loadChildren: '../department/department.module#DepartmentModule',
+        loadChildren: () => import('../department/department.module').then(m => m.DepartmentModule),
         data: {title: 'Кафедри'}
       },
       {
         path: 'specializations',
-        loadChildren: '../specialization/specialization.module#SpecializationModule',
+        loadChildren: () => import('../specialization/specialization.module').then(m => m.SpecializationModule),
         data: { title: 'Спеціалізації (освітні програми)' }
       },
       {
         path: 'finish-study-year',
-        loadChildren: '../finish-study-year/finish-study-year.module#FinishStudyYearModule',
+        loadChildren: () => import('../finish-study-year/finish-study-year.module').then(m => m.FinishStudyYearModule),
         data: { title: 'Закінчити навчальний рік' }
       },
       {
         path: 'reports',
-        loadChildren: '../reports/reports.module#ReportsModule',
+        loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule),
       },
       {
         path: 'administration-tool',

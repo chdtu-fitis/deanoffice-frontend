@@ -1,5 +1,4 @@
-import {Observable} from 'rxjs/Observable';
-import {of} from 'rxjs/observable/of';
+import {Observable, of} from 'rxjs';
 
 export function forObservable<T>(operation = 'operation', result?: T) {
   return function (error: any): Observable<T> {

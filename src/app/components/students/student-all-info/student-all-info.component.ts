@@ -14,10 +14,10 @@ export class StudentAllInfoComponent {
   groups;
   modalStyles = modalLarge;
   @Input() editable: boolean;
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('studentPersonalInfo') studentPersonalInfo: StudentPersonalInfoComponent;
-  @ViewChild('studentDegreeInfo') studentDegreeInfo: StudentDegreeInfoComponent;
-  @ViewChild('studentHistory') studentHistory: StudentDegreeHistoryComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('studentPersonalInfo', { static: false }) studentPersonalInfo: StudentPersonalInfoComponent;
+  @ViewChild('studentDegreeInfo', { static: false }) studentDegreeInfo: StudentDegreeInfoComponent;
+  @ViewChild('studentHistory', { static: false }) studentHistory: StudentDegreeHistoryComponent;
 
   hideModal(): void {
     this.modal.hide();

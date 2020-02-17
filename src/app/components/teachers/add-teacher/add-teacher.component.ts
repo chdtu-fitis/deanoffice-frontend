@@ -11,8 +11,8 @@ import {TeacherFormComponent} from '../teacher-form/teacher-form.component';
 export class AddTeacherComponent{
 
   @Output() addTeacher: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('form') form: TeacherFormComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('form', { static: false }) form: TeacherFormComponent;
 
   constructor(private teacherService: TeacherService) { }
 

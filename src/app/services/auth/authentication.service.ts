@@ -1,9 +1,9 @@
+import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import { Observable, BehaviorSubject} from 'rxjs';
+
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {environment} from '../../../environments/environment';
 
 @Injectable()
@@ -18,8 +18,8 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post(`${environment.apiUrl}/login`, JSON.stringify({ username: username, password: password }))
-      .map((response:any) => {
+    return this.http.post(`${environment.apiUrl}/login`, JSON.stringify({ username: username, password: password })).pipe(
+      map((response:any) => {
         let token = response && response.token;
         if (token) {
           this.token = token;
@@ -30,7 +30,8 @@ export class AuthenticationService {
         } else {
           return false;
         }
-      });
+      })
+    );
   }
 
   logout(): void {

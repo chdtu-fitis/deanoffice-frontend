@@ -11,7 +11,7 @@ import {StudentsTableComponent} from '../students-table/students-table.component
   styleUrls: ['./students-in-vacation.component.scss'],
 })
 export class StudentsInVacationComponent implements OnInit {
-  @ViewChild('studentsInVacationTable') studentsInVacationTable: StudentsTableComponent;
+  @ViewChild('studentsInVacationTable', { static: false }) studentsInVacationTable: StudentsTableComponent;
   rows: StudentDegree[] = [];
   selected: StudentDegree[] = [];
   loading: boolean;

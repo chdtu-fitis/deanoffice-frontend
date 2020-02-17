@@ -25,7 +25,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
   tabValidity: Array<boolean> = [];
   userFacultyId: number;
   degreeIdFromOtherFaculty: number[] = [];
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   @Output() onSubmit = new EventEmitter();
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
   @Input() groups: StudentGroup[];

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules'
 
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
-import {StudentGroup} from '../../models/StudentGroup';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 
 @Component({
@@ -14,6 +14,7 @@ import {StudentGroup} from '../../models/StudentGroup';
   styleUrls: ['./specialization.component.scss']
 })
 export class SpecializationComponent implements OnInit {
+  agGridModules: AgGridModules = commonAgGridModules;
   specializations: Specialization[] = [];
   selectedSpecialization: Specialization[] = [];
   active = true;

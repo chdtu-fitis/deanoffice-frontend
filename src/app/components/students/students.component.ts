@@ -11,6 +11,7 @@ import {BsModalService} from 'ngx-bootstrap';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
 import {AcademicCertificateService} from "../../services/academic-certificate.service";
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-students',
@@ -18,6 +19,7 @@ import {AcademicCertificateService} from "../../services/academic-certificate.se
   styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
+  agGridModules: AgGridModules = commonAgGridModules;
   students: StudentDegree[] = [];
   groups: StudentGroup[] = [];
   selected: StudentDegree[] = [];

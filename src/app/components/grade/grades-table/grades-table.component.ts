@@ -8,7 +8,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
   styleUrls: ['./grades-table.component.scss']
 })
 export class GradesTableComponent {
-  @ViewChild('statement') statement;
+  @ViewChild('statement', { static: false }) statement;
   @Input() studentsDegree;
   @Input() coursesForGroup;
   @Input() selectGroup;
