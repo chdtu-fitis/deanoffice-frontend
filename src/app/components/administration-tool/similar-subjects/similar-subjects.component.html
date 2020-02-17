@@ -32,15 +32,61 @@
            [id]="'collapse' + index"
            class="collapse"
            data-parent="#similarCourseAccordion">
-        <div class="card-body">
+        <div class="card-body" (click)="updateMergeButtonState($event)">
           <p>Знайдені варіанти</p>
-          <ul>
-            <ng-container *ngFor="let similarCourse of similarCourses">
-              <li>
-                [<pre class="d-inline">{{ padId(similarCourse?.id, similarCourses) }}</pre>] {{ similarCourse?.name }}
-              </li>
+          <table>
+            <thead>
+            <tr>
+              <th>
+                <img width="24"
+                     height="24"
+                     src="/assets/img/similar-courses/star.svg"
+                     alt="правильна назва"
+                     title="Правильна назва">
+              </th>
+              <th>
+                <img width="24"
+                     height="24"
+                     src="/assets/img/similar-courses/merge.svg"
+                     alt="предмети для з'єднання"
+                     title="Предмети для з'єднання">
+              </th>
+              <th>
+                Предмет
+              </th>
+            </tr>
+            </thead>
+            <tbody #table_with_similar_courses>
+            <ng-container *ngFor="let similarCourse of similarCourses; let courseForSelectIndex = index">
+              <tr>
+                <td align="center">
+                  <label>
+                    <input type="radio"
+                           [checked]="courseForSelectIndex === 0"
+                           [name]="'similarCourseGroup' + index"
+                           [attr.data-courseid]="similarCourse.id"
+                           (click)="resolveSelectMainCourse(table_with_similar_courses, courseForSelectIndex)"
+                           #mainCourseRadio>
+                  </label>
+                </td>
+                <td align="center">
+                  <label>
+                    <input type="checkbox"
+                           [checked]="courseForSelectIndex !== 0"
+                           [disabled]="courseForSelectIndex === 0"
+                           name="courseForMergeCheckbox"
+                           [attr.data-courseid]="similarCourse.id"
+                           [attr.data-courseForSelect]="courseForSelectIndex">
+                  </label>
+                </td>
+                <td [class.selected-course]="mainCourseRadio.checked">
+                  [<pre class="d-inline">{{ padId(similarCourse?.id, similarCourses) }}</pre>] {{ similarCourse?.name }}
+                </td>
+              </tr>
             </ng-container>
-          </ul>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" name="merge-button" (click)="merge(table_with_similar_courses)">З'єднати</button>
         </div>
       </div>
     </div>
