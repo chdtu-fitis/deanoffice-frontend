@@ -103,7 +103,7 @@ export const appRoutes: Routes = [
       },
       {
         path: 'administration-tool',
-        loadChildren: '../administration-tool/administration-tool.module#AdministrationToolModule',
+        loadChildren: () => import('../administration-tool/administration-tool.module').then(m => m.AdministrationToolModule),
         canActivate: [
           AdministrationGuard,
         ]

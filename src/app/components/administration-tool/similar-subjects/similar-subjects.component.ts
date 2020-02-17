@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AdministrationToolService, SimilarCourse} from '../../../services/administration-tool.service';
-import * as diff from 'text-diff';
 
 @Component({
   selector: 'similar-subjects',
