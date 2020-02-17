@@ -45,8 +45,8 @@ export class SimilarSubjectsComponent implements OnInit {
 
   resolveSelectMainCourse(table: HTMLTableSectionElement, courseForSelectIndex: number) {
     const nodeList = table.querySelectorAll('input[name="courseForMergeCheckbox"]');
-    const elements = [] as HTMLInputElement[];
-    for (const i = 0; i < nodeList.length; i++) {
+    const elements = []// as HTMLInputElement[];
+    for (let i = 0; i < nodeList.length; i++) {
       elements.push(nodeList.item(i));
     }
     elements.filter(value => Number(value.dataset.courseforselect) !== courseForSelectIndex)
@@ -65,7 +65,7 @@ export class SimilarSubjectsComponent implements OnInit {
     const mainCourseId = (table.querySelector('input[type="radio"]:checked') as HTMLInputElement).dataset.courseid;
     const checkboxes = table.querySelectorAll('input[type="checkbox"]:checked') as NodeList<HTMLInputElement>;
     const mergeCourses: number[] = [];
-    for (const i = 0; i < checkboxes.length; i++) {
+    for (let i = 0; i < checkboxes.length; i++) {
       mergeCourses.push(+checkboxes.item(i).dataset.courseid);
     }
     const mergeStructure = {};
