@@ -21,7 +21,7 @@ import {Student} from './grade-runner/models/Student';
   providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
-  @ViewChild('gradeTable') gradeTable;
+  @ViewChild('gradeTable', { static: false }) gradeTable;
   groups: StudentGroup[];
   selectGroup: StudentGroup;
   selectSemester = 1;

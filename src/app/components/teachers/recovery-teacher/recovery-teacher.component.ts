@@ -8,11 +8,11 @@ import {TeacherService} from '../../../services/teacher.service';
   templateUrl: './recovery-teacher.component.html',
   styleUrls: ['./recovery-teacher.component.scss']
 })
-export class RecoveryTeacherComponent{
+export class RecoveryTeacherComponent {
   teacher: Teacher;
   teacherArr: Teacher[];
   @Output() recoveryTeacher: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   constructor(private teacherService: TeacherService) { }
 

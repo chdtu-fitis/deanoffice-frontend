@@ -21,7 +21,7 @@ import {Gender} from '../../../models/gender.enum';
   styleUrls: ['./synchronize-with-edebo.component.scss'],
 })
 export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   uploadInProgress = false;
   fileField = true;
   wrongExtension = false;

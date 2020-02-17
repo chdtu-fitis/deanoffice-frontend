@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
-import {AgGridModule} from 'ag-grid-angular';
+import {AgGridModule} from '@ag-grid-community/angular';
 import {ModalModule} from 'ngx-bootstrap';
 
 import {SidebarComponent} from '../app/sidebar/sidebar.component';

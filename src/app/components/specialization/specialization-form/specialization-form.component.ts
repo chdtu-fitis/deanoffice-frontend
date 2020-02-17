@@ -1,3 +1,5 @@
+import {of, Observable} from 'rxjs';
+import {map, flatMap} from 'rxjs/operators';
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
@@ -13,12 +15,9 @@ import {SpecializationCompetenciesComponent} from './specialization-competencies
 import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
-import {Observable} from 'rxjs/Observable';
 import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
 
-import {flatMap} from 'rxjs/operators';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
+
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -32,10 +31,10 @@ const DEFAULT_STRING = '';
 })
 export class SpecializationFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
-  @ViewChild('tabset') tabset: TabsetComponent;
-  @ViewChild('competencies') competencies: SpecializationCompetenciesComponent;
-  @ViewChild('competenciesEng') competenciesEng: SpecializationCompetenciesComponent;
-  @ViewChild('qualification') qualification: SpecializationQualificationComponent;
+  @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
+  @ViewChild('competencies', { static: false }) competencies: SpecializationCompetenciesComponent;
+  @ViewChild('competenciesEng', { static: false }) competenciesEng: SpecializationCompetenciesComponent;
+  @ViewChild('qualification', { static: false }) qualification: SpecializationQualificationComponent;
   initialData: Specialization = new Specialization();
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
@@ -167,7 +166,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     const acquiredCompetencies: AcquiredCompetencies = {
       specializationId: this.initialData.id
     } as AcquiredCompetencies;
-    Observable.of(acquiredCompetencies).pipe(
+    of(acquiredCompetencies).pipe(
       flatMap(this.setCompetencies(Lang.UKR)),
       flatMap(this.setCompetencies(Lang.ENG))
     ).subscribe((ac: AcquiredCompetencies) => {
@@ -180,18 +179,19 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       const fieldName: string = (lang === Lang.UKR) ? 'competencies' : 'competenciesEng';
       const competencies: SpecializationCompetenciesComponent = this.getCompetenciesByLang(lang);
       if (competencies.isLoaded) {
-        return Observable.of({
+        return of({
           ...ac,
           [fieldName]: competencies.getValue() || ''
         } as AcquiredCompetencies);
       } else {
-        return this._acquiredCompetenciesService.getBySpecializationAndLang(this.initialData.id, lang)
-          .map((_ac: AcquiredCompetencies) => {
+        return this._acquiredCompetenciesService.getBySpecializationAndLang(this.initialData.id, lang).pipe(
+          map((_ac: AcquiredCompetencies) => {
             return {
               ...ac,
               [fieldName]: _ac[fieldName] || ''
             } as AcquiredCompetencies;
           })
+        )
       }
     }
   }

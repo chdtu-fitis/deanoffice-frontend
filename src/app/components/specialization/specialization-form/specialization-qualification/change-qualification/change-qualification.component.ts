@@ -1,11 +1,9 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../../../shared/modal-wrapper/modal-wrapper.component';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ProfessionalQualification} from '../../models/professional-qualification';
 import {QualificationService} from '../../services/qualification.service';
 import {getId} from '../../../../../models/basemodels/BaseEntity';
-
-import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'change-qualification',
@@ -17,7 +15,7 @@ export class ChangeQualificationComponent {
   @Input() qualificationsYear: number;
   @Output() onSubmit: EventEmitter<ProfessionalQualification[]> = new EventEmitter<ProfessionalQualification[]>();
   @Output() allowEditing: EventEmitter<null> = new EventEmitter<null>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   private selected: ProfessionalQualification[] = [];
   qualifications: Observable<ProfessionalQualification[]>;
   isOpen = false;

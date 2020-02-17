@@ -18,7 +18,7 @@ import {
 })
 export class SpecializationQualificationComponent extends BaseReactiveFormComponent {
   @Input() updateForm: boolean;
-  @ViewChild('changeModal') changeModal: ChangeQualificationComponent;
+  @ViewChild('changeModal', { static: false }) changeModal: ChangeQualificationComponent;
   private events: QualificationEvents = new QualificationEvents();
   private qualificationForSpecializationsIds: QualificationForSpecializationId[] = [];
   canEdit = true;

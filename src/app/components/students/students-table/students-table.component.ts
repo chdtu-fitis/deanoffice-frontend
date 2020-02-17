@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules'
 
 import {StudentDegree} from '../../../models/StudentDegree';
 import {defaultColDef, LOCALE_TEXT} from '../constants';
 import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
+import {AgGridModules, commonAgGridModules} from '../../shared/ag-grid';
 
 @Component({
   selector: 'students-table',
@@ -17,6 +18,7 @@ export class StudentsTableComponent {
   @Output() itemsCountUpdate = new EventEmitter();
   private gridApi;
   private gridColumnApi;
+  agGridModules: AgGridModules = commonAgGridModules;
   defaultColDef = defaultColDef;
   localeText = LOCALE_TEXT;
   frameworkComponents;

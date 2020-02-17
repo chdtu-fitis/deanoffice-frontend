@@ -1,7 +1,8 @@
+import {throwError, Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class EdeboService {
@@ -9,16 +10,14 @@ export class EdeboService {
   constructor(private _http: HttpClient) { }
 
   uploadFile(formData: any): Observable<any> {
-    return this._http.post(`${this.url}/process-file`, formData)
-      .catch(this._errorHandler);
+    return this._http.post(`${this.url}/process-file`, formData).pipe(catchError(this._errorHandler));
   }
   updateDb(data: any): Observable<any> {
-    return this._http.post(`${this.url}/save`, data)
-      .catch(this._errorHandler);
+    return this._http.post(`${this.url}/save`, data).pipe(catchError(this._errorHandler));
   }
 
    _errorHandler(error: Response) {
     console.error('Error Occured: ' + error);
-    return Observable.throw(error || 'Some Error on Server Occured');
+    return throwError(error || 'Some Error on Server Occured');
   }
 }

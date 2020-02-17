@@ -131,19 +131,19 @@
       </div>
     </tab>
 
-    <tab heading="Компетентності" (select)="competencies.getCompetencies()" *ngIf="isShow">
+    <tab heading="Компетентності" (selectTab)="competencies.getCompetencies()" *ngIf="isShow">
       <specialization-competencies #competencies [specializationId]="initialData.id" [lang]="lang.UKR"
                                    [onlyCreating]="!updateForm">
       </specialization-competencies>
     </tab>
 
-    <tab heading="Компетентності англ." (select)="competenciesEng.getCompetencies()" *ngIf="isShow">
+    <tab heading="Компетентності англ." (selectTab)="competenciesEng.getCompetencies()" *ngIf="isShow">
       <specialization-competencies #competenciesEng [specializationId]="initialData.id" [lang]="lang.ENG"
                                    [onlyCreating]="!updateForm">
       </specialization-competencies>
     </tab>
 
-    <tab heading="Кваліфікації" (select)="qualification.loadData(initialData.id)" *ngIf="isShow">
+    <tab heading="Кваліфікації" (selectTab)="qualification.loadData(initialData.id)" *ngIf="isShow">
       <specialization-qualification #qualification [updateForm]="updateForm"></specialization-qualification>
     </tab>
   </tabset>

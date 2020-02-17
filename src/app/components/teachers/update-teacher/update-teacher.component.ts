@@ -13,8 +13,8 @@ export class UpdateTeacherComponent {
   source: Teacher;
   @Input () selectedTeachers;
   @Output() updateTeacher: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('form') form: TeacherFormComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('form', { static: false }) form: TeacherFormComponent;
 
 
   constructor(private teacherService: TeacherService) { }

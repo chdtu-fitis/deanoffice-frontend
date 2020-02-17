@@ -16,7 +16,7 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
   students;
   id;
   reasons;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
   constructor(

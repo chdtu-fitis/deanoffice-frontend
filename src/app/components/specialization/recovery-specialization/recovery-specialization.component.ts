@@ -13,7 +13,7 @@ import {SpecializationComponent} from '../specialization.component';
 export class RecoverySpecializationComponent {
   @Output() showErrorAlert: EventEmitter<any> = new EventEmitter<any>();
   @Output() recoverySpecialization: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   specialization: Specialization;
 

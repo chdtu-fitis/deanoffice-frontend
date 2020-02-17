@@ -15,7 +15,7 @@ import {Utils} from '../../shared/utils';
 })
 export class EdeboDiplomaNumberComponent {
 
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   fileName = 'Виберіть файл';
   modalName = 'Номера дипломів';
   selectedFile: File;

@@ -10,8 +10,8 @@ import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.co
 })
 export class AddSpecializationComponent {
   @Output() addSpecialization: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('form') form: SpecializationFormComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('form', { static: false }) form: SpecializationFormComponent;
 
   constructor(private specializationService: SpecializationService) { }
 

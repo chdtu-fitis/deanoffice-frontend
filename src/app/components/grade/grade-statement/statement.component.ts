@@ -14,7 +14,7 @@ import {Grade} from '../../../models/Grade';
     providers: [GradeService]
 })
 export class StatementComponent implements IAppModal {
-    @ViewChild('modal') modal: ModalDirective;
+    @ViewChild('modal', { static: false }) modal: ModalDirective;
     @Input() studentsDegree;
     @Input() selectGroup;
     @Output() sendGrades = new EventEmitter();

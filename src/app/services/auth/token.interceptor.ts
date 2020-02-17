@@ -1,16 +1,14 @@
+import {throwError as observableThrowError, Observable} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 import {Injectable, Injector} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpResponse, HttpErrorResponse
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-
-import {Observable} from 'rxjs/Observable';
 import {AuthenticationService} from './authentication.service';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -28,15 +26,16 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${this.authService.getToken()}`
       }
     });
-    return next.handle(request).do((ev) => {
-    }).catch((response: any) => {
-      if (response instanceof HttpErrorResponse) {
-        if (response.status == 401 || response.status == 403) {
-          this.authService.logout()
+    return next.handle(request).pipe(
+      tap((ev) => {}),
+      catchError((response: any) => {
+        if (response instanceof HttpErrorResponse) {
+          if (response.status == 401 || response.status == 403) {
+            this.authService.logout()
+          }
         }
-      }
-      return Observable.throw(response);
-    });
+        return observableThrowError(response);
+      })
+    );
   }
-
 }

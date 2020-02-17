@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {StudentGroup} from '../models/StudentGroup';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';

@@ -19,7 +19,7 @@ export class AssignRecordBookNumberToStudentsComponent {
   initialRecordBookNumber = new FormControl('', Validators.required);
   series;
   recordBookNumber;
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();
 

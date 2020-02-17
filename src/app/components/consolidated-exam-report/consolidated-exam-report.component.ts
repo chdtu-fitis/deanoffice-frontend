@@ -8,7 +8,7 @@ import {CourseForGroup} from '../../models/CourseForGroup';
 import {DegreeService} from '../../services/degree.service';
 import {ConsolidatedExamReportService} from '../../services/consolidated-exam-report.service';
 import {Course} from '../../models/Course';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'consolidated-exam-report',

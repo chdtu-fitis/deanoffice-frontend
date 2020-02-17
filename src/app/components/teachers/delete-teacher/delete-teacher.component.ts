@@ -12,7 +12,7 @@ export class DeleteTeacherComponent {
   teacher: Teacher;
   teacherArr: Teacher[];
   @Output() deleteTeacher: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   constructor(private teacherService: TeacherService) { }
 

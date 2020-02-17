@@ -1,8 +1,9 @@
+import {throwError, Observable} from 'rxjs';
 
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs/Observable';
+import {catchError} from 'rxjs/operators';
 @Injectable()
 export class ThesisInputService {
 
@@ -10,17 +11,15 @@ export class ThesisInputService {
   constructor(private _http: HttpClient) {}
 
   uploadFile(formData: any): Observable<any> {
-    return this._http.post(`${this.url}`, formData)
-      .catch(this._errorHandler);
+    return this._http.post(`${this.url}`, formData).pipe(catchError(this._errorHandler));
   }
   updateData(data: any): Observable<any> {
-    return this._http.put(`${this.url}`, data)
-      .catch(this._errorHandler);
+    return this._http.put(`${this.url}`, data).pipe(catchError(this._errorHandler));
   }
 
   _errorHandler(error: Response) {
     console.error('Error Occured: ' + error);
-    return Observable.throw(error || 'Some Error on Server Occured');
+    return throwError(error || 'Some Error on Server Occured');
   }
 
 }

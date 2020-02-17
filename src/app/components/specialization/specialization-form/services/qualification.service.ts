@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ProfessionalQualification} from '../models/professional-qualification';
 import {SPECIALIZATION_URL} from '../../../../services/specialization.service';
 import {catchError, map} from 'rxjs/operators';
