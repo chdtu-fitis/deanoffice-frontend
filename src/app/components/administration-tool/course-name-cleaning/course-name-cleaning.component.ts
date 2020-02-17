@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {AdministrationToolService} from '../../../services/administration-tool.service';
 import {CourseName} from '../../../models/CourseName';
 import {finalize} from 'rxjs/operators';
-import {SelectionChangedEvent, ModelUpdatedEvent, GridReadyEvent} from 'ag-grid-community';
+import {SelectionChangedEvent, ModelUpdatedEvent, GridReadyEvent} from '@ag-grid-community/all-modules';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 
 @Component({
