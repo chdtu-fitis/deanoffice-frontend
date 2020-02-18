@@ -45,9 +45,9 @@ export class SimilarSubjectsComponent implements OnInit {
 
   resolveSelectMainCourse(table: HTMLTableSectionElement, courseForSelectIndex: number) {
     const nodeList = table.querySelectorAll('input[name="courseForMergeCheckbox"]');
-    const elements = []// as HTMLInputElement[];
+    const elements = [] as HTMLInputElement[];
     for (let i = 0; i < nodeList.length; i++) {
-      elements.push(nodeList.item(i));
+      elements.push(nodeList.item(i) as HTMLInputElement);
     }
     elements.filter(value => Number(value.dataset.courseforselect) !== courseForSelectIndex)
       .forEach(value => {
@@ -63,10 +63,11 @@ export class SimilarSubjectsComponent implements OnInit {
 
   merge(table: HTMLTableSectionElement) {
     const mainCourseId = (table.querySelector('input[type="radio"]:checked') as HTMLInputElement).dataset.courseid;
-    const checkboxes = table.querySelectorAll('input[type="checkbox"]:checked') as NodeList<HTMLInputElement>;
+    const checkboxes = table.querySelectorAll('input[type="checkbox"]:checked') as NodeList;
     const mergeCourses: number[] = [];
     for (let i = 0; i < checkboxes.length; i++) {
-      mergeCourses.push(+checkboxes.item(i).dataset.courseid);
+      const checkbox = checkboxes.item(i) as HTMLInputElement;
+      mergeCourses.push(+checkbox.dataset.courseid);
     }
     const mergeStructure = {};
     mergeStructure[mainCourseId] = mergeCourses;
@@ -75,9 +76,10 @@ export class SimilarSubjectsComponent implements OnInit {
   }
 
   updateMergeButtonState(event: MouseEvent) {
-    const mergeButton = event.currentTarget
+    const currentTarget = event.currentTarget as HTMLElement;
+    const mergeButton = currentTarget
       .querySelector('button[name="merge-button"]') as HTMLButtonElement;
-    const amountOfSelectedCourses = event.currentTarget
+    const amountOfSelectedCourses = currentTarget
       .querySelectorAll('input[type=checkbox][name="courseForMergeCheckbox"]:checked')
       .length;
     mergeButton.disabled = amountOfSelectedCourses === 0;
