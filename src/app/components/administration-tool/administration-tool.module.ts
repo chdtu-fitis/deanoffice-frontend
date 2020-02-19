@@ -8,6 +8,7 @@ import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import { SimilarSubjectsComponent } from './similar-subjects/similar-subjects.component';
 import { CourseNameCleaningComponent } from './course-name-cleaning/course-name-cleaning.component';
+import { FixWrongCreditsComponent } from './fix-wrong-credits/fix-wrong-credits.component';
 
 export const abstractRoutes: Routes = [
   {
@@ -22,6 +23,10 @@ export const abstractRoutes: Routes = [
   {
     path: 'course-name-cleaning',
     component: CourseNameCleaningComponent,
+  },
+  {
+    path: 'wrong-credits',
+    component: FixWrongCreditsComponent,
   }
 ];
 
@@ -32,8 +37,12 @@ export const abstractRoutes: Routes = [
     SharedModule,
     PipeModule.forRoot(),
     MatRadioModule,
-    RouterModule.forChild(abstractRoutes)
+    RouterModule.forChild(abstractRoutes),
   ],
-  declarations: [SimilarSubjectsComponent, CourseNameCleaningComponent]
+  declarations: [
+    SimilarSubjectsComponent,
+    FixWrongCreditsComponent,
+    CourseNameCleaningComponent,
+  ]
 })
 export class AdministrationToolModule { }
