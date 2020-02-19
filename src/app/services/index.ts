@@ -28,6 +28,7 @@ import {CourseService} from './course.service';
 import {PositionService} from './position.service';
 import {ConsolidatedExamReportService} from './consolidated-exam-report.service';
 import {AdministrationToolService} from './administration-tool.service';
+import {CreditService} from './credit.service';
 
 export const SERVICES = [
   DegreeService,
@@ -60,6 +61,7 @@ export const SERVICES = [
   PositionService,
   ConsolidatedExamReportService,
   AdministrationToolService,
+  CreditService,
 ];
 
 export const GUARDS = [
