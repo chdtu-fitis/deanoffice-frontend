@@ -1,14 +1,6 @@
 import {Course} from '../../../models/Course';
 
-export const COLUMN_DEFINITIONS: [{
-  headerName: string;
-  field?: string;
-  checkboxSelection?: boolean;
-  minWidth?: number;
-  maxWidth?: number;
-  width?: number;
-  valueGetter?: (params: {data: Course, node, column, colDef, api, columnApi, getValue: () => any}) => string | void;
-}] = [
+export const COLUMN_DEFINITIONS = [
   {
     headerName: '#',
     checkboxSelection: true,

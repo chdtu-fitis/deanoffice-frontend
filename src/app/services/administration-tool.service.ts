@@ -29,7 +29,7 @@ export class AdministrationToolService {
     return this.httpClient.get<CourseName[]>(AdministrationToolService.BASE_URL + '/course-names/unused');
   }
 
-  public deleteUnusedCourseNames(courseNameIds: number[]): Observable<void> {
+  public deleteUnusedCourseNames(courseNameIds: string[]): Observable<void> {
     return this.httpClient.delete<void>(AdministrationToolService.BASE_URL + '/course-names', {
       params: {
         ids: courseNameIds,

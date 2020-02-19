@@ -58,7 +58,7 @@ export class CourseNameCleaningComponent implements OnInit {
 
   deleteUnusedCourseNames() {
     this.dataProcessing = true;
-    this.adminTool.deleteUnusedCourseNames(this.selectedCourseNames.map(value => value.id))
+    this.adminTool.deleteUnusedCourseNames(this.selectedCourseNames.map(value => String(value.id)))
       .pipe(
         finalize(() => this.dataProcessing = false),
       )
