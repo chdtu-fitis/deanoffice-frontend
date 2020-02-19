@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import {CourseName} from '../models/CourseName';
 
 export interface SimilarCourse {
   id: number;
@@ -22,6 +23,18 @@ export class AdministrationToolService {
 
   public mergeSimilarCourses(mergeStructure: {[key: string]: number[]}): Observable<Object> {
     return this.httpClient.post(AdministrationToolService.BASE_URL + '/merge', mergeStructure);
+  }
+
+  public getUnusedCourseNames(): Observable<CourseName[]> {
+    return this.httpClient.get<CourseName[]>(AdministrationToolService.BASE_URL + '/course-names/unused');
+  }
+
+  public deleteUnusedCourseNames(courseNameIds: number[]): Observable<void> {
+    return this.httpClient.delete<void>(AdministrationToolService.BASE_URL + '/course-names', {
+      params: {
+        ids: courseNameIds,
+      }
+    });
   }
 
 }

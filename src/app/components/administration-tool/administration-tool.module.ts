@@ -7,6 +7,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import { SimilarSubjectsComponent } from './similar-subjects/similar-subjects.component';
+import { CourseNameCleaningComponent } from './course-name-cleaning/course-name-cleaning.component';
 import { FixWrongCreditsComponent } from './fix-wrong-credits/fix-wrong-credits.component';
 
 export const abstractRoutes: Routes = [
@@ -18,6 +19,10 @@ export const abstractRoutes: Routes = [
   {
     path: 'similar-subjects',
     component: SimilarSubjectsComponent,
+  },
+  {
+    path: 'course-name-cleaning',
+    component: CourseNameCleaningComponent,
   },
   {
     path: 'wrong-credits',
@@ -37,6 +42,7 @@ export const abstractRoutes: Routes = [
   declarations: [
     SimilarSubjectsComponent,
     FixWrongCreditsComponent,
+    CourseNameCleaningComponent,
   ]
 })
 export class AdministrationToolModule { }
