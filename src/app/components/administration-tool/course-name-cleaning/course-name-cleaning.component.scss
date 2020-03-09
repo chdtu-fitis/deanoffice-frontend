@@ -3,3 +3,13 @@
   display: flex;
   justify-content: space-between;
 }
+
+ag-grid-angular {
+  height: calc(100% - 80px);
+}
+
+::ng-deep {
+  .ag-root-wrapper-body.ag-layout-normal {
+    height: 100%;
+  }
+}
