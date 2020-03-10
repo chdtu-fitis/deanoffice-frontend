@@ -21,23 +21,27 @@
 </div>
 <div class="accordion" id="similarCourseAccordion">
   <ng-container *ngIf="(courseNames$ | async)?.length > 0; else no_data">
-    <ag-grid-angular
-      class="ag-theme-balham overflow-auto h-100"
-      rowHeight="50"
-      rowSelection="multiple"
-      enableCellChangeFlash=true
-      [animateRows]="true"
-      [accentedSort]="true"
-      [rowData]="courseNames$ | async"
-      [columnDefs]="columnDefs"
-      [defaultColDef]="defaultColDef"
-      [localeText]="localeText"
-      [getRowNodeId]="getRowNodeId"
-      (selectionChanged)="onSelectionChanged($event)"
-      (gridReady)="onGridReady($event)"
-      (modelUpdated)="onModelUpdated($event)"
-    >
-    </ag-grid-angular>
+    <div class="h-100">
+      <ag-grid-angular
+        class="ag-theme-balham overflow-auto"
+        rowHeight="50"
+        rowSelection="multiple"
+        enableCellChangeFlash=true
+        [animateRows]="true"
+        [accentedSort]="true"
+        [rowData]="courseNames$ | async"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [localeText]="localeText"
+        [getRowNodeId]="getRowNodeId"
+        [modules]="agGridModules"
+        (selectionChanged)="onSelectionChanged($event)"
+        (gridReady)="onGridReady($event)"
+        (modelUpdated)="onModelUpdated($event)"
+      >
+      </ag-grid-angular>
+    </div>
+
   </ng-container>
   <ng-template #no_data>
     <div class="header">

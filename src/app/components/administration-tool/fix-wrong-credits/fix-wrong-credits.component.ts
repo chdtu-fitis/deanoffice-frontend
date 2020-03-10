@@ -6,6 +6,7 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../../shared/constant';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules';
 import {finalize} from 'rxjs/operators';
+import {AgGridModules, commonAgGridModules} from '../../shared/ag-grid';
 
 @Component({
   selector: 'fix-wrong-credits',
@@ -13,6 +14,7 @@ import {finalize} from 'rxjs/operators';
   styleUrls: ['./fix-wrong-credits.component.scss']
 })
 export class FixWrongCreditsComponent implements OnInit {
+  agGridModules: AgGridModules = commonAgGridModules;
 
   defaultColDef = {
     ...DEFAULT_COLUMN_DEFINITIONS
