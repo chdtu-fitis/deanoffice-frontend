@@ -70,10 +70,18 @@ export class GradesPanelComponent {
     getCurrentSemester(year: number): number {
         const date = new Date();
         const currentYear = date.getFullYear();
-        const semester = date.getMonth() >= 8 ? 1 : 2;
-        if (currentYear - year === 0) {
-          return semester;
+        const currentMonth = date.getMonth() + 1;
+
+        let semester = 0;
+
+        if ([1, 2, 3, 4, ].includes(currentMonth)) {
+          semester = -1;
+        } else if ([11, 12].includes(currentMonth)) {
+          semester = 1;
         }
-        return (currentYear - year - 1) * 2 + semester;
+
+        const currentSemester = (currentYear - year) * 2 + semester;
+
+        return currentSemester === 0 ? 1 : currentSemester;
     }
 }

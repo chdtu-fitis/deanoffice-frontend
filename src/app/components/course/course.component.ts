@@ -8,6 +8,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {CourseFilter} from './models/CourseFilter';
 import {CourseNameSearchParam} from './models/CourseNameSearchParam.enum';
 import {KnowledgeControlType} from './models/KnowledgeControlType.enum';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-course',
@@ -19,6 +20,7 @@ export class CourseComponent implements OnInit {
   courseNameSearchParam = CourseNameSearchParam;
   KnowledgeControlTypeKeys;
   knowledgeControlType = KnowledgeControlType;
+  agGridModules: AgGridModules = commonAgGridModules;
 
   selected: Course[] = [];
   courses: Course[] = [];

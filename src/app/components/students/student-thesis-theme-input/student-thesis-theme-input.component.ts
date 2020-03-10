@@ -10,7 +10,7 @@ import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingT
   styleUrls: ['./student-thesis-theme-input.component.scss']
 })
 export class StudentThesisThemeInputComponent implements OnInit {
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   fileName = 'Виберіть файл';
   modalName = 'Тема диплому';
   selectedFile: File = null;

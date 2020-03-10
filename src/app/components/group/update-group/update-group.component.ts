@@ -13,8 +13,8 @@ import {GroupFormComponent} from '../group-form/group-form.component';
 export class UpdateGroupComponent {
 
   @Output() updateGroup: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('form') form: GroupFormComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('form', { static: false }) form: GroupFormComponent;
   @Input() tuitionFormsKeys;
   @Input() tuitionForms;
   @Input() tuitionTermsKeys;

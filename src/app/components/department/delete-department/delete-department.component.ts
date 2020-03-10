@@ -11,7 +11,7 @@ import {DepartmentService} from '../../../services/department.service';
 })
 export class DeleteDepartmentComponent {
 
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   @Output() deleteDepartment: EventEmitter<any> = new EventEmitter<any>();
 
   form = new FormGroup({});

@@ -11,7 +11,7 @@ export class ModalWrapperComponent implements IAppModal {
   @Input() heading: string;
   @Input() modalStyles;
   @Output() hideModal: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
 
   show(): void {
     this.modal.show();

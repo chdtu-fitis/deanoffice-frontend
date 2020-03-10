@@ -12,7 +12,7 @@ import {GradeService} from './grade.service';
 import {FileService} from './file-service';
 import {DegreeService} from './degree.service';
 
-import {DashboardGuard, LoginGuard} from './auth/auth.guard';
+import {AdministrationGuard, DashboardGuard, LoginGuard} from './auth/auth.guard';
 import {PersonalFileGradesStatementService} from './personal-file-grades-statement.service';
 import {AcademicCertificateService} from './academic-certificate.service';
 import {EdeboService} from './edebo.service';
@@ -27,6 +27,8 @@ import {EdeboDiplomaNumberService} from './edebo-diploma-number.service';
 import {CourseService} from './course.service';
 import {PositionService} from './position.service';
 import {ConsolidatedExamReportService} from './consolidated-exam-report.service';
+import {AdministrationToolService} from './administration-tool.service';
+import {CreditService} from './credit.service';
 
 export const SERVICES = [
   DegreeService,
@@ -58,9 +60,12 @@ export const SERVICES = [
   StudyYearFinishService,
   PositionService,
   ConsolidatedExamReportService,
+  AdministrationToolService,
+  CreditService,
 ];
 
 export const GUARDS = [
   DashboardGuard,
-  LoginGuard
+  LoginGuard,
+  AdministrationGuard,
 ];

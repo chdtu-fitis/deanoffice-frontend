@@ -12,7 +12,7 @@ import {GroupComponent} from '../group.component';
 })
 export class RecoveryGroupComponent {
   @Output() recoveryGroup: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   groups: StudentGroup[];
 

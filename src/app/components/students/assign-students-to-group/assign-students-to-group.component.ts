@@ -16,7 +16,7 @@ export class AssignStudentsToGroupComponent {
   degrees;
   students;
   group = new FormControl(null, Validators.required);
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Input() groups: StudentGroup[];
   @Output() onSubmit = new EventEmitter();
 

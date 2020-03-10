@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Course} from '../models/Course';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {CoursePagination} from '../models/course/CoursePagination';
-import {CourseFilter} from '../components/course/models/CourseFilter';
 
 @Injectable()
 export class CourseService {

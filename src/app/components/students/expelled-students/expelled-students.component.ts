@@ -27,9 +27,9 @@ export class ExpelledStudentsComponent implements OnInit {
   searchForm: FormGroup;
   count;
   countAll;
-  @ViewChild('studentAllInfo') studentAllInfo: StudentAllInfoComponent;
-  @ViewChild('expelledStudentsTable') expelledStudentsTable: StudentsTableComponent;
-  @ViewChild('allExpelledStudentsTable') allExpelledStudentsTable: StudentsTableComponent;
+  @ViewChild('studentAllInfo', { static: false }) studentAllInfo: StudentAllInfoComponent;
+  @ViewChild('expelledStudentsTable', { static: false }) expelledStudentsTable: StudentsTableComponent;
+  @ViewChild('allExpelledStudentsTable', { static: false }) allExpelledStudentsTable: StudentsTableComponent;
 
   constructor(private studentService: StudentService,
               private academicCertificateService: AcademicCertificateService,

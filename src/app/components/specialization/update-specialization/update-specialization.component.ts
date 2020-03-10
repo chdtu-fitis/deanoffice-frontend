@@ -12,8 +12,8 @@ import {Specialization} from '../../../models/Specialization';
 export class UpdateSpecializationComponent {
   source: Specialization;
   @Output() updateSpecialization: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('form') form: SpecializationFormComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('form', { static: false }) form: SpecializationFormComponent;
 
   constructor(private specializationService: SpecializationService) { }
 

@@ -21,12 +21,14 @@ import {Student} from './grade-runner/models/Student';
   providers: [GradeService, GroupService, StudentService, CourseForGroupService]
 })
 export class GradeComponent implements OnInit {
-  @ViewChild('gradeTable') gradeTable;
+  @ViewChild('gradeTable', { static: false }) gradeTable;
   groups: StudentGroup[];
   selectGroup: StudentGroup;
   selectSemester = 1;
   coursesForGroup: CourseForGroup[] = [];
+  coursesForGroupAll: CourseForGroup[] = [];
   studentsDegree: StudentDegree[] = [];
+  studentsDegreeAll: StudentDegree[] = [];
   loading = false;
   errorMessages: string[] = [];
   emptyGradesList: Grade[] = [];
@@ -38,6 +40,8 @@ export class GradeComponent implements OnInit {
 
   gradeRunners: GradeRunners[] = [];
   isFocusedGrade: boolean;
+  showAcademicDifference = true;
+  isSortableCoursesForGroup = false;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -85,9 +89,9 @@ export class GradeComponent implements OnInit {
   updateGradesAndStudentsAndCourses(grades: Grade[], studentsDegree: StudentDegree[], coursesForGroup: CourseForGroup[]): void {
     this.checkForErrorsAfterQueryingDataFetches(coursesForGroup, studentsDegree, grades);
     const joinGrades = this.joinGradesForStudents(grades, studentsDegree, coursesForGroup);
+    this.setCourses(coursesForGroup);
     this.setStudentDegree(joinGrades.studentsTemp || []);
     this.setEmptyGradesList(joinGrades.emptyGrades || []);
-    this.setCourses(coursesForGroup);
     this.clearUpdateGrades();
     this.loading = true;
   }
@@ -127,7 +131,19 @@ export class GradeComponent implements OnInit {
   }
 
   setStudentDegree(studentsDegree: StudentDegree[]): void {
-    this.studentsDegree = studentsDegree;
+    this.studentsDegreeAll = studentsDegree;
+    this.updateFilteredStudentDegree();
+  }
+
+  updateFilteredStudentDegree(): void {
+    const coursesIDs = this.coursesForGroup.map(courseForGroup => courseForGroup.course.id);
+
+    this.studentsDegree = this.studentsDegreeAll.map(
+      studentDegree => ({
+        ...studentDegree,
+        grades: studentDegree.grades.filter(grade => coursesIDs.includes(grade.courseId))
+      })
+    );
   }
 
   setEmptyGradesList(grades: Grade[]): void {
@@ -135,7 +151,12 @@ export class GradeComponent implements OnInit {
   }
 
   setCourses(courseForGroup: CourseForGroup[]): void {
-    this.coursesForGroup = courseForGroup;
+    this.coursesForGroupAll = courseForGroup;
+    this.updateFilteredCourses();
+  }
+
+  updateFilteredCourses(): void {
+    this.coursesForGroup = this.coursesForGroupAll.filter(course => !course.academicDifference || this.showAcademicDifference);
   }
 
   addErrorMessage(err, clear): void {
@@ -310,5 +331,49 @@ export class GradeComponent implements OnInit {
 
   clearGradeRunner(): void {
     this.gradeRunners = [];
+  }
+
+  onShowAcademicDifference($event): void {
+    this.showAcademicDifference = $event.target.checked;
+    this.updateFilteredCourses();
+    this.updateFilteredStudentDegree();
+  }
+
+  toggleSortableCoursesForGroup(): void {
+    this.isSortableCoursesForGroup = !this.isSortableCoursesForGroup;
+  }
+
+  moveCourseForGroupLeft(fromCourseForGroupIndex: number): void {
+    let toCourseForGroupIndex = fromCourseForGroupIndex - 1;
+
+    if (toCourseForGroupIndex < 0) {
+      toCourseForGroupIndex = 0;
+    }
+
+    this.swapCourseForGroupPosition(fromCourseForGroupIndex, toCourseForGroupIndex);
+  }
+
+  moveCourseForGroupRight(fromCourseForGroupIndex: number): void {
+    let toCourseForGroupIndex = fromCourseForGroupIndex + 1;
+    const coursesForGroupLength = this.coursesForGroup.length;
+
+    if (toCourseForGroupIndex === coursesForGroupLength) {
+      toCourseForGroupIndex = coursesForGroupLength - 1;
+    }
+
+    this.swapCourseForGroupPosition(fromCourseForGroupIndex, toCourseForGroupIndex);
+  }
+
+  swapCourseForGroupPosition(fromCourseForGroupIndex: number, toCourseForGroupIndex): void {
+    const courseForGroup = this.coursesForGroup.splice(fromCourseForGroupIndex, 1);
+    this.coursesForGroup.splice(toCourseForGroupIndex, 0, courseForGroup[0]);
+
+    this.studentsDegree = this.studentsDegree.map(studentDegree => {
+        const grade = studentDegree.grades.splice(fromCourseForGroupIndex, 1);
+        studentDegree.grades.splice(toCourseForGroupIndex, 0, grade[0]);
+
+        return studentDegree;
+      }
+    );
   }
 }

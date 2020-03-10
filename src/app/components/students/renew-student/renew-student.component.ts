@@ -17,7 +17,7 @@ import {forObservable} from "../../shared/httpErrors";
 export class RenewStudentComponent extends BaseReactiveFormComponent implements IAppModal {
   student;
   groups: StudentGroup[];
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', { static: false }) modal: ModalDirective;
   @Output() onSubmit = new EventEmitter();
 
   constructor(

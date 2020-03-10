@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertsService} from '../shared/alerts/alerts.service';
-import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules'
 
 import {StudentGroup} from '../../models/StudentGroup';
 import {GroupService} from '../../services/group.service';
@@ -10,6 +10,7 @@ import {Specialization} from '../../models/Specialization';
 import {SpecializationService} from '../../services/specialization.service';
 import {COLUMN_DEFINITIONS} from './columns-def';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-group',
@@ -18,9 +19,10 @@ import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 })
 export class GroupComponent implements OnInit {
 
-  @ViewChild('table') table;
-  @ViewChild('addGroupModal') addGroupModal;
+  @ViewChild('table', { static: false }) table;
+  @ViewChild('addGroupModal', { static: false }) addGroupModal;
 
+  agGridModules: AgGridModules = commonAgGridModules;
   groups: StudentGroup[] = [];
   selectedGroups: StudentGroup[] = [];
   active = true;

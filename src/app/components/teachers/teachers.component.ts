@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from 'ag-grid-community'
+import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules'
 
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS} from './columns-def';
 import {Teacher} from '../../models/Teacher';
 import {TeacherService} from '../../services/teacher.service';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-teachers',
@@ -13,21 +14,14 @@ import {TeacherService} from '../../services/teacher.service';
 })
 export class TeachersComponent implements OnInit {
 
-  @ViewChild('table') table;
+  @ViewChild('table', { static: false }) table;
+  agGridModules: AgGridModules = commonAgGridModules;
   selectedTeachers: Teacher[] = [];
-  private active: boolean;
+  private active = true;
+  private allFaculties = false;
   loadedTeachers: Teacher[] = [];
   teachers: Teacher[] = [];
   searchText: string;
-  alertOptions = {
-    showProgressBar: false,
-    timeOut: 50000,
-    pauseOnHover: false,
-    clickToClose: true,
-    maxLength: 10,
-    maxStack: 3
-  };
-
   count;
   defaultColDef = DEFAULT_COLUMN_DEFINITIONS;
   columnDefs = COLUMN_DEFINITIONS;
@@ -45,13 +39,19 @@ export class TeachersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTeachers(true);
+    this.loadTeachers(true, false);
   }
 
-  loadTeachers(active: boolean): void {
-    this.teacherService.getTeachers(active).subscribe(
-      (teachers: Teacher[]) => this.teachers = teachers,
-    );
+  loadTeachers(active: boolean, allFaculties: boolean): void {
+    if (allFaculties) {
+      this.teacherService.getTeachersAllFaculties(active).subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    } else {
+      this.teacherService.getTeachers(active).subscribe(
+        (teachers: Teacher[]) => this.teachers = teachers,
+      );
+    }
   }
 
    onGridReady(params: GridReadyEvent) {
@@ -83,5 +83,9 @@ export class TeachersComponent implements OnInit {
     this.selectedTeachers.push(updatedTeacher);
     const index = this.loadedTeachers.findIndex(loadedTeacher => loadedTeacher.id === updatedTeacher.id);
     this.loadedTeachers[index] = updatedTeacher;
+  }
+
+  onRecoveryTeacher() {
+    this.gridApi.updateRowData({ remove: this.selectedTeachers});
   }
 }

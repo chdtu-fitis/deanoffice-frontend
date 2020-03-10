@@ -11,7 +11,7 @@ import {SpecializationService} from '../../../services/specialization.service';
 export class DeleteSpecializationComponent {
   specialization: Specialization;
   @Output() deleteSpecialization: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild('modal') modal: ModalWrapperComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
 
   constructor(private specializationService: SpecializationService) { }
 

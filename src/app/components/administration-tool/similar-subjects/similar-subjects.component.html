@@ -1,0 +1,94 @@
+<div class="header">
+  <h4>
+    Схожі предмети
+  </h4>
+  <section title="Кількість груп назв предметів, які схожі між собою">
+    Всього предметів: {{ getSimilarCourse().length }}
+  </section>
+</div>
+<div class="accordion" id="similarCourseAccordion">
+  <ng-container *ngFor="let similarCourses of getSimilarCourse(); let index = index">
+    <div class="card">
+      <div [id]="'heading' + index"
+           class="card-header">
+        <h5 class="mb-0">
+          <button [attr.aria-controls]="'collapse' + index"
+                  [attr.data-target]="'#collapse' + index"
+                  aria-expanded="true"
+                  class="btn btn-link collapse-button"
+                  data-toggle="collapse"
+                  type="button">
+            {{ similarCourses[0]?.name }}
+          </button>
+        </h5>
+        <small title="Кількість схожих предметів">
+          Варіантів: {{ similarCourses?.length }}
+          <span title="id предметів">
+            (<ng-container *ngFor="let similarCourse of similarCourses; let innerIndex = index"><code>{{ similarCourse?.id }}</code><span *ngIf="innerIndex != similarCourses?.length - 1">, </span></ng-container>)
+          </span>
+        </small>
+      </div>
+      <div [attr.aria-labelledby]="'heading' + index"
+           [id]="'collapse' + index"
+           class="collapse"
+           data-parent="#similarCourseAccordion">
+        <div class="card-body" (click)="updateMergeButtonState($event)">
+          <p>Знайдені варіанти</p>
+          <table>
+            <thead>
+            <tr>
+              <th>
+                <img width="24"
+                     height="24"
+                     src="/assets/img/similar-courses/star.svg"
+                     alt="правильна назва"
+                     title="Правильна назва">
+              </th>
+              <th>
+                <img width="24"
+                     height="24"
+                     src="/assets/img/similar-courses/merge.svg"
+                     alt="предмети для з'єднання"
+                     title="Предмети для з'єднання">
+              </th>
+              <th>
+                Предмет
+              </th>
+            </tr>
+            </thead>
+            <tbody #table_with_similar_courses>
+            <ng-container *ngFor="let similarCourse of similarCourses; let courseForSelectIndex = index">
+              <tr>
+                <td align="center">
+                  <label>
+                    <input type="radio"
+                           [checked]="courseForSelectIndex === 0"
+                           [name]="'similarCourseGroup' + index"
+                           [attr.data-courseid]="similarCourse.id"
+                           (click)="resolveSelectMainCourse(table_with_similar_courses, courseForSelectIndex)"
+                           #mainCourseRadio>
+                  </label>
+                </td>
+                <td align="center">
+                  <label>
+                    <input type="checkbox"
+                           [checked]="courseForSelectIndex !== 0"
+                           [disabled]="courseForSelectIndex === 0"
+                           name="courseForMergeCheckbox"
+                           [attr.data-courseid]="similarCourse.id"
+                           [attr.data-courseForSelect]="courseForSelectIndex">
+                  </label>
+                </td>
+                <td [class.selected-course]="mainCourseRadio.checked">
+                  [<pre class="d-inline">{{ padId(similarCourse?.id, similarCourses) }}</pre>] {{ similarCourse?.name }}
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" name="merge-button" (click)="merge(table_with_similar_courses)">З'єднати</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

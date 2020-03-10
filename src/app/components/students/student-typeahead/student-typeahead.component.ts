@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, forwardRef, Output} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {StudentService} from '../../../services/student.service';
 import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 

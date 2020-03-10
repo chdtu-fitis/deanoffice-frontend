@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from '../../environments/environment';
 import {FileService} from './file-service';
 import {GradeRunners} from '../components/grade/grade-runner/models/GradeRunners';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {HttpResponse} from '@angular/common/http';
 
 @Injectable()

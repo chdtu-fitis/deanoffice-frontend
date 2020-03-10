@@ -4,25 +4,44 @@
       <div class="d-flex flex-column h-100 overflow-auto">
         <div class="d-flex my-2 align-items-center">
           <label class="mr-auto ml-1 m-0">
-            <input type="checkbox"  id="active" #active (change)="loadTeachers(active.checked)" checked>
-             Актуальні викладачі
-          </label>
-          <div class="float-right">
+          <mat-slide-toggle
+            class="ml-1"
+            [checked]="active"
+            [(ngModel)]="active"
+            (change)="loadTeachers($event.checked, allFaculties)">
+            {{active ? 'Актуальні': 'Неактуальні'}} викладачі
+          </mat-slide-toggle>
+            <mat-slide-toggle
+              class="ml-1"
+              [checked]="allFaculties"
+              [(ngModel)]="allFaculties"
+              (change)="loadTeachers(active, $event.checked)">
+              Всього університету
+            </mat-slide-toggle>
+        </label>
+          <div class="float-right" *ngIf="active">
             <button type="button" class="btn btn-danger align-middle"
                     (click)="deleteTeacherModal.openModal(gridApi.getSelectedRows())"
-                    [disabled]="selectedTeachers.length === 0">
+                    [disabled]="!selectedTeachers.length">
               Видалити
             </button>
 
             <button type="button" class="btn btn-warning align-middle"
                     (click)="updateTeacherModal.openModal(selectedTeachers[0])"
-                    [disabled]="selectedTeachers.length === 0 || selectedTeachers.length > 1">
+                    [disabled]="!selectedTeachers.length || selectedTeachers.length > 1">
               Редагувати
             </button>
 
             <button type="button" class="btn btn-success align-middle"
                     (click)="addTeacherModal.openModal()">
               Новий викладач
+            </button>
+          </div>
+          <div class="float-right" *ngIf="!active">
+            <button type="button" class="btn btn-success align-middle"
+                    (click)="recoveryTeacherModal.openModal(gridApi.getSelectedRows())"
+                    [disabled]="!selectedTeachers.length">
+              Відновити
             </button>
           </div>
         </div>
@@ -39,6 +58,7 @@
           [defaultColDef]="defaultColDef"
           [localeText]="localeText"
           [getRowNodeId]="getRowNodeId"
+          [modules]="agGridModules"
           (columnResized)="onColumnResized($event)"
           (selectionChanged)="onSelectionChanged($event)"
           (gridReady)="onGridReady($event)"
@@ -57,4 +77,5 @@
 <add-teacher #addTeacherModal (addTeacher)="onAddTeacher($event)"></add-teacher>
 <delete-teacher #deleteTeacherModal (deleteTeacher)="onRemoveTeacher()"></delete-teacher>
 <update-teacher #updateTeacherModal (updateTeacher)="onUpdateTeacher($event)"></update-teacher>
+<recovery-teacher #recoveryTeacherModal (recoveryTeacher)="onRecoveryTeacher()"></recovery-teacher>
 

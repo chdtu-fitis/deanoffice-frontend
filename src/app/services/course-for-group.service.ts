@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {CourseForGroup} from '../models/CourseForGroup';
 import {ForeignCourses} from '../models/ForeignCourses';
@@ -33,4 +33,7 @@ export class CourseForGroupService {
   getForeignCourseAndGroups(): Observable<ForeignCourses[]> {
     return this.http.get<ForeignCourses[]>(`${environment.apiUrl}/courses/foreign/synchronization`);
   }
+  // copyCourse(body) {
+  //   return this.http.put(`${this.url}/groups-difference-dialog/change-courses-for-group`, body);
+  // }
 }

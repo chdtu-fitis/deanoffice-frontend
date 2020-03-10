@@ -8,7 +8,7 @@ import {CourseForGroup} from '../../../models/CourseForGroup';
   styleUrls: ['./grades-table.component.scss']
 })
 export class GradesTableComponent {
-  @ViewChild('statement') statement;
+  @ViewChild('statement', { static: false }) statement;
   @Input() studentsDegree;
   @Input() coursesForGroup;
   @Input() selectGroup;
@@ -19,9 +19,12 @@ export class GradesTableComponent {
   @Output() sendUpdateGrades = new EventEmitter();
   @Output() setGradeForDelete = new EventEmitter();
   @Output() setIsFocusGrade = new EventEmitter();
+  @Output() moveCourseForGroupLeft = new EventEmitter();
+  @Output() moveCourseForGroupRight = new EventEmitter();
   grades: Grade[] = [];
   @Input() loadingGrades = false;
   @Input() isDeleteMode = false;
+  @Input() isSortableCoursesForGroup = false;
   selectedGradeForDelete: Grade;
   focusGrade: Grade;
   focusStudentId: number;
@@ -117,5 +120,13 @@ export class GradesTableComponent {
     this.focusGrade = grade;
 
     this.setIsFocusGrade.emit(!(grade.empty === true));
+  }
+
+  moveCourseLeft(courseForGroupIndex: Number): void {
+    this.moveCourseForGroupLeft.emit(courseForGroupIndex);
+  }
+
+  moveCourseRight(courseForGroupIndex: Number): void {
+    this.moveCourseForGroupRight.emit(courseForGroupIndex)
   }
 }

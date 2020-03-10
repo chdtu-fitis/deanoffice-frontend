@@ -3,6 +3,7 @@ import {SpecialityService} from '../../services/speciality.service';
 import {Speciality} from '../../models/Speciality';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS} from './column-definitions';
+import {commonAgGridModules, AgGridModules} from '../shared/ag-grid';
 
 @Component({
   selector: 'app-speciality',
@@ -10,7 +11,7 @@ import {COLUMN_DEFINITIONS} from './column-definitions';
   styleUrls: ['./speciality.component.scss']
 })
 export class SpecialityComponent implements OnInit {
-
+  agGridModules: AgGridModules = commonAgGridModules;
   buttonText = 'Показати неактуальні';
   isActual = true;
   selected: Speciality[] = [];

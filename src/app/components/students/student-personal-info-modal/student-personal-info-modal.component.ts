@@ -10,8 +10,8 @@ import {StudentPersonalInfoComponent} from '../student-personal-info/student-per
 })
 export class StudentPersonalInfoModalComponent {
   modalStyles = modalLarge;
-  @ViewChild('modal') modal: ModalWrapperComponent;
-  @ViewChild('studentPersonalInfo') studentPersonalInfo: StudentPersonalInfoComponent;
+  @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
+  @ViewChild('studentPersonalInfo', { static: false }) studentPersonalInfo: StudentPersonalInfoComponent;
   @Output() onSubmit = new EventEmitter();
 
   openModal(id: number) {

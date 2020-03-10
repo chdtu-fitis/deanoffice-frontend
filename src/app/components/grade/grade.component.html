@@ -11,6 +11,7 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="group-buttons">
+                <button class="btn btn-primary" (click)="toggleSortableCoursesForGroup()">Сортувати колонки</button>
                 <button class="btn btn-primary" (click)="snav.toggle()">Групи і семестри</button>
                 <button class="btn btn-success" *ngIf="selectGroup"
                         [disabled]="!emptyGradesList.length || isDeleteMode"
@@ -56,6 +57,13 @@
                 (clearGradeRunner)="clearGradeRunner()"
                 (removeCourseFromGradeRunners)="removeCourseFromGradeRunners($event)"
               ></app-grade-runner>
+              <label class="grades__academic_difference">
+                <input
+                  type="checkbox"
+                  [checked]="showAcademicDifference"
+                  (change)="onShowAcademicDifference($event)">
+                  Відобразити А.Р.
+              </label>
             </div>
             <ng-container *ngIf="errorMessages.length && loading">
                 <div *ngFor="let error of errorMessages" class="alert-danger">
@@ -76,6 +84,9 @@
                               (sendUpdateGrades)="updateGradesForGroup()"
                               (setGradeForDelete)="setSelectGradeForDelete($event)"
                               (setIsFocusGrade)="setIsFocusGrade($event)"
+                              [isSortableCoursesForGroup]="isSortableCoursesForGroup"
+                              (moveCourseForGroupLeft)="moveCourseForGroupLeft($event)"
+                              (moveCourseForGroupRight)="moveCourseForGroupRight($event)"
                               [selectSemester]="selectSemester" #gradeTable>
             </app-grades-table>
         </mat-sidenav-content>

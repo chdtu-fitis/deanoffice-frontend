@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {StudentService} from '../../../services/student.service';
 import {Payment} from '../../../models/payment.enum';
