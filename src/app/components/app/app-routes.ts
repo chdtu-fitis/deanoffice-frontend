@@ -102,6 +102,10 @@ export const appRoutes: Routes = [
         loadChildren: () => import('../reports/reports.module').then(m => m.ReportsModule),
       },
       {
+        path: 'orders',
+        loadChildren: () => import('../orders/orders.module').then(m => m.OrdersModule),
+      },
+      {
         path: 'administration-tool',
         loadChildren: () => import('../administration-tool/administration-tool.module').then(m => m.AdministrationToolModule),
         canActivate: [

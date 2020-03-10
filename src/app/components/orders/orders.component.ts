@@ -4,6 +4,7 @@ import {defaultColDef, ordersDefaults} from './constants';
 import {OrdersService} from '../../services/orders.service';
 import {flatMap, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
+import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Subject} from 'rxjs/Subject';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit, OnDestroy {
-
+  agGridModules: AgGridModules = commonAgGridModules;
   ordersForm: FormGroup;
   colDefaults = ordersDefaults;
   columnColDef = defaultColDef;

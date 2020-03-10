@@ -9,7 +9,7 @@ import {orderTypes} from '../moc';
 })
 export class AddOrderComponent implements OnInit {
 
-  @ViewChild('modal') modal: ModalDirective;
+  @ViewChild('modal', {static: false}) modal: ModalDirective;
 
   public orderTypes = orderTypes;
   constructor() { }
