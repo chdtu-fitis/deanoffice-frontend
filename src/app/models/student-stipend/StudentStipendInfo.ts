@@ -9,7 +9,7 @@ export class StudentStipendInfo {
   groupName: string;
   averageGrade: number;
   extraPoints: number;
-  oldExtraPoints: string;
+  oldExtraPoints: number;
   finalPoints: number;
   debtCourses: CourseForStipend[];
 }

@@ -30,12 +30,11 @@
           <tr class="group-header">
             <td colspan = 11>
               <div class="group-header-line">
-                <div>{{ssi.specialityCode}} {{ssi.specialityName}}</div>
-                <div>{{ssi.degreeName}} {{ssi.groupsName}}</div>
+                <div>{{getTuitionTermUkrShortened(ssi.tuitionTerm)}} {{ssi.specialityCode}} {{ssi.specialityName}} | {{ssi.degreeName}} | {{ssi.groupsName}}</div>
                 <div>
-                  <button class="btn btn-warning align-middle" [disabled]="selectedStudentSpeciality != ''"
-                          (click)="openInput = ssi.specialityCode">Редагувати</button>
-                  <button class="btn btn-success align-middle" [disabled]="ssi !== selectedStudentSpeciality"
+                  <button class="btn btn-warning align-middle" [disabled]="selectedGroupsName != ''"
+                          (click)="openInput = ssi.groupsName">Редагувати</button>
+                  <button class="btn btn-success align-middle" [disabled]="ssi.groupsName !== selectedGroupsName"
                           (click)="saveExtraPoints(ssi)">Зберегти</button>
                 </div>
               </div>
@@ -52,11 +51,11 @@
             <td><div *ngIf="oneStudentInfo.averageGrade > 59.99">{{oneStudentInfo.averageGrade | number:'2.2-2'}}</div></td>
             <td><div *ngIf="oneStudentInfo.averageGrade > 59.99">{{oneStudentInfo.averageGrade*0.9 | number:'2.2-2'}}</div></td>
             <td><input type="text" style="width: 100px " #extraPoint [value]="showValueInput(oneStudentInfo.oldExtraPoints)"
-                       *ngIf="isDebtor(oneStudentInfo)==''" [disabled]="openInput !== oneStudentInfo.groupName" [maxLength]="2"
+                       *ngIf="isDebtor(oneStudentInfo)==''" [disabled]="openInput !== ssi.groupsName" [maxLength]="2"
                        (keyup)="numbers.indexOf( extraPoint.value) == - 1 ? extraPoint.value = '' : extraPoint.value;
                         oneStudentInfo.extraPoints = toNumber(extraPoint.value);
                         oneStudentInfo.finalPoints = makeFinalPoint(oneStudentInfo.extraPoints, oneStudentInfo.averageGrade)"
-                        (focusin)="selectedStudentSpeciality = oneStudentInfo.groupName"></td>
+                        (focusin)="selectedGroupsName = ssi.groupsName"></td>
             <td><div *ngIf="isDebtor(oneStudentInfo)==''">{{oneStudentInfo.finalPoints | number:'2.2-2'}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->

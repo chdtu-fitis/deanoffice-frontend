@@ -11,7 +11,7 @@ import {SpecialityStudentsStipendInfo} from "../../../models/student-stipend/Spe
 export class StudentStipendComponent implements OnInit {
   openInput = 'sting';
   studentStipendInfo: SpecialityStudentsStipendInfo[] = [];
-  selectedStudentSpeciality = '';
+  selectedGroupsName = '';
   numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   studentRatingLoading = false;
 
@@ -41,27 +41,27 @@ export class StudentStipendComponent implements OnInit {
     }
   }
 
+  getTuitionTermUkrShortened(tuitionTerm: string) {
+    return tuitionTerm === 'SHORTENED' ? 'Скороч |' : '';
+  }
+
   ngOnInit() {
      this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: SpecialityStudentsStipendInfo[]) => {
        this.studentStipendInfo = studentStipendInfo;
-       // info.forEach(ssi => {
-       //   const currentStudentStipendGroup = this.studentStipendInfo[ssi.groupName];
-       //   if (currentStudentStipendGroup) {
-       //     currentStudentStipendGroup.push(ssi);
-       //   } else {
-       //     this.studentStipendInfo[ssi.groupName] = [];
-       //     this.studentStipendInfo[ssi.groupName].push(ssi);
-       //   }
-       //   ssi.oldExtraPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ?  '' : ssi.extraPoints + '';
-       //   ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 :
-       //     ssi.extraPoints + (ssi.averageGrade * 0.9);
-       // })
+       for (let specialityWithStudents of this.studentStipendInfo) {
+         let studentsWithStipendInfo = specialityWithStudents.studentsInfoForStipend;
+         studentsWithStipendInfo.forEach(ssi => {
+           ssi.oldExtraPoints = ssi.extraPoints;
+           ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 : ssi.extraPoints + (ssi.averageGrade * 0.9);
+         });
+       }
     });
   }
 
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
+
   toNumber(e) {
     if (e !== '') {
       return Number(e);
@@ -69,9 +69,11 @@ export class StudentStipendComponent implements OnInit {
       return e = null;
     }
   }
+
   makeFinalPoint(extraPoint, grade) {
     return extraPoint + (grade * 0.9);
   }
+
   showValueInput(e) {
     if (e === 'null' || e === undefined) {
       return '';
@@ -82,14 +84,18 @@ export class StudentStipendComponent implements OnInit {
 
   saveExtraPoints(specialityStudentsStipendInfo) {
     const studentsExtraPoints = [];
-    const studentsStipendInfo = specialityStudentsStipendInfo.studentsStipendInfo;
-    for (const element of studentsStipendInfo) {
-      if ( element.extraPoints !== null) {
-          studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
+    for (const element of specialityStudentsStipendInfo.studentsInfoForStipend) {
+      if (element.extraPoints !== null && element.extraPoints != element.oldExtraPoints) {
+        studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
-    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
-      this.openInput = this.selectedStudentSpeciality = '';
-    });
-   }
- }
+    this.openInput = this.selectedGroupsName = '';
+    if (studentsExtraPoints.length > 0) {
+      this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
+        for (const element of specialityStudentsStipendInfo.studentsInfoForStipend) {
+          element.oldExtraPoints = element.extraPoints;
+        }
+      });
+    }
+  }
+}
