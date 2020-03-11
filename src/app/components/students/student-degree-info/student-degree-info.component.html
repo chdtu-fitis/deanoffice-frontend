@@ -16,7 +16,7 @@
               </b>
               <b class="d-block">Спеціалізація: {{model.degrees[i].specialization.name}}</b>
               <div class="row mt-2">
-                <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-sm-4 col-md-4 col-lg-3">
                   <label for="studentGroup" [class]="degree.controls.active.value && 'required'">Група</label>
                   <select formControlName="studentGroupId" class="form-control"
                           id="studentGroup" [appValidation]="degree.controls.studentGroupId">
@@ -29,7 +29,7 @@
                   </select>
                   <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
                   <label>Форма навчання</label>
                   <div class="form-check">
                     <input formControlName="payment"
@@ -43,12 +43,17 @@
                   </div>
                   <app-validation-errors [control]="degree.controls.payment"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-sm-3 col-md-2 col-lg-3">
+                  <label for="citizenship">Громадянство</label>
+                  <input formControlName="citizenship" class="form-control" id="citizenship" [appValidation]="degree.controls.citizenship">
+                  <app-validation-errors [control]="degree.controls.citizenship"></app-validation-errors>
+                </div>
+                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
                   <label for="recordBookNumber">Номер заліковки</label>
                   <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber" [appValidation]="degree.controls.recordBookNumber">
                   <app-validation-errors [control]="degree.controls.recordBookNumber"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
                   <label for="studentCardNumber">Номер студентського</label>
                   <input formControlName="studentCardNumber" class="form-control" id="studentCardNumber" [appValidation]="degree.controls.studentCardNumber">
                   <app-validation-errors [control]="degree.controls.studentCardNumber"></app-validation-errors>
