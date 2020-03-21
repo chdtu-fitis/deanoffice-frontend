@@ -24,39 +24,39 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let group of getStudentStipendGroups()">
+      <tr *ngFor="let ssi of studentStipendInfo">
         <td colspan=11>
         <table class="main-table">
           <tr class="group-header">
             <td colspan = 11>
               <div class="group-header-line">
-                <div>{{group}}</div>
+                <div>{{getTuitionTermUkrShortened(ssi.tuitionTerm)}} {{ssi.specialityCode}} {{ssi.specialityName}} | {{ssi.degreeName}} | {{ssi.groupsName}}</div>
                 <div>
-                  <button class="btn btn-warning align-middle" [disabled]="selectedStudentGroupName != ''"
-                          (click)="openInput = group">Редагувати</button>
-                  <button class="btn btn-success align-middle" [disabled]="group !== selectedStudentGroupName"
-                          (click)="saveExtraPoints(group)">Зберегти</button>
+                  <button class="btn btn-warning align-middle" [disabled]="selectedGroupsName != ''"
+                          (click)="openInput = ssi.groupsName">Редагувати</button>
+                  <button class="btn btn-success align-middle" [disabled]="ssi.groupsName !== selectedGroupsName"
+                          (click)="saveExtraPoints(ssi)">Зберегти</button>
                 </div>
               </div>
             </td>
           </tr>
-          <tr *ngFor="let ssi of studentStipendInfo[group]; let i = index" [ngClass]="isDebtor(ssi)">
+          <tr *ngFor="let oneStudentInfo of ssi.studentsInfoForStipend; let i = index" [ngClass]="isDebtor(oneStudentInfo)">
             <td>{{i+1}}</td>
-            <td>{{ssi.surname}} {{ssi.name}} {{ssi.patronimic}}</td>
-            <td>{{ssi.groupName}}</td>
+            <td>{{oneStudentInfo.surname}} {{oneStudentInfo.name}} {{oneStudentInfo.patronimic}}</td>
+            <td>{{oneStudentInfo.groupName}}</td>
             <td>{{ssi.degreeName.substring(0,3)}}</td>
             <td>{{getTuitionTermUkr(ssi.tuitionTerm)}}</td>
             <td>{{ssi.specialityCode}}</td>
-            <td>{{ssi.year}}</td>
-            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade | number:'2.2-2'}}</div></td>
-            <td><div *ngIf="ssi.averageGrade > 59.99">{{ssi.averageGrade*0.9 | number:'2.2-2'}}</div></td>
-            <td><input type="text" style="width: 100px " #extraPoint [value]="showValueInput(ssi.oldExtraPoints)"
-                       *ngIf="isDebtor(ssi)==''" [disabled]="openInput !== ssi.groupName" [maxLength]="2"
+            <td>{{oneStudentInfo.year}}</td>
+            <td><div *ngIf="oneStudentInfo.averageGrade > 59.99">{{oneStudentInfo.averageGrade | number:'2.2-2'}}</div></td>
+            <td><div *ngIf="oneStudentInfo.averageGrade > 59.99">{{oneStudentInfo.averageGrade*0.9 | number:'2.2-2'}}</div></td>
+            <td><input type="text" style="width: 100px " #extraPoint [value]="showValueInput(oneStudentInfo.oldExtraPoints)"
+                       *ngIf="isDebtor(oneStudentInfo)==''" [disabled]="openInput !== ssi.groupsName" [maxLength]="2"
                        (keyup)="numbers.indexOf( extraPoint.value) == - 1 ? extraPoint.value = '' : extraPoint.value;
-                        ssi.extraPoints = toNumber(extraPoint.value);
-                        ssi.finalPoints = makeFinalPoint(ssi.extraPoints,ssi.averageGrade)"
-                        (focusin)="selectedStudentGroupName = ssi.groupName"></td>
-            <td><div *ngIf="isDebtor(ssi)==''">{{ssi.finalPoints | number:'2.2-2'}}</div></td>
+                        oneStudentInfo.extraPoints = toNumber(extraPoint.value);
+                        oneStudentInfo.finalPoints = makeFinalPoint(oneStudentInfo.extraPoints, oneStudentInfo.averageGrade)"
+                        (focusin)="selectedGroupsName = ssi.groupsName"></td>
+            <td><div *ngIf="isDebtor(oneStudentInfo)==''">{{oneStudentInfo.finalPoints | number:'2.2-2'}}</div></td>
             <!--<td>-->
               <!--<p *ngFor="let course of ssi.debtCourses">-->
                 <!--{{course.courseName}} {{course.semester}} {{course.knowledgeControlName}}-->

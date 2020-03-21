@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {StudentStipendService} from '../../../services/student-stipend.service';
 import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipendInfo';
+import {SpecialityStudentsStipendInfo} from "../../../models/student-stipend/SpecialityStudentsStipendInfo";
 
 @Component({
   selector: 'app-student-stipend',
@@ -9,8 +10,8 @@ import {StudentStipendInfo} from '../../../models/student-stipend/StudentStipend
 })
 export class StudentStipendComponent implements OnInit {
   openInput = 'sting';
-  studentStipendInfo: {[groupName: string]: StudentStipendInfo[]} = {};
-  selectedStudentGroupName = '';
+  studentStipendInfo: SpecialityStudentsStipendInfo[] = [];
+  selectedGroupsName = '';
   numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   studentRatingLoading = false;
 
@@ -40,27 +41,27 @@ export class StudentStipendComponent implements OnInit {
     }
   }
 
+  getTuitionTermUkrShortened(tuitionTerm: string) {
+    return tuitionTerm === 'SHORTENED' ? 'Скороч |' : '';
+  }
+
   ngOnInit() {
-     this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: StudentStipendInfo[]) => {
-       const info = studentStipendInfo;
-       info.forEach(ssi => {
-         const currentStudentStipendGroup = this.studentStipendInfo[ssi.groupName];
-         if (currentStudentStipendGroup) {
-           currentStudentStipendGroup.push(ssi);
-         } else {
-           this.studentStipendInfo[ssi.groupName] = [];
-           this.studentStipendInfo[ssi.groupName].push(ssi);
-         }
-         ssi.oldExtraPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ?  '' : ssi.extraPoints + '';
-         ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 :
-           ssi.extraPoints + (ssi.averageGrade * 0.9);
-       })
+     this.studentStipendService.getStudentsStipendInfo().subscribe((studentStipendInfo: SpecialityStudentsStipendInfo[]) => {
+       this.studentStipendInfo = studentStipendInfo;
+       for (let specialityWithStudents of this.studentStipendInfo) {
+         let studentsWithStipendInfo = specialityWithStudents.studentsInfoForStipend;
+         studentsWithStipendInfo.forEach(ssi => {
+           ssi.oldExtraPoints = ssi.extraPoints;
+           ssi.finalPoints = (ssi.extraPoints === 0 || ssi.extraPoints === null) ? ssi.averageGrade * 0.9 : ssi.extraPoints + (ssi.averageGrade * 0.9);
+         });
+       }
     });
   }
 
   getStudentStipendGroups() {
     return Object.keys(this.studentStipendInfo);
   }
+
   toNumber(e) {
     if (e !== '') {
       return Number(e);
@@ -68,9 +69,11 @@ export class StudentStipendComponent implements OnInit {
       return e = null;
     }
   }
+
   makeFinalPoint(extraPoint, grade) {
     return extraPoint + (grade * 0.9);
   }
+
   showValueInput(e) {
     if (e === 'null' || e === undefined) {
       return '';
@@ -79,16 +82,20 @@ export class StudentStipendComponent implements OnInit {
     }
   }
 
-  saveExtraPoints(group) {
+  saveExtraPoints(specialityStudentsStipendInfo) {
     const studentsExtraPoints = [];
-    const groupStipendInfo = this.studentStipendInfo[group];
-    for (const element of groupStipendInfo) {
-      if ( element.extraPoints !== null) {
-          studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
+    for (const element of specialityStudentsStipendInfo.studentsInfoForStipend) {
+      if (element.extraPoints !== null && element.extraPoints != element.oldExtraPoints) {
+        studentsExtraPoints.push({studentDegreeId: element.id, points: element.extraPoints});
       }
     }
-    this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
-      this.openInput = this.selectedStudentGroupName = '';
-    });
-   }
- }
+    this.openInput = this.selectedGroupsName = '';
+    if (studentsExtraPoints.length > 0) {
+      this.studentStipendService.sendExtraPoints(studentsExtraPoints).subscribe(() => {
+        for (const element of specialityStudentsStipendInfo.studentsInfoForStipend) {
+          element.oldExtraPoints = element.extraPoints;
+        }
+      });
+    }
+  }
+}

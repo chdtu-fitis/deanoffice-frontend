@@ -19,4 +19,5 @@ export class StudentDegreeFullEdeboData {
   payment?: Payment;
   modified?: boolean;
   selected?: boolean;
+  similarInDB?: boolean;
 }

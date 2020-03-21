@@ -81,6 +81,7 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
             },
             degree.active ? Validators.required : null,
           ],
+          citizenship: degree.citizenship,
           recordBookNumber: degree.recordBookNumber,
           studentCardNumber: degree.studentCardNumber,
           diplomaNumber: degree.diplomaNumber,

@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {StudentStipendInfo} from '../models/student-stipend/StudentStipendInfo';
 import {FileService} from './file-service';
+import {SpecialityStudentsStipendInfo} from "../models/student-stipend/SpecialityStudentsStipendInfo";
 
 @Injectable()
 export class StudentStipendService {
@@ -12,8 +13,8 @@ export class StudentStipendService {
   constructor(private http: HttpClient, private fileService: FileService) {
   }
 
-  getStudentsStipendInfo(): Observable<StudentStipendInfo[]> {
-    return this.http.get<StudentStipendInfo[]>(this.studentStipendUrl);
+  getStudentsStipendInfo(): Observable<SpecialityStudentsStipendInfo[]> {
+    return this.http.get<SpecialityStudentsStipendInfo[]>(this.studentStipendUrl);
   }
 
   sendExtraPoints(array) {

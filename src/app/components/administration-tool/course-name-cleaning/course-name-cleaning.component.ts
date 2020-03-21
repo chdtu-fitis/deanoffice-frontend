@@ -6,6 +6,7 @@ import {CourseName} from '../../../models/CourseName';
 import {finalize} from 'rxjs/operators';
 import {SelectionChangedEvent, ModelUpdatedEvent, GridReadyEvent} from '@ag-grid-community/all-modules';
 import {COLUMN_DEFINITIONS} from './column-definitions';
+import {AgGridModules, commonAgGridModules} from '../../shared/ag-grid';
 
 @Component({
   selector: 'course-name-cleaning',
@@ -13,6 +14,7 @@ import {COLUMN_DEFINITIONS} from './column-definitions';
   styleUrls: ['./course-name-cleaning.component.scss']
 })
 export class CourseNameCleaningComponent implements OnInit {
+  agGridModules: AgGridModules = commonAgGridModules;
 
   defaultColDef = {
     ...DEFAULT_COLUMN_DEFINITIONS
