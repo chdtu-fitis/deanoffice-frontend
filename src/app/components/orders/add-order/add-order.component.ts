@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {ModalDirective} from 'ngx-bootstrap';
 
@@ -39,7 +39,9 @@ export class AddOrderComponent implements OnInit {
 
   private _initForm(): void {
     this.creatOrderForm = this.fb.group({
-      orderType: ['Про зміну ім\'я']
+      orderType: ['Про зміну ім\'я'],
+      orderNumber: ['', Validators.required],
+      orderDate: [null, Validators.required]
     })
   }
 

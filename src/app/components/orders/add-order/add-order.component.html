@@ -18,9 +18,9 @@
           </div>
           <div class="modal-body d-flex overflow-auto">
             <div class="controls container">
-              <div class="row mt-2">
+              <div class="row mb-3">
                 <div class="col-12">
-                  <label for="order-type"> Тип наказу: </label>
+                  <label for="order-type"> Тип наказу </label>
                   <select
                     id="order-type"
                     class="form-control"
@@ -36,13 +36,24 @@
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-6">
+                  <label for="order-number"> Номер наказу </label>
+                  <input formControlName="orderNumber" type="text"
+                         placeholder="Номер наказу" id="order-number" class="form-control">
+                </div>
+                <div class="col-6">
+                  <label for="order-date" class="required">Дата народження</label>
+                  <input id="order-date" type="date" formControlName="orderDate" class="form-control" >
+                </div>
+              </div>
             </div>
             <div class="document-overview">
               <div>Документ очікує введення даних...</div>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-success" type="submit">
+            <button class="btn btn-success" type="submit" [disabled]="creatOrderForm.invalid">
               Створити
             </button>
           </div>
