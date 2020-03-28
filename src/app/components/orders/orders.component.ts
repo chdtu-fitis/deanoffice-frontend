@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-import {defaultColDef, ordersDefaults} from './constants';
-import {OrdersService} from '../../services/orders.service';
-import {flatMap, takeUntil} from 'rxjs/operators';
+
+import {first, flatMap, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
+import {defaultColDef, ordersDefaults} from './constants';
+import {OrdersService} from '../../services/orders.service';
 
 @Component({
   selector: 'app-orders',
@@ -13,55 +14,44 @@ import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit, OnDestroy {
-  agGridModules: AgGridModules = commonAgGridModules;
-  ordersForm: FormGroup;
-  colDefaults = ordersDefaults;
-  columnColDef = defaultColDef;
-  rowData;
-  lastSelectedRowIndex = null;
-  selectedRowStatus = null;
-  renderedRows: any[] = [];
+  public agGridModules: AgGridModules = commonAgGridModules;
+  public ordersForm: FormGroup;
+  public colDefaults = ordersDefaults;
+  public columnColDef = defaultColDef;
+  public rowData;
+  public lastSelectedRowIndex = null;
+  public selectedRowStatus = null;
+  public renderedRows: any[] = [];
 
   private gridApi;
   private gridColumnApi;
-
-
-  private ngUnsubscribe: Subject<any> = new Subject();
   private selectedOrder: any[];
 
-  constructor(private ordersService: OrdersService) {
-  }
+  private ngUnsubscribe: Subject<any> = new Subject();
+
+  constructor(private _ordersService: OrdersService) {}
 
   ngOnInit() {
-    this.buildForm();
-    this.ordersService.getOrders(this.ordersForm.value)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(ordersData => {
-        this.rowData = ordersData;
-      });
-
-    this.ordersForm.valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe),
-      flatMap(ordersStatuses => this.ordersService.getOrders(ordersStatuses).pipe(takeUntil(this.ngUnsubscribe)))
-    ).subscribe(ordersData => {
-      this.rowData = ordersData;
-    })
+    this._initForm();
+    this._getOrders();
+    this._trackOrdersChanges();
   }
 
-  getAppropriateNodeIndex(rowIndex) {
+  public getAppropriateNodeIndex(rowIndex: number): number {
     const node = this.renderedRows.find((row) => rowIndex === row.data.number);
     return node.id;
   }
 
-  onSelectionChanged() {
+  public onSelectionChanged(): void {
     this.selectedOrder = this.gridApi.getSelectedRows();
     this.selectedRowStatus = this.selectedOrder.length ? this.selectedOrder[0].status : null;
     this.renderedRows = this.gridApi.getRenderedNodes();
   }
 
-  onRowClicked(row) {
-    const rowIndex = this.getAppropriateNodeIndex(row.data.number);
-    const rowNode = this.gridApi.getRowNode(rowIndex);
+  public onRowClicked(row): void {
+    const rowIndex: number = this.getAppropriateNodeIndex(row.data.number);
+    const rowNode = this.gridApi.getRowNode(rowIndex.toString());
+
     if (this.lastSelectedRowIndex === row.rowIndex) {
       rowNode.setSelected(false);
       this.lastSelectedRowIndex = null;
@@ -71,18 +61,18 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  onGridReady(params) {
+  public onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
     this.renderedRows = this.gridApi.getRenderedNodes();
   }
 
-  onModelUpdated(params) {
+  public onModelUpdated(params): void {
     console.log(this.renderedRows);
   }
 
-  buildForm() {
+  private _initForm(): void {
     this.ordersForm = new FormGroup({
       activeOrder: new FormControl(true),
       draftOrder: new FormControl(false),
@@ -90,8 +80,22 @@ export class OrdersComponent implements OnInit, OnDestroy {
     })
   }
 
+  private _trackOrdersChanges() {
+    this.ordersForm.valueChanges.pipe(
+      takeUntil(this.ngUnsubscribe),
+      flatMap(ordersStatuses => this._ordersService.getOrders(ordersStatuses).pipe(first()))
+    ).subscribe(ordersData => {
+      this.rowData = ordersData;
+    })
+  }
 
-  ngOnDestroy(): void {
+  private _getOrders() {
+    this._ordersService.getOrders(this.ordersForm.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(ordersData => this.rowData = ordersData);
+  }
+
+  ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }
