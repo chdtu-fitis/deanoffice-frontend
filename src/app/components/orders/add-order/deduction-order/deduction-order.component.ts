@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-deduction-order',
@@ -10,8 +10,15 @@ export class DeductionOrderComponent implements OnInit {
 
   public deductionOrder: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._initForm();
+  }
+
+  private _initForm() {
+    this.deductionOrder = this.fb.group({
+    })
+  }
 
 }

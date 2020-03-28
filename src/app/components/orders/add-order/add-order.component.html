@@ -8,75 +8,90 @@
   aria-labelledby="mySmallModalLabel"
   aria-hidden="true"
 >
-    <div class="position-relative modal-container">
-      <form class="modal-content h-100" [formGroup]="creatOrderForm" (ngSubmit)="onSubmit()">
-          <div class="modal-header">
-            <h4 class="modal-title">Створити наказ</h4>
-            <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body d-flex overflow-auto">
-            <div class="controls container">
-              <div class="row mb-3">
-                <div class="col-12">
-                  <label for="order-type"> Тип наказу </label>
-                  <select
-                    id="order-type"
-                    class="form-control"
-                    formControlName="orderType"
-                    (change)="changeOrderType($event.target.value)"
-                  >
-                    <option
-                      *ngFor="let type of orderTypes;"
-                      [value]="type.type"
-                    >
-                      {{type.type}}
-                    </option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6">
-                  <label for="order-number"> Номер наказу </label>
-                  <input
-                    formControlName="orderNumber"
-                    id="order-number"
-                    type="text"
-                    placeholder="Номер наказу"
-                    class="form-control"
-                    [appValidation]="creatOrderForm.controls.orderNumber"
-                  >
-                  <app-validation-errors [control]="creatOrderForm.controls.orderNumber"></app-validation-errors>
-                </div>
-                <div class="col-6">
-                  <label for="order-date" class="required">Дата народження</label>
-                  <input
-                    id="order-date"
-                    type="date"
-                    formControlName="orderDate"
-                    class="form-control"
-                    [appValidation]="creatOrderForm.controls.orderNumber"
-                  >
-                  <app-validation-errors [control]="creatOrderForm.controls.orderDate"></app-validation-errors>
-                </div>
-              </div>
-            </div>
-            <div class="document-overview">
-              <div>Документ очікує введення даних...</div>
-              <ng-container [ngSwitch]="creatOrderForm.get('orderType').value">
-                <app-deduction-order *ngSwitchCase="''"></app-deduction-order>
-              </ng-container>
+  <div class="position-relative modal-container">
+    <form class="modal-content h-100" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+      <div class="modal-header">
+        <h4 class="modal-title">Створити наказ</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex overflow-auto">
+        <div class="controls container">
+          <div class="row mb-3">
+            <div class="col-12">
+              <label for="order-type"> Тип наказу </label>
+              <select
+                id="order-type"
+                class="form-control"
+                formControlName="orderType"
+                (change)="changeOrderType($event.target.value)"
+              >
+                <option
+                  *ngFor="let type of orderTypes;"
+                  [value]="type.value"
+                >
+                  {{type.name}}
+                </option>
+              </select>
             </div>
           </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" type="button">
-              Завантажити
-            </button>
-            <button class="btn btn-success" type="submit" [disabled]="creatOrderForm.invalid">
-              Створити
-            </button>
+          <div class="row mb-3">
+            <div class="col-6">
+              <label for="order-number"> Номер наказу </label>
+              <input
+                formControlName="orderNumber"
+                id="order-number"
+                type="text"
+                placeholder="Номер наказу"
+                class="form-control"
+                [appValidation]="createOrderForm.controls.orderNumber"
+              >
+              <app-validation-errors [control]="createOrderForm.controls.orderNumber"></app-validation-errors>
+            </div>
+            <div class="col-6">
+              <label for="order-date" class="required">Дата народження</label>
+              <input
+                id="order-date"
+                type="date"
+                formControlName="orderDate"
+                class="form-control"
+                [appValidation]="createOrderForm.controls.orderNumber"
+              >
+              <app-validation-errors [control]="createOrderForm.controls.orderDate"></app-validation-errors>
+            </div>
           </div>
-      </form>
-    </div>
+          <div class="row">
+            <div class="col-6">
+              <label for="student-name" class="required">Прізвище студента</label>
+              <input
+                id="student-name"
+                formControlName="studentName"
+                [typeahead]="studentsSurnames"
+                [typeaheadMinLength]="2"
+                class="form-control"
+              >
+            </div>
+            <div>
+
+            </div>
+          </div>
+          <ng-container [ngSwitch]="createOrderForm.get('orderType').value">
+            <app-deduction-order *ngSwitchCase="'deduction'"></app-deduction-order>
+          </ng-container>
+        </div>
+        <div class="document-overview">
+          <div>Документ очікує введення даних...</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="button">
+          Завантажити
+        </button>
+        <button class="btn btn-success" type="submit" [disabled]="createOrderForm.invalid">
+          Створити
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

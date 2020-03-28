@@ -20,19 +20,31 @@ export const tableData = [
 
 
 export const orderTypes = [
-  {type: 'Про переведення (зміна фінансування) '},
-  {type: 'Про переведення'},
-  {type: 'Про поновлення'},
-  {type: 'Про поновлення (з іншого ЗВО)'},
-  {type: 'Про переведення (з іншого ЗВО)'},
-  {type: 'Про відрахування'},
-  {type: 'Про переведення на курс'},
-  {type: 'Про зміну прізвища'},
-  {type: 'Про зміну ім\'я'},
-  {type: 'Про продовження навчання для здачі ЕК та захисту ВБР'},
-  {type: 'Про надання академвідпустки'},
-  {type: 'Про продовження академвідпустки'},
-  {type: 'Про затвердження тем випускних (кваліфікаційних) робіт'},
-  {type: 'Про проведення практики'},
-  {type: 'Про проведення екскурсії'}
+  {name: 'Про переведення (зміна фінансування)', value: 'finance-transition'},
+  {name: 'Про переведення', value: 'transition'},
+  {name: 'Про поновлення', value: 'renewal'},
+  {name: 'Про поновлення (з іншого ЗВО)', value: 'renewal-foreign'},
+  {name: 'Про переведення (з іншого ЗВО)', value: 'transition-foreign'},
+  {name: 'Про відрахування', value: 'deduction'},
+  {name: 'Про переведення на курс', value: 'transition-course'},
+  {name: 'Про зміну прізвища', value: 'name-change'},
+  {name: 'Про зміну ім\'я', value: 'surname-change'},
+  {name: 'Про продовження навчання для здачі ЕК та захисту ВБР', value: 'continuance-exam-passing'},
+  {name: 'Про надання академвідпустки', value: 'academy-vacation'},
+  {name: 'Про продовження академвідпустки', value: 'academy-vacation-continuance'},
+  {name: 'Про затвердження тем випускних (кваліфікаційних) робіт', value: 'theme-graduate-approval'},
+  {name: 'Про проведення практики', value: 'practice'},
+  {name: 'Про проведення екскурсії', value: 'excursion'}
+];
+
+
+export const students = [
+  {id: 1, name: 'Владислав', surname: 'Окріменко' },
+  {id: 2, name: 'Олексій', surname: 'Авраменко' },
+  {id: 3, name: 'Ростислав', surname: 'Кормут' },
+  {id: 4, name: 'Лариса', surname: 'Костенко' },
+  {id: 5, name: 'Валерій', surname: 'Свояк' },
+  {id: 6, name: 'Андрій', surname: 'Стеценко' },
+  {id: 7, name: 'Святослав', surname: 'Андрієнко' },
+  {id: 8, name: 'Роман', surname: 'Логвиненко' },
 ];

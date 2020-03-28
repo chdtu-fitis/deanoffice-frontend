@@ -8,6 +8,7 @@ import {SharedModule} from '../shared/shared.module';
 import {OrdersService} from '../../services/orders.service';
 import { AddOrderComponent } from './add-order/add-order.component';
 import { DeductionOrderComponent } from './add-order/deduction-order/deduction-order.component';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { DeductionOrderComponent } from './add-order/deduction-order/deduction-o
     MatSlideToggleModule,
     ReactiveFormsModule,
     SharedModule,
+    TypeaheadModule.forRoot(),
   ],
   declarations: [
     OrdersComponent,
