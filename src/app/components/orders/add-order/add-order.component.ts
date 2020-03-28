@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {ModalDirective} from 'ngx-bootstrap';
 
@@ -20,9 +20,7 @@ export class AddOrderComponent implements OnInit {
 
   async ngOnInit() {
     this._initForm();
-
     this.orderTypes = await this._ordersService.getOrderTypes().toPromise();
-
   }
 
   public hideModal(): void {
@@ -39,9 +37,9 @@ export class AddOrderComponent implements OnInit {
 
   private _initForm(): void {
     this.creatOrderForm = this.fb.group({
-      orderType: ['Про зміну ім\'я'],
-      orderNumber: ['', Validators.required],
-      orderDate: [null, Validators.required]
+      orderType: new FormControl('Про зміну ім\'я'),
+      orderNumber: new FormControl('',  Validators.required),
+      orderDate: new FormControl(null,  Validators.required)
     })
   }
 

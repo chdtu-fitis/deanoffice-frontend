@@ -39,8 +39,15 @@
               <div class="row">
                 <div class="col-6">
                   <label for="order-number"> Номер наказу </label>
-                  <input formControlName="orderNumber" type="text"
-                         placeholder="Номер наказу" id="order-number" class="form-control">
+                  <input
+                    formControlName="orderNumber"
+                    id="order-number"
+                    type="text"
+                    placeholder="Номер наказу"
+                    class="form-control"
+                    [appValidation]="creatOrderForm.controls.orderNumber"
+                  >
+                  <app-validation-errors [control]="creatOrderForm.controls.orderNumber"></app-validation-errors>
                 </div>
                 <div class="col-6">
                   <label for="order-date" class="required">Дата народження</label>
@@ -53,6 +60,9 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button class="btn btn-primary" type="button">
+              Завантажити
+            </button>
             <button class="btn btn-success" type="submit" [disabled]="creatOrderForm.invalid">
               Створити
             </button>
