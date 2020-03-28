@@ -8,38 +8,44 @@
   aria-labelledby="mySmallModalLabel"
   aria-hidden="true"
 >
-  <div class="position-relative modal-container">
-    <div class="modal-content h-100">
-      <div class="modal-header">
-        <h4 class="modal-title">Створити наказ</h4>
-        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body d-flex">
-        <div class="controls container">
-          <div class="row mt-2">
-            <div class="col-12">
-              <label for="orderType"> Тип наказу: </label>
-              <select name="orderType" id="orderType" class="form-control"
-                      (change)="changeOrderType($event.target.value)">
-                <option *ngFor="let type of orderTypes;" value="{{type.type}}">
-                  {{type.type}}
-                </option>
-                <option value="{{null}}" selected></option>
-              </select>
+    <div class="position-relative modal-container">
+      <form class="modal-content h-100" [formGroup]="creatOrderForm" (ngSubmit)="onSubmit()">
+          <div class="modal-header">
+            <h4 class="modal-title">Створити наказ</h4>
+            <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex overflow-auto">
+            <div class="controls container">
+              <div class="row mt-2">
+                <div class="col-12">
+                  <label for="order-type"> Тип наказу: </label>
+                  <select
+                    id="order-type"
+                    class="form-control"
+                    formControlName="orderType"
+                    (change)="changeOrderType($event.target.value)"
+                  >
+                    <option
+                      *ngFor="let type of orderTypes;"
+                      [value]="type.type"
+                    >
+                      {{type.type}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="document-overview">
+              <div>Документ очікує введення даних...</div>
             </div>
           </div>
-        </div>
-        <div class="document-overview">
-          <div>Документ очікує введення даних...</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-success">
-          Створити
-        </button>
-      </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" type="submit">
+              Створити
+            </button>
+          </div>
+      </form>
     </div>
-  </div>
 </div>

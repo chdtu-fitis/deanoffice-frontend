@@ -1,6 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+
 import {ModalDirective} from 'ngx-bootstrap';
-import {orderTypes} from '../moc';
+
+import {OrdersService} from '../../../services/orders.service';
 
 @Component({
   selector: 'add-order',
@@ -8,21 +11,36 @@ import {orderTypes} from '../moc';
   styleUrls: ['./add-order.component.scss']
 })
 export class AddOrderComponent implements OnInit {
-
   @ViewChild('modal', {static: false}) modal: ModalDirective;
 
-  public orderTypes = orderTypes;
-  constructor() { }
+  public creatOrderForm: FormGroup;
+  public orderTypes;
+  constructor(private fb: FormBuilder,
+              private _ordersService: OrdersService) { }
 
+  async ngOnInit() {
+    this._initForm();
 
-  ngOnInit() {
+    this.orderTypes = await this._ordersService.getOrderTypes().toPromise();
+
   }
 
-  hideModal() {
+  public hideModal(): void {
     this.modal.hide();
   }
 
-  changeOrderType(orderType) {
+  public onSubmit(): void {
+
+  }
+
+  public changeOrderType(orderType): void {
+    console.log(orderType);
+  }
+
+  private _initForm(): void {
+    this.creatOrderForm = this.fb.group({
+      orderType: ['Про зміну ім\'я']
+    })
   }
 
 }
