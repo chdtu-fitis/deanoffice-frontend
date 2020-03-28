@@ -51,12 +51,22 @@
                 </div>
                 <div class="col-6">
                   <label for="order-date" class="required">Дата народження</label>
-                  <input id="order-date" type="date" formControlName="orderDate" class="form-control" >
+                  <input
+                    id="order-date"
+                    type="date"
+                    formControlName="orderDate"
+                    class="form-control"
+                    [appValidation]="creatOrderForm.controls.orderNumber"
+                  >
+                  <app-validation-errors [control]="creatOrderForm.controls.orderDate"></app-validation-errors>
                 </div>
               </div>
             </div>
             <div class="document-overview">
               <div>Документ очікує введення даних...</div>
+              <ng-container [ngSwitch]="creatOrderForm.get('orderType').value">
+                <app-deduction-order *ngSwitchCase="''"></app-deduction-order>
+              </ng-container>
             </div>
           </div>
           <div class="modal-footer">

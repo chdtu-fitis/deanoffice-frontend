@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {OrdersService} from '../../services/orders.service';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { DeductionOrderComponent } from './add-order/deduction-order/deduction-order.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { AddOrderComponent } from './add-order/add-order.component';
   ],
   declarations: [
     OrdersComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    DeductionOrderComponent
   ],
   providers: [OrdersService]
 })
