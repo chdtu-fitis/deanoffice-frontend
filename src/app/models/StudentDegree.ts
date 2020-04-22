@@ -9,14 +9,14 @@ import {Grade} from './Grade';
 export class StudentDegree extends BaseEntity {
   student: Student;
   studentGroup?: StudentGroup;
-  specialization?: Specialization;
-  citizenship: string;
+  specialization: Specialization;
+  citizenship?: string;
   recordBookNumber?: string;
   studentCardNumber?: string;
   admissionOrderNumber?: string;
   admissionOrderDate?: Date;
-  admissionDate: Date;
-  studentPreviousUniversities: StudentPreviousUniversity[];
+  admissionDate?: Date;
+  studentPreviousUniversities?: StudentPreviousUniversity[];
   contractNumber?: string;
   contractDate?: Date;
   diplomaNumber?: string;
@@ -33,8 +33,10 @@ export class StudentDegree extends BaseEntity {
   previousDiplomaDate?: Date;
   previousDiplomaIssuedBy?: string;
   previousDiplomaIssuedByEng?: string;
-  payment?: string;
-  active?: boolean;
+  payment: string;
+  active: boolean;
+  tuitionForm: string;
+  tuitionTerm: string;
 
   grade?: Grade;
   grades?: Grade[];

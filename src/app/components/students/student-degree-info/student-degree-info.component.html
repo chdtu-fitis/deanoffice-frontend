@@ -16,7 +16,7 @@
               </b>
               <b class="d-block">Спеціалізація: {{model.degrees[i].specialization.name}}</b>
               <div class="row mt-2">
-                <div class="form-group col-12 col-sm-4 col-md-4 col-lg-3">
+                <div class="form-group col-sm-2">
                   <label for="studentGroup" [class]="degree.controls.active.value && 'required'">Група</label>
                   <select formControlName="studentGroupId" class="form-control"
                           id="studentGroup" [appValidation]="degree.controls.studentGroupId">
@@ -29,7 +29,7 @@
                   </select>
                   <app-validation-errors [control]="degree.controls.studentGroupId"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group col-sm-2 pr-0 mb-0">
                   <label>Форма навчання</label>
                   <div class="form-check">
                     <input formControlName="payment"
@@ -43,34 +43,62 @@
                   </div>
                   <app-validation-errors [control]="degree.controls.payment"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-3 col-md-2 col-lg-3">
-                  <label for="citizenship">Громадянство</label>
-                  <input formControlName="citizenship" class="form-control" id="citizenship" [appValidation]="degree.controls.citizenship">
-                  <app-validation-errors [control]="degree.controls.citizenship"></app-validation-errors>
+                <div class="form-group col-sm-2 pl-0 pr-0 mb-0">
+                  <label>Форма навчання</label>
+                  <div class="form-check">
+                    <input formControlName="tuitionForm"
+                           class="form-check-input" type="radio" value="FULL_TIME" id="tuitionform1" [appValidation]="degree.controls.tuitionForm">
+                    <label class="form-check-label" for="payment1">Денна</label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="tuitionForm"
+                           class="form-check-input" type="radio" value="EXTRAMURAL" id="tuitionform2" [appValidation]="degree.controls.tuitionForm">
+                    <label class="form-check-label" for="payment2">Заочна</label>
+                  </div>
+                  <app-validation-errors [control]="degree.controls.tuitionForm"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group col-sm-2 pl-0 pr-0 mb-0">
+                  <label>Термін навчання</label>
+                  <div class="form-check">
+                    <input formControlName="tuitionTerm"
+                           class="form-check-input" type="radio" value="REGULAR" id="tuitionterm1" [appValidation]="degree.controls.tuitionTerm">
+                    <label class="form-check-label" for="payment1">Повний</label>
+                  </div>
+                  <div class="form-check">
+                    <input formControlName="tuitionTerm"
+                           class="form-check-input" type="radio" value="SHORTENED" id="tuitionterm2" [appValidation]="degree.controls.tuitionTerm">
+                    <label class="form-check-label" for="payment2">Скорочений</label>
+                  </div>
+                  <app-validation-errors [control]="degree.controls.tuitionTerm"></app-validation-errors>
+                </div>
+                <div class="form-group col-sm-2">
                   <label for="recordBookNumber">Номер заліковки</label>
                   <input formControlName="recordBookNumber" class="form-control" id="recordBookNumber" [appValidation]="degree.controls.recordBookNumber">
                   <app-validation-errors [control]="degree.controls.recordBookNumber"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group col-sm-2">
                   <label for="studentCardNumber">Номер студентського</label>
                   <input formControlName="studentCardNumber" class="form-control" id="studentCardNumber" [appValidation]="degree.controls.studentCardNumber">
                   <app-validation-errors [control]="degree.controls.studentCardNumber"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
+                <div class="form-group col-sm-3">
+                  <label for="citizenship">Громадянство</label>
+                  <input formControlName="citizenship" class="form-control" id="citizenship" [appValidation]="degree.controls.citizenship">
+                  <app-validation-errors [control]="degree.controls.citizenship"></app-validation-errors>
+                </div>
+                <div class="form-group col-sm-3">
                   <label for="admissionOrderNumber">Номер наказу про зарахування</label>
                   <input formControlName="admissionOrderNumber" class="form-control" id="admissionOrderNumber"
                          [appValidation]="degree.controls.admissionOrderNumber">
                   <app-validation-errors [control]="degree.controls.admissionOrderNumber"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
+                <div class="form-group col-sm-3">
                   <label for="admissionOrderDate">Дата наказу про зарахування</label>
                   <input type="date" formControlName="admissionOrderDate" class="form-control" id="admissionOrderDate"
                          [appValidation]="degree.controls.admissionOrderDate">
                   <app-validation-errors [control]="degree.controls.admissionOrderDate"></app-validation-errors>
                 </div>
-                <div class="form-group col-12 col-sm-6 col-md-4">
+                <div class="form-group col-sm-3">
                   <label for="admissionDate">Дата зарахування</label>
                   <input type="date" formControlName="admissionDate" class="form-control" id="admissionDate"
                          [appValidation]="degree.controls.admissionDate">
