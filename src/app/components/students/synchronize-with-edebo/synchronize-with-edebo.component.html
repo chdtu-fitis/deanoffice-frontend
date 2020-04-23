@@ -91,6 +91,12 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('payment',i)">
                   {{ translatePayment(student.studentDegreeFromDb?.payment)}}
                 </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('tuitionForm',i)">
+                  {{translateTuitionForm(student.studentDegreeFromDb?.tuitionForm)}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('citizenship',i)">
+                  {{translateCitizenship(student.studentDegreeFromDb?.citizenship)}}
+                </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
                   {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
                 </td>
@@ -136,6 +142,14 @@
                 <td *ngIf="isNotEqual('payment',i)"
                   (click)="replaceDataWithCorrect(i,'payment')">
                   {{translatePayment(student.studentDegreeFromData?.payment)}}
+                </td>
+                <td *ngIf="isNotEqual('tuitionForm',i)"
+                    (click)="replaceDataWithCorrect(i,'tuitionForm')">
+                  {{translateTuitionForm(student.studentDegreeFromData?.tuitionForm)}}
+                </td>
+                <td *ngIf="isNotEqual('citizenship',i)"
+                    (click)="replaceDataWithCorrect(i,'citizenship')">
+                  {{translateCitizenship(student.studentDegreeFromData?.citizenship)}}
                 </td>
                 <td *ngIf="isNotEqual('previousDiplomaDate',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">

@@ -14,6 +14,8 @@ import {SpecialityService} from '../../../services/speciality.service';
 import {Speciality} from '../../../models/Speciality';
 import {ResultOfSavingData} from '../../../models/synchronization-edebo-models/ResultOfSavingData';
 import {Gender} from '../../../models/gender.enum';
+import {TuitionForm} from "../../../models/tuition-form.enum";
+import {Citizenship} from "../../../models/citizenship.enum";
 
 @Component({
   selector: 'synchronize-with-edebo',
@@ -270,6 +272,13 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
     return Gender[term]
   }
 
+  translateTuitionForm(term: TuitionForm) {
+    return TuitionForm[term]
+  }
+
+  translateCitizenship(term: Citizenship) {
+    return Citizenship[term]
+  }
   replaceDataWithCorrect(index, name): void {
     this.changeBlueListCondition(index);
     if (this.unmatchedSecondaryDataStudentDegreesBlue[index].studentDegreeFromDb[name] === undefined) {

@@ -5,6 +5,7 @@ import {DiplomaType} from '../diploma-type.enum';
 import {Payment} from '../payment.enum';
 import {TuitionForm} from "../tuition-form.enum";
 import {TuitionTerm} from "../tuition-term.enum";
+import {Citizenship} from "../citizenship.enum";
 
 export class StudentDegreeFullEdeboData {
   id?: number;
@@ -21,6 +22,7 @@ export class StudentDegreeFullEdeboData {
   payment?: Payment;
   tuitionForm: TuitionForm;
   tuitionTerm: TuitionTerm;
+  citizenship: Citizenship;
   modified?: boolean;
   selected?: boolean;
   similarInDB?: boolean;
