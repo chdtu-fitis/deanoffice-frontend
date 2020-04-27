@@ -15,8 +15,9 @@ import {Globals} from "../../components/shared/globals";
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private authService: AuthenticationService;
-  constructor(private injector: Injector) {
-  }
+
+  constructor(private injector: Injector) {}
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.authService = this.injector.get(AuthenticationService);
     request = request.clone({
