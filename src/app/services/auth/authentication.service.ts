@@ -35,15 +35,18 @@ export class AuthenticationService {
       })
     );
   }
+
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
     this.isLoggedIn.next(false);
   }
+
   public getToken(): string {
     return this.token;
   }
+
   public hasRole(roleName: string, token: string): boolean {
     try {
       const roles: Array<string> = JSON.parse(atob(token.split('.')[1]))['rol'];

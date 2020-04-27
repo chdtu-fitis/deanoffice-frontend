@@ -17,27 +17,27 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-  private authenticationService: AuthenticationService,
-  private http: HttpClient) { }
+    private authenticationService: AuthenticationService,
+    private http: HttpClient) { }
 
-ngOnInit() {
-  this.authenticationService.logout();
-}
-login() {
-  this.loading = true;
-  this.authenticationService.login(this.model.username, this.model.password)
-    .subscribe(result => {
-      if (result === true) {
-        this.router.navigate(['/']);
-      }
-      if (this.authenticationService.hasRole(String(UserRole.ROLE_NAVCH_METHOD), this.authenticationService.getToken())) {
-        this.http.get(`${environment.apiUrl}/faculties`, {headers: {Authorization: this.authenticationService.getToken()}}).subscribe((faculties: Faculty[]) => {
-          this.authenticationService.facultiesProvider.next(faculties);
-        });
-      }
-    }, err => {
-      this.error = 'Ім\'я користувача чи пароль неправильні';
-      this.loading = false;
-    });
-}
+  ngOnInit() {
+    this.authenticationService.logout();
+  }
+  login() {
+    this.loading = true;
+    this.authenticationService.login(this.model.username, this.model.password)
+      .subscribe(result => {
+        if (result === true) {
+          this.router.navigate(['/']);
+        }
+        if (this.authenticationService.hasRole(String(UserRole.ROLE_NAVCH_METHOD), this.authenticationService.getToken())) {
+          this.http.get(`${environment.apiUrl}/faculties`, {headers: {Authorization: this.authenticationService.getToken()}}).subscribe((faculties: Faculty[]) => {
+            this.authenticationService.facultiesProvider.next(faculties);
+          });
+        }
+      }, err => {
+        this.error = 'Ім\'я користувача чи пароль неправильні';
+        this.loading = false;
+      });
+  }
 }
