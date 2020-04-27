@@ -1,20 +1,22 @@
 import {map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject} from 'rxjs';
-
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
+import {Faculty} from "../../models/Faculty";
 
 @Injectable()
 export class AuthenticationService {
   public token: string;
   public isLoggedIn;
+  public facultiesProvider;
 
   constructor(private http: HttpClient, private router: Router) {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
-    this.isLoggedIn = new BehaviorSubject<boolean>(!!this.token)
+    this.isLoggedIn = new BehaviorSubject<boolean>(!!this.token);
+    this.facultiesProvider = new BehaviorSubject<Faculty[]>([]);
   }
 
   login(username: string, password: string): Observable<boolean> {
@@ -33,18 +35,15 @@ export class AuthenticationService {
       })
     );
   }
-
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
     this.router.navigate(['/login']);
     this.isLoggedIn.next(false);
   }
-
   public getToken(): string {
     return this.token;
   }
-
   public hasRole(roleName: string, token: string): boolean {
     try {
       const roles: Array<string> = JSON.parse(atob(token.split('.')[1]))['rol'];
@@ -53,5 +52,4 @@ export class AuthenticationService {
       return false;
     }
   }
-
 }
