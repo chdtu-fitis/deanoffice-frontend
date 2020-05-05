@@ -6,8 +6,10 @@ import {TabsetComponent} from 'ngx-bootstrap';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {DepartmentService} from '../../../services/department.service';
 import {PositionService} from '../../../services/position.service';
+import {ScientificDegreeService} from '../../../services/scientific-degree.service';
 import {Department} from '../../../models/Department';
 import {Position} from '../../../models/Position';
+import {ScientificDegree} from '../../../models/ScientificDegree';
 
 const DEFAULT_STRING = '';
 
@@ -23,11 +25,13 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   @Input() departments: Department[] = [];
   @Input() positions: Position[] = [];
   @Input() teacher: Teacher[];
+  @Input() scientificDegrees: ScientificDegree[];
 
   constructor(
     private _formBuilder: FormBuilder,
     private _departmentService: DepartmentService,
-    private _positionService: PositionService) {
+    private _positionService: PositionService,
+    private _scientificDegreeService: ScientificDegreeService) {
     super();
     this.setInitialData();
   }
@@ -43,7 +47,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       department: data.department,
       id: data.id,
       sex: [data.sex, Validators.required],
-      scientificDegree: data.scientificDegree,
+      scientificDegreeId: [data.scientificDegreeId, Validators.required],
       positionId: [data.positionId, Validators.required],
       departmentId: [data.departmentId, Validators.required]
     });
@@ -54,6 +58,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       .subscribe((departments: Department[]) => this.departments = departments);
     this._positionService.getPositions()
       .subscribe((positions: Position[]) => this.positions = positions);
+    this._scientificDegreeService.getScientificDegrees()
+      .subscribe((scientificDegrees: ScientificDegree[]) => this.scientificDegrees = scientificDegrees);
   }
   invalid(): boolean {
     super.submit();
@@ -73,8 +79,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       surname: s.surname || DEFAULT_STRING,
       patronimic: s.patronimic || DEFAULT_STRING,
       sex: s.sex || DEFAULT_STRING,
+      scientificDegreeId: s.scientificDegreeId,
       position: s.position || null,
-      scientificDegree: s.scientificDegree || DEFAULT_STRING,
       department: s.department || null,
       departmentId: s.departmentId,
       positionId: s.positionId
