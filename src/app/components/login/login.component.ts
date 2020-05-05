@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from '../../services/auth/authentication.service';
 
 @Component({
@@ -14,12 +13,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private http: HttpClient) { }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.authenticationService.logout();
   }
+
   login() {
     this.loading = true;
     this.authenticationService.login(this.model.username, this.model.password)

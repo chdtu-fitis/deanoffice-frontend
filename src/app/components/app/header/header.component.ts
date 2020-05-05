@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../services/auth/authentication.service';
 import {CurrentUserService} from '../../../services/auth/current-user.service';
 import {UserRole} from '../../../models/UserRole.enum';
@@ -10,19 +10,34 @@ import {Faculty} from "../../../models/Faculty";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   public loggedIn: any;
   userName;
   faculties: Faculty[] = [];
 
   public constructor(private auth: AuthenticationService,
                      private currentUserService: CurrentUserService) {
-    this.auth.isLoggedIn.subscribe(islogged => {this.loggedIn = islogged;});
-    this.auth.facultiesProvider.subscribe(faculties => {
-      this.faculties = faculties;
-      if (faculties[0]) Globals.studyMethodDptCurrentFacultyId = faculties[0].id;
+    this.auth.isLoggedIn.subscribe(islogged => {
+      this.loggedIn = islogged;
     });
     this.userName = this.currentUserService.name();
+  }
+
+  ngOnInit(): void {
+    const localStorageFaculties = JSON.parse(localStorage.getItem('faculties'));
+    if (localStorageFaculties && localStorageFaculties.length > 0) {
+      this.faculties = localStorageFaculties;
+      if (this.faculties && this.faculties[0]) Globals.studyMethodDptCurrentFacultyId = String(this.faculties[0].id);
+    } else {
+      this.auth.facultiesProvider.subscribe(faculties => {
+        if (faculties && faculties.length > 0) {
+          this.faculties = faculties;
+          localStorage.setItem('faculties', JSON.stringify(faculties));
+          Globals.studyMethodDptCurrentFacultyId = String(this.faculties[0].id)
+        }
+      })
+    }
+
   }
 
   logout() {

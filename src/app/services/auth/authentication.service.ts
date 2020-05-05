@@ -40,6 +40,7 @@ export class AuthenticationService {
   logout(): void {
     this.token = null;
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('faculties');
     this.router.navigate(['/login']);
     this.isLoggedIn.next(false);
   }
