@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
                      private currentUserService: CurrentUserService) {
     this.auth.isLoggedIn.subscribe(islogged => {
       this.loggedIn = islogged;
+      this.userName = this.currentUserService.name();
     });
-    this.userName = this.currentUserService.name();
   }
 
   ngOnInit(): void {
