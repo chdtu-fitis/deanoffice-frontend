@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 import {Faculty} from "../../models/Faculty";
+import {UserRole} from "../../models/UserRole.enum";
 
 @Injectable()
 export class AuthenticationService {
@@ -45,6 +46,14 @@ export class AuthenticationService {
 
   public getToken(): string {
     return this.token;
+  }
+
+  public getFacultiesIfRoleStudyMethod() {
+    if (this.hasRole(String(UserRole.ROLE_NAVCH_METHOD), this.getToken())) {
+      this.http.get(`${environment.apiUrl}/faculties`, {headers: {Authorization: this.getToken()}}).subscribe((faculties: Faculty[]) => {
+        this.facultiesProvider.next(faculties);
+      });
+    }
   }
 
   public hasRole(roleName: string, token: string): boolean {
