@@ -2,7 +2,6 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="loggedIn">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown" routerLinkActive="active">
@@ -19,7 +18,6 @@
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/departments">Кафедри</a>
         </div>
       </li>
-
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" href="#" id="nav-year-middle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Впродовж семестру
@@ -37,7 +35,6 @@
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/orders">Накази</a>
         </div>
       </li>
-
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" href="#" id="nav-year-end" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Кінець семестру
@@ -47,7 +44,6 @@
              routerLink="/dashboard/finish-study-year">Закінчити навчальний рік</a>
         </div>
       </li>
-
       <li class="nav-item dropdown" routerLinkActive="active">
         <a class="nav-link dropdown-toggle" href="#" id="nav-documents" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Документи
@@ -65,7 +61,6 @@
              routerLink="/dashboard/documents/additional-documents">Додаткові документи</a>
         </div>
       </li>
-
       <li class="nav-item dropdown" routerLinkActive="active" *ngIf="hasRoleAdmin()">
         <a class="nav-link dropdown-toggle" href="#" id="nav-administration-tool" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Адміністрування
@@ -93,6 +88,13 @@
       </li>
     </ul>
     <ul class="navbar-nav">
+      <li *ngIf="hasRoleNavchMetod()">
+        <div class="select">
+            <select class="selectpicker" (change)="onCurrentFacultyChange($event)">
+              <option *ngFor="let faculty of faculties" value="{{faculty.id}}">{{faculty.abbr}}</option>
+            </select>
+        </div>
+      </li>
       <li class="nav-item">
         <div class="nav-link">
           <svg class="mr-1 svg-icon" viewBox="0 0 448 512">

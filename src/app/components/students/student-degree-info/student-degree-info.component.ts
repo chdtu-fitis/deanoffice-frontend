@@ -114,6 +114,8 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
             })
           })),
           payment: degree.payment,
+          tuitionForm: degree.tuitionForm,
+          tuitionTerm: degree.tuitionTerm,
           active: degree.active
         })
       }))
