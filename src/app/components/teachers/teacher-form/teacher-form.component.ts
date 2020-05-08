@@ -62,6 +62,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
     this._scientificDegreeService.getScientificDegrees()
       .subscribe((scientificDegrees: ScientificDegree[]) => this.scientificDegrees = scientificDegrees);
   }
+
   invalid(): boolean {
     super.submit();
     if (this.form.invalid) {
@@ -74,18 +75,16 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
     const s: Teacher = this.form.getRawValue() as Teacher;
     return {
       ...s,
-      name: s.name || DEFAULT_STRING,
-      active: true,
       id: s.id,
+      name: s.name || DEFAULT_STRING,
       surname: s.surname || DEFAULT_STRING,
       patronimic: s.patronimic || DEFAULT_STRING,
+      active: true,
       sex: s.sex || DEFAULT_STRING,
-      scientificDegreeId: s.scientificDegreeId,
+      scientificDegree: s.scientificDegreeId ? new ScientificDegree(s.scientificDegreeId) : null,
       position: s.position || null,
       department: s.department || null,
-      departmentId: s.departmentId,
-      positionId: s.positionId,
-      academicTitle: s.academicTitle || DEFAULT_STRING
+      academicTitle: s.academicTitle || null
     } as Teacher;
   }
 

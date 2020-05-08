@@ -17,7 +17,6 @@
           <input formControlName="patronimic" type="text" class="form-control" id="patronimic">
         </div>
 
-
         <div class="form-group">
           <div class="down-line">
             <div>
@@ -33,10 +32,11 @@
 
       <div class="form-item">
         <div class="form-group">
-          <label for="scientificDegree" class="required">Науковий ступінь:</label>
+          <label for="scientificDegree">Науковий ступінь:</label>
           <select formControlName="scientificDegreeId" class="form-control" id="scientificDegree"
                   [appValidation]="form.controls.scientificDegreeId">
-            <option *ngFor="let scientificDegree of scientificDegrees " [ngValue]="scientificDegree.id">{{scientificDegree.name}}</option>
+            <option [ngValue]=""></option>
+            <option *ngFor="let scientificDegree of scientificDegrees" [ngValue]="scientificDegree.id">{{scientificDegree.name}}</option>
           </select>
           <app-validation-errors [control]="form.controls.positionId"></app-validation-errors>
         </div>
@@ -45,7 +45,7 @@
           <label for="position" class="required">Посада:</label>
           <select formControlName="positionId" class="form-control" id="position"
                   [appValidation]="form.controls.positionId">
-            <option *ngFor="let position of positions " [ngValue]="position.id">{{position.name}}</option>
+            <option *ngFor="let position of positions" [ngValue]="position.id">{{position.name}}</option>
           </select>
           <app-validation-errors [control]="form.controls.positionId"></app-validation-errors>
         </div>
