@@ -49,7 +49,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       sex: [data.sex, Validators.required],
       scientificDegreeId: [data.scientificDegreeId, Validators.required],
       positionId: [data.positionId, Validators.required],
-      departmentId: [data.departmentId, Validators.required]
+      departmentId: [data.departmentId, Validators.required],
+      academicTitle: [data.academicTitle, Validators.required]
     });
   }
 
@@ -83,7 +84,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       position: s.position || null,
       department: s.department || null,
       departmentId: s.departmentId,
-      positionId: s.positionId
+      positionId: s.positionId,
+      academicTitle: s.academicTitle || DEFAULT_STRING
     } as Teacher;
   }
 
