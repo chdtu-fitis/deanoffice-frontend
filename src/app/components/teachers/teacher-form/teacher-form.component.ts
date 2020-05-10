@@ -10,6 +10,7 @@ import {ScientificDegreeService} from '../../../services/scientific-degree.servi
 import {Department} from '../../../models/Department';
 import {Position} from '../../../models/Position';
 import {ScientificDegree} from '../../../models/ScientificDegree';
+import {AcademicTitle} from '../../../models/academic-title.enum';
 
 const DEFAULT_STRING = '';
 
@@ -26,6 +27,7 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   @Input() positions: Position[] = [];
   @Input() teacher: Teacher[];
   @Input() scientificDegrees: ScientificDegree[];
+  AcademicTitle = AcademicTitle;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -39,18 +41,16 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   setInitialData(data: Teacher = new Teacher()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
+      id: data.id,
       name: [data.name,  Validators.required],
       surname: [data.surname, Validators.required],
       patronimic: [data.patronimic,  Validators.required],
       active: true,
-      position: data.position,
-      department: data.department,
-      id: data.id,
       sex: [data.sex, Validators.required],
-      scientificDegreeId: [data.scientificDegreeId, Validators.required],
+      scientificDegreeId: [data.scientificDegreeId],
       positionId: [data.positionId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
-      academicTitle: [data.academicTitle, Validators.required]
+      academicTitle: [data.academicTitle]
     });
   }
 
@@ -82,8 +82,8 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
       active: true,
       sex: s.sex || DEFAULT_STRING,
       scientificDegree: s.scientificDegreeId ? new ScientificDegree(s.scientificDegreeId) : null,
-      position: s.position || null,
-      department: s.department || null,
+      position: new Position(s.positionId),
+      department: new Department(s.departmentId),
       academicTitle: s.academicTitle || null
     } as Teacher;
   }

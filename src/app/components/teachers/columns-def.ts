@@ -31,7 +31,7 @@ export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Науковий ступінь',
     field: 'scientificDegree.name',
-    minWidth: 200,
+    minWidth: 240,
   },
   {
     headerName: 'Вчене звання',
@@ -42,6 +42,6 @@ export const COLUMN_DEFINITIONS = [
   {
     headerName: 'Посада',
     field: 'position.name',
-    minWidth: 140,
+    minWidth: 90,
   }
 ];

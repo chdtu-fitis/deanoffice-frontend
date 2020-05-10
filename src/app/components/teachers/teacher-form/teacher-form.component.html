@@ -33,12 +33,10 @@
       <div class="form-item">
         <div class="form-group">
           <label for="scientificDegree">Науковий ступінь:</label>
-          <select formControlName="scientificDegreeId" class="form-control" id="scientificDegree"
-                  [appValidation]="form.controls.scientificDegreeId">
+          <select formControlName="scientificDegreeId" class="form-control" id="scientificDegree">
             <option [ngValue]=""></option>
             <option *ngFor="let scientificDegree of scientificDegrees" [ngValue]="scientificDegree.id">{{scientificDegree.name}}</option>
           </select>
-          <app-validation-errors [control]="form.controls.positionId"></app-validation-errors>
         </div>
 
         <div class="form-group">
@@ -59,11 +57,15 @@
           <app-validation-errors [control]="form.controls.departmentId"></app-validation-errors>
         </div>
 
-        <div class="form-group">
-          <label for="academicTitle">Вчене звання:</label>
-          <input formControlName="academicTitle" type="text" class="form-control" id="academicTitle">
+        <div class="form-item">
+          <div class="form-group">
+            <label for="academicTitle">Вчене звання:</label>
+            <select formControlName="academicTitle" class="form-control" id="academicTitle">
+              <option [ngValue]=""></option>
+              <option *ngFor="let academicTitle of AcademicTitle | keyvalue" [ngValue]="academicTitle.key">{{academicTitle.value}}</option>
+            </select>
+          </div>
         </div>
-
       </div>
     </div>
   </tabset>
