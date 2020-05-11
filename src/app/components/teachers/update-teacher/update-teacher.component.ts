@@ -24,8 +24,11 @@ export class UpdateTeacherComponent {
     return `Оновлення інформації про викладача: ${info}`;
   }
 
-  openModal(argument): void {
-    this.form.setInitialData(argument);
+  openModal(teacher): void {
+    teacher.positionId = teacher.position.id;
+    teacher.departmentId = teacher.department.id;
+    teacher.scientificDegreeId = teacher.scientificDegree && teacher.scientificDegree.id;
+    this.form.setInitialData(teacher);
     this.modal.show();
   }
 
