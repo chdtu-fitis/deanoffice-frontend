@@ -10,22 +10,21 @@ import {Teacher} from '../../../models/Teacher';
   styleUrls: ['./update-teacher.component.scss']
 })
 export class UpdateTeacherComponent {
-  source: Teacher;
-  @Input () selectedTeachers;
   @Output() updateTeacher: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   @ViewChild('form', { static: false }) form: TeacherFormComponent;
 
-
   constructor(private teacherService: TeacherService) { }
 
   getTitle(): string {
-    const info: string = (this.source) ? `${this.source.surname} ${this.source.name} ${this.source.patronimic}` : '';
-    return `Оновлення інформації про викладача: ${info}`;
+    return 'Оновлення інформації про викладача:';
   }
 
-  openModal(argument): void {
-    this.form.setInitialData(argument);
+  openModal(teacher): void {
+    teacher.positionId = teacher.position.id;
+    teacher.departmentId = teacher.department.id;
+    teacher.scientificDegreeId = teacher.scientificDegree && teacher.scientificDegree.id;
+    this.form.setInitialData(teacher);
     this.modal.show();
   }
 

@@ -54,7 +54,7 @@ export class TeachersComponent implements OnInit {
     }
   }
 
-   onGridReady(params: GridReadyEvent) {
+  onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     this.gridApi.sizeColumnsToFit();
