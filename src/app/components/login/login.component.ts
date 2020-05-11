@@ -6,7 +6,6 @@ import {AuthenticationService} from '../../services/auth/authentication.service'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-
 export class LoginComponent implements OnInit {
   model: any = {};
   loading = false;
@@ -27,8 +26,9 @@ export class LoginComponent implements OnInit {
         if (result === true) {
           this.router.navigate(['/']);
         }
+        this.authenticationService.getFacultiesIfRoleStudyMethod();
       }, err => {
-        this.error = 'Ім\'я користувача чи пароль невірні';
+        this.error = 'Ім\'я користувача чи пароль неправильні';
         this.loading = false;
       });
   }
