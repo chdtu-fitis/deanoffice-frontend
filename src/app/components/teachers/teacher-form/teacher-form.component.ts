@@ -22,11 +22,9 @@ const DEFAULT_STRING = '';
 export class TeacherFormComponent extends BaseReactiveFormComponent implements OnInit {
   @Input() updateForm = false;
   @ViewChild('tabset', { static: false }) tabset: TabsetComponent;
-  @Input() initialData: Teacher = new Teacher();
-  @Input() departments: Department[] = [];
-  @Input() positions: Position[] = [];
-  @Input() teacher: Teacher[];
-  @Input() scientificDegrees: ScientificDegree[];
+  departments: Department[] = [];
+  positions: Position[] = [];
+  scientificDegrees: ScientificDegree[];
   AcademicTitle = AcademicTitle;
 
   constructor(
@@ -39,7 +37,6 @@ export class TeacherFormComponent extends BaseReactiveFormComponent implements O
   }
 
   setInitialData(data: Teacher = new Teacher()) {
-    this.initialData = data;
     this.form = this._formBuilder.group({
       id: data.id,
       name: [data.name,  Validators.required],
