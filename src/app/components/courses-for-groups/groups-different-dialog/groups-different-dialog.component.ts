@@ -15,10 +15,11 @@ import {KnowledgeControl} from '../../../models/KnowlegeControl';
 export class GroupsDifferentDialogComponent implements OnInit {
 
   foreignGroupsAndCourses: ForeignCourses[] = [];
-  @Output() showDifferents: EventEmitter< ForeignCourses> = new EventEmitter< ForeignCourses>();
+  @Output() showDifferents: EventEmitter<ForeignCourses> = new EventEmitter<ForeignCourses>();
 
   constructor(public bsModalRef: BsModalRef,
-              private foreignGroupsAndCoursesService: CourseForGroupService) { }
+              private foreignGroupsAndCoursesService: CourseForGroupService) {
+  }
 
   ngOnInit() {
     this.foreignGroupsAndCoursesService.getForeignCourseAndGroups().subscribe((foreignGroupsAndCourses: ForeignCourses[]) => {
@@ -51,6 +52,10 @@ export class GroupsDifferentDialogComponent implements OnInit {
         }
       }
     })
+  }
+
+  copyCourses(i) {
+    return i;
   }
 
   getEmptyCourse(): Course {
