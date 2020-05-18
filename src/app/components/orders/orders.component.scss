@@ -3,7 +3,6 @@ $draft-order: #ffc71f;
 $rejected-order: rgba(255, 61, 29, 0.92);
 $show-order: #2488f4;
 
-
 .order-btn {
   border-radius: 5px;
   background-color: unset;
@@ -56,12 +55,11 @@ $show-order: #2488f4;
   &:focus {
     outline: none;
   }
-
 }
 
 .orders {
   .orders-controls {
-    height: 15%;
+    height: 8%;
 
     .order-control {
       display: flex;
@@ -72,7 +70,7 @@ $show-order: #2488f4;
   }
 
   .orders-container {
-    height: 85%;
+    height: 92%;
 
     .orders-table-container {
       flex-basis: 70%;
@@ -80,7 +78,7 @@ $show-order: #2488f4;
 
       .orders-table {
         width: 100%;
-        height: calc(100% - 50px);
+        height: calc(100% - 35px);
       }
     }
 
