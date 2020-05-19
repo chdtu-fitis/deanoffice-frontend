@@ -14,7 +14,6 @@ export class Utils {
     } else {
       return 0;
     }
-
   }
 
   static formatDate = date => new DatePipe('en-US').transform(date, 'dd.MM.yyyy');
@@ -31,6 +30,4 @@ export class Utils {
     const winterSessionStart = new Date(`12/17/${currentDate.getFullYear()}`);
     return currentDate > winterSessionStart || currentDate < summerSessionStart;
   }
-
-
 }

@@ -17,7 +17,6 @@
           <input formControlName="patronimic" type="text" class="form-control" id="patronimic">
         </div>
 
-
         <div class="form-group">
           <div class="down-line">
             <div>
@@ -33,15 +32,18 @@
 
       <div class="form-item">
         <div class="form-group">
-          <label for="scientificDegree" class="required">Науковий ступінь:</label>
-          <input formControlName="scientificDegree" type="text" class="form-control" id="scientificDegree">
+          <label for="scientificDegree">Науковий ступінь:</label>
+          <select formControlName="scientificDegreeId" class="form-control" id="scientificDegree">
+            <option [ngValue]=""></option>
+            <option *ngFor="let scientificDegree of scientificDegrees" [ngValue]="scientificDegree.id">{{scientificDegree.name}}</option>
+          </select>
         </div>
 
         <div class="form-group">
           <label for="position" class="required">Посада:</label>
           <select formControlName="positionId" class="form-control" id="position"
                   [appValidation]="form.controls.positionId">
-            <option *ngFor="let position of positions " [ngValue]="position.id">{{position.name}}</option>
+            <option *ngFor="let position of positions" [ngValue]="position.id">{{position.name}}</option>
           </select>
           <app-validation-errors [control]="form.controls.positionId"></app-validation-errors>
         </div>
@@ -53,6 +55,16 @@
             <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
           </select>
           <app-validation-errors [control]="form.controls.departmentId"></app-validation-errors>
+        </div>
+
+        <div class="form-item">
+          <div class="form-group">
+            <label for="academicTitle">Вчене звання:</label>
+            <select formControlName="academicTitle" class="form-control" id="academicTitle">
+              <option [ngValue]=""></option>
+              <option *ngFor="let academicTitle of AcademicTitle | keyvalue" [ngValue]="academicTitle.key">{{academicTitle.value}}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

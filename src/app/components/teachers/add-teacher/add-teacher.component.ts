@@ -2,6 +2,7 @@ import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {TeacherService} from '../../../services/teacher.service';
 import {ModalWrapperComponent} from '../../shared/modal-wrapper/modal-wrapper.component';
 import {TeacherFormComponent} from '../teacher-form/teacher-form.component';
+import {Teacher} from "../../../models/Teacher";
 
 @Component({
   selector: 'add-teacher',
@@ -9,8 +10,7 @@ import {TeacherFormComponent} from '../teacher-form/teacher-form.component';
   styleUrls: ['./add-teacher.component.scss']
 })
 export class AddTeacherComponent{
-
-  @Output() addTeacher: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addTeacher: EventEmitter<Teacher> = new EventEmitter<Teacher>();
   @ViewChild('modal', { static: false }) modal: ModalWrapperComponent;
   @ViewChild('form', { static: false }) form: TeacherFormComponent;
 

@@ -31,7 +31,7 @@ export class TeacherService {
       .pipe(catchError(forObservable('Отримання повного списку викладачів по всьому університету', [])));
   }
 
-  public createTeacher(body): Promise<any> {
+  public createTeacher(body: Teacher): Promise<any> {
     return this._httpClient.post(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Створення нового викладача'));
   }
@@ -40,7 +40,7 @@ export class TeacherService {
     const url = `${this.teachersUrl}/teachers/${ids.join(', ')}`;
     return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача', [])));
   }
-  public updateTeacher(body): Promise<any> {
+  public updateTeacher(body: Teacher): Promise<any> {
     return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
       .catch(forPromise('Оновлення інформації про викладача'));
   }
