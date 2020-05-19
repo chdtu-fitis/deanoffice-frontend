@@ -32,7 +32,6 @@
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/grades">Оцінки</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/students/stipend" [routerLinkActiveOptions]="{exact: true}">Стипендія</a>
           <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/reports/debts" [routerLinkActiveOptions]="{exact: true}">Звіт з успішності</a>
-          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/orders">Накази</a>
         </div>
       </li>
       <li class="nav-item dropdown" routerLinkActive="active">
@@ -59,6 +58,15 @@
              routerLink="/dashboard/documents/personal-file-statement">Виписки в особові справи</a>
           <a class="dropdown-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
              routerLink="/dashboard/documents/additional-documents">Додаткові документи</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive="active">
+        <a class="nav-link dropdown-toggle" href="#" id="nav-orders" role="button" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false" >
+          Накази
+        </a>
+        <div class="dropdown-menu" aria-labelledby="nav-documents">
+          <a class="dropdown-item" routerLinkActive="active" routerLink="/dashboard/orders">Накази</a>
         </div>
       </li>
       <li class="nav-item dropdown" routerLinkActive="active" *ngIf="hasRoleAdmin()">
