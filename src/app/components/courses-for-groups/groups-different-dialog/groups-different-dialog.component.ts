@@ -15,7 +15,7 @@ import {KnowledgeControl} from '../../../models/KnowlegeControl';
 export class GroupsDifferentDialogComponent implements OnInit {
 
   foreignGroupsAndCourses: ForeignCourses[] = [];
-  @Output() showDifferents: EventEmitter< ForeignCourses> = new EventEmitter< ForeignCourses>();
+  @Output() showDifferences: EventEmitter< ForeignCourses> = new EventEmitter< ForeignCourses>();
 
   constructor(public bsModalRef: BsModalRef,
               private foreignGroupsAndCoursesService: CourseForGroupService) { }
