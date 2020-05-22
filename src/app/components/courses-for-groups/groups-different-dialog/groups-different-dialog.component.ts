@@ -41,9 +41,13 @@ export class GroupsDifferentDialogComponent implements OnInit {
             }
           }
           if (!found) {
-            const temp = differentOtherCourses[i];
-            differentOtherCourses[i] = this.getEmptyCourse();
-            differentOtherCourses.push(temp);
+            if (i < differentOtherCourses.length) {
+              const temp = differentOtherCourses[i];
+              differentOtherCourses[i] = this.getEmptyCourse();
+              differentOtherCourses.push(temp);
+            } else {
+              differentOtherCourses.push(this.getEmptyCourse());
+            }
           }
         }
         for (let i = differentForeignCourses.length; i < differentOtherCourses.length; i++) {
