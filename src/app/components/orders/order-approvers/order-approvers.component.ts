@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderApproversService} from "../../../services/order-approvers.service";
+import {OrderApprover} from "../../../models/order/OrderApprover";
+import {Observable} from "rxjs";
+
 
 @Component({
   selector: 'order-approvers',
@@ -6,10 +10,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-approvers.component.scss']
 })
 export class OrderApproversComponent implements OnInit {
-
-  constructor() { }
+  approvers: OrderApprover[];
+  constructor(private orderApproversService: OrderApproversService) { }
 
   ngOnInit() {
+    this.orderApproversService.getApprovers().subscribe(approvers=>this.approvers = approvers);
   }
 
+  onCreateOrderApprover(approver: OrderApprover) {
+    this.approvers.push(approver);
+  }
+
+  // removeOrder(id: number) {
+  //   this.orderApproversService.delete(id);
+  // }
 }
+
+// columnDefs = [
+//   {headerName: "Прізвище", field: "surname", sortable: true, filter: true},
+//   {headerName: "Імя", field: "name", sortable: true, filter: true},
+//   {headerName: "По батькові", field: "patronymic", sortable: true, filter: true},
+//   {headerName: "Кафедра", field: "department", sortable: true, filter: true},
+//   {headerName: "Посада", field: "position", sortable: true, filter: true}
+// ];
+//
+// rowData = [
+//   {surname: "Pogor", name:"Vladyslav", patronymic:"Vladymirovich", department: "IT", position: "BigdBoss" },
+//   {surname: "", name:"", patronymic:"", department: "", position: "" },
+//   {surname: "", name:"", patronymic:"", department: "", position: "" },
+//   {surname: "", name:"", patronymic:"", department: "", position: "" },
+//   {surname: "", name:"", patronymic:"", department: "", position: "" }
+// ];

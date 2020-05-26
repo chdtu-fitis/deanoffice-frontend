@@ -1,0 +1,12 @@
+<form>
+  <p>Додати підписанта:</p>
+  <div class="form-group">
+    <label for="fullName">П.І.Б.</label>
+    <input type="text" name="fullName" class="form-control" placeholder="П.І.Б." id="fullName" [(ngModel)]="orderApprover.fullName">
+  </div>
+  <div class="form-group">
+    <label for="position">Посада</label>
+    <input type="text" name="position" class="form-control" placeholder="Посада" id="position" [(ngModel)]="orderApprover.position">
+  </div>
+  <button type="submit" class="btn btn-success align-middle" (click)="onAddApprover()">Додати</button>
+</form>

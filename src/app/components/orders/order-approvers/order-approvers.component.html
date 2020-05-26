@@ -1,1 +1,49 @@
-<p>order-approvers works!</p>
+ <div class="container">
+  <div class="header">
+    <mat-slide-toggle>Чинні падписанти
+  <!--    class="ml-1"-->
+  <!--    [checked]="active"-->
+  <!--    [(ngModel)]="active"-->
+  <!--    (change)="loadTeachers($event.checked, allFaculties)">-->
+  <!--    {{active ? 'Актуальні': 'Неактуальні'}} викладачі-->
+    </mat-slide-toggle>
+
+  </div>
+  <div class="content">
+    <table>
+      <tr>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+        <th>Actions</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let approver of approvers">
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+          <td><button class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button></td>
+        </tr>
+      <tbody>
+    </table>
+    <table>
+      <tr>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+        <th>Actions</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let approver of approvers">
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+          <td><button class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button></td>
+        </tr>
+      <tbody>
+    </table>
+    <order-approvers-form
+      (newApproverSave) = "onCreateOrderApprover($event)"
+    ></order-approvers-form>
+
+  </div>
+ </div>
+
+
+
