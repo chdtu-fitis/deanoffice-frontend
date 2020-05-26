@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {GridReadyEvent, ModelUpdatedEvent, SelectionChangedEvent} from '@ag-grid-community/all-modules'
-
 import {SpecializationService} from '../../services/specialization.service';
 import {Specialization} from '../../models/Specialization';
 import {COLUMN_DEFINITIONS} from './column-definitions';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
-
 
 @Component({
   selector: 'specialization',

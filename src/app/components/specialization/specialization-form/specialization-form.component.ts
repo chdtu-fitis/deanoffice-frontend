@@ -16,13 +16,12 @@ import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
 import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
-
-
+import {TeacherService} from "../../../services/teacher.service";
+import {Teacher} from "../../../models/Teacher";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
 const DEFAULT_STRING = '';
-
 
 @Component({
   selector: 'specialization-form',
@@ -42,15 +41,20 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   isShow = true;
   lang = Lang;
 
+  teachersDataSource: Observable<any>;
+  selectedGuarantorId;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
     private _departmentService: DepartmentService,
-    private _acquiredCompetenciesService: AcquiredCompetenciesService
+    private _acquiredCompetenciesService: AcquiredCompetenciesService,
+    private _teacherService: TeacherService
   ) {
     super();
     this.setInitialData();
+    this.createTeachersDataSource();
   }
 
   // TODO Return validation for name (only ukr), programHead, certificate
@@ -73,6 +77,24 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
       educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
+    });
+  }
+
+  createTeachersDataSource() {
+    this.teachersDataSource = Observable.create((observer: any) => {
+      let guarantorInputValue = this.form.controls.educationalProgramHeadName.value;
+      if (guarantorInputValue.length < 3) {
+        return;
+      }
+
+      // clear the selected value if input value was changed after selection
+      if (this.selectedGuarantorId) {
+        this.selectedGuarantorId = null;
+      }
+      this._teacherService.getTeachersShortBySurnamePart(guarantorInputValue).subscribe((result: any) => {
+        result.forEach(teacher => teacher.fullName = teacher.surname + " " + teacher.name + " " + teacher.patronimic);
+        observer.next(result);
+      });
     });
   }
 
@@ -215,5 +237,10 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   private _saveQualification(specializationId): void {
     this.qualification.save(specializationId);
+  }
+
+
+  onGuarantorSelect(param) {
+
   }
 }

@@ -25,6 +25,12 @@ export class TeacherService {
       .pipe(catchError(forObservable('Отримання короткого списку викладачів', [])));
   }
 
+  public getTeachersShortBySurnamePart(searchStr: string): Observable<Teacher[]> {
+    const params =  new HttpParams().set('searchStr', searchStr);
+    return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers-short/search`, {params})
+      .pipe(catchError(forObservable('Пошук викладачів', [])));
+  }
+
   public getTeachersAllFaculties(active: boolean): Observable<Teacher[]> {
     const params =  new HttpParams().set('active', active.toString());
     return this._httpClient.get<Teacher[]>(`${this.teachersUrl}/teachers-full`, {params})
