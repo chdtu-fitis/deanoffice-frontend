@@ -27,13 +27,11 @@
       <tr>
         <th>П.І.Б.</th>
         <th>Посада</th>
-        <th></th>
       </tr>
       <tbody>
         <tr *ngFor="let approver of universityApprovers">
           <td>{{approver.fullName}}</td>
           <td>{{approver.position}}</td>
-          <td><button class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button></td>
         </tr>
       <tbody>
     </table>

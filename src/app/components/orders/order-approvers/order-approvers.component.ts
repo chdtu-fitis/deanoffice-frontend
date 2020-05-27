@@ -35,7 +35,10 @@ export class OrderApproversComponent implements OnInit {
   }
 
   removeOrder(id: number) {
-    this.orderApproversService.deleteApprover(id);
+    this.orderApproversService.deleteApprover(id).subscribe(() =>{
+      let deleteIndex = this.facultyApprovers.findIndex(approver => approver.id == id );
+      this.facultyApprovers.splice(deleteIndex, 1);
+    });
   }
 }
 
