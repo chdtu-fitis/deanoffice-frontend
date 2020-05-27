@@ -5,12 +5,12 @@ import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DegreeService} from '../../../services/degree.service';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
-import {TabsetComponent} from 'ngx-bootstrap';
+import {TabsetComponent, TypeaheadMatch} from 'ngx-bootstrap';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
@@ -64,6 +64,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       name: data.name,
       nameEng: data.nameEng,
       code: data.code,
+      // programHead: data.programHead,
+      programHead: this._formBuilder.group({
+        id: '',
+        surname: '',
+        name: '',
+        patronimic: ''
+      }),
+      programHeadId: data.programHeadId,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
@@ -82,7 +90,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   createTeachersDataSource() {
     this.teachersDataSource = Observable.create((observer: any) => {
-      let guarantorInputValue = this.form.controls.educationalProgramHeadName.value;
+      let guarantorInputValue = (this.form.controls.programHead as FormGroup).controls.surname.value;
       if (guarantorInputValue.length < 3) {
         return;
       }
@@ -91,8 +99,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       if (this.selectedGuarantorId) {
         this.selectedGuarantorId = null;
       }
-      this._teacherService.getTeachersShortBySurnamePart(guarantorInputValue).subscribe((result: any) => {
-        result.forEach(teacher => teacher.fullName = teacher.surname + " " + teacher.name + " " + teacher.patronimic);
+      this._teacherService.getTeachersBySurnamePart(guarantorInputValue).subscribe((result: any) => {
+        //result.forEach(teacher => teacher.fullName = teacher.surname + " " + teacher.name + " " + teacher.patronimic);
         observer.next(result);
       });
     });
@@ -239,8 +247,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.qualification.save(specializationId);
   }
 
-
-  onGuarantorSelect(param) {
-
+  onGuarantorSelect(event: TypeaheadMatch): void {
+    this.form.controls.programHead.setValue(event.item);
   }
 }
