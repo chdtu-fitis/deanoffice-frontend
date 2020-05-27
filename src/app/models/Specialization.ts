@@ -2,6 +2,7 @@ import {NameWithEngAndActiveEntity} from './basemodels/NameWithEngAndActiveEntit
 import {Speciality} from './Speciality';
 import {Degree} from './Degree';
 import {Department} from './Department';
+import {Teacher} from './Teacher';
 
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;
@@ -12,7 +13,7 @@ export class Specialization extends NameWithEngAndActiveEntity {
   qualificationEng?: string;
   paymentFulltime?: number;
   paymentExtramural?: number;
-  educationalProgramHeadName: string;
+  educationalProgramHeadName?: Teacher;
   educationalProgramHeadNameEng: string;
   educationalProgramHeadInfo: string;
   educationalProgramHeadInfoEng: string;
@@ -22,6 +23,7 @@ export class Specialization extends NameWithEngAndActiveEntity {
   specialityId?: number;
   degreeId?: number;
   departmentId?: number;
+  educationalProgramHeadId?: number;
   constructor() {
     super();
   }

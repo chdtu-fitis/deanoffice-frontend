@@ -16,7 +16,8 @@ import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
 import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
-
+import {Teacher} from '../../../models/Teacher';
+import {TeacherService} from '../../../services/teacher.service';
 
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
@@ -39,6 +40,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   degrees: Degree[] = [];
   specialities: Speciality[] = [];
   departments: Department[] = [];
+  educationalProgramHeadNames: Teacher[] = [];
   isShow = true;
   lang = Lang;
 
@@ -47,7 +49,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
     private _departmentService: DepartmentService,
-    private _acquiredCompetenciesService: AcquiredCompetenciesService
+    private _acquiredCompetenciesService: AcquiredCompetenciesService,
+    private _teacherService: TeacherService
   ) {
     super();
     this.setInitialData();
@@ -69,7 +72,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentExtramural: data.paymentExtramural,
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
-      educationalProgramHeadName: data.educationalProgramHeadName,
+      educationalProgramHeadId: [data.educationalProgramHeadId, Validators.required],
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
       educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
@@ -81,6 +84,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.setSpecialityToAllActiveInFaculty();
     this._departmentService.getDepartments()
       .subscribe((departments: Department[]) => this.departments = departments);
+    this._teacherService.getTeachers(true)
+      .subscribe((educationalProgramHeadNames: Teacher[]) => this.educationalProgramHeadNames = educationalProgramHeadNames)
   }
 
   onSpecialityCheckboxChange(event: Event) {
@@ -137,7 +142,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
-      educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
+      // educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
       educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
       educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
       educationalProgramHeadInfoEng: s.educationalProgramHeadInfoEng || DEFAULT_STRING
