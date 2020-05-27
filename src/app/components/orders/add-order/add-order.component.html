@@ -64,10 +64,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-success" type="submit" [disabled]="createOrderForm.invalid">
+        <button class="btn btn-success" type="submit" [disabled]="createOrderForm.invalid || loading">
           Створити
         </button>
       </div>
     </form>
   </div>
 </div>
+
+<ng-template #createOrderTemplateRef></ng-template>

@@ -1,0 +1,31 @@
+<div
+  class="modal fade"
+  [config]="{backdrop: 'static'}"
+  bsModal
+  #modal="bs-modal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="position-relative modal-dialog modal-dialog-centered">
+    <form class="modal-content" [formGroup]="deductionOrder">
+      <div class="modal-header">
+        <h4 class="modal-title">Наказ про відрахування</h4>
+        <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex overflow-auto">
+        <div class="controls container">
+          dddd
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" type="submit">
+          Створити
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
