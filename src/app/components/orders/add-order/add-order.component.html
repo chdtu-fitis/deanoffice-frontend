@@ -8,8 +8,8 @@
   aria-labelledby="mySmallModalLabel"
   aria-hidden="true"
 >
-  <div class="position-relative modal-container">
-    <form class="modal-content h-100" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
+  <div class="position-relative modal-dialog modal-dialog-centered">
+    <form class="modal-content" [formGroup]="createOrderForm" (ngSubmit)="onSubmit()">
       <div class="modal-header">
         <h4 class="modal-title">Створити наказ</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
@@ -45,49 +45,25 @@
                 type="text"
                 placeholder="Номер наказу"
                 class="form-control"
-                [appValidation]="createOrderForm.controls.orderNumber"
+                [appValidation]="createOrderForm.get('orderNumber')"
               >
-              <app-validation-errors [control]="createOrderForm.controls.orderNumber"></app-validation-errors>
+              <app-validation-errors [control]="createOrderForm.get('orderNumber')"></app-validation-errors>
             </div>
             <div class="col-6">
-              <label for="order-date" class="required">Дата народження</label>
+              <label for="order-date" class="required">Дата наказу</label>
               <input
                 id="order-date"
                 type="date"
                 formControlName="orderDate"
                 class="form-control"
-                [appValidation]="createOrderForm.controls.orderNumber"
+                [appValidation]="createOrderForm.get('orderDate')"
               >
-              <app-validation-errors [control]="createOrderForm.controls.orderDate"></app-validation-errors>
+              <app-validation-errors [control]="createOrderForm.get('orderDate')"></app-validation-errors>
             </div>
           </div>
-          <div class="row">
-            <div class="col-6">
-              <label for="student-name" class="required">Прізвище студента</label>
-              <input
-                id="student-name"
-                formControlName="studentName"
-                [typeahead]="studentsSurnames"
-                [typeaheadMinLength]="2"
-                class="form-control"
-              >
-            </div>
-            <div>
-
-            </div>
-          </div>
-          <ng-container [ngSwitch]="createOrderForm.get('orderType').value">
-            <app-deduction-order *ngSwitchCase="'deduction'"></app-deduction-order>
-          </ng-container>
-        </div>
-        <div class="document-overview">
-          <div>Документ очікує введення даних...</div>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">
-          Завантажити
-        </button>
         <button class="btn btn-success" type="submit" [disabled]="createOrderForm.invalid">
           Створити
         </button>

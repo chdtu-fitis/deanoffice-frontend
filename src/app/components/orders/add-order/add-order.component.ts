@@ -36,13 +36,10 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   async ngOnInit() {
     this._initForm();
     this.orderTypes = await this._ordersService.getOrderTypes().toPromise();
-    this._trackStudentNameChange();
   }
 
   ngAfterViewInit() {
     this.modal.ngOnInit();
-    this.deduction.deductionOrder.setParent(this.createOrderForm);
-    this.createOrderForm.addControl('deductionOrder', this.deduction.deductionOrder);
   }
 
   public hideModal(): void {
@@ -55,10 +52,6 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public changeOrderType(orderType): void {
     console.log(orderType);
-  }
-
-  changeTypeaheadLoading(e: boolean): void {
-    this.typeaheadLoading = e;
   }
 
   private getStudentsAsObservable(token: string): Observable<any> {
@@ -76,21 +69,24 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       orderType: new FormControl('deduction'),
       orderNumber: new FormControl('',  Validators.required),
       orderDate: new FormControl(null,  Validators.required),
-      studentName: new FormControl('')
     })
   }
 
-  private _trackStudentNameChange() {
-    this.createOrderForm.get('studentName').valueChanges
-      .pipe(
-        debounceTime(500),
-        switchMap(name => this.getStudentsAsObservable(name)),
-        takeUntil(this.ngUnsubscribe))
-      .subscribe(name => {
-         this.studentsSurnames = name;
-         console.log(this.studentsSurnames);
-      })
+  private _getOrderTemplateByType() {
+
   }
+
+  // private _trackStudentNameChange() {
+  //   this.createOrderForm.get('studentName').valueChanges
+  //     .pipe(
+  //       debounceTime(500),
+  //       switchMap(name => this.getStudentsAsObservable(name)),
+  //       takeUntil(this.ngUnsubscribe))
+  //     .subscribe(name => {
+  //        this.studentsSurnames = name;
+  //        console.log(this.studentsSurnames);
+  //     })
+  // }
 
   ngOnDestroy() {
     this.ngUnsubscribe.complete();

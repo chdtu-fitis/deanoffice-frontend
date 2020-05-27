@@ -28,4 +28,8 @@ export class OrdersService {
     // return this.http.get(this.url)
     return of(orderTypes);
   }
+
+  public getOrderTemplateByType() {
+    return of({});
+  }
 }
