@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {IAppModal} from '../modal.interface';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'modal-wrapper',

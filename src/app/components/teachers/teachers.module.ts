@@ -9,7 +9,7 @@ import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { AddTeacherComponent } from './add-teacher/add-teacher.component';
-import {TabsModule} from 'ngx-bootstrap';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 import { DeleteTeacherComponent } from './delete-teacher/delete-teacher.component';
 import { UpdateTeacherComponent } from './update-teacher/update-teacher.component';
 import {MatSlideToggleModule} from '@angular/material';

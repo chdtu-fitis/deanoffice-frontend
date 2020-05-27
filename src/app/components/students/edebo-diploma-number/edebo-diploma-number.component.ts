@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {EdeboDiplomaNumberService} from '../../../services/edebo-diploma-number.service';
 import {DiplomaAndSynchronizedStudentDTO} from '../../../models/edebo-diploma-number/DiplomaAndSynchronizedStudentDTO';

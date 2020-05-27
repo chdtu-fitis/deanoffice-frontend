@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 import {ThesisInputService} from '../../../services/thesis-input.service';
 import {ThesisByGroups} from '../../../models/thesis-theme-models/ThesisByGroups';
 import {MissingThesisDataRed} from '../../../models/thesis-theme-models/MissingThesisDataRed';

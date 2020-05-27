@@ -7,10 +7,10 @@ import { StudentGroup } from '../../models/StudentGroup';
 import {defaultColDef, defaultColumnDefs, allColumnDefs, LOCALE_TEXT} from './constants';
 import {GroupFilterComponent} from './group-filter/group-filter.component';
 import {PaymentFilterComponent} from './payment-filter/payment-filter.component';
-import {BsModalService} from 'ngx-bootstrap';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
-import {AcademicCertificateService} from "../../services/academic-certificate.service";
+import {AcademicCertificateService} from '../../services/academic-certificate.service';
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 @Component({
