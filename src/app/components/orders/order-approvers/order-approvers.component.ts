@@ -10,20 +10,33 @@ import {Observable} from "rxjs";
   styleUrls: ['./order-approvers.component.scss']
 })
 export class OrderApproversComponent implements OnInit {
-  approvers: OrderApprover[];
+  universityApprovers: OrderApprover[];
+  facultyApprovers: OrderApprover[];
+  active: boolean = true;
+
   constructor(private orderApproversService: OrderApproversService) { }
 
   ngOnInit() {
-    this.orderApproversService.getApprovers().subscribe(approvers=>this.approvers = approvers);
+    this.orderApproversService.getApprovers().subscribe(approvers=> {
+      this.universityApprovers = [];
+      this.facultyApprovers = [];
+      for (let approver of approvers) {
+        if (approver.faculty === null) {
+          this.universityApprovers.push(approver);
+        } else {
+          this.facultyApprovers.push(approver);
+        }
+      }
+    });
   }
 
   onCreateOrderApprover(approver: OrderApprover) {
-    this.approvers.push(approver);
+    this.facultyApprovers.push(approver);
   }
 
-  // removeOrder(id: number) {
-  //   this.orderApproversService.delete(id);
-  // }
+  removeOrder(id: number) {
+    this.orderApproversService.deleteApprover(id);
+  }
 }
 
 // columnDefs = [

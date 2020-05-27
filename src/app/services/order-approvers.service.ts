@@ -43,6 +43,10 @@ export class OrderApproversService {
   //   approvers = approvers.filter((approver) => approver.id != approverId)
   //   this.approvers.next(approvers)
   // }
+  public deleteApprover (id: number): Observable<Object> {
+    const url = `${this.approversUrl}/approvers/${id}`;
+    return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення підписанта', [])));
+  }
 
 
 
