@@ -9,7 +9,7 @@
               [checked]="active"
               [(ngModel)]="active"
               (change)="getSpecializations($event.checked)">
-              {{active ? 'Активні': 'Неактивні'}} спеціалізіції
+              {{active ? 'Активні': 'Неактивні'}} освітні програми
             </mat-slide-toggle>
           </label>
         </div>
@@ -28,7 +28,7 @@
 
           <button type="button" class="btn btn-success mr-1"
                   (click)="addSpecializationModal.openModal()">
-            Нова спеціалізація
+            Нова освітня програма
           </button>
         </div>
         <div *ngIf="active === false">

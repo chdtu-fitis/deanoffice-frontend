@@ -20,7 +20,7 @@ export class UpdateSpecializationComponent {
   getTitle(): string {
     let name: string = (this.source) ? this.source.name : '';
     name = (name) ? `${name} (${this.source.degree.name})` : '';
-    return `Оновлення спеціалізації: ${name}`;
+    return `Оновлення освітньої програми: ${name}`;
   }
 
   openModal(sourceId: number): void {

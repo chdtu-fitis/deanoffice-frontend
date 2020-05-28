@@ -149,26 +149,25 @@
           </div>
 
           <div class="form-group">
-            <label for="educationalProgramHeadNameEng">Гарант програми англійською</label>
-            <input formControlName="educationalProgramHeadNameEng" type="text" class="form-control"
-                   id="educationalProgramHeadNameEng1">
+            <label for="educationalProgramHeadNameEng1">Гарант програми англійською</label>
+            <input type="text" class="form-control" id="educationalProgramHeadNameEng1" disabled>
           </div>
         </div>
 
         <div class="form-item">
           <div class="form-group">
-            <label for="educationalProgramHeadInfo">Інформація про гаранта програми</label>
-            <textarea formControlName="educationalProgramHeadInfo" type="text" class="form-control ta-3l"
-                      id="educationalProgramHeadInfo1">
+            <label for="educationalProgramHeadInfo1">Інформація про гаранта програми</label>
+            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfo1"
+                      value="{{currentProgramHead?.scientificDegree?.name}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.ukr}}" disabled>
           </textarea>
           </div>
 
           <div class="form-group">
-            <label for="educationalProgramHeadInfoEng">
+            <label for="educationalProgramHeadInfoEng1">
               Інформація про гаранта програми англійською
             </label>
-            <textarea formControlName="educationalProgramHeadInfoEng" type="text" class="form-control ta-3l"
-                      id="educationalProgramHeadInfoEng1">
+            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfoEng1"
+                      value="{{currentProgramHead?.scientificDegree?.nameEng}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.eng}}" disabled>
           </textarea>
           </div>
         </div>

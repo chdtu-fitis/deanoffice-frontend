@@ -18,6 +18,7 @@ import {Lang} from './enums/lang.enum';
 import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
 import {TeacherService} from "../../../services/teacher.service";
 import {Teacher} from "../../../models/Teacher";
+import {AcademicTitleValues} from "../../../models/AcademicTitleValues";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -42,8 +43,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   lang = Lang;
 
   teachersDataSource: Observable<any>;
-  selectedGuarantorId;
-  programHeadFullNameValue: string;
+  currentProgramHead: Teacher;
+  AcademicTitleValues = AcademicTitleValues;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -84,6 +85,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
       educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
     });
+    this.currentProgramHead = data.programHead;
   }
 
   createTeachersDataSource() {
@@ -248,8 +250,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   onGuarantorSelect(event: TypeaheadMatch): void {
-    const programHead = event.item as Teacher;
-    (this.form.controls.programHead as FormGroup).controls.fullName.setValue(`${programHead.surname} ${programHead.name} ${programHead.patronimic}`);
-    (this.form.controls.programHead as FormGroup).controls.id.setValue(programHead.id);
+    this.currentProgramHead = event.item as Teacher;
+    const programHeadFormGroup = this.form.controls.programHead as FormGroup;
+    programHeadFormGroup.controls.fullName.setValue(`${this.currentProgramHead.surname} ${this.currentProgramHead.name} ${this.currentProgramHead.patronimic}`);
+    programHeadFormGroup.controls.id.setValue(this.currentProgramHead.id);
   }
 }
