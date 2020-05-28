@@ -137,7 +137,7 @@
             <label for="programHead">Гарант програми</label>
             <input formControlName="fullName"
                    [typeahead]="teachersDataSource"
-                   (typeaheadOnSelect)="onGuarantorSelect($event)"
+                   (typeaheadOnSelect)="onProgramHeadSelect($event)"
                    [typeaheadOptionsLimit]="12"
                    [typeaheadMinLength]="3"
                    [typeaheadItemTemplate]="template"

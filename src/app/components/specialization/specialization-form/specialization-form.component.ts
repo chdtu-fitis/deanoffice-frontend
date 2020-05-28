@@ -99,6 +99,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       let guarantorIdControl = (this.form.controls.programHead as FormGroup).controls.id;
       if (guarantorIdControl.value) {
         guarantorIdControl.setValue(null);
+        this.currentProgramHead = null;
       }
       this._teacherService.getTeachersBySurnamePart(guarantorInputValue).subscribe((result: any) => {
         observer.next(result);
@@ -249,7 +250,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     this.qualification.save(specializationId);
   }
 
-  onGuarantorSelect(event: TypeaheadMatch): void {
+  onProgramHeadSelect(event: TypeaheadMatch): void {
     this.currentProgramHead = event.item as Teacher;
     const programHeadFormGroup = this.form.controls.programHead as FormGroup;
     programHeadFormGroup.controls.fullName.setValue(`${this.currentProgramHead.surname} ${this.currentProgramHead.name} ${this.currentProgramHead.patronimic}`);
