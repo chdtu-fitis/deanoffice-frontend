@@ -135,7 +135,7 @@
           <div class="form-group">
             <div formGroupName="programHead">
             <label for="programHead">Гарант програми</label>
-            <input formControlName="surname"
+            <input formControlName="fullName"
                    [typeahead]="teachersDataSource"
                    (typeaheadOnSelect)="onGuarantorSelect($event)"
                    [typeaheadOptionsLimit]="12"

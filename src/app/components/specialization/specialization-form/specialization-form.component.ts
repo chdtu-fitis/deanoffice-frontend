@@ -43,6 +43,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   teachersDataSource: Observable<any>;
   selectedGuarantorId;
+  programHeadFullNameValue: string;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -66,12 +67,9 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       code: data.code,
       // programHead: data.programHead,
       programHead: this._formBuilder.group({
-        id: '',
-        surname: '',
-        name: '',
-        patronimic: ''
+        id: data.programHead ? data.programHead.id : '',
+        fullName: data.programHead ? `${data.programHead.surname} ${data.programHead.name} ${data.programHead.patronimic}` : ''
       }),
-      programHeadId: data.programHeadId,
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
@@ -90,17 +88,17 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   createTeachersDataSource() {
     this.teachersDataSource = Observable.create((observer: any) => {
-      let guarantorInputValue = (this.form.controls.programHead as FormGroup).controls.surname.value;
+      let guarantorInputValue = (this.form.controls.programHead as FormGroup).controls.fullName.value;
       if (guarantorInputValue.length < 3) {
         return;
       }
 
       // clear the selected value if input value was changed after selection
-      if (this.selectedGuarantorId) {
-        this.selectedGuarantorId = null;
+      let guarantorIdControl = (this.form.controls.programHead as FormGroup).controls.id;
+      if (guarantorIdControl.value) {
+        guarantorIdControl.setValue(null);
       }
       this._teacherService.getTeachersBySurnamePart(guarantorInputValue).subscribe((result: any) => {
-        //result.forEach(teacher => teacher.fullName = teacher.surname + " " + teacher.name + " " + teacher.patronimic);
         observer.next(result);
       });
     });
@@ -157,6 +155,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   getValue(): Specialization {
+    (this.form.controls.programHead as FormGroup).removeControl("fullName");
     const s: Specialization = this.form.getRawValue() as Specialization;
     return {
       ...s,
@@ -167,6 +166,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
+      programHead: s.programHead.id ? s.programHead : null,
       educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
       educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
       educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
@@ -248,6 +248,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   onGuarantorSelect(event: TypeaheadMatch): void {
-    this.form.controls.programHead.setValue(event.item);
+    const programHead = event.item as Teacher;
+    (this.form.controls.programHead as FormGroup).controls.fullName.setValue(`${programHead.surname} ${programHead.name} ${programHead.patronimic}`);
+    (this.form.controls.programHead as FormGroup).controls.id.setValue(programHead.id);
   }
 }
