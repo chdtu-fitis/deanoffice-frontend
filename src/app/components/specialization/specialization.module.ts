@@ -20,6 +20,7 @@ import { ChangeQualificationComponent } from './specialization-form/specializati
 import {PipeModule} from '../../pipes/pipe.module';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { RecoverySpecializationComponent } from './recovery-specialization/recovery-specialization.component';
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -33,6 +34,7 @@ export const specializationRoutes: Routes = [
     SharedModule,
     TabsModule.forRoot(),
     AlertModule.forRoot(),
+    TypeaheadModule.forRoot(),
     RouterModule.forChild(specializationRoutes),
     PipeModule.forRoot(),
     MatSlideToggleModule,

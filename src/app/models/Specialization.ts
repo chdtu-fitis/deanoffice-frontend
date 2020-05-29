@@ -2,12 +2,14 @@ import {NameWithEngAndActiveEntity} from './basemodels/NameWithEngAndActiveEntit
 import {Speciality} from './Speciality';
 import {Degree} from './Degree';
 import {Department} from './Department';
+import {Teacher} from "./Teacher";
 
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;
   code: string;
   degree: Degree;
   department?: Department;
+  programHead?: Teacher;
   qualification?: string;
   qualificationEng?: string;
   paymentFulltime?: number;
