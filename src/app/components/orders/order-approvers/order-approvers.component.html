@@ -1,8 +1,9 @@
  <div class="approverContainer">
   <div class="header">
-    <mat-slide-toggle [(ngModel)]="active" [checked]="active">Чинні падписанти
-   <!--    (change)="loadTeachers($event.checked, allFaculties)">-->
-  <!--    {{active ? 'Актуальні': 'Неактуальні'}} викладачі-->
+    <mat-slide-toggle [(ngModel)]="active"
+                      [checked]="active"
+                      (change)="loadApprovers()"
+    >{{active ? 'Чинні': 'Не чинні'}} підписанти
     </mat-slide-toggle>
 
   </div>
@@ -18,7 +19,9 @@
         <tr *ngFor="let approver of facultyApprovers">
           <td>{{approver.fullName}}</td>
           <td>{{approver.position}}</td>
-          <td><button class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button></td>
+          <td><button *ngIf="active" class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button>
+              <button *ngIf="!active" class="btn btn-success align-middle" (click)="restoreApprover(approver.id)">Відновити</button>
+          </td>
         </tr>
       <tbody>
     </table>
@@ -38,7 +41,6 @@
     <order-approvers-form
       (newApproverSave) = "onCreateOrderApprover($event)"
     ></order-approvers-form>
-
   </div>
  </div>
 

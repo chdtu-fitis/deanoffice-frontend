@@ -19,6 +19,7 @@ export class OrderApproversFormComponent implements OnInit {
   }
 
   onAddApprover() {
+    this.orderApprover.active = true;
     this.orderApproversService.addOrderApprover(this.orderApprover)
       .subscribe(orderApprover => this.newApproverSave.emit(orderApprover));
     this.orderApprover = OrderApprover.empty();
