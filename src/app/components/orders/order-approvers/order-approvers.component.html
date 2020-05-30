@@ -1,0 +1,48 @@
+ <div class="approverContainer">
+  <div class="header">
+    <mat-slide-toggle [(ngModel)]="active"
+                      [checked]="active"
+                      (change)="loadApprovers()"
+    >{{active ? 'Чинні': 'Не чинні'}} підписанти
+    </mat-slide-toggle>
+
+  </div>
+  <div class="content">
+    <table>
+      <caption>Підписанти факультету</caption>
+      <tr>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+        <th></th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let approver of facultyApprovers">
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+          <td><button *ngIf="active" class="btn btn-danger align-middle" (click)="removeOrder(approver.id)">Видали</button>
+              <button *ngIf="!active" class="btn btn-success align-middle" (click)="restoreApprover(approver.id)">Відновити</button>
+          </td>
+        </tr>
+      <tbody>
+    </table>
+    <table>
+      <caption>Загальноуніверситетські підписанти</caption>
+      <tr>
+        <th>П.І.Б.</th>
+        <th>Посада</th>
+      </tr>
+      <tbody>
+        <tr *ngFor="let approver of universityApprovers">
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+        </tr>
+      <tbody>
+    </table>
+    <order-approvers-form
+      (newApproverSave) = "onCreateOrderApprover($event)"
+    ></order-approvers-form>
+  </div>
+ </div>
+
+
+
