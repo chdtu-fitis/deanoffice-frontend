@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {StudentDegree} from '../../../models/StudentDegree';
 import {StudentGroup} from '../../../models/StudentGroup';

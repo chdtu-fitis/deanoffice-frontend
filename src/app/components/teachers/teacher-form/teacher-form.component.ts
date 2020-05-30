@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators,} from '@angular/forms';
 import {Teacher} from '../../../models/Teacher';
-import {TabsetComponent} from 'ngx-bootstrap';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
 
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {DepartmentService} from '../../../services/department.service';

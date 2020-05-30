@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
 import {DebtorStatisticsComponent} from './debtors-statistics/debtor-statistics.component';
-import {TabsModule} from 'ngx-bootstrap';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 import {PipeModule} from '../../pipes/pipe.module';
 import {SharedModule} from '../shared/shared.module';
 import {DebtorStatisticsService} from '../../services/debtor-statistics.service';

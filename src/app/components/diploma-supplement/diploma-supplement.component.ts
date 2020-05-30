@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BsModalService} from 'ngx-bootstrap';
+import {BsModalService} from 'ngx-bootstrap/modal';
 
 import {DegreeService} from '../../services/degree.service';
 import {GroupService} from '../../services/group.service';

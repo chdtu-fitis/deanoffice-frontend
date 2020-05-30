@@ -1,15 +1,24 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {OrdersService} from '../../../services/orders.service';
-import {DeductionOrderComponent} from './deduction-order/deduction-order.component';
+import {StudentExpelOrderComponent} from './student-expel-order/student-expel-order.component';
 import {Observable} from 'rxjs/Observable';
 import {students} from '../moc';
 import {of} from 'rxjs/internal/observable/of';
-import {debounceTime, switchMap, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs/Rx';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'add-order',
@@ -17,13 +26,14 @@ import {Subject} from 'rxjs/Rx';
   styleUrls: ['./add-order.component.scss']
 })
 export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(DeductionOrderComponent, {static: false}) deduction: DeductionOrderComponent;
   @ViewChild('modal', {static: false}) modal: ModalDirective;
+  @ViewChild('createOrderTemplateRef', {static: false, read: ViewContainerRef}) createOrderTemplateRef: ViewContainerRef;
 
   public createOrderForm: FormGroup;
   public orderTypes;
-  public typeaheadLoading = null;
-  public studentSource: Observable<any>;
+  public loading = false;
+  // public typeaheadLoading = null;
+  // public studentSource: Observable<any>;
 
   studentsSurnames = students.map(elem => elem.surname);
 
@@ -31,18 +41,16 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   constructor(private fb: FormBuilder,
-              private _ordersService: OrdersService) {}
+              private _ordersService: OrdersService,
+              private componentFactoryResolver: ComponentFactoryResolver) {}
 
   async ngOnInit() {
     this._initForm();
     this.orderTypes = await this._ordersService.getOrderTypes().toPromise();
-    this._trackStudentNameChange();
   }
 
   ngAfterViewInit() {
     this.modal.ngOnInit();
-    this.deduction.deductionOrder.setParent(this.createOrderForm);
-    this.createOrderForm.addControl('deductionOrder', this.deduction.deductionOrder);
   }
 
   public hideModal(): void {
@@ -50,15 +58,27 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onSubmit(): void {
+    this._getOrderTemplateByType()
+      .pipe(first())
+      .subscribe(() => {
+        this.hideModal();
+        this._createOrder(this.createOrderForm.value.orderType);
+      });
+  }
+
+  private _createOrder(orderType: string): void {
+    if (orderType === 'deduction') {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StudentExpelOrderComponent);
+      this.createOrderTemplateRef.clear();
+      const componentRef = this.createOrderTemplateRef.createComponent(componentFactory);
+      const orderComponentInstance = componentRef.instance as StudentExpelOrderComponent;
+      this._listenOrderClose(orderComponentInstance);
+    }
 
   }
 
   public changeOrderType(orderType): void {
     console.log(orderType);
-  }
-
-  changeTypeaheadLoading(e: boolean): void {
-    this.typeaheadLoading = e;
   }
 
   private getStudentsAsObservable(token: string): Observable<any> {
@@ -76,21 +96,30 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       orderType: new FormControl('deduction'),
       orderNumber: new FormControl('',  Validators.required),
       orderDate: new FormControl(null,  Validators.required),
-      studentName: new FormControl('')
     })
   }
 
-  private _trackStudentNameChange() {
-    this.createOrderForm.get('studentName').valueChanges
-      .pipe(
-        debounceTime(500),
-        switchMap(name => this.getStudentsAsObservable(name)),
-        takeUntil(this.ngUnsubscribe))
-      .subscribe(name => {
-         this.studentsSurnames = name;
-         console.log(this.studentsSurnames);
+  private _listenOrderClose(componentInstance) {
+      componentInstance.orderClose$.pipe(first()).subscribe(() => {
+        this.createOrderTemplateRef.clear();
       })
   }
+
+  private _getOrderTemplateByType(): Observable<any> {
+    return this._ordersService.getOrderTemplateByType();
+  }
+
+  // private _trackStudentNameChange() {
+  //   this.createOrderForm.get('studentName').valueChanges
+  //     .pipe(
+  //       debounceTime(500),
+  //       switchMap(name => this.getStudentsAsObservable(name)),
+  //       takeUntil(this.ngUnsubscribe))
+  //     .subscribe(name => {
+  //        this.studentsSurnames = name;
+  //        console.log(this.studentsSurnames);
+  //     })
+  // }
 
   ngOnDestroy() {
     this.ngUnsubscribe.complete();

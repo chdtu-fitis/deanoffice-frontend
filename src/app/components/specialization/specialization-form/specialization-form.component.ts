@@ -10,7 +10,7 @@ import {DegreeService} from '../../../services/degree.service';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
-import {TabsetComponent} from 'ngx-bootstrap';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';

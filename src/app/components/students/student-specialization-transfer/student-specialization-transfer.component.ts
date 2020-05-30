@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {Specialization} from '../../../models/Specialization';
 import {SpecializationService} from '../../../services/specialization.service';

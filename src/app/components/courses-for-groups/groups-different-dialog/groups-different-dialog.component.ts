@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap/modal';
 import {CourseForGroupService} from '../../../services/course-for-group.service';
 import {ForeignCourses} from '../../../models/ForeignCourses';
 import {Course} from '../../../models/Course';

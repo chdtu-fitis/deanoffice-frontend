@@ -1,13 +1,13 @@
 import {Component, EventEmitter, ViewChild, Output} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import {ModalDirective} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
 
 import {IAppModal} from '../../shared/modal.interface';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
 import {StudentService} from '../../../services/student.service';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {GroupService} from '../../../services/group.service';
-import {forObservable} from "../../shared/httpErrors";
+import {forObservable} from '../../shared/httpErrors';
 
 @Component({
     selector: 'app-renew-student',

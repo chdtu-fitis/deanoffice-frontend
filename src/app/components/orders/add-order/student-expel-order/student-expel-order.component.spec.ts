@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeductionOrderComponent } from './deduction-order.component';
+import { StudentExpelOrderComponent } from './student-expel-order.component';
 
 describe('DeductionOrderComponent', () => {
-  let component: DeductionOrderComponent;
-  let fixture: ComponentFixture<DeductionOrderComponent>;
+  let component: StudentExpelOrderComponent;
+  let fixture: ComponentFixture<StudentExpelOrderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeductionOrderComponent ]
+      declarations: [ StudentExpelOrderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeductionOrderComponent);
+    fixture = TestBed.createComponent(StudentExpelOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
