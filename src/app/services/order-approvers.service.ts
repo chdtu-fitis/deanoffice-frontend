@@ -31,9 +31,8 @@ export class OrderApproversService {
   }
 
   public restoreApprover (id: number): Observable<Object>  {
-    const body = new HttpParams().set('approverId', id.toString());
-    const url = `${this.approversUrl}/approvers/restore`;
-    return this._httpClient.put(url, body);
+    const url = `${this.approversUrl}/approvers/${id}/restore`;
+    return this._httpClient.put(url, null);
   }
 }
 
