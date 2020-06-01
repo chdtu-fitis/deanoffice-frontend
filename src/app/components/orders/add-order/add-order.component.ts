@@ -2,23 +2,21 @@ import {
   AfterViewInit,
   Component,
   ComponentFactoryResolver,
-  ComponentRef,
   OnDestroy,
   OnInit,
   ViewChild,
   ViewContainerRef
 } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import {ModalDirective} from 'ngx-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import {OrdersService} from '../../../services/orders.service';
-import {StudentExpelOrderComponent} from './student-expel-order/student-expel-order.component';
-import {Observable} from 'rxjs/Observable';
-import {students} from '../moc';
-import {of} from 'rxjs/internal/observable/of';
-import {Subject} from 'rxjs/Rx';
-import {first} from 'rxjs/operators';
+import { OrdersService } from '../../../services/orders.service';
+import { StudentExpelOrderComponent } from './student-expel-order/student-expel-order.component';
+import { Observable } from 'rxjs/Observable';
+import { students } from '../moc';
+import { Subject } from 'rxjs/Rx';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'add-order',
@@ -32,13 +30,10 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   public createOrderForm: FormGroup;
   public orderTypes;
   public loading = false;
-  // public typeaheadLoading = null;
-  // public studentSource: Observable<any>;
 
   studentsSurnames = students.map(elem => elem.surname);
 
   private ngUnsubscribe: Subject<any> = new Subject();
-
 
   constructor(private fb: FormBuilder,
               private _ordersService: OrdersService,
@@ -74,21 +69,10 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
       const orderComponentInstance = componentRef.instance as StudentExpelOrderComponent;
       this._listenOrderClose(orderComponentInstance);
     }
-
   }
 
   public changeOrderType(orderType): void {
     console.log(orderType);
-  }
-
-  private getStudentsAsObservable(token: string): Observable<any> {
-    const query = new RegExp(token, 'i');
-
-    return of(
-      students.map(elem => elem.surname).filter((state: any) => {
-        return query.test(state);
-      })
-    );
   }
 
   private _initForm(): void {
@@ -100,9 +84,9 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private _listenOrderClose(componentInstance) {
-      componentInstance.orderClose$.pipe(first()).subscribe(() => {
-        this.createOrderTemplateRef.clear();
-      })
+    componentInstance.orderClose$.pipe(first()).subscribe(() => {
+      this.createOrderTemplateRef.clear();
+    })
   }
 
   private _getOrderTemplateByType(): Observable<any> {
