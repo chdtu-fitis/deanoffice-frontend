@@ -8,8 +8,8 @@
   aria-labelledby="mySmallModalLabel"
   aria-hidden="true"
 >
-  <div class="position-relative modal-dialog modal-dialog-centered">
-    <form class="modal-content" [formGroup]="deductionOrder">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content h-100" [formGroup]="deductionOrder">
       <div class="modal-header">
         <h4 class="modal-title">Наказ про відрахування</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
@@ -17,8 +17,11 @@
         </button>
       </div>
       <div class="modal-body d-flex overflow-auto">
-        <div class="controls container">
-          dddd
+        <div class="actions-container border-right">
+
+        </div>
+        <div class="preview-container">
+
         </div>
       </div>
       <div class="modal-footer">

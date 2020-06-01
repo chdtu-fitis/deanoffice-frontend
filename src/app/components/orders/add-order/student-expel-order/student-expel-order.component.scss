@@ -1,3 +1,21 @@
 :host {
   display: block;
 }
+
+.modal-dialog {
+  margin: 0;
+  min-width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  max-width: unset;
+}
+
+.modal-body {
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .actions-container,.preview-container {
+    flex-basis: 50%;
+  }
+}
+
+
