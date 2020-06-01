@@ -11,6 +11,7 @@ import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 import { OrderApproversComponent } from './order-approvers/order-approvers.component';
 import { OrderApproversFormComponent } from './order-approvers/order-approvers-forms/order-approvers-form.component';
 import {StudentExpelOrderComponent} from "./add-order/student-expel-order/student-expel-order.component";
+import { StudentOrderTemplateComponent } from './add-order/student-order-template/student-order-template.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {StudentExpelOrderComponent} from "./add-order/student-expel-order/studen
     OrderApproversComponent,
     OrderApproversFormComponent,
     StudentExpelOrderComponent,
+    StudentOrderTemplateComponent,
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService]
