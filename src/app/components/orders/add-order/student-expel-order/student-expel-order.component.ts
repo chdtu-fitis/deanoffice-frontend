@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild, ViewContainerRef} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 
 @Component({
@@ -12,7 +12,8 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
 
   @Output() orderClose$: EventEmitter<void> = new EventEmitter<void>();
 
-  public deductionOrder: FormGroup;
+  public expelStudentOrder: FormGroup;
+  public expelStudents: FormArray;
 
   constructor(private fb: FormBuilder) { }
 
@@ -30,8 +31,19 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
   }
 
   private _initForm() {
-    this.deductionOrder = this.fb.group({
-    })
+    this.expelStudentOrder = this.fb.group({
+      expelStudents: this.fb.array([
+        this.fb.group({
+          id: '',
+          name: ['', Validators.required],
+          surname: ['', Validators.required],
+          patronimic: ['', Validators.required],
+          birthDate: ['', Validators.required],
+          sex: ['', Validators.required],
+        })
+      ])
+    });
+    this.expelStudents = this.expelStudentOrder.get('expelStudents') as FormArray;
   }
 
 }

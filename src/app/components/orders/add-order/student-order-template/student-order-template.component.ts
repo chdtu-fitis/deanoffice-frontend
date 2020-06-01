@@ -1,6 +1,6 @@
-import {Component, forwardRef, OnInit} from '@angular/core';
-import {CustomControlValueAccessor} from '../../../shared/custom-control-value-accessor';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { CustomControlValueAccessor } from '../../../shared/custom-control-value-accessor';
+import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'student-order-template',
@@ -16,11 +16,17 @@ import {NG_VALUE_ACCESSOR} from '@angular/forms';
 })
 export class StudentOrderTemplateComponent extends CustomControlValueAccessor implements OnInit {
 
+  @Input() expelStudentGroup: FormGroup;
+
   constructor() {
     super();
   }
 
   ngOnInit() {
+    console.log(this.expelStudentGroup);
   }
 
+  public onSelectStudent($event): void {
+    console.log($event);
+  }
 }

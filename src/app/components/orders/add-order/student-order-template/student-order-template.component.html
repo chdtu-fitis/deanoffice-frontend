@@ -1,1 +1,9 @@
-<p>student-order-template works!</p>
+<div [formGroup]="expelStudentGroup" class="form-group">
+  <label for="typeahead" class="required">ПІБ</label>
+  <app-student-typeahead
+    id="typeahead"
+    formControlName="id"
+    [control]="expelStudentGroup.controls.id"
+    (onValueChange)="onSelectStudent($event)">
+  </app-student-typeahead>
+</div>

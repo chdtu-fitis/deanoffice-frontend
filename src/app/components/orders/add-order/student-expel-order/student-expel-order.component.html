@@ -9,7 +9,7 @@
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-    <form class="modal-content h-100" [formGroup]="deductionOrder">
+    <form class="modal-content h-100" [formGroup]="expelStudentOrder">
       <div class="modal-header">
         <h4 class="modal-title">Наказ про відрахування</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
@@ -18,7 +18,11 @@
       </div>
       <div class="modal-body d-flex overflow-auto">
         <div class="actions-container border-right">
-
+          <student-order-template
+            *ngFor="let student of expelStudents.controls; let i = index"
+            [expelStudentGroup]="student"
+          >
+          </student-order-template>
         </div>
         <div class="preview-container">
 
