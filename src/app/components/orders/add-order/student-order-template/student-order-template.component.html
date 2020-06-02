@@ -1,9 +1,72 @@
-<div [formGroup]="expelStudentGroup" class="form-group">
-  <label for="typeahead" class="required">ПІБ</label>
-  <app-student-typeahead
-    id="typeahead"
-    formControlName="id"
-    [control]="expelStudentGroup.controls.id"
-    (onValueChange)="onSelectStudent($event)">
-  </app-student-typeahead>
+<div
+  [formGroup]="orderStudentGroup"
+  [ngClass]="{'student-order-template--non-editable': !isTemplateEditable}"
+  class="student-order-template"
+>
+
+  <div *ngIf="!isTemplateEditable" class="d-flex justify-content-between align-items-center">
+    <p class="m-0">
+      {{orderStudentGroup.get('studentFullName').value}}
+    </p>
+    <div>
+      <button type="button" class="btn btn-warning btn-sm" (click)="onTemplateEdit()"> Редагувати </button>
+      <button type="button" class="btn btn-danger btn-sm ml-1" (click)="onTemplateDelete()"> Видалити </button>
+    </div>
+  </div>
+  <div  [ngClass]="{'student-order-template--hidden': !isTemplateEditable}" class="row">
+    <div class="form-group col-6">
+      <label for="typeahead" class="required">ПІБ</label>
+      <app-student-typeahead
+        id="typeahead"
+        formControlName="studentDegreeId"
+        [control]="orderStudentGroup.get('studentDegreeId')"
+        (onValueChange)="onStudentSelect($event)"
+      >
+      </app-student-typeahead>
+    </div>
+    <div class="form-group col-6">
+      <label for="expel-date" class="required">Дата відрахування</label>
+      <input
+        id="expel-date"
+        type="date"
+        formControlName="orderExpelDate"
+        class="form-control"
+        [appValidation]="orderStudentGroup.get('orderExpelDate')"
+      >
+      <app-validation-errors [control]="orderStudentGroup.get('orderExpelDate')"></app-validation-errors>
+    </div>
+    <div class="form-group col-12">
+        <label for="order-reason"> Причина наказу </label>
+        <select
+          id="order-reason"
+          class="form-control"
+          formControlName="orderReason"
+          (change)="onOrderReasonChange($event.target.value)"
+        >
+          <option *ngFor="let reason of orderReasons" [value]="reason.value">
+            {{reason.name}}
+          </option>
+        </select>
+    </div>
+    <div *ngIf="isVoluntarily" class="form-group col-6">
+      <label for="application-date" class="required">Дата заяви</label>
+      <input
+        id="application-date"
+        type="date"
+        formControlName="orderApplicationDate"
+        class="form-control"
+        [appValidation]="orderStudentGroup.get('orderApplicationDate')"
+      >
+      <app-validation-errors [control]="orderStudentGroup.get('orderApplicationDate')"></app-validation-errors>
+    </div>
+    <div
+      [ngClass]="{false: 'col-12', true: 'col-6' }[isVoluntarily]"
+      class="form-group d-flex justify-content-end align-items-end"
+    >
+      <button class="btn btn-success" (click)="onAddStudent()" [disabled]="orderStudentGroup.invalid">
+        Додати
+      </button>
+    </div>
+  </div>
 </div>
+

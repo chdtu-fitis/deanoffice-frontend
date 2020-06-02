@@ -20,9 +20,19 @@
         <div class="actions-container border-right">
           <student-order-template
             *ngFor="let student of expelStudents.controls; let i = index"
-            [expelStudentGroup]="student"
+            [orderStudentGroup]="student"
+            [orderReasons]="orderReasons"
+            (onStudentAdd)="onStudentAdd()"
+            (onStudentDelete)="onStudentDelete(i)"
+            (onStudentEdit)="onStudentEdit()"
+            class="student-order-template"
           >
           </student-order-template>
+          <div class="add-student-btn__container d-flex justify-content-end align-items-center">
+            <button class="btn btn-success" [disabled]="isStudentTemplateAvailable" (click)="expelNewStudent()">
+              Додати студента
+            </button>
+          </div>
         </div>
         <div class="preview-container">
 

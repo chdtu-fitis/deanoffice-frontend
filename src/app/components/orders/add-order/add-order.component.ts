@@ -14,9 +14,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { OrdersService } from '../../../services/orders.service';
 import { StudentExpelOrderComponent } from './student-expel-order/student-expel-order.component';
 import { Observable } from 'rxjs/Observable';
-import { students } from '../moc';
 import { Subject } from 'rxjs/Rx';
 import { first } from 'rxjs/operators';
+import {forkJoin} from 'rxjs/internal/observable/forkJoin';
 
 @Component({
   selector: 'add-order',
@@ -30,8 +30,6 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   public createOrderForm: FormGroup;
   public orderTypes;
   public loading = false;
-
-  studentsSurnames = students.map(elem => elem.surname);
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -49,24 +47,26 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public hideModal(): void {
+    this._resetForm();
     this.modal.hide()
   }
 
   public onSubmit(): void {
-    this._getOrderTemplateByType()
+    forkJoin([this._getOrderTemplateByType(), this._getOrderReasons()])
       .pipe(first())
-      .subscribe(() => {
+      .subscribe((data) => {
         this.hideModal();
-        this._createOrder(this.createOrderForm.value.orderType);
+        this._createOrder(this.createOrderForm.value.orderType, data[1]);
       });
   }
 
-  private _createOrder(orderType: string): void {
+  private _createOrder(orderType: string, orderReasons: any[]): void {
     if (orderType === 'deduction') {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StudentExpelOrderComponent);
       this.createOrderTemplateRef.clear();
       const componentRef = this.createOrderTemplateRef.createComponent(componentFactory);
       const orderComponentInstance = componentRef.instance as StudentExpelOrderComponent;
+      orderComponentInstance.orderReasons = orderReasons;
       this._listenOrderClose(orderComponentInstance);
     }
   }
@@ -83,6 +83,14 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  private _resetForm() {
+    this.createOrderForm.reset({
+      orderType: 'deduction',
+      orderNumber: '',
+      orderDate: null
+    });
+  }
+
   private _listenOrderClose(componentInstance) {
     componentInstance.orderClose$.pipe(first()).subscribe(() => {
       this.createOrderTemplateRef.clear();
@@ -91,6 +99,10 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _getOrderTemplateByType(): Observable<any> {
     return this._ordersService.getOrderTemplateByType();
+  }
+
+  private _getOrderReasons(): Observable<any> {
+    return this._ordersService.getOrderReasons();
   }
 
   // private _trackStudentNameChange() {

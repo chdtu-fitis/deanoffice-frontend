@@ -10,11 +10,22 @@
 }
 
 .modal-body {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0;
 
   .actions-container,.preview-container {
     flex-basis: 50%;
+  }
+
+  .actions-container {
+    overflow-y: auto;
+
+    .student-order-template {
+      margin: 15px 15px 0 15px;
+    }
+
+    .add-student-btn__container {
+      margin: 15px 15px 0 0;
+    }
   }
 }
 

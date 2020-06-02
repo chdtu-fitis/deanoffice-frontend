@@ -6,7 +6,7 @@ import {of} from 'rxjs/observable/of';
 
 import {environment} from '../../environments/environment';
 import {OrdersControls} from '../components/orders/orders-types';
-import {orderTypes, tableData} from '../components/orders/moc';
+import {orderReasons, orderTypes, tableData} from '../components/orders/moc';
 
 @Injectable()
 export class OrdersService {
@@ -31,5 +31,9 @@ export class OrdersService {
 
   public getOrderTemplateByType() {
     return of({});
+  }
+
+  public getOrderReasons(): Observable<any> {
+    return of (orderReasons);
   }
 }
