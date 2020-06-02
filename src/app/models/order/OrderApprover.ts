@@ -6,6 +6,7 @@ export class OrderApprover {
   faculty: Faculty;
   position: string;
   active: boolean;
+  selected?: boolean;
 
   public static empty(): OrderApprover {
     return new OrderApprover(null,'', new Faculty(), '',  '')
