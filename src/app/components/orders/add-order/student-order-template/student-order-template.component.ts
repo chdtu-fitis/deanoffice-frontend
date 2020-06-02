@@ -1,7 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import { CustomControlValueAccessor } from '../../../shared/custom-control-value-accessor';
 import { FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {Student} from '../../../../models/Student';
+import {first} from 'rxjs/operators';
+import {APPLICATION_REASON} from '../../constants';
 
 @Component({
   selector: 'student-order-template',
@@ -15,33 +17,49 @@ import {Student} from '../../../../models/Student';
     }
   ]
 })
-export class StudentOrderTemplateComponent extends CustomControlValueAccessor implements OnInit {
+export class StudentOrderTemplateComponent extends CustomControlValueAccessor implements OnInit, OnChanges {
 
   @Input() orderStudentGroup: FormGroup;
   @Input() orderReasons: any[];
-  @Input() isTemplateEditable = true;
+  @Input() isTemplateFilled = true;
+  @Input() isActionDisabled = false;
 
   @Output() onStudentAdd: EventEmitter<void> = new EventEmitter<void>();
   @Output() onStudentDelete: EventEmitter<void> = new EventEmitter<void>();
   @Output() onStudentEdit: EventEmitter<void> = new EventEmitter<void>();
 
+  private defaultExpelReasonId = 0;
+  private applicationReason = APPLICATION_REASON;
+
   get isVoluntarily(): boolean {
-    return this.orderStudentGroup.get('orderReason').value === 'voluntarily';
+    return this.orderStudentGroup.get('orderReason').value === this.applicationReason;
   }
 
   constructor() {
     super();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._getFirstReasonChange();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const reasons =  changes.orderReasons;
+    if (reasons && reasons.currentValue) {
+      const id = reasons.currentValue.find(elem => elem.name === this.applicationReason).id;
+      this.orderStudentGroup.get('orderReasonId').setValue(id);
+    }
+  }
 
   public onOrderReasonChange(value: string): void {
+    const id = this.orderReasons.find(elem => elem.name === value).id;
+    this.orderStudentGroup.get('orderReasonId').setValue(id);
     const orderApplication = this.orderStudentGroup.get('orderApplicationDate');
-    value === 'voluntarily' ? orderApplication.enable() : orderApplication.disable();
+    this.isVoluntarily ? orderApplication.enable() : orderApplication.disable();
   }
 
   public onAddStudent(): void {
-    this.isTemplateEditable = !this.isTemplateEditable;
+    this.isTemplateFilled = !this.isTemplateFilled;
     this.onStudentAdd.emit();
   }
 
@@ -50,11 +68,15 @@ export class StudentOrderTemplateComponent extends CustomControlValueAccessor im
   }
 
   public onTemplateEdit() {
-    this.isTemplateEditable = !this.isTemplateEditable;
+    this.isTemplateFilled = !this.isTemplateFilled;
     this.onStudentEdit.emit();
   }
 
   public onTemplateDelete() {
     this.onStudentDelete.emit();
+  }
+
+  private _getFirstReasonChange(): void {
+    this.orderStudentGroup.get('orderReason').valueChanges.pipe(first()).subscribe(id => this.defaultExpelReasonId = id)
   }
 }

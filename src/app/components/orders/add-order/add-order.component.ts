@@ -52,21 +52,21 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    forkJoin([this._getOrderTemplateByType(), this._getOrderReasons()])
+    this._getOrderTemplateByType()
       .pipe(first())
-      .subscribe((data) => {
+      .subscribe(() => {
         this.hideModal();
-        this._createOrder(this.createOrderForm.value.orderType, data[1]);
+        this._createOrder(this.createOrderForm.value.orderType);
       });
   }
 
-  private _createOrder(orderType: string, orderReasons: any[]): void {
+  private _createOrder(orderType: string): void {
+    console.log(orderType);
     if (orderType === 'deduction') {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(StudentExpelOrderComponent);
       this.createOrderTemplateRef.clear();
       const componentRef = this.createOrderTemplateRef.createComponent(componentFactory);
       const orderComponentInstance = componentRef.instance as StudentExpelOrderComponent;
-      orderComponentInstance.orderReasons = orderReasons;
       this._listenOrderClose(orderComponentInstance);
     }
   }
@@ -99,10 +99,6 @@ export class AddOrderComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private _getOrderTemplateByType(): Observable<any> {
     return this._ordersService.getOrderTemplateByType();
-  }
-
-  private _getOrderReasons(): Observable<any> {
-    return this._ordersService.getOrderReasons();
   }
 
   // private _trackStudentNameChange() {

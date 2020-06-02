@@ -22,6 +22,7 @@
             *ngFor="let student of expelStudents.controls; let i = index"
             [orderStudentGroup]="student"
             [orderReasons]="orderReasons"
+            [isActionDisabled]="isStudentTemplateAvailable"
             (onStudentAdd)="onStudentAdd()"
             (onStudentDelete)="onStudentDelete(i)"
             (onStudentEdit)="onStudentEdit()"
