@@ -33,6 +33,7 @@ export class PersonalFileGradesStatementComponent implements OnInit {
   personalFileGradesStatementLoading = false;
   personalFileFrontPageLoading = false;
   personalFileBackPageLoading = false;
+  individualCurriculumLoading = false;
 
   constructor(private groupService: GroupService, private degreeService: DegreeService,
               private personalFileGradesStatementService: PersonalFileGradesStatementService) {
@@ -45,8 +46,8 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.selectedStudyYearForDocument = year - 1;
 
     this.studyYearsForDocument = [];
-    for(let i = 0; i < 6; i++ ) {
-      this.studyYearsForDocument.push(this.selectedStudyYearForDocument - i);
+    for(let i = 0; i < 7; i++ ) {
+      this.studyYearsForDocument.push(this.selectedStudyYearForDocument + 1 - i);
     }
   }
 
@@ -208,6 +209,15 @@ export class PersonalFileGradesStatementComponent implements OnInit {
     this.personalFileBackPageLoading = true;
     this.personalFileGradesStatementService.buildPersonalFileBackPage(studentIds).subscribe(a => {
         this.personalFileBackPageLoading = false;
+      }
+    );
+  }
+
+  buildIndividualCurriculum(): void {
+    const studentIds = this.getStudentIds();
+    this.individualCurriculumLoading = true;
+    this.personalFileGradesStatementService.buildIndividualCurriculum(this.selectedStudyYearForDocument, studentIds).subscribe(a => {
+        this.individualCurriculumLoading = false;
       }
     );
   }

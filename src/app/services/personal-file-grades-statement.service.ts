@@ -22,4 +22,9 @@ export class PersonalFileGradesStatementService {
     const url = `${this.documentsUrl}/personal-file-grades-statement/back/docx?studentDegreeIds=${studentIds}`;
     return this.fileService.downloadFile(url);
   }
+
+  buildIndividualCurriculum(year: number, studentIds: number[]): any {
+    const url = `${this.documentsUrl}/individual-curriculum/${year}/docx?studentDegreeIds=${studentIds}`;
+    return this.fileService.downloadFile(url);
+  }
 }
