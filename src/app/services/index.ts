@@ -31,6 +31,7 @@ import {AdministrationToolService} from './administration-tool.service';
 import {CreditService} from './credit.service';
 import {ScientificDegreeService} from "./scientific-degree.service";
 import {OrderApproversService} from "./order-approvers.service";
+import {OrderApproversTemplateService} from "./order-approvers-template.service";
 
 export const SERVICES = [
   DegreeService,
@@ -66,6 +67,7 @@ export const SERVICES = [
   CreditService,
   ScientificDegreeService,
   OrderApproversService,
+  OrderApproversTemplateService,
 ];
 
 export const GUARDS = [
