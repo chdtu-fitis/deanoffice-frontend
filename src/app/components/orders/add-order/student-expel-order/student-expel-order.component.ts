@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import {OrderReasonService} from '../../../../services/order-reason.service';
 import {first} from 'rxjs/operators';
-import {APPLICATION_REASON} from '../../constants';
+import { APPLICATION_REASON } from '../../constants';
 
 @Component({
   selector: 'app-deduction-order',
@@ -23,6 +23,9 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
   public isStudentTemplateAvailable = true;
 
   private applicationReason = APPLICATION_REASON;
+  private defaultTemplate = [
+    { value: 'Hello my name is', editable: false },
+    { value: '#FullName', editable: true }];
 
   constructor(private fb: FormBuilder,
               private _orderReasonService: OrderReasonService) { }
@@ -60,6 +63,7 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
         this.fb.group({
           studentDegreeId: ['', Validators.required],
           studentFullName: [''],
+          studentGender: [''],
           orderReason: [this.applicationReason],
           orderReasonId: [''],
           orderExpelDate: [null, Validators.required],
@@ -72,18 +76,20 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
     this.expelStudentsPreview = this.expelStudentOrder.get('expelStudentsPreview') as FormArray;
   }
 
-  public onStudentAdd(): void {
-    this.isStudentTemplateAvailable = false;
-
-    this.expelStudentsPreview.push(this.fb.array([
-      { value: 'Hello my name is', editable: false },
-      { value: '#Name', editable: true },
-    ])
-    );
+  public onStudentAdd(index: number): void {
+    this.isStudentTemplateAvailable = true;
+    if (this.expelStudentsPreview.controls[index]) {
+      this.expelStudentsPreview.removeAt(index);
+      this.expelStudentsPreview.insert(index, this.fb.array(this._replacePlaceholders(index)));
+    } else {
+      this.expelStudentsPreview.push(this.fb.array(this._replacePlaceholders(index)))
+    }
+    console.log(this.expelStudentsPreview.controls);
   }
 
   public onStudentDelete(index: number): void {
     this.expelStudents.removeAt(index);
+    this.expelStudentsPreview.removeAt(index);
   }
 
   public onStudentEdit(): void {
@@ -97,5 +103,26 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
         res => {
           this.orderReasons = res;
         });
+  }
+
+  private _replacePlaceholders(index) {
+    const formValues = this.expelStudents.controls[index].value;
+
+
+    const substitutes = {
+      '#FullName': formValues['studentFullName']
+    };
+
+    return this.defaultTemplate.map(elem => {
+      if (substitutes[elem.value]) {
+        return { ...elem, value: substitutes[elem.value] }
+      }
+
+      return elem;
+    });
+  }
+
+  public onPreviewSave() {
+    this.isStudentTemplateAvailable = false;
   }
 }

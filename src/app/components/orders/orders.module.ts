@@ -14,7 +14,8 @@ import {StudentExpelOrderComponent} from './add-order/student-expel-order/studen
 import { StudentOrderTemplateComponent } from './add-order/student-order-template/student-order-template.component';
 import {OrderReasonService} from '../../services/order-reason.service';
 import {AuthenticationModule} from '../login/authentication.module';
-import { StudentOrederPreviewComponent } from './add-order/student-oreder-preview/student-oreder-preview.component';
+import { StudentOrderPreviewComponent } from './add-order/student-order-preview/student-order-preview.component';
+import {AutoSizeInputModule} from 'ngx-autosize-input';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { StudentOrederPreviewComponent } from './add-order/student-oreder-previe
     SharedModule,
     TypeaheadModule.forRoot(),
     FormsModule,
+    AutoSizeInputModule
   ],
   declarations: [
     OrdersComponent,
@@ -33,7 +35,7 @@ import { StudentOrederPreviewComponent } from './add-order/student-oreder-previe
     OrderApproversFormComponent,
     StudentExpelOrderComponent,
     StudentOrderTemplateComponent,
-    StudentOrederPreviewComponent
+    StudentOrderPreviewComponent
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService, OrderReasonService, AuthenticationModule.tokenInterceptor()]

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+.student-order-preview__container {
+  padding: 10px;
+  box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.3);
+}
+
+.student-order-preview--disabled {
+  background-color: #d7d7d7;
+
+  .student-order-preview__input, span {
+    background-color: #d7d7d7;
+    color: rgba(#333, 0.5);
+    border: none;
+    pointer-events: none;
+  }
+}
+
+.student-order-preview__input {
+  border: none;
+  border-bottom: 1px solid #333;
+  margin: 0 5px;
+  transition: border 300ms ease-in-out;
+
+  &:focus {
+    border: none;
+    outline: unset;
+    border-bottom: 1px solid #007bff;
+  }
+}

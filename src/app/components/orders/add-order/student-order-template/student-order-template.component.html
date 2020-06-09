@@ -1,7 +1,7 @@
 <div
   [formGroup]="orderStudentGroup"
-  [ngClass]="{'student-order-template--non-editable': !isTemplateFilled}"
-  class="student-order-template"
+  [ngClass]="{'student-order-template__container--minimized': !isTemplateFilled}"
+  class="student-order-template__container"
 >
 
   <div *ngIf="!isTemplateFilled" class="d-flex justify-content-between align-items-center">
@@ -27,7 +27,7 @@
       </button>
     </div>
   </div>
-  <div [ngClass]="{'student-order-template--hidden': !isTemplateFilled}" class="row">
+  <div [ngClass]="{'student-order-template__container--hidden': !isTemplateFilled}" class="row">
     <div class="form-group col-6">
       <label for="typeahead" class="required">ПІБ</label>
       <app-student-typeahead

@@ -23,10 +23,10 @@
             [orderStudentGroup]="student"
             [orderReasons]="orderReasons"
             [isActionDisabled]="isStudentTemplateAvailable"
-            (onStudentAdd)="onStudentAdd()"
+            (onStudentAdd)="onStudentAdd(i)"
             (onStudentDelete)="onStudentDelete(i)"
             (onStudentEdit)="onStudentEdit()"
-            class="student-order-template"
+            class="student-order-template__container"
           >
           </student-order-template>
           <div class="add-student-btn__container d-flex justify-content-end align-items-center">
@@ -39,7 +39,9 @@
           <student-oreder-preview
             *ngFor="let preview of expelStudentsPreview.controls; let i = index"
             [studentPreviewData]="preview"
-            [studentExpelData]="expelStudents[i].value"
+            [studentExpelData]="expelStudents.value[i]"
+            (onPreviewSave)="onPreviewSave()"
+            class="student-order-preview__container"
           ></student-oreder-preview>
         </div>
       </div>

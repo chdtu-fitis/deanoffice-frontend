@@ -1,0 +1,21 @@
+<div class="d-flex flex-column justify-content-end align-items-end">
+  <div class="student-order-preview__container w-100"
+    [ngClass]="{'student-order-preview--disabled': isPreviewEditable}"
+  >
+    <ng-container *ngFor="let paragraph of studentPreviewData.value; let i = index">
+      <span *ngIf="!paragraph.editable">{{paragraph.value}}</span>
+      <input
+        *ngIf="paragraph.editable"
+        AutoSizeInput
+        [includeBorders]="false"
+        class="student-order-preview__input"
+        [value]="paragraph.value"
+        [disabled]="isPreviewEditable"
+        (change)="onChange($event, i)"
+      >
+    </ng-container>
+  </div>
+  <button *ngIf="!isPreviewEditable" class="btn btn-success mt-3" (click)="onSave()">
+    Зберегти
+  </button>
+</div>
