@@ -36,7 +36,11 @@
           </div>
         </div>
         <div class="preview-container">
-
+          <student-oreder-preview
+            *ngFor="let preview of expelStudentsPreview.controls; let i = index"
+            [studentPreviewData]="preview"
+            [studentExpelData]="expelStudents[i].value"
+          ></student-oreder-preview>
         </div>
       </div>
       <div class="modal-footer">

@@ -18,6 +18,7 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
   public orderReasons: {id: number, name: string}[];
   public expelStudentOrder: FormGroup;
   public expelStudents: FormArray;
+  public expelStudentsPreview: FormArray;
 
   public isStudentTemplateAvailable = true;
 
@@ -64,13 +65,21 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
           orderExpelDate: [null, Validators.required],
           orderApplicationDate: [null, Validators.required]
         })
-      ])
+      ]),
+      expelStudentsPreview: this.fb.array( [])
     });
     this.expelStudents = this.expelStudentOrder.get('expelStudents') as FormArray;
+    this.expelStudentsPreview = this.expelStudentOrder.get('expelStudentsPreview') as FormArray;
   }
 
   public onStudentAdd(): void {
     this.isStudentTemplateAvailable = false;
+
+    this.expelStudentsPreview.push(this.fb.array([
+      { value: 'Hello my name is', editable: false },
+      { value: '#Name', editable: true },
+    ])
+    );
   }
 
   public onStudentDelete(index: number): void {

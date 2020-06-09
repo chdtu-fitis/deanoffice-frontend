@@ -14,6 +14,7 @@ import {StudentExpelOrderComponent} from './add-order/student-expel-order/studen
 import { StudentOrderTemplateComponent } from './add-order/student-order-template/student-order-template.component';
 import {OrderReasonService} from '../../services/order-reason.service';
 import {AuthenticationModule} from '../login/authentication.module';
+import { StudentOrederPreviewComponent } from './add-order/student-oreder-preview/student-oreder-preview.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {AuthenticationModule} from '../login/authentication.module';
     OrderApproversComponent,
     OrderApproversFormComponent,
     StudentExpelOrderComponent,
-    StudentOrderTemplateComponent
+    StudentOrderTemplateComponent,
+    StudentOrederPreviewComponent
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService, OrderReasonService, AuthenticationModule.tokenInterceptor()]
