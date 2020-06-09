@@ -1,4 +1,5 @@
 import {OrderApprover} from "./OrderApprover";
+import {Faculty} from "../Faculty";
 
 export class OrderApproverTemplate {
   id: number;

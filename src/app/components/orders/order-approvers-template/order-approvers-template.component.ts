@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderApproversService} from "../../../services/order-approvers.service";
-import {OrderApprover} from "../../../models/order/OrderApprover";
 import {OrderApproverTemplate} from "../../../models/order/OrderApproverTemplate";
 import {OrderApproversTemplateService} from "../../../services/order-approvers-template.service";
 
@@ -11,73 +9,30 @@ import {OrderApproversTemplateService} from "../../../services/order-approvers-t
 })
 export class OrderApproversTemplateComponent implements OnInit {
 
-  allApprovers: OrderApprover[];
-  mainApprover: OrderApprover;
-  overallApprovers: OrderApprover[] = [];
-  initiatorApprover: OrderApprover;
-  active:boolean = false;
-  orderApproverTemplate: OrderApproverTemplate;
-  availableOrderApproverTemplate: OrderApproverTemplate[] = [];
+  availableOrderApproverTemplates: OrderApproverTemplate[] = [];
+  isCreationOpened:boolean = false;
 
-  constructor(private orderApproversService: OrderApproversService, private orderApproversTemplateService: OrderApproversTemplateService) { }
+  constructor(private orderApproversTemplateService: OrderApproversTemplateService) {
+  }
 
   ngOnInit() {
-    this.loadApprovers();
+    this.loadOrderApproversTemplates();
   }
 
-  loadApprovers(): void {
-    this.orderApproversService.getApprovers(true).subscribe(approvers => this.allApprovers = approvers);
+  loadOrderApproversTemplates(): void {
+    this.orderApproversTemplateService.getOrderApproversTemplates(true).subscribe(approvers => this.availableOrderApproverTemplates = approvers);
   }
 
-  addMainApprover(): void {
-    for (let approver of this.allApprovers) {
-      if (approver.selected) {
-        this.mainApprover = approver;
-        approver.selected = false;
-        break;
-      }
-    }
+  onCreateTemplate() {
+    this.isCreationOpened = true;
   }
 
-  addRegisteredBy(): void {
-    for (let approver of this.allApprovers) {
-      if (approver.selected) {
-        this.initiatorApprover = approver;
-        approver.selected = false;
-        break;
-      }
-    }
+  isCreateClosed($event: boolean) {
+    this.isCreationOpened = $event;
   }
 
-  addOverrallApprovers() {
-    for (let approver of this.allApprovers) {
-      if (approver.selected) {
-        let found = false;
-        for (let selectedApprover of this.overallApprovers) {
-          if (approver.id == selectedApprover.id) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          this.overallApprovers.push(approver);
-        }
-        approver.selected = false;
-      }
-    }
-  }
-
-  deletOverallApprover(id:number) {
-    let deleteIndex = this.overallApprovers.findIndex(approver => approver.id == id );
-    this.overallApprovers.splice(deleteIndex, 1);
-  }
-
-  onSaveApproversTemplate() {
-    // //this.orderApproverTemplate.faculty.id = this.currentUserService.facultyId();
-    // this.orderApproverTemplate.mainApprover = this.mainApprover;
-    // this.orderApproverTemplate.initiatorApprover = this.initiatorApprover;
-    // this.orderApproverTemplate.approvers.push(this.overallApprovers);
-    // this.orderApproversTemplateService.addOrderApproversTemplate(this.orderApproverTemplate)
-    //   .subscribe(orderApproverTemplate => this.availableOrderApproverTemplate.push(orderApproverTemplate);
+  onAddApproversTemplate(orderApproverTemplate) {
+    this.orderApproversTemplateService.createOrderApproversTemplate(orderApproverTemplate)
+      .subscribe(orderApproverTemplate => this.availableOrderApproverTemplates.push(orderApproverTemplate));
   }
 }

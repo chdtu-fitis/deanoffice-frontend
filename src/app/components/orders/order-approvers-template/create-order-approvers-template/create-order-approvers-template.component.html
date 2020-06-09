@@ -1,0 +1,79 @@
+<div id='addOrderApproverTemplate'
+     class="modalWindow"
+     [ngClass]='{isModalOpen:isOpened}'>
+  <div class="approversTemplate">
+    <div class="allApprovers">
+      <table class="allApproversTable">
+        <caption>Підписанти</caption>
+        <tr>
+          <th class="firstcell"></th>
+          <th>П.І.Б.</th>
+          <th>Посада</th>
+        </tr>
+        <tbody>
+        <tr *ngFor="let approver of allApprovers">
+          <td class="firstcell"><input type="checkbox" [(ngModel)]="approver.selected"></td>
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="buttonsBlock">
+      <p><button class="templateCreationBtns" (click)="addMainApprover()">Основний підписант</button></p>
+      <p><button class="templateCreationBtns" (click)="addOverrallApprovers()">З ким погоджено</button></p>
+      <p><button class="templateCreationBtns" (click)=" addRegisteredBy()">Хто вносить наказ</button></p>
+    </div>
+    <div class="checkedApprovers">
+      <table>
+        <caption>Відібрані підписанти</caption>
+        <tbody>
+        <tr>
+          <td>Основний підписант:</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="mainApprover">
+          <td>{{mainApprover.position}}</td>
+          <td></td>
+          <td>{{mainApprover.fullName | initialsAndSurname}}</td>
+        </tr>
+        <tr>
+          <td>ПОГОДЖЕНО:</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let approver of overallApprovers">
+          <td>{{approver.position}}</td>
+          <td></td>
+          <td>{{approver.fullName | initialsAndSurname}}</td>
+          <td *ngIf="active"><button (click)="deletOverallApprover(approver.id)" class="dellApproverBtn">
+            <svg width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="#e21b1b" d="M404.18 0L256 148.18 107.82 0 0 107.82 148.18 256 0 404.18 107.82 512 256 363.82 404.18 512 512 404.18 363.82 256 512 107.82z"/>
+            </svg>
+          </button></td>
+        </tr>
+        <tr>
+          <td>Проект наказу вносить:</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngIf="initiatorApprover">
+          <td>{{initiatorApprover.position}}</td>
+          <td></td>
+          <td>{{initiatorApprover.fullName | initialsAndSurname}}</td>
+        </tr>
+        <tr *ngIf="overallApprovers.length > 0 || initiatorApprover || mainApprover">
+          <td ><button class="btn btn-success align-middle" (click)="onCreateApproversTemplate()">Зберегти</button></td>
+          <td></td>
+          <td *ngIf="overallApprovers.length > 0 && active == false"><button class="btn btn-warning align-middle" (click)="active = true">Редагувати</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="closeModal">
+    <button id="closeModalBtn" (click)="closeModalWindow()" class="btn btn-danger align-middle">Закрити</button>
+  </div>
+
+</div>

@@ -1,68 +1,48 @@
-<div class="approversTemplate">
-  <div class="allApprovers">
-    <table class="allApproversTable">
-      <caption>Підписанти</caption>
-      <tr>
-        <th class="firstcell"></th>
-        <th>П.І.Б.</th>
-        <th>Посада</th>
-      </tr>
-      <tbody>
-      <tr *ngFor="let approver of allApprovers">
-        <td class="firstcell"><input type="checkbox" [(ngModel)]="approver.selected"></td>
-        <td>{{approver.fullName}}</td>
-        <td>{{approver.position}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="buttonsBlock">
-    <p><button (click)="addMainApprover()">Основний підписант</button></p>
-    <p><button (click)="addOverrallApprovers()">З ким погоджено</button></p>
-    <p><button (click)=" addRegisteredBy()">Хто вносить наказ</button></p>
-  </div>
-  <div class="checkedApprovers">
+<div class="header">
+  <button (click)="onCreateTemplate()" class="btn btn-success align-middle">Створити шаблон</button>
+</div>
+<div class="availableOrderApproversTemplates">
+  <div *ngFor="let template of availableOrderApproverTemplates">
     <table>
-      <caption>Відібрані підписанти</caption>
       <tbody>
       <tr>
         <td>Основний підписант:</td>
         <td></td>
         <td></td>
       </tr>
-      <tr *ngIf="mainApprover">
-        <td>{{mainApprover.position}}</td>
+      <tr>
+        <td>{{template.mainApprover.position}}</td>
         <td></td>
-        <td>{{mainApprover.fullName | initialsAndSurname}}</td>
+        <td>{{template.mainApprover.fullName | initialsAndSurname}}</td>
       </tr>
       <tr>
         <td>ПОГОДЖЕНО:</td>
         <td></td>
         <td></td>
       </tr>
-      <tr *ngFor="let approver of overallApprovers">
+      <tr *ngFor="let approver of template.approvers">
         <td>{{approver.position}}</td>
         <td></td>
         <td>{{approver.fullName | initialsAndSurname}}</td>
-        <td *ngIf="active"><button (click)="deletOverallApprover(approver.id)" class="btn btn-danger align-middle">Видалити</button></td>
       </tr>
       <tr>
         <td>Проект наказу вносить:</td>
         <td></td>
         <td></td>
       </tr>
-      <tr *ngIf="initiatorApprover">
-        <td>{{initiatorApprover.position}}</td>
+      <tr>
+        <td>{{template.initiatorApprover.position}}</td>
         <td></td>
-        <td>{{initiatorApprover.fullName | initialsAndSurname}}</td>
-      </tr>
-      <tr *ngIf="overallApprovers.length > 0 || initiatorApprover || mainApprover">
-        <td ><button class="btn btn-success align-middle" (click)="onSaveApproversTemplate()">Зберегти</button></td>
-        <td></td>
-        <td *ngIf="overallApprovers.length > 0 && active == false"><button class="btn btn-warning align-middle" (click)="active = true">Редагувати</button></td>
+        <td>{{template.initiatorApprover.fullName | initialsAndSurname}}</td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
 
+
+<create-order-approvers-template
+  (newTemplate)="onAddApproversTemplate($event)"
+  [isOpened]="isCreationOpened"
+  (onModalClosed)="isCreateClosed($event)"
+></create-order-approvers-template>

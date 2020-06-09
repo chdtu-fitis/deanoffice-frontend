@@ -13,6 +13,7 @@ import { OrderApproversFormComponent } from './order-approvers/order-approvers-f
 import {StudentExpelOrderComponent} from "./add-order/student-expel-order/student-expel-order.component";
 import { OrderApproversTemplateComponent } from './order-approvers-template/order-approvers-template.component';
 import {InitialsAndSurnamePipe} from "../../pipes/initials-and-surname.pipe";
+import { CreateOrderApproversTemplateComponent } from './order-approvers-template/create-order-approvers-template/create-order-approvers-template.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {InitialsAndSurnamePipe} from "../../pipes/initials-and-surname.pipe";
     OrderApproversFormComponent,
     StudentExpelOrderComponent,
     OrderApproversTemplateComponent,
-    InitialsAndSurnamePipe
+    InitialsAndSurnamePipe,
+    CreateOrderApproversTemplateComponent
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService, InitialsAndSurnamePipe]
