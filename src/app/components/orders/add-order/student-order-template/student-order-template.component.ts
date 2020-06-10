@@ -63,8 +63,14 @@ export class StudentOrderTemplateComponent extends CustomControlValueAccessor im
     this.onStudentAdd.emit();
   }
 
-  public onStudentSelect(student: Student) {
-    this.orderStudentGroup.get('studentFullName').setValue(`${student.name} ${student.surname} ${student.patronimic}`);
+  public onStudentSelect(student: any) {
+    this.orderStudentGroup.patchValue({
+      studentFullName: `${student.surname} ${student.name} ${student.patronimic}`,
+      studentName: student.name,
+      studentSurname: student.surname,
+      studentPatronymic: student.patronimic,
+      groupName: student.groups
+    })
   }
 
   public onTemplateEdit() {

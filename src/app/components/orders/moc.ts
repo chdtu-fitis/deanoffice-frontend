@@ -25,7 +25,7 @@ export const orderTypes = [
   {name: 'Про поновлення', value: 'renewal'},
   {name: 'Про поновлення (з іншого ЗВО)', value: 'renewal-foreign'},
   {name: 'Про переведення (з іншого ЗВО)', value: 'transition-foreign'},
-  {name: 'Про відрахування', value: 'deduction'},
+  {name: 'Про відрахування', value: 'expel'},
   {name: 'Про переведення на курс', value: 'transition-course'},
   {name: 'Про зміну прізвища', value: 'name-change'},
   {name: 'Про зміну ім\'я', value: 'surname-change'},

@@ -4,6 +4,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import {OrderReasonService} from '../../../../services/order-reason.service';
 import {first} from 'rxjs/operators';
 import { APPLICATION_REASON } from '../../constants';
+import {OrdersService} from '../../../../services/orders.service';
 
 @Component({
   selector: 'app-deduction-order',
@@ -25,14 +26,42 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
   private applicationReason = APPLICATION_REASON;
   private defaultTemplate = [
     { value: 'Hello my name is', editable: false },
-    { value: '#FullName', editable: true }];
+    { value: '#FullName', editable: true }
+   ];
+
+  private baseStudentObj = {
+    studentDegreeId: ['', Validators.required],
+    orderReason: [this.applicationReason],
+    orderReasonId: [''],
+    studentFullName: [''],
+    studentName: [''],
+    studentSurname: [''],
+    studentPatronymic: [''],
+    studentWord: ['студента'],
+    courseNumber: [4],
+    qualification: ['бакалавр'],
+    tuitionForm: ['денної'],
+    groupName: [''],
+    specialityCode: ['124'],
+    specialityName: ['Системний аналіз'],
+    studyProgram: ['Системи і методи прийняття рішень'],
+    budgetForm: ['навчання за рахунок коштів фізичних (юридичних) осіб'],
+    connectionWordMaleFemale: ['такого'],
+    semesterNumber: ['першому'],
+    studyYears: ['2019-2020'],
+    orderCause: ['Підстава:  службова зав. кафедри.'],
+    orderExpelDate: [null, Validators.required],
+    orderApplicationDate: [null, Validators.required]
+  };
 
   constructor(private fb: FormBuilder,
-              private _orderReasonService: OrderReasonService) { }
+              private _orderReasonService: OrderReasonService,
+              private _orderService: OrdersService) { }
 
   ngOnInit() {
     this._initForm();
     this.getOrderExpelReasons();
+    this.getParagraphJSONByOrderType();
   }
 
   ngAfterViewInit() {
@@ -46,29 +75,13 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
 
   public expelNewStudent() {
     this.isStudentTemplateAvailable = true;
-    this.expelStudents.push(
-      this.fb.group({
-      studentDegreeId: ['', Validators.required],
-      orderReason: [this.applicationReason],
-      orderReasonId: [''],
-      studentFullName: [''],
-      orderExpelDate: [null, Validators.required],
-      orderApplicationDate: [null, Validators.required]
-    }));
+    this.expelStudents.push(this.fb.group(JSON.parse(JSON.stringify(this.baseStudentObj))));
   }
 
   private _initForm() {
     this.expelStudentOrder = this.fb.group({
       expelStudents: this.fb.array([
-        this.fb.group({
-          studentDegreeId: ['', Validators.required],
-          studentFullName: [''],
-          studentGender: [''],
-          orderReason: [this.applicationReason],
-          orderReasonId: [''],
-          orderExpelDate: [null, Validators.required],
-          orderApplicationDate: [null, Validators.required]
-        })
+        this.fb.group(JSON.parse(JSON.stringify(this.baseStudentObj)))
       ]),
       expelStudentsPreview: this.fb.array( [])
     });
@@ -84,7 +97,6 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
     } else {
       this.expelStudentsPreview.push(this.fb.array(this._replacePlaceholders(index)))
     }
-    console.log(this.expelStudentsPreview.controls);
   }
 
   public onStudentDelete(index: number): void {
@@ -105,12 +117,37 @@ export class StudentExpelOrderComponent implements OnInit, AfterViewInit {
         });
   }
 
+  private getParagraphJSONByOrderType() {
+    this._orderService.getOrderParagraphJsonByType()
+      .pipe(first())
+      .subscribe( res => {
+        this.defaultTemplate = res;
+        console.log(this.defaultTemplate);
+      })
+  }
+
   private _replacePlaceholders(index) {
     const formValues = this.expelStudents.controls[index].value;
 
-
     const substitutes = {
-      '#FullName': formValues['studentFullName']
+      '#PHStudentSurname': formValues['studentSurname'],
+      '#PHStudentName': formValues['studentName'],
+      '#PHStudentPatronymic': formValues['studentPatronymic'],
+      '#PHStudentWord': formValues['studentWord'],
+      '#CourseNumber': formValues['courseNumber'],
+      '#PHQualification': formValues['qualification'],
+      '#PHTuitionForm': formValues['tuitionForm'],
+      '#PHGroupName': formValues['groupName'],
+      '#PHSpecialityCode': formValues['specialityCode'],
+      '#PHSpecialityName': formValues['specialityName'],
+      '#PHStudyProgram': formValues['studyProgram'],
+      '#PHBudgetForm': formValues['budgetForm'],
+      '#PHConnectionWordMaleFemale': formValues['connectionWordMaleFemale'],
+      '#PHStudentExpelReason': formValues['orderReason'],
+      '#PHStudentExpelDate': new Date(formValues['orderExpelDate']).toLocaleDateString(),
+      '#PHSemesterNumber': formValues['semesterNumber'],
+      '#PHStudyYears': formValues['studyYears'],
+      '#PHOrderCause': formValues['orderCause']
     };
 
     return this.defaultTemplate.map(elem => {
