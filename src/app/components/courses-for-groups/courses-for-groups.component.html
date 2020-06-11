@@ -67,8 +67,8 @@
       <button type="button" class="btn btn-info" (click)="copyCourses()"
               *ngIf="selectedGroup&&selectedSemester">Скопіювати з іншої групи
       </button>
-      <button type="button" class="btn btn-warning" (click)="showGroupsDifferents()"
-      *ngIf="currentUserService.facultyId()==8">Порівняти предмети
+      <button type="button" class="btn btn-warning" (click)="showGroupsDifferencesInCourses()"
+        *ngIf="currentUserService.isForeignFaculty()">Порівняти предмети
       </button>
       <label>
         <input type="checkbox"

@@ -355,10 +355,10 @@ export class CoursesForGroupsComponent implements OnInit {
     });
   }
 
-  showGroupsDifferents(){
+  showGroupsDifferencesInCourses(){
     this.changesExistence = true;
     const initialState = {};
     const bsModalRef = this.modalService.show(GroupsDifferentDialogComponent, {initialState, class: 'modal-custom'});
-    bsModalRef.content.showDifferents.subscribe(() => { });
+    // bsModalRef.content.showDifferents.subscribe(() => { });
   }
 }
