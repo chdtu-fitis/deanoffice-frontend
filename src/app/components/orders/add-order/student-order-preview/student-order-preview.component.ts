@@ -16,7 +16,8 @@ export class StudentOrderPreviewComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   onChange(value, index) {
     this.studentPreviewData.controls[index].patchValue({ value, editable: true });

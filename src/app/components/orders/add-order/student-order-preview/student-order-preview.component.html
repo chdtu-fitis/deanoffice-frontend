@@ -12,7 +12,7 @@
         class="student-order-preview__input"
         [value]="paragraph.value"
         [disabled]="isPreviewEditable"
-        (change)="onChange($event, i)"
+        (change)="onChange($event.target.value, i)"
       >
     </ng-container>
   </div>
