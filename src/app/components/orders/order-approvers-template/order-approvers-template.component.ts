@@ -11,6 +11,8 @@ export class OrderApproversTemplateComponent implements OnInit {
 
   availableOrderApproverTemplates: OrderApproverTemplate[] = [];
   isCreationOpened:boolean = false;
+  active:boolean = false;
+  selectedTemplate: OrderApproverTemplate;
 
   constructor(private orderApproversTemplateService: OrderApproversTemplateService) {
   }
@@ -20,7 +22,7 @@ export class OrderApproversTemplateComponent implements OnInit {
   }
 
   loadOrderApproversTemplates(): void {
-    this.orderApproversTemplateService.getOrderApproversTemplates(true).subscribe(approvers => this.availableOrderApproverTemplates = approvers);
+    this.orderApproversTemplateService.getOrderApproversTemplates(true).subscribe(templates => this.availableOrderApproverTemplates = templates);
   }
 
   onCreateTemplate() {
@@ -34,5 +36,20 @@ export class OrderApproversTemplateComponent implements OnInit {
   onAddApproversTemplate(orderApproverTemplate) {
     this.orderApproversTemplateService.createOrderApproversTemplate(orderApproverTemplate)
       .subscribe(orderApproverTemplate => this.availableOrderApproverTemplates.push(orderApproverTemplate));
+  }
+
+  onDeleteTemplate() {
+    this.active = !this.active;
+  }
+
+  removeOrderApproversTemplate(id:number) {
+    this.orderApproversTemplateService.deleteTemplate(id).subscribe(() => {
+      let deleteIndex = this.availableOrderApproverTemplates.findIndex(template => template.id == id);
+      this.availableOrderApproverTemplates.splice(deleteIndex, 1)
+    })
+  }
+
+  onSelect(selectedTemplate) {
+    this.selectedTemplate = selectedTemplate;
   }
 }

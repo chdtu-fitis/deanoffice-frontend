@@ -74,6 +74,10 @@ export class CreateOrderApproversTemplateComponent implements OnInit {
     this.initiatorApprover = OrderApprover.empty()
 
   }
+
+  onAnnul() {
+    this.cleanUpState();
+  }
   deletOverallApprover(id:number) {
     let deleteIndex = this.overallApprovers.findIndex(approver => approver.id == id );
     this.overallApprovers.splice(deleteIndex, 1);

@@ -1,1 +1,53 @@
+#approverTemplatesContainer{
+  width: 90%;
+  margin-left: 1%;
+}
+.header{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.header button {
+  margin-right: 5px;
+}
+
+.availableOrderApproversTemplates {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.templateDiv {
+  background-color: #99CCFF;
+  border-radius: 10px;
+  position: relative;
+}
+
+.templateDiv:hover {
+  background-color: #7cffa3;
+}
+.td1 {
+  width: 270px;
+}
+.td2 {
+  width: 60px;
+}
+.td3 {
+  width: 140px;
+}
+.head {
+  font-weight: bold;
+  height: 30px;
+}
+
+.deleteTemplate {
+  position: absolute;
+  right: 0px;
+  bottom: -40px;
+}
+
+.test {
+  background-color: #ffc71f;
+}
 
