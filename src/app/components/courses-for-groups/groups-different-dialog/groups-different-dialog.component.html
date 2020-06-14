@@ -6,34 +6,35 @@
 <div class="modal-body" *ngFor="let group of foreignGroupsAndCourses">
   <table class="table table-striped table-sm fs-13">
     <tr>
-      <th colspan="6"><h5>Назва інозменої групи: {{group.foreignGroup.name}}</h5></th>
-      <th colspan="5"><h5>Назва групи: {{group.otherGroup.name}}</h5></th>
+      <th class="half"><h5>Назва іноземної групи: {{group.foreignGroup.name}}</h5></th>
+      <th class="half delimiter"><h5>Назва групи: {{group.otherGroup.name}}</h5></th>
     </tr>
+  </table>
+  <table class="table table-striped table-sm fs-13">
     <tr>
-      <th>Назва</th>
-      <th>Вид</th>
-      <th>Години</th>
-      <th>Годин за кредит</th>
-      <th>Семестер</th>
-      <th border="1"></th>
-      <th>Назва</th>
-      <th>Вид</th>
-      <th>Години</th>
-      <th>Годин за кредит</th>
-      <th>Семестер</th>
+      <th class="course-name">Назва</th>
+      <th class="knowledge-control">Вид</th>
+      <th class="small-width">Години</th>
+      <th class="small-width">Годин в кредиті</th>
+      <th class="small-width">Семестр</th>
+      <th class="course-name delimiter">Назва</th>
+      <th class="knowledge-control">Вид</th>
+      <th class="small-width">Години</th>
+      <th class="small-width">Годин в кредиті</th>
+      <th class="small-width">Семестр</th>
     </tr>
       <tr *ngFor="let course of group.differentForeignCourses; index as i">
         <td>{{course.courseName.name}}</td>
-        <td>{{course.knowledgeControl.name}}</td>
+        <td>{{course.knowledgeControl.name | shortened}}</td>
         <td>{{course.id != 0 ? course.hours : ''}}</td>
         <td>{{course.id != 0 ? course.hoursPerCredit : ''}}</td>
         <td>{{course.id != 0 ? course.semester : ''}}</td>
         <!--<td><button type="button" class="btn btn-success" (click)="copyCourses()">-->
           <!--<- -->
         <!--</button></td>-->
-        <td> </td>
-        <td>{{group.differentOtherCourses[i].courseName.name}}</td>
-        <td>{{group.differentOtherCourses[i].knowledgeControl.name}}</td>
+<!--        <td class="delimiter"> </td>-->
+        <td class="delimiter">{{group.differentOtherCourses[i].courseName.name}}</td>
+        <td>{{group.differentOtherCourses[i].knowledgeControl.name | shortened}}</td>
         <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].hours : ''}}</td>
         <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].hoursPerCredit : ''}}</td>
         <td>{{group.differentOtherCourses[i].id != 0 ? group.differentOtherCourses[i].semester : ''}}</td>

@@ -1,12 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Course} from '../models/Course';
 import {Teacher} from '../models/Teacher';
 
 @Pipe({
   name: 'teacherSearch'
 })
 export class TeacherSearchPipe implements PipeTransform {
-
   transform(items: Teacher[], searchText: string): any[] {
     if (!items)
       return [];
@@ -17,5 +15,4 @@ export class TeacherSearchPipe implements PipeTransform {
       return teacher.surname.toLowerCase().includes(searchText);
     });
   }
-
 }
