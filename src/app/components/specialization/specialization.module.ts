@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
-import {AlertModule, TabsModule} from 'ngx-bootstrap';
+import {AlertModule} from 'ngx-bootstrap/alert';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 
 import { SpecializationComponent } from './specialization.component';
 import {SharedModule} from '../shared/shared.module';

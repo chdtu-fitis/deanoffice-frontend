@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, ViewChild, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ModalDirective, TabsetComponent} from 'ngx-bootstrap';
+import {ModalDirective} from 'ngx-bootstrap/modal';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
 
 import {StudentGroup} from '../../../models/StudentGroup';
 import {StudentService} from '../../../services/student.service';

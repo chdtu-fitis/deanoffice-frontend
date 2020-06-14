@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-import {TypeaheadMatch} from 'ngx-bootstrap';
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 import {AlertsService} from '../../shared/alerts/alerts.service';
 
 import {Course} from '../../../models/Course';
