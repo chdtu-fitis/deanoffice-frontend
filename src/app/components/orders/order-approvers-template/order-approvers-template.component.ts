@@ -38,10 +38,6 @@ export class OrderApproversTemplateComponent implements OnInit {
       .subscribe(orderApproverTemplate => this.availableOrderApproverTemplates.push(orderApproverTemplate));
   }
 
-  onDeleteTemplate() {
-    this.active = !this.active;
-  }
-
   removeOrderApproversTemplate(id:number) {
     this.orderApproversTemplateService.deleteTemplate(id).subscribe(() => {
       let deleteIndex = this.availableOrderApproverTemplates.findIndex(template => template.id == id);

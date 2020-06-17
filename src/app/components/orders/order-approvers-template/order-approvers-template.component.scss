@@ -11,21 +11,26 @@
   margin-right: 5px;
 }
 
-.availableOrderApproversTemplates {
+.availableOrderApproversTemplates  {
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
   flex-wrap: wrap;
+  align-content: flex-start;
+  height: 100%;
 }
 
 .templateDiv {
-  background-color: #99CCFF;
-  border-radius: 10px;
+  border: solid 3px #03A9F4;
+  border-radius: 8px;
+  width: 30%;
   position: relative;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  padding-left: 0.5%;
 }
 
 .templateDiv:hover {
-  background-color: #7cffa3;
+  background-color: #99CCFF;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 .td1 {
   width: 270px;
@@ -41,13 +46,9 @@
   height: 30px;
 }
 
-.deleteTemplate {
-  position: absolute;
-  right: 0px;
-  bottom: -40px;
-}
-
 .test {
-  background-color: #ffc71f;
+  background-color: #ffe605;
+  border: solid 3px #ffb805;
+
 }
 

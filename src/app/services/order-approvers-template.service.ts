@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {forObservable} from "../components/shared/httpErrors";
 import {OrderApproverTemplate} from "../models/order/OrderApproverTemplate";
+import {OrderApprover} from "../models/order/OrderApprover";
 
 @Injectable()
 export class OrderApproversTemplateService {
@@ -20,12 +21,8 @@ export class OrderApproversTemplateService {
   }
 
   public createOrderApproversTemplate(body: OrderApproverTemplate): Observable<any> {
-    delete body.mainApprover.selected;
-    delete body.initiatorApprover.selected;
-    for (let approver of body.approvers) {
-      delete approver.selected;
-    }
-    return this._httpClient.post<OrderApproverTemplate>(`${this.approversUrl}`, body, {} )
+    const template = OrderApproverTemplate.prepareBody(body)
+    return this._httpClient.post<OrderApproverTemplate>(`${this.approversUrl}`, template, {} )
       .pipe(catchError(forObservable('Створити новий шаблон підписантів', [])));
   }
 

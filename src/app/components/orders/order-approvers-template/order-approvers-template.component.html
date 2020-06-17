@@ -1,11 +1,13 @@
 <div id="approverTemplatesContainer">
   <div class="header">
     <button (click)="onCreateTemplate()" class="btn btn-success align-middle">Створити шаблон</button>
-    <button *ngIf="availableOrderApproverTemplates.length !== 0" (click)="onDeleteTemplate()" class="btn btn-danger align-middle">Видалити шаблон</button>
+    <button *ngIf="selectedTemplate" (click)="removeOrderApproversTemplate(selectedTemplate.id)" class="btn btn-danger align-middle">Видалити шаблон</button>
   </div>
   <div class="availableOrderApproversTemplates">
-    <div *ngFor="let template of availableOrderApproverTemplates" class="templateDiv" (click)="onSelect(template)">
-      <table [class.test]="template == selectedTemplate">
+    <div *ngFor="let template of availableOrderApproverTemplates" class="templateDiv"
+         (click)="onSelect(template)"
+         [class.test]="template == selectedTemplate">
+      <table >
         <tbody>
         <tr>
           <td class="td1 head">Основний підписант:</td>
@@ -39,10 +41,8 @@
         </tr>
         </tbody>
       </table>
-      <button *ngIf="active == true" (click)="removeOrderApproversTemplate(template.id)" class="btn btn-danger align-middle deleteTemplate">Видалити</button>
     </div>
   </div>
-
 
   <create-order-approvers-template
     (newTemplate)="onAddApproversTemplate($event)"

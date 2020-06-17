@@ -2,6 +2,18 @@ import {OrderApprover} from "./OrderApprover";
 import {Faculty} from "../Faculty";
 
 export class OrderApproverTemplate {
+
+  public static get IGNORE_PROPERTIES() { return ["selected"] }
+
+  public static prepareBody(body: OrderApproverTemplate): OrderApproverTemplate {
+    const ignoreProperties = OrderApproverTemplate.IGNORE_PROPERTIES;
+
+    OrderApprover.ignoreApproverFields(body.mainApprover, ignoreProperties);
+    OrderApprover.ignoreApproverFields(body.initiatorApprover, ignoreProperties);
+    OrderApprover.ignoreApproversFields(body.approvers, ignoreProperties);
+    return body;
+  }
+
   id: number;
   mainApprover: OrderApprover;
   approvers: Array<OrderApprover>;

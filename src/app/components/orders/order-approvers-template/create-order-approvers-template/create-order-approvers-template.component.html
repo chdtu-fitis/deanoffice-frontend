@@ -1,6 +1,10 @@
 <div id='addOrderApproverTemplate'
      class="modalWindow"
      [ngClass]='{isModalOpen:isOpened}'>
+  <div class="closeXdiv">
+    <button class="close" _ngcontent-iwi-c20 aria-label="Close" (click)="closeModalWindow()">
+      <span _ngcontent-iwi-c20 aria-hidden="true">x</span></button>
+  </div>
   <div class="approversTemplate">
     <div class="allApprovers">
       <table class="allApproversTable">
