@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OrderApprover} from "../../../../models/order/OrderApprover";
 import {OrderApproversService} from "../../../../services/order-approvers.service";
 import {CurrentUserService} from "../../../../services/auth/current-user.service";
@@ -10,7 +10,7 @@ import {CurrentUserService} from "../../../../services/auth/current-user.service
 })
 export class OrderApproversFormComponent implements OnInit {
   @Output() newApproverSave = new EventEmitter<OrderApprover>();
-
+  @Input() active: boolean;
   orderApprover: OrderApprover;
 
   constructor(private orderApproversService: OrderApproversService, private currentUserService: CurrentUserService) { }

@@ -1,6 +1,12 @@
 <div id="approverTemplatesContainer">
   <div class="header">
-    <button (click)="onCreateTemplate()" class="btn btn-success align-middle">Створити шаблон</button>
+    <mat-slide-toggle [(ngModel)]="active"
+                      [checked]="active"
+                      (change)="loadOrderApproversTemplates()"
+    >{{active ? 'Чинні': 'Не чинні'}} шаблони
+    </mat-slide-toggle>
+    <button *ngIf="!active" (click)="restoreTemplate(selectedTemplate.id)" class="btn btn-warning align-middle">Відновити шаблон</button>
+    <button *ngIf="active" (click)="onCreateTemplate()" class="btn btn-success align-middle">Створити шаблон</button>
     <button *ngIf="selectedTemplate" (click)="removeOrderApproversTemplate(selectedTemplate.id)" class="btn btn-danger align-middle">Видалити шаблон</button>
   </div>
   <div class="availableOrderApproversTemplates">
