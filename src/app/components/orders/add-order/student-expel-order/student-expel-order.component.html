@@ -8,8 +8,8 @@
   aria-labelledby="mySmallModalLabel"
   aria-hidden="true"
 >
-  <div class="position-relative modal-dialog modal-dialog-centered">
-    <form class="modal-content" [formGroup]="deductionOrder">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content h-100" [formGroup]="expelStudentOrder">
       <div class="modal-header">
         <h4 class="modal-title">Наказ про відрахування</h4>
         <button type="button" class="close" aria-label="Close" (click)="hideModal()">
@@ -17,13 +17,37 @@
         </button>
       </div>
       <div class="modal-body d-flex overflow-auto">
-        <div class="controls container">
-          dddd
+        <div class="actions-container border-right">
+          <student-order-template
+            *ngFor="let student of expelStudents.controls; let i = index"
+            [orderStudentGroup]="student"
+            [orderReasons]="orderReasons"
+            [isActionDisabled]="isStudentTemplateAvailable"
+            (onStudentAdd)="onStudentAdd(i)"
+            (onStudentDelete)="onStudentDelete(i)"
+            (onStudentEdit)="onStudentEdit()"
+            class="student-order-template__container"
+          >
+          </student-order-template>
+          <div class="add-student-btn__container d-flex justify-content-end align-items-center">
+            <button class="btn btn-success" [disabled]="isStudentTemplateAvailable" (click)="expelNewStudent()">
+              Додати студента
+            </button>
+          </div>
+        </div>
+        <div class="preview-container">
+          <student-oreder-preview
+            *ngFor="let preview of expelStudentsPreview.controls; let i = index"
+            [studentPreviewData]="preview"
+            [studentExpelData]="expelStudents.value[i]"
+            (onPreviewSave)="onPreviewSave()"
+            class="student-order-preview__container"
+          ></student-oreder-preview>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-success" type="submit">
-          Створити
+          Зберегти
         </button>
       </div>
     </form>

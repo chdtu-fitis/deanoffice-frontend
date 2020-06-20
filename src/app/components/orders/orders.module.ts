@@ -14,6 +14,12 @@ import {StudentExpelOrderComponent} from "./add-order/student-expel-order/studen
 import { OrderApproversTemplateComponent } from './order-approvers-template/order-approvers-template.component';
 import {InitialsAndSurnamePipe} from "../../pipes/initials-and-surname.pipe";
 import { CreateOrderApproversTemplateComponent } from './order-approvers-template/create-order-approvers-template/create-order-approvers-template.component';
+import { StudentOrderTemplateComponent } from './add-order/student-order-template/student-order-template.component';
+import {OrderReasonService} from '../../services/order-reason.service';
+import {AuthenticationModule} from '../login/authentication.module';
+import { StudentOrderPreviewComponent } from './add-order/student-order-preview/student-order-preview.component';
+import {AutoSizeInputModule} from 'ngx-autosize-input';
+
 
 @NgModule({
   imports: [
@@ -24,6 +30,7 @@ import { CreateOrderApproversTemplateComponent } from './order-approvers-templat
     SharedModule,
     TypeaheadModule.forRoot(),
     FormsModule,
+    AutoSizeInputModule
   ],
   declarations: [
     OrdersComponent,
@@ -31,12 +38,14 @@ import { CreateOrderApproversTemplateComponent } from './order-approvers-templat
     OrderApproversComponent,
     OrderApproversFormComponent,
     StudentExpelOrderComponent,
+    StudentOrderTemplateComponent,
+    StudentOrderPreviewComponent,
     OrderApproversTemplateComponent,
     InitialsAndSurnamePipe,
     CreateOrderApproversTemplateComponent
   ],
   entryComponents: [StudentExpelOrderComponent],
-  providers: [OrdersService, InitialsAndSurnamePipe]
+  providers: [OrdersService, OrderReasonService, InitialsAndSurnamePipe, AuthenticationModule.tokenInterceptor()]
 })
 export class OrdersModule {
 }

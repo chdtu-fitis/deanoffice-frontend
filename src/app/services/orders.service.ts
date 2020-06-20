@@ -6,12 +6,14 @@ import {of} from 'rxjs/observable/of';
 
 import {environment} from '../../environments/environment';
 import {OrdersControls} from '../components/orders/orders-types';
-import {orderTypes, tableData} from '../components/orders/moc';
+import {orderReasons, orderTypes, tableData} from '../components/orders/moc';
+import {catchError} from 'rxjs/operators';
+import {forObservable} from '../components/shared/httpErrors';
 
 @Injectable()
 export class OrdersService {
 
-  private url = `${environment.apiUrl}/orders`;
+  private url = `${environment.apiUrl}/order`;
 
   constructor(private http: HttpClient) {
   }
@@ -25,11 +27,13 @@ export class OrdersService {
   }
 
   public getOrderTypes(): Observable<any> {
-    // return this.http.get(this.url)
+    // return this.http.get(`${this.url}/order-type`)
+    //   .pipe(catchError(forObservable('Отримання доступних типів наказу по факультету')))
     return of(orderTypes);
   }
 
-  public getOrderTemplateByType() {
-    return of({});
+  public getOrderParagraphJsonByType(orderType: string = 'STUDENT_EXPEL'): Observable<any> {
+    return this.http.get(`${this.url}/paragraph`, { params: { orderType } })
+      .pipe(catchError(forObservable('Отримання json об\'єкту параграфа певного типу наказу по факультету ', [])))
   }
 }

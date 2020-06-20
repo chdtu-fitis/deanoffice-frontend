@@ -12,6 +12,9 @@ import {LoadingComponent} from './loading/loading.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
 import {ExpectedNameDirective} from './expected-name.directive';
+import {StudentTypeaheadComponent} from '../students/student-typeahead/student-typeahead.component';
+import {FormsModule} from '@angular/forms';
+import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -21,14 +24,17 @@ import {ExpectedNameDirective} from './expected-name.directive';
     BaseReactiveFormComponent,
     LoadingComponent,
     ModalWrapperComponent,
-    ExpectedNameDirective
+    ExpectedNameDirective,
+    StudentTypeaheadComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
-    PipeModule
+    TypeaheadModule.forRoot(),
+    PipeModule,
+    FormsModule
   ],
   exports: [
     CommonModule,
@@ -40,7 +46,8 @@ import {ExpectedNameDirective} from './expected-name.directive';
     BaseReactiveFormComponent,
     LoadingComponent,
     ModalWrapperComponent,
-    ExpectedNameDirective
+    ExpectedNameDirective,
+    StudentTypeaheadComponent
   ]
 })
 
