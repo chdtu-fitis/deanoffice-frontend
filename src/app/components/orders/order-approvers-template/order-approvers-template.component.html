@@ -1,0 +1,53 @@
+<div id="approverTemplatesContainer">
+  <div class="header">
+    <button (click)="onCreateTemplate()" class="btn btn-success align-middle">Створити шаблон</button>
+    <button *ngIf="selectedTemplate" (click)="removeOrderApproversTemplate(selectedTemplate.id)" class="btn btn-danger align-middle">Видалити шаблон</button>
+  </div>
+  <div class="availableOrderApproversTemplates">
+    <div *ngFor="let template of availableOrderApproverTemplates" class="templateDiv"
+         (click)="onSelect(template)"
+         [class.test]="template == selectedTemplate">
+      <table >
+        <tbody>
+        <tr>
+          <td class="td1 head">Основний підписант:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+        </tr>
+        <tr>
+          <td class="td1">{{template.mainApprover.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{template.mainApprover.fullName | initialsAndSurname}}</td>
+        </tr>
+        <tr>
+          <td class="td1 head">ПОГОДЖЕНО:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+        </tr>
+        <tr *ngFor="let approver of template.approvers">
+          <td class="td1">{{approver.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{approver.fullName | initialsAndSurname}}</td>
+        </tr>
+        <tr>
+          <td class="td1 head">Проект наказу вносить:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+        </tr>
+        <tr>
+          <td class="td1">{{template.initiatorApprover.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{template.initiatorApprover.fullName | initialsAndSurname}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <create-order-approvers-template
+    (newTemplate)="onAddApproversTemplate($event)"
+    [isOpened]="isCreationOpened"
+    (onModalClosed)="isCreateClosed($event)"
+  ></create-order-approvers-template>
+</div>
+

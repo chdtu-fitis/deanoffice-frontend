@@ -5,7 +5,6 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 import {forObservable, forPromise} from "../components/shared/httpErrors";
-import {Teacher} from "../models/Teacher";
 
 @Injectable()
 export class OrderApproversService {

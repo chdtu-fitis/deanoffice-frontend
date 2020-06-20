@@ -1,0 +1,92 @@
+<div id='addOrderApproverTemplate'
+     class="modalWindow"
+     [ngClass]='{isModalOpen:isOpened}'>
+  <div class="closeXdiv">
+    <button class="close" _ngcontent-iwi-c20 aria-label="Close" (click)="closeModalWindow()">
+      <span _ngcontent-iwi-c20 aria-hidden="true">x</span></button>
+  </div>
+  <div class="approversTemplate">
+    <div class="allApprovers">
+      <table class="allApproversTable">
+        <caption>Підписанти</caption>
+        <tr>
+          <th class="firstcell"></th>
+          <th>П.І.Б.</th>
+          <th>Посада</th>
+        </tr>
+        <tbody>
+        <tr *ngFor="let approver of allApprovers">
+          <td class="firstcell"><input type="checkbox" [(ngModel)]="approver.selected"></td>
+          <td>{{approver.fullName}}</td>
+          <td>{{approver.position}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="buttonsBlock">
+      <p><button class="templateCreationBtns" (click)="addMainApprover()">Основний підписант</button></p>
+      <p><button class="templateCreationBtns" (click)="addOverrallApprovers()">З ким погоджено</button></p>
+      <p><button class="templateCreationBtns" (click)=" addRegisteredBy()">Хто вносить наказ</button></p>
+    </div>
+    <div class="checkedApprovers">
+      <table>
+        <caption>Відібрані підписанти</caption>
+        <tbody>
+        <tr class="trMainApprover">
+          <td class="td1 head">Основний підписант:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+          <td class="td4"></td>
+        </tr>
+        <tr *ngIf="mainApprover" class="trMainApprover">
+          <td class="td1">{{mainApprover.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{mainApprover.fullName | initialsAndSurname}}</td>
+          <td class="td4"></td>
+        </tr>
+        <tr class="trOverallApprover">
+          <td class="td1 head">ПОГОДЖЕНО:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+          <td class="td4"></td>
+        </tr>
+        <tr *ngFor="let approver of overallApprovers" class="trOverallApprover">
+          <td class="td1">{{approver.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{approver.fullName | initialsAndSurname}}</td>
+          <td class="td4" *ngIf="overallApprovers"><button (click)="deletOverallApprover(approver.id)" class="dellApproverBtn">
+            <svg width="20px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="#e21b1b" d="M404.18 0L256 148.18 107.82 0 0 107.82 148.18 256 0 404.18 107.82 512 256 363.82 404.18 512 512 404.18 363.82 256 512 107.82z"/>
+            </svg>
+          </button></td>
+        </tr>
+        <tr class="trInitiatorApprover">
+          <td class="td1 head">Проект наказу вносить:</td>
+          <td class="td2"></td>
+          <td class="td3"></td>
+          <td class="td4"></td>
+        </tr>
+        <tr *ngIf="initiatorApprover" class="trInitiatorApprover">
+          <td class="td1">{{initiatorApprover.position}}</td>
+          <td class="td2"></td>
+          <td class="td3">{{initiatorApprover.fullName | initialsAndSurname}}</td>
+          <td class="td4"></td>
+        </tr>
+        </tbody>
+      </table>
+      <span *ngIf="overallApprovers.length > 0 || initiatorApprover || mainApprover">
+         <button
+                 class="btn btn-success align-middle"
+                 (click)="onCreateApproversTemplate()">Зберегти
+      </button>
+      <button
+              class="btn btn-outline-danger"
+              (click)="onAnnul()">Скасувати
+      </button>
+      </span>
+    </div>
+  </div>
+  <div class="closeModal">
+    <button id="closeModalBtn" (click)="closeModalWindow()" class="btn btn-danger align-middle">Закрити</button>
+  </div>
+</div>
