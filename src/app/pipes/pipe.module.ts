@@ -8,6 +8,7 @@ import {NameWithInitialsPipe} from './name-with-initials.pipe';
 import { MapsKeysPipe } from './maps-keys.pipe';
 import { AbbreviatedNamePipe } from './abbreviated-name.pipe';
 import {ShortenedPipe} from "./shortened.pipe";
+import { TypeOfEducationPipe } from './type-of-education.pipe';
 
 @NgModule({
   imports: [],
@@ -20,7 +21,8 @@ import {ShortenedPipe} from "./shortened.pipe";
     NameWithInitialsPipe,
     MapsKeysPipe,
     AbbreviatedNamePipe,
-    ShortenedPipe
+    ShortenedPipe,
+    TypeOfEducationPipe
   ],
   exports: [
     CoursesSearchPipe,
@@ -31,7 +33,8 @@ import {ShortenedPipe} from "./shortened.pipe";
     NameWithInitialsPipe,
     MapsKeysPipe,
     AbbreviatedNamePipe,
-    ShortenedPipe
+    ShortenedPipe,
+    TypeOfEducationPipe
   ]
 })
  export class PipeModule {
