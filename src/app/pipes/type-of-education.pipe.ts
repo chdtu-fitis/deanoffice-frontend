@@ -9,10 +9,10 @@ export class TypeOfEducationPipe implements PipeTransform {
 
   transform(items: StudentGroup[], fullTimeGroupsVisible: boolean, extramuralGroupsVisible: boolean): any {
     if (fullTimeGroupsVisible && !extramuralGroupsVisible) {
-      return items.filter((group) => group.tuitionForm == TuitionForm["FULL_TIME"]);
+      return items.filter((group) => TuitionForm[group.tuitionForm] == TuitionForm.FULL_TIME);
     }
     if (extramuralGroupsVisible && !fullTimeGroupsVisible) {
-      return items.filter((group) => group.tuitionForm == TuitionForm.EXTRAMURAL);
+      return items.filter((group) => TuitionForm[group.tuitionForm] == TuitionForm.EXTRAMURAL);
     }
     return items;
   }
