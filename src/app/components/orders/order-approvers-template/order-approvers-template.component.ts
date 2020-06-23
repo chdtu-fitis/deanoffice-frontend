@@ -11,7 +11,7 @@ export class OrderApproversTemplateComponent implements OnInit {
 
   availableOrderApproverTemplates: OrderApproverTemplate[] = [];
   isCreationOpened:boolean = false;
-  active:boolean = false;
+  active:boolean = true;
   selectedTemplate: OrderApproverTemplate;
 
   constructor(private orderApproversTemplateService: OrderApproversTemplateService) {
@@ -22,7 +22,7 @@ export class OrderApproversTemplateComponent implements OnInit {
   }
 
   loadOrderApproversTemplates(): void {
-    this.orderApproversTemplateService.getOrderApproversTemplates(true).subscribe(templates => this.availableOrderApproverTemplates = templates);
+    this.orderApproversTemplateService.getOrderApproversTemplates(this.active).subscribe(templates => this.availableOrderApproverTemplates = templates);
   }
 
   onCreateTemplate() {
@@ -43,6 +43,13 @@ export class OrderApproversTemplateComponent implements OnInit {
       let deleteIndex = this.availableOrderApproverTemplates.findIndex(template => template.id == id);
       this.availableOrderApproverTemplates.splice(deleteIndex, 1)
     })
+  }
+
+  restoreTemplate(id:number) {
+      this.orderApproversTemplateService.restoreTemplate(id).subscribe(() => {
+        let deleteIndex = this.availableOrderApproverTemplates.findIndex(template => template.id == id );
+        this.availableOrderApproverTemplates.splice(deleteIndex, 1);
+      })
   }
 
   onSelect(selectedTemplate) {

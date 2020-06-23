@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {forObservable} from "../components/shared/httpErrors";
 import {OrderApproverTemplate} from "../models/order/OrderApproverTemplate";
-import {OrderApprover} from "../models/order/OrderApprover";
 
 @Injectable()
 export class OrderApproversTemplateService {
@@ -29,5 +28,10 @@ export class OrderApproversTemplateService {
   public deleteTemplate (id: number): Observable<any> {
     const url = `${this.approversUrl}/${id}`;
     return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення шаблону підписантів', [])));
+  }
+
+  public restoreTemplate (id: number): Observable<Object>  {
+    const url = `${this.approversUrl}/${id}/restore`;
+    return this._httpClient.put(url, null);
   }
 }
