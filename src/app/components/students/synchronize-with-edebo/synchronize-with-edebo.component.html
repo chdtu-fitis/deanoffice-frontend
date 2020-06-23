@@ -52,10 +52,12 @@
                   <td>Дата зарахування</td>
                   <td>Дата наказу зарахування</td>
                   <td>Номер наказу зарахування</td>
+                  <td>Оплата</td>
                   <td>Форма навчання</td>
+                  <td>Громадянство</td>
                   <td>Попередній документ про освіту</td>
                   <td>Попередній документ виданий</td>
-                  <td>Попередній номер диплому</td>
+                  <td>Номер попереднього документу</td>
                   <td>Попередній тип диплому</td>
                   <td>Номер додатку до диплому</td>
                   <td>Прізвище англійською</td>
@@ -97,11 +99,11 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('citizenship',i)">
                   {{translateCitizenship(student.studentDegreeFromDb?.citizenship)}}
                 </td>
-                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
-                  {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
-                </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaIssuedBy',i)">
                   {{student.studentDegreeFromDb?.previousDiplomaIssuedBy}}
+                </td>
+                <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaDate',i)">
+                  {{student.studentDegreeFromDb?.previousDiplomaDate | date: 'dd.MM.yyyy' }}
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaNumber',i)">
                   {{student.studentDegreeFromDb?.previousDiplomaNumber}}
@@ -151,13 +153,13 @@
                     (click)="replaceDataWithCorrect(i,'citizenship')">
                   {{translateCitizenship(student.studentDegreeFromData?.citizenship)}}
                 </td>
-                <td *ngIf="isNotEqual('previousDiplomaDate',i)"
-                  (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
-                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.MM.yyyy'}}
-                </td>
                 <td  *ngIf="isNotEqual('previousDiplomaIssuedBy',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaIssuedBy')">
                   {{student.studentDegreeFromData.previousDiplomaIssuedBy}}
+                </td>
+                <td *ngIf="isNotEqual('previousDiplomaDate',i)"
+                    (click)="replaceDataWithCorrect(i,'previousDiplomaDate')">
+                  {{ student.studentDegreeFromData?.previousDiplomaDate | date: 'dd.MM.yyyy'}}
                 </td>
                 <td *ngIf="isNotEqual('previousDiplomaNumber',i)"
                   (click)="replaceDataWithCorrect(i,'previousDiplomaNumber')">
