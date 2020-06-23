@@ -5,13 +5,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {TabsModule} from 'ngx-bootstrap/tabs';
-import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
 
 import {StudentsComponent} from './students.component';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {SharedModule} from '../shared/shared.module';
 import {AddStudentComponent} from './add-student/add-student.component';
-import {StudentTypeaheadComponent} from './student-typeahead/student-typeahead.component';
 import {StudentPersonalInfoComponent} from './student-personal-info/student-personal-info.component';
 import {StudentsSearchComponent} from './students-search/students-search.component';
 import {PhotoUploadComponent} from './photo-upload/photo-upload.component';
@@ -53,7 +51,6 @@ export const studentRoutes: Routes = [
     StudentsComponent,
     StudentsColumnsComponent,
     AddStudentComponent,
-    StudentTypeaheadComponent,
     StudentsSearchComponent,
     StudentExpelComponent,
     StudentsListComponent,
@@ -91,7 +88,6 @@ export const studentRoutes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     TabsModule.forRoot(),
-    TypeaheadModule.forRoot(),
     RouterModule.forChild(studentRoutes),
     PipeModule,
     MatIconModule,

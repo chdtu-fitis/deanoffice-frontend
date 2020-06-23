@@ -43,3 +43,5 @@ export const ordersDefaults = [
   colDefOrderDate,
   colDefOrderStatus
 ];
+
+export const APPLICATION_REASON = 'за власним бажанням';

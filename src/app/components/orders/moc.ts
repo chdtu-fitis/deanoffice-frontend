@@ -25,7 +25,7 @@ export const orderTypes = [
   {name: 'Про поновлення', value: 'renewal'},
   {name: 'Про поновлення (з іншого ЗВО)', value: 'renewal-foreign'},
   {name: 'Про переведення (з іншого ЗВО)', value: 'transition-foreign'},
-  {name: 'Про відрахування', value: 'deduction'},
+  {name: 'Про відрахування', value: 'expel'},
   {name: 'Про переведення на курс', value: 'transition-course'},
   {name: 'Про зміну прізвища', value: 'name-change'},
   {name: 'Про зміну ім\'я', value: 'surname-change'},
@@ -37,14 +37,7 @@ export const orderTypes = [
   {name: 'Про проведення екскурсії', value: 'excursion'}
 ];
 
-
-export const students = [
-  {id: 1, name: 'Владислав', surname: 'Окріменко' },
-  {id: 2, name: 'Олексій', surname: 'Авраменко' },
-  {id: 3, name: 'Ростислав', surname: 'Кормут' },
-  {id: 4, name: 'Лариса', surname: 'Костенко' },
-  {id: 5, name: 'Валерій', surname: 'Свояк' },
-  {id: 6, name: 'Андрій', surname: 'Стеценко' },
-  {id: 7, name: 'Святослав', surname: 'Андрієнко' },
-  {id: 8, name: 'Роман', surname: 'Логвиненко' },
+export const orderReasons = [
+  {name: 'За власним бажанням', value: 'voluntarily'},
+  {name: 'За несплату', value: 'non-payment'}
 ];
