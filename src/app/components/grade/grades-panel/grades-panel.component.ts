@@ -12,6 +12,8 @@ export class GradesPanelComponent {
     @Output() changeSemester = new EventEmitter();
     @Output() sendRequestGetGrades = new EventEmitter();
     autoSemesterSelect = true;
+    fullTimeGroupsVisible: boolean = true;
+    extramuralGroupsVisible: boolean = true;
     selectGroup = new StudentGroup();
     studySemesters = 12;
     selectSemester = 1;
@@ -37,6 +39,15 @@ export class GradesPanelComponent {
             this.setCurrentSemester();
             this.toggleSemester();
         }
+    }
+
+    onClickTuitionFormCheckBox(event) {
+      if (!this.extramuralGroupsVisible && this.fullTimeGroupsVisible && event.target.attributes.id.nodeValue === "fullTimeGroupsVisible") {
+          this.extramuralGroupsVisible = true;
+      }
+      if (this.extramuralGroupsVisible && !this.fullTimeGroupsVisible && event.target.attributes.id.nodeValue === "extramuralGroupsVisible") {
+        this.fullTimeGroupsVisible = true;
+      }
     }
 
     setCurrentSemester() {

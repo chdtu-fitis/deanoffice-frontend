@@ -37,11 +37,31 @@
                    id="autoSelectSemester"/>
             Обрати поточний семестр
         </label>
+      <div id="divTypeOfEducation">
+        <label>
+          <input type="checkbox"
+                  [(ngModel)]="fullTimeGroupsVisible"
+                  (click)="onClickTuitionFormCheckBox($event)"
+                  name="fullTimeGroupsVisible"
+                  id="fullTimeGroupsVisible"
+          />
+          Денна
+        </label>
+        <label>
+          <input type="checkbox"
+                  [(ngModel)]="extramuralGroupsVisible"
+                  (click)="onClickTuitionFormCheckBox($event)"
+                  name="extramuralGroupsVisible"
+                  id="extramuralGroupsVisible"
+          />
+          Заочна
+        </label>
+      </div>
     </div>
     <div class="dropdown-divider"></div>
     <div class="groups">
         <div *ngIf="groups" class="list-group">
-            <ng-container *ngFor="let group of groups | groupSearch : searchText">
+            <ng-container *ngFor="let group of groups | groupSearch : searchText | typeOfEducation : fullTimeGroupsVisible : extramuralGroupsVisible">
                 <button *ngIf="group.specialization.degree.id == degree"
                         [ngClass]="{'active': selectGroup.id === group.id}"
                         (click)="getSelectGroup(group)">

@@ -39,3 +39,12 @@ loading {
 }
 
 label { font-size: 14px; }
+
+#divTypeOfEducation {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 4px;
+  padding-top: 5px;
+  border: 1px solid #ced4da;
+}
