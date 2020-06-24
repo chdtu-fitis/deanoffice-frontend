@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {AlertModule} from 'ngx-bootstrap/alert';
-import {TabsModule} from 'ngx-bootstrap/tabs'
+import {TabsModule} from 'ngx-bootstrap/tabs';
 
 import { SpecializationComponent } from './specialization.component';
 import {SharedModule} from '../shared/shared.module';
@@ -21,6 +21,7 @@ import { ChangeQualificationComponent } from './specialization-form/specializati
 import {PipeModule} from '../../pipes/pipe.module';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { RecoverySpecializationComponent } from './recovery-specialization/recovery-specialization.component';
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 export const specializationRoutes: Routes = [
   {path: '', component: SpecializationComponent}
@@ -34,6 +35,7 @@ export const specializationRoutes: Routes = [
     SharedModule,
     TabsModule.forRoot(),
     AlertModule.forRoot(),
+    TypeaheadModule.forRoot(),
     RouterModule.forChild(specializationRoutes),
     PipeModule.forRoot(),
     MatSlideToggleModule,

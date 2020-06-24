@@ -5,24 +5,25 @@ import {Department} from '../../../models/Department';
 import {Degree} from '../../../models/Degree';
 import {Speciality} from '../../../models/Speciality';
 import {BaseReactiveFormComponent} from '../../shared/base-reactive-form/base-reactive-form.component';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DegreeService} from '../../../services/degree.service';
 import {SpecialityService} from '../../../services/speciality.service';
 import {DepartmentService} from '../../../services/department.service';
 import {Specialization} from '../../../models/Specialization';
 import {TabsetComponent} from 'ngx-bootstrap/tabs';
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 import {SpecializationCompetenciesComponent} from './specialization-competencies/specialization-competencies.component';
 import {AcquiredCompetencies} from './models/acquired-competencies';
 import {AcquiredCompetenciesService} from './services/acquired-competencies.service';
 import {Lang} from './enums/lang.enum';
 import {SpecializationQualificationComponent} from './specialization-qualification/specialization-qualification.component';
-
-
+import {TeacherService} from "../../../services/teacher.service";
+import {Teacher} from "../../../models/Teacher";
+import {AcademicTitleValues} from "../../../models/AcademicTitleValues";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
 const DEFAULT_STRING = '';
-
 
 @Component({
   selector: 'specialization-form',
@@ -42,15 +43,21 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   isShow = true;
   lang = Lang;
 
+  teachersDataSource: Observable<any>;
+  currentProgramHead: Teacher;
+  AcademicTitleValues = AcademicTitleValues;
+
   constructor(
     private _formBuilder: FormBuilder,
     private _degreeService: DegreeService,
     private _specialityService: SpecialityService,
     private _departmentService: DepartmentService,
-    private _acquiredCompetenciesService: AcquiredCompetenciesService
+    private _acquiredCompetenciesService: AcquiredCompetenciesService,
+    private _teacherService: TeacherService
   ) {
     super();
     this.setInitialData();
+    this.createTeachersDataSource();
   }
 
   // TODO Return validation for name (only ukr), programHead, certificate
@@ -60,6 +67,11 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       name: data.name,
       nameEng: data.nameEng,
       code: data.code,
+      // programHead: data.programHead,
+      programHead: this._formBuilder.group({
+        id: data.programHead ? data.programHead.id : '',
+        fullName: data.programHead ? `${data.programHead.surname} ${data.programHead.name} ${data.programHead.patronimic}` : ''
+      }),
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
@@ -73,6 +85,26 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
       educationalProgramHeadInfo: data.educationalProgramHeadInfo,
       educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
+    });
+    this.currentProgramHead = data.programHead;
+  }
+
+  createTeachersDataSource() {
+    this.teachersDataSource = Observable.create((observer: any) => {
+      let guarantorInputValue = (this.form.controls.programHead as FormGroup).controls.fullName.value;
+      if (guarantorInputValue.length < 3) {
+        return;
+      }
+
+      // clear the selected value if input value was changed after selection
+      let guarantorIdControl = (this.form.controls.programHead as FormGroup).controls.id;
+      if (guarantorIdControl.value) {
+        guarantorIdControl.setValue(null);
+        this.currentProgramHead = null;
+      }
+      this._teacherService.getTeachersBySurnamePart(guarantorInputValue).subscribe((result: any) => {
+        observer.next(result);
+      });
     });
   }
 
@@ -127,6 +159,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   }
 
   getValue(): Specialization {
+    (this.form.controls.programHead as FormGroup).removeControl("fullName");
     const s: Specialization = this.form.getRawValue() as Specialization;
     return {
       ...s,
@@ -137,6 +170,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
+      programHead: s.programHead.id ? s.programHead : null,
       educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
       educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
       educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
@@ -215,5 +249,12 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
 
   private _saveQualification(specializationId): void {
     this.qualification.save(specializationId);
+  }
+
+  onProgramHeadSelect(event: TypeaheadMatch): void {
+    this.currentProgramHead = event.item as Teacher;
+    const programHeadFormGroup = this.form.controls.programHead as FormGroup;
+    programHeadFormGroup.controls.fullName.setValue(`${this.currentProgramHead.surname} ${this.currentProgramHead.name} ${this.currentProgramHead.patronimic}`);
+    programHeadFormGroup.controls.id.setValue(this.currentProgramHead.id);
   }
 }

@@ -21,3 +21,5 @@ export const DEFAULT_COLUMN_DEFINITIONS = {
   filter: true,
   resizable: true,
 };
+
+export const FOREIGN_FACULTY_ID = 8;

@@ -60,7 +60,6 @@
         </div>
       </div>
 
-
       <div class="form-layout">
         <div class="position-relative form-item">
           <div class="h6 input-group-title">Вартість навчання:</div>
@@ -129,6 +128,50 @@
           </div>
         </div>
       </div>
+
+
+      <div class="form-layout">
+        <div class="form-item">
+          <div class="form-group">
+            <div formGroupName="programHead">
+            <label for="programHead">Гарант програми</label>
+            <input formControlName="fullName"
+                   [typeahead]="teachersDataSource"
+                   (typeaheadOnSelect)="onProgramHeadSelect($event)"
+                   [typeaheadOptionsLimit]="12"
+                   [typeaheadMinLength]="3"
+                   [typeaheadItemTemplate]="template"
+                   placeholder="Введіть прізвище"
+                   class="form-control"
+                   id="programHead"
+                   autocomplete="off">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="educationalProgramHeadNameEng1">Гарант програми англійською</label>
+            <input type="text" class="form-control" id="educationalProgramHeadNameEng1" disabled>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="form-group">
+            <label for="educationalProgramHeadInfo1">Інформація про гаранта програми</label>
+            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfo1"
+                      value="{{currentProgramHead?.scientificDegree?.name}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.ukr}}" disabled>
+          </textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="educationalProgramHeadInfoEng1">
+              Інформація про гаранта програми англійською
+            </label>
+            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfoEng1"
+                      value="{{currentProgramHead?.scientificDegree?.nameEng}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.eng}}" disabled>
+          </textarea>
+          </div>
+        </div>
+      </div>
     </tab>
 
     <tab heading="Компетентності" (selectTab)="competencies.getCompetencies()" *ngIf="isShow">
@@ -148,3 +191,9 @@
     </tab>
   </tabset>
 </form>
+
+<ng-template #template let-model="item" let-index="index">
+  <div class="py-2">
+    <b>{{model.surname}} {{model.name}} {{model.patronimic}}</b>
+  </div>
+</ng-template>

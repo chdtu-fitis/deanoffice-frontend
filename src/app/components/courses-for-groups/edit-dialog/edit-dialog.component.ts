@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {BsModalRef} from 'ngx-bootstrap/modal';
-import {TypeaheadMatch} from 'ngx-bootstrap/typeahead'
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
 
 import {KnowledgeControl} from '../../../models/KnowlegeControl';
 import {KnowledgeControlService} from '../../../services/knowledge-control.service';
