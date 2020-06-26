@@ -7,10 +7,12 @@ import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 
 import {defaultColDef, ordersDefaults} from './constants';
 import {OrdersService} from '../../services/orders.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
+  providers: [DatePipe],
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit, OnDestroy {
@@ -26,10 +28,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private gridApi;
   private gridColumnApi;
   private selectedOrder: any[];
+  private allOrders: any[];
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private _ordersService: OrdersService) {}
+  constructor(private _ordersService: OrdersService, private datePipe: DatePipe) {}
 
   ngOnInit() {
     this._initForm();
@@ -88,13 +91,22 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.rowData = ordersData;
     })
   }
-
-  private _getOrders() {
-    this._ordersService.getOrders(this.ordersForm.value)
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(ordersData => this.rowData = ordersData);
+  filterData(rowData: any): any {
+    return []
   }
 
+  private _getOrders() {
+
+    this._ordersService.getOrders(this.ordersForm.value)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((ordersData) => {
+        for (const order of ordersData) {
+          order.date =  this.datePipe.transform(order.date, 'dd-MM-yyyy')
+        }
+        this.allOrders = ordersData;
+        this.rowData = this.filterData(this.allOrders);
+      });
+  }
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
