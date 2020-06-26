@@ -13,7 +13,7 @@ import {forObservable} from '../components/shared/httpErrors';
 @Injectable()
 export class OrdersService {
 
-  private url = `${environment.apiUrl}/order`;
+  private url = `${environment.apiUrl}/orders`;
 
   constructor(private http: HttpClient) {
   }
