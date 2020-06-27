@@ -31,11 +31,10 @@ export class DepartmentService {
   create(body): Promise<any> {
     return this.httpClient.post(DEPARTMENT_URL, body).toPromise()
       .catch(forPromise('Створення нової кафедри'));
-
   }
 
   updateDepartment(body): Promise<any> {
-    return this.httpClient.put(`${this.departmentsUrl}/departments`, body).toPromise()
+    return this.httpClient.put(`${this.departmentsUrl}/departments/${body.id}`, body).toPromise()
       .catch(forPromise('Оновлення інформації про кафедру'));
   }
 
