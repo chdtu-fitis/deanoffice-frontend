@@ -8,6 +8,8 @@ import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 import {defaultColDef, ordersDefaults} from './constants';
 import {OrdersService} from '../../services/orders.service';
 import {DatePipe} from '@angular/common';
+import {Order} from '../../models/order/Order';
+import {OrdersControls} from "./orders-types";
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +22,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public ordersForm: FormGroup;
   public colDefaults = ordersDefaults;
   public columnColDef = defaultColDef;
-  public rowData;
+  public rowData = [];
   public lastSelectedRowIndex = null;
   public selectedRowStatus = null;
   public renderedRows: any[] = [];
@@ -28,16 +30,19 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private gridApi;
   private gridColumnApi;
   private selectedOrder: any[];
-  private allOrders: any[];
+
+  private ordersControls: OrdersControls;
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private _ordersService: OrdersService, private datePipe: DatePipe) {}
+  constructor(private _ordersService: OrdersService, private datePipe: DatePipe) {
+    this.ordersControls = {activeOrders: true, signedOrders: true, rejectedOrders: false};
+  }
 
   ngOnInit() {
-    this._initForm();
     this._getOrders();
-    this._trackOrdersChanges();
+    this.ordersFilter();
+    // this._trackOrdersChanges();
   }
 
   public getAppropriateNodeIndex(rowIndex: number): number {
@@ -75,38 +80,27 @@ export class OrdersComponent implements OnInit, OnDestroy {
     console.log(this.renderedRows);
   }
 
-  private _initForm(): void {
-    this.ordersForm = new FormGroup({
-      activeOrder: new FormControl(true),
-      draftOrder: new FormControl(false),
-      rejectedOrder: new FormControl(false)
-    })
-  }
+  // private _trackOrdersChanges() {
+  //   this.ordersForm.valueChanges.pipe(
+  //     takeUntil(this.ngUnsubscribe),
+  //     flatMap(ordersStatuses => this._ordersService.getOrders(ordersStatuses).pipe(first()))
+  //   ).subscribe(ordersData => {
+  //     this.rowData = ordersData;
+  //   });
+  // }
 
-  private _trackOrdersChanges() {
-    this.ordersForm.valueChanges.pipe(
-      takeUntil(this.ngUnsubscribe),
-      flatMap(ordersStatuses => this._ordersService.getOrders(ordersStatuses).pipe(first()))
-    ).subscribe(ordersData => {
-      this.rowData = ordersData;
-    })
-  }
-  filterData(rowData: any): any {
-    return []
+  ordersFilter() {
+    this._getOrders();
   }
 
   private _getOrders() {
-
-    this._ordersService.getOrders(this.ordersForm.value)
+    this._ordersService.getOrders(this.ordersControls)
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((ordersData) => {
-        for (const order of ordersData) {
-          order.date =  this.datePipe.transform(order.date, 'dd-MM-yyyy')
-        }
-        this.allOrders = ordersData;
-        this.rowData = this.filterData(this.allOrders);
+        this.rowData = ordersData;
       });
   }
+
   ngOnDestroy() {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
