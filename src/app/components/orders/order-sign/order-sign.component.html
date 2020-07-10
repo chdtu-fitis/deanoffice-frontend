@@ -1,0 +1,20 @@
+<modal-wrapper #modal heading="Підписання нового наказу" (hideModal)="hideModal()">
+  <form [formGroup]="formGroup">
+    <div class="modal-body">
+      <div class="form-item">
+          <div class="orderNum">
+            <label>Номер наказу</label>
+            <input type="text" name="number" formControlName="number" class="form-control">
+          </div>
+          <div>
+            <label class="orderDate">Дата наказу</label>
+            <input type="date" name="date" formControlName="date" class="form-control">
+          </div>
+      </div>
+    </div>
+    <div class="form-btn">
+      <button class="btn btn-success btn-submit" (click)="signedOrder()">Підписати наказ</button>
+      <button class="btn btn-outline-danger" (click)="hideModal()">Скасувати</button>
+    </div>
+  </form>
+</modal-wrapper>

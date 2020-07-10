@@ -1,0 +1,18 @@
+.modal-body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  }
+.form-item {
+  flex: 0 1 350px;
+  }
+.form-btn {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 5px;
+}
+
+button {
+  margin-right: 5px;
+}
