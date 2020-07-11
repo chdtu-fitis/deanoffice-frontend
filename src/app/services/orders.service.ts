@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import {of} from 'rxjs/observable/of';
@@ -12,28 +12,38 @@ import {forObservable} from '../components/shared/httpErrors';
 
 @Injectable()
 export class OrdersService {
+  private ordersUrl = `${environment.apiUrl}/orders`;
 
-  private url = `${environment.apiUrl}/orders`;
-
-  constructor(private http: HttpClient) {
+  constructor(private _httpClient: HttpClient) {
   }
 
   public getOrders(orders: OrdersControls): Observable<any> {
-    const url = `${this.url}?activeStatus=${orders.activeOrder}&draftStatus=${orders.draftOrder}&rejectedOrder=${orders.rejectedOrder}`;
+    const url = `${this.ordersUrl}?activeStatus=${orders.signedOrders}&draftStatus=${orders.draftOrders}&rejectedOrder=${orders.rejectedOrders}`;
+    // return this._httpClient.get<Order[]>(`url`).pipe(catchError(forObservable('Отримання наказів по факультету', [])));
 
-    return of(tableData);
-    // return this.http.get(url)
+    // of(tableData);
+    let result = tableData.filter((order)=> {
+      if (order.status === 'Підписаний' && orders.draftOrders) {
+        return true;
+      } else if (order.status === 'Проект' && orders.signedOrders) {
+        return true;
+      } else if (order.status === 'Відхилений' && orders.rejectedOrders) {
+        return true;
+      }
+    });
+    return of(result);
+    // return this.http.get(ordersUrl)
     //   .pipe(catchError(forObservable('Отримання наказів по факультету', [])));
   }
 
   public getOrderTypes(): Observable<any> {
-    // return this.http.get(`${this.url}/order-type`)
+    // return this.http.get(`${this.ordersUrl}/order-type`)
     //   .pipe(catchError(forObservable('Отримання доступних типів наказу по факультету')))
     return of(orderTypes);
   }
 
   public getOrderParagraphJsonByType(orderType: string = 'STUDENT_EXPEL'): Observable<any> {
-    return this.http.get(`${this.url}/paragraph`, { params: { orderType } })
+    return this._httpClient.get(`${this.ordersUrl}/paragraph`, { params: { orderType } })
       .pipe(catchError(forObservable('Отримання json об\'єкту параграфа певного типу наказу по факультету ', [])))
   }
 }

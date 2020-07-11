@@ -1,28 +1,37 @@
 <section class="orders container-fluid h-100">
   <div class="orders-controls">
-    <form [formGroup]="ordersForm" class="d-flex h-100">
+    <div class="d-flex h-100">
         <div class="order-control">
           <div class="toggle active">
-            <mat-slide-toggle [disableRipple]="true" formControlName="activeOrder">
-              {{'Активні накази'}}
+            <mat-slide-toggle [disableRipple]="true"
+                              name='signedOrders'
+                              [(ngModel)]="ordersControls.signedOrders"
+                              (change)="ordersFilter()">
+              {{'Підписані накази'}}
             </mat-slide-toggle>
           </div>
         </div>
         <div class="order-control">
           <div class="toggle draft">
-            <mat-slide-toggle [disableRipple]="true" formControlName="draftOrder">
+            <mat-slide-toggle [disableRipple]="true"
+                              name="draftOrders"
+                              [(ngModel)]="ordersControls.draftOrders"
+                              (change)="ordersFilter()">
               {{'Проекти наказів'}}
             </mat-slide-toggle>
           </div>
         </div>
         <div class="order-control">
           <div class="toggle rejected">
-            <mat-slide-toggle [disableRipple]="true" formControlName="rejectedOrder">
+            <mat-slide-toggle [disableRipple]="true"
+                              name="rejectedOrders"
+                              [(ngModel)]="ordersControls.rejectedOrders"
+                              (change)="ordersFilter()">
               {{'Відхилені накази'}}
             </mat-slide-toggle>
           </div>
         </div>
-    </form>
+    </div>
   </div>
   <div class="orders-container d-flex">
     <div class="orders-table-container">
@@ -66,10 +75,11 @@
     </div>
   </div>
   <div class="bg-light fixed-bottom p-1">
-    Всього: {{rowData.length }}
+    Всього: {{ rowData.length }}
   </div>
 </section>
 
 <add-order #addOrder>
 
 </add-order>
+

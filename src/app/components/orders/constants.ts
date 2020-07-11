@@ -1,3 +1,5 @@
+import {Utils} from '../shared/utils';
+
 export const defaultColDef = {
   sortable: true,
   // resizable: true,
@@ -19,6 +21,7 @@ export const colDefOrderDate = {
   headerName: 'Дата',
   field: 'date',
   type: ['dateColumn'],
+  cellRenderer: data => Utils.formatDate(data.value),
   width: 250
 };
 
@@ -29,7 +32,7 @@ export const colDefOrderStatus = {
   maxWidth: 270,
   cellStyle: (statusCell) => {
     switch (statusCell.value) {
-      case 'Активний': return {color: '#5cb85c', fontWeight: 900};
+      case 'Підписаний': return {color: '#5cb85c', fontWeight: 900};
       case 'Проект' : return  {color: '#ffc71f', fontWeight: 900};
       case 'Відхилений' : return {color: 'rgba(255, 61, 29, 0.92)', fontWeight: 900}
       default: return {color: 'grey'}

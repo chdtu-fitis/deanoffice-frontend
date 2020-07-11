@@ -20,7 +20,6 @@ import {AuthenticationModule} from '../login/authentication.module';
 import { StudentOrderPreviewComponent } from './add-order/student-order-preview/student-order-preview.component';
 import {AutoSizeInputModule} from 'ngx-autosize-input';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +41,7 @@ import {AutoSizeInputModule} from 'ngx-autosize-input';
     StudentOrderPreviewComponent,
     OrderApproversTemplateComponent,
     InitialsAndSurnamePipe,
-    CreateOrderApproversTemplateComponent
+    CreateOrderApproversTemplateComponent,
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService, OrderReasonService, InitialsAndSurnamePipe, AuthenticationModule.tokenInterceptor()]
