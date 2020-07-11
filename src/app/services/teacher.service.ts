@@ -46,10 +46,12 @@ export class TeacherService {
     const url = `${this.teachersUrl}/teachers/${ids.join(', ')}`;
     return this._httpClient.delete(url).pipe(catchError(forObservable('Видалення викладача', [])));
   }
+
   public updateTeacher(body: Teacher): Promise<any> {
-    return this._httpClient.put(`${this.teachersUrl}/teachers`, body, {}).toPromise()
+    return this._httpClient.put(`${this.teachersUrl}/teachers/${body.id}`, body, {}).toPromise()
       .catch(forPromise('Оновлення інформації про викладача'));
   }
+
   public restoreTeacher (ids: number[]): Observable<Object>  {
     const body = new HttpParams().set('teachersIds', ids.toString());
     const url = `${this.teachersUrl}/teachers/restore`;
