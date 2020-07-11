@@ -23,9 +23,9 @@ export class OrdersService {
 
     // of(tableData);
     let result = tableData.filter((order)=> {
-      if (order.status === 'Підписаний' && orders.draftOrders) {
+      if (order.status === 'Підписаний' && orders.signedOrders) {
         return true;
-      } else if (order.status === 'Проект' && orders.signedOrders) {
+      } else if (order.status === 'Проект' && orders.draftOrders) {
         return true;
       } else if (order.status === 'Відхилений' && orders.rejectedOrders) {
         return true;
