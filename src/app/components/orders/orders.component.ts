@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<any> = new Subject();
 
   constructor(private _ordersService: OrdersService, private datePipe: DatePipe) {
-    this.ordersControls = {activeOrders: true, signedOrders: true, rejectedOrders: false};
+    this.ordersControls = {signedOrders: true, draftOrders: true, rejectedOrders: false};
   }
 
   ngOnInit() {
@@ -77,7 +77,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   public onModelUpdated(params): void {
-    console.log(this.renderedRows);
   }
 
   // private _trackOrdersChanges() {

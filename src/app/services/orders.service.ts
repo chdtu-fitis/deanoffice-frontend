@@ -9,8 +9,6 @@ import {OrdersControls} from '../components/orders/orders-types';
 import {orderReasons, orderTypes, tableData} from '../components/orders/moc';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
-import {OrderApprover} from "../models/order/OrderApprover";
-import {Order} from "../models/order/Order";
 
 @Injectable()
 export class OrdersService {
@@ -21,14 +19,14 @@ export class OrdersService {
   }
 
   public getOrders(orders: OrdersControls): Observable<any> {
-    const url = `${this.ordersUrl}?activeStatus=${orders.activeOrders}&draftStatus=${orders.signedOrders}&rejectedOrder=${orders.rejectedOrders}`;
+    const url = `${this.ordersUrl}?activeStatus=${orders.signedOrders}&draftStatus=${orders.draftOrders}&rejectedOrder=${orders.rejectedOrders}`;
     // return this._httpClient.get<Order[]>(`url`).pipe(catchError(forObservable('Отримання наказів по факультету', [])));
 
     // of(tableData);
     let result = tableData.filter((order)=> {
-      if (order.status === 'Підписаний' && orders.signedOrders) {
+      if (order.status === 'Підписаний' && orders.draftOrders) {
         return true;
-      } else if (order.status === 'Проект' && orders.activeOrders) {
+      } else if (order.status === 'Проект' && orders.signedOrders) {
         return true;
       } else if (order.status === 'Відхилений' && orders.rejectedOrders) {
         return true;

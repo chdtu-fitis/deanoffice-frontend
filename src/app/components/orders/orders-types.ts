@@ -1,5 +1,5 @@
 export interface OrdersControls {
-  activeOrders: boolean,
   signedOrders: boolean,
+  draftOrders: boolean,
   rejectedOrders: boolean
 }

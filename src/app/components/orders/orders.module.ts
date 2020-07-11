@@ -19,8 +19,6 @@ import {OrderReasonService} from '../../services/order-reason.service';
 import {AuthenticationModule} from '../login/authentication.module';
 import { StudentOrderPreviewComponent } from './add-order/student-order-preview/student-order-preview.component';
 import {AutoSizeInputModule} from 'ngx-autosize-input';
-import { SignedOrderComponent } from './add-order/signed-order/signed-order.component';
-
 
 @NgModule({
   imports: [
@@ -44,7 +42,6 @@ import { SignedOrderComponent } from './add-order/signed-order/signed-order.comp
     OrderApproversTemplateComponent,
     InitialsAndSurnamePipe,
     CreateOrderApproversTemplateComponent,
-    SignedOrderComponent
   ],
   entryComponents: [StudentExpelOrderComponent],
   providers: [OrdersService, OrderReasonService, InitialsAndSurnamePipe, AuthenticationModule.tokenInterceptor()]

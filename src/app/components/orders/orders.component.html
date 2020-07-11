@@ -4,8 +4,8 @@
         <div class="order-control">
           <div class="toggle active">
             <mat-slide-toggle [disableRipple]="true"
-                              name='activeOrders'
-                              [(ngModel)]="ordersControls.activeOrders"
+                              name='signedOrders'
+                              [(ngModel)]="ordersControls.signedOrders"
                               (change)="ordersFilter()">
               {{'Підписані накази'}}
             </mat-slide-toggle>
@@ -14,8 +14,8 @@
         <div class="order-control">
           <div class="toggle draft">
             <mat-slide-toggle [disableRipple]="true"
-                              name="signedOrders"
-                              [(ngModel)]="ordersControls.signedOrders"
+                              name="draftOrders"
+                              [(ngModel)]="ordersControls.draftOrders"
                               (change)="ordersFilter()">
               {{'Проекти наказів'}}
             </mat-slide-toggle>
@@ -82,6 +82,4 @@
 <add-order #addOrder>
 
 </add-order>
-<signed-order #singOrder>
 
-</signed-order>
