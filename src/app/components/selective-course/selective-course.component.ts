@@ -1,4 +1,6 @@
 import {Component, OnInit} from "@angular/core";
+import {SelectiveCourseService} from "../../services/selective-course.service";
+import {SelectiveCourse} from "../../models/SelectiveCourse";
 
 @Component({
   selector: 'selective-course',
@@ -7,7 +9,13 @@ import {Component, OnInit} from "@angular/core";
 })
 
 export class SelectiveCourseComponent implements OnInit {
-  ngOnInit(): void {
+  selectiveCourses: SelectiveCourse[];
 
+  constructor(private selectiveCourseService: SelectiveCourseService) { }
+
+  ngOnInit(): void {
+    this.selectiveCourseService.getSelectiveCourses('2020').subscribe((selectiveCourses: SelectiveCourse[]) => {
+      this.selectiveCourses = selectiveCourses;
+    });
   }
 }
