@@ -12,7 +12,7 @@ import {CourseForGroupService} from '../../services/course-for-group.service';
 import {AddedCoursesComponent} from './added-courses/added-courses.component';
 import {CourseCreationComponent} from './course-creation/course-creation.component';
 import {CopyCoursesDialogComponent} from './copy-courses-dialog/copy-courses-dialog.component';
-import {StudiedCoursesComponent} from './studied-courses/studied-courses.component';
+import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {TeacherDialogComponent} from './teacher-dialog/teacher-dialog.component';
 import {CurrentUserService} from '../../services/auth/current-user.service';
 import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';

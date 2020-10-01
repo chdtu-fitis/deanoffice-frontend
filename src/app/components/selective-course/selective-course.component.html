@@ -1,3 +1,58 @@
-<div *ngFor="let selectiveCourse of selectiveCourses">
-  <p>{{selectiveCourse.course.courseName.name}} {{selectiveCourse.course.semester}}</p>
+<div class="container-fluid courses-for-groups">
+  <div class="selection row">
+    <div class="col-7">
+      <div class="menu-row">
+        <div class="element">
+          <div class="element-header">Навчальний рік:</div>
+          <div class="col-2">
+            <select class="form-control mr-2"
+                    [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
+              <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
+          <div class="element-header">Семестр:</div>
+          <div class="col-1">
+            <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
+                    (change)="onSemesterChange()">
+              <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
+                 class="form-control mr-2 search">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row courses">
+    <div class="col-7 h-100">
+      <div class="studied-courses">
+        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                         [courses]="courses" [searchText]="searchText"></studied-courses>
+      </div>
+    </div>
+  </div>
 </div>
+<ag-grid-angular
+  class="ag-theme-balham overflow-auto h-100"
+  rowSelection="single"
+  rowHeight="30"
+  headerHeight="30"
+  enableCellChangeFlash=true
+  [animateRows]="true"
+  [accentedSort]="true"
+  [rowData]="selectiveCourses"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [localeText]="localeText"
+  [getRowNodeId]="getRowNodeId"
+  [modules]="agGridModules"
+  (selectionChanged)="onSelectionChanged($event)"
+  (gridReady)="onGridReady($event)"
+  (modelUpdated)="onModelUpdated($event)"
+>
+</ag-grid-angular>
