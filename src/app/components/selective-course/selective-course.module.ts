@@ -5,8 +5,6 @@ import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {PipeModule} from "../../pipes/pipe.module";
-import {CoursesForGroupsModule} from "../courses-for-groups/courses-for-groups.module";
-import {StudiedCoursesComponent} from "../shared/studied-courses/studied-courses.component";
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}

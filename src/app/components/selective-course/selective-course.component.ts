@@ -30,6 +30,10 @@ export class SelectiveCourseComponent implements OnInit {
 
   courses: Course[];
   studiedCoursesLoading = false;
+
+  selectedCourses = [];
+  coursesSelectedForDelete = [];
+
   selectiveCourses: SelectiveCourse[];
 
   constructor(private selectiveCourseService: SelectiveCourseService, private courseService: CourseService) { }
@@ -74,5 +78,17 @@ export class SelectiveCourseComponent implements OnInit {
       this.courses = cfg;
       this.studiedCoursesLoading = false;
     });
+  }
+
+  addCoursesToSelected() {
+
+  }
+
+  deleteAddedCourses() {
+
+  }
+
+  copyCourses() {
+
   }
 }

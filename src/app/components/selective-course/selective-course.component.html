@@ -36,6 +36,20 @@
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesToSelected()"
+              [disabled]="!selectedCourses.length">Призначити
+      </button>
+      <button type="button" class="btn btn-danger btn-medium" (click)="deleteAddedCourses()"
+              [disabled]="!coursesSelectedForDelete.length">Видалити
+      </button>
+      <button type="button" class="btn btn-info" (click)="copyCourses()">
+        Скопіювати з іншого року
+      </button>
+    </div>
+  </div>
 </div>
 <ag-grid-angular
   class="ag-theme-balham overflow-auto h-100"
