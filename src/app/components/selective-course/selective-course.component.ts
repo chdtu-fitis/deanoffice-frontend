@@ -26,6 +26,8 @@ export class SelectiveCourseComponent implements OnInit {
   years: string[] = ['2020', '2021', '2022'];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+  selectedDegreeId: number = 1;
+  degrees = [{id: 1, name: 'Бакалавр'}, {id: 3, name: 'Магістр'}];
   searchText: string;
 
   courses: Course[];
@@ -64,7 +66,11 @@ export class SelectiveCourseComponent implements OnInit {
 
   }
 
-  onSemesterChange() {
+  onSelectedSemesterChange() {
+
+  }
+
+  onSelectedDegreeChange() {
 
   }
 
@@ -91,4 +97,6 @@ export class SelectiveCourseComponent implements OnInit {
   copyCourses() {
 
   }
+
+
 }

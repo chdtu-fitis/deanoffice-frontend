@@ -3,24 +3,33 @@
     <div class="col-7">
       <div class="menu-row">
         <div class="element">
+          <div class="element-header">Ступінь:</div>
+          <div>
+            <select class="form-control"
+                    [(ngModel)]="selectedDegreeId" (change)="onSelectedDegreeChange()">
+              <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
           <div class="element-header">Навчальний рік:</div>
-          <div class="col-2">
+          <div>
             <select class="form-control mr-2"
                     [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
-              <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+              <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
             </select>
           </div>
         </div>
         <div class="element">
           <div class="element-header">Семестр:</div>
-          <div class="col-1">
-            <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
-                    (change)="onSemesterChange()">
+          <div>
+            <select id="semester" class="form-control mr-2"
+                    [(ngModel)]="selectedSemester" (change)="onSelectedSemesterChange()">
               <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
             </select>
           </div>
         </div>
-        <div class="col-6">
+        <div class="element-wider">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
                  class="form-control mr-2 search">
         </div>

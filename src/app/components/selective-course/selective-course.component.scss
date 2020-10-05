@@ -39,11 +39,15 @@ div {
   display: inline-flex;
   flex-direction: row;
   justify-content: flex-start;
-
+  margin-right: 15px;
   .element-header {
     margin-right: 5px;
     min-width: auto;
+    font-weight: bold;
   }
+}
+.element-wider {
+  flex: 2;
 }
 
 .courses{
