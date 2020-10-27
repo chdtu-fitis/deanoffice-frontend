@@ -58,29 +58,10 @@
     </button>
     <div class="element">
       <div>
-        <select class="form-control prepDropdown" required>
-          <option *ngFor="let type of prepTypes" [ngValue]="type.id">{{type.name}}</option>
+        <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
+          <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
         </select>
       </div>
     </div>
   </div>
 </div>
-<ag-grid-angular
-  class="ag-theme-balham overflow-auto h-100"
-  rowSelection="single"
-  rowHeight="30"
-  headerHeight="30"
-  enableCellChangeFlash=true
-  [animateRows]="true"
-  [accentedSort]="true"
-  [rowData]="selectiveCourses"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [localeText]="localeText"
-  [getRowNodeId]="getRowNodeId"
-  [modules]="agGridModules"
-  (selectionChanged)="onSelectionChanged($event)"
-  (gridReady)="onGridReady($event)"
-  (modelUpdated)="onModelUpdated($event)"
->
-</ag-grid-angular>

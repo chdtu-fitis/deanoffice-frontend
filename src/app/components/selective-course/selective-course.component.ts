@@ -32,8 +32,11 @@ export class SelectiveCourseComponent implements OnInit {
   selectedDegreeId: number = 1;
   degrees = [{id: 1, name: 'Бакалавр'}, {id: 3, name: 'Магістр'}];
   searchText: string;
-  prepTypes = [{id: 1, name: 'Цикл загальної підготовки'}, {id: 2, name: 'Цикл професійної підготовки'}];
-  knowledgeTypes: string[] = ['dssd', 'dssdsddsds 2'];
+  prepTypes = [{id: 0, name: 'Не обрано'},
+    {id: 1, name: 'Цикл загальної підготовки'},
+    {id: 2, name: 'Цикл професійної підготовки'}];
+
+  selectedPrepType = this.prepTypes[0];
 
   courses: Course[];
   studiedCoursesLoading = false;
@@ -50,10 +53,24 @@ export class SelectiveCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedYear = new Date().getFullYear().toString();
-    this.loadCoursesBySemester();
-    this.selectiveCourseService.getSelectiveCourses(this.selectedYear).subscribe((selectiveCourses: SelectiveCourse[]) => {
-      this.selectiveCourses = selectiveCourses;
+    this.loadCourses();
+  }
+
+  loadCourses() {
+    this.studiedCoursesLoading = true;
+    this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, 30).subscribe(cfg => {
+      this.courses = cfg;
+      this.studiedCoursesLoading = false;
     });
+  }
+
+  loadSelectiveCourses() {
+    if (this.selectedYear && this.selectedDegreeId && this.selectedSemester) {
+      this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.selectedDegreeId, this.selectedSemester)
+        .subscribe((selectiveCourses: SelectiveCourse[]) => {
+          this.selectiveCourses = selectiveCourses;
+        });
+    }
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -87,19 +104,12 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   assignCourses() {
-    /*const initialState = {
-      courseFromTable: course,
-      selectedGroup: this.selectedGroup
-    };*/
-    this.modalService.show(AssignDialogComponent, {});
-  }
-
-  loadCoursesBySemester() {
-    this.studiedCoursesLoading = true;
-    this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, 30).subscribe(cfg => {
-      this.courses = cfg;
-      this.studiedCoursesLoading = false;
-    });
+    const initialState = {
+      selectedPrepType: this.selectedPrepType,
+      selectedCourses: this.selectedCourses,
+      semester: this.selectedSemester,
+    };
+    this.modalService.show(AssignDialogComponent, {initialState});
   }
 
   addCoursesToSelected() {
