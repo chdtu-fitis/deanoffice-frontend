@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DepartmentService} from '../../../services/department.service';
 import {Department} from '../../../models/Department';
 import {Observable} from 'rxjs';
+import {SelectiveCourseService} from '../../../services/selective-course.service';
+import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
+import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.service';
 
 @Component({
   selector: 'assign-dialog',
@@ -12,51 +15,79 @@ import {Observable} from 'rxjs';
 })
 export class AssignDialogComponent implements OnInit {
   form: FormGroup;
-  selectedPrepType: any;
-  selectedCourses = [];
+  studyYear: number;
+  degreeId: number;
+  prepType: any;
+  courses = [];
   semester: number;
 
-  knowledgeTypes: string[] = [
-    '02 Культура і мистецтво',
-    '03 Гуманітарні науки',
-    '05 Соціальні та поведінкові науки',
-    '07 Управління та адміністрування',
-    '10 Природничі науки',
-    '12 Інформаційні технології',
-    '13 Механічна інженерія',
-    '14 Електрична інженерія',
-    '15 Автоматизація та приладобудування',
-    '16 Хімічна та біоінженерія',
-    '17 Електроніка та телекомунікації',
-    '18 Виробництво та технології',
-    '19 Архітектура та будівництво',
-    '23 Соціальна робота',
-    '24 Сфера обслуговування',
-    '27 Транспорт',
-    '28 Публічне управління та адміністрування',
-  ];
-
+  fieldsOfKnowledge: FieldOfKnowledge[];
   departments$: Observable<Department[]>;
 
+  @Output() onAssign = new EventEmitter();
+
   constructor(private fb: FormBuilder, public bsModalRef: BsModalRef,
-              private departmentService: DepartmentService) {
+              private fieldOfKnowledgeService: FieldOfKnowledgeService,
+              private departmentService: DepartmentService,
+              private selectiveCourseService: SelectiveCourseService) {
     this.form = fb.group({
       knowledgeTypes: fb.array([]),
+      selectiveCourses: fb.array([]),
     });
-    for (let type of this.knowledgeTypes) {
-      (<FormArray>this.form.get('knowledgeTypes')).push(new FormControl(false));
-    }
   }
 
   ngOnInit() {
-    this.departments$ = this.departmentService.getDepartments();
-    this.departments$.subscribe(departments => {
-      console.log(departments);
+    for (const course of this.courses) {
+      const group = new FormGroup({
+        department: new FormControl(),
+        description: new FormControl(''),
+        teacher: new FormControl(),
+      });
+      (<FormArray>this.form.get('selectiveCourses')).push(group);
+    }
+
+    this.fieldOfKnowledgeService.getFieldsOfKnowledge().subscribe(fieldsOfKnowledge => {
+      this.fieldsOfKnowledge = fieldsOfKnowledge;
+
+      for (const type of this.fieldsOfKnowledge) {
+        (<FormArray>this.form.get('knowledgeTypes')).push(new FormControl(false));
+      }
     });
+    this.departments$ = this.departmentService.getDepartments();
   }
 
   assign() {
-    const a = this.form.get('knowledgeTypes').get('0').value;
-    console.log(a);
+    const trainingCycle = this.prepType.id === 2 ? 'PROFESSIONAL' : 'GENERAL';
+    const fieldsOfKnowledge: number[] = [];
+
+    for (let i = 0; i < this.fieldsOfKnowledge.length; i++) {
+      const cb = this.form.get('knowledgeTypes').get(`${i}`);
+
+      if (cb.value) {
+        fieldsOfKnowledge.push(this.fieldsOfKnowledge[i].id);
+      }
+    }
+
+    for (let i = 0; i < this.courses.length; i++) {
+      const course = this.courses[i];
+      const courseControl = this.form.get('selectiveCourses').get(`${i}`);
+
+      const departmentId = courseControl.get('department').value;
+      const description = courseControl.get('description').value;
+
+      const teacherValue = courseControl.get('teacher').value;
+      const teacher = teacherValue ? {
+        id: courseControl.get('teacher').value,
+      } : null;
+
+      this.selectiveCourseService.createSelectiveCourse(this.studyYear, course.id, this.degreeId,
+        departmentId, description, fieldsOfKnowledge, teacher, trainingCycle).subscribe(response => {
+        this.onAssign.emit();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    this.bsModalRef.hide();
   }
 }

@@ -1,14 +1,21 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, forwardRef, OnInit, Output, ViewChild} from '@angular/core';
 import {Teacher} from '../../../models/Teacher';
 import {TeacherService} from '../../../services/teacher.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ControlValueAccessor, FormBuilder, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
 
 @Component({
   selector: 'teacher-search',
   templateUrl: './teacher-search.component.html',
-  styleUrls: ['./teacher-search.component.scss']
+  styleUrls: ['./teacher-search.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => TeacherSearchComponent),
+      multi: true
+    }
+  ]
 })
-export class TeacherSearchComponent implements OnInit {
+export class TeacherSearchComponent implements OnInit, ControlValueAccessor {
   form: FormGroup;
 
   @Output() onTeacherSelect = new EventEmitter();
@@ -19,11 +26,12 @@ export class TeacherSearchComponent implements OnInit {
 
   constructor(private teacherService: TeacherService, private fb: FormBuilder) {
     this.form = fb.group({
-      searchBox: new FormControl(this.searchText, [
-
-      ]),
+      searchBox: new FormControl(this.searchText, []),
     });
   }
+
+  onChange: any = () => {}
+  onTouch: any = () => {}
 
   ngOnInit() {
     this.teacherService.getTeachersShort().subscribe(teachers => {
@@ -36,10 +44,30 @@ export class TeacherSearchComponent implements OnInit {
     this.selectedTeacher = teacher;
     this.searchText = teacher.surname + ' ' + teacher.name + ' ' + teacher.patronimic;
     this.onTeacherSelect.emit(teacher);
+
+    this.onChange(teacher);
   }
 
   onSearchTextChange(searchText) {
-    this.form.controls['searchBox'].setErrors({'incorrect': true});
-    this.showResults = searchText;
+    this.showResults = searchText.length > 0;
+
+    if (searchText.length === 0) {
+      this.form.controls['searchBox'].setErrors(null);
+      this.onChange(null);
+    } else {
+      this.form.controls['searchBox'].setErrors({'incorrect': true});
+    }
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+
+  writeValue(obj: any): void {
+    this.searchText = obj;
   }
 }

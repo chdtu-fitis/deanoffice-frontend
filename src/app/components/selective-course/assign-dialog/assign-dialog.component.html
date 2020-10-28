@@ -7,32 +7,38 @@
 <div class="modal-body">
   <div class="creation-form">
     <form [formGroup]="form" style="margin-bottom: 10px">
-      <div formArrayName="knowledgeTypes" *ngIf="selectedPrepType.id == 2">
+      <div formArrayName="knowledgeTypes" *ngIf="prepType.id == 2">
         <div class="row" style="margin-left: 7px">
           <div *ngFor="let control of form.get('knowledgeTypes').controls; let i = index" class="col-5">
             <input type="checkbox" [formControl]="control">
-            <span style="margin-left: 7px; margin-right: 20px;">{{knowledgeTypes[i]}}</span>
+            <span
+              style="margin-left: 7px; margin-right: 20px;">{{fieldsOfKnowledge[i].code}} {{fieldsOfKnowledge[i].name}}</span>
           </div>
         </div>
         <hr>
       </div>
-      <div *ngFor="let course of selectedCourses" style="margin-top: 10px">
-        <p style="padding: 0px; margin-bottom: 5px;">{{course.courseName.name}} -
-          Контроль: <strong>{{course.knowledgeControl.name}}</strong> - Години: <strong>{{course.hours}}</strong> -
-          Кредити: <strong>{{course.credits}}</strong></p>
-        <textarea style="width: 100%"></textarea>
+      <div formArrayName="selectiveCourses" *ngFor="let courseControl of form.get('selectiveCourses').controls; let i = index"
+           style="margin-top: 10px">
+        <p style="padding: 0px; margin-bottom: 5px;">{{courses[i].courseName.name}} -
+          Контроль: <strong>{{courses[i].knowledgeControl.name}}</strong> - Години: <strong>{{courses[i].hours}}</strong> -
+          Кредити: <strong>{{courses[i].credits}}</strong></p>
 
-        <div class="row" style="margin-left: 5px">
-          <div>
-            <span>Викладач:</span>
-            <teacher-search></teacher-search>
-          </div>
-          <div style="margin-left: 10px">
-            <span>Кафедра:</span>
+        <div [formGroup]="courseControl">
+          <textarea formControlName="description" style="width: 100%"></textarea>
 
-            <select class="form-control departmentSelect" required>
-              <option *ngFor="let department of departments$ | async" [ngValue]="department.id">{{department.abbr}}</option>
-            </select>
+          <div class="row" style="margin-left: 5px">
+            <div>
+              <span>Викладач:</span>
+              <teacher-search formControlName="teacher"></teacher-search>
+            </div>
+            <div style="margin-left: 10px">
+              <span>Кафедра:</span>
+
+              <select formControlName="department" class="form-control departmentSelect" required>
+                <option *ngFor="let department of departments$ | async"
+                        [ngValue]="department.id">{{department.abbr}}</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

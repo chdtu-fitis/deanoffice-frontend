@@ -68,12 +68,6 @@ div {
     height: 100%;
     overflow: auto;
   }
-
-}
-
-.course-for-group-table {
-  height: 50%;
-  overflow: auto;
 }
 
 .col-1 {
@@ -92,4 +86,9 @@ div {
 
 .count-label {
   margin-top: 15px;
+}
+
+.assigned-courses-table {
+  height: 50%;
+  overflow: auto;
 }

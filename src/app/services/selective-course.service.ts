@@ -18,4 +18,20 @@ export class SelectiveCourseService {
       `${SELECTIVE_COURSE_URL}?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
+
+  createSelectiveCourse(studyYear: number, courseId: number, degreeId: number, departmentId: number,
+                        description: string, fieldsOfKnowledge: number[], teacher: any, trainingCycle: string) {
+    const body = {
+      available: true,
+      course: { id: courseId },
+      degree: { id: degreeId },
+      department: { id: departmentId },
+      description: description,
+      fieldsOfKnowledge: fieldsOfKnowledge,
+      studyYear: studyYear,
+      teacher: teacher,
+      trainingCycle: trainingCycle,
+    };
+    return this.httpClient.post(`${SELECTIVE_COURSE_URL}`, body);
+  }
 }

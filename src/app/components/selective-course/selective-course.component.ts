@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SelectiveCourseService} from '../../services/selective-course.service';
-import {SelectiveCourse} from '../../models/SelectiveCourse';
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
 import {COLUMN_DEFINITIONS_SELECTIVE_COURSE} from './columns-def-selective-course';
 import {GridReadyEvent} from '@ag-grid-community/all-modules';
 import {Course} from '../../models/Course';
 import {CourseService} from '../../services/course.service';
-import {EditDialogComponent} from '../courses-for-groups/edit-dialog/edit-dialog.component';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
+import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
 
 @Component({
   selector: 'selective-course',
@@ -24,7 +23,6 @@ export class SelectiveCourseComponent implements OnInit {
   localeText = LOCALE_TEXT;
   gridApi;
   gridColumnApi;
-  getRowNodeId = (data) => data.id;
   selectedYear: string;
   years: string[] = ['2020', '2021', '2022'];
   selectedSemester: number = 1;
@@ -32,7 +30,7 @@ export class SelectiveCourseComponent implements OnInit {
   selectedDegreeId: number = 1;
   degrees = [{id: 1, name: 'Бакалавр'}, {id: 3, name: 'Магістр'}];
   searchText: string;
-  prepTypes = [{id: 0, name: 'Не обрано'},
+  prepTypes = [
     {id: 1, name: 'Цикл загальної підготовки'},
     {id: 2, name: 'Цикл професійної підготовки'}];
 
@@ -44,7 +42,7 @@ export class SelectiveCourseComponent implements OnInit {
   selectedCourses = [];
   coursesSelectedForDelete = [];
 
-  selectiveCourses: SelectiveCourse[];
+  @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
@@ -62,15 +60,6 @@ export class SelectiveCourseComponent implements OnInit {
       this.courses = cfg;
       this.studiedCoursesLoading = false;
     });
-  }
-
-  loadSelectiveCourses() {
-    if (this.selectedYear && this.selectedDegreeId && this.selectedSemester) {
-      this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.selectedDegreeId, this.selectedSemester)
-        .subscribe((selectiveCourses: SelectiveCourse[]) => {
-          this.selectiveCourses = selectiveCourses;
-        });
-    }
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -92,7 +81,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   onSelectedSemesterChange() {
-
+    this.loadCourses();
   }
 
   onSelectedDegreeChange() {
@@ -105,11 +94,17 @@ export class SelectiveCourseComponent implements OnInit {
 
   assignCourses() {
     const initialState = {
-      selectedPrepType: this.selectedPrepType,
-      selectedCourses: this.selectedCourses,
+      studyYear: parseInt(this.selectedYear, 10),
+      degreeId: this.selectedDegreeId,
+      prepType: this.selectedPrepType,
+      courses: this.selectedCourses,
       semester: this.selectedSemester,
     };
-    this.modalService.show(AssignDialogComponent, {initialState});
+
+    const modalRef = this.modalService.show(AssignDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onAssign.subscribe(() => {
+      this.assignedCoursesChild.load();
+    });
   }
 
   addCoursesToSelected() {
