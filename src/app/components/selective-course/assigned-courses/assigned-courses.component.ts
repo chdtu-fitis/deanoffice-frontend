@@ -34,8 +34,6 @@ export class AssignedCoursesComponent implements OnInit {
       this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
         .subscribe((selectiveCourses: SelectiveCourse[]) => {
           this.selectiveCourses = selectiveCourses;
-
-          console.log(this.selectiveCourses[0].trainingCycle);
         });
     }
   }

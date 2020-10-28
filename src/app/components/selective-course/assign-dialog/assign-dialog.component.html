@@ -35,8 +35,8 @@
               <span>Кафедра:</span>
 
               <select formControlName="department" class="form-control departmentSelect" required>
-                <option *ngFor="let department of departments$ | async"
-                        [ngValue]="department.id">{{department.abbr}}</option>
+                  <option *ngFor="let department of departments"
+                          [ngValue]="department.id">{{department.abbr}}</option>
               </select>
             </div>
           </div>

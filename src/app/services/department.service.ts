@@ -17,6 +17,11 @@ export class DepartmentService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getAllDepartments(): Observable<Department[]> {
+    return this.httpClient.get<Department[]>(`${DEPARTMENT_URL}/all`)
+      .pipe(catchError(forObservable('Отримання повного списку кафедр', [])));
+  }
+
   getDepartments(): Observable<Department[]> {
     return this.httpClient.get<Department[]>(DEPARTMENT_URL)
       .pipe(catchError(forObservable('Отримання списку кафедр', [])));

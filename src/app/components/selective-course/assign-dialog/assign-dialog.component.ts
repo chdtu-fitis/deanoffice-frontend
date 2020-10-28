@@ -22,7 +22,7 @@ export class AssignDialogComponent implements OnInit {
   semester: number;
 
   fieldsOfKnowledge: FieldOfKnowledge[];
-  departments$: Observable<Department[]>;
+  departments: Department[];
 
   @Output() onAssign = new EventEmitter();
 
@@ -53,7 +53,9 @@ export class AssignDialogComponent implements OnInit {
         (<FormArray>this.form.get('knowledgeTypes')).push(new FormControl(false));
       }
     });
-    this.departments$ = this.departmentService.getDepartments();
+    this.departmentService.getAllDepartments().subscribe(departments => {
+      this.departments = departments.filter(department => department.abbr.length > 0);
+    });
   }
 
   assign() {
