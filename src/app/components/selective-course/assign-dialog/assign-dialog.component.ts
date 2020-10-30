@@ -79,14 +79,25 @@ export class AssignDialogComponent implements OnInit {
 
       const teacherValue = courseControl.get('teacher').value;
       const teacher = teacherValue ? {
-        id: courseControl.get('teacher').value,
+        id: courseControl.get('teacher').value.id,
       } : null;
 
-      this.selectiveCourseService.createSelectiveCourse(this.studyYear, course.id, this.degreeId,
-        departmentId, description, fieldsOfKnowledge, teacher, trainingCycle).subscribe(response => {
+      const body = {
+        available: true,
+        course: { id: course.id },
+        degree: { id: this.degreeId },
+        department: { id: departmentId },
+        description: description,
+        fieldsOfKnowledge: fieldsOfKnowledge,
+        studyYear: this.studyYear,
+        teacher: teacher,
+        trainingCycle: trainingCycle,
+      };
+
+      this.selectiveCourseService.createSelectiveCourse(body).subscribe(() => {
         this.onAssign.emit();
       }, error => {
-        console.log(error);
+        console.log(body, error);
       });
     }
 
