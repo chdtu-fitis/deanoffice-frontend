@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h4 class="modal-title">Призначення дисциплін - {{semester}} семестр</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="creation-form">
+    <form [formGroup]="form" style="margin-bottom: 10px">
+      <div formArrayName="knowledgeTypes" *ngIf="prepType.id == 2">
+        <div class="row" style="margin-left: 7px">
+          <div *ngFor="let control of form.get('knowledgeTypes').controls; let i = index" class="col-5">
+            <input type="checkbox" [formControl]="control">
+            <span
+              style="margin-left: 7px; margin-right: 20px;">{{fieldsOfKnowledge[i].code}} {{fieldsOfKnowledge[i].name}}</span>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <div formArrayName="selectiveCourses" *ngFor="let courseControl of form.get('selectiveCourses').controls; let i = index"
+           style="margin-top: 10px">
+        <p style="padding: 0px; margin-bottom: 5px;">{{courses[i].courseName.name}} -
+          Контроль: <strong>{{courses[i].knowledgeControl.name}}</strong> - Години: <strong>{{courses[i].hours}}</strong> -
+          Кредити: <strong>{{courses[i].credits}}</strong></p>
+
+        <div [formGroup]="courseControl">
+          <textarea formControlName="description" style="width: 100%"></textarea>
+
+          <div class="row" style="margin-left: 5px">
+            <div>
+              <span>Викладач:</span>
+              <teacher-search formControlName="teacher"></teacher-search>
+            </div>
+            <div style="margin-left: 10px">
+              <span>Кафедра:</span>
+
+              <select formControlName="department" class="form-control departmentSelect" required>
+                  <option *ngFor="let department of departments"
+                          [ngValue]="department.id">{{department.abbr}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="assign()">Призначити</button>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+    </div>
+  </div>
+</div>

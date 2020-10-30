@@ -1,0 +1,71 @@
+<div class="container-fluid courses-for-groups">
+  <div class="selection row">
+    <div class="col-7">
+      <div class="menu-row">
+        <div class="element">
+          <div class="element-header">Ступінь:</div>
+          <div>
+            <select class="form-control"
+                    [(ngModel)]="selectedDegreeId" (change)="onSelectedDegreeChange()">
+              <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
+          <div class="element-header">Навчальний рік:</div>
+          <div>
+            <select class="form-control mr-2"
+                    [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
+              <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
+          <div class="element-header">Семестр:</div>
+          <div>
+            <select id="semester" class="form-control mr-2"
+                    [(ngModel)]="selectedSemester" (change)="onSelectedSemesterChange()">
+              <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element-wider">
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
+                 class="form-control mr-2 search">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row courses">
+    <div class="col-7 h-100">
+      <div class="studied-courses">
+        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                         [courses]="courses" [searchText]="searchText"></studied-courses>
+      </div>
+    </div>
+  </div>
+
+  <div class="row-12">
+    <button type="button" class="btn btn-info btn-medium ml-1" (click)="assignCourses()"
+            [disabled]="!selectedCourses.length">Призначити
+    </button>
+    <button type="button" class="btn btn-danger btn-medium" (click)="deleteAddedCourses()"
+            [disabled]="!coursesSelectedForDelete.length">Видалити
+    </button>
+    <button type="button" class="btn btn-info" (click)="copyCourses()">
+      Скопіювати з іншого року
+    </button>
+    <div class="element">
+      <div>
+        <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
+          <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="assigned-courses-table col-7">
+    <assigned-courses [studyYear]="selectedYear" [degreeId]="selectedDegreeId" [semester]="selectedSemester"></assigned-courses>
+  </div>
+</div>

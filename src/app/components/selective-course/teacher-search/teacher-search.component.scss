@@ -1,0 +1,31 @@
+.ng-valid[required], .ng-valid.required  {
+  border: 2px solid #42A948;
+}
+
+.ng-invalid:not(form)  {
+  border: 2px solid #A94442;
+}
+
+#searchBox {
+  width: 20em;
+  height: 2em;
+}
+
+#resultsList {
+  width: 22em;
+  height: 10em;
+  overflow: auto;
+  padding-left: 0px;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  position: absolute;
+}
+
+#resultsList li {
+  height: 2em;
+  padding-top: 0.2em;
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 10px;
+}

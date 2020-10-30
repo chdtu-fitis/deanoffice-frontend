@@ -1,0 +1,11 @@
+<form [formGroup]="form" autocomplete="off">
+  <input id="searchBox" class="form-control" formControlName="searchBox"
+         [(ngModel)]="searchText" (input)="onSearchTextChange(searchText)" (blur)="showResults=false">
+  <ul id="resultsList" *ngIf="showResults">
+    <li class="list-group-item" style="cursor: pointer"
+        *ngFor="let teacher of teachers | teacherSearch : searchText"
+        (mousedown)="selectTeacher(teacher)">
+      {{teacher.surname}} {{teacher.name}} {{teacher.patronimic}}
+    </li>
+  </ul>
+</form>

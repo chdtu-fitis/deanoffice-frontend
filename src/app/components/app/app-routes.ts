@@ -63,6 +63,11 @@ export const appRoutes: Routes = [
         data: { title: 'Предмети для груп' }
       },
       {
+        path: 'selective-courses',
+        loadChildren: () => import('../selective-course/selective-course.module').then(m => m.SelectiveCourseModule),
+        data: { title: 'Вибіркові предмети' }
+      },
+      {
         path: 'course',
         loadChildren: () => import('../course/course.module').then(m => m.CourseModule),
         data: { title: 'Предмети' }

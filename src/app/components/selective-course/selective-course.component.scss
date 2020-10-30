@@ -1,0 +1,94 @@
+div {
+  font-size: 15px;
+}
+
+.courses-for-groups {
+  height: calc(100% - 108px);
+}
+
+.selection {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+
+  .form-control {
+    height: 1.5rem;
+    font-size: 15px;
+    padding: 0 0.75rem;
+  }
+}
+
+.prepDropdown {
+  height: 2rem;
+  padding: 0 0.75rem;
+  position: relative;
+  top: 3px;
+  margin-left: 5px;
+}
+
+.btn {
+  height: 2rem;
+  margin: 7px;
+  padding: 0.2rem 0.75rem;
+
+  &.btn-medium {
+    width: 145px;
+  }
+
+}
+
+.menu-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.element {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 15px;
+
+  .element-header {
+    margin-right: 5px;
+    min-width: auto;
+    font-weight: bold;
+  }
+}
+
+.element-wider {
+  flex: 2;
+}
+
+.courses {
+  height: 40%;
+
+  .studied-courses {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+.col-1 {
+  padding: 1px;
+  min-width: 4.8em;
+}
+
+.col-2 {
+  padding: 1px;
+  min-width: 10em;
+}
+
+.col-4 {
+  padding: 1px;
+}
+
+.count-label {
+  margin-top: 15px;
+}
+
+.assigned-courses-table {
+  height: 50%;
+  overflow: auto;
+}

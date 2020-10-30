@@ -10,14 +10,12 @@ import {AuthenticationModule} from '../login/authentication.module';
 import {PipeModule} from '../../pipes/pipe.module';
 
 import { CoursesForGroupsComponent } from './courses-for-groups.component';
-import { StudiedCoursesComponent } from './studied-courses/studied-courses.component';
 import { AddedCoursesComponent } from './added-courses/added-courses.component';
 import { CourseCreationComponent } from './course-creation/course-creation.component';
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import {GroupsDifferentDialogComponent} from './groups-different-dialog/groups-different-dialog.component';
-
 
 const coursesForGroupsRoutes: Routes = [
   {path: '', component: CoursesForGroupsComponent}
@@ -35,7 +33,6 @@ const coursesForGroupsRoutes: Routes = [
   ],
   declarations: [
     CoursesForGroupsComponent,
-    StudiedCoursesComponent,
     AddedCoursesComponent,
     CourseCreationComponent,
     TeacherDialogComponent,

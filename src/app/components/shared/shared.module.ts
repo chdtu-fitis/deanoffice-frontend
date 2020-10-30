@@ -12,6 +12,8 @@ import {LoadingComponent} from './loading/loading.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
 import {ExpectedNameDirective} from './expected-name.directive';
+import {StudiedCoursesComponent} from "./studied-courses/studied-courses.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,11 +23,14 @@ import {ExpectedNameDirective} from './expected-name.directive';
     BaseReactiveFormComponent,
     LoadingComponent,
     ModalWrapperComponent,
-    ExpectedNameDirective
+    ExpectedNameDirective,
+    StudiedCoursesComponent
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
     PipeModule
@@ -40,7 +45,8 @@ import {ExpectedNameDirective} from './expected-name.directive';
     BaseReactiveFormComponent,
     LoadingComponent,
     ModalWrapperComponent,
-    ExpectedNameDirective
+    ExpectedNameDirective,
+    StudiedCoursesComponent
   ]
 })
 
