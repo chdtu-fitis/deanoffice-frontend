@@ -77,15 +77,21 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   onSelectedYearChange() {
-
+    this.loadCourses();
+    this.assignedCoursesChild.studyYear = this.selectedYear;
+    this.assignedCoursesChild.load();
   }
 
   onSelectedSemesterChange() {
     this.loadCourses();
+    this.assignedCoursesChild.semester = this.selectedSemester;
+    this.assignedCoursesChild.load();
   }
 
   onSelectedDegreeChange() {
-
+    this.loadCourses();
+    this.assignedCoursesChild.degreeId = this.selectedDegreeId;
+    this.assignedCoursesChild.load();
   }
 
   changeSelectedCourses(selectedCourses) {
