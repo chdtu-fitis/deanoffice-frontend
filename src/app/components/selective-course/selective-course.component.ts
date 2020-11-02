@@ -24,7 +24,7 @@ export class SelectiveCourseComponent implements OnInit {
   gridApi;
   gridColumnApi;
   selectedYear: string;
-  years: string[] = ['2020', '2021', '2022'];
+  years = [{id: '2020', name: '2020-2021'}, {id: '2021', name: '2021-2022'}, {id: '2022', name: '2022-2023'}];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
@@ -55,7 +55,9 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadCourses() {
+    this.selectedCourses = [];
     this.studiedCoursesLoading = true;
+
     this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, 30).subscribe(cfg => {
       this.courses = cfg;
       this.studiedCoursesLoading = false;
