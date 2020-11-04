@@ -16,7 +16,7 @@
           <div>
             <select class="form-control mr-2"
                     [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
-              <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+              <option *ngFor="let year of years" [ngValue]="year.id">{{year.name}}</option>
             </select>
           </div>
         </div>
