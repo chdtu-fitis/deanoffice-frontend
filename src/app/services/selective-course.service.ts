@@ -22,4 +22,8 @@ export class SelectiveCourseService {
   createSelectiveCourse(body) {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}`, body);
   }
+
+  deleteSelectiveCourse(id) {
+    return this.httpClient.delete(`${SELECTIVE_COURSE_URL}/${id}`);
+  }
 }
