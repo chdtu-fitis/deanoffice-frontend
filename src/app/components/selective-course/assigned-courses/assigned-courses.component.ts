@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CourseForGroup} from '../../../models/CourseForGroup';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {BsModalService} from 'ngx-bootstrap/modal';
@@ -15,12 +15,14 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() studyYear: string;
   @Input() degreeId: number;
   @Input() semester: number;
+  @Output() onSelectedAssignedCoursesChange = new EventEmitter();
 
   typeCycle = TypeCycle;
 
   allRowsIsSelected = false;
 
   selectiveCourses: SelectiveCourse[];
+  selectedAssignedCourses = [];
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private modalService: BsModalService) { }
@@ -35,6 +37,9 @@ export class AssignedCoursesComponent implements OnInit {
         .subscribe((selectiveCourses: SelectiveCourse[]) => {
           this.selectiveCourses = selectiveCourses;
         });
+
+      this.selectedAssignedCourses = [];
+      this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
     }
   }
 
@@ -55,17 +60,17 @@ export class AssignedCoursesComponent implements OnInit {
     this.allRowsIsSelected = isSelected;
   }
 
-  changeCoursesForDelete(checked: boolean, selectedCourse: CourseForGroup) {
-    /*if (!checked) {
-      for (const course of this.coursesForGroupForDelete) {
+  changeSelectedAssignedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
+    if (!checked) {
+      for (const course of this.selectedAssignedCourses) {
         if (course.id === selectedCourse.id) {
-          this.coursesForGroupForDelete.splice(this.coursesForGroupForDelete.indexOf(course), 1);
+          this.selectedAssignedCourses.splice(this.selectedAssignedCourses.indexOf(course), 1);
         }
       }
     } else {
-      this.coursesForGroupForDelete.push(selectedCourse);
+      this.selectedAssignedCourses.push(selectedCourse);
     }
-    this.onCoursesForDeleteChange.emit(this.coursesForGroupForDelete);*/
+    this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
 
   changeTeacher(course) {

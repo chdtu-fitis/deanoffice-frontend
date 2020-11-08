@@ -40,7 +40,7 @@ export class SelectiveCourseComponent implements OnInit {
   studiedCoursesLoading = false;
 
   selectedCourses = [];
-  coursesSelectedForDelete = [];
+  selectedAssignedCourses = [];
 
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
@@ -100,6 +100,10 @@ export class SelectiveCourseComponent implements OnInit {
     this.selectedCourses = selectedCourses;
   }
 
+  changeSelectedSelectiveCourses(selectedAssignedCourses) {
+    this.selectedAssignedCourses = selectedAssignedCourses;
+  }
+
   assignCourses() {
     const initialState = {
       studyYear: parseInt(this.selectedYear, 10),
@@ -119,13 +123,17 @@ export class SelectiveCourseComponent implements OnInit {
 
   }
 
-  deleteAddedCourses() {
-
+  deleteAssignedCourses() {
+    for (const course of this.selectedAssignedCourses) {
+      this.selectiveCourseService.deleteSelectiveCourse(course.id).subscribe(() => {
+        this.assignedCoursesChild.load();
+      }, error => {
+        console.log(course, error);
+      });
+    }
   }
 
   copyCourses() {
 
   }
-
-
 }

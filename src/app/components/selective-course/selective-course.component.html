@@ -50,8 +50,8 @@
     <button type="button" class="btn btn-info btn-medium ml-1" (click)="assignCourses()"
             [disabled]="!selectedCourses.length">Призначити
     </button>
-    <button type="button" class="btn btn-danger btn-medium" (click)="deleteAddedCourses()"
-            [disabled]="!coursesSelectedForDelete.length">Видалити
+    <button type="button" class="btn btn-danger btn-medium" (click)="deleteAssignedCourses()"
+            [disabled]="!selectedAssignedCourses.length">Видалити
     </button>
     <button type="button" class="btn btn-info" (click)="copyCourses()">
       Скопіювати з іншого року
@@ -66,6 +66,7 @@
   </div>
 
   <div class="assigned-courses-table col-7">
-    <assigned-courses [studyYear]="selectedYear" [degreeId]="selectedDegreeId" [semester]="selectedSemester"></assigned-courses>
+    <assigned-courses [studyYear]="selectedYear" [degreeId]="selectedDegreeId" [semester]="selectedSemester"
+                      (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
   </div>
 </div>
