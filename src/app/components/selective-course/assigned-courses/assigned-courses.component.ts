@@ -21,7 +21,7 @@ export class AssignedCoursesComponent implements OnInit {
 
   allRowsIsSelected = false;
 
-  selectiveCourses: SelectiveCourse[];
+  selectiveCourses = [];
   selectedAssignedCourses = [];
 
   constructor(private selectiveCourseService: SelectiveCourseService,
