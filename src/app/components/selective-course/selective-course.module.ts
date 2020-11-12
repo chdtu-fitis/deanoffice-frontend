@@ -8,6 +8,7 @@ import {PipeModule} from '../../pipes/pipe.module';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import { TeacherSearchComponent } from './teacher-search/teacher-search.component';
 import { AssignedCoursesComponent } from './assigned-courses/assigned-courses.component';
+import { CopyDialogComponent } from './copy-dialog/copy-dialog.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -22,8 +23,8 @@ export const selectiveCourseRoutes: Routes = [
     PipeModule.forRoot(),
     RouterModule.forChild(selectiveCourseRoutes),
   ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent],
-  entryComponents: [AssignDialogComponent]
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent],
+  entryComponents: [AssignDialogComponent, CopyDialogComponent]
 })
 export class SelectiveCourseModule {
 }

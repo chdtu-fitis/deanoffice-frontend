@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title">Копіювати з навчального року</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="creation-form">
+    <select [(ngModel)]="selectedYear" class="form-control departmentSelect" required>
+      <option *ngFor="let year of filteredYears" [ngValue]="year.id">{{year.name}}</option>
+    </select>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="copy()">Скопiювати</button>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+    </div>
+  </div>
+</div>

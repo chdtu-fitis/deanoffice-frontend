@@ -9,6 +9,7 @@ import {CourseService} from '../../services/course.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
+import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 
 @Component({
   selector: 'selective-course',
@@ -106,7 +107,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   assignCourses() {
     const initialState = {
-      studyYear: parseInt(this.selectedYear, 10),
+      studyYear: +this.selectedYear,
       degreeId: this.selectedDegreeId,
       prepType: this.selectedPrepType,
       courses: this.selectedCourses,
@@ -117,10 +118,6 @@ export class SelectiveCourseComponent implements OnInit {
     modalRef.content.onAssign.subscribe(() => {
       this.assignedCoursesChild.load();
     });
-  }
-
-  addCoursesToSelected() {
-
   }
 
   deleteAssignedCourses() {
@@ -134,6 +131,15 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   copyCourses() {
+    const initialState = {
+      studyYear: +this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      semester: this.selectedSemester,
+    };
 
+    const modalRef = this.modalService.show(CopyDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onCopy.subscribe(() => {
+      this.assignedCoursesChild.load();
+    });
   }
 }

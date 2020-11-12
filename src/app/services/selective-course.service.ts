@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {SelectiveCourse} from '../models/SelectiveCourse';
 import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
@@ -13,7 +12,7 @@ export class SelectiveCourseService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getSelectiveCourses(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+  getSelectiveCourses(studyYear: string, degreeId: number, semester: number) {
     return this.httpClient.get<SelectiveCourse[]>(
       `${SELECTIVE_COURSE_URL}?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
