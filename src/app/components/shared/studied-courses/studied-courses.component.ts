@@ -35,9 +35,7 @@ export class StudiedCoursesComponent implements OnInit {
   }
 
   clearSelection() {
-    for (const course of this.selectedCourses) {
-      course.selected = false;
-    }
+    this.selectedCourses.forEach(course => course.selected = false);
     this.selectedCourses = [];
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
