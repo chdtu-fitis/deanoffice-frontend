@@ -33,4 +33,10 @@ export class StudiedCoursesComponent implements OnInit {
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
   }
+
+  clearSelection() {
+    this.selectedCourses.forEach(course => course.selected = false);
+    this.selectedCourses = [];
+    this.onSelectedCoursesChange.emit(this.selectedCourses);
+  }
 }

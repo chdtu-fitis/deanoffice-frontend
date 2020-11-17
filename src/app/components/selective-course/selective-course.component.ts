@@ -10,6 +10,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
 import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
+import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 
 @Component({
   selector: 'selective-course',
@@ -43,6 +44,7 @@ export class SelectiveCourseComponent implements OnInit {
   selectedCourses = [];
   selectedAssignedCourses = [];
 
+  @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
@@ -117,6 +119,7 @@ export class SelectiveCourseComponent implements OnInit {
     const modalRef = this.modalService.show(AssignDialogComponent, {initialState, class: 'modal-custom'});
     modalRef.content.onAssign.subscribe(() => {
       this.assignedCoursesChild.load();
+      this.studiedCoursesChild.clearSelection();
     });
   }
 
