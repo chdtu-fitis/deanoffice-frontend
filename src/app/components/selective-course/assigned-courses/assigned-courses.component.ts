@@ -16,6 +16,7 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() degreeId: number;
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
+  @Input() showEditButton = true;
 
   typeCycle = TypeCycle;
 
@@ -56,20 +57,23 @@ export class AssignedCoursesComponent implements OnInit {
   }
 
   changeAllIsSelected(isSelected: boolean): void {
-    // this.coursesForGroup.forEach((item) => this.changeCoursesForDelete(isSelected, item));
+    this.selectiveCourses.forEach(item => this.changeSelectedAssignedCourses(isSelected, item));
     this.allRowsIsSelected = isSelected;
   }
 
   changeSelectedAssignedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
-    if (!checked) {
-      for (const course of this.selectedAssignedCourses) {
-        if (course.id === selectedCourse.id) {
-          this.selectedAssignedCourses.splice(this.selectedAssignedCourses.indexOf(course), 1);
-        }
+    const i = this.selectedAssignedCourses.findIndex(item => item.id === selectedCourse.id);
+
+    if (checked) {
+      if (i === -1) {
+        this.selectedAssignedCourses.push(selectedCourse);
       }
     } else {
-      this.selectedAssignedCourses.push(selectedCourse);
+      if (i !== -1) {
+        this.selectedAssignedCourses.splice(i, 1);
+      }
     }
+
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
 

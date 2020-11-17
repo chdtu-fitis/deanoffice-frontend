@@ -17,7 +17,8 @@
       <tr>
       </thead>
       <tr *ngFor="let course of selectiveCourses">
-        <td class="text-center"><input type="checkbox" #selected (change)="changeSelectedAssignedCourses($event.target.checked, course)"
+        <td class="text-center"><input type="checkbox" #selected
+                                       (change)="changeSelectedAssignedCourses($event.target.checked, course)"
                                        [checked]="allRowsIsSelected"></td>
         <td>{{ course.course.courseName.name }}</td>
         <td>{{ course.course.knowledgeControl.name}}</td>
@@ -27,7 +28,7 @@
         <td>{{ course.department.abbr }}</td>
         <td>{{ course.teacher | nameWithInitials }}</td>
 
-        <td class="text-center" (click)="changeCourse(course)">
+        <td class="text-center" (click)="changeCourse(course)" *ngIf="showEditButton">
           <button type="button" class="btn btn-outline-info">
             Редагувати
           </button>
