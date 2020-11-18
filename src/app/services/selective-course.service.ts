@@ -25,4 +25,8 @@ export class SelectiveCourseService {
   deleteSelectiveCourse(id) {
     return this.httpClient.delete(`${SELECTIVE_COURSE_URL}/${id}`);
   }
+
+  getSelectiveCourseStudents(selectiveCourseId: number) {
+    return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}`);
+  }
 }

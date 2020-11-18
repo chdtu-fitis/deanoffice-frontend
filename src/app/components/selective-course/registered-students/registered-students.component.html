@@ -1,0 +1,28 @@
+<div *ngIf="selectiveCourse">
+  <strong>{{selectiveCourse.course.courseName.name}} - {{selectiveCourse.groupName}}</strong>
+  <div class="card" style="margin-top: 5px">
+    <div class="card-body">
+      <table class="table table-striped table-sm fs-13">
+        <thead>
+        <tr>
+          <th>ПІБ</th>
+          <th>Факультет</th>
+          <th>Спеціальність</th>
+          <th>Освітня програма</th>
+          <th>Група</th>
+        <tr>
+        </thead>
+        <tr *ngFor="let student of studentDegrees">
+          <td>{{ student.student.surname + ' ' + student.student.name}}</td>
+          <td>{{ student.specialization.faculty.abbr }}</td>
+          <td>{{ student.specialization.speciality.code }}</td>
+          <td>{{ student.specialization.name }}</td>
+          <td>{{ student.studentGroup.name }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <footer class="bg-light px-3 py-2">
+    <span class="mr-3">Всього: {{studentDegrees.length || '0'}}</span>
+  </footer>
+</div>

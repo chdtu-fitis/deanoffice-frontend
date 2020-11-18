@@ -11,8 +11,9 @@
         <th>Контроль</th>
         <th>Години</th>
         <th>Кредити</th>
-        <th>Цикл підготовки</th>
+        <th>Цикл підг.</th>
         <th>Кафедра</th>
+        <th>Група</th>
         <th>Викладач</th>
       <tr>
       </thead>
@@ -26,6 +27,7 @@
         <td>{{ course.course.credits }}</td>
         <td>{{ typeCycle[course.trainingCycle] }}</td>
         <td>{{ course.department.abbr }}</td>
+        <td>{{ course.groupName }}</td>
         <td>{{ course.teacher | nameWithInitials }}</td>
 
         <td class="text-center" (click)="changeCourse(course)" *ngIf="showEditButton">
