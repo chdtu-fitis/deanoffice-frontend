@@ -66,7 +66,6 @@ export class CopyDialogComponent implements OnInit {
   }
 
   changeSelectedSelectiveCourses(selectedSelectiveCourses) {
-    console.log(this.selectedSelectiveCourses);
     this.selectedSelectiveCourses = selectedSelectiveCourses;
   }
 }
