@@ -17,7 +17,7 @@
       <tr>
       </thead>
       <tr *ngFor="let course of selectiveCourses">
-        <td class="text-center"><input type="checkbox" #selected
+        <td class="text-center"><input type="checkbox"
                                        (change)="changeSelectedAssignedCourses($event.target.checked, course)"
                                        [checked]="allRowsIsSelected"></td>
         <td>{{ course.course.courseName.name }}</td>
