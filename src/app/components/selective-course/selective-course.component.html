@@ -37,41 +37,49 @@
     </div>
   </div>
 
-  <div class="row courses">
-    <div class="col-7 h-100">
-      <div class="studied-courses">
-        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
-                         [courses]="courses" [searchText]="searchText"></studied-courses>
+  <div class="row" style="height: 100%">
+    <div class="col-sm h-100">
+      <div class="h-50">
+        <div style="height: 85%; overflow: auto">
+          <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                           [courses]="courses" [searchText]="searchText"></studied-courses>
+        </div>
+        <div class="row-12">
+          <button type="button" class="btn btn-info btn-medium ml-1" (click)="assignCourses()"
+                  [disabled]="!selectedCourses.length">Призначити
+          </button>
+          <button type="button" class="btn btn-danger btn-medium" (click)="deleteAssignedCourses()"
+                  [disabled]="!selectedAssignedCourses.length">Видалити
+          </button>
+          <button type="button" class="btn btn-info" (click)="copyCourses()">
+            Скопіювати з іншого року
+          </button>
+          <div class="element">
+            <div>
+              <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
+                <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="h-50">
+        <div style="height: 90%; overflow: auto">
+          <assigned-courses style="overflow: auto" [studyYear]="selectedYear" [degreeId]="selectedDegreeId"
+                            [semester]="selectedSemester"
+                            (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
+        </div>
+        <footer class="bg-light px-3 py-2">
+          <span class="mr-3">Всього: {{assignedCoursesChild.selectiveCourses.length || '0'}}</span>
+          <span>Вибрано: {{selectedAssignedCourses.length || '0'}}</span>
+        </footer>
+      </div>
+    </div>
+    <div class="col-sm">
+      <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
+        <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id"></registered-students>
       </div>
     </div>
   </div>
-
-  <div class="row-12">
-    <button type="button" class="btn btn-info btn-medium ml-1" (click)="assignCourses()"
-            [disabled]="!selectedCourses.length">Призначити
-    </button>
-    <button type="button" class="btn btn-danger btn-medium" (click)="deleteAssignedCourses()"
-            [disabled]="!selectedAssignedCourses.length">Видалити
-    </button>
-    <button type="button" class="btn btn-info" (click)="copyCourses()">
-      Скопіювати з іншого року
-    </button>
-    <div class="element">
-      <div>
-        <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
-          <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="assigned-courses-table col-7">
-    <assigned-courses [studyYear]="selectedYear" [degreeId]="selectedDegreeId" [semester]="selectedSemester"
-                      (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
-  </div>
-
-  <footer class="bg-light px-3 py-2">
-    <span class="mr-3">Всього: {{assignedCoursesChild.selectiveCourses.length || '0'}}</span>
-    <span>Вибрано: {{selectedAssignedCourses.length || '0'}}</span>
-  </footer>
 </div>

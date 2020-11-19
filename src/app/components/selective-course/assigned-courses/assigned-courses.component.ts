@@ -23,8 +23,7 @@ export class AssignedCoursesComponent implements OnInit {
   selectiveCourses = [];
   selectedAssignedCourses = [];
 
-  constructor(private selectiveCourseService: SelectiveCourseService,
-              private modalService: BsModalService) { }
+  constructor(private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
     this.load();

@@ -11,6 +11,7 @@ export class SelectiveCourse extends BaseEntity {
   teacher: Teacher;
   degree: Degree;
   department: Department;
+  groupName: string;
   fieldsOfKnowledge: FieldOfKnowledge[];
   trainingCycle: TypeCycle;
   description: string;
