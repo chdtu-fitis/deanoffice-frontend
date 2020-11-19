@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {SelectiveCourseStudentDegrees} from '../../../models/SelectiveCourseStudentDegrees';
@@ -34,5 +34,4 @@ export class RegisteredStudentsComponent implements OnInit {
     this.selectiveCourse = null;
     this.studentDegrees = [];
   }
-
 }

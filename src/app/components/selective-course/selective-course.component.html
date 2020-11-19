@@ -77,8 +77,8 @@
       </div>
     </div>
     <div class="col-sm">
-      <div style="margin-top: 10px" *ngFor="let selectiveCourse of selectedAssignedCourses">
-        <registered-students style="overflow: auto" [selectiveCourseId]="selectiveCourse.id"></registered-students>
+      <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
+        <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id"></registered-students>
       </div>
     </div>
   </div>
