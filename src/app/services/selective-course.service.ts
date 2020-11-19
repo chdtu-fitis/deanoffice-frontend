@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
 import {SelectiveCourse} from '../models/SelectiveCourse';
 import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
+import {Observable} from "rxjs";
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 

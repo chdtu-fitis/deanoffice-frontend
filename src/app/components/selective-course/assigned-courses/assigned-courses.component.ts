@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CourseForGroup} from '../../../models/CourseForGroup';
-import {StudentGroup} from '../../../models/StudentGroup';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
@@ -16,6 +14,7 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() degreeId: number;
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
+  @Input() showEditButton = true;
 
   typeCycle = TypeCycle;
 
@@ -43,45 +42,25 @@ export class AssignedCoursesComponent implements OnInit {
     }
   }
 
-  getCoursesForGroup(selectedGroup: StudentGroup, selectedSemester: number, academicDifference: boolean) {
-    /*this.courseForGroupService.getCoursesForGroupAndSemester(selectedGroup.id, selectedSemester).subscribe(courses => {
-      this.loadedCoursesForGroup = courses;
-      this.filterByAcademicDifference(academicDifference);
-    });*/
-  }
-
-  filterByAcademicDifference(academicDifference: boolean) {
-    /*this.coursesForGroup = this.loadedCoursesForGroup.filter(cfg => !(cfg.academicDifference && !academicDifference));
-    this.onCoursesForGroup.emit(this.coursesForGroup);*/
-  }
-
   changeAllIsSelected(isSelected: boolean): void {
-    // this.coursesForGroup.forEach((item) => this.changeCoursesForDelete(isSelected, item));
+    this.selectedAssignedCourses = isSelected ? this.selectiveCourses.slice() : [];
     this.allRowsIsSelected = isSelected;
-  }
-
-  changeSelectedAssignedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
-    if (!checked) {
-      for (const course of this.selectedAssignedCourses) {
-        if (course.id === selectedCourse.id) {
-          this.selectedAssignedCourses.splice(this.selectedAssignedCourses.indexOf(course), 1);
-        }
-      }
-    } else {
-      this.selectedAssignedCourses.push(selectedCourse);
-    }
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
 
-  changeTeacher(course) {
-    // this.onTeacherChange.emit(course);
-  }
+  changeSelectedAssignedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
+    const i = this.selectedAssignedCourses.findIndex(item => item.id === selectedCourse.id);
 
-  changeCourse(course) {
-    /*const initialState = {
-      courseFromTable: course,
-      selectedGroup: this.selectedGroup
-    };
-    this.modalService.show(EditDialogComponent, {initialState});*/
+    if (checked) {
+      if (i === -1) {
+        this.selectedAssignedCourses.push(selectedCourse);
+      }
+    } else {
+      if (i !== -1) {
+        this.selectedAssignedCourses.splice(i, 1);
+      }
+    }
+
+    this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
 }

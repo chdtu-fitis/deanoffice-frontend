@@ -9,6 +9,7 @@ import {CourseService} from '../../services/course.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
+import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 
 @Component({
@@ -25,7 +26,10 @@ export class SelectiveCourseComponent implements OnInit {
   gridApi;
   gridColumnApi;
   selectedYear: string;
-  years = [{id: '2020', name: '2020-2021'}, {id: '2021', name: '2021-2022'}, {id: '2022', name: '2022-2023'}];
+  years = [
+    {id: '2020', name: '2020-2021'},
+    {id: '2021', name: '2021-2022'},
+    {id: '2022', name: '2022-2023'}];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
@@ -57,7 +61,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadCourses() {
-    this.selectedCourses = [];
+    this.studiedCoursesChild.clearSelection();
     this.studiedCoursesLoading = true;
 
     this.courseService.getCoursesBySemesterAndHoursPerCredit(this.selectedSemester, 30).subscribe(cfg => {
@@ -108,7 +112,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   assignCourses() {
     const initialState = {
-      studyYear: parseInt(this.selectedYear, 10),
+      studyYear: +this.selectedYear,
       degreeId: this.selectedDegreeId,
       prepType: this.selectedPrepType,
       courses: this.selectedCourses,
@@ -133,6 +137,15 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   copyCourses() {
+    const initialState = {
+      studyYear: +this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      semester: this.selectedSemester,
+    };
 
+    const modalRef = this.modalService.show(CopyDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onCopy.subscribe(() => {
+      this.assignedCoursesChild.load();
+    });
   }
 }

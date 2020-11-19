@@ -1,0 +1,8 @@
+.assigned-courses-table {
+  height: 50%;
+  overflow: auto;
+}
+
+::ng-deep .modal-dialog  {
+  max-width: 40%;
+}

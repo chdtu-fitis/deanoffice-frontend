@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title">Копіювати в {{studyYear}}-{{studyYear+1}} н.р. з навчального року</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="creation-form">
+    <select class="form-control" style="width: fit-content" required
+            [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
+      <option *ngFor="let year of filteredYears" [ngValue]="year.id">{{year.name}}</option>
+    </select>
+    <hr>
+    <div class="assigned-courses-table">
+      <assigned-courses [studyYear]="selectedYear" [degreeId]="degreeId" [semester]="semester" [showEditButton]="false"
+                        (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="copy()"
+              [disabled]="!selectedSelectiveCourses.length">Скопiювати</button>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+    </div>
+  </div>
+</div>
