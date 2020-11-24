@@ -11,6 +11,7 @@ import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
 import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
+import {Utils} from '../shared/utils';
 
 @Component({
   selector: 'selective-course',
@@ -56,7 +57,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedYear = new Date().getFullYear().toString();
+    this.selectedYear = Utils.getCurrentAcademicYear().toString();
     this.loadCourses();
   }
 
