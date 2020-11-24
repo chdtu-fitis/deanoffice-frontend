@@ -57,7 +57,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedYear = Utils.currentAcademicYear().toString();
+    this.selectedYear = Utils.getCurrentAcademicYear().toString();
     this.loadCourses();
   }
 

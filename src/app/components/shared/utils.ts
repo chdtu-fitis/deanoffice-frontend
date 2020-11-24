@@ -31,7 +31,7 @@ export class Utils {
     return currentDate > winterSessionStart || currentDate < summerSessionStart;
   }
 
-  static currentAcademicYear(): number {
+  static getCurrentAcademicYear(): number {
     const currDate = new Date();
 
     if (currDate.getMonth() + 1 >= 9) {
