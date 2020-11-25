@@ -8,6 +8,8 @@ import {CourseForGroupService} from '../../services/course-for-group.service';
 import {CourseForGroup} from '../../models/CourseForGroup';
 import {StudentDegree} from '../../models/StudentDegree';
 import {ExamReportService} from '../../services/exam-report.service';
+import {SelectiveCourseService} from '../../services/selective-course.service';
+import {SelectiveCourse} from '../../models/SelectiveCourse';
 
 @Component({
   selector: 'exam-report',
@@ -32,10 +34,14 @@ export class ExamReportComponent implements OnInit {
 
   examReportLoading = false;
 
+  currentSelectiveCourse: SelectiveCourse;
+  selectiveCourses: SelectiveCourse[];
+
   constructor(private groupService: GroupService,
               private degreeService: DegreeService,
               private courseForGroupService: CourseForGroupService,
-              private examReportService: ExamReportService) { }
+              private examReportService: ExamReportService,
+              private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -64,6 +70,17 @@ export class ExamReportComponent implements OnInit {
           this.onSemesterOrGroupChange();
         }
       });
+    const currentDate = new Date();
+    this.selectiveCourseService.getSelectiveCourses(
+      currentDate.getFullYear().toString(),
+      this.currentDegree.id,
+      this.selectedSemester).subscribe(
+        sc => {
+          this.selectiveCourses = sc;
+          if (this.selectiveCourses) {
+            this.currentSelectiveCourse = sc[0]
+          }
+        });
   }
 
   onYearChange(): void {

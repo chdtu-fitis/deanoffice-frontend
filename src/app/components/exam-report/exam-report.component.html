@@ -26,6 +26,12 @@
         <label class="custom-control-label" [for]="semester + degrees.length">{{semester}}</label>
       </div>
     </div>
+    <div class="p-3">
+      <h4>Вибіркові предмети</h4>
+      <select id="cmbGroupSelectiveCourses" [(ngModel)]="currentSelectiveCourse" class="form-control">
+        <option *ngFor="let course of selectiveCourses" [ngValue]="course">{{course.groupName}}</option>
+      </select>
+    </div>
   </div>
 
   <div class="d-flex">
