@@ -42,9 +42,10 @@ export class TeacherSearchComponent implements OnInit, ControlValueAccessor {
   selectTeacher(teacher: Teacher) {
     this.showResults = false;
     this.selectedTeacher = teacher;
-    this.searchText = teacher.surname + ' ' + teacher.name + ' ' + teacher.patronimic;
+    if (teacher) {
+      this.searchText = teacher.surname + ' ' + teacher.name + ' ' + teacher.patronimic;
+    }
     this.onTeacherSelect.emit(teacher);
-
     this.onChange(teacher);
   }
 
@@ -67,7 +68,7 @@ export class TeacherSearchComponent implements OnInit, ControlValueAccessor {
     this.onTouch = fn;
   }
 
-  writeValue(obj: any): void {
-    this.searchText = obj;
+  writeValue(teacher: Teacher): void {
+    this.selectTeacher(teacher);
   }
 }

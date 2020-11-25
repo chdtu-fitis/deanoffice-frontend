@@ -23,6 +23,10 @@ export class SelectiveCourseService {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}`, body);
   }
 
+  updateSelectiveCourse(id, body) {
+    return this.httpClient.put(`${SELECTIVE_COURSE_URL}/${id}`, body);
+  }
+
   deleteSelectiveCourse(id) {
     return this.httpClient.delete(`${SELECTIVE_COURSE_URL}/${id}`);
   }
