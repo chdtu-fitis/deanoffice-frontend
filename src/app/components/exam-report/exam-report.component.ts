@@ -10,6 +10,7 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {ExamReportService} from '../../services/exam-report.service';
 import {SelectiveCourseService} from '../../services/selective-course.service';
 import {SelectiveCourse} from '../../models/SelectiveCourse';
+import {SelectiveCourseStudentDegrees} from '../../models/SelectiveCourseStudentDegrees';
 
 @Component({
   selector: 'exam-report',
@@ -60,27 +61,17 @@ export class ExamReportComponent implements OnInit {
   }
 
   onDegreeChange(): void {
-    this.selectedYear = 1;
-    this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
-      .subscribe(groups => {
-        this.groups = groups;
-        if (this.groups) {
-          this.currentGroup = groups[0];
-          this.students = this.currentGroup.studentDegrees;
-          this.onSemesterOrGroupChange();
-        }
-      });
-    const currentDate = new Date();
-    this.selectiveCourseService.getSelectiveCourses(
-      currentDate.getFullYear().toString(),
-      this.currentDegree.id,
-      this.selectedSemester).subscribe(
-        sc => {
-          this.selectiveCourses = sc;
-          if (this.selectiveCourses) {
-            this.currentSelectiveCourse = sc[0]
-          }
-        });
+    // this.selectedYear = 1;
+    // this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
+    //   .subscribe(groups => {
+    //     this.groups = groups;
+    //     if (this.groups) {
+    //       this.currentGroup = groups[0];
+    //       this.students = this.currentGroup.studentDegrees;
+    //       this.onSemesterOrGroupChange();
+    //     }
+    //   });
+    this.onSelectiveCourses();
   }
 
   onYearChange(): void {
@@ -133,5 +124,40 @@ export class ExamReportComponent implements OnInit {
     } else {
       this.selectedSemester = 1;
     }
+  }
+
+  onSelectiveCourses(): void {
+    const currentYear = new Date().getFullYear().toString();
+
+    this.selectiveCourseService.getSelectiveCourses(
+      currentYear,
+      this.currentDegree.id,
+      this.selectedSemester).subscribe(sc => {
+        this.selectiveCourses = sc;
+
+        if (this.selectiveCourses) {
+          this.currentSelectiveCourse = sc[0];
+
+          this.onSelectiveCoursesChange();
+          this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
+        }
+      });
+  }
+
+  getStudentsBySelectiveCourse(selectiveCourseId: number): void {
+    this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
+      .subscribe(s => {
+        this.students = s.studentDegrees;
+      });
+  }
+
+  onSelectiveCoursesChange(): void {
+    const courseForGroup = new CourseForGroup();
+    courseForGroup.course = this.currentSelectiveCourse.course;
+    courseForGroup.teacher = this.currentSelectiveCourse.teacher;
+    this.coursesForGroup = [courseForGroup];
+    // this.coursesSelected = true;
+    // this.onSelectAllCourses(true);
+    // this.students = this.currentGroup.studentDegrees;
   }
 }
