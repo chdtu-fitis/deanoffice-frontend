@@ -71,7 +71,7 @@ export class ExamReportComponent implements OnInit {
     //       this.onSemesterOrGroupChange();
     //     }
     //   });
-    this.onSelectiveCourses();
+    this.onSelectiveCoursesByDegreeOrSemesterChange();
   }
 
   onYearChange(): void {
@@ -96,7 +96,7 @@ export class ExamReportComponent implements OnInit {
     //     this.students = this.currentGroup.studentDegrees;
     //   });
 
-    this.onSemesterOrSelectiveCourseChange();
+    this.onSelectiveCoursesByDegreeOrSemesterChange();
   }
 
   onSelectAllCourses(checked: boolean): void {
@@ -128,31 +128,46 @@ export class ExamReportComponent implements OnInit {
     }
   }
 
-  onSelectiveCourses(): void {
+  onSelectiveCoursesByDegreeOrSemesterChange(): void {
     const currentYear = new Date().getFullYear().toString();
 
     this.selectiveCourseService.getSelectiveCourses(
       currentYear,
       this.currentDegree.id,
-      this.selectedSemester).subscribe(sc => {
-        this.selectiveCourses = sc;
+      this.selectedSemester).subscribe(selectiveCourses => {
+        this.selectiveCourses = selectiveCourses;
 
         if (this.selectiveCourses) {
-          this.currentSelectiveCourse = sc[0];
-
-          this.onSelectiveCoursesChange();
+          this.currentSelectiveCourse = selectiveCourses[0];
+          this.mapSelectiveCourseToCourseForGroup();
+          // this.onSemesterOrSelectiveCourseChange();
         }
       });
   }
 
+  // onSemesterOrSelectiveCourseChange(): void {
+  //   const currentYear = new Date().getFullYear().toString();
+  //
+  //   this.selectiveCourseService.getSelectiveCourses(
+  //     currentYear,
+  //     this.currentDegree.id,
+  //     this.selectedSemester).subscribe(selectiveCourses => {
+  //     this.selectiveCourses = selectiveCourses;
+  //     this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
+  //     this.coursesSelected = true;
+  //     this.mapSelectiveCourseToCourseForGroup();
+  //     this.onSelectAllCourses(true);
+  //   });
+  // }
+
   getStudentsBySelectiveCourse(selectiveCourseId: number): void {
     this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
-      .subscribe(s => {
-        this.students = s.studentDegrees;
+      .subscribe(coursesWithStudents => {
+        this.students = coursesWithStudents.studentDegrees;
       });
   }
 
-  onSelectiveCoursesChange(): void {
+  mapSelectiveCourseToCourseForGroup(): void {
     const courseForGroup = new CourseForGroup();
 
     if (this.currentSelectiveCourse) {
@@ -160,20 +175,7 @@ export class ExamReportComponent implements OnInit {
       courseForGroup.teacher = this.currentSelectiveCourse.teacher;
       this.coursesForGroup = [courseForGroup];
       this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
+      this.onSelectAllCourses(true);
     }
-  }
-
-  onSemesterOrSelectiveCourseChange(): void {
-    const currentYear = new Date().getFullYear().toString();
-
-    this.selectiveCourseService.getSelectiveCourses(
-      currentYear,
-      this.currentDegree.id,
-      this.selectedSemester).subscribe(sc => {
-        this.selectiveCourses = sc;
-        this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
-        this.coursesSelected = true;
-        this.onSelectAllCourses(true);
-      });
   }
 }
