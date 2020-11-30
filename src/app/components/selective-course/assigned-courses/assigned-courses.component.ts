@@ -18,12 +18,12 @@ export class AssignedCoursesComponent implements OnInit {
 
   typeCycle = TypeCycle;
 
-  allRowsIsSelected = false;
-
   selectiveCourses = [];
   selectedAssignedCourses = [];
+  isAllSelected = false;
 
-  constructor(private selectiveCourseService: SelectiveCourseService) { }
+  constructor(private selectiveCourseService: SelectiveCourseService) {
+  }
 
   ngOnInit() {
     this.load();
@@ -34,16 +34,30 @@ export class AssignedCoursesComponent implements OnInit {
       this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
         .subscribe((selectiveCourses: SelectiveCourse[]) => {
           this.selectiveCourses = selectiveCourses;
-        });
 
-      this.selectedAssignedCourses = [];
-      this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
+          let isAllSelected = selectiveCourses.length > 0;
+          const newSelection = [];
+
+          this.selectiveCourses.forEach(item => {
+            const i = this.selectedAssignedCourses.findIndex(selectedItem => item.id === selectedItem.id);
+            if (i !== -1) {
+              item.isSelected = true;
+              newSelection.push(item);
+            } else {
+              isAllSelected = false;
+            }
+          });
+
+          this.isAllSelected = isAllSelected;
+          this.selectedAssignedCourses = newSelection;
+          this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
+        });
     }
   }
 
-  changeAllIsSelected(isSelected: boolean): void {
-    this.selectedAssignedCourses = isSelected ? this.selectiveCourses.slice() : [];
-    this.allRowsIsSelected = isSelected;
+  changeAllIsSelected(): void {
+    this.selectiveCourses.forEach(item => item.isSelected = this.isAllSelected);
+    this.selectedAssignedCourses = this.isAllSelected ? this.selectiveCourses.slice() : [];
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
 
@@ -58,6 +72,7 @@ export class AssignedCoursesComponent implements OnInit {
       if (i !== -1) {
         this.selectedAssignedCourses.splice(i, 1);
       }
+      this.isAllSelected = false;
     }
 
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);

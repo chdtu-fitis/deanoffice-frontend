@@ -30,4 +30,14 @@ export class Utils {
     const winterSessionStart = new Date(`12/17/${currentDate.getFullYear()}`);
     return currentDate > winterSessionStart || currentDate < summerSessionStart;
   }
+
+  static getCurrentAcademicYear(): number {
+    const currDate = new Date();
+
+    if (currDate.getMonth() + 1 >= 9) {
+      return currDate.getFullYear();
+    } else {
+      return currDate.getFullYear() - 1;
+    }
+  }
 }
