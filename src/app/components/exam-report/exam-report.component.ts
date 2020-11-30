@@ -61,17 +61,20 @@ export class ExamReportComponent implements OnInit {
   }
 
   onDegreeChange(): void {
-    // this.selectedYear = 1;
-    // this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
-    //   .subscribe(groups => {
-    //     this.groups = groups;
-    //     if (this.groups) {
-    //       this.currentGroup = groups[0];
-    //       this.students = this.currentGroup.studentDegrees;
-    //       this.onSemesterOrGroupChange();
-    //     }
-    //   });
-    this.onSelectiveCoursesByDegreeOrSemesterChange();
+    if (this.isGroupSelected) {
+      this.selectedYear = 1;
+      this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
+        .subscribe(groups => {
+          this.groups = groups;
+          if (this.groups) {
+            this.currentGroup = groups[0];
+            this.students = this.currentGroup.studentDegrees;
+            this.onSemesterOrGroupChange();
+          }
+        });
+    } else {
+      this.onSelectiveCoursesByDegreeOrSemesterChange();
+    }
   }
 
   onYearChange(): void {
@@ -87,16 +90,18 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSemesterOrGroupChange(): void {
-    // this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id,
-    //   (this.selectedYear - 1) * 2 + this.selectedSemester)
-    //   .subscribe(coursesForGroup => {
-    //     this.coursesForGroup = coursesForGroup;
-    //     this.coursesSelected = true;
-    //     this.onSelectAllCourses(true);
-    //     this.students = this.currentGroup.studentDegrees;
-    //   });
-
-    this.onSelectiveCoursesByDegreeOrSemesterChange();
+    if (this.isGroupSelected) {
+      this.courseForGroupService.getCoursesForGroupAndSemester(this.currentGroup.id,
+        (this.selectedYear - 1) * 2 + this.selectedSemester)
+        .subscribe(coursesForGroup => {
+          this.coursesForGroup = coursesForGroup;
+          this.coursesSelected = true;
+          this.onSelectAllCourses(true);
+          this.students = this.currentGroup.studentDegrees;
+        });
+    } else {
+      this.onSelectiveCoursesByDegreeOrSemesterChange();
+    }
   }
 
   onSelectAllCourses(checked: boolean): void {

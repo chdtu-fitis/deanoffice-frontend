@@ -29,7 +29,7 @@
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
-    <div class="p-3">
+    <div class="p-3" *ngIf="isGroupSelected === false">
       <h4>Вибіркові предмети</h4>
       <select id="cmbGroupSelectiveCourses" [(ngModel)]="currentSelectiveCourse" class="form-control" (change)="mapSelectiveCourseToCourseForGroup()">
         <option *ngFor="let course of selectiveCourses" [ngValue]="course">{{course.groupName}}</option>
