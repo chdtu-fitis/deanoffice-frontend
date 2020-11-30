@@ -10,7 +10,6 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {ExamReportService} from '../../services/exam-report.service';
 import {SelectiveCourseService} from '../../services/selective-course.service';
 import {SelectiveCourse} from '../../models/SelectiveCourse';
-import {SelectiveCourseStudentDegrees} from '../../models/SelectiveCourseStudentDegrees';
 
 @Component({
   selector: 'exam-report',
@@ -37,6 +36,7 @@ export class ExamReportComponent implements OnInit {
 
   currentSelectiveCourse: SelectiveCourse;
   selectiveCourses: SelectiveCourse[];
+  isGroupSelected = true;
 
   constructor(private groupService: GroupService,
               private degreeService: DegreeService,

@@ -7,20 +7,22 @@ import {MatRadioModule} from '@angular/material/radio';
 import {ExamReportComponent} from './exam-report.component';
 import {SharedModule} from '../shared/shared.module';
 import {PipeModule} from '../../pipes/pipe.module';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 export const examReportRoutes: Routes = [
   {path: '', component: ExamReportComponent}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    SharedModule,
-    MatRadioModule,
-    PipeModule.forRoot(),
-    RouterModule.forChild(examReportRoutes)
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        MatRadioModule,
+        PipeModule.forRoot(),
+        RouterModule.forChild(examReportRoutes),
+        MatSlideToggleModule
+    ],
   declarations: [ExamReportComponent]
 })
 export class ExamReportModule { }
