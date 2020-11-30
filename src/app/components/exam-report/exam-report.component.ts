@@ -105,8 +105,16 @@ export class ExamReportComponent implements OnInit {
   }
 
   onSelectAllCourses(checked: boolean): void {
-    for (const courseForGroup of this.coursesForGroup) {
-      courseForGroup.selected = checked;
+    if (this.isGroupSelected) {
+      for (const courseForGroup of this.coursesForGroup) {
+        courseForGroup.selected = checked;
+      }
+    } else {
+      for (const selectiveCourse of this.selectiveCourses) {
+        if (selectiveCourse.id === this.currentSelectiveCourse.id) {
+          selectiveCourse.selected = checked;
+        }
+      }
     }
   }
 
@@ -144,26 +152,10 @@ export class ExamReportComponent implements OnInit {
 
         if (this.selectiveCourses) {
           this.currentSelectiveCourse = selectiveCourses[0];
-          this.mapSelectiveCourseToCourseForGroup();
-          // this.onSemesterOrSelectiveCourseChange();
+          this.onSelectiveCourseChange();
         }
-      });
+    });
   }
-
-  // onSemesterOrSelectiveCourseChange(): void {
-  //   const currentYear = new Date().getFullYear().toString();
-  //
-  //   this.selectiveCourseService.getSelectiveCourses(
-  //     currentYear,
-  //     this.currentDegree.id,
-  //     this.selectedSemester).subscribe(selectiveCourses => {
-  //     this.selectiveCourses = selectiveCourses;
-  //     this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
-  //     this.coursesSelected = true;
-  //     this.mapSelectiveCourseToCourseForGroup();
-  //     this.onSelectAllCourses(true);
-  //   });
-  // }
 
   getStudentsBySelectiveCourse(selectiveCourseId: number): void {
     this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
@@ -172,13 +164,8 @@ export class ExamReportComponent implements OnInit {
       });
   }
 
-  mapSelectiveCourseToCourseForGroup(): void {
-    const courseForGroup = new CourseForGroup();
-
+  onSelectiveCourseChange(): void {
     if (this.currentSelectiveCourse) {
-      courseForGroup.course = this.currentSelectiveCourse.course;
-      courseForGroup.teacher = this.currentSelectiveCourse.teacher;
-      this.coursesForGroup = [courseForGroup];
       this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
       this.onSelectAllCourses(true);
     }
