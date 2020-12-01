@@ -10,6 +10,7 @@ import {StudentDegree} from '../../models/StudentDegree';
 import {ExamReportService} from '../../services/exam-report.service';
 import {SelectiveCourseService} from '../../services/selective-course.service';
 import {SelectiveCourse} from '../../models/SelectiveCourse';
+import {Utils} from '../shared/utils';
 
 @Component({
   selector: 'exam-report',
@@ -34,7 +35,7 @@ export class ExamReportComponent implements OnInit {
 
   examReportLoading = false;
 
-  currentSelectiveCourse: SelectiveCourse;
+  currentSelectiveCourseId: number;
   selectiveCourses: SelectiveCourse[];
   isGroupSelected = true;
 
@@ -109,13 +110,14 @@ export class ExamReportComponent implements OnInit {
       for (const courseForGroup of this.coursesForGroup) {
         courseForGroup.selected = checked;
       }
-    } else {
-      for (const selectiveCourse of this.selectiveCourses) {
-        if (selectiveCourse.id === this.currentSelectiveCourse.id) {
-          selectiveCourse.selected = checked;
-        }
-      }
     }
+    // else {
+    //   for (const selectiveCourse of this.selectiveCourses) {
+    //     if (selectiveCourse.id === this.currentSelectiveCourse.id) {
+    //       selectiveCourse.selected = checked;
+    //     }
+    //   }
+    // }
   }
 
   onExamReportBuild(): void {
@@ -151,23 +153,29 @@ export class ExamReportComponent implements OnInit {
         this.selectiveCourses = selectiveCourses;
 
         if (this.selectiveCourses) {
-          this.currentSelectiveCourse = selectiveCourses[0];
-          this.onSelectiveCourseChange();
+          // this.getStudentsBySelectiveCourse(this.selectiveCourses[0].id);
+          // this.selectiveCourses[0].selected = true;
+          // this.onSelectiveCourseChange();
+          this.students = [];
         }
     });
   }
 
   getStudentsBySelectiveCourse(selectiveCourseId: number): void {
-    this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
-      .subscribe(coursesWithStudents => {
-        this.students = coursesWithStudents.studentDegrees;
-      });
+
+    if (selectiveCourseId !== 0) {
+      this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
+        .subscribe(coursesWithStudents => {
+          this.students = coursesWithStudents.studentDegrees;
+        });
+      this.currentSelectiveCourseId = selectiveCourseId;
+    }
   }
 
   onSelectiveCourseChange(): void {
-    if (this.currentSelectiveCourse) {
-      this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
+    // if (this.currentSelectiveCourse) {
+      // this.getStudentsBySelectiveCourse(this.currentSelectiveCourse.id);
       this.onSelectAllCourses(true);
-    }
+    // }
   }
 }

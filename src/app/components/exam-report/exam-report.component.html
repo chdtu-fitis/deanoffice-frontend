@@ -6,7 +6,7 @@
       [checked]="isGroupSelected"
       [(ngModel)]="isGroupSelected"
       (change)="onDegreeChange()">
-      {{isGroupSelected ? 'Робота з групами': 'Робота з вибірковими предметами'}}
+      {{isGroupSelected ? 'Звичайні групи': 'Групи вибіркових дисциплін'}}
     </mat-slide-toggle>
   </label>
   </div>
@@ -17,7 +17,7 @@
         <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
       </select>
     </div>
-    <div class="p-3" *ngIf="isGroupSelected === true">
+    <div class="p-3">
       <h4>Курс</h4>
       <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
         <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
@@ -29,12 +29,12 @@
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
-    <div class="p-3" *ngIf="isGroupSelected === false">
-      <h4>Вибіркові предмети</h4>
-      <select id="cmbGroupSelectiveCourses" [(ngModel)]="currentSelectiveCourse" class="form-control" (change)="onSelectiveCourseChange()">
-        <option *ngFor="let course of selectiveCourses" [ngValue]="course">{{course.groupName}}</option>
-      </select>
-    </div>
+<!--    <div class="p-3" *ngIf="isGroupSelected === false">-->
+<!--      <h4>Вибіркові предмети</h4>-->
+<!--      <select id="cmbGroupSelectiveCourses" [(ngModel)]="currentSelectiveCourse" class="form-control" (change)="onSelectiveCourseChange()">-->
+<!--        <option *ngFor="let course of selectiveCourses" [ngValue]="course">{{course.groupName}}</option>-->
+<!--      </select>-->
+<!--    </div>-->
     <div class="p-3">
       <h4>Семестр</h4>
       <div class="custom-control custom-radio" *ngFor="let semester of semesters">
@@ -60,6 +60,7 @@
           <th class="row-5 row-hours">Годин</th>
           <th class="row-6 row-teacher">Викладач</th>
           <th class="row-7 row-exam-date" *ngIf="isGroupSelected === true">Дата екзамену</th>
+          <th class="row-7 row-exam-date" *ngIf="isGroupSelected === false">Група</th>
         </tr>
         </thead>
         <tbody *ngIf="isGroupSelected === true">
@@ -80,15 +81,16 @@
 
         <tbody *ngIf="isGroupSelected === false">
 
-        <tr *ngIf="currentSelectiveCourse">
-          <td>1</td>
+        <tr *ngFor="let selectiveCourse of selectiveCourses; let i = index">
+          <td>{{i+1}}</td>
           <td>
-            <input type="checkbox" [(ngModel)]="currentSelectiveCourse.selected">
+            <input type="checkbox" [(ngModel)]="selectiveCourse.selected" (change)="getStudentsBySelectiveCourse(selectiveCourse.id)">
           </td>
-          <td>{{currentSelectiveCourse.course.courseName.name}}</td>
-          <td>{{currentSelectiveCourse.course.knowledgeControl.name}}</td>
-          <td>{{currentSelectiveCourse.course.hours}}</td>
-          <td>{{currentSelectiveCourse.teacher | nameWithInitials}}</td>
+          <td>{{selectiveCourse.course.courseName.name}}</td>
+          <td>{{selectiveCourse.course.knowledgeControl.name}}</td>
+          <td>{{selectiveCourse.course.hours}}</td>
+          <td>{{selectiveCourse.teacher | nameWithInitials}}</td>
+          <td>{{selectiveCourse.groupName}}</td>
         </tr>
 
         </tbody>
