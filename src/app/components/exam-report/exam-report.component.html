@@ -5,7 +5,7 @@
       class="ml-1"
       [checked]="isGroupSelected"
       [(ngModel)]="isGroupSelected"
-      (change)="onDegreeChange()">
+      (change)="isGroupSelected ? onDegreeChange() : onSelectiveCoursesByDegreeOrSemesterChange()">
       {{isGroupSelected ? 'Звичайні групи': 'Групи вибіркових дисциплін'}}
     </mat-slide-toggle>
   </label>
@@ -13,13 +13,13 @@
   <div class="d-flex">
     <div class="p-3">
       <h4>Ступінь</h4>
-      <select [(ngModel)]="currentDegree"  (change)="onDegreeChange()" class="form-control">
+      <select [(ngModel)]="currentDegree"  (change)="isGroupSelected ? onDegreeChange() : onSelectiveCoursesByDegreeOrSemesterChange()" class="form-control">
         <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
       </select>
     </div>
     <div class="p-3">
       <h4>Курс</h4>
-      <select [(ngModel)]="selectedYear"  (change)="onYearChange()" id="years" class="form-control">
+      <select [(ngModel)]="selectedYear"  (change)="isGroupSelected ? onYearChange() : onSelectiveCoursesByDegreeOrSemesterChange()" id="years" class="form-control">
         <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
       </select>
     </div>
@@ -29,17 +29,11 @@
         <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
       </select>
     </div>
-<!--    <div class="p-3" *ngIf="isGroupSelected === false">-->
-<!--      <h4>Вибіркові предмети</h4>-->
-<!--      <select id="cmbGroupSelectiveCourses" [(ngModel)]="currentSelectiveCourse" class="form-control" (change)="onSelectiveCourseChange()">-->
-<!--        <option *ngFor="let course of selectiveCourses" [ngValue]="course">{{course.groupName}}</option>-->
-<!--      </select>-->
-<!--    </div>-->
     <div class="p-3">
       <h4>Семестр</h4>
       <div class="custom-control custom-radio" *ngFor="let semester of semesters">
         <input type="radio" [id]="semester + degrees.length" name="semesterRadio" class="custom-control-input"
-               [value]="semester" [(ngModel)]="selectedSemester" (change)="onSemesterOrGroupChange()">
+               [value]="semester" [(ngModel)]="selectedSemester" (change)="isGroupSelected ? onSemesterOrGroupChange() : onSelectiveCoursesByDegreeOrSemesterChange()">
         <label class="custom-control-label" [for]="semester + degrees.length">{{semester}}</label>
       </div>
     </div>
@@ -84,7 +78,7 @@
         <tr *ngFor="let selectiveCourse of selectiveCourses; let i = index">
           <td>{{i+1}}</td>
           <td>
-            <input type="checkbox" [(ngModel)]="selectiveCourse.selected" (change)="getStudentsBySelectiveCourse(selectiveCourse.id)">
+            <input type="checkbox" [(ngModel)]="selectiveCourse.selected" (change)="getStudentsBySelectiveCourse($event.target.checked, selectiveCourse.id)">
           </td>
           <td>{{selectiveCourse.course.courseName.name}}</td>
           <td>{{selectiveCourse.course.knowledgeControl.name}}</td>
@@ -95,7 +89,7 @@
 
         </tbody>
       </table>
-      <button class="btn btn-success w-25 mt-2" (click)="onExamReportBuild()">
+      <button class="btn btn-success w-25 mt-2" (click)=" isGroupSelected ? onExamReportBuild() : onSelectiveCourseExamReportBuild()">
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
               *ngIf="examReportLoading">
         </span>
@@ -104,7 +98,8 @@
     </div>
 
     <div class="px-3">
-      <h5>Список студентів</h5>
+      <h5 *ngIf="isGroupSelected">Список студентів</h5>
+      <h5 *ngIf="!isGroupSelected">Список студентів<span *ngIf="selectiveCourseGroupName">{{'( Група ' + selectiveCourseGroupName + ')'}}</span></h5>
       <div class="table-wrapper-2">
         <table class="student-table">
           <thead>
