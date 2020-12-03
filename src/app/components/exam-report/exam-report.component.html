@@ -98,7 +98,7 @@
 
     <div class="px-3">
       <h5 *ngIf="isGroupSelected">Список студентів</h5>
-      <h5 *ngIf="!isGroupSelected">Список студентів<span *ngIf="selectiveCourseGroupName">{{'( Група ' + selectiveCourseGroupName + ')'}}</span></h5>
+      <h5 *ngIf="!isGroupSelected">Список студентів<span *ngIf="selectiveCourseGroupName">{{' (Група ' + selectiveCourseGroupName + ')'}}</span></h5>
       <div class="table-wrapper-2">
         <table class="student-table">
           <thead>
