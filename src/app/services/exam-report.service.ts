@@ -67,4 +67,9 @@ export class ExamReportService {
 
     return this.fileService.downloadFile(url);
   }
+
+  buildSelectiveCoursesExamReport(selectiveCourseIds: number[]): any {
+    const url = `${this.documentsUrl}/exam-report/selective-courses/docx?selectiveCourseIds=${selectiveCourseIds}`;
+    return this.fileService.downloadFile(url);
+  }
 }
