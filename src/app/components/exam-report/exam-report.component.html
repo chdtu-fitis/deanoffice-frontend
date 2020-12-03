@@ -3,7 +3,6 @@
   <label class="ml-1 m-0">
     <mat-slide-toggle
       class="ml-1"
-      [checked]="isGroupSelected"
       [(ngModel)]="isGroupSelected"
       (change)="isGroupSelected ? onDegreeChange() : onSelectiveCoursesByDegreeOrSemesterChange()">
       {{isGroupSelected ? 'Звичайні групи': 'Групи вибіркових дисциплін'}}
@@ -57,7 +56,7 @@
           <th class="row-7 row-exam-date" *ngIf="isGroupSelected === false">Група</th>
         </tr>
         </thead>
-        <tbody *ngIf="isGroupSelected === true">
+        <tbody *ngIf="isGroupSelected">
 
         <tr *ngFor="let courseForGroup of coursesForGroup; let i = index">
           <td>{{i+1}}</td>
@@ -73,7 +72,7 @@
 
         </tbody>
 
-        <tbody *ngIf="isGroupSelected === false">
+        <tbody *ngIf="!isGroupSelected">
 
         <tr *ngFor="let selectiveCourse of selectiveCourses; let i = index">
           <td>{{i+1}}</td>
