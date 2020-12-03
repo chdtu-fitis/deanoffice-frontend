@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BsModalService} from 'ngx-bootstrap/modal';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
@@ -33,7 +32,7 @@ export class AssignedCoursesComponent implements OnInit {
     if (this.studyYear && this.degreeId && this.semester) {
       this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
         .subscribe((selectiveCourses: SelectiveCourse[]) => {
-          this.selectiveCourses = selectiveCourses;
+          this.selectiveCourses = selectiveCourses.sort((a, b) => (a < b) ? -1 : 1);
 
           let isAllSelected = selectiveCourses.length > 0;
           const newSelection = [];
