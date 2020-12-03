@@ -2,8 +2,10 @@
     <mat-sidenav-container>
         <mat-sidenav #snav mode="side" opened="true">
             <mat-nav-list>
-                <app-grades-panel [groups]="groups"
+                <app-grades-panel [groups]="groups" [selectiveGroups]="selectiveGroups"
                                   (changeGroup)="setStudentGroup($event)"
+                                  (changeYear)="setYear($event)"
+                                  (changeDegree)="setDegree($event)"
                                   (changeSemester)="setSemester($event)"
                                   (sendRequestGetGrades)="getGrades()">
                 </app-grades-panel>
