@@ -17,30 +17,9 @@
         </div>
         <hr>
       </div>
-      <div formArrayName="selectiveCourses" *ngFor="let courseControl of form.get('selectiveCourses').controls; let i = index"
-           style="margin-top: 10px">
-        <p style="padding: 0px; margin-bottom: 5px;">{{courses[i].courseName.name}} -
-          Контроль: <strong>{{courses[i].knowledgeControl.name}}</strong> - Години: <strong>{{courses[i].hours}}</strong> -
-          Кредити: <strong>{{courses[i].credits}}</strong></p>
-
-        <div [formGroup]="courseControl">
-          <textarea formControlName="description" style="width: 100%"></textarea>
-
-          <div class="row" style="margin-left: 5px">
-            <div>
-              <span>Викладач:</span>
-              <teacher-search formControlName="teacher"></teacher-search>
-            </div>
-            <div style="margin-left: 10px">
-              <span>Кафедра:</span>
-
-              <select formControlName="department" class="form-control departmentSelect" required>
-                  <option *ngFor="let department of departments"
-                          [ngValue]="department.id">{{department.abbr}}</option>
-              </select>
-            </div>
-          </div>
-        </div>
+      <div *ngFor="let course of courses" style="margin-top: 10px">
+        <selective-course-form #selectiveCourseForm [course]="course" [departments]="departments">
+        </selective-course-form>
       </div>
     </form>
     <div class="modal-footer">
