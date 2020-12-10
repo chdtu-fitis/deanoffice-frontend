@@ -32,7 +32,7 @@ export class AssignedCoursesComponent implements OnInit {
     if (this.studyYear && this.degreeId && this.semester) {
       this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
         .subscribe((selectiveCourses: SelectiveCourse[]) => {
-          this.selectiveCourses = selectiveCourses.sort((a, b) => (a < b) ? -1 : 1);
+          this.selectiveCourses = selectiveCourses;
 
           let isAllSelected = selectiveCourses.length > 0;
           const newSelection = [];
