@@ -1,12 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.service';
 import {DepartmentService} from '../../../services/department.service';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
-import {Form, FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
 import {Department} from '../../../models/Department';
+import {SelectiveCourseFormComponent} from '../selective-course-form/selective-course-form.component';
 
 @Component({
   selector: 'edit-dialog',
@@ -22,22 +23,20 @@ export class EditDialogComponent implements OnInit {
 
   @Output() onEdit = new EventEmitter();
 
+  @ViewChild('selectiveCourseForm', {static: true}) selectiveCourseForm: SelectiveCourseFormComponent;
+
   constructor(private fb: FormBuilder, public bsModalRef: BsModalRef,
               private fieldOfKnowledgeService: FieldOfKnowledgeService,
               private departmentService: DepartmentService,
               private selectiveCourseService: SelectiveCourseService) {
     this.form = fb.group({
       knowledgeTypes: fb.array([]),
-      department: new FormControl(),
-      description: new FormControl(),
-      teacher: new FormControl(),
     });
   }
 
   ngOnInit() {
     this.fieldOfKnowledgeService.getFieldsOfKnowledge().subscribe(fieldsOfKnowledge => {
       this.fieldsOfKnowledge = fieldsOfKnowledge;
-
       for (const type of this.fieldsOfKnowledge) {
         let enabled = false;
         if (this.selectiveCourse.fieldsOfKnowledge) {
@@ -48,11 +47,13 @@ export class EditDialogComponent implements OnInit {
     });
     this.departmentService.getAllDepartments().subscribe(departments => {
       this.departments = departments.filter(department => department.abbr.length > 0);
-      this.form.controls['department'].setValue(this.selectiveCourse.department.id);
+      this.selectiveCourseForm.departments = this.departments;
+      this.selectiveCourseForm.departmentId = this.selectiveCourse.department.id;
     });
 
-    this.form.controls['description'].setValue(this.selectiveCourse.description);
-    this.form.controls['teacher'].setValue(this.selectiveCourse.teacher);
+    this.selectiveCourseForm.teacher.selectTeacher(this.selectiveCourse.teacher);
+    this.selectiveCourseForm.description = this.selectiveCourse.description;
+    this.selectiveCourseForm.groupName = this.selectiveCourse.groupName;
   }
 
   edit() {
@@ -65,10 +66,10 @@ export class EditDialogComponent implements OnInit {
       }
     }
 
-    const departmentId = this.form.get('department').value;
-    const description = this.form.get('description').value;
+    const departmentId = this.selectiveCourseForm.departmentId;
+    const description = this.selectiveCourseForm.description;
 
-    const teacherValue = this.form.get('teacher').value;
+    const teacherValue = this.selectiveCourseForm.teacher.selectedTeacher;
     const teacher = teacherValue ? {id: teacherValue.id} : null;
 
     const body = {
@@ -81,6 +82,7 @@ export class EditDialogComponent implements OnInit {
       studyYear: this.selectiveCourse.studyYear,
       teacher: teacher,
       trainingCycle: this.selectiveCourse.trainingCycle,
+      groupName: this.selectiveCourseForm.groupName,
     };
 
     this.selectiveCourseService.updateSelectiveCourse(this.selectiveCourse.id, body).subscribe(() => {
@@ -91,5 +93,4 @@ export class EditDialogComponent implements OnInit {
 
     this.bsModalRef.hide();
   }
-
 }

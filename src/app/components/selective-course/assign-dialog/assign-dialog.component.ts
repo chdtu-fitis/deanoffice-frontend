@@ -68,10 +68,10 @@ export class AssignDialogComponent implements OnInit {
       const course = this.courses[i];
       const courseControl = selectiveCourseForms[i];
 
-      const departmentId = courseControl.getDepartment();
-      const description = courseControl.getDescription();
+      const departmentId = courseControl.departmentId;
+      const description = courseControl.description;
 
-      const teacherValue = courseControl.getTeacher();
+      const teacherValue = courseControl.teacher.selectedTeacher;
       const teacher = teacherValue ? {
         id: teacherValue.id,
       } : null;
@@ -86,7 +86,7 @@ export class AssignDialogComponent implements OnInit {
         studyYear: this.studyYear,
         teacher: teacher,
         trainingCycle: trainingCycle,
-        groupName: courseControl.getGroupName(),
+        groupName: courseControl.groupName,
       };
 
       this.selectiveCourseService.createSelectiveCourse(body).subscribe(() => {

@@ -3,7 +3,7 @@
     - Контроль: <strong>{{course.knowledgeControl.name}}</strong>
     - Години: <strong>{{course.hours}}</strong>
     - Кредити: <strong>{{course.credits}}</strong></p>
-  <textarea #description style="width: 100%"></textarea>
+  <textarea style="width: 100%" [(ngModel)]="description"></textarea>
 
   <div class="row" style="margin-left: 5px">
     <div>
@@ -12,14 +12,14 @@
     </div>
     <div class="ml-2">
       <span>Кафедра:</span>
-      <select #department class="form-control formControl2" required>
+      <select [(ngModel)]="departmentId" class="form-control formControl2" required>
         <option *ngFor="let department of departments"
-                value="{{department.id}}">{{department.abbr}}</option>
+                [ngValue]="department.id">{{department.abbr}}</option>
       </select>
     </div>
     <div class="ml-2">
       <span>Назва групи:</span>
-      <input #groupName type="text" class="form-control formControl2">
+      <input [(ngModel)]="groupName" type="text" class="form-control formControl2">
     </div>
   </div>
 </div>

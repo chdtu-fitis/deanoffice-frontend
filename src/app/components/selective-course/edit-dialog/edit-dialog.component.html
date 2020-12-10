@@ -17,26 +17,8 @@
         </div>
         <hr>
       </div>
-      <p style="padding: 0px; margin-bottom: 5px;">Контроль:
-        <strong>{{selectiveCourse.course.knowledgeControl.name}}</strong>
-        - Години: <strong>{{selectiveCourse.course.hours}}</strong>
-        - Кредити: <strong>{{selectiveCourse.course.credits}}</strong></p>
-      <textarea formControlName="description" style="width: 100%">{{selectiveCourse.description}}</textarea>
-
-      <div class="row" style="margin-left: 5px">
-        <div>
-          <span>Викладач:</span>
-          <teacher-search formControlName="teacher"></teacher-search>
-        </div>
-        <div style="margin-left: 10px">
-          <span>Кафедра:</span>
-
-          <select formControlName="department" class="form-control departmentSelect" required>
-            <option *ngFor="let department of departments"
-                    [ngValue]="department.id">{{department.abbr}}</option>
-          </select>
-        </div>
-      </div>
+      <selective-course-form #selectiveCourseForm [course]="selectiveCourse.course" [departments]="departments">
+      </selective-course-form>
     </form>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-success" (click)="edit()">Зберегти</button>

@@ -1,9 +1,7 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {SelectiveCourse} from '../../../models/SelectiveCourse';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Department} from '../../../models/Department';
 import {TeacherSearchComponent} from '../teacher-search/teacher-search.component';
 import {Course} from '../../../models/Course';
-import {Teacher} from '../../../models/Teacher';
 
 @Component({
   selector: 'selective-course-form',
@@ -15,46 +13,13 @@ export class SelectiveCourseFormComponent implements OnInit {
   @Input() departments: Department[];
 
   @ViewChild('teacher', {static: true}) teacher: TeacherSearchComponent;
-  @ViewChild('department', {static: true}) department: ElementRef;
-  @ViewChild('description', {static: true}) description: ElementRef;
-  @ViewChild('groupName', {static: true}) groupName: ElementRef;
+  departmentId: number;
+  description: string;
+  groupName: string;
 
   constructor() {
   }
 
   ngOnInit() {
-  }
-
-  getTeacher() {
-    return this.teacher.selectedTeacher;
-  }
-
-  setTeacher(teacher) {
-    this.teacher.selectTeacher(teacher);
-  }
-
-  getDepartment() {
-    return this.department.nativeElement.value;
-  }
-
-  setDepartment(department) {
-    this.department.nativeElement.value = department.id;
-    this.department.nativeElement.innerHTML = department.name;
-  }
-
-  getDescription() {
-    return this.description.nativeElement.value;
-  }
-
-  setDescription(description) {
-    return this.description.nativeElement.value = description;
-  }
-
-  getGroupName() {
-    return this.groupName.nativeElement.value;
-  }
-
-  setGroupName(groupName) {
-    return this.groupName.nativeElement.value = groupName;
   }
 }
