@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {DepartmentService} from '../../../services/department.service';
@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
 import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.service';
+import {SelectiveCourseFormComponent} from '../selective-course-form/selective-course-form.component';
 
 @Component({
   selector: 'assign-dialog',
@@ -26,29 +27,20 @@ export class AssignDialogComponent implements OnInit {
 
   @Output() onAssign = new EventEmitter();
 
+  @ViewChildren('selectiveCourseForm') selectiveCourseForms: QueryList<SelectiveCourseFormComponent>;
+
   constructor(private fb: FormBuilder, public bsModalRef: BsModalRef,
               private fieldOfKnowledgeService: FieldOfKnowledgeService,
               private departmentService: DepartmentService,
               private selectiveCourseService: SelectiveCourseService) {
     this.form = fb.group({
       knowledgeTypes: fb.array([]),
-      selectiveCourses: fb.array([]),
     });
   }
 
   ngOnInit() {
-    for (const course of this.courses) {
-      const group = new FormGroup({
-        department: new FormControl(),
-        description: new FormControl(''),
-        teacher: new FormControl(),
-      });
-      (<FormArray>this.form.get('selectiveCourses')).push(group);
-    }
-
     this.fieldOfKnowledgeService.getFieldsOfKnowledge().subscribe(fieldsOfKnowledge => {
       this.fieldsOfKnowledge = fieldsOfKnowledge;
-
       for (const type of this.fieldsOfKnowledge) {
         (<FormArray>this.form.get('knowledgeTypes')).push(new FormControl(false));
       }
@@ -59,6 +51,8 @@ export class AssignDialogComponent implements OnInit {
   }
 
   assign() {
+    const selectiveCourseForms = this.selectiveCourseForms.toArray();
+
     const trainingCycle = this.prepType.id === 2 ? 'PROFESSIONAL' : 'GENERAL';
     const fieldsOfKnowledge: number[] = [];
 
@@ -70,28 +64,29 @@ export class AssignDialogComponent implements OnInit {
       }
     }
 
-    for (let i = 0; i < this.courses.length; i++) {
+    for (let i = 0; i < this.selectiveCourseForms.length; i++) {
       const course = this.courses[i];
-      const courseControl = this.form.get('selectiveCourses').get(`${i}`);
+      const courseControl = selectiveCourseForms[i];
 
-      const departmentId = courseControl.get('department').value;
-      const description = courseControl.get('description').value;
+      const departmentId = courseControl.departmentId;
+      const description = courseControl.description;
 
-      const teacherValue = courseControl.get('teacher').value;
+      const teacherValue = courseControl.teacher.selectedTeacher;
       const teacher = teacherValue ? {
-        id: courseControl.get('teacher').value.id,
+        id: teacherValue.id,
       } : null;
 
       const body = {
         available: true,
-        course: { id: course.id },
-        degree: { id: this.degreeId },
-        department: { id: departmentId },
+        course: {id: course.id},
+        degree: {id: this.degreeId},
+        department: {id: departmentId},
         description: description,
         fieldsOfKnowledge: fieldsOfKnowledge,
         studyYear: this.studyYear,
         teacher: teacher,
         trainingCycle: trainingCycle,
+        groupName: courseControl.groupName,
       };
 
       this.selectiveCourseService.createSelectiveCourse(body).subscribe(() => {

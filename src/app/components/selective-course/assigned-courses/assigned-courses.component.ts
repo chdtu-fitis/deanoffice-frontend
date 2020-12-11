@@ -3,6 +3,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
+import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 
 @Component({
   selector: 'assigned-courses',
@@ -22,7 +23,7 @@ export class AssignedCoursesComponent implements OnInit {
   selectedAssignedCourses = [];
   isAllSelected = false;
 
-  constructor(private selectiveCourseService: SelectiveCourseService) {
+  constructor(private modalService: BsModalService, private selectiveCourseService: SelectiveCourseService) {
   }
 
   ngOnInit() {
@@ -76,5 +77,16 @@ export class AssignedCoursesComponent implements OnInit {
     }
 
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
+  }
+
+  changeCourse(course) {
+    const initialState = {
+      selectiveCourse: course
+    };
+
+    const modalRef = this.modalService.show(EditDialogComponent, {initialState, class: 'modal-custom'});
+    modalRef.content.onEdit.subscribe(() => {
+      this.load();
+    });
   }
 }

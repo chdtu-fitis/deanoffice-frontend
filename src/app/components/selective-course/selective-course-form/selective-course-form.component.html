@@ -1,0 +1,26 @@
+<div>
+  <p style="padding: 0; margin-bottom: 5px;">{{course.courseName.name}}
+    - Контроль: <strong>{{course.knowledgeControl.name}}</strong>
+    - Години: <strong>{{course.hours}}</strong>
+    - Кредити: <strong>{{course.credits}}</strong></p>
+  <textarea style="width: 100%" [(ngModel)]="description"></textarea>
+
+  <div class="row" style="margin-left: 5px">
+    <div>
+      <span>Викладач:</span>
+      <teacher-search #teacher></teacher-search>
+    </div>
+    <div class="ml-2">
+      <span>Кафедра:</span>
+      <select [(ngModel)]="departmentId" class="form-control formControl2" required>
+        <option *ngFor="let department of departments"
+                [ngValue]="department.id">{{department.abbr}}</option>
+      </select>
+    </div>
+    <div class="ml-2">
+      <span>Назва групи:</span>
+      <input [(ngModel)]="groupName" type="text" class="form-control formControl2">
+    </div>
+  </div>
+</div>
+
