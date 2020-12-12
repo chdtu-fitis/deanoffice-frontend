@@ -56,7 +56,7 @@ export class EditDialogComponent implements OnInit {
     this.selectiveCourseForm.groupName = this.selectiveCourse.groupName;
   }
 
-  edit() {
+  update() {
     const fieldsOfKnowledge: number[] = [];
 
     for (let i = 0; i < this.fieldsOfKnowledge.length; i++) {
@@ -80,7 +80,7 @@ export class EditDialogComponent implements OnInit {
       description: description,
       fieldsOfKnowledge: fieldsOfKnowledge,
       studyYear: this.selectiveCourse.studyYear,
-      teacher: teacher,
+      teacher: {id: teacher.id},
       trainingCycle: this.selectiveCourse.trainingCycle,
       groupName: this.selectiveCourseForm.groupName,
     };
