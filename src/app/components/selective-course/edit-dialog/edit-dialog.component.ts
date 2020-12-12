@@ -67,7 +67,7 @@ export class EditDialogComponent implements OnInit {
     }
 
     const departmentId = this.selectiveCourseForm.departmentId;
-    const description = this.selectiveCourseForm.description;
+    const description = this.selectiveCourseForm.description ? this.selectiveCourseForm.description : '';
 
     const teacherValue = this.selectiveCourseForm.teacher.selectedTeacher;
     const teacher = teacherValue ? {id: teacherValue.id} : null;
@@ -80,7 +80,7 @@ export class EditDialogComponent implements OnInit {
       description: description,
       fieldsOfKnowledge: fieldsOfKnowledge,
       studyYear: this.selectiveCourse.studyYear,
-      teacher: {id: teacher.id},
+      teacher: teacher,
       trainingCycle: this.selectiveCourse.trainingCycle,
       groupName: this.selectiveCourseForm.groupName,
     };

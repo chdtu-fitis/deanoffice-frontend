@@ -69,12 +69,10 @@ export class AssignDialogComponent implements OnInit {
       const courseControl = selectiveCourseForms[i];
 
       const departmentId = courseControl.departmentId;
-      const description = courseControl.description;
+      const description = courseControl.description ? courseControl.description : '';
 
       const teacherValue = courseControl.teacher.selectedTeacher;
-      const teacher = teacherValue ? {
-        id: teacherValue.id,
-      } : null;
+      const teacher = teacherValue ? {id: teacherValue.id} : null;
 
       const body = {
         available: true,
