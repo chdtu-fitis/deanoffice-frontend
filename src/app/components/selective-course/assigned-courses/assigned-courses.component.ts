@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
