@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Призначення дисциплін - {{semester}} семестр</h4>
+  <h4 class="modal-title">Редагування - {{selectiveCourse.course.courseName.name}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -7,7 +7,7 @@
 <div class="modal-body">
   <div class="creation-form">
     <form [formGroup]="form" style="margin-bottom: 10px">
-      <div formArrayName="knowledgeTypes" *ngIf="prepType.id == 2">
+      <div formArrayName="knowledgeTypes" *ngIf="selectiveCourse.trainingCycle == 'PROFESSIONAL'">
         <div class="row" style="margin-left: 7px">
           <div *ngFor="let control of form.get('knowledgeTypes').controls; let i = index" class="col-5">
             <input type="checkbox" [formControl]="control">
@@ -17,13 +17,11 @@
         </div>
         <hr>
       </div>
-      <div *ngFor="let course of courses" style="margin-top: 10px">
-        <selective-course-form #selectiveCourseForm [course]="course" [departments]="departments">
-        </selective-course-form>
-      </div>
+      <selective-course-form #selectiveCourseForm [course]="selectiveCourse.course" [departments]="departments">
+      </selective-course-form>
     </form>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="assign()">Призначити</button>
+      <button type="button" class="btn btn-outline-success" (click)="update()">Зберегти</button>
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
     </div>
   </div>

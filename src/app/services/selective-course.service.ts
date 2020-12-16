@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
 import {Observable} from "rxjs";
+import {SelectiveCourseStudentDegrees} from '../models/SelectiveCourseStudentDegrees';
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
@@ -19,8 +20,18 @@ export class SelectiveCourseService {
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
 
+  getSelectiveCoursesForThisAcademicYear(degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+    return this.httpClient.get<SelectiveCourse[]>(
+      `${SELECTIVE_COURSE_URL}?degreeId=${degreeId}&semester=${semester}&thisYear=true`)
+      .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
+  }
+
   createSelectiveCourse(body) {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}`, body);
+  }
+
+  updateSelectiveCourse(id, body) {
+    return this.httpClient.put(`${SELECTIVE_COURSE_URL}/${id}`, body);
   }
 
   deleteSelectiveCourse(id) {
