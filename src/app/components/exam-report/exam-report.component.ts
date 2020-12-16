@@ -179,7 +179,7 @@ export class ExamReportComponent implements OnInit {
       return;
     }
 
-    this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId)
+    this.selectiveCourseService.getSelectiveCourseStudents(selectiveCourseId, true)
       .subscribe(coursesWithStudents => {
         this.students = coursesWithStudents.studentDegrees;
         this.selectiveCourseGroupName = coursesWithStudents.selectiveCourse ? coursesWithStudents.selectiveCourse.groupName : '';
