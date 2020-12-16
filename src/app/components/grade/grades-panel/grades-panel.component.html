@@ -42,7 +42,7 @@
     </mat-slide-toggle>
 
 
-    <input type="text" [(ngModel)]="searchText" placeholder="Пошук..."/>
+    <input *ngIf="!selectiveGroupsEnabled" type="text" [(ngModel)]="searchText" placeholder="Пошук..."/>
 
     <label *ngIf="!selectiveGroupsEnabled">
       <input type="checkbox"

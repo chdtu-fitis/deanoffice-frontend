@@ -7,6 +7,12 @@
   top: 5px;
   bottom: 0;
   flex-flow: column;
+  width: 100%;
+}
+
+.conditions {
+  width: 100%;
+  padding-right: 10px;
 }
 
 select, input[type="text"] {
