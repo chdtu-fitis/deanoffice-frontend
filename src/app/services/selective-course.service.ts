@@ -38,9 +38,7 @@ export class SelectiveCourseService {
     return this.httpClient.delete(`${SELECTIVE_COURSE_URL}/${id}`);
   }
 
-  getSelectiveCourseStudents(selectiveCourseId: number) {
-    return this.httpClient.get<SelectiveCourseStudentDegrees>(
-      `${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}`
-    );
+  getSelectiveCourseStudents(selectiveCourseId: number, forFaculty: boolean) {
+    return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}&forFaculty=${forFaculty}`);
   }
 }

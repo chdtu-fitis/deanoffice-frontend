@@ -1,74 +1,90 @@
 <div class="panel">
-    <div class="conditions">
-        <div [ngClass]="{'d-none': autoSemesterSelect}">
-            <label for="selectSemester">
-                Обрати семестр
-            </label>
-            <select id="selectSemester"
-                    [(ngModel)]="selectSemester"
-                    (change)="toggleSemester()">
-                <option value="1">1 Семестр</option>
-                <option value="2">2 Семестр</option>
-                <option value="3">3 Семестр</option>
-                <option value="4">4 Семестр</option>
-                <option value="5">5 Семестр</option>
-                <option value="6">6 Семестр</option>
-                <option value="7">7 Семестр</option>
-                <option value="8">8 Семестр</option>
-                <option value="9">9 Семестр</option>
-                <option value="10">10 Семестр</option>
-                <option value="11">11 Семестр</option>
-                <option value="12">12 Семестр</option>
-            </select>
-        </div>
-        <select [(ngModel)]="degree">
-            <option value="1">Бакалавр</option>
-            <option value="2">Спеціаліст</option>
-            <option value="3">Магiстр</option>
-        </select>
-
-        <input type="text" [(ngModel)]="searchText" placeholder="Пошук..."/>
-
-        <label>
-            <input type="checkbox"
-                   [(ngModel)]="autoSemesterSelect"
-                   (click)="checkAutoSelectSemester($event)"
-                   name="autoSelectSemester"
-                   id="autoSelectSemester"/>
-            Обрати поточний семестр
-        </label>
-      <div id="divTypeOfEducation">
-        <label>
-          <input type="checkbox"
-                  [(ngModel)]="fullTimeGroupsVisible"
-                  (click)="onClickTuitionFormCheckBox($event)"
-                  name="fullTimeGroupsVisible"
-                  id="fullTimeGroupsVisible"
-          />
-          Денна
-        </label>
-        <label>
-          <input type="checkbox"
-                  [(ngModel)]="extramuralGroupsVisible"
-                  (click)="onClickTuitionFormCheckBox($event)"
-                  name="extramuralGroupsVisible"
-                  id="extramuralGroupsVisible"
-          />
-          Заочна
-        </label>
-      </div>
+  <div class="conditions">
+    <div *ngIf="selectiveGroupsEnabled">
+      <label>Навчальний рік:</label>
+      <select
+        [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
+        <option *ngFor="let year of years" [ngValue]="year.id">{{year.name}}</option>
+      </select>
     </div>
-    <div class="dropdown-divider"></div>
-    <div class="groups">
-        <div *ngIf="groups" class="list-group">
-            <ng-container *ngFor="let group of groups | groupSearch : searchText | typeOfEducation : fullTimeGroupsVisible : extramuralGroupsVisible">
-                <button *ngIf="group.specialization.degree.id == degree"
-                        [ngClass]="{'active': selectGroup.id === group.id}"
-                        (click)="getSelectGroup(group)">
-                    {{ group.name }}
-                </button>
-            </ng-container>
-        </div>
-        <loading *ngIf="!groups" [size]="50"></loading>
+    <div [ngClass]="{'d-none': autoSemesterSelect}">
+      <label for="selectSemester">
+        Обрати семестр
+      </label>
+      <select id="selectSemester"
+              [(ngModel)]="selectSemester"
+              (change)="toggleSemester()">
+        <option value="1">1 Семестр</option>
+        <option value="2">2 Семестр</option>
+        <option value="3">3 Семестр</option>
+        <option value="4">4 Семестр</option>
+        <option value="5">5 Семестр</option>
+        <option value="6">6 Семестр</option>
+        <option value="7">7 Семестр</option>
+        <option value="8">8 Семестр</option>
+        <option value="9">9 Семестр</option>
+        <option value="10">10 Семестр</option>
+      </select>
     </div>
+    <select [(ngModel)]="degree" (change)="onDegreeChange()">
+      <option value="1">Бакалавр</option>
+      <option value="2">Спеціаліст</option>
+      <option value="3">Магiстр</option>
+    </select>
+
+    <mat-slide-toggle
+      id="selectiveGroupsToggle"
+      class="mb-2"
+      [checked]="selectiveGroupsEnabled"
+      [(ngModel)]="selectiveGroupsEnabled"
+      (change)="selectiveGroupsToggleChange()">
+      {{selectiveGroupsEnabled ? 'Вибiрковi' : 'Звичайнi'}}
+    </mat-slide-toggle>
+
+
+    <input type="text" [(ngModel)]="searchText" placeholder="Пошук..."/>
+
+    <label *ngIf="!selectiveGroupsEnabled">
+      <input type="checkbox"
+             [(ngModel)]="autoSemesterSelect"
+             (click)="checkAutoSelectSemester($event)"
+             name="autoSelectSemester"
+             id="autoSelectSemester"/>
+      Обрати поточний семестр
+    </label>
+    <div id="divTypeOfEducation" *ngIf="!selectiveGroupsEnabled">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="fullTimeGroupsVisible"
+               (click)="onClickTuitionFormCheckBox($event)"
+               name="fullTimeGroupsVisible"
+               id="fullTimeGroupsVisible"
+        />
+        Денна
+      </label>
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="extramuralGroupsVisible"
+               (click)="onClickTuitionFormCheckBox($event)"
+               name="extramuralGroupsVisible"
+               id="extramuralGroupsVisible"
+        />
+        Заочна
+      </label>
+    </div>
+  </div>
+  <div class="dropdown-divider"></div>
+  <div class="groups">
+    <div *ngIf="selectiveGroupsEnabled ? selectiveGroups : groups" class="list-group">
+      <ng-container
+        *ngFor="let group of (selectiveGroupsEnabled ? selectiveGroups : groups) | groupSearch : searchText | typeOfEducation : fullTimeGroupsVisible : extramuralGroupsVisible">
+        <button *ngIf="group.specialization.degree.id == degree"
+                [ngClass]="{'active': selectGroup.id === group.id}"
+                (click)="getSelectGroup(group)">
+          {{ group.name }}
+        </button>
+      </ng-container>
+    </div>
+    <loading *ngIf="selectiveGroupsEnabled ? !selectiveGroups : !groups" [size]="50"></loading>
+  </div>
 </div>

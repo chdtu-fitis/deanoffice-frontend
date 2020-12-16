@@ -10,30 +10,35 @@ import {PostGrade} from '../components/grade/models/PostGrade';
 
 @Injectable()
 export class GradeService {
-    private url = `${environment.apiUrl}/grades`;
+  private url = `${environment.apiUrl}/grades`;
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {
-        return this.http.get<Grade[]>(`${this.url}/${groupId}?semester=${semester}`)
-            .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним семестром', [])));
-    }
+  public getGradesByGroupIdAndBySemester(groupId: number, semester: number): Observable<Grade[]> {
+    return this.http.get<Grade[]>(`${this.url}/${groupId}?semester=${semester}`)
+      .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним семестром', [])));
+  }
 
-    public getGradesByGroupIdAndCourseId(groupId: number, courseId: number): Observable<Grade[]> {
-        return this.http.get<Grade[]>(`${this.url}/${groupId}/${courseId}`)
-            .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним предметом', [])));
-    }
+  public getGradesByGroupIdAndCourseId(groupId: number, courseId: number): Observable<Grade[]> {
+    return this.http.get<Grade[]>(`${this.url}/${groupId}/${courseId}`)
+      .pipe(catchError(forObservable('Отримання оцінок для обраної групи, за обраним предметом', [])));
+  }
 
-    public updateGrades(grades: PostGrade[]): Observable<Grade[]> {
-        return this.http.put<Grade[]>(`${this.url}/`, grades)
-            .pipe(catchError(forObservable('Відправка оновлених оцінок', [])));
-    }
+  public getGradesForSelectiveCourseAndFacultyStudents(selectiveCourseId: number): Observable<Grade[]> {
+    return this.http.get<Grade[]>(`${this.url}/selective-courses/${selectiveCourseId}`)
+      .pipe(catchError(forObservable('Отримання оцінок для вибiркової групи', [])));
+  }
 
-    public deleteGradeById(gradeId: number): Observable<Grade[]> {
-        return this.http.delete<Grade[]>(`${this.url}?gradeId=${gradeId}`)
-            .pipe(catchError(forObservable('Видалення оцiнок', [])));
-    }
+  public updateGrades(grades: PostGrade[]): Observable<Grade[]> {
+    return this.http.put<Grade[]>(`${this.url}/`, grades)
+      .pipe(catchError(forObservable('Відправка оновлених оцінок', [])));
+  }
+
+  public deleteGradeById(gradeId: number): Observable<Grade[]> {
+    return this.http.delete<Grade[]>(`${this.url}?gradeId=${gradeId}`)
+      .pipe(catchError(forObservable('Видалення оцiнок', [])));
+  }
 
   public putAcademicDifference(academicDifferenceGradeId: GradeUpdateAcademicDifference): Observable<any> {
     return this.http.put(`${this.url}/academic-difference`, academicDifferenceGradeId)
