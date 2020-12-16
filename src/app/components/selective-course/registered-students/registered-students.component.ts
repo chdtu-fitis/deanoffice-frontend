@@ -23,7 +23,7 @@ export class RegisteredStudentsComponent implements OnInit {
   }
 
   load() {
-    this.selectiveCourseService.getSelectiveCourseStudents(this.selectiveCourseId).subscribe(
+    this.selectiveCourseService.getSelectiveCourseStudents(this.selectiveCourseId, false).subscribe(
       (response: SelectiveCourseStudentDegrees) => {
         this.selectiveCourse = response.selectiveCourse ? response.selectiveCourse : null;
         this.studentDegrees = response.studentDegrees ? response.studentDegrees : [];

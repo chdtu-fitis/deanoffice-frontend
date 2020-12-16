@@ -11,6 +11,7 @@ export class GradesPanelComponent implements OnInit {
   @Input() groups;
   @Input() selectiveGroups;
   @Output() changeGroup = new EventEmitter();
+  @Output() changeGroupType = new EventEmitter();
   @Output() changeYear = new EventEmitter();
   @Output() changeDegree = new EventEmitter();
   @Output() changeSemester = new EventEmitter();
@@ -118,6 +119,7 @@ export class GradesPanelComponent implements OnInit {
     if (this.selectiveGroupsEnabled) {
       this.autoSemesterSelect = false;
     }
+    this.changeGroupType.emit(this.selectiveGroupsEnabled);
   }
 
   onDegreeChange() {

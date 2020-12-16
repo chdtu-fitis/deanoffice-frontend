@@ -33,6 +33,7 @@ export class GradeComponent implements OnInit {
   selectedYear: string;
   selectedDegree = 1;
   selectSemester = 1;
+  isSelectiveGroups = false;
   coursesForGroup: CourseForGroup[] = [];
   coursesForGroupAll: CourseForGroup[] = [];
   studentsDegree: StudentDegree[] = [];
@@ -78,6 +79,10 @@ export class GradeComponent implements OnInit {
     this.gradeTable.resetGrades();
   }
 
+  setGroupType(isSelectiveGroups: boolean) {
+    this.isSelectiveGroups = isSelectiveGroups;
+  }
+
   setYear(year: string) {
     this.selectedYear = year;
     this.updateSelectiveGroups();
@@ -91,7 +96,8 @@ export class GradeComponent implements OnInit {
   setSemester(selectSemester: number): void {
     this.selectSemester = selectSemester;
     this.gradeTable.focusGrade = {} as Grade;
-    this.updateSelectiveGroups();
+    if (this.isSelectiveGroups)
+      this.updateSelectiveGroups();
   }
 
   updateSelectiveGroups() {
@@ -114,7 +120,8 @@ export class GradeComponent implements OnInit {
 
   getGrades(): void {
     this.resetSelectGradeForDelete();
-    this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
+    if (this.selectGroup)
+      this.updateRequest(this.selectSemester || 1, this.selectGroup.id);
   }
 
   updateRequest(semester: number, groupId: number): void {
@@ -122,13 +129,17 @@ export class GradeComponent implements OnInit {
 
     if (this.selectiveGroupSelected) {
       this.gradeService.getGradesForSelectiveCourseAndFacultyStudents(this.selectGroup.id).subscribe(grades => {
-        this.selectiveCourseService.getSelectiveCourseStudents(this.selectGroup.id).subscribe(
+        this.selectiveCourseService.getSelectiveCourseStudents(this.selectGroup.id, true).subscribe(
           (selectiveCourseStudentDegrees: SelectiveCourseStudentDegrees) => {
-            const courseForGroup = new CourseForGroup();
-            if (selectiveCourseStudentDegrees.selectiveCourse.course) {
+            const coursesForGroup = [];
+            let studentDegrees = [];
+            if (selectiveCourseStudentDegrees.selectiveCourse) {
+              const courseForGroup = new CourseForGroup();
               courseForGroup.course = selectiveCourseStudentDegrees.selectiveCourse.course;
-              this.updateGradesAndStudentsAndCourses(grades, selectiveCourseStudentDegrees.studentDegrees, [courseForGroup]);
+              coursesForGroup.push(courseForGroup);
+              studentDegrees = selectiveCourseStudentDegrees.studentDegrees;
             }
+            this.updateGradesAndStudentsAndCourses(grades, studentDegrees, coursesForGroup);
           });
       });
     } else {
@@ -142,9 +153,9 @@ export class GradeComponent implements OnInit {
     }
   }
 
-  updateGradesAndStudentsAndCourses(grades: Grade[], studentsDegree: StudentDegree[], coursesForGroup: CourseForGroup[]): void {
-    this.checkForErrorsAfterQueryingDataFetches(coursesForGroup, studentsDegree, grades);
-    const joinGrades = this.joinGradesForStudents(grades, studentsDegree, coursesForGroup);
+  updateGradesAndStudentsAndCourses(grades: Grade[], studentDegrees: StudentDegree[], coursesForGroup: CourseForGroup[]): void {
+    this.checkForErrorsAfterQueryingDataFetches(coursesForGroup, studentDegrees, grades);
+    const joinGrades = this.joinGradesForStudents(grades, studentDegrees, coursesForGroup);
     this.setCourses(coursesForGroup);
     this.setStudentDegree(joinGrades.studentsTemp || []);
     this.setEmptyGradesList(joinGrades.emptyGrades || []);

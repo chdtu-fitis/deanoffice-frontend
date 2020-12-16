@@ -4,6 +4,7 @@
             <mat-nav-list>
                 <app-grades-panel [groups]="groups" [selectiveGroups]="selectiveGroups"
                                   (changeGroup)="setStudentGroup($event)"
+                                  (changeGroupType)="setGroupType($event)"
                                   (changeYear)="setYear($event)"
                                   (changeDegree)="setDegree($event)"
                                   (changeSemester)="setSemester($event)"
@@ -13,7 +14,7 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="group-buttons">
-                <button class="btn btn-primary" (click)="toggleSortableCoursesForGroup()">Сортувати колонки</button>
+                <button [disabled]="isSelectiveGroups" class="btn btn-primary" (click)="toggleSortableCoursesForGroup()">Сортувати колонки</button>
                 <button class="btn btn-primary" (click)="snav.toggle()">Групи і семестри</button>
                 <button class="btn btn-success" *ngIf="selectGroup"
                         [disabled]="!emptyGradesList.length || isDeleteMode"
@@ -38,7 +39,7 @@
                         (click)="changeMode()" *ngIf="selectGroup">
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
-              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+              <button [disabled]="isSelectiveGroups" class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
                       (click)="setAcademicDifference()" *ngIf="selectGroup">
                 Змінити А.Р
               </button>
@@ -62,6 +63,7 @@
               <label class="grades__academic_difference">
                 <input
                   type="checkbox"
+                  [disabled]="isSelectiveGroups"
                   [checked]="showAcademicDifference"
                   (change)="onShowAcademicDifference($event)">
                   Відобразити А.Р.
