@@ -15,9 +15,8 @@ export class SpecializationService {
               private currentUserService: CurrentUserService) {}
 
   public getSpecializations(
-    active: boolean = true,
-    facultyId: string = this.currentUserService.facultyId().toString()): Observable<Specialization[]> {
-    const params = {active: active.toString(), facultyId};
+    active: boolean = true): Observable<Specialization[]> {
+    const params = {active: active.toString()};
     return this._httpClient.get<Specialization[]>(SPECIALIZATION_URL, {params})
       .pipe(catchError(forObservable('Отримання спеціалізацій', [])));
   }
