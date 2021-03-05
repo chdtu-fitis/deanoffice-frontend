@@ -62,7 +62,6 @@
                   <td>Номер додатку до диплому</td>
                   <td>Прізвище англійською</td>
                   <td>Ім'я англійською</td>
-                  <td>По-батькові англійською </td>
             </thead>
             <tbody *ngFor="let student of unmatchedSecondaryDataStudentDegreesBlue; let i = index">
               <tr>
@@ -119,9 +118,6 @@
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('nameEng',i)">
                   {{ student.studentDegreeFromDb?.student?.nameEng }}
-                </td>
-                <td [attr.rowspan] = "compareValuesInBlueList('patronimicEng',i)">
-                  {{ student.studentDegreeFromDb?.student?.patronimicEng }}
                 </td>
               </tr>
               <tr class="data-integration">
@@ -181,10 +177,6 @@
                     (click)="replaceDataWithCorrect(i,'nameEng')">
                   {{ student.studentDegreeFromData?.student?.nameEng}}
                 </td>
-                <td *ngIf="isNotEqual('patronimicEng',i)"
-                    (click)="replaceDataWithCorrect(i,'patronimicEng')">
-                  {{ student.studentDegreeFromData?.student?.patronimicEng }}
-                </td>
               </tr>
             </tbody>
           </table>
@@ -234,10 +226,10 @@
             </thead>
             <tr *ngFor="let student of missingPrimaryDataRed; let i = index">
               <td>{{ i+1 }}</td>
-              <td>{{  student.studentDegreePrimaryData?.lastName }}</td>
+              <td>{{ student.studentDegreePrimaryData?.lastName }}</td>
               <td>{{ student.studentDegreePrimaryData?.firstName}}</td>
               <td>{{ student.studentDegreePrimaryData?.middleName }}</td>
-              <td>{{ student.studentDegreePrimaryData?.birthday | date: 'dd.MM.yyyy' }}</td>
+              <td>{{ student.studentDegreePrimaryData?.birthday }}</td>
               <td>{{ student.studentDegreePrimaryData?.degreeName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecialityName }}</td>
               <td>{{ student.studentDegreePrimaryData?.fullSpecializationName }}</td>
@@ -274,7 +266,7 @@
       </tabset>
       <div class="loader" *ngIf="uploadInProgress"></div>
       <div class="input-group import" *ngIf="fileField">
-          <input type="file" class="custom-file-input" id="importFile" accept=".xlsx"
+          <input type="file" class="custom-file-input" id="importFile" accept=".csv"
               (change)="onFileSelected($event)">
           <label class="custom-file-label" for="importFile">{{fileName}}</label>
         </div>

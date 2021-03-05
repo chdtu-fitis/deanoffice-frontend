@@ -58,7 +58,7 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
 
   private checkExtension(file): boolean {
     const extension = file.name.slice(file.name.lastIndexOf('.'));
-    return extension !== '.xlsx';
+    return extension !== '.csv';
   }
 
 
