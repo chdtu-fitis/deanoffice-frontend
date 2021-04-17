@@ -12,6 +12,7 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {RegisteredStudentsComponent} from './registered-students/registered-students.component';
 import {EditDialogComponent} from './edit-dialog/edit-dialog.component';
 import {SelectiveCourseFormComponent} from './selective-course-form/selective-course-form.component';
+import { YearParametersDialogComponent } from './year-parameters-dialog/year-parameters-dialog.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -26,8 +27,8 @@ export const selectiveCourseRoutes: Routes = [
     PipeModule.forRoot(),
     RouterModule.forChild(selectiveCourseRoutes),
   ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent],
-  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent]
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent],
+  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent]
 })
 export class SelectiveCourseModule {
 }
