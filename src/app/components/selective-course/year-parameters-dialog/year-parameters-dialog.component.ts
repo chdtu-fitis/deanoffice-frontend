@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AlertsService} from '../../shared/alerts/alerts.service';
 
 @Component({
   selector: 'selective-parameters-dialog',
@@ -35,7 +36,8 @@ export class YearParametersDialogComponent implements OnInit {
   @Output() onSubmit = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef,
-              private selectiveCourseService: SelectiveCourseService) {
+              private selectiveCourseService: SelectiveCourseService,
+              private alerts: AlertsService) {
   }
 
   ngOnInit() {
@@ -46,24 +48,20 @@ export class YearParametersDialogComponent implements OnInit {
     if(this.form.valid) {
       const body = this.form.getRawValue();
 
-      this.selectiveCourseService.postYearParameters(body).subscribe(() => {
+      this.selectiveCourseService.createYearParameters(body).subscribe(() => {
         this.onSubmit.emit();
-        this.showMessage(false, 'Параметри вибору були успішно збережені')
+        this.bsModalRef.hide();
+        this.alerts.showSuccess({body:'Параметри навчального року були успішно встановлені', timeout: 3000});
       }, error => {
         if (error.status == 500) {
-          this.showMessage(true,
-            `Параметри вибору вибіркових дисциплін на ${this.studyYear} навчальний рік вже були введені`);
+          this.message =
+            `Параметри вибору вибіркових дисциплін на ${this.studyYear} навчальний рік вже були введені`;
         }
         console.log(body,error);
       });
     }
     else {
-      this.showMessage(true, 'Перевірте корректність введених даних');
+      this.message = 'Перевірте корректність введених даних';
     }
-  }
-
-  showMessage(isError: boolean, message: string) {
-    this.isError = isError;
-    this.message = message;
   }
 }

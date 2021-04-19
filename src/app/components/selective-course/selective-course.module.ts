@@ -13,20 +13,22 @@ import {RegisteredStudentsComponent} from './registered-students/registered-stud
 import {EditDialogComponent} from './edit-dialog/edit-dialog.component';
 import {SelectiveCourseFormComponent} from './selective-course-form/selective-course-form.component';
 import { YearParametersDialogComponent } from './year-parameters-dialog/year-parameters-dialog.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
 ]
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    PipeModule.forRoot(),
-    RouterModule.forChild(selectiveCourseRoutes),
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+        PipeModule.forRoot(),
+        RouterModule.forChild(selectiveCourseRoutes),
+        MatTooltipModule,
+    ],
   declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent]
 })

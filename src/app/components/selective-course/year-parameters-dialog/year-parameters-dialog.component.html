@@ -27,7 +27,7 @@
         </form>
 
 
-        <div *ngIf="!(message === '')" [className]="isError ? 'alert alert-danger' : 'alert alert-success'">
+        <div *ngIf="!(message === '')" class="alert alert-danger">
           {{message}}
         </div>
 
