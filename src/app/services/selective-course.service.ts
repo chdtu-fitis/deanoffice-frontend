@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
 import {Observable} from "rxjs";
-import {SelectiveCourseStudentDegrees} from '../models/SelectiveCourseStudentDegrees';
+import {SelectiveCoursesYearParameters} from '../models/SelectiveCoursesYearParameters';
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
@@ -40,5 +40,9 @@ export class SelectiveCourseService {
 
   getSelectiveCourseStudents(selectiveCourseId: number, forFaculty: boolean): any {
     return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}&forFaculty=${forFaculty}`);
+  }
+
+  createYearParameters(yearParameters: SelectiveCoursesYearParameters) {
+    return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, yearParameters);
   }
 }

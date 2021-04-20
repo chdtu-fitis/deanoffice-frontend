@@ -13,6 +13,12 @@ export class AlertsService {
     this._toastr.error(body, title, config);
   }
 
+  public showSuccess(options: Partial<AlertOptions>) {
+    const  {body, title, config } = this._formatOptions(options, { title: 'Успіх' });
+
+    this._toastr.success(body, title, config);
+  }
+
   private _formatOptions(optionsOverrides: Partial<AlertOptions>, defaults: Partial<AlertOptions>): ToastrAdapter {
     const options = {...defaults, ...optionsOverrides} as AlertOptions;
     return new ToastrAdapter(options);

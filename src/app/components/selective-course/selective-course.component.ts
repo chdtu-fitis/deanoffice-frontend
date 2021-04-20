@@ -12,6 +12,7 @@ import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.comp
 import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
+import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
 
 @Component({
   selector: 'selective-course',
@@ -148,5 +149,10 @@ export class SelectiveCourseComponent implements OnInit {
     modalRef.content.onCopy.subscribe(() => {
       this.assignedCoursesChild.load();
     });
+  }
+
+
+  addYearParameters() {
+    const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
   }
 }
