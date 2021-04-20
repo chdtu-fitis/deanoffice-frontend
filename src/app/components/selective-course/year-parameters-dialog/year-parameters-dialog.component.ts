@@ -27,9 +27,6 @@ export class YearParametersDialogComponent implements OnInit {
     ]),
 });
 
-  studyYear: number;
-
-  isError = true;
   message = '';
 
 
@@ -55,7 +52,7 @@ export class YearParametersDialogComponent implements OnInit {
       }, error => {
         if (error.status == 500) {
           this.message =
-            `Параметри вибору вибіркових дисциплін на ${this.studyYear} навчальний рік вже були введені`;
+            `Параметри вибору вибіркових дисциплін на на наступний навчальний рік вже були введені`;
         }
         console.log(body,error);
       });

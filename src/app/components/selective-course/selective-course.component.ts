@@ -153,9 +153,6 @@ export class SelectiveCourseComponent implements OnInit {
 
 
   addYearParameters() {
-    const initialState = {
-      studyYear: this.selectedYear,
-    }
-    const modalRef = this.modalService.show(YearParametersDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
   }
 }
