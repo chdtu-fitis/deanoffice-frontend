@@ -17,6 +17,9 @@ export class YearParametersDialogComponent implements OnInit {
     firstRoundEndDate: new FormControl(null, [
       Validators.required,
     ]),
+    secondRoundStartDate: new FormControl(null, [
+      Validators.required,
+    ]),
     secondRoundEndDate: new FormControl(null, [
       Validators.required,
     ]),
