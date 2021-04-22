@@ -45,4 +45,8 @@ export class SelectiveCourseService {
   createYearParameters(yearParameters: SelectiveCoursesYearParameters) {
     return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, yearParameters);
   }
+
+  getYearParameters(studyYear: string): Observable<SelectiveCoursesYearParameters> {
+    return this.httpClient.get<SelectiveCoursesYearParameters>(`${environment.apiUrl}/selective-courses-year-parameters?year=${studyYear}`);
+  }
 }
