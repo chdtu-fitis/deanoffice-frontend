@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YearParametersComponent } from './year-parameters.component';
+import { YearParametersTableComponent } from './year-parameters-table.component';
 
 describe('YearParametersComponent', () => {
-  let component: YearParametersComponent;
-  let fixture: ComponentFixture<YearParametersComponent>;
+  let component: YearParametersTableComponent;
+  let fixture: ComponentFixture<YearParametersTableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ YearParametersComponent ]
+      declarations: [ YearParametersTableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(YearParametersComponent);
+    fixture = TestBed.createComponent(YearParametersTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

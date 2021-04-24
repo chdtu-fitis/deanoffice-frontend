@@ -13,6 +13,7 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
+import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 
 @Component({
   selector: 'selective-course',
@@ -51,6 +52,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
+  @ViewChild(YearParametersTableComponent, {static: true}) yearParametersTableChild: YearParametersTableComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
@@ -90,6 +92,9 @@ export class SelectiveCourseComponent implements OnInit {
     this.loadCourses();
     this.assignedCoursesChild.studyYear = this.selectedYear;
     this.assignedCoursesChild.load();
+
+    this.yearParametersTableChild.studyYear = this.selectedYear;
+    this.yearParametersTableChild.load();
   }
 
   onSelectedSemesterChange() {
