@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         <tr>
-          <td>{{yearParameters.firstRoundStartDate}}</td>
-          <td>{{yearParameters.firstRoundEndDate}}</td>
-          <td>{{yearParameters.secondRoundStartDate}}</td>
-          <td>{{yearParameters.secondRoundEndDate}}</td>
-          <td>{{yearParameters.minStudentsCount}}</td>
+          <td>{{yearParameters.firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.minStudentsCount | date: 'dd.MM.yyyy' }}</td>
         </tr>
     </tbody>
 </table>
