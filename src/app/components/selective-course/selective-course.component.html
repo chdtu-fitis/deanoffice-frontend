@@ -83,7 +83,7 @@
                         Додати параметри навчального року
                     </button>
                 </div>
-                <div>
+                <div *ngIf="yearParameters">
                     <year-parameters [yearParameters]="yearParameters"></year-parameters>
                 </div>
             </div>
