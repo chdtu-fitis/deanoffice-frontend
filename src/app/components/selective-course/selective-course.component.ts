@@ -55,7 +55,6 @@ export class SelectiveCourseComponent implements OnInit {
 
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
-  @ViewChild(YearParametersTableComponent, {static: true}) yearParametersTableChild: YearParametersTableComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
@@ -169,5 +168,9 @@ export class SelectiveCourseComponent implements OnInit {
 
   addYearParameters() {
     const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
+
+    modalRef.content.onSubmit.subscribe(() => {
+      this.loadYearParameters();
+    });
   }
 }

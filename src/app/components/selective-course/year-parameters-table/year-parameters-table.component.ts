@@ -5,7 +5,7 @@ import {SelectiveCourseService} from '../../../services/selective-course.service
 import {selectiveCourseRoutes} from '../selective-course.module';
 
 @Component({
-  selector: 'year-parameters',
+  selector: 'year-parameters-table',
   templateUrl: './year-parameters-table.component.html',
   styleUrls: ['./year-parameters-table.component.scss']
 })
@@ -13,7 +13,7 @@ export class YearParametersTableComponent implements OnInit {
 
   @Input() yearParameters: SelectiveCoursesYearParameters;
 
-  constructor(private selectiveCourseService: SelectiveCourseService) { }
+  constructor() { }
 
   ngOnInit() {
   }
