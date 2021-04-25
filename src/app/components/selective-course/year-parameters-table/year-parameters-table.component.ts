@@ -11,21 +11,12 @@ import {selectiveCourseRoutes} from '../selective-course.module';
 })
 export class YearParametersTableComponent implements OnInit {
 
-  yearParameters: SelectiveCoursesYearParameters;
-
-  @Input() studyYear: string;
+  @Input() yearParameters: SelectiveCoursesYearParameters;
 
   constructor(private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
-    this.load();
   }
 
-  load() {
-    this.selectiveCourseService.getYearParameters(this.studyYear)
-      .subscribe(yearParameters => {
-        this.yearParameters = yearParameters;
-      });
-  }
 
 }
