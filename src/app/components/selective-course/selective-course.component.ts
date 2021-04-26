@@ -13,6 +13,8 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
+import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
+import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
 
 @Component({
   selector: 'selective-course',
@@ -49,6 +51,8 @@ export class SelectiveCourseComponent implements OnInit {
   selectedCourses = [];
   selectedAssignedCourses = [];
 
+  yearParameters: SelectiveCoursesYearParameters;
+
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
@@ -60,6 +64,7 @@ export class SelectiveCourseComponent implements OnInit {
   ngOnInit(): void {
     this.selectedYear = Utils.getCurrentAcademicYear().toString();
     this.loadCourses();
+    this.loadYearParameters();
   }
 
   loadCourses() {
@@ -70,6 +75,13 @@ export class SelectiveCourseComponent implements OnInit {
       this.courses = cfg;
       this.studiedCoursesLoading = false;
     });
+  }
+
+  loadYearParameters() {
+    this.selectiveCourseService.getYearParameters(this.selectedYear)
+      .subscribe(yearParameters => {
+        this.yearParameters = yearParameters;
+      });
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -90,6 +102,8 @@ export class SelectiveCourseComponent implements OnInit {
     this.loadCourses();
     this.assignedCoursesChild.studyYear = this.selectedYear;
     this.assignedCoursesChild.load();
+
+    this.loadYearParameters();
   }
 
   onSelectedSemesterChange() {
@@ -154,5 +168,9 @@ export class SelectiveCourseComponent implements OnInit {
 
   addYearParameters() {
     const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
+
+    modalRef.content.onSubmit.subscribe(() => {
+      this.loadYearParameters();
+    });
   }
 }

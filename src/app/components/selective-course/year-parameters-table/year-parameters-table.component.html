@@ -1,0 +1,20 @@
+<table class="table table-bordered table-sm">
+    <thead>
+        <tr>
+            <th scope="col">Дата початку 1 туру</th>
+            <th scope="col">Дата закінчення 1 туру</th>
+            <th scope="col">Дата початку 2 туру</th>
+            <th scope="col">Дата закінчення 2 туру</th>
+            <th scope="col">Мін. к-сть студентів на 1 предмет</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>{{yearParameters.firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters.minStudentsCount }}</td>
+        </tr>
+    </tbody>
+</table>
