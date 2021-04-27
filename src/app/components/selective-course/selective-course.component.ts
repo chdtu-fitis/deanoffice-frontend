@@ -173,4 +173,12 @@ export class SelectiveCourseComponent implements OnInit {
       this.loadYearParameters();
     });
   }
+
+  disqualifySelectiveCourses() {
+    this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
+
+    }, error => {
+      console.log(error)
+    });
+  }
 }

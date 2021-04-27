@@ -82,6 +82,8 @@
                  Додається для навчального року, наступного за поточним">
                         Додати параметри навчального року
                     </button>
+
+                    <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger">Дискваліфікувати дисципліни</button>
                 </div>
                 <div *ngIf="yearParameters">
                     <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
