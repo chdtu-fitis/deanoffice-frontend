@@ -1,7 +1,15 @@
+import {FormControl} from '@angular/forms';
+
 export class SelectiveCoursesYearParameters {
   firstRoundStartDate: Date;
   firstRoundEndDate: Date;
   secondRoundStartDate: Date;
   secondRoundEndDate: Date;
-  minStudentsCount: number;
+  bachelorGeneralMinStudentsCount: number;
+  bachelorProfessionalMinStudentsCount: number;
+  masterGeneralMinStudentsCount: number;
+  masterProfessionalMinStudentsCount: number;
+  phdGeneralMinStudentsCount: number;
+  phdProfessionalMinStudentsCount: number;
+  maxStudentsCount: number;
 }

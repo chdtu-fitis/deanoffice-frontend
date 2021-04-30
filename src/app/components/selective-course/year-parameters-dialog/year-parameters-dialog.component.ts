@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertsService} from '../../shared/alerts/alerts.service';
 
 @Component({
@@ -11,24 +11,22 @@ import {AlertsService} from '../../shared/alerts/alerts.service';
 })
 export class YearParametersDialogComponent implements OnInit {
   private form = new FormGroup({
-    firstRoundStartDate: new FormControl(null, [
-      Validators.required,
-    ]),
-    firstRoundEndDate: new FormControl(null, [
-      Validators.required,
-    ]),
-    secondRoundStartDate: new FormControl(null, [
-      Validators.required,
-    ]),
-    secondRoundEndDate: new FormControl(null, [
-      Validators.required,
-    ]),
-    minStudentsCount: new FormControl(null, [
-      Validators.required,
-      Validators.min(1),
-      Validators.max(100)
-    ]),
-});
+    firstRoundStartDate: new FormControl(),
+    firstRoundEndDate: new FormControl(),
+    secondRoundStartDate: new FormControl(),
+    secondRoundEndDate: new FormControl(),
+    bachelorGeneralMinStudentsCount: new FormControl(),
+    bachelorProfessionalMinStudentsCount: new FormControl(),
+    masterGeneralMinStudentsCount: new FormControl(),
+    masterProfessionalMinStudentsCount: new FormControl(),
+    phdGeneralMinStudentsCount: new FormControl(),
+    phdProfessionalMinStudentsCount: new FormControl(),
+    maxStudentsCount: new FormControl(),
+}, {
+    validators: [
+  Validators.required,
+  Validators.min(1),
+]});
 
   message = '';
 
