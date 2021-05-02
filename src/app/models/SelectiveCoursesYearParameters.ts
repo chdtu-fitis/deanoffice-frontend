@@ -1,5 +1,3 @@
-import {FormControl} from '@angular/forms';
-
 export class SelectiveCoursesYearParameters {
   firstRoundStartDate: Date;
   firstRoundEndDate: Date;

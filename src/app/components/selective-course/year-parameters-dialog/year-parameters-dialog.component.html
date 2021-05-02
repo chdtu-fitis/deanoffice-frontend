@@ -7,7 +7,7 @@
 <div class="modal-body">
   <div class="creation-form">
     <form [formGroup]="form" class="form-group">
-      <div class="container">
+      <div class="flex-element">
         <div class="form-element">
           <label for="firstRoundStartDate">Дата початку першого туру:</label>
           <input type="date" id="firstRoundStartDate" formControlName="firstRoundStartDate" class="form-control">
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <div class="container">
+      <div class="flex-element">
         <div class="form-element">
           <label for="secondRoundStartDate">Дата початку другого туру:</label>
           <input type="date" id="secondRoundStartDate" formControlName="secondRoundStartDate" class="form-control">
@@ -31,51 +31,57 @@
         </div>
       </div>
 
+      <div class="form-element max-width">
+        <label for="maxStudentsCount">Максимальна кількість студентів: </label>
+        <input type="number" id="maxStudentsCount" formControlName="maxStudentsCount" class="form-control">
+      </div>
 
-      <div class="container">
+      <div style="text-align: center;
+                  margin-top: 2%;">
+        <strong>Мінімальна кількість студентів:</strong>
+      </div>
+
+      <div class="flex-element">
         <div class="form-element">
-          <label for="bachelorGeneralMinStudentsCount">bachelorGeneralMinStudentsCount: </label>
+          <label for="bachelorGeneralMinStudentsCount"> Цикл загальної підготовки, Бакалавр: </label>
           <input type="number" id="bachelorGeneralMinStudentsCount" formControlName="bachelorGeneralMinStudentsCount"
             class="form-control">
         </div>
         <div class="form-element">
-          <label for="bachelorProfessionalMinStudentsCount">bachelorProfessionalMinStudentsCount: </label>
+          <label for="bachelorProfessionalMinStudentsCount">Цикл професійної підготовки, Бакалавр: </label>
           <input type="number" id="bachelorProfessionalMinStudentsCount"
             formControlName="bachelorProfessionalMinStudentsCount" class="form-control">
         </div>
       </div>
 
-      <div class="container">
+      <div class="flex-element">
         <div class="form-element">
-          <label for="masterGeneralMinStudentsCount">masterGeneralMinStudentsCount: </label>
+          <label for="masterGeneralMinStudentsCount">Цикл загальної підготовки, Магістр: </label>
           <input type="number" id="masterGeneralMinStudentsCount" formControlName="masterGeneralMinStudentsCount"
             class="form-control">
         </div>
         <div class="form-element">
-          <label for="masterProfessionalMinStudentsCount">masterProfessionalMinStudentsCount: </label>
+          <label for="masterProfessionalMinStudentsCount">Цикл професійної підготовки, Магістр: </label>
           <input type="number" id="masterProfessionalMinStudentsCount"
             formControlName="masterProfessionalMinStudentsCount" class="form-control">
         </div>
       </div>
 
-      <div class="container">
+      <div class="flex-element">
         <div class="form-element">
-          <label for="phdGeneralMinStudentsCount">phdGeneralMinStudentsCount: </label>
+          <label for="phdGeneralMinStudentsCount">Цикл загальної підготовки, PhD: </label>
           <input type="number" id="phdGeneralMinStudentsCount" formControlName="phdGeneralMinStudentsCount"
             class="form-control">
         </div>
         <div class="form-element">
-          <label for="phdProfessionalMinStudentsCount">phdProfessionalMinStudentsCount: </label>
+          <label for="phdProfessionalMinStudentsCount">Цикл професійної підготовки, PhD: </label>
           <input type="number" id="phdProfessionalMinStudentsCount" formControlName="phdProfessionalMinStudentsCount"
             class="form-control">
         </div>
       </div>
 
 
-      <div class="form-element">
-        <label for="maxStudentsCount">maxStudentsCount: </label>
-        <input type="number" id="maxStudentsCount" formControlName="maxStudentsCount" class="form-control">
-      </div>
+
 
     </form>
 

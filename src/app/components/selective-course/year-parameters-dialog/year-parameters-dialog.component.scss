@@ -1,10 +1,20 @@
 .modal-dialog {
   max-width: 60%;
 }
-
 .container {
+
+}
+.flex-element {
   display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 .form-element {
+  text-align: center;
+  width: 49%;
   margin-top: 5px;
+}
+
+.max-width {
+  width: 100%;
 }
