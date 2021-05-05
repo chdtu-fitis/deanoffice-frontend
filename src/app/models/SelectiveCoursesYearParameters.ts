@@ -3,5 +3,11 @@ export class SelectiveCoursesYearParameters {
   firstRoundEndDate: Date;
   secondRoundStartDate: Date;
   secondRoundEndDate: Date;
-  minStudentsCount: number;
+  bachelorGeneralMinStudentsCount: number;
+  bachelorProfessionalMinStudentsCount: number;
+  masterGeneralMinStudentsCount: number;
+  masterProfessionalMinStudentsCount: number;
+  phdGeneralMinStudentsCount: number;
+  phdProfessionalMinStudentsCount: number;
+  maxStudentsCount: number;
 }
