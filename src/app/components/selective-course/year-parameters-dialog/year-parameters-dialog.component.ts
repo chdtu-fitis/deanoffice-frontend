@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertsService} from '../../shared/alerts/alerts.service';
 
 @Component({
@@ -10,46 +10,44 @@ import {AlertsService} from '../../shared/alerts/alerts.service';
   styleUrls: ['./year-parameters-dialog.component.scss']
 })
 export class YearParametersDialogComponent implements OnInit {
-  private form = new FormGroup({
-    firstRoundStartDate: new FormControl(),
-    firstRoundEndDate: new FormControl(),
-    secondRoundStartDate: new FormControl(),
-    secondRoundEndDate: new FormControl(),
-    bachelorGeneralMinStudentsCount: new FormControl(),
-    bachelorProfessionalMinStudentsCount: new FormControl(),
-    masterGeneralMinStudentsCount: new FormControl(),
-    masterProfessionalMinStudentsCount: new FormControl(),
-    phdGeneralMinStudentsCount: new FormControl(),
-    phdProfessionalMinStudentsCount: new FormControl(),
-    maxStudentsCount: new FormControl(),
-}, {
-    validators: [
-  Validators.required,
-  Validators.min(1),
-]});
-
+  form: FormGroup;
+  submitted = false;
   message = '';
 
 
   @Output() onSubmit = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef,
+              public fb: FormBuilder,
               private selectiveCourseService: SelectiveCourseService,
               private alerts: AlertsService) {
   }
 
   ngOnInit() {
+    this.form = this.fb.group({
+      firstRoundStartDate: ['', Validators.required],
+      firstRoundEndDate: ['', Validators.required],
+      secondRoundStartDate: ['', Validators.required],
+      secondRoundEndDate: ['', Validators.required],
+      bachelorGeneralMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      bachelorProfessionalMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      masterGeneralMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      masterProfessionalMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      phdGeneralMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      phdProfessionalMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
+      maxStudentsCount: ['', [Validators.required, Validators.min(1)]],
+    });
   }
 
-
   submit() {
-    if(this.form.valid) {
+    this.submitted = true;
+    if (this.form.valid) {
       const body = this.form.getRawValue();
 
       this.selectiveCourseService.createYearParameters(body).subscribe(() => {
         this.onSubmit.emit();
         this.bsModalRef.hide();
-        this.alerts.showSuccess({body:'Параметри навчального року були успішно встановлені', timeout: 3000});
+        this.alerts.showSuccess({body: 'Параметри навчального року були успішно встановлені', timeout: 3000});
       }, error => {
         if (error.status == 500) {
           this.message =
@@ -62,4 +60,6 @@ export class YearParametersDialogComponent implements OnInit {
       this.message = 'Перевірте корректність введених даних';
     }
   }
+
+  get f() { return this.form.controls; }
 }
