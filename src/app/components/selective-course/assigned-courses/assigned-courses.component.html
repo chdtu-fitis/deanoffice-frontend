@@ -14,11 +14,12 @@
         <th>Кафедра</th>
         <th>Група</th>
         <th>Викладач</th>
+        <th *ngIf="isWithYearParameters">Кількість студентів</th>
       <tr>
       </thead>
       <tr *ngFor="let course of selectiveCourses">
         <td class="text-center"><input type="checkbox"
-                                       [(ngModel)]="course.isSelected"
+                                       [(ngModel)]="course.selected"
                                        (change)="changeSelectedAssignedCourses($event.target.checked, course)"></td>
         <td>{{ course.course.courseName.name }}</td>
         <td>{{ course.course.knowledgeControl.name}}</td>
@@ -28,6 +29,7 @@
         <td>{{ course.department.abbr }}</td>
         <td>{{ course.groupName }}</td>
         <td>{{ course.teacher | nameWithInitials }}</td>
+        <td *ngIf="isWithYearParameters"> {{ course.studentsCount }}</td>
 
         <td class="text-center" (click)="changeCourse(course)" *ngIf="showEditButton">
           <button type="button" class="btn btn-outline-info">
