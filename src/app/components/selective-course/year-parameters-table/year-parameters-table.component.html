@@ -1,6 +1,7 @@
 <table class="table table-bordered table-sm">
     <thead>
         <tr>
+            <th scope="col"></th>
             <th scope="col">Дата початку 1 туру</th>
             <th scope="col">Дата закінчення 1 туру</th>
             <th scope="col">Дата початку 2 туру</th>
@@ -9,10 +10,42 @@
     </thead>
     <tbody>
         <tr>
-          <td>{{yearParameters.firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters.firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters.secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters.secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>Період 1</td>
+          <td>{{yearParameters[0].firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[0].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[0].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[0].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+        </tr>
+        <tr>
+          <td>Період 2</td>
+          <td>{{yearParameters[1].firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[1].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[1].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{yearParameters[1].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
         </tr>
     </tbody>
+</table>
+<table class="table table-bordered table-sm">
+  <thead>
+  <tr>
+    <th scope="col">Мін к-сть студ. (цикл заг. п., Бакалавр)</th>
+    <th scope="col">Мін к-сть студ. (цикл проф. п., Бакалавр)</th>
+    <th scope="col">Мін к-сть студ. (цикл заг. п., Магістр)</th>
+    <th scope="col">Мін к-сть студ. (цикл проф. п., Магістр)</th>
+    <th scope="col">Мін к-сть студ. (цикл заг. п., PhD)</th>
+    <th scope="col">Мін к-сть студ. (цикл проф. п., PhD)</th>
+    <th scope="col">Макс к-сть студ.</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{yearParameters[0].bachelorGeneralMinStudentsCount }}</td>
+    <td>{{yearParameters[0].bachelorProfessionalMinStudentsCount }}</td>
+    <td>{{yearParameters[0].masterGeneralMinStudentsCount }}</td>
+    <td>{{yearParameters[0].masterProfessionalMinStudentsCount }}</td>
+    <td>{{yearParameters[0].phdGeneralMinStudentsCount }}</td>
+    <td>{{yearParameters[0].phdProfessionalMinStudentsCount }}</td>
+    <td>{{yearParameters[0].maxStudentsCount }}</td>
+  </tr>
+  </tbody>
 </table>

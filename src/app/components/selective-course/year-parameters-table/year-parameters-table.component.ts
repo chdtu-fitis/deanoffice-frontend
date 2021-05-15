@@ -11,7 +11,7 @@ import {selectiveCourseRoutes} from '../selective-course.module';
 })
 export class YearParametersTableComponent implements OnInit {
 
-  @Input() yearParameters: SelectiveCoursesYearParameters;
+  @Input() yearParameters: SelectiveCoursesYearParameters[];
 
   constructor() { }
 
