@@ -1,19 +1,21 @@
 ::ng-deep .modal-dialog {
-  max-width: 45%;
+  max-width: 65%;
 }
 
-.flex-element {
+.container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .form-element {
   text-align: left;
-  width: 49%;
   margin-top: 5px;
+  flex-grow: 1;
 }
 
 .max-width {
+  align-content: center;
   width: 100%;
 }

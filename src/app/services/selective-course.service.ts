@@ -42,11 +42,12 @@ export class SelectiveCourseService {
     return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}&forFaculty=${forFaculty}`);
   }
 
-  createYearParameters(yearParameters: SelectiveCoursesYearParameters) {
-    return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, yearParameters);
+  createYearParameters(yearParametersEarlyPeriod: SelectiveCoursesYearParameters, yearParametersLatePeriod: SelectiveCoursesYearParameters) {
+    const body = [yearParametersEarlyPeriod, yearParametersLatePeriod];
+    return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, body);
   }
 
-  getYearParameters(studyYear: string): Observable<SelectiveCoursesYearParameters> {
-    return this.httpClient.get<SelectiveCoursesYearParameters>(`${environment.apiUrl}/selective-courses-year-parameters?year=${studyYear}`);
+  getYearParameters(studyYear: string): Observable<SelectiveCoursesYearParameters[]> {
+    return this.httpClient.get<SelectiveCoursesYearParameters[]>(`${environment.apiUrl}/selective-courses-year-parameters?year=${studyYear}`);
   }
 }

@@ -80,10 +80,13 @@
                     <button type="button" (click)="addYearParameters()" class="btn btn-primary"
                         matTooltip="Можна задати дати запису на вибіркові дисципліни та мінімальну кількість студентів на дисципліну.
                  Додається для навчального року, наступного за поточним">
-                        Додати параметри навчального року
+                        Додати параметри н.р.
                     </button>
+                  <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary" *ngIf="yearParameters.length">
+                    {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
+                  </button>
                 </div>
-                <div *ngIf="yearParameters">
+                <div *ngIf="isChecked">
                     <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
                 </div>
             </div>
