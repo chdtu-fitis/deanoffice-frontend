@@ -43,7 +43,7 @@ export class SelectiveCourseService {
   }
 
   createYearParameters(yearParametersEarlyPeriod: SelectiveCoursesYearParameters, yearParametersLatePeriod: SelectiveCoursesYearParameters) {
-    let body = JSON.stringify({yearParametersEarlyPeriod, yearParametersLatePeriod});
+    const body = [yearParametersEarlyPeriod, yearParametersLatePeriod];
     return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, body);
   }
 
