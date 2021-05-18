@@ -82,7 +82,7 @@
                  Додається для навчального року, наступного за поточним">
                         Додати параметри н. р.
                     </button>
-                  <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary" *ngIf="yearParameters">
+                  <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary" *ngIf="yearParameters.length !== 0">
                     {{isChecked ? "Приховати" : "Показати"}} параметри н. р.
                   </button>
                 </div>
