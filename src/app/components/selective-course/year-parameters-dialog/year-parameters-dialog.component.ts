@@ -1,8 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap/modal';
-import {SelectiveCourseService} from '../../../services/selective-course.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertsService} from '../../shared/alerts/alerts.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { SelectiveCourseService } from '../../../services/selective-course.service';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { AlertsService } from '../../shared/alerts/alerts.service';
+import {SelectiveCoursesYearParameters} from '../../../models/SelectiveCoursesYearParameters';
 
 @Component({
   selector: 'selective-parameters-dialog',
@@ -25,10 +26,16 @@ export class YearParametersDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      firstRoundStartDate: ['', Validators.required],
-      firstRoundEndDate: ['', Validators.required],
-      secondRoundStartDate: ['', Validators.required],
-      secondRoundEndDate: ['', Validators.required],
+      firstRoundStartDateEarlyPeriod: ['', Validators.required],
+      firstRoundEndDateEarlyPeriod: ['', Validators.required],
+      secondRoundStartDateEarlyPeriod: ['', Validators.required],
+      secondRoundEndDateEarlyPeriod: ['', Validators.required],
+
+      firstRoundStartDateLatePeriod: ['', Validators.required],
+      firstRoundEndDateLatePeriod: ['', Validators.required],
+      secondRoundStartDateLatePeriod: ['', Validators.required],
+      secondRoundEndDateLatePeriod: ['', Validators.required],
+
       bachelorGeneralMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
       bachelorProfessionalMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
       masterGeneralMinStudentsCount: ['', [Validators.required, Validators.min(1)]],
@@ -44,16 +51,37 @@ export class YearParametersDialogComponent implements OnInit {
     if (this.form.valid) {
       const body = this.form.getRawValue();
 
-      this.selectiveCourseService.createYearParameters(body).subscribe(() => {
+      let a : SelectiveCoursesYearParameters;
+      let b : SelectiveCoursesYearParameters;
+
+      a.firstRoundStartDate = this.form.get('firstRoundStartDateEarlyPeriod').value;
+      a.firstRoundEndDate = this.form.get('firstRoundEndDateEarlyPeriod').value;
+      a.secondRoundStartDate = this.form.get('secondRoundStartDateEarlyPeriod').value;
+      a.secondRoundEndDate = this.form.get('secondRoundEndDateEarlyPeriod').value;
+
+      b.firstRoundStartDate = this.form.get('firstRoundStartDateLatePeriod').value;
+      b.firstRoundEndDate = this.form.get('firstRoundEndDateLatePeriod').value;
+      b.secondRoundStartDate = this.form.get('secondRoundStartDateLatePeriod').value;
+      b.secondRoundEndDate = this.form.get('secondRoundEndDateLatePeriod').value;
+
+      a.bachelorGeneralMinStudentsCount = b.bachelorGeneralMinStudentsCount = this.form.get('bachelorGeneralMinStudentsCount').value;
+      a.bachelorProfessionalMinStudentsCount = b.bachelorProfessionalMinStudentsCount = this.form.get('bachelorProfessionalMinStudentsCount').value;
+      a.masterGeneralMinStudentsCount = b.masterGeneralMinStudentsCount = this.form.get('masterGeneralMinStudentsCount').value;
+      a.masterProfessionalMinStudentsCount = b.masterProfessionalMinStudentsCount = this.form.get('masterProfessionalMinStudentsCount').value;
+      a.phdGeneralMinStudentsCount = b.phdGeneralMinStudentsCount = this.form.get('phdGeneralMinStudentsCount').value;
+      a.phdProfessionalMinStudentsCount = b.phdProfessionalMinStudentsCount = this.form.get('phdProfessionalMinStudentsCount').value;
+      a.maxStudentsCount = b.maxStudentsCount = this.form.get('maxStudentsCount').value;
+
+      this.selectiveCourseService.createYearParameters(a, b).subscribe(() => {
         this.onSubmit.emit();
         this.bsModalRef.hide();
-        this.alerts.showSuccess({body: 'Параметри навчального року були успішно встановлені', timeout: 3000});
+        this.alerts.showSuccess({ body: 'Параметри навчального року були успішно встановлені', timeout: 3000 });
       }, error => {
         if (error.status == 500) {
           this.message =
             'Параметри вибору вибіркових дисциплін на на наступний навчальний рік вже були введені';
         }
-        console.log(body,error);
+        console.log(body, error);
       });
     }
     else {
