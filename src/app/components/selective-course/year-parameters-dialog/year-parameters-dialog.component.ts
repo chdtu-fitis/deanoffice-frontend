@@ -51,8 +51,8 @@ export class YearParametersDialogComponent implements OnInit {
     if (this.form.valid) {
       const body = this.form.getRawValue();
 
-      let a : SelectiveCoursesYearParameters;
-      let b : SelectiveCoursesYearParameters;
+      const a = new SelectiveCoursesYearParameters;
+      const b = new SelectiveCoursesYearParameters;
 
       a.firstRoundStartDate = this.form.get('firstRoundStartDateEarlyPeriod').value;
       a.firstRoundEndDate = this.form.get('firstRoundEndDateEarlyPeriod').value;
@@ -79,14 +79,13 @@ export class YearParametersDialogComponent implements OnInit {
         this.bsModalRef.hide();
         this.alerts.showSuccess({ body: 'Параметри навчального року були успішно встановлені', timeout: 3000 });
       }, error => {
-        if (error.status == 500) {
+        if (error.status === 500) {
           this.message =
             'Параметри вибору вибіркових дисциплін на на наступний навчальний рік вже були введені';
         }
         console.log(body, error);
       });
-    }
-    else {
+    } else {
       this.message = 'Перевірте корректність введених даних';
     }
   }
