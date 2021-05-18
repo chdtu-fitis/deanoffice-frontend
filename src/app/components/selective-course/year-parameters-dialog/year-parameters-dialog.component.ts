@@ -72,6 +72,8 @@ export class YearParametersDialogComponent implements OnInit {
       a.phdProfessionalMinStudentsCount = b.phdProfessionalMinStudentsCount = this.form.get('phdProfessionalMinStudentsCount').value;
       a.maxStudentsCount = b.maxStudentsCount = this.form.get('maxStudentsCount').value;
 
+      // a - early period
+      // b - late period
       this.selectiveCourseService.createYearParameters(a, b).subscribe(() => {
         this.onSubmit.emit();
         this.bsModalRef.hide();

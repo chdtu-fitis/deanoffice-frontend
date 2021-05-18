@@ -36,11 +36,11 @@
         </div>
       </div>
 
-
       <div style="text-align: center;
                   margin-top: 1%">
         <strong>2 Період</strong>
       </div>
+      
       <div class="container">
         <div class="form-element">
           <label for="firstRoundStartDateLatePeriod">Дата початку першого туру:</label>
@@ -81,10 +81,6 @@
       </div>
 
       <div class="container">
-
-      </div>
-
-      <div class="container">
         <div class="form-element">
           <label for="bachelorGeneralMinStudentsCount"> Цикл загальної підготовки, Бакалавр: </label>
           <input type="number" id="bachelorGeneralMinStudentsCount" formControlName="bachelorGeneralMinStudentsCount"
@@ -103,7 +99,6 @@
           <input type="number" id="phdGeneralMinStudentsCount" formControlName="phdGeneralMinStudentsCount"
                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phdGeneralMinStudentsCount.errors }">
         </div>
-
 
 
         <div class="form-element">
@@ -131,7 +126,6 @@
     <div *ngIf="!(message === '')" class="alert alert-danger">
       {{message}}
     </div>
-
 
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-success" (click)="submit()">Зберегти</button>
