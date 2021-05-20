@@ -76,14 +76,14 @@
         </div>
         <div class="col-sm">
             <div id="year-parameters">
-                <div>
+                <div class="row">
                     <button type="button" (click)="addYearParameters()" class="btn btn-primary"
                         matTooltip="Можна задати дати запису на вибіркові дисципліни та мінімальну кількість студентів на дисципліну.
                  Додається для навчального року, наступного за поточним">
-                        Додати параметри навчального року
+                        Додати параметри н.р.
                     </button>
 
-                    <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger">Дискваліфікувати дисципліни</button>
+                    <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger">Дискваліф. дисципіни</button>
                 </div>
                 <div *ngIf="yearParameters">
                     <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
