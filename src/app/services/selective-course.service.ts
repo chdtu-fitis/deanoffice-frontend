@@ -42,6 +42,10 @@ export class SelectiveCourseService {
     return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}&forFaculty=${forFaculty}`);
   }
 
+  disqualifySelectiveCourses(semester: number, degreeId: number) {
+    return this.httpClient.patch(`${SELECTIVE_COURSE_URL}/disqualification?semester=${semester}&degreeId=${degreeId}`, null);
+  }
+
   createYearParameters(yearParametersEarlyPeriod: SelectiveCoursesYearParameters, yearParametersLatePeriod: SelectiveCoursesYearParameters) {
     const body = [yearParametersEarlyPeriod, yearParametersLatePeriod];
     return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, body);
