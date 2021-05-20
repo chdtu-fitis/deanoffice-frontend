@@ -52,7 +52,8 @@ export class SelectiveCourseComponent implements OnInit {
   selectedCourses = [];
   selectedAssignedCourses = [];
 
-  yearParameters: SelectiveCoursesYearParameters;
+  yearParameters: SelectiveCoursesYearParameters[] = [];
+  isChecked = false;
 
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;

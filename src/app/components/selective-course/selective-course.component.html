@@ -84,8 +84,12 @@
                     </button>
 
                     <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger">Дискваліф. дисципіни</button>
+
+                    <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary" *ngIf="yearParameters.length">
+                      {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
+                    </button>
                 </div>
-                <div *ngIf="yearParameters">
+                <div *ngIf="isChecked">
                     <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
                 </div>
             </div>
