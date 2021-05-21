@@ -15,6 +15,7 @@ import {SelectiveCourseFormComponent} from './selective-course-form/selective-co
 import { YearParametersDialogComponent } from './year-parameters-dialog/year-parameters-dialog.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { YearParametersTableComponent } from './year-parameters-table/year-parameters-table.component';
+import { EditStudentDialogComponent } from './edit-student-dialog/edit-student-dialog.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -30,7 +31,7 @@ export const selectiveCourseRoutes: Routes = [
         RouterModule.forChild(selectiveCourseRoutes),
         MatTooltipModule,
     ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent],
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent]
 })
 export class SelectiveCourseModule {
