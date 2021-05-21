@@ -89,7 +89,7 @@
                       {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
                     </button>
                 </div>
-                <div *ngIf="isChecked">
+                <div *ngIf="isChecked && yearParameters.length">
                     <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
                 </div>
             </div>
