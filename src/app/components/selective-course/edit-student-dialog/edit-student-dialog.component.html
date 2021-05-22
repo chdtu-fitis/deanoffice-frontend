@@ -30,10 +30,15 @@
       <br>
     </div>
 
+    <div *ngIf="selectiveCoursesStudentDegree.length">
+      <student-coures-table [selectiveCoursesStudentDegree]="selectiveCoursesStudentDegree"></student-coures-table>
+    </div>
+    <div *ngIf="!selectiveCoursesStudentDegree.length && isButtonClicked" class="alert alert-danger">
+      Такого студента не було знайдено
+    </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="findStudentCourses()">Зберегти</button>
-      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
     </div>
   </div>
 </div>

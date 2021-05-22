@@ -11,8 +11,9 @@ import {SelectiveCoursesStudentDegree} from '../../../models/SelectiveCoursesStu
 export class EditStudentDialogComponent implements OnInit {
 
   studyYear: string;
-  selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[];
+  selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[] = [];
   surname = '';
+  isButtonClicked = false;
 
   constructor(public bsModalRef: BsModalRef,
               private selectiveCourseService: SelectiveCourseService) { }
@@ -21,9 +22,11 @@ export class EditStudentDialogComponent implements OnInit {
   }
 
   findStudentCourses(all: boolean): void {
+    this.selectiveCoursesStudentDegree = [];
     this.selectiveCourseService.getStudentCoursesBySurname(true, this.studyYear, this.surname)
       .subscribe(selectiveCoursesStudentDegree => {
         this.selectiveCoursesStudentDegree = selectiveCoursesStudentDegree;
       })
+    this.isButtonClicked = true;
   }
 }
