@@ -8,7 +8,7 @@ import {SelectiveCoursesYearParameters} from '../../../models/SelectiveCoursesYe
 })
 export class YearParametersTableComponent implements OnInit {
 
-  @Input() yearParameters: SelectiveCoursesYearParameters;
+  @Input() yearParameters: SelectiveCoursesYearParameters[];
 
   constructor() { }
 

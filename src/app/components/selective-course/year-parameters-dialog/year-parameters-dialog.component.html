@@ -1,46 +1,135 @@
 <div class="modal-header">
-    <h4 class="modal-title">Додати параметри вибору вибіркових дисциплін на наступний навчальний рік </h4>
-    <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+  <h4 class="modal-title">Додати параметри вибору вибіркових дисциплін на наступний навчальний рік </h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-    <div class="creation-form">
-        <form [formGroup]="form" class="form-group">
-            <div class="form-element">
-                <label for="firstRoundStartDate">Дата початку першого туру:</label>
-                <input type="date" id="firstRoundStartDate" formControlName="firstRoundStartDate" class="form-control">
-            </div>
+  <div class="creation-form">
+    <form [formGroup]="form" class="form-group">
+      <div style="text-align: center;">
+        <strong>1 Період</strong>
+      </div>
+      <div class="container">
+        <div class="form-element">
+          <label for="firstRoundStartDateEarlyPeriod">Дата початку першого туру:</label>
+          <input type="date" id="firstRoundStartDateEarlyPeriod" formControlName="firstRoundStartDateEarlyPeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstRoundStartDateEarlyPeriod.errors }">
+        </div>
 
-            <div class="form-element">
-                <label for="firstRoundEndDate">Дата закінчення першого туру:</label>
-                <input type="date" id="firstRoundEndDate" formControlName="firstRoundEndDate" class="form-control">
-            </div>
+        <div class="form-element">
+          <label for="firstRoundEndDateEarlyPeriod">Дата закінчення першого туру:</label>
+          <input type="date" id="firstRoundEndDateEarlyPeriod" formControlName="firstRoundEndDateEarlyPeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstRoundEndDateEarlyPeriod.errors }">
+        </div>
 
-            <div class="form-element">
-                <label for="secondRoundStartDate">Дата початку другого туру:</label>
-                <input type="date" id="secondRoundStartDate" formControlName="secondRoundStartDate" class="form-control">
-            </div>
+        <div class="form-element">
+          <label for="secondRoundStartDateEarlyPeriod">Дата початку другого туру:</label>
+          <input type="date" id="secondRoundStartDateEarlyPeriod" formControlName="secondRoundStartDateEarlyPeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.secondRoundStartDateEarlyPeriod.errors }">
+        </div>
 
-            <div class="form-element">
-                <label for="secondRoundEndDate">Дата закінчення другого туру:</label>
-                <input type="date" id="secondRoundEndDate" formControlName="secondRoundEndDate" class="form-control">
-            </div>
-            <div class="form-element">
-                <label for="minStudentsCount">Мінімальна кількість студентів: </label>
-                <input type="number" id="minStudentsCount" formControlName="minStudentsCount" class="form-control">
-            </div>
-        </form>
+        <div class="form-element">
+          <label for="secondRoundEndDateEarlyPeriod">Дата закінчення другого туру:</label>
+          <input type="date" id="secondRoundEndDateEarlyPeriod" formControlName="secondRoundEndDateEarlyPeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.secondRoundEndDateEarlyPeriod.errors }">
+        </div>
+      </div>
 
+      <div style="text-align: center;
+                  margin-top: 1%">
+        <strong>2 Період</strong>
+      </div>
 
-        <div *ngIf="!(message === '')" class="alert alert-danger">
-          {{message}}
+      <div class="container">
+        <div class="form-element">
+          <label for="firstRoundStartDateLatePeriod">Дата початку першого туру:</label>
+          <input type="date" id="firstRoundStartDateLatePeriod" formControlName="firstRoundStartDateLatePeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstRoundStartDateLatePeriod.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="firstRoundEndDateLatePeriod">Дата закінчення першого туру:</label>
+          <input type="date" id="firstRoundEndDateLatePeriod" formControlName="firstRoundEndDateLatePeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstRoundEndDateLatePeriod.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="secondRoundStartDateLatePeriod">Дата початку другого туру:</label>
+          <input type="date" id="secondRoundStartDateLatePeriod" formControlName="secondRoundStartDateLatePeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.secondRoundStartDateLatePeriod.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="secondRoundEndDateLatePeriod">Дата закінчення другого туру:</label>
+          <input type="date" id="secondRoundEndDateLatePeriod" formControlName="secondRoundEndDateLatePeriod" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.secondRoundEndDateLatePeriod.errors }">
+        </div>
+      </div>
+
+      <div class="container">
+      <div class="form-element max-width">
+        <label for="maxStudentsCount">Максимальна кількість студентів на 1 предмет: </label>
+        <input type="number" id="maxStudentsCount" formControlName="maxStudentsCount" class="form-control"
+               [ngClass]="{ 'is-invalid': submitted && f.maxStudentsCount.errors }">
+      </div>
+      </div>
+
+      <div style="text-align: center;
+                  margin-top: 2%;">
+        <strong>Мінімальна кількість студентів на 1 предмет:</strong>
+      </div>
+
+      <div class="container">
+        <div class="form-element">
+          <label for="bachelorGeneralMinStudentsCount"> Цикл загальної підготовки, Бакалавр: </label>
+          <input type="number" id="bachelorGeneralMinStudentsCount" formControlName="bachelorGeneralMinStudentsCount"
+                 class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.bachelorGeneralMinStudentsCount.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="masterGeneralMinStudentsCount">Цикл загальної підготовки, Магістр: </label>
+          <input type="number" id="masterGeneralMinStudentsCount" formControlName="masterGeneralMinStudentsCount"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.masterGeneralMinStudentsCount.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="phdGeneralMinStudentsCount">Цикл загальної підготовки, PhD: </label>
+          <input type="number" id="phdGeneralMinStudentsCount" formControlName="phdGeneralMinStudentsCount"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phdGeneralMinStudentsCount.errors }">
         </div>
 
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-success" (click)="submit()">Зберегти</button>
-            <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+        <div class="form-element">
+          <label for="bachelorProfessionalMinStudentsCount">Цикл професійної підготовки, Бакалавр: </label>
+          <input type="number" id="bachelorProfessionalMinStudentsCount"
+                 formControlName="bachelorProfessionalMinStudentsCount" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.bachelorProfessionalMinStudentsCount.errors }">
         </div>
+
+        <div class="form-element">
+          <label for="masterProfessionalMinStudentsCount">Цикл професійної підготовки, Магістр: </label>
+          <input type="number" id="masterProfessionalMinStudentsCount"
+            formControlName="masterProfessionalMinStudentsCount" class="form-control"
+                 [ngClass]="{ 'is-invalid': submitted && f.masterProfessionalMinStudentsCount.errors }">
+        </div>
+
+        <div class="form-element">
+          <label for="phdProfessionalMinStudentsCount">Цикл професійної підготовки, PhD: </label>
+          <input type="number" id="phdProfessionalMinStudentsCount" formControlName="phdProfessionalMinStudentsCount"
+                 class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phdProfessionalMinStudentsCount.errors }">
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="!(message === '')" class="alert alert-danger">
+      {{message}}
     </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-success" (click)="submit()">Зберегти</button>
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
+    </div>
+  </div>
 </div>

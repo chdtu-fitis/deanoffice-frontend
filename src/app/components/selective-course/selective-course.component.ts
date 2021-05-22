@@ -15,6 +15,7 @@ import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
 import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
+import {AlertsService} from '../shared/alerts/alerts.service';
 
 @Component({
   selector: 'selective-course',
@@ -51,14 +52,16 @@ export class SelectiveCourseComponent implements OnInit {
   selectedCourses = [];
   selectedAssignedCourses = [];
 
-  yearParameters: SelectiveCoursesYearParameters;
+  yearParameters: SelectiveCoursesYearParameters[] = [];
+  isChecked = false;
 
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private alerts: AlertsService) {
   }
 
   ngOnInit(): void {
@@ -171,6 +174,16 @@ export class SelectiveCourseComponent implements OnInit {
 
     modalRef.content.onSubmit.subscribe(() => {
       this.loadYearParameters();
+    });
+  }
+
+  disqualifySelectiveCourses() {
+    this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
+      this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
+      this.assignedCoursesChild.load();
+    }, error => {
+      console.log(error);
+      this.alerts.showError({body: 'Помилка, зверніться до адміністратора', timeout: 5000});
     });
   }
 }
