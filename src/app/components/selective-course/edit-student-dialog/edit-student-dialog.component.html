@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h4 class="modal-title">Вибіркові дисципліни за студентами</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="creation-form">
+
+    <div>
+      <div class="row">
+        <div class="col" [formGroup]="form">
+          <label for="surname">Введіть прізвище студента:</label>
+          <input type="text" id="surname" class="form-control" formControlName="surname"
+                 [ngClass]="{ 'is-invalid': isButtonClicked && f.surname.errors }">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-success" (click)="findStudentCourses(false)">
+            Не дискваліф. вибір. дисципліни студента
+          </button>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-primary" (click)="findStudentCourses(true)">
+            Всі вибір. дисципліни студента
+          </button>
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <div *ngIf="selectiveCoursesStudentDegree.length">
+      <student-coures-table [selectiveCoursesStudentDegree]="selectiveCoursesStudentDegree"></student-coures-table>
+    </div>
+
+      <div class="alert alert-danger"
+           *ngIf="!selectiveCoursesStudentDegree.length && this.f.surname.value !== '' && isButtonClicked">
+        Такого студента не було знайдено
+      </div>
+      <div class="alert alert-danger" *ngIf="this.f.surname.value === '' && isButtonClicked">
+        Введіть прізвище
+      </div>
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
+    </div>
+  </div>
+</div>
