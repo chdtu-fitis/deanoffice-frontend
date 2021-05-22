@@ -32,7 +32,7 @@ export const selectiveCourseRoutes: Routes = [
         MatTooltipModule,
     ],
   declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent],
-  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent]
+  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent]
 })
 export class SelectiveCourseModule {
 }

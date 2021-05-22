@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap/modal';
+import {SelectiveCourseService} from '../../../services/selective-course.service';
+import {SelectiveCoursesStudentDegree} from '../../../models/SelectiveCoursesStudentDegree';
 
 @Component({
   selector: 'edit-student-dialog',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditStudentDialogComponent implements OnInit {
 
-  constructor() { }
+  studyYear: string;
+  selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[];
+  surname = '';
+
+  constructor(public bsModalRef: BsModalRef,
+              private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
   }
 
+  findStudentCourses(all: boolean): void {
+    this.selectiveCourseService.getStudentCoursesBySurname(true, this.studyYear, this.surname)
+      .subscribe(selectiveCoursesStudentDegree => {
+        this.selectiveCoursesStudentDegree = selectiveCoursesStudentDegree;
+      })
+  }
 }

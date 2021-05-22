@@ -92,7 +92,13 @@
             {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
           </button>
         </div>
-        
+
+        <div class="row">
+          <button type="button" (click)="editStudentSelectiveCourses()" class="btn btn-outline-primary">
+            Вибіркові за студентами
+          </button>
+        </div>
+
         <div *ngIf="isChecked && yearParameters.length">
           <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
         </div>
