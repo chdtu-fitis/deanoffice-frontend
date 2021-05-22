@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SelectiveCoursesStudentDegree} from '../../../../models/SelectiveCoursesStudentDegree';
+import {TypeCycle} from '../../../../models/TypeCycle';
 
 @Component({
   selector: 'student-coures-table',
@@ -9,6 +10,7 @@ import {SelectiveCoursesStudentDegree} from '../../../../models/SelectiveCourses
 export class StudentCouresTableComponent implements OnInit {
 
   @Input() selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[];
+  typeCycle = TypeCycle;
   constructor() { }
 
   ngOnInit() {

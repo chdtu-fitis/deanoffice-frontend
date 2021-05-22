@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Placeholder</h4>
+  <h4 class="modal-title">Вибіркові дисципліни за студентами</h4>
   <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -16,15 +16,15 @@
         </div>
       </div>
       <br>
-      <div class="row justify-content-between">
-        <div class="col-md-6">
-          <button type="button" class="btn btn-primary" (click)="findStudentCourses(true)">
-            Знайти всі вибір. дисципліни студента
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-warning" (click)="findStudentCourses(false)">
+            Знайти не дискваліф. вибір. дисципліни студента
           </button>
         </div>
-        <div class="col-md-6">
-          <button type="button" class="btn btn-secondary" (click)="findStudentCourses(false)">
-            Знайти не дискваліф. вибір. дисципліни студента
+        <div class="col">
+          <button type="button" class="btn btn-primary" (click)="findStudentCourses(true)">
+            Знайти всі вибір. дисципліни студента
           </button>
         </div>
       </div>

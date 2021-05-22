@@ -2,27 +2,28 @@
   <table class="table table-bordered table-sm">
     <thead>
     <tr>
-      <th colspan="4">
+      <th colspan="5">
         {{s.studentDegree.student.surname}} {{s.studentDegree.student.name}} {{s.studentDegree.student.patronimic}},
-        {{s.studentDegree.specialization.faculty.abbr === null ? s.studentDegree.specialization.faculty.name :
-        s.studentDegree.specialization.faculty.name}},
+        {{s.studentDegree.specialization.faculty.abbr}},
         {{s.studentDegree.specialization.speciality.code}} {{s.studentDegree.specialization.speciality.name}},
         {{s.studentDegree.studentGroup.name}}
       </th>
     </tr>
     <tr>
       <th scope="col">Дисципліна</th>
+      <th scope="col">Семестр</th>
       <th scope="col">Цикл підготовки</th>
       <th scope="col">Кафедра</th>
       <th scope="col">Викладач</th>
     </tr>
     </thead>
-    <tbody *ngFor="let n of s.selectiveCourses">
+    <tbody *ngFor="let course of s.selectiveCourses" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
     <tr>
-      <td>{{n.course.courseName.name}}</td>
-      <td>{{n.trainingCycle}}</td>
-      <td>{{n.department.name}}</td>
-      <td>{{n.teacher.name}}</td>
+      <td>{{course.course.courseName.name}}</td>
+      <td>{{course.course.semester}}</td>
+      <td>{{typeCycle[course.trainingCycle]}}</td>
+      <td>{{course.department.abbr}}</td>
+      <td>{{course.teacher | nameWithInitials}}</td>
     </tr>
     </tbody>
   </table>
