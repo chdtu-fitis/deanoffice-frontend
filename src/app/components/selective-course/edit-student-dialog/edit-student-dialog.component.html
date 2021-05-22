@@ -9,9 +9,10 @@
 
     <div>
       <div class="row">
-        <div class="col">
+        <div class="col" [formGroup]="form">
           <label for="surname">Введіть прізвище студента:</label>
-          <input type="text" id="surname" [(ngModel)]="surname" class="form-control">
+          <input type="text" id="surname" class="form-control" formControlName="surname"
+                 [ngClass]="{ 'is-invalid': isButtonClicked && f.surname.errors }">
         </div>
       </div>
       <br>
@@ -33,9 +34,15 @@
     <div *ngIf="selectiveCoursesStudentDegree.length">
       <student-coures-table [selectiveCoursesStudentDegree]="selectiveCoursesStudentDegree"></student-coures-table>
     </div>
-    <div *ngIf="!selectiveCoursesStudentDegree.length && isButtonClicked" class="alert alert-danger">
-      Такого студента не було знайдено
-    </div>
+
+      <div class="alert alert-danger"
+           *ngIf="!selectiveCoursesStudentDegree.length && this.f.surname.value !== '' && isButtonClicked">
+        Такого студента не було знайдено
+      </div>
+      <div class="alert alert-danger" *ngIf="this.f.surname.value === '' && isButtonClicked">
+        Введіть прізвище
+      </div>
+
 
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
