@@ -6,6 +6,7 @@ import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
 import {Observable} from "rxjs";
 import {SelectiveCoursesYearParameters} from '../models/SelectiveCoursesYearParameters';
+import {SelectiveCoursesStudentDegree} from '../models/SelectiveCoursesStudentDegree';
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
@@ -53,5 +54,10 @@ export class SelectiveCourseService {
 
   getYearParameters(studyYear: string): Observable<SelectiveCoursesYearParameters[]> {
     return this.httpClient.get<SelectiveCoursesYearParameters[]>(`${environment.apiUrl}/selective-courses-year-parameters?year=${studyYear}`);
+  }
+
+  getStudentCoursesBySurname(all: boolean, studyYear: string, surname: string): Observable<SelectiveCoursesStudentDegree[]> {
+    return this.httpClient.get<SelectiveCoursesStudentDegree[]>(
+      `${SELECTIVE_COURSE_URL}/student-courses-by-surname?all=${all}&studyYear=${studyYear}&surname=${surname}`);
   }
 }

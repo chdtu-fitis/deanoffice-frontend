@@ -16,6 +16,7 @@ import {YearParametersDialogComponent} from './year-parameters-dialog/year-param
 import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
 import {AlertsService} from '../shared/alerts/alerts.service';
+import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 
 @Component({
   selector: 'selective-course',
@@ -185,5 +186,12 @@ export class SelectiveCourseComponent implements OnInit {
       console.log(error);
       this.alerts.showError({body: 'Помилка, зверніться до адміністратора', timeout: 5000});
     });
+  }
+
+  editStudentSelectiveCourses() {
+    const initialState = {
+      studyYear: this.selectedYear,
+    };
+    const modalRef = this.modalService.show(EditStudentDialogComponent, { initialState, class: 'modal-custom'});
   }
 }
