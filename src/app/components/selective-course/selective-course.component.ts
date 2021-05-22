@@ -176,6 +176,7 @@ export class SelectiveCourseComponent implements OnInit {
 
     modalRef.content.onSubmit.subscribe(() => {
       this.loadYearParameters();
+      this.loadCourses();
     });
   }
 
