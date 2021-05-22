@@ -16,6 +16,7 @@ export class SelectiveCourse extends BaseEntity {
   trainingCycle: TypeCycle;
   description: string;
   studyYear: number;
+  studentsCount: number;
   available: boolean;
   selected?: boolean;
 }

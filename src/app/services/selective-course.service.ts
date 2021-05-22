@@ -21,6 +21,12 @@ export class SelectiveCourseService {
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
 
+  getSelectiveCoursesWithStudentsCount(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+    return this.httpClient.get<SelectiveCourse[]>(
+      `${SELECTIVE_COURSE_URL}/students-count?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
+      .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
+  }
+
   getSelectiveCoursesForThisAcademicYear(degreeId: number, semester: number): Observable<SelectiveCourse[]> {
     return this.httpClient.get<SelectiveCourse[]>(
       `${SELECTIVE_COURSE_URL}?degreeId=${degreeId}&semester=${semester}&thisYear=true`)

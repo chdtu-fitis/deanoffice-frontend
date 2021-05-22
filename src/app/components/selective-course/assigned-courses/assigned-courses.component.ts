@@ -16,48 +16,62 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
   @Input() showEditButton = true;
+  @Input() isWithYearParameters: boolean;
 
   typeCycle = TypeCycle;
 
-  selectiveCourses = [];
-  selectedAssignedCourses = [];
+  selectiveCourses: SelectiveCourse[] = [];
+  selectedAssignedCourses: SelectiveCourse[] = [];
   isAllSelected = false;
 
-  constructor(private modalService: BsModalService, private selectiveCourseService: SelectiveCourseService) {
+  constructor(private modalService: BsModalService,
+              private selectiveCourseService: SelectiveCourseService) {
   }
 
   ngOnInit() {
     this.load();
   }
 
-  load() {
+  load(): void {
     if (this.studyYear && this.degreeId && this.semester) {
-      this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
-        .subscribe((selectiveCourses: SelectiveCourse[]) => {
-          this.selectiveCourses = selectiveCourses;
-
-          let isAllSelected = selectiveCourses.length > 0;
-          const newSelection = [];
-
-          this.selectiveCourses.forEach(item => {
-            const i = this.selectedAssignedCourses.findIndex(selectedItem => item.id === selectedItem.id);
-            if (i !== -1) {
-              item.isSelected = true;
-              newSelection.push(item);
-            } else {
-              isAllSelected = false;
-            }
+      if (this.isWithYearParameters) {
+        this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
+          .subscribe((selectiveCourses: SelectiveCourse[]) => {
+            this.initializeSelectiveCourses(selectiveCourses);
+          })
+      }
+      else {
+        this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
+          .subscribe((selectiveCourses: SelectiveCourse[]) => {
+            this.initializeSelectiveCourses(selectiveCourses);
           });
-
-          this.isAllSelected = isAllSelected;
-          this.selectedAssignedCourses = newSelection;
-          this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
-        });
+      }
     }
   }
 
+  private initializeSelectiveCourses(selectiveCourses: SelectiveCourse[]): void {
+    this.selectiveCourses = selectiveCourses;
+
+    let isAllSelected = selectiveCourses.length > 0;
+    const newSelection = [];
+
+    this.selectiveCourses.forEach(item => {
+      const i = this.selectedAssignedCourses.findIndex(selectedItem => item.id === selectedItem.id);
+      if (i !== -1) {
+        item.selected = true;
+        newSelection.push(item);
+      } else {
+        isAllSelected = false;
+      }
+    });
+
+    this.isAllSelected = isAllSelected;
+    this.selectedAssignedCourses = newSelection;
+    this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
+  }
+
   changeAllIsSelected(): void {
-    this.selectiveCourses.forEach(item => item.isSelected = this.isAllSelected);
+    this.selectiveCourses.forEach(item => item.selected = this.isAllSelected);
     this.selectedAssignedCourses = this.isAllSelected ? this.selectiveCourses.slice() : [];
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
   }
