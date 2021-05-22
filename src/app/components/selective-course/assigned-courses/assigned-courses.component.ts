@@ -38,7 +38,6 @@ export class AssignedCoursesComponent implements OnInit {
         this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
           .subscribe((selectiveCourses: SelectiveCourse[]) => {
             this.initializeSelectiveCourses(selectiveCourses);
-            console.log(this.selectiveCourses[0].studentsCount);
           })
       }
       else {

@@ -65,7 +65,7 @@
             <div class="h-50">
                 <div style="height: 90%; overflow: auto">
                     <assigned-courses style="overflow: auto" [studyYear]="selectedYear" [degreeId]="selectedDegreeId"
-                        [semester]="selectedSemester" [isWithYearParameters]="false"
+                        [semester]="selectedSemester" [isWithYearParameters]="yearParameters.length"
                         (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
                 </div>
                 <footer class="bg-light px-3 py-2">
