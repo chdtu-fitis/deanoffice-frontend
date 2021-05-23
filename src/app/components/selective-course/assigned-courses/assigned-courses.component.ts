@@ -65,6 +65,15 @@ export class AssignedCoursesComponent implements OnInit {
       }
     });
 
+    // сортую selectiveCourses щоб спочатку виводити ті дисципліни, в яких available === true
+    this.selectiveCourses.sort(function(x, y) {
+      // true values first
+      return (x.available === y.available) ? 0 : x.available ? -1 : 1;
+      // false values first
+      // return (x === y)? 0 : x? 1 : -1;
+    });
+    // You must return 0 when a and b both have the same value, -1 if a is true and 1 otherwise.
+
     this.isAllSelected = isAllSelected;
     this.selectedAssignedCourses = newSelection;
     this.onSelectedAssignedCoursesChange.emit(this.selectedAssignedCourses);
