@@ -17,6 +17,7 @@ import {YearParametersTableComponent} from './year-parameters-table/year-paramet
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
 import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
+import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 
 @Component({
   selector: 'selective-course',
@@ -182,18 +183,26 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   disqualifySelectiveCourses() {
-    this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
-      this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
-      this.assignedCoursesChild.load();
-    }, error => {
-      console.log(error);
-      this.alerts.showError({body: 'Помилка, зверніться до адміністратора', timeout: 5000});
-    });
+    const initialState = {
+      studyYear: this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      semester: this.selectedSemester,
+    };
+    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, { initialState, class: 'modal-custom'});
+    // this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
+    //   this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
+    //   this.assignedCoursesChild.load();
+    // }, error => {
+    //   console.log(error);
+    //   this.alerts.showError({body: 'Помилка, зверніться до адміністратора', timeout: 5000});
+    // });
   }
 
   editStudentSelectiveCourses() {
     const initialState = {
       studyYear: this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      semester: this.selectedSemester,
     };
     const modalRef = this.modalService.show(EditStudentDialogComponent, { initialState, class: 'modal-custom'});
   }

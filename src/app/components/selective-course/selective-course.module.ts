@@ -17,6 +17,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { YearParametersTableComponent } from './year-parameters-table/year-parameters-table.component';
 import { EditStudentDialogComponent } from './edit-student-dialog/edit-student-dialog.component';
 import { StudentCouresTableComponent } from './edit-student-dialog/student-coures-table/student-coures-table.component';
+import { DisqualifyCoursesDialogComponent } from './disqualify-courses-dialog/disqualify-courses-dialog.component';
+import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog/disqualifiable-courses-table/disqualifiable-courses-table.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -32,8 +34,8 @@ export const selectiveCourseRoutes: Routes = [
         RouterModule.forChild(selectiveCourseRoutes),
         MatTooltipModule,
     ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCouresTableComponent],
-  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent]
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCouresTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent],
+  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent, DisqualifyCoursesDialogComponent]
 })
 export class SelectiveCourseModule {
 }
