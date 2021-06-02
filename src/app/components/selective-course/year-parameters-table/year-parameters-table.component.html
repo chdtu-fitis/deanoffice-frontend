@@ -11,17 +11,17 @@
     <tbody>
         <tr>
           <td>Період 1</td>
-          <td>{{yearParameters[0].firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[0].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[0].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[0].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isFirstPeriodFirstRound}">{{yearParameters[0].firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isFirstPeriodFirstRound || isFirstPeriodBetweenFirstAndSecondRound}">{{yearParameters[0].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isFirstPeriodBetweenFirstAndSecondRound || isFirstPeriodSecondRound}">{{yearParameters[0].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isFirstPeriodSecondRound}">{{yearParameters[0].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
         </tr>
         <tr>
           <td>Період 2</td>
-          <td>{{yearParameters[1].firstRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[1].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[1].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
-          <td>{{yearParameters[1].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isSecondPeriodFirstRound}">{{yearParameters[1].firstRoundStartDate | date: 'dd.MM.yyyy'}}</td>
+          <td [ngClass]="{'current-period': isSecondPeriodFirstRound || isSecondPeriodBetweenFirstAndSecondRound}">{{yearParameters[1].firstRoundEndDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isSecondPeriodBetweenFirstAndSecondRound || isSecondPeriodSecondRound}">{{yearParameters[1].secondRoundStartDate | date: 'dd.MM.yyyy' }}</td>
+          <td [ngClass]="{'current-period': isSecondPeriodSecondRound}">{{yearParameters[1].secondRoundEndDate | date: 'dd.MM.yyyy' }}</td>
         </tr>
     </tbody>
 </table>

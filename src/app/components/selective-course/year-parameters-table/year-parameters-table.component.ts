@@ -9,11 +9,29 @@ import {SelectiveCoursesYearParameters} from '../../../models/SelectiveCoursesYe
 export class YearParametersTableComponent implements OnInit {
 
   @Input() yearParameters: SelectiveCoursesYearParameters[];
+  today: Date;
+  isFirstPeriodFirstRound: boolean;
+  isFirstPeriodBetweenFirstAndSecondRound: boolean;
+  isFirstPeriodSecondRound: boolean;
+  isSecondPeriodFirstRound: boolean;
+  isSecondPeriodBetweenFirstAndSecondRound: boolean;
+  isSecondPeriodSecondRound: boolean;
 
   constructor() { }
 
   ngOnInit() {
+    this.today = new Date();
+    this.isFirstPeriodFirstRound = (this.today >= new Date(this.yearParameters[0].firstRoundStartDate))
+      && (this.today <= new Date(this.yearParameters[0].firstRoundEndDate));
+    this.isFirstPeriodBetweenFirstAndSecondRound = (this.today > new Date(this.yearParameters[0].firstRoundEndDate))
+      && (this.today < new Date(this.yearParameters[0].secondRoundStartDate));
+    this.isFirstPeriodSecondRound = (this.today >= new Date(this.yearParameters[0].secondRoundStartDate))
+      && (this.today <= new Date(this.yearParameters[0].secondRoundEndDate));
+    this.isSecondPeriodFirstRound = (this.today >= new Date(this.yearParameters[1].firstRoundStartDate))
+      && (this.today <= new Date(this.yearParameters[1].firstRoundEndDate));
+    this.isSecondPeriodBetweenFirstAndSecondRound = (this.today > new Date(this.yearParameters[1].firstRoundEndDate))
+      && (this.today < new Date(this.yearParameters[1].secondRoundStartDate));
+    this.isSecondPeriodSecondRound = (this.today >= new Date(this.yearParameters[1].secondRoundStartDate))
+      && (this.today <= new Date(this.yearParameters[1].secondRoundEndDate));
   }
-
-
 }
