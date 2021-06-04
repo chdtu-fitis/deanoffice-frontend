@@ -22,6 +22,7 @@ export class GroupFormComponent {
       Validators.pattern('[0-9.]*')
     ]),
     beginYears: new FormControl(null, Validators.required),
+    realBeginYear: new FormControl(null, Validators.required),
     creationYear: new FormControl(null, Validators.required),
     tuitionForm: new FormControl(null, Validators.required),
     tuitionTerm: new FormControl(null, Validators.required),
@@ -41,6 +42,7 @@ export class GroupFormComponent {
     this.form.controls.studySemesters.setValue(values['studySemesters']);
     this.form.controls.studyYears.setValue(values['studyYears']);
     this.form.controls.beginYears.setValue(values['beginYears']);
+    this.form.controls.realBeginYear.setValue(values['realBeginYear']);
     this.form.controls.creationYear.setValue(values['creationYear']);
     this.form.controls.tuitionForm.setValue(values['tuitionForm']);
     this.form.controls.tuitionTerm.setValue(values['tuitionTerm']);

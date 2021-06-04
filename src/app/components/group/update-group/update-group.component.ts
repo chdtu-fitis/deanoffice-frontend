@@ -31,6 +31,7 @@ export class UpdateGroupComponent {
       'studySemesters': selectedGroup.studySemesters,
       'studyYears': selectedGroup.studyYears,
       'beginYears': selectedGroup.beginYears,
+      'realBeginYear': selectedGroup.realBeginYear,
       'creationYear': selectedGroup.creationYear,
       'tuitionForm': selectedGroup.tuitionForm,
       'tuitionTerm': selectedGroup.tuitionTerm,

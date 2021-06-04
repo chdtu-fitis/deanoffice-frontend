@@ -12,6 +12,7 @@ export class StudentGroup extends NameWithActiveEntity {
   studySemesters: number;
   studyYears: number;
   beginYears: number;
+  realBeginYear: number;
   studentDegrees: StudentDegree[];
   selected?: boolean;
 
