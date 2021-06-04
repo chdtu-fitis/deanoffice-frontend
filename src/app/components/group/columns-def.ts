@@ -40,8 +40,13 @@ export const COLUMN_DEFINITIONS = [
     field: 'creationYear',
   },
   {
-    headerName: 'Курс початку',
+    headerName: 'Формальний курс початку',
     field: 'beginYears',
+    filter: false,
+  },
+  {
+    headerName: 'Реальний курс початку',
+    field: 'realBeginYear',
     filter: false,
   },
   {

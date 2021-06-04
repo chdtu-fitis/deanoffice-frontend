@@ -28,6 +28,7 @@ export class AddGroupComponent implements OnInit {
       'studySemesters': 8,
       'studyYears': 3.84,
       'beginYears': 1,
+      'realBeginYear': 1,
       'creationYear': this.getValueOfCreationYear(),
       'tuitionForm': this.tuitionFormsKeys[0],
       'tuitionTerm': this.tuitionTermsKeys[0]
