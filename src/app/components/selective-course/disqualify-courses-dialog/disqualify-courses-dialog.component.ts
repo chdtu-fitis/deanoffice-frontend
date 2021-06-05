@@ -14,9 +14,8 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
   degreeId: number;
   semester: number;
 
-  selectiveCourses: SelectiveCourse[];
-  selectedSelectiveCourses: SelectiveCourse[];
-  isAllSelected = false;
+  selectiveCourses: SelectiveCourse[] = [];
+  selectedSelectiveCourses: SelectiveCourse[] = [];
 
   constructor(public bsModalRef: BsModalRef,
               private selectiveCourseService: SelectiveCourseService) { }
@@ -29,6 +28,15 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
         console.log(error);
       })
     console.log(this.selectiveCourses);
+  }
+
+  changeSelectedSelectiveCourses(selectedSelectiveCourses: SelectiveCourse[]) {
+    this.selectedSelectiveCourses = selectedSelectiveCourses;
+    console.log(selectedSelectiveCourses);
+  }
+
+  submit() {
+
   }
 
 }
