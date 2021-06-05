@@ -35,13 +35,13 @@ export class AssignedCoursesComponent implements OnInit {
   load(): void {
     if (this.studyYear && this.degreeId && this.semester) {
       if (this.isWithYearParameters) {
-        this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
+        this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester, true)
           .subscribe((selectiveCourses: SelectiveCourse[]) => {
             this.initializeSelectiveCourses(selectiveCourses);
           })
       }
       else {
-        this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
+        this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester, true)
           .subscribe((selectiveCourses: SelectiveCourse[]) => {
             this.initializeSelectiveCourses(selectiveCourses);
           });

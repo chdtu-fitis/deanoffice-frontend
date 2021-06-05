@@ -15,15 +15,15 @@ export class SelectiveCourseService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getSelectiveCourses(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+  getSelectiveCourses(studyYear: string, degreeId: number, semester: number, all: boolean): Observable<SelectiveCourse[]> {
     return this.httpClient.get<SelectiveCourse[]>(
-      `${SELECTIVE_COURSE_URL}?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
+      `${SELECTIVE_COURSE_URL}?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}&all=${all}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
 
-  getSelectiveCoursesWithStudentsCount(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+  getSelectiveCoursesWithStudentsCount(studyYear: string, degreeId: number, semester: number, all: boolean): Observable<SelectiveCourse[]> {
     return this.httpClient.get<SelectiveCourse[]>(
-      `${SELECTIVE_COURSE_URL}/students-count?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
+      `${SELECTIVE_COURSE_URL}/students-count?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}&all=${all}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
 
