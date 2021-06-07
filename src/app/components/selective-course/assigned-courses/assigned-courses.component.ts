@@ -16,13 +16,14 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
   @Input() showEditButton = true;
-  @Input() isWithYearParameters: boolean;
+  isWithYearParameters: boolean;
 
   typeCycle = TypeCycle;
 
   selectiveCourses: SelectiveCourse[] = [];
   selectedAssignedCourses: SelectiveCourse[] = [];
   isAllSelected = false;
+  disqualifiedCourses: SelectiveCourse[] = [];
 
   constructor(private modalService: BsModalService,
               private selectiveCourseService: SelectiveCourseService) {
@@ -65,6 +66,7 @@ export class AssignedCoursesComponent implements OnInit {
       }
     });
 
+    // TODO refactor this part
     // сортую selectiveCourses щоб спочатку виводити ті дисципліни, в яких available === true
     this.selectiveCourses.sort(function(x, y) {
       // true values first
@@ -73,6 +75,7 @@ export class AssignedCoursesComponent implements OnInit {
       // return (x === y)? 0 : x? 1 : -1;
     });
     // You must return 0 when a and b both have the same value, -1 if a is true and 1 otherwise.
+    this.disqualifiedCourses = this.selectiveCourses.filter(course => course.available === false);
 
     this.isAllSelected = isAllSelected;
     this.selectedAssignedCourses = newSelection;
