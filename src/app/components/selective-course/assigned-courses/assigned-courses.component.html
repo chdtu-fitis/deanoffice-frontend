@@ -17,7 +17,7 @@
         <th *ngIf="isWithYearParameters">Кількість студентів</th>
       <tr>
       </thead>
-      <tr *ngFor="let course of selectiveCourses">
+      <tr *ngFor="let course of selectiveCourses" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
         <td class="text-center"><input type="checkbox"
                                        [(ngModel)]="course.selected"
                                        (change)="changeSelectedAssignedCourses($event.target.checked, course)"></td>

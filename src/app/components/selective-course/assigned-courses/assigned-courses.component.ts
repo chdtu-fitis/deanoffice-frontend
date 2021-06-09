@@ -16,13 +16,14 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
   @Input() showEditButton = true;
-  @Input() isWithYearParameters: boolean;
+  isWithYearParameters: boolean;
 
   typeCycle = TypeCycle;
 
   selectiveCourses: SelectiveCourse[] = [];
   selectedAssignedCourses: SelectiveCourse[] = [];
   isAllSelected = false;
+  disqualifiedCourses: SelectiveCourse[] = [];
 
   constructor(private modalService: BsModalService,
               private selectiveCourseService: SelectiveCourseService) {
@@ -35,13 +36,13 @@ export class AssignedCoursesComponent implements OnInit {
   load(): void {
     if (this.studyYear && this.degreeId && this.semester) {
       if (this.isWithYearParameters) {
-        this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
+        this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester, true)
           .subscribe((selectiveCourses: SelectiveCourse[]) => {
             this.initializeSelectiveCourses(selectiveCourses);
           })
       }
       else {
-        this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
+        this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester, true)
           .subscribe((selectiveCourses: SelectiveCourse[]) => {
             this.initializeSelectiveCourses(selectiveCourses);
           });
@@ -64,6 +65,17 @@ export class AssignedCoursesComponent implements OnInit {
         isAllSelected = false;
       }
     });
+
+    // TODO refactor this part
+    // сортую selectiveCourses щоб спочатку виводити ті дисципліни, в яких available === true
+    this.selectiveCourses.sort(function(x, y) {
+      // true values first
+      return (x.available === y.available) ? 0 : x.available ? -1 : 1;
+      // false values first
+      // return (x === y)? 0 : x? 1 : -1;
+    });
+    // You must return 0 when a and b both have the same value, -1 if a is true and 1 otherwise.
+    this.disqualifiedCourses = this.selectiveCourses.filter(course => course.available === false);
 
     this.isAllSelected = isAllSelected;
     this.selectedAssignedCourses = newSelection;
