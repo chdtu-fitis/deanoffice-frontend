@@ -52,6 +52,7 @@ export class GradeComponent implements OnInit {
   showAcademicDifference = true;
   isSortableCoursesForGroup = false;
   selectiveGroupSelected = false;
+  SELECTIVE_COURSE_NAME_MAX_LENGTH = 36;
 
   constructor(private gradeService: GradeService,
               private groupService: GroupService,
@@ -106,7 +107,8 @@ export class GradeComponent implements OnInit {
         this.selectiveGroups = selectiveCourses.map(selectiveCourse => {
           const group = new StudentGroup();
           group.id = selectiveCourse.id;
-          group.name = selectiveCourse.groupName;
+          const name = selectiveCourse.course.courseName.name;
+          group.name = name.length < this.SELECTIVE_COURSE_NAME_MAX_LENGTH ? name : name.slice(0, this.SELECTIVE_COURSE_NAME_MAX_LENGTH) + "...";
           group.specialization = new Specialization();
           group.specialization.degree = new Degree();
           group.specialization.degree.id = selectiveCourse.degree.id;
