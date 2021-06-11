@@ -29,7 +29,7 @@
       <tr>
         <th class="sticky-col first-col z-index-2">№</th>
         <th class="sticky-col second-col z-index-2">
-          {{selectGroup?.selectiveGroupName ? selectGroup?.selectiveGroupName : selectGroup?.name}}<br>
+          {{selectGroup?.selectiveGroupName || selectGroup?.name}}<br>
           Семестр: {{ selectSemester }}
         </th>
         <th *ngFor="let courseForGroup of coursesForGroup" scope="row"
