@@ -109,6 +109,7 @@ export class GradeComponent implements OnInit {
           group.id = selectiveCourse.id;
           const name = selectiveCourse.course.courseName.name;
           group.name = name.length < this.SELECTIVE_COURSE_NAME_MAX_LENGTH ? name : name.slice(0, this.SELECTIVE_COURSE_NAME_MAX_LENGTH) + "...";
+          group.selectiveGroupName = selectiveCourse.groupName;
           group.specialization = new Specialization();
           group.specialization.degree = new Degree();
           group.specialization.degree.id = selectiveCourse.degree.id;
