@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {SelectiveCoursesStudentDegree} from '../../../models/SelectiveCoursesStudentDegree';
@@ -21,7 +21,8 @@ export class EditStudentDialogComponent implements OnInit {
 
 
   constructor(public bsModalRef: BsModalRef,
-              private selectiveCourseService: SelectiveCourseService) { }
+              private selectiveCourseService: SelectiveCourseService) {
+  }
 
   ngOnInit() {
   }
@@ -29,7 +30,7 @@ export class EditStudentDialogComponent implements OnInit {
   findStudentCourses(all: boolean): void {
     this.selectiveCoursesStudentDegree = [];
     if (this.form.valid) {
-      this.selectiveCourseService.getStudentCoursesBySurname(true, this.studyYear, this.f.surname.value)
+      this.selectiveCourseService.getStudentCoursesBySurname(all, this.studyYear, this.f.surname.value)
         .subscribe(selectiveCoursesStudentDegree => {
           this.selectiveCoursesStudentDegree = selectiveCoursesStudentDegree;
         })
@@ -37,5 +38,7 @@ export class EditStudentDialogComponent implements OnInit {
     this.isButtonClicked = true;
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 }

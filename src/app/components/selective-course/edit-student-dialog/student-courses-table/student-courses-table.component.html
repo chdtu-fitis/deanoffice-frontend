@@ -2,7 +2,7 @@
   <table class="table table-bordered table-sm">
     <thead>
     <tr>
-      <th colspan="5">
+      <th colspan="6">
         {{s.studentDegree.student.surname}} {{s.studentDegree.student.name}} {{s.studentDegree.student.patronimic}},
         {{s.studentDegree.specialization.faculty.abbr}},
         {{s.studentDegree.specialization.speciality.code}} {{s.studentDegree.specialization.speciality.name}},
@@ -15,6 +15,7 @@
       <th scope="col">Цикл</th>
       <th scope="col">Кафедра</th>
       <th scope="col">Викладач</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody *ngFor="let course of s.selectiveCourses" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
@@ -24,6 +25,19 @@
       <td>{{typeCycle[course.trainingCycle]}}</td>
       <td>{{course.department.abbr}}</td>
       <td>{{course.teacher | nameWithInitials}}</td>
+      <td>
+        <button class="btn btn-success btn-sm rounded-lg" type="button" style="width: 40px" (click)="editCourse()">
+          <img src="assets/img/edit.png" style="width: 16px; height: 16px">
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="isEditing">
+      <td><input [(ngModel)]="searchText" class="form-control mr-2 search"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
     </tbody>
   </table>
