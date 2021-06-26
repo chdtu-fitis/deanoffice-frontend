@@ -21,9 +21,10 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
               private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
-    this.selectiveCourseService.getSelectiveCourses(this.studyYear, this.degreeId, this.semester)
+    this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
       .subscribe((selectiveCourses: SelectiveCourse[]) => {
         this.selectiveCourses = selectiveCourses;
+        this.selectiveCourses.forEach(selectiveCourse => selectiveCourse.selected = selectiveCourse.studentsCount < 2);
       }, error => {
         console.log(error);
       })
