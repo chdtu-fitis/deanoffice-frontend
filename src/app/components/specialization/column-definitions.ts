@@ -21,6 +21,6 @@ export const COLUMN_DEFINITIONS = [
   },
   {
     headerName: 'Гарант програми',
-    field: 'educationalProgramHeadName',
+    valueGetter: params => params.data.programHead && `${params.data.programHead.surname} ${params.data.programHead.name}`
   }
 ];

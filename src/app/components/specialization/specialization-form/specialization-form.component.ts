@@ -81,10 +81,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentExtramural: data.paymentExtramural,
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
-      educationalProgramHeadName: data.educationalProgramHeadName,
-      educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
-      educationalProgramHeadInfo: data.educationalProgramHeadInfo,
-      educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
     });
     this.currentProgramHead = data.programHead;
   }
@@ -170,11 +166,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
-      programHead: s.programHead.id ? s.programHead : null,
-      educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
-      educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
-      educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
-      educationalProgramHeadInfoEng: s.educationalProgramHeadInfoEng || DEFAULT_STRING
+      programHead: s.programHead.id ? s.programHead : null
     } as Specialization;
   }
 
