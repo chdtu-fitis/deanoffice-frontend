@@ -64,10 +64,11 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
   setInitialData(data: Specialization = new Specialization()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
-      name: data.name,
+      name: [data.name, Validators.required],
       nameEng: data.nameEng,
       code: data.code,
-      // programHead: data.programHead,
+      specializationName: data.specializationName,
+      specializationNameEng: data.specializationNameEng,
       programHead: this._formBuilder.group({
         id: data.programHead ? data.programHead.id : '',
         fullName: data.programHead ? `${data.programHead.surname} ${data.programHead.name} ${data.programHead.patronimic}` : ''
@@ -75,8 +76,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
-      paymentFulltime: data.paymentFulltime,
-      paymentExtramural: data.paymentExtramural,
+      certificateIssuedBy: data.certificateIssuedBy,
+      certificateIssuedByEng: data.certificateIssuedByEng,
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
     });
@@ -160,8 +161,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       id: this.initialData.id,
       name: s.name || DEFAULT_STRING,
       active: this.initialData.active,
-      paymentExtramural: s.paymentExtramural || DEFAULT_NUMBER,
-      paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
+      certificateIssuedBy: s.certificateIssuedBy || DEFAULT_STRING,
+      certificateIssuedByEng: s.certificateIssuedByEng || DEFAULT_STRING,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
       programHead: s.programHead.id ? s.programHead : null

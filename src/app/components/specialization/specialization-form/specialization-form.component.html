@@ -7,15 +7,21 @@
             <label for="name">Назва</label>
             <input formControlName="name" type="text" class="form-control" id="name">
           </div>
-
           <div class="form-group">
             <label for="nameEng">Назва англ.</label>
             <input formControlName="nameEng" type="text" class="form-control" id="nameEng">
           </div>
-
           <div class="form-group">
             <label for="specializationCode">Код спеціалізації</label>
             <input formControlName="code" type="text" class="form-control" id="specializationCode">
+          </div>
+          <div class="form-group">
+            <label for="specializationName">Назва спеціалізації</label>
+            <input formControlName="specializationName" type="text" class="form-control" id="specializationName">
+          </div>
+          <div class="form-group">
+            <label for="specializationNameEng">Назва спеціалізації (англійською)</label>
+            <input formControlName="specializationNameEng" type="text" class="form-control" id="specializationNameEng">
           </div>
         </div>
 
@@ -59,47 +65,15 @@
           </div>
         </div>
       </div>
-
-      <div class="form-layout">
-        <div class="position-relative form-item">
-          <div class="h6 input-group-title">Вартість навчання:</div>
-
-          <div class="ml-3">
-            <div class="form-group ml-3">
-              <label for="paymentFulltime">Повної форми</label>
-              <input formControlName="paymentFulltime" type="number" class="form-control" id="paymentFulltime">
-            </div>
-
-            <div class="form-group ml-3">
-              <label for="paymentExtramural">Скороченої форми</label>
-              <input formControlName="paymentExtramural" type="number" class="form-control" id="paymentExtramural">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-item">
-          <div class="h6">Сертифікат:</div>
-          <div class="ml-3">
-            <div class="form-group d-flex align-items-center">
-              <label style="width: 65px" for="certificateNumber">Номер</label>
-              <input formControlName="certificateNumber" type="text" class="form-control" id="certificateNumber">
-            </div>
-
-            <div class="form-group d-flex align-items-center">
-              <label style="width: 65px" for="certificateDate">Дата</label>
-              <input formControlName="certificateDate" type="date" class="form-control" id="certificateDate">
-            </div>
-          </div>
-        </div>
-      </div>
     </tab>
 
-    <tab heading="Гарант програми">
+    <tab heading="Гарант і сертифікат">
       <div class="form-layout">
         <div class="form-item">
+          <div class="h6">Гарант:</div>
           <div class="form-group">
             <div formGroupName="programHead">
-            <label for="programHead">Гарант програми</label>
+            <label for="programHead">Ім'я гаранта</label>
             <input formControlName="fullName"
                    [typeahead]="teachersDataSource"
                    (typeaheadOnSelect)="onProgramHeadSelect($event)"
@@ -114,26 +88,47 @@
           </div>
 
           <div class="form-group">
-            <label for="educationalProgramHeadNameEng1">Гарант програми англійською</label>
+            <label for="educationalProgramHeadNameEng1">Ім'я гаранта (англійською)</label>
             <input type="text" class="form-control" id="educationalProgramHeadNameEng1" disabled>
           </div>
-        </div>
 
-        <div class="form-item">
           <div class="form-group">
             <label for="educationalProgramHeadInfo1">Інформація про гаранта програми</label>
-            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfo1"
+            <input type="text" class="form-control ta-2l" id="educationalProgramHeadInfo1"
                       value="{{currentProgramHead?.scientificDegree?.name}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.ukr}}" disabled>
-          </textarea>
           </div>
 
           <div class="form-group">
             <label for="educationalProgramHeadInfoEng1">
-              Інформація про гаранта програми англійською
+              Інформація про гаранта програми (англійською)
             </label>
-            <textarea type="text" class="form-control ta-2l" id="educationalProgramHeadInfoEng1"
+            <input type="text" class="form-control ta-2l" id="educationalProgramHeadInfoEng1"
                       value="{{currentProgramHead?.scientificDegree?.nameEng}}, {{AcademicTitleValues[currentProgramHead?.academicTitle]?.eng}}" disabled>
-          </textarea>
+          </div>
+        </div>
+
+        <div class="form-item">
+          <div class="h6">Сертифікат:</div>
+          <div class="ml-3">
+            <div class="form-group">
+              <label for="certificateNumber">Номер</label>
+              <input formControlName="certificateNumber" type="text" class="form-control" id="certificateNumber">
+            </div>
+
+            <div class="form-group">
+              <label for="certificateDate">Дата</label>
+              <input formControlName="certificateDate" type="date" class="form-control" id="certificateDate">
+            </div>
+
+            <div class="form-group">
+              <label for="certificateIssuedBy">Сертифікат виданий</label>
+              <input formControlName="certificateIssuedBy" type="text" class="form-control" id="certificateIssuedBy">
+            </div>
+
+            <div class="form-group">
+              <label for="certificateIssuedByEng">Сертифікат виданий (англійською)</label>
+              <input formControlName="certificateIssuedByEng" type="text" class="form-control" id="certificateIssuedByEng">
+            </div>
           </div>
         </div>
       </div>
