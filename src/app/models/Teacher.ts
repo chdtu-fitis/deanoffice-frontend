@@ -13,8 +13,4 @@ export class Teacher extends Person {
   positionId?: number;
   departmentId?: number;
   scientificDegreeId: number;
-
-  get surnameAndName() {
-    return `${this.surname}  ${this.name}`;
-  }
 }

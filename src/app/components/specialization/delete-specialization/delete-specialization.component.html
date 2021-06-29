@@ -4,7 +4,7 @@
     <div>
       <div><b>Ступінь:</b> {{specialization?.degree?.name}}</div>
       <div><b>Спеціалізація:</b> {{specialization?.speciality?.code}} {{specialization?.speciality?.name}}</div>
-      <div *ngIf="specialization.programHead"><b>Гарант програми:</b> {{specialization?.programHead.surnameAndName}}</div>
+      <div *ngIf="specialization.programHead"><b>Гарант програми:</b> {{specialization?.programHead.surname}} {{specialization?.programHead.name}}</div>
     </div>
   </div>
   <div class="modal-footer">
