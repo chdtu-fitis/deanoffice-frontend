@@ -75,8 +75,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       specialityId: [data.specialityId, Validators.required],
       degreeId: [data.degreeId, Validators.required],
       departmentId: [data.departmentId, Validators.required],
-      qualification: data.qualification,
-      qualificationEng: data.qualificationEng,
       paymentFulltime: data.paymentFulltime,
       paymentExtramural: data.paymentExtramural,
       certificateNumber: data.certificateNumber,
