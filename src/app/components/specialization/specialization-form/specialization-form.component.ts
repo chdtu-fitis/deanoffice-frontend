@@ -56,8 +56,15 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     private _teacherService: TeacherService
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.setInitialData();
     this.createTeachersDataSource();
+    this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
+    this.setSpecialityToAllActiveInFaculty();
+    this._departmentService.getDepartments()
+      .subscribe((departments: Department[]) => this.departments = departments);
   }
 
   // TODO Return validation for name (only ukr), programHead, certificate
@@ -101,13 +108,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
         observer.next(result);
       });
     });
-  }
-
-  ngOnInit() {
-    this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
-    this.setSpecialityToAllActiveInFaculty();
-    this._departmentService.getDepartments()
-      .subscribe((departments: Department[]) => this.departments = departments);
   }
 
   onSpecialityCheckboxChange(event: Event) {
