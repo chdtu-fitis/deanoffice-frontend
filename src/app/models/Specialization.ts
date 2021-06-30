@@ -8,19 +8,15 @@ import {Faculty} from './Faculty';
 export class Specialization extends NameWithEngAndActiveEntity {
   speciality: Speciality;
   code: string;
+  specializationName: string;
+  specializationNameEng: string;
   degree: Degree;
   department?: Department;
   programHead?: Teacher;
-  qualification?: string;
-  qualificationEng?: string;
-  paymentFulltime?: number;
-  paymentExtramural?: number;
-  educationalProgramHeadName: string;
-  educationalProgramHeadNameEng: string;
-  educationalProgramHeadInfo: string;
-  educationalProgramHeadInfoEng: string;
   certificateNumber: string;
   certificateDate: Date;
+  certificateIssuedBy: string;
+  certificateIssuedByEng: string;
 
   specialityId?: number;
   degreeId?: number;

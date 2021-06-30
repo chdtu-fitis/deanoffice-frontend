@@ -9,6 +9,7 @@ import {CurrentUserService} from './auth/current-user.service';
 
 const API_URL: string = environment.apiUrl;
 export const SPECIALIZATION_URL: string = API_URL + '/specializations';
+
 @Injectable()
 export class SpecializationService {
   constructor(private _httpClient: HttpClient,
@@ -48,7 +49,7 @@ export class SpecializationService {
   }
 
   update(body: Specialization): Promise<any> {
-    return this._httpClient.put(SPECIALIZATION_URL, body).toPromise()
+    return this._httpClient.put(`${SPECIALIZATION_URL}/${body.id}`, body).toPromise()
       .catch(forPromise('Оновлення спеціалізації'));
   }
 

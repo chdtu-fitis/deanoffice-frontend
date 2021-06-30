@@ -1,0 +1,27 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col"><input type="checkbox"
+                           [(ngModel)]="isAllSelected"
+                           (change)="changeAllIsSelected()"></th>
+    <th scope="col">Дисципліна</th>
+    <th scope="col">Семестр</th>
+    <th scope="col">Цикл</th>
+    <th scope="col">Кафедра</th>
+    <th scope="col">Викладач</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tbody *ngFor="let course of selectiveCourses">
+  <tr>
+    <td><input type="checkbox"
+               [(ngModel)]="course.selected"
+               (change)="changeSelectedSelectiveCourses($event.target.checked, course)"></td>
+    <td>{{course.course.courseName.name}}</td>
+    <td>{{course.course.semester}}</td>
+    <td>{{typeCycle[course.trainingCycle]}}</td>
+    <td>{{course.department.abbr}}</td>
+    <td>{{course.teacher | nameWithInitials}}</td>
+  </tr>
+  </tbody>
+</table>

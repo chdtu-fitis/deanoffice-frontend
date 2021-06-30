@@ -20,6 +20,7 @@ import {SpecializationQualificationComponent} from './specialization-qualificati
 import {TeacherService} from "../../../services/teacher.service";
 import {Teacher} from "../../../models/Teacher";
 import {AcademicTitleValues} from "../../../models/AcademicTitleValues";
+import {BaseEntity} from "../../../models/basemodels/BaseEntity";
 
 const DEFAULT_DATE: Date = new Date(Date.parse('1980-01-01'));
 const DEFAULT_NUMBER = 0;
@@ -56,35 +57,37 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
     private _teacherService: TeacherService
   ) {
     super();
+  }
+
+  ngOnInit() {
     this.setInitialData();
     this.createTeachersDataSource();
+    this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
+    this.setSpecialityToAllActiveInFaculty();
+    this._departmentService.getDepartments()
+      .subscribe((departments: Department[]) => this.departments = departments);
   }
 
   // TODO Return validation for name (only ukr), programHead, certificate
   setInitialData(data: Specialization = new Specialization()) {
     this.initialData = data;
     this.form = this._formBuilder.group({
-      name: data.name,
+      name: [data.name, Validators.required],
       nameEng: data.nameEng,
       code: data.code,
-      // programHead: data.programHead,
+      specializationName: data.specializationName,
+      specializationNameEng: data.specializationNameEng,
       programHead: this._formBuilder.group({
         id: data.programHead ? data.programHead.id : '',
         fullName: data.programHead ? `${data.programHead.surname} ${data.programHead.name} ${data.programHead.patronimic}` : ''
       }),
-      specialityId: [data.specialityId, Validators.required],
-      degreeId: [data.degreeId, Validators.required],
-      departmentId: [data.departmentId, Validators.required],
-      qualification: data.qualification,
-      qualificationEng: data.qualificationEng,
-      paymentFulltime: data.paymentFulltime,
-      paymentExtramural: data.paymentExtramural,
+      specialityId: [data.speciality ? data.speciality.id : 0, Validators.required],
+      degreeId: [data.degree ? data.degree.id : 0, Validators.required],
+      departmentId: [data.department ? data.department.id : 0, Validators.required],
+      certificateIssuedBy: data.certificateIssuedBy,
+      certificateIssuedByEng: data.certificateIssuedByEng,
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
-      educationalProgramHeadName: data.educationalProgramHeadName,
-      educationalProgramHeadNameEng: data.educationalProgramHeadNameEng,
-      educationalProgramHeadInfo: data.educationalProgramHeadInfo,
-      educationalProgramHeadInfoEng: data.educationalProgramHeadInfoEng,
     });
     this.currentProgramHead = data.programHead;
   }
@@ -106,13 +109,6 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
         observer.next(result);
       });
     });
-  }
-
-  ngOnInit() {
-    this._degreeService.getDegrees().subscribe((degrees: Degree[]) => this.degrees = degrees);
-    this.setSpecialityToAllActiveInFaculty();
-    this._departmentService.getDepartments()
-      .subscribe((departments: Department[]) => this.departments = departments);
   }
 
   onSpecialityCheckboxChange(event: Event) {
@@ -166,15 +162,14 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       id: this.initialData.id,
       name: s.name || DEFAULT_STRING,
       active: this.initialData.active,
-      paymentExtramural: s.paymentExtramural || DEFAULT_NUMBER,
-      paymentFulltime: s.paymentFulltime || DEFAULT_NUMBER,
+      speciality: new BaseEntity(s.specialityId),
+      degree: new BaseEntity(s.degreeId),
+      department: new BaseEntity(s.departmentId),
+      certificateIssuedBy: s.certificateIssuedBy || DEFAULT_STRING,
+      certificateIssuedByEng: s.certificateIssuedByEng || DEFAULT_STRING,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
-      programHead: s.programHead.id ? s.programHead : null,
-      educationalProgramHeadName: s.educationalProgramHeadName || DEFAULT_STRING,
-      educationalProgramHeadNameEng: s.educationalProgramHeadNameEng || DEFAULT_STRING,
-      educationalProgramHeadInfo: s.educationalProgramHeadInfo || DEFAULT_STRING,
-      educationalProgramHeadInfoEng: s.educationalProgramHeadInfoEng || DEFAULT_STRING
+      programHead: s.programHead.id ? s.programHead : null
     } as Specialization;
   }
 
