@@ -8,6 +8,7 @@
     <th scope="col">Семестр</th>
     <th scope="col">Цикл</th>
     <th scope="col">Кафедра</th>
+    <th scope="col">К-сть студентів</th>
     <th class="dct-teacher" scope="col">Викладач</th>
   </tr>
   </thead>
@@ -21,6 +22,7 @@
     <td>{{course.course.semester}}</td>
     <td>{{typeCycle[course.trainingCycle]}}</td>
     <td>{{course.department.abbr}}</td>
+    <td>{{course.studentsCount}}</td>
     <td>{{course.teacher | nameWithInitials}}</td>
   </tr>
   </tbody>
