@@ -84,10 +84,10 @@ export class EditDialogComponent implements OnInit {
   saveChanges() {
     this.checkCourseName(this.courseName.value);
     const oldCourse = this.oldCourse.course;
-    if (oldCourse.hours == this.course.controls.hours.value)
-      if ( oldCourse.hoursPerCredit == this.course.controls.hoursPerCredit.value)
-        if ( oldCourse.knowledgeControl.id == this.course.controls.knowledgeControl.value.id)
-          if ( oldCourse.courseName.id == this.courseName.controls.id.value) {
+    if (oldCourse.hours == this.course.controls.hours.value
+        && oldCourse.hoursPerCredit == this.course.controls.hoursPerCredit.value
+        && oldCourse.knowledgeControl.id == this.course.controls.knowledgeControl.value.id
+        && oldCourse.courseName.id == this.courseName.controls.id.value) {
       alert('Дані жодного атрибуту предмету не були змінені');
       return;
     }
