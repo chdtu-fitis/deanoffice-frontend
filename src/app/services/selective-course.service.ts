@@ -15,13 +15,13 @@ export class SelectiveCourseService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getSelectiveCourses(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+  getSelectiveCourses(studyYear: number, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
     return this.httpClient.get<SelectiveCourse[]>(
       `${SELECTIVE_COURSE_URL}?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
   }
 
-  getSelectiveCoursesWithStudentsCount(studyYear: string, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
+  getSelectiveCoursesWithStudentsCount(studyYear: number, degreeId: number, semester: number): Observable<SelectiveCourse[]> {
     return this.httpClient.get<SelectiveCourse[]>(
       `${SELECTIVE_COURSE_URL}/students-count?studyYear=${studyYear}&degreeId=${degreeId}&semester=${semester}`)
       .pipe(catchError(forObservable('Отримання списку вибіркових предметів', [])));
@@ -58,7 +58,7 @@ export class SelectiveCourseService {
     return this.httpClient.post(`${environment.apiUrl}/selective-courses-year-parameters`, body);
   }
 
-  getYearParameters(studyYear: string): Observable<SelectiveCoursesYearParameters[]> {
+  getYearParameters(studyYear: number): Observable<SelectiveCoursesYearParameters[]> {
     return this.httpClient.get<SelectiveCoursesYearParameters[]>(`${environment.apiUrl}/selective-courses-year-parameters?year=${studyYear}`);
   }
 

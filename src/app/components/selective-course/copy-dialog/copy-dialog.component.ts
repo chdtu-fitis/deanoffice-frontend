@@ -14,10 +14,10 @@ export class CopyDialogComponent implements OnInit {
   semester: number;
 
   years = [
-    {id: '2020', name: '2020-2021'},
-    {id: '2021', name: '2021-2022'},
-    {id: '2022', name: '2022-2023'}];
-  selectedYear: string;
+    {id: 2020, name: '2020-2021'},
+    {id: 2021, name: '2021-2022'},
+    {id: 2022, name: '2022-2023'}];
+  selectedYear: number;
   filteredYears = [];
 
   selectedSelectiveCourses = []

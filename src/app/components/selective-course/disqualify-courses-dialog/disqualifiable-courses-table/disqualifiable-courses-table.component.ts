@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SelectiveCourse} from '../../../../models/SelectiveCourse';
 import {TypeCycle} from '../../../../models/TypeCycle';
+import {SelectiveCoursesYearParameters} from "../../../../models/SelectiveCoursesYearParameters";
 
 @Component({
   selector: 'disqualifiable-courses-table',
@@ -11,6 +12,8 @@ export class DisqualifiableCoursesTableComponent implements OnInit {
 
   @Output() onSelectedSelectiveCoursesChange = new EventEmitter();
   @Input() selectiveCourses: SelectiveCourse[];
+  @Input() yearParameters: SelectiveCoursesYearParameters[];
+
   selectedSelectiveCourses: SelectiveCourse[];
   isAllSelected: boolean;
 

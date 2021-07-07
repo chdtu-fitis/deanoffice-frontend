@@ -11,7 +11,7 @@ import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
   styleUrls: ['./assigned-courses.component.scss']
 })
 export class AssignedCoursesComponent implements OnInit {
-  @Input() studyYear: string;
+  @Input() studyYear: number;
   @Input() degreeId: number;
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();

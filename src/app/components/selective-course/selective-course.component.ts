@@ -32,11 +32,11 @@ export class SelectiveCourseComponent implements OnInit {
   localeText = LOCALE_TEXT;
   gridApi;
   gridColumnApi;
-  selectedYear: string;
+  selectedYear: number;
   years = [
-    {id: '2020', name: '2020-2021'},
-    {id: '2021', name: '2021-2022'},
-    {id: '2022', name: '2022-2023'}];
+    {id: 2020, name: '2020-2021'},
+    {id: 2021, name: '2021-2022'},
+    {id: 2022, name: '2022-2023'}];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
@@ -67,7 +67,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedYear = Utils.getCurrentAcademicYear().toString();
+    this.selectedYear = Utils.getCurrentAcademicYear();
     this.loadCourses();
     this.loadYearParameters();
   }
@@ -83,7 +83,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadYearParameters() {
-    this.selectiveCourseService.getYearParameters(this.selectedYear)
+    this.selectiveCourseService.getYearParameters(this.selectedYear - 1)
       .subscribe(yearParameters => {
         this.yearParameters = yearParameters;
         this.assignedCoursesChild.isWithYearParameters = Boolean(yearParameters);
@@ -135,7 +135,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   assignCourses() {
     const initialState = {
-      studyYear: +this.selectedYear,
+      studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       prepType: this.selectedPrepType,
       courses: this.selectedCourses,
@@ -161,7 +161,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   copyCourses() {
     const initialState = {
-      studyYear: +this.selectedYear,
+      studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
     };
@@ -171,7 +171,6 @@ export class SelectiveCourseComponent implements OnInit {
       this.assignedCoursesChild.load();
     });
   }
-
 
   addYearParameters() {
     const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
@@ -187,6 +186,7 @@ export class SelectiveCourseComponent implements OnInit {
       studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
+      yearParameters: this.yearParameters,
     };
     const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, { initialState, class: 'modal-custom'});
     // this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {

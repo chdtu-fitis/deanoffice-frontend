@@ -30,7 +30,7 @@ export class GradeComponent implements OnInit {
   groups: StudentGroup[];
   selectiveGroups: StudentGroup[];
   selectGroup: StudentGroup;
-  selectedYear: string;
+  selectedYear: number;
   selectedDegree = 1;
   selectSemester = 1;
   isSelectiveGroups = false;
@@ -64,7 +64,7 @@ export class GradeComponent implements OnInit {
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;
     });
-    this.selectedYear = Utils.getCurrentAcademicYear().toString();
+    this.selectedYear = Utils.getCurrentAcademicYear();
     this.updateSelectiveGroups();
   }
 
@@ -84,7 +84,7 @@ export class GradeComponent implements OnInit {
   }
 
   setYear(year: string) {
-    this.selectedYear = year;
+    this.selectedYear = Number(year);
     this.updateSelectiveGroups();
   }
 
