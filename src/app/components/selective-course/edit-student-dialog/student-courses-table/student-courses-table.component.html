@@ -26,9 +26,10 @@
       <td>{{course.department.abbr}}</td>
       <td>{{course.teacher | nameWithInitials}}</td>
       <td>
-        <button class="btn btn-success btn-sm rounded-lg" type="button" style="width: 40px" (click)="editCourse()">
-          <img src="assets/img/edit.png" style="width: 16px; height: 16px">
-        </button>
+<!--        <button type="button" (click)="editCourse()">-->
+<!--          <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">-->
+<!--        </button>-->
+        <button class="btn"><i class="fa fa-folder"></i></button>
       </td>
     </tr>
     <tr *ngIf="isEditing">
@@ -37,7 +38,11 @@
       <td></td>
       <td></td>
       <td></td>
-      <td></td>
+      <td>
+        <button class="btn btn-success btn-sm rounded-lg" type="button" style="width: 40px" (click)="editCourse()">
+          <img src="assets/img/save.jpg" style="width: 16px; height: 16px">
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
