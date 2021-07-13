@@ -65,7 +65,7 @@ export class ExamReportComponent implements OnInit {
     this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
         this.groups = groups;
-        if (this.groups) {
+        if (this.groups && this.groups.length) {
           this.currentGroup = groups[0];
           this.students = this.currentGroup.studentDegrees;
           this.onSemesterOrGroupChange();
@@ -76,7 +76,7 @@ export class ExamReportComponent implements OnInit {
   onYearChange(): void {
     this.groupService.getGroupsByDegreeAndYear(this.currentDegree.id, this.selectedYear)
       .subscribe(groups => {
-        if (groups) {
+        if (groups && groups.length) {
           this.groups = groups;
           this.currentGroup = groups[0];
           this.students = this.currentGroup.studentDegrees;
