@@ -4,6 +4,7 @@ import {SelectiveCourseService} from '../../../services/selective-course.service
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCoursesYearParameters} from "../../../models/SelectiveCoursesYearParameters";
 import {TypeCycle} from "../../../models/TypeCycle";
+import {Degree} from "../../../models/degree.enum";
 
 @Component({
   selector: 'disqualify-courses-dialog',
@@ -43,7 +44,24 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
   }
 
   getMinStudentsCount(selectiveCourse: SelectiveCourse): number {
+    if (this.degreeId == Degree.BACHELOR && selectiveCourse.trainingCycle == TypeCycle.GENERAL)
+      return this.yearParameters[0].bachelorGeneralMinStudentsCount;
 
-    if (this.degreeId == 1 && selectiveCourse.trainingCycle == TypeCycle.GENERAL) return this.yearParameters[0].bachelorGeneralMinStudentsCount
+    if (this.degreeId == Degree.BACHELOR && selectiveCourse.trainingCycle == TypeCycle.PROFESSIONAL)
+      return this.yearParameters[0].bachelorProfessionalMinStudentsCount;
+
+    if (this.degreeId == Degree.MASTER && selectiveCourse.trainingCycle == TypeCycle.GENERAL)
+      return this.yearParameters[0].masterGeneralMinStudentsCount;
+
+    if (this.degreeId == Degree.MASTER && selectiveCourse.trainingCycle == TypeCycle.PROFESSIONAL)
+      return this.yearParameters[0].masterProfessionalMinStudentsCount;
+
+    if (this.degreeId == Degree.PHD && selectiveCourse.trainingCycle == TypeCycle.GENERAL)
+      return this.yearParameters[0].phdGeneralMinStudentsCount;
+
+    if (this.degreeId == Degree.PHD && selectiveCourse.trainingCycle == TypeCycle.PROFESSIONAL)
+      return this.yearParameters[0].phdProfessionalMinStudentsCount;
+
+    return 0;
   }
 }
