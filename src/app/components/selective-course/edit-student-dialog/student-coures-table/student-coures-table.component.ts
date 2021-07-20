@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SelectiveCoursesStudentDegree} from '../../../../models/SelectiveCoursesStudentDegree';
-import {TypeCycle} from '../../../../models/TypeCycle';
+import {TypeCycle} from '../../../../models/type-cycle.enum';
 
 @Component({
   selector: 'student-coures-table',

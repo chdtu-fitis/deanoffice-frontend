@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SelectiveCourse} from '../../../../models/SelectiveCourse';
-import {TypeCycle} from '../../../../models/TypeCycle';
+import {TypeCycle} from '../../../../models/type-cycle.enum';
 import {SelectiveCoursesYearParameters} from "../../../../models/SelectiveCoursesYearParameters";
 
 @Component({
