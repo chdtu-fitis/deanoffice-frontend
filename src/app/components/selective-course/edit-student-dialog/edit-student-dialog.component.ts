@@ -12,7 +12,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class EditStudentDialogComponent implements OnInit {
 
   studyYear: string;
-  selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[] = [];
+  selectiveCoursesStudentDegrees: SelectiveCoursesStudentDegree[] = [];
   isButtonClicked = false;
 
   form = new FormGroup({
@@ -28,11 +28,11 @@ export class EditStudentDialogComponent implements OnInit {
   }
 
   findStudentCourses(all: boolean): void {
-    this.selectiveCoursesStudentDegree = [];
+    this.selectiveCoursesStudentDegrees = [];
     if (this.form.valid) {
       this.selectiveCourseService.getStudentCoursesBySurname(all, this.studyYear, this.f.surname.value)
         .subscribe(selectiveCoursesStudentDegree => {
-          this.selectiveCoursesStudentDegree = selectiveCoursesStudentDegree;
+          this.selectiveCoursesStudentDegrees = selectiveCoursesStudentDegree;
         })
     }
     this.isButtonClicked = true;

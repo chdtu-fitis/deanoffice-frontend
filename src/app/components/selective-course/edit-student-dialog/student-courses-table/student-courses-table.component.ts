@@ -9,20 +9,23 @@ import {TypeCycle} from '../../../../models/TypeCycle';
 })
 export class StudentCoursesTableComponent implements OnInit {
 
-  @Input() selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[];
+  @Input() selectiveCoursesStudentDegrees: SelectiveCoursesStudentDegree[];
   typeCycle = TypeCycle;
-  isEditing = false;
+  isBeingEdited: boolean[] = [];
   searchText: string;
 
   constructor() {
   }
 
   ngOnInit() {
+    for (let selectiveCoursesStudentDegree of this.selectiveCoursesStudentDegrees) {
+      this.isBeingEdited.push(false);
+    }
   }
 
-  editCourse(): void {
-    this.isEditing = true;
-    console.log(this.isEditing);
+  editCourse(i: number): void {
+    this.isBeingEdited[i] = true;
+    console.log(this.isBeingEdited);
   }
 
   saveChanges(): void {
