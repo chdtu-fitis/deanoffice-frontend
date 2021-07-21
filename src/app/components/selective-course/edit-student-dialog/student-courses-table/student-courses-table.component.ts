@@ -23,13 +23,16 @@ export class StudentCoursesTableComponent implements OnInit {
     }
   }
 
-  editCourse(i: number): void {
+  substituteCourse(i: number): void {
     this.isBeingEdited[i] = true;
     console.log(this.isBeingEdited);
   }
 
-  saveChanges(): void {
+  saveSubstituteCourse(i: number): void {
     console.log('save');
   }
 
+  cancelSubstituteCourse(i: number): void {
+    this.isBeingEdited[i] = false;
+  }
 }

@@ -26,7 +26,7 @@
         <td>{{course.department.abbr}}</td>
         <td>{{course.teacher | nameWithInitials}}</td>
         <td>
-          <button type="button" (click)="editCourse(i)">
+          <button type="button" (click)="substituteCourse(i)">
             <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">
           </button>
           <button class="btn"><i class="fa fa-folder"></i></button>
@@ -39,8 +39,11 @@
         <td></td>
         <td></td>
         <td>
-          <button class="rounded-lg" type="button" style="width: 40px" (click)="editCourse()">
-            <img src="assets/img/save.jpg" style="width: 16px; height: 16px">
+          <button class="rounded-lg mr-1" type="button" style="width: 40px" (click)="saveSubstituteCourse(i)">
+            <img src="assets/img/save.jpg" style="width: 25px; height: 25px">
+          </button>
+          <button class="rounded-lg" type="button" style="width: 40px" (click)="cancelSubstituteCourse(i)">
+            <img src="assets/img/cancel.jpg" style="width: 25px; height: 25px">
           </button>
         </td>
       </tr>
