@@ -1,4 +1,4 @@
-<div *ngFor="let s of selectiveCoursesStudentDegrees">
+<div *ngFor="let s of selectiveCoursesStudentDegrees; let i = index">
   <table class="table table-bordered table-sm">
     <thead>
     <tr>
@@ -18,7 +18,7 @@
       <th scope="col"></th>
     </tr>
     </thead>
-    <tbody *ngFor="let course of s.selectiveCourses; let i = index" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
+    <tbody *ngFor="let course of s.selectiveCourses; let j = index" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
       <tr>
         <td>{{course.course.courseName.name}}</td>
         <td>{{course.course.semester}}</td>
@@ -26,13 +26,13 @@
         <td>{{course.department.abbr}}</td>
         <td>{{course.teacher | nameWithInitials}}</td>
         <td>
-          <button type="button" (click)="substituteCourse(i)">
+          <button type="button" (click)="editSubstituteCourse(i, j)">
             <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">
           </button>
           <button class="btn"><i class="fa fa-folder"></i></button>
         </td>
       </tr>
-      <tr *ngIf="isBeingEdited[i]">
+      <tr *ngIf="this.getSelectiveCourse(i, j).isBeingEdited">
         <td><input [(ngModel)]="searchText" class="form-control mr-2 search"></td>
         <td></td>
         <td></td>
@@ -42,7 +42,7 @@
           <button class="rounded-lg mr-1" type="button" style="width: 40px" (click)="saveSubstituteCourse(i)">
             <img src="assets/img/save.jpg" style="width: 25px; height: 25px">
           </button>
-          <button class="rounded-lg" type="button" style="width: 40px" (click)="cancelSubstituteCourse(i)">
+          <button class="rounded-lg" type="button" style="width: 40px" (click)="cancelSubstituteCourse(i, j)">
             <img src="assets/img/cancel.jpg" style="width: 25px; height: 25px">
           </button>
         </td>
