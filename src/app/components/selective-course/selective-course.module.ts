@@ -17,6 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { YearParametersTableComponent } from './year-parameters-table/year-parameters-table.component';
 import { EditStudentDialogComponent } from './edit-student-dialog/edit-student-dialog.component';
 import { StudentCoursesTableComponent } from './edit-student-dialog/student-courses-table/student-courses-table.component';
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -31,6 +32,7 @@ export const selectiveCourseRoutes: Routes = [
         PipeModule.forRoot(),
         RouterModule.forChild(selectiveCourseRoutes),
         MatTooltipModule,
+        TypeaheadModule.forRoot()
     ],
   declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCoursesTableComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent]

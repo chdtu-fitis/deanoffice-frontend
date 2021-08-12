@@ -33,13 +33,23 @@
         </td>
       </tr>
       <tr *ngIf="this.getSelectiveCourse(i, j).isBeingEdited">
-        <td><input [(ngModel)]="searchText" class="form-control mr-2 search"></td>
+        <td>
+<!--          <input [(ngModel)]="searchText" class="form-control mr-2 search">-->
+          <input [(ngModel)]="newSelectiveCourseOnEditName"
+                 [typeahead]="allSelectiveCoursesInSemesters[editedCourseSemester]"
+                 typeaheadOptionField="course.courseName.name"
+                 (typeaheadOnSelect)="onNewSelectiveCourseSelect($event)"
+                 [typeaheadOptionsLimit]="14"
+                 [typeaheadMinLength]="2"
+                 placeholder="Назва предмету"
+                 class="form-control">
+        </td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td>
-          <button class="rounded-lg mr-1" type="button" style="width: 40px" (click)="saveSubstituteCourse(i)">
+          <button class="rounded-lg mr-1" type="button" style="width: 40px" (click)="saveSubstituteCourse(i, j)">
             <img src="assets/img/save.jpg" style="width: 25px; height: 25px">
           </button>
           <button class="rounded-lg" type="button" style="width: 40px" (click)="cancelSubstituteCourse(i, j)">

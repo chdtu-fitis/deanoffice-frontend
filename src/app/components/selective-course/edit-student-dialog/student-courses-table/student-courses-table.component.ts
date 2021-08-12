@@ -3,6 +3,8 @@ import {SelectiveCoursesStudentDegree} from '../../../../models/SelectiveCourses
 import {TypeCycle} from '../../../../models/TypeCycle';
 import {SelectiveCourse} from "../../../../models/SelectiveCourse";
 import {SelectiveCourseService} from "../../../../services/selective-course.service";
+import {SelectiveCoursesStudentDegreeSubstitution} from "../../../../models/SelectiveCoursesStudentDegreeSubstitution";
+import {ExistingId} from "../../../../models/ExistingId";
 
 @Component({
   selector: 'student-coures-table',
@@ -13,8 +15,13 @@ export class StudentCoursesTableComponent implements OnInit {
 
   @Input() selectiveCoursesStudentDegrees: SelectiveCoursesStudentDegree[];
   typeCycle = TypeCycle;
-  searchText: string;
-  selectiveCourses: SelectiveCourse[];
+  allSelectiveCoursesInSemesters = {};
+  studentDegreeOnEdit: ExistingId;
+  studyYearOnEdit: number;
+  editedCourseSemester: string;
+  newSelectiveCourseOnEdit: any;
+  newSelectiveCourseOnEditName: string;
+  oldSelectiveCourseOnEditId: number;
 
   constructor(private selectiveCourseService: SelectiveCourseService) {
   }
@@ -28,10 +35,25 @@ export class StudentCoursesTableComponent implements OnInit {
   }
 
   editSubstituteCourse(i: number, j: number): void {
-    this.getSelectiveCourse(i, j).isBeingEdited = true;
+    let selectiveCourse = this.getSelectiveCourse(i, j);
+    selectiveCourse.isBeingEdited = true;
+    this.oldSelectiveCourseOnEditId = selectiveCourse.id;
+    this.studentDegreeOnEdit = new ExistingId(this.selectiveCoursesStudentDegrees[i].studentDegree.id);
+    this.studyYearOnEdit = selectiveCourse.studyYear;
+    this.editedCourseSemester = selectiveCourse.course.semester;
+    if (!this.allSelectiveCoursesInSemesters[this.editedCourseSemester]) {
+      let degreeId = this.selectiveCoursesStudentDegrees[i].studentDegree.specialization.degree.id;
+      this.getAllSelectiveCoursesInSemester(selectiveCourse, degreeId);
+    }
   }
 
-  saveSubstituteCourse(i: number): void {
+  saveSubstituteCourse(i: number, j: number): void {
+    let selectiveCoursesStudentDegreeSubstitution = new SelectiveCoursesStudentDegreeSubstitution([this.newSelectiveCourseOnEdit.id], [this.oldSelectiveCourseOnEditId], this.studentDegreeOnEdit, this.studyYearOnEdit);
+    this.selectiveCourseService.substituteSelectiveCoursesForStudentDegree(selectiveCoursesStudentDegreeSubstitution)
+      .subscribe(() => {
+        this.selectiveCoursesStudentDegrees[i].selectiveCourses[j] = this.newSelectiveCourseOnEdit;
+        this.newSelectiveCourseOnEdit = false;
+      });
     console.log('save');
   }
 
@@ -39,20 +61,18 @@ export class StudentCoursesTableComponent implements OnInit {
     this.getSelectiveCourse(i, j).isBeingEdited = false;
   }
 
-  getSelectiveCourses(i: number, j: number) {
-    if (!this.selectiveCourses && !this.selectiveCourses.length) {
-
-    }
-    let degreeId = this.selectiveCoursesStudentDegrees[i].studentDegree.specialization.degree.id;
-    // this.selectiveCoursesStudentDegrees[i].selectiveCourses
-    // this.selectiveCourseService.getSelectiveCourses(this.studyYear, degreeId, this.semester, true)
-    //   .subscribe((selectiveCourses: SelectiveCourse[]) => {
-    //
-    //     this.selectiveCourses = selectiveCourses;
-    //   });
+  getAllSelectiveCoursesInSemester(selectiveCourse: SelectiveCourse, degreeId: number) {
+    this.selectiveCourseService.getSelectiveCourses(""+selectiveCourse.studyYear, degreeId, selectiveCourse.course.semester)
+      .subscribe((selectiveCourses: SelectiveCourse[]) => {
+        this.allSelectiveCoursesInSemesters[selectiveCourse.course.semester] = selectiveCourses;
+      });
   }
 
   getSelectiveCourse(i: number, j: number): any {
     return this.selectiveCoursesStudentDegrees[i].selectiveCourses[j] as any;
+  }
+
+  onNewSelectiveCourseSelect(event) {
+    this.newSelectiveCourseOnEdit = event.item;
   }
 }
