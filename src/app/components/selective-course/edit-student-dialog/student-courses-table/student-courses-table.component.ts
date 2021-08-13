@@ -53,6 +53,7 @@ export class StudentCoursesTableComponent implements OnInit {
       .subscribe(() => {
         this.selectiveCoursesStudentDegrees[i].selectiveCourses[j] = this.newSelectiveCourseOnEdit;
         this.newSelectiveCourseOnEdit = false;
+        this.resetState();
       });
     console.log('save');
   }
@@ -74,5 +75,12 @@ export class StudentCoursesTableComponent implements OnInit {
 
   onNewSelectiveCourseSelect(event) {
     this.newSelectiveCourseOnEdit = event.item;
+  }
+
+  resetState() {
+    this.editedCourseSemester = null;
+    this.newSelectiveCourseOnEdit = null;
+    this.newSelectiveCourseOnEditName = null;
+    this.oldSelectiveCourseOnEditId = 0;
   }
 }
