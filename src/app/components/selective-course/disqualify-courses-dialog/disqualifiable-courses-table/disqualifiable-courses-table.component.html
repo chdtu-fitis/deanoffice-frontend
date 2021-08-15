@@ -1,9 +1,7 @@
 <table class="table table-bordered">
   <thead>
   <tr>
-    <th scope="col"><input type="checkbox"
-                           [(ngModel)]="isAllSelected"
-                           (change)="changeAllIsSelected()"></th>
+    <th scope="col"></th>
     <th scope="col">Дисципліна</th>
     <th scope="col">Семестр</th>
     <th scope="col">Цикл</th>
@@ -16,8 +14,7 @@
   <tbody *ngFor="let course of selectiveCourses">
   <tr>
     <td><input type="checkbox"
-               [(ngModel)]="course.selected"
-               (change)="changeSelectedSelectiveCourses($event.target.checked, course)"></td>
+               [(ngModel)]="course.selected"></td>
     <td [ngClass]="{'not-enough-students' : course.selected}">{{course.course.courseName.name}}</td>
     <td>{{course.course.semester}}</td>
     <td>{{typeCycle[course.trainingCycle]}}</td>

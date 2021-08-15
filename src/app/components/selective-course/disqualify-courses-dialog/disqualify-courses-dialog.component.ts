@@ -18,7 +18,6 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
   yearParameters: SelectiveCoursesYearParameters[];
 
   selectiveCourses: SelectiveCourse[] = [];
-  selectedSelectiveCourses: SelectiveCourse[] = [];
 
   constructor(public bsModalRef: BsModalRef,
               private selectiveCourseService: SelectiveCourseService) { }
@@ -43,14 +42,6 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
       }, error => {
         console.log(error);
       })
-  }
-
-  changeSelectedSelectiveCourses(selectedSelectiveCourses: SelectiveCourse[]) {
-    this.selectedSelectiveCourses = selectedSelectiveCourses;
-  }
-
-  submit() {
-
   }
 
   getMinStudentsCount(selectiveCourse: SelectiveCourse): number {
