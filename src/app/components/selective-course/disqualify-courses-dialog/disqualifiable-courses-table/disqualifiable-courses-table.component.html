@@ -18,7 +18,7 @@
     <td><input type="checkbox"
                [(ngModel)]="course.selected"
                (change)="changeSelectedSelectiveCourses($event.target.checked, course)"></td>
-    <td>{{course.course.courseName.name}}</td>
+    <td [ngClass]="{'not-enough-students' : course.selected}">{{course.course.courseName.name}}</td>
     <td>{{course.course.semester}}</td>
     <td>{{typeCycle[course.trainingCycle]}}</td>
     <td>{{course.department.abbr}}</td>

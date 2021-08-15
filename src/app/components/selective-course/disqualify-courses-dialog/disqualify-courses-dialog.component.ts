@@ -43,12 +43,10 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
       }, error => {
         console.log(error);
       })
-    console.log(this.selectiveCourses);
   }
 
   changeSelectedSelectiveCourses(selectedSelectiveCourses: SelectiveCourse[]) {
     this.selectedSelectiveCourses = selectedSelectiveCourses;
-    console.log(selectedSelectiveCourses);
   }
 
   submit() {
@@ -77,5 +75,14 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
       return this.yearParameters[0].phdProfessionalMinStudentsCount;
 
     return 0;
+  }
+
+  save(){
+    let selectedCoursesIds = this.selectiveCourses
+      .filter((selectiveCourse) => selectiveCourse.selected)
+      .map((selectiveCourse) => selectiveCourse.id);
+    this.selectiveCourseService.disqualifySelectiveCourses(selectedCoursesIds).subscribe(() => {
+      this.bsModalRef.hide();
+    });
   }
 }
