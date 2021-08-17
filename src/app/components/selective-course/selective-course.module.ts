@@ -18,6 +18,8 @@ import { YearParametersTableComponent } from './year-parameters-table/year-param
 import { EditStudentDialogComponent } from './edit-student-dialog/edit-student-dialog.component';
 import { StudentCoursesTableComponent } from './edit-student-dialog/student-courses-table/student-courses-table.component';
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
+import { DisqualifyCoursesDialogComponent } from './disqualify-courses-dialog/disqualify-courses-dialog.component';
+import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog/disqualifiable-courses-table/disqualifiable-courses-table.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -34,8 +36,8 @@ export const selectiveCourseRoutes: Routes = [
         MatTooltipModule,
         TypeaheadModule.forRoot()
     ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCoursesTableComponent],
-  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent]
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCouresTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent],
+  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent, DisqualifyCoursesDialogComponent]
 })
 export class SelectiveCourseModule {
 }

@@ -26,6 +26,7 @@ export class EditDialogComponent implements OnInit {
   knowledgeControl: KnowledgeControl[] = [];
   courseNames: CourseName[];
   courseNamesArray: string[];
+  oldCourse: CourseForGroup;
 
   constructor(private knowledgeControlService: KnowledgeControlService,
               private courseService: CourseService,
@@ -50,8 +51,8 @@ export class EditDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    const oldCourse = JSON.parse(JSON.stringify(this.courseFromTable));
-    this.form.patchValue(oldCourse);
+    this.oldCourse = JSON.parse(JSON.stringify(this.courseFromTable));
+    this.form.patchValue(this.oldCourse);
     this.courseService.getCourseNames().subscribe((courseNames: CourseName[]) => {
       this.courseNames = courseNames;
       this.courseNamesArray = this.courseNames.map(courseName => courseName.name);
@@ -82,6 +83,14 @@ export class EditDialogComponent implements OnInit {
 
   saveChanges() {
     this.checkCourseName(this.courseName.value);
+    const oldCourse = this.oldCourse.course;
+    if (oldCourse.hours == this.course.controls.hours.value
+        && oldCourse.hoursPerCredit == this.course.controls.hoursPerCredit.value
+        && oldCourse.knowledgeControl.id == this.course.controls.knowledgeControl.value.id
+        && oldCourse.courseName.id == this.courseName.controls.id.value) {
+      alert('Дані жодного атрибуту предмету не були змінені');
+      return;
+    }
     this.courseForGroupService.changeCourse(this.selectedGroup.id, {
       courseForGroupId: this.form.controls.id.value,
       oldCourseId: this.course.controls.id.value,

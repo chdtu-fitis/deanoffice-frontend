@@ -16,6 +16,7 @@ export class AddSpecializationComponent {
   constructor(private specializationService: SpecializationService) { }
 
   openModal(): void {
+    this.form.setInitialData();
     this.modal.show();
   }
 
