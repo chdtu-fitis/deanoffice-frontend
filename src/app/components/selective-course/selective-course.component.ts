@@ -40,7 +40,7 @@ export class SelectiveCourseComponent implements OnInit {
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
-  degrees = [{id: 1, name: 'Бакалавр'}, {id: 3, name: 'Магістр'}];
+  degrees = [{id: 1, name: 'Бакалавр'}, {id: 3, name: 'Магістр'}, {id: 4, name: 'Доктор філософії'},];
   searchText: string;
   prepTypes = [
     {id: 1, name: 'Цикл загальної підготовки'},

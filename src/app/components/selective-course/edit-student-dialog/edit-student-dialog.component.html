@@ -31,12 +31,12 @@
       <br>
     </div>
 
-    <div *ngIf="selectiveCoursesStudentDegree.length">
-      <student-coures-table [selectiveCoursesStudentDegree]="selectiveCoursesStudentDegree"></student-coures-table>
+    <div *ngIf="selectiveCoursesStudentDegrees.length">
+      <student-coures-table [selectiveCoursesStudentDegrees]="selectiveCoursesStudentDegrees"></student-coures-table>
     </div>
 
       <div class="alert alert-danger"
-           *ngIf="!selectiveCoursesStudentDegree.length && this.f.surname.value !== '' && isButtonClicked">
+           *ngIf="!selectiveCoursesStudentDegrees.length && this.f.surname.value !== '' && isButtonClicked">
         Такого студента не було знайдено
       </div>
       <div class="alert alert-danger" *ngIf="this.f.surname.value === '' && isButtonClicked">

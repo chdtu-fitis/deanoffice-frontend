@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {SelectiveCoursesStudentDegree} from '../../../models/SelectiveCoursesStudentDegree';
@@ -12,7 +12,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class EditStudentDialogComponent implements OnInit {
 
   studyYear: string;
-  selectiveCoursesStudentDegree: SelectiveCoursesStudentDegree[] = [];
+  selectiveCoursesStudentDegrees: SelectiveCoursesStudentDegree[] = [];
   isButtonClicked = false;
 
   form = new FormGroup({
@@ -21,21 +21,24 @@ export class EditStudentDialogComponent implements OnInit {
 
 
   constructor(public bsModalRef: BsModalRef,
-              private selectiveCourseService: SelectiveCourseService) { }
+              private selectiveCourseService: SelectiveCourseService) {
+  }
 
   ngOnInit() {
   }
 
   findStudentCourses(all: boolean): void {
-    this.selectiveCoursesStudentDegree = [];
+    this.selectiveCoursesStudentDegrees = [];
     if (this.form.valid) {
-      this.selectiveCourseService.getStudentCoursesBySurname(true, this.studyYear, this.f.surname.value)
+      this.selectiveCourseService.getStudentCoursesBySurname(all, this.studyYear, this.f.surname.value)
         .subscribe(selectiveCoursesStudentDegree => {
-          this.selectiveCoursesStudentDegree = selectiveCoursesStudentDegree;
+          this.selectiveCoursesStudentDegrees = selectiveCoursesStudentDegree;
         })
     }
     this.isButtonClicked = true;
   }
 
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 }

@@ -1,0 +1,61 @@
+<div *ngFor="let s of selectiveCoursesStudentDegrees; let i = index">
+  <table class="table table-bordered table-sm">
+    <thead>
+    <tr>
+      <th colspan="6">
+        {{s.studentDegree.student.surname}} {{s.studentDegree.student.name}} {{s.studentDegree.student.patronimic}},
+        {{s.studentDegree.specialization.faculty.abbr}},
+        {{s.studentDegree.specialization.speciality.code}} {{s.studentDegree.specialization.speciality.name}},
+        {{s.studentDegree.studentGroup.name}}
+      </th>
+    </tr>
+    <tr>
+      <th scope="col">Дисципліна</th>
+      <th scope="col">Семестр</th>
+      <th scope="col">Цикл</th>
+      <th scope="col">Кафедра</th>
+      <th scope="col">Викладач</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let course of s.selectiveCourses; let j = index" [ngStyle]="{ 'color': course.available ? 'black' : 'red'}">
+      <tr>
+        <td>{{course.course.courseName.name}}</td>
+        <td>{{course.course.semester}}</td>
+        <td>{{typeCycle[course.trainingCycle]}}</td>
+        <td>{{course.department.abbr}}</td>
+        <td>{{course.teacher | nameWithInitials}}</td>
+        <td>
+          <button type="button" [disabled]='isAnyCourseBeingEdited' (click)="editSubstituteCourse(i, j)">
+            <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">
+          </button>
+          <button class="btn"><i class="fa fa-folder"></i></button>
+        </td>
+      </tr>
+      <tr *ngIf="this.getSelectiveCourse(i, j).isBeingEdited">
+        <td>
+          <input [(ngModel)]="newSelectiveCourseOnEditName"
+                 [typeahead]="allSelectiveCoursesInSemesters[editedCourseSemester]"
+                 typeaheadOptionField="course.courseName.name"
+                 (typeaheadOnSelect)="onNewSelectiveCourseSelect($event)"
+                 [typeaheadOptionsLimit]="14"
+                 [typeaheadMinLength]="2"
+                 placeholder="Назва предмету"
+                 class="form-control">
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <button class="rounded-lg mr-1" type="button" style="width: 40px" (click)="saveSubstituteCourse(i, j)">
+            <img src="assets/img/save.jpg" style="width: 25px; height: 25px">
+          </button>
+          <button class="rounded-lg" type="button" style="width: 40px" (click)="cancelSubstituteCourse(i, j)">
+            <img src="assets/img/cancel.jpg" style="width: 25px; height: 25px">
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
