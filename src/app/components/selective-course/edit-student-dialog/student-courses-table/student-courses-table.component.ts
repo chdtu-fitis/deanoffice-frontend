@@ -22,6 +22,7 @@ export class StudentCoursesTableComponent implements OnInit {
   newSelectiveCourseOnEdit: any;
   newSelectiveCourseOnEditName: string;
   oldSelectiveCourseOnEditId: number;
+  isAnyCourseBeingEdited = false;
 
   constructor(private selectiveCourseService: SelectiveCourseService) {
   }
@@ -37,6 +38,7 @@ export class StudentCoursesTableComponent implements OnInit {
   editSubstituteCourse(i: number, j: number): void {
     let selectiveCourse = this.getSelectiveCourse(i, j);
     selectiveCourse.isBeingEdited = true;
+    this.isAnyCourseBeingEdited = true;
     this.oldSelectiveCourseOnEditId = selectiveCourse.id;
     this.studentDegreeOnEdit = new ExistingId(this.selectiveCoursesStudentDegrees[i].studentDegree.id);
     this.studyYearOnEdit = selectiveCourse.studyYear;
@@ -52,7 +54,10 @@ export class StudentCoursesTableComponent implements OnInit {
     this.selectiveCourseService.substituteSelectiveCoursesForStudentDegree(selectiveCoursesStudentDegreeSubstitution)
       .subscribe(() => {
         this.selectiveCoursesStudentDegrees[i].selectiveCourses[j] = this.newSelectiveCourseOnEdit;
-        this.newSelectiveCourseOnEdit = false;
+        this.resetState();
+      },
+      (err) => {
+        (this.selectiveCoursesStudentDegrees[i].selectiveCourses[j] as any).isBeingEdited = false;
         this.resetState();
       });
     console.log('save');
@@ -60,6 +65,7 @@ export class StudentCoursesTableComponent implements OnInit {
 
   cancelSubstituteCourse(i: number, j: number): void {
     this.getSelectiveCourse(i, j).isBeingEdited = false;
+    this.resetState();
   }
 
   getAllSelectiveCoursesInSemester(selectiveCourse: SelectiveCourse, degreeId: number) {
@@ -82,5 +88,6 @@ export class StudentCoursesTableComponent implements OnInit {
     this.newSelectiveCourseOnEdit = null;
     this.newSelectiveCourseOnEditName = null;
     this.oldSelectiveCourseOnEditId = 0;
+    this.isAnyCourseBeingEdited = false;
   }
 }

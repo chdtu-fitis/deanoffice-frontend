@@ -26,7 +26,7 @@
         <td>{{course.department.abbr}}</td>
         <td>{{course.teacher | nameWithInitials}}</td>
         <td>
-          <button type="button" (click)="editSubstituteCourse(i, j)">
+          <button type="button" [disabled]='isAnyCourseBeingEdited' (click)="editSubstituteCourse(i, j)">
             <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">
           </button>
           <button class="btn"><i class="fa fa-folder"></i></button>
@@ -34,7 +34,6 @@
       </tr>
       <tr *ngIf="this.getSelectiveCourse(i, j).isBeingEdited">
         <td>
-<!--          <input [(ngModel)]="searchText" class="form-control mr-2 search">-->
           <input [(ngModel)]="newSelectiveCourseOnEditName"
                  [typeahead]="allSelectiveCoursesInSemesters[editedCourseSemester]"
                  typeaheadOptionField="course.courseName.name"
