@@ -63,6 +63,16 @@
               <option *ngFor="let department of departments" [ngValue]="department.id">{{department.name}}</option>
             </select>
           </div>
+
+          <div class="form-group">
+            <label for="normativeCreditsNumber">Нормативна кількість кредитів</label>
+            <input formControlName="normativeCreditsNumber" type="text" class="form-control" id="normativeCreditsNumber">
+          </div>
+
+          <div class="form-group">
+            <label for="normativeTermOfStudy">Нормативна термін навчання (років)</label>
+            <input formControlName="normativeTermOfStudy" type="text" class="form-control" id="normativeTermOfStudy">
+          </div>
         </div>
       </div>
     </tab>

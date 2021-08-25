@@ -17,7 +17,8 @@ export class Specialization extends NameWithEngAndActiveEntity {
   certificateDate: Date;
   certificateIssuedBy: string;
   certificateIssuedByEng: string;
-
+  normativeCreditsNumber: number;
+  normativeTermOfStudy: number;
   specialityId?: number;
   degreeId?: number;
   departmentId?: number;

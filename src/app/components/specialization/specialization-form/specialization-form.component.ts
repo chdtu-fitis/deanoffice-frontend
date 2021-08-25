@@ -88,6 +88,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       certificateIssuedByEng: data.certificateIssuedByEng,
       certificateNumber: data.certificateNumber,
       certificateDate: data.certificateDate,
+      normativeCreditsNumber: [data.normativeCreditsNumber, Validators.required],
+      normativeTermOfStudy: [data.normativeTermOfStudy, Validators.required],
     });
     this.currentProgramHead = data.programHead;
   }
@@ -169,7 +171,7 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       certificateIssuedByEng: s.certificateIssuedByEng || DEFAULT_STRING,
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
-      programHead: s.programHead.id ? s.programHead : null
+      programHead: s.programHead.id ? s.programHead : null,
     } as Specialization;
   }
 
