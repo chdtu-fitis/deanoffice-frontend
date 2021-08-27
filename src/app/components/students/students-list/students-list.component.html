@@ -1,10 +1,11 @@
-<div class="students-list">
-  <div *ngFor="let student of students" class="card">
+<div class="row">
+  <div *ngFor="let student of students; let i = index" class="card col-6">
     <div class="card-body p-1 p-md-2">
       <b class="d-block">{{student.surname}} {{student.name}} {{student.patronimic}}</b>
       <small class="d-inline d-lg-block mr-2">{{student.birthDate}}</small>
       <small class="d-inline d-lg-block">{{student.groups}}</small>
       <button class="close" (click)="remove(student.id)" *ngIf="students.length > 1">×</button>
     </div>
+    <div *ngIf="i % 2 == 1" class="w-100"></div>
   </div>
 </div>

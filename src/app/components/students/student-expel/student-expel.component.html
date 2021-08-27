@@ -1,7 +1,7 @@
 <div class="modal fade"
      [config]="{backdrop: 'static'}" bsModal #modal="bs-modal"
      tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg expel-modal">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Відрахувати студентів</h4>
@@ -11,10 +11,10 @@
       </div>
       <div class="modal-body">
         <div class="row content">
-          <div class="col-12 col-lg-6 students-list">
+          <div class="col-7">
             <app-students-list [students]="students" (onRemove)="onRemoveStudent($event)"></app-students-list>
           </div>
-          <div class="col-12 col-lg-6">
+          <div class="col-5">
             <form [formGroup]="form" novalidate>
               <div class="form-group">
                 <label for="orderNumber" class="required">Номер наказу</label>

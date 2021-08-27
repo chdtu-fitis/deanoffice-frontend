@@ -1,11 +1,9 @@
 .content {
-  max-height: 520px;
-
   @media(max-width: 991px) {
     max-height: initial;
   }
 }
 
-.students-list {
-  overflow-y: auto;
+.expel-modal {
+  max-width: 1200px;
 }
