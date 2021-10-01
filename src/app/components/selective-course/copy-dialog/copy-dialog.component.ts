@@ -44,7 +44,7 @@ export class CopyDialogComponent implements OnInit {
         degree: {id: this.degreeId},
         department: {id: selectiveCourse.department.id},
         description: selectiveCourse.description,
-        fieldsOfKnowledge: selectiveCourse.fieldsOfKnowledge ? selectiveCourse.fieldsOfKnowledge : [],
+        fieldsOfKnowledge: selectiveCourse.fieldsOfKnowledge ? selectiveCourse.fieldsOfKnowledge.map(fon => fon.id) : [],
         studyYear: this.studyYear,
         teacher: selectiveCourse.teacher ? {id: selectiveCourse.teacher.id} : null,
         trainingCycle: selectiveCourse.trainingCycle,
