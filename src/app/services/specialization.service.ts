@@ -32,6 +32,7 @@ export class SpecializationService {
   }
 
   create(body: Specialization): Promise<any> {
+    body.active = true;
     return this._httpClient.post(SPECIALIZATION_URL, body).toPromise()
       .catch(forPromise('Створення нової спеціалізації'));
   }

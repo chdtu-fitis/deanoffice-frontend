@@ -172,6 +172,8 @@ export class SpecializationFormComponent extends BaseReactiveFormComponent imple
       certificateNumber: s.certificateNumber || DEFAULT_STRING,
       certificateDate: s.certificateDate || DEFAULT_DATE,
       programHead: s.programHead.id ? s.programHead : null,
+      normativeCreditsNumber: +s.normativeCreditsNumber,
+      normativeTermOfStudy: +s.normativeTermOfStudy,
     } as Specialization;
   }
 
