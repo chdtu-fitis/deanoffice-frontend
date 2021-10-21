@@ -1,10 +1,10 @@
 import {BaseEntity} from './basemodels/BaseEntity';
-import {Student} from './Student';
 import {StudentGroup} from './StudentGroup';
 import {OrderReason} from './OrderReason';
+import {StudentDegree} from "./StudentDegree";
 
 export class StudentAcademicVacation extends BaseEntity {
-  student: Student;
+  studentDegree: StudentDegree;
   vacationStartDate: Date;
   vacationEndDate: Date;
   orderNumber: String;
