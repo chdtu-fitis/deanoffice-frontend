@@ -9,17 +9,17 @@ export class PersonalFileGradesStatementService {
   constructor(private fileService: FileService) { }
 
   buildPersonalFileGradesStatement(year: number, studentIds: number[]): any {
-    const url = `${this.documentsUrl}/personal-file-grades-statement/${year}/docx?studentDegreeIds=${studentIds}`;
+    const url = `${this.documentsUrl}/student-one-year-grades-abstract/${year}/docx?studentDegreeIds=${studentIds}`;
     return this.fileService.downloadFile(url);
   }
 
   buildPersonalFileFrontPage(studentIds: number[]): any {
-    const url = `${this.documentsUrl}/personal-file-grades-statement/front/docx?studentDegreeIds=${studentIds}`;
+    const url = `${this.documentsUrl}/student-one-year-grades-abstract/front/docx?studentDegreeIds=${studentIds}`;
     return this.fileService.downloadFile(url);
   }
 
   buildPersonalFileBackPage(studentIds: number[]): any {
-    const url = `${this.documentsUrl}/personal-file-grades-statement/back/docx?studentDegreeIds=${studentIds}`;
+    const url = `${this.documentsUrl}/student-one-year-grades-abstract/back/docx?studentDegreeIds=${studentIds}`;
     return this.fileService.downloadFile(url);
   }
 
