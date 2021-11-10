@@ -38,8 +38,7 @@ import {ExamReportService} from '../../../services/exam-report.service';
 @Component({
   selector: 'add-courses-for-students',
   templateUrl: './add-courses-for-students.component.html',
-  styleUrls: ['./add-courses-for-students.component.scss'],
-  providers: [GroupService, CourseForGroupService, GroupService]
+  styleUrls: ['./add-courses-for-students.component.scss']
 })
 export class AddCoursesForStudentsComponent implements OnInit {
   semesters:number[] = [1, 2, 3, 4, 5, 6, 7, 8];
