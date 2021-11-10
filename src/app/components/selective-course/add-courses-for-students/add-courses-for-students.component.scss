@@ -1,0 +1,106 @@
+::ng-deep .modal-dialog {
+  max-width: 90%;
+}
+
+.modal-header{
+  text-align: center;
+}
+
+
+
+
+
+.course-table {
+  height: calc(100% - 108px);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.in-left {
+  margin-left: 22px;
+}
+
+.hours-tf-size{
+  width: 60px;
+  height: 38px;
+}
+.margin-label {
+  margin-left: 20px;
+  margin-top: 7px;
+  margin-right: 5px;
+}
+
+.margin-button {
+  margin-left: 20px;
+}
+
+.size-cmb-kc {
+  width: 200px;
+}
+
+.courses-container{
+  display: inline-block;
+  width: 50%;
+}
+
+.students-container{
+  display: inline-block;
+  width: 50%;
+}
+
+.courses-heading{
+  text-align: center;
+  font-size: 1.7rem;
+}
+
+.semester-container{
+  display: inline-block;
+  width: 50%;
+  align-items: center;
+  text-align: center;
+}
+
+.search-container{
+  display: inline-block;
+  width: 50%;
+  align-items: center;
+  text-align: center;
+
+}
+
+h2{
+  font-size: 1.2rem;
+}
+
+input {
+  max-width: 80%;
+}
+
+//table{
+//  border: 1px solid black;
+//  width: 100%;
+//}
+//
+//td{
+//  border-top: 1px solid black;
+//  display: block;
+//  width: 100%;
+//}
+//
+//td:last-child {
+//  border-bottom: 1px solid black;
+//}
+
+.group-container{
+  width: 33.3333%;
+}
+
+.stage-container{
+  width: 33.3333%;
+}
+
+.course-container{
+  width: 33.3333%;
+}

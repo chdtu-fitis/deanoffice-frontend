@@ -18,6 +18,7 @@ import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearP
 import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
+import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 
 @Component({
   selector: 'selective-course',
@@ -205,5 +206,14 @@ export class SelectiveCourseComponent implements OnInit {
       semester: this.selectedSemester,
     };
     const modalRef = this.modalService.show(EditStudentDialogComponent, { initialState, class: 'modal-custom'});
+  }
+
+  addStudentsSelectiveCourses() {
+    const initialState = {
+      studyYear: this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      semester: this.selectedSemester,
+    };
+    const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
   }
 }
