@@ -210,10 +210,9 @@ export class SelectiveCourseComponent implements OnInit {
 
   addStudentsSelectiveCourses() {
     const initialState = {
-      studyYear: this.selectedYear,
-      degreeId: this.selectedDegreeId,
-      semester: this.selectedSemester,
+      selectedYear: this.selectedYear,
     };
+
     const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
   }
 }
