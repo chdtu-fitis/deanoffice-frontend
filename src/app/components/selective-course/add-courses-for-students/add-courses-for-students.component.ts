@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Pipe, ViewChild} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import { CourseService } from '../../../services/course.service';
@@ -12,29 +12,40 @@ import {DegreeService} from '../../../services/degree.service';
 import {ExamReportService} from '../../../services/exam-report.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {CourseForGroup} from '../../../models/CourseForGroup';
+import {Course} from '../../../models/Course';
+
 
 @Component({
   selector: 'add-courses-for-students',
   templateUrl: './add-courses-for-students.component.html',
   styleUrls: ['./add-courses-for-students.component.scss']
 })
+
+
 export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   groups: StudentGroup[];
   currentGroup: StudentGroup;
+  currentGroupName: string;
   students: StudentDegree[];
   selectedYear: string;
   selectiveCourses: SelectiveCourse[];
+  selectedCourses: Course[] = [];
+  @Output() onSelectedCoursesChange = new EventEmitter();
   years: number[];
   currentYear: number = 1;
   selectiveCourseGroupName: string;
   selectedSemester: number;
   coursesForGroup: CourseForGroup[];
-  coursesSelected: boolean;
   semesters: Array<number>;
   typeCycle = TypeCycle;
-
+  searchText: string;
+  checked: boolean;
+  isSelectedCoursesEmpty: boolean = false;
+  isSelectedStudentsEmpty: boolean = false;
+  selectedStudents: StudentDegree[] = [];
+  @Output() onSelectedStudentsChange = new EventEmitter();
 
 
 
@@ -87,7 +98,54 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   onGroupChange() {
     this.students = this.currentGroup.studentDegrees;
-
+    this.currentGroupName = this.currentGroup.name;
+    console.log(this.students);
   }
+
+  changeSelectedCoursesList(checked: boolean, selectedCourse: Course) {
+
+    if (!checked) {
+      for (const course of this.selectedCourses) {
+        if (course.id === selectedCourse.id) {
+          this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
+        }
+      }
+    } else {
+      this.selectedCourses.push(selectedCourse);
+      this.isSelectedCoursesEmpty = true;
+    }
+    this.onSelectedCoursesChange.emit(this.selectedCourses);
+  }
+
+  selectedCoursesIsEmpty() {
+      if (this.selectedCourses.length > 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+  }
+
+  selectedStudentsIsEmpty() {
+    if (this.selectedStudents.length > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  changeSelectedGroupList(checked: boolean, receivedSelectedStudents: StudentDegree) {
+    if (!checked) {
+      for (const student of this.selectedStudents) {
+        if (student.id === receivedSelectedStudents.id) {
+          this.selectedStudents.splice(this.selectedStudents.indexOf(student), 1);
+        }
+      }
+    } else {
+      this.selectedStudents.push(receivedSelectedStudents);
+    }
+    this.onSelectedStudentsChange.emit(this.selectedStudents);
+  }
+
 
 }

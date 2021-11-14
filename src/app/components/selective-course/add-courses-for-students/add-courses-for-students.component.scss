@@ -5,7 +5,9 @@
 .modal-header{
   text-align: center;
 }
-
+.modal-body{
+  display: flex;
+}
 
 
 
@@ -43,7 +45,20 @@
 .courses-container{
   display: inline-block;
   width: 50%;
+
 }
+
+.all-selective-courses{
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.students-table-scroll{
+  overflow-y: scroll;
+  height: 300px;
+}
+
+
 
 .students-container{
   display: inline-block;
@@ -78,10 +93,10 @@ input {
   max-width: 80%;
 }
 
-//table{
-//  border: 1px solid black;
-//  width: 100%;
-//}
+table{
+  border: 1px solid black;
+  max-width: 100%;
+}
 //
 //td{
 //  border-top: 1px solid black;
@@ -103,4 +118,8 @@ input {
 
 .course-container{
   width: 33.3333%;
+}
+
+.p-3 {
+  padding-top: 0 !important;
 }

@@ -3,14 +3,20 @@ import {Course} from "../models/Course";
 
 @Pipe({name: 'coursesSearch'})
 export class CoursesSearchPipe implements PipeTransform {
-  transform(items: Course[], searchText: string): any[] {
-    if (!items)
+  transform(items: any[], searchText: string): any[] {
+    if (!items || items.length == 0)
       return [];
     if (!searchText)
       return items;
     searchText = searchText.toLowerCase();
-    return items.filter( course => {
-      return course.courseName.name.toLowerCase().startsWith(searchText);
-    });
+    if (!items[0].course) {
+      return items.filter( course => {
+        return course.courseName.name.toLowerCase().startsWith(searchText);
+      })
+    } else {
+      return items.filter( course => {
+        return course.course.courseName.name.toLowerCase().startsWith(searchText);
+      });
+    }
   }
 }
