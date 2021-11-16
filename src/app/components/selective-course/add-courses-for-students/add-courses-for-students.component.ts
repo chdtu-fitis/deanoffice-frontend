@@ -115,6 +115,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
       this.isSelectedCoursesEmpty = true;
     }
     this.onSelectedCoursesChange.emit(this.selectedCourses);
+    console.log(this.selectedCourses);
   }
 
   selectedCoursesIsEmpty() {
@@ -146,6 +147,22 @@ export class AddCoursesForStudentsComponent implements OnInit {
     }
     this.onSelectedStudentsChange.emit(this.selectedStudents);
   }
+
+  setCoursesForStudents() {
+    const body = {
+      selectiveCourses: this.selectedCourses.map(selectedCourse => selectedCourse.id),
+      studentDegrees: this.selectedStudents.map(selectedStudent => selectedStudent.id),
+      studyYear: +this.selectedYear
+    }
+    this.selectiveCourseService.assignMultipleCoursesForMultipleStudents(body).subscribe(() => {
+      alert("Курси успішно призначено")
+    }, error => {
+      console.log(body, error);
+    });
+  }
+
+
+
 
 
 }
