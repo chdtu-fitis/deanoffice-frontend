@@ -66,7 +66,7 @@
       </div>
       <h5>Курс:</h5>
       <div class="p-3">
-        <select [(ngModel)]="currentYear" (change)="onYearChange()" id="years" class="form-control">
+        <select [(ngModel)]="currentYear" (change)="onDegreeChange()" id="years" class="form-control">
           <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
         </select>
       </div>
@@ -125,7 +125,7 @@
     </div>
   </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-success" (click)="setCoursesForStudents()">Призначити</button>
+  <button type="button" class="btn btn-outline-success" (click)="saveCoursesForStudents()">Призначити</button>
   <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
 </div>
 
