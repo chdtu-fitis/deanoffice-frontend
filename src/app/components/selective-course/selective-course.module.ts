@@ -20,10 +20,13 @@ import { StudentCoursesTableComponent } from './edit-student-dialog/student-cour
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 import { DisqualifyCoursesDialogComponent } from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog/disqualifiable-courses-table/disqualifiable-courses-table.component';
+import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import {courseRoutes} from '../course/course.module';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
-]
+];
 
 @NgModule({
     imports: [
@@ -36,8 +39,13 @@ export const selectiveCourseRoutes: Routes = [
         MatTooltipModule,
         TypeaheadModule.forRoot()
     ],
-  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent, CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent, YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent, StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent],
-  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent, EditStudentDialogComponent, DisqualifyCoursesDialogComponent]
+  declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent,
+    CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
+    YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
+    StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
+    AddCoursesForStudentsComponent],
+  entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent]
 })
 export class SelectiveCourseModule {
 }

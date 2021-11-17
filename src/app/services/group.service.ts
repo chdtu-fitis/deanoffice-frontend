@@ -38,6 +38,12 @@ export class GroupService {
       .pipe(catchError(forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
   }
 
+  getGroupsByDegreeAndRealYear(degreeId: number, year: number): Observable<StudentGroup[]> {
+    const url = `${this.groupsUrl}/filter/degree-and-real-year?degreeId=${degreeId}&year=${year}`;
+    return this.http.get<StudentGroup[]>(url)
+      .pipe(catchError(forObservable('Отримання груп за освітньо-кваліфікаційним рівнем та курсом', [])));
+  }
+
   getGroupsBySpecialization(specializationID: number): Observable<StudentGroup[]> {
     const url = `${this.groupsUrl}/filter/specialization/${specializationID}`;
     return this.http.get<StudentGroup[]>(url)

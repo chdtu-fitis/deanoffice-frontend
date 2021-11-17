@@ -100,6 +100,12 @@
           </button>
         </div>
 
+        <div class="row">
+          <button type="button" class="btn btn-info" (click)="addStudentsSelectiveCourses()">
+            Додати вибіркові дисципліни студентам
+          </button>
+        </div>
+
         <div *ngIf="isChecked && yearParameters.length">
           <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
         </div>

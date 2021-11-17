@@ -41,5 +41,7 @@ export class StudentDegree extends BaseEntity {
   grade?: Grade;
   grades?: Grade[];
 
+  groupName?: string;
+
   selected?: boolean;
 }

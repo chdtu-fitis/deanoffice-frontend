@@ -1,0 +1,49 @@
+::ng-deep .modal-dialog {
+  max-width: 95%;
+}
+
+.modal-header{
+  text-align: center;
+}
+.modal-body{
+  display: flex;
+}
+.d-flex{
+  margin-left: 16px;
+}
+
+.all-selective-courses{
+  margin-top: 16px;
+}
+
+.courses-container{
+  display: inline-block;
+  width: 50%;
+}
+
+.all-selective-courses{
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.students-table-scroll{
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.students-container{
+  display: inline-block;
+  width: 50%;
+}
+
+.bottom-selected-courses {
+  margin-top: 30px;
+}
+
+.bottom {
+  margin-top: 30px;
+}
+
+.p-3 {
+  padding-top: 0 !important;
+}
