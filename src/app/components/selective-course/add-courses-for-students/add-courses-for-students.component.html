@@ -32,7 +32,6 @@
         </tbody>
       </table>
     </div>
-
     <div class="bottom-selected-courses" *ngIf="selectedCoursesIsEmpty()">
       <h5>Обрані дисципліни: </h5>
       <table   class="table-bordered table-sm table" >
@@ -55,7 +54,6 @@
       </table>
     </div>
   </div>
-
   <div class="students-container">
     <div class="d-flex">
       <h5>Ступінь:</h5>
@@ -79,7 +77,6 @@
     </div>
     <div class="choosed-students students-table-scroll">
       <div class="px-3">
-<!--        <h5><span>Група {{currentGroupName}} </span></h5>-->
         <div class="table-wrapper-2">
           <table class="table-bordered table-sm table" >
             <thead>
@@ -110,12 +107,14 @@
               <tr>
                 <td>№</td>
                 <td>ПІБ</td>
+                <td>Група</td>
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let studentDegree of selectedStudents; let i = index"  >
+              <tr *ngFor="let studentDegree of selectedStudents; let i = index">
                 <td>{{ i+1 }}</td>
                 <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
+                <td>{{studentDegree.groupName}}</td>
               </tr>
               </tbody>
             </table>

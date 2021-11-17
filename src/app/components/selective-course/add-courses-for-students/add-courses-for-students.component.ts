@@ -1,19 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output, Pipe, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
-import { CourseService } from '../../../services/course.service';
 import {GroupService} from '../../../services/group.service';
-import {CourseForGroupService} from '../../../services/course-for-group.service';
 import {StudentGroup} from '../../../models/StudentGroup';
 import {Degree} from '../../../models/Degree';
 import {StudentDegree} from '../../../models/StudentDegree';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {DegreeService} from '../../../services/degree.service';
-import {ExamReportService} from '../../../services/exam-report.service';
 import {TypeCycle} from '../../../models/TypeCycle';
-import {CourseForGroup} from '../../../models/CourseForGroup';
-import {Course} from '../../../models/Course';
-
 
 @Component({
   selector: 'add-courses-for-students',
@@ -30,7 +24,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
   students: StudentDegree[];
   selectedYear: string;
   selectiveCourses: SelectiveCourse[];
-  @Output() onSelectedCoursesChange = new EventEmitter();
   years: number[];
   currentYear: number = 1;
   typeCycle = TypeCycle;
@@ -38,7 +31,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
   selectedCourses: SelectiveCourse[] = [];
   selectedStudents: StudentDegree[] = [];
   isSelectedCoursesEmpty: boolean = false;
-  @Output() onSelectedStudentsChange = new EventEmitter();
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
               private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService) {}
@@ -96,8 +88,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
       this.selectedCourses.push(selectedCourse);
       this.isSelectedCoursesEmpty = true;
     }
-    this.onSelectedCoursesChange.emit(this.selectedCourses);
-    console.log(this.selectedCourses);
   }
 
   selectedCoursesIsEmpty() {
@@ -126,9 +116,9 @@ export class AddCoursesForStudentsComponent implements OnInit {
         }
       }
     } else {
+      receivedSelectedStudents.groupName = this.currentGroupName;
       this.selectedStudents.push(receivedSelectedStudents);
     }
-    this.onSelectedStudentsChange.emit(this.selectedStudents);
   }
 
   saveCoursesForStudents() {
