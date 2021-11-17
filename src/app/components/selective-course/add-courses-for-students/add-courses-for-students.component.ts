@@ -40,7 +40,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.degrees = degrees;
         if (this.degrees) {
           this.currentDegree = this.degrees[0];
-          this.onDegreeChange();
+          this.onDegreeOrYearChange();
           this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
             .subscribe(selectiveCourses => {
               this.selectiveCourses = selectiveCourses;
@@ -49,7 +49,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
       });
   }
 
-  onDegreeChange(): void {
+  onDegreeOrYearChange(): void {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
         this.groups = groups ? groups : [];

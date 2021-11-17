@@ -57,13 +57,13 @@
     <div class="d-flex">
       <h5>Ступінь:</h5>
       <div class="p-3">
-        <select [(ngModel)]="currentDegree"  (change)="onDegreeChange()" class="form-control">
+        <select [(ngModel)]="currentDegree" (change)="onDegreeOrYearChange()" class="form-control">
           <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
         </select>
       </div>
       <h5>Курс:</h5>
       <div class="p-3">
-        <select [(ngModel)]="currentYear" (change)="onDegreeChange()" id="years" class="form-control">
+        <select [(ngModel)]="currentYear" (change)="onDegreeOrYearChange()" id="years" class="form-control">
           <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
         </select>
       </div>
