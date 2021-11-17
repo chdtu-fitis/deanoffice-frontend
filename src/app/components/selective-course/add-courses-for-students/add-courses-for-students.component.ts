@@ -25,12 +25,11 @@ export class AddCoursesForStudentsComponent implements OnInit {
   selectedYear: string;
   selectiveCourses: SelectiveCourse[];
   years: number[];
-  currentYear: number = 1;
+  currentYear: number = 2;
   typeCycle = TypeCycle;
   searchText: string;
   selectedCourses: SelectiveCourse[] = [];
   selectedStudents: StudentDegree[] = [];
-  isSelectedCoursesEmpty: boolean = false;
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
               private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService) {}
@@ -77,7 +76,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
     this.currentGroupName = this.currentGroup.name;
   }
 
-  changeSelectedCoursesList(checked: boolean, selectedCourse: SelectiveCourse) {
+  changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
     if (!checked) {
       for (const course of this.selectedCourses) {
         if (course.id === selectedCourse.id) {
@@ -86,38 +85,27 @@ export class AddCoursesForStudentsComponent implements OnInit {
       }
     } else {
       this.selectedCourses.push(selectedCourse);
-      this.isSelectedCoursesEmpty = true;
     }
   }
 
-  selectedCoursesIsEmpty() {
-      if (this.selectedCourses.length > 0) {
-        return true;
-      }
-      else {
-        return false;
-      }
+  isSelectedCourseEmpty() {
+      return this.selectedCourses.length;
   }
 
-  selectedStudentsIsEmpty() {
-    if (this.selectedStudents.length > 0) {
-      return true;
-    }
-    else {
-      return false;
-    }
+  isSelectedStudentsEmpty() {
+    return this.selectedStudents.length;
   }
 
-  changeSelectedGroupList(checked: boolean, receivedSelectedStudents: StudentDegree) {
+  changeSelectedStudents(checked: boolean, selectedStudent: StudentDegree) {
     if (!checked) {
       for (const student of this.selectedStudents) {
-        if (student.id === receivedSelectedStudents.id) {
+        if (student.id === selectedStudent.id) {
           this.selectedStudents.splice(this.selectedStudents.indexOf(student), 1);
         }
       }
     } else {
-      receivedSelectedStudents.groupName = this.currentGroupName;
-      this.selectedStudents.push(receivedSelectedStudents);
+      selectedStudent.groupName = this.currentGroupName;
+      this.selectedStudents.push(selectedStudent);
     }
   }
 

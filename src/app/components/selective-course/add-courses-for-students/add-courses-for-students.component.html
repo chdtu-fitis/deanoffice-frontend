@@ -6,7 +6,6 @@
   </button>
 </div>
 <div class="modal-body">
-
   <div class="courses-container">
     <input [(ngModel)]="searchText"
            placeholder="Пошук за предметом" class="form-control mr-2 search">
@@ -23,7 +22,7 @@
         <tbody *ngFor="let course of selectiveCourses | coursesSearch : searchText">
         <tr>
           <td><input type="checkbox" [(ngModel)]="course.selected"
-                     (change)="changeSelectedCoursesList($event.target.checked, course) ">
+                     (change)="changeSelectedCourses($event.target.checked, course) ">
             {{course.course.courseName.name}}</td>
           <td>{{course.course.semester}}</td>
           <td>{{typeCycle[course.trainingCycle]}}</td>
@@ -32,7 +31,7 @@
         </tbody>
       </table>
     </div>
-    <div class="bottom-selected-courses" *ngIf="selectedCoursesIsEmpty()">
+    <div class="bottom-selected-courses" *ngIf="isSelectedCourseEmpty()">
       <h5>Обрані дисципліни: </h5>
       <table   class="table-bordered table-sm table" >
         <thead>
@@ -89,7 +88,7 @@
             <tr *ngFor="let studentDegree of students; let i = index"  >
               <td>
                 <input type="checkbox" [(ngModel)]="studentDegree.selected"
-                       (change)="changeSelectedGroupList($event.target.checked, studentDegree) ">
+                       (change)="changeSelectedStudents($event.target.checked, studentDegree) ">
                 {{ i+1 }}</td>
               <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
             </tr>
@@ -98,7 +97,7 @@
         </div>
       </div>
     </div>
-    <div class="choosed-students bottom" *ngIf="selectedStudentsIsEmpty()">
+    <div class="choosed-students bottom" *ngIf="isSelectedStudentsEmpty()">
       <div class="px-3">
         <h5><span>Обрані студенти</span></h5>
           <div class="table-wrapper-2">
