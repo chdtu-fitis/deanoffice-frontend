@@ -5,6 +5,7 @@ import {StudentDegree} from '../../../models/StudentDegree';
 import {defaultColDef, LOCALE_TEXT} from '../constants';
 import {PaymentFilterComponent} from '../payment-filter/payment-filter.component';
 import {AgGridModules, commonAgGridModules} from '../../shared/ag-grid';
+import {StudentAcademicVacation} from "../../../models/StudentAcademicVacation";
 
 @Component({
   selector: 'students-table',
@@ -46,7 +47,7 @@ export class StudentsTableComponent {
     this.itemsCountUpdate.emit(count);
   }
 
-  onRenew(forRenew: StudentDegree[]) {
+  onRenew(forRenew: any[]) {
     this.gridApi.updateRowData({ remove: forRenew });
   }
 

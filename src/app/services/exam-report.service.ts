@@ -17,7 +17,7 @@ export class ExamReportService {
   }
 
   buildExamReportJournalDoc(year: number, degreeId: number, semester: number): any {
-    const url = `${this.documentsUrl}/exam-reports-journal-courses/year/${year}/degree/${degreeId}?semester=${semester}`;
+    const url = `${this.documentsUrl}/exam-reports-recordbook-courses/year/${year}/degree/${degreeId}?semester=${semester}`;
     return this.fileService.downloadFile(url);
   }
 

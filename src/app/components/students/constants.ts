@@ -241,6 +241,11 @@ const orderDate = {
   ...dateFields
 };
 
+const orderNumber = {
+  headerName: 'Номер наказу',
+  field: 'orderNumber'
+};
+
 const orderReasonName = {
   headerName: 'Причина',
   field: 'orderReason.name'
@@ -260,6 +265,7 @@ export const expelledColumnDefs = [
   expelledStudentPatronimic,
   applicationDate,
   expelDate,
+  orderNumber,
   orderDate,
   orderReasonName,
   payment
@@ -285,6 +291,7 @@ export const academicVacationColumnDefs = [
   vacationStartDate,
   vacationEndDate,
   applicationDate,
+  orderNumber,
   orderDate,
   orderReasonName
 ];

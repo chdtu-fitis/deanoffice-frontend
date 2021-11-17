@@ -6,6 +6,7 @@ import {environment} from '../../environments/environment';
 import {StudentDegree} from '../models/StudentDegree';
 import {Student} from '../models/Student';
 import {ExpelsAndRenews} from '../components/students/student-degree-history/ExpelsAndRenews';
+import {StudentAcademicVacation} from "../models/StudentAcademicVacation";
 
 @Injectable()
 export class StudentService {
@@ -34,8 +35,8 @@ export class StudentService {
     return this.http.get<StudentDegree[]>(`${this.url}/degrees/expels`);
   }
 
-  getStudentsInAcademicVacation(): Observable<StudentDegree[]> {
-    return this.http.get<StudentDegree[]>(`${this.url}/degrees/academic-vacations`);
+  getStudentsInAcademicVacation(): Observable<StudentAcademicVacation[]> {
+    return this.http.get<StudentAcademicVacation[]>(`${this.url}/degrees/academic-vacations`);
   }
 
   addStudentDegree(studentDegree): Observable<StudentDegree> {

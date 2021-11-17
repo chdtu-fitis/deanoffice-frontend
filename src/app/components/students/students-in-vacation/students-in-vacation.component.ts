@@ -4,6 +4,7 @@ import { StudentService } from '../../../services/student.service';
 import {academicVacationColumnDefs} from '../constants';
 import { StudentDegree } from '../../../models/StudentDegree';
 import {StudentsTableComponent} from '../students-table/students-table.component';
+import {StudentAcademicVacation} from "../../../models/StudentAcademicVacation";
 
 @Component({
   selector: 'app-students-in-vacation',
@@ -12,8 +13,8 @@ import {StudentsTableComponent} from '../students-table/students-table.component
 })
 export class StudentsInVacationComponent implements OnInit {
   @ViewChild('studentsInVacationTable', { static: false }) studentsInVacationTable: StudentsTableComponent;
-  rows: StudentDegree[] = [];
-  selected: StudentDegree[] = [];
+  rows: StudentAcademicVacation[] = [];
+  selected: StudentAcademicVacation[] = [];
   loading: boolean;
   columnDefs = academicVacationColumnDefs;
   count;
@@ -21,7 +22,7 @@ export class StudentsInVacationComponent implements OnInit {
   constructor(private studentService: StudentService) { }
 
   ngOnInit() {
-    this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentDegree[]) => {
+    this.studentService.getStudentsInAcademicVacation().subscribe((students: StudentAcademicVacation[]) => {
       this.rows = students;
     });
   }

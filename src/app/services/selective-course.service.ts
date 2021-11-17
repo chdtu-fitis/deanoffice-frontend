@@ -82,4 +82,8 @@ export class SelectiveCourseService {
   assignMultipleCoursesForMultipleStudents(body) {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}/registration/multiple`, body);
   }
+
+  // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {
+  //   return this.httpClient.post(`${SELECTIVE_COURSE_URL}/enrolling`, selectiveCoursesStudentDegreeWithStudyYear);
+  // }
 }
