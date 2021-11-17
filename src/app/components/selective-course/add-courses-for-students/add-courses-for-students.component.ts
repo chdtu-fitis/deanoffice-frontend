@@ -73,6 +73,10 @@ export class AddCoursesForStudentsComponent implements OnInit {
     this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
       .subscribe(selectiveCourses => {
         this.selectiveCourses = selectiveCourses;
+        this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2, false)
+          .subscribe(selectiveCourses2 => {
+            this.selectiveCourses.push(...selectiveCourses2);
+          });
       });
   }
 
@@ -134,9 +138,15 @@ export class AddCoursesForStudentsComponent implements OnInit {
       studyYear: +this.selectedYear
     }
     this.selectiveCourseService.assignMultipleCoursesForMultipleStudents(body).subscribe((response: any) => {
+      this.selectedStudents = [];
+      this.disableStudentCheckboxes();
       alert(response.message)
     }, error => {
       console.log(body, error);
     });
+  }
+
+  disableStudentCheckboxes() {
+    this.students.forEach(student => student.selected = false);
   }
 }
