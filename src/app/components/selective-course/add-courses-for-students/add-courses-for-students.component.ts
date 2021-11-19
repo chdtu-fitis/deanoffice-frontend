@@ -8,6 +8,8 @@ import {StudentDegree} from '../../../models/StudentDegree';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {DegreeService} from '../../../services/degree.service';
 import {TypeCycle} from '../../../models/TypeCycle';
+import {FacultyService} from '../../../services/faculty.service';
+import {Faculty} from '../../../models/Faculty';
 
 @Component({
   selector: 'add-courses-for-students',
@@ -19,6 +21,8 @@ export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   groups: StudentGroup[];
+  faculties: Faculty[];
+  currentFaculty: Faculty;
   currentGroup: StudentGroup;
   currentGroupName: string;
   students: StudentDegree[];
@@ -30,9 +34,11 @@ export class AddCoursesForStudentsComponent implements OnInit {
   searchText: string;
   selectedCourses: SelectiveCourse[] = [];
   selectedStudents: StudentDegree[] = [];
+  isAllSelected = false;
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
-              private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService) {}
+              private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService,
+              private facultyService: FacultyService) {}
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -47,6 +53,10 @@ export class AddCoursesForStudentsComponent implements OnInit {
             });
         }
       });
+    this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
+      this.faculties = faculties;
+      this.currentFaculty = this.faculties[0];
+    });
   }
 
   onDegreeOrYearChange(): void {
@@ -54,6 +64,8 @@ export class AddCoursesForStudentsComponent implements OnInit {
       .subscribe(groups => {
         this.groups = groups ? groups : [];
         this.currentGroup = groups[0];
+        this.selectedStudents = [];
+        this.selectedCourses = [];
         if (this.groups && this.groups.length) {
           this.onGroupChange();
         } else {
@@ -74,6 +86,11 @@ export class AddCoursesForStudentsComponent implements OnInit {
   onGroupChange() {
     this.students = this.currentGroup.studentDegrees;
     this.currentGroupName = this.currentGroup.name;
+    console.log(this.currentGroup);
+  }
+
+  onFacultyChange() {
+    console.log(this.currentFaculty.abbr);
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
@@ -85,6 +102,16 @@ export class AddCoursesForStudentsComponent implements OnInit {
       }
     } else {
       this.selectedCourses.push(selectedCourse);
+    }
+    this.isAllSelected = this.selectedCourses.length > 0;
+  }
+
+  changeAllIsSelected(): void {
+    if (this.selectedCourses.length > 0) {
+      this.selectiveCourses.forEach(item => item.selected = this.isAllSelected);
+      this.selectedCourses = this.isAllSelected ? this.selectiveCourses.slice() : [];
+    } else {
+      this.isAllSelected = false;
     }
   }
 
@@ -116,15 +143,15 @@ export class AddCoursesForStudentsComponent implements OnInit {
       studyYear: +this.selectedYear
     }
     this.selectiveCourseService.assignMultipleCoursesForMultipleStudents(body).subscribe((response: any) => {
-      this.selectedStudents = [];
       this.disableStudentCheckboxes();
+      this.selectedStudents = [];
       alert(response.message)
     }, error => {
-      console.log(body, error);
+      alert(error.message);
     });
   }
 
   disableStudentCheckboxes() {
-    this.students.forEach(student => student.selected = false);
+    this.selectedStudents.forEach(student => student.selected = false);
   }
 }

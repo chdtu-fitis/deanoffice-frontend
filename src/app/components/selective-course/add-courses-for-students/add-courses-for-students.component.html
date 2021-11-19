@@ -13,17 +13,19 @@
       <table class="table-bordered table-sm table">
         <thead>
         <tr>
-          <th scope="col">Дисципліна</th>
+          <th scope="col"><input type="checkbox" [(ngModel)]="isAllSelected" (change)="changeAllIsSelected()">
+            Дисципліна
+          </th>
           <th scope="col">Семестр</th>
           <th scope="col">Цикл</th>
           <th scope="col">Кафедра</th>
         </tr>
         </thead>
-        <tbody *ngFor="let course of selectiveCourses | coursesSearch : searchText">
+        <tbody *ngFor="let course of selectiveCourses | coursesSearch : searchText; let i = index">
         <tr>
           <td><input type="checkbox" [(ngModel)]="course.selected"
-                     (change)="changeSelectedCourses($event.target.checked, course) ">
-            {{course.course.courseName.name}}</td>
+                     (change)="changeSelectedCourses($event.target.checked, course)">
+            {{i+1}}) {{course.course.courseName.name}}</td>
           <td>{{course.course.semester}}</td>
           <td>{{typeCycle[course.trainingCycle]}}</td>
           <td>{{course.department.faculty.abbr}}</td>
@@ -42,9 +44,9 @@
           <th scope="col">Кафедра</th>
         </tr>
         </thead>
-        <tbody *ngFor="let course of selectedCourses">
+        <tbody *ngFor="let course of selectedCourses; let i = index">
         <tr>
-          <td>{{course.course.courseName.name}}</td>
+          <td>{{i+1}}) {{course.course.courseName.name}}</td>
           <td>{{course.course.semester}}</td>
           <td>{{typeCycle[course.trainingCycle]}}</td>
           <td>{{course.department.faculty.abbr}}</td>
@@ -58,13 +60,19 @@
       <h5>Ступінь:</h5>
       <div class="p-3">
         <select [(ngModel)]="currentDegree" (change)="onDegreeOrYearChange()" class="form-control">
-          <option  [ngValue]="degree" *ngFor="let degree of degrees">{{degree.name}}</option>
+          <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
         </select>
       </div>
       <h5>Курс:</h5>
       <div class="p-3">
         <select [(ngModel)]="currentYear" (change)="onDegreeOrYearChange()" id="years" class="form-control">
-          <option  [ngValue]="year" *ngFor="let year of years">{{year}}</option>
+          <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
+        </select>
+      </div>
+      <h5>Фак.:</h5>
+      <div class="p-3">
+        <select [(ngModel)]="currentFaculty" class="form-control" (change)="onFacultyChange()">
+          <option *ngFor="let faculty of faculties" [ngValue]="faculty">{{faculty.abbr}}</option>
         </select>
       </div>
       <h5>Група:</h5>
