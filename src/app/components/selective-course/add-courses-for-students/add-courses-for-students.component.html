@@ -57,28 +57,28 @@
   </div>
   <div class="students-container">
     <div class="d-flex">
-      <h5>Ступінь:</h5>
+      <h6>Ступінь:</h6>
       <div class="p-3">
         <select [(ngModel)]="currentDegree" (change)="onDegreeOrYearChange()" class="form-control">
           <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
         </select>
       </div>
-      <h5>Курс:</h5>
+      <h6>Курс:</h6>
       <div class="p-3">
         <select [(ngModel)]="currentYear" (change)="onDegreeOrYearChange()" id="years" class="form-control">
           <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
         </select>
       </div>
-      <h5>Фак.:</h5>
+      <h6>Факультет:</h6>
       <div class="p-3">
         <select [(ngModel)]="currentFaculty" class="form-control" (change)="onFacultyChange()">
           <option *ngFor="let faculty of faculties" [ngValue]="faculty">{{faculty.abbr}}</option>
         </select>
       </div>
-      <h5>Група:</h5>
+      <h6>Група:</h6>
       <div class="p-3">
         <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control" (change)="onGroupChange()">
-          <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+          <option *ngFor="let group of groupsContainer" [ngValue]="group">{{group.name}}</option>
         </select>
       </div>
     </div>

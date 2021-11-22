@@ -21,6 +21,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   groups: StudentGroup[];
+  groupsContainer: StudentGroup[] = [];
   faculties: Faculty[];
   currentFaculty: Faculty;
   currentGroup: StudentGroup;
@@ -63,11 +64,14 @@ export class AddCoursesForStudentsComponent implements OnInit {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
         this.groups = groups ? groups : [];
+        this.groupsContainer = groups ? groups : [];
+        // this.groupsContainer.push()    push element 'all' with id 0 to show all groups
         this.currentGroup = groups[0];
         this.selectedStudents = [];
         this.selectedCourses = [];
         if (this.groups && this.groups.length) {
           this.onGroupChange();
+          this.onFacultyChange();
         } else {
           this.students = [];
           this.currentGroupName = '';
@@ -86,11 +90,27 @@ export class AddCoursesForStudentsComponent implements OnInit {
   onGroupChange() {
     this.students = this.currentGroup.studentDegrees;
     this.currentGroupName = this.currentGroup.name;
-    console.log(this.currentGroup);
   }
 
   onFacultyChange() {
-    console.log(this.currentFaculty.abbr);
+    this.groupsContainer = [];
+    if (this.currentFaculty.id === 0) {
+      this.groupsContainer = this.groups;
+    } else {
+      for (let i = 0; i < this.groups.length; i++) {
+        if (this.currentFaculty.id == this.groups[i].specialization.facultyId) {
+          if (this.groups[i]) {
+            this.groupsContainer.push(this.groups[i]);
+          }
+        }
+      }
+      if (this.groupsContainer.length === 0) {
+        this.students = [];
+      } else {
+        this.currentGroup = this.groupsContainer[0];
+        this.students = this.currentGroup.studentDegrees;
+      }
+    }
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
