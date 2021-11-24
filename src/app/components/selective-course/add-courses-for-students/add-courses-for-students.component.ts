@@ -21,7 +21,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   groups: StudentGroup[];
-  groupsContainer: StudentGroup[] = [];
+  filteredGroups: StudentGroup[] = [];
   faculties: Faculty[];
   currentFaculty: Faculty;
   currentGroup: StudentGroup;
@@ -56,6 +56,10 @@ export class AddCoursesForStudentsComponent implements OnInit {
       });
     this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
       this.faculties = faculties;
+      const allFaculty = new Faculty();
+      allFaculty.id = 0;
+      allFaculty.abbr = "Всі";
+      this.faculties.unshift(allFaculty);
       this.currentFaculty = this.faculties[0];
     });
   }
@@ -64,8 +68,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
         this.groups = groups ? groups : [];
-        this.groupsContainer = groups ? groups : [];
-        // this.groupsContainer.push()    push element 'all' with id 0 to show all groups
+        this.filteredGroups = groups ? groups : [];
         this.currentGroup = groups[0];
         this.selectedStudents = [];
         this.selectedCourses = [];
@@ -93,21 +96,21 @@ export class AddCoursesForStudentsComponent implements OnInit {
   }
 
   onFacultyChange() {
-    this.groupsContainer = [];
+    this.filteredGroups = [];
     if (this.currentFaculty.id === 0) {
-      this.groupsContainer = this.groups;
+      this.filteredGroups = this.groups;
     } else {
       for (let i = 0; i < this.groups.length; i++) {
         if (this.currentFaculty.id == this.groups[i].specialization.facultyId) {
           if (this.groups[i]) {
-            this.groupsContainer.push(this.groups[i]);
+            this.filteredGroups.push(this.groups[i]);
           }
         }
       }
-      if (this.groupsContainer.length === 0) {
+      if (this.filteredGroups.length === 0) {
         this.students = [];
       } else {
-        this.currentGroup = this.groupsContainer[0];
+        this.currentGroup = this.filteredGroups[0];
         this.students = this.currentGroup.studentDegrees;
       }
     }

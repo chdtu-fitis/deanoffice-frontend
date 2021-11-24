@@ -78,7 +78,7 @@
       <h6>Група:</h6>
       <div class="p-3">
         <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control" (change)="onGroupChange()">
-          <option *ngFor="let group of groupsContainer" [ngValue]="group">{{group.name}}</option>
+          <option *ngFor="let group of filteredGroups" [ngValue]="group">{{group.name}}</option>
         </select>
       </div>
     </div>
