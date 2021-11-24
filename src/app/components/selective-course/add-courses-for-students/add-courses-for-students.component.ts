@@ -10,6 +10,7 @@ import {DegreeService} from '../../../services/degree.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {FacultyService} from '../../../services/faculty.service';
 import {Faculty} from '../../../models/Faculty';
+import {group} from '@angular/animations';
 
 @Component({
   selector: 'add-courses-for-students',
@@ -20,7 +21,8 @@ import {Faculty} from '../../../models/Faculty';
 export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
-  groups: StudentGroup[];
+  groups: StudentGroup[] = [];
+  allGroups: StudentGroup;
   filteredGroups: StudentGroup[] = [];
   faculties: Faculty[];
   currentFaculty: Faculty;
@@ -68,6 +70,14 @@ export class AddCoursesForStudentsComponent implements OnInit {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
         this.groups = groups ? groups : [];
+        this.allGroups = new StudentGroup();
+        this.allGroups.name = "Всі";
+        this.allGroups.id = 0;
+        this.allGroups.studentDegrees = [];
+        for (let i = 0; i < this.groups.length; i++) {
+          this.allGroups.studentDegrees.push(...this.groups[i].studentDegrees);
+        }
+        this.groups.unshift(this.allGroups);
         this.filteredGroups = groups ? groups : [];
         this.currentGroup = groups[0];
         this.selectedStudents = [];
@@ -91,29 +101,31 @@ export class AddCoursesForStudentsComponent implements OnInit {
   }
 
   onGroupChange() {
+    console.log(this.allGroups);
     this.students = this.currentGroup.studentDegrees;
     this.currentGroupName = this.currentGroup.name;
+    console.log(this.currentGroup.studentDegrees);
   }
 
   onFacultyChange() {
-    this.filteredGroups = [];
     if (this.currentFaculty.id === 0) {
-      this.filteredGroups = this.groups;
+      this.filteredGroups =  this.groups;
     } else {
-      for (let i = 0; i < this.groups.length; i++) {
+      this.filteredGroups = [this.groups[0]];
+      for (let i = 1; i < this.groups.length; i++) {
         if (this.currentFaculty.id == this.groups[i].specialization.facultyId) {
           if (this.groups[i]) {
             this.filteredGroups.push(this.groups[i]);
           }
         }
       }
-      if (this.filteredGroups.length === 0) {
-        this.students = [];
-      } else {
-        this.currentGroup = this.filteredGroups[0];
-        this.students = this.currentGroup.studentDegrees;
-      }
     }
+    this.filteredGroups[0].studentDegrees = [];
+    for (let i = 1; i < this.filteredGroups.length; i++) {
+      this.filteredGroups[0].studentDegrees.push(...this.filteredGroups[i].studentDegrees);
+    }
+    this.currentGroup = this.filteredGroups[0];
+    this.students = this.currentGroup.studentDegrees;
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {

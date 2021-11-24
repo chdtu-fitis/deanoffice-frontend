@@ -43,5 +43,5 @@ export class StudentDegree extends BaseEntity {
 
   groupName?: string;
 
-  selected?: boolean;
+  selected?: boolean = false;
 }
