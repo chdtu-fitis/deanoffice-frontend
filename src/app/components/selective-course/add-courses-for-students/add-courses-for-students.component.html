@@ -7,13 +7,22 @@
 </div>
 <div class="modal-body">
   <div class="courses-container">
-    <input [(ngModel)]="searchText"
-           placeholder="Пошук за предметом" class="form-control mr-2 search">
-    <div class="all-selective-courses">
-      <table class="table-bordered table-sm table">
+    <div class="courses-inputs-container">
+      <div class="courses-input">
+        <input [(ngModel)]="searchText"
+               placeholder="Пошук за предметом" class="form-control mr-2 search">
+      </div>
+      <div class="courses-input">
+        <select [(ngModel)]="currentFieldOfKnowledge" (change)="onFieldOfKnowledge()" class="form-control">
+          <option *ngFor="let fieldOfKnowledge of fieldsOfKnowledge" [ngValue]="fieldOfKnowledge" >{{fieldOfKnowledge.code}} - {{fieldOfKnowledge.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="selective-courses-container">
+      <table class="table table-bordered table-sm">
         <thead>
         <tr>
-          <th scope="col"><input type="checkbox" [(ngModel)]="isAllSelected" (change)="changeAllIsSelected()">
+          <th scope="col"><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()">
             Дисципліна
           </th>
           <th scope="col">Семестр</th>
@@ -21,7 +30,7 @@
           <th scope="col">Кафедра</th>
         </tr>
         </thead>
-        <tbody *ngFor="let course of selectiveCourses | coursesSearch : searchText; let i = index">
+        <tbody *ngFor="let course of filteredSelectiveCourses | coursesSearch : searchText; let i = index">
         <tr>
           <td><input type="checkbox" [(ngModel)]="course.selected"
                      (change)="changeSelectedCourses($event.target.checked, course)">
@@ -35,7 +44,7 @@
     </div>
     <div class="bottom-selected-courses" *ngIf="isSelectedCourseEmpty()">
       <h5>Обрані дисципліни: </h5>
-      <table   class="table-bordered table-sm table" >
+      <table class="table table-bordered table-sm" >
         <thead>
         <tr>
           <th scope="col">Дисципліна</th>
@@ -82,18 +91,23 @@
         </select>
       </div>
     </div>
+    <div class="students-input-container">
+      <input [(ngModel)]="searchTextForStudents"
+             placeholder="Пошук за прізвищем" class="form-control mr-2 search">
+    </div>
     <div class="choosed-students students-table-scroll">
       <div class="px-3">
         <div class="table-wrapper-2">
+
           <table class="table-bordered table-sm table" >
             <thead>
             <tr>
-              <td>№</td>
+              <td><input type="checkbox" [(ngModel)]="isAllStudentsSelected" (change)="changeAllStudentsIsSelected()">№</td>
               <td>ПІБ</td>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let studentDegree of students; let i = index"  >
+            <tr *ngFor="let studentDegree of students | studentsSearch : searchTextForStudents; let i = index"  >
               <td>
                 <input type="checkbox" [(ngModel)]="studentDegree.selected"
                        (change)="changeSelectedStudents($event.target.checked, studentDegree) ">

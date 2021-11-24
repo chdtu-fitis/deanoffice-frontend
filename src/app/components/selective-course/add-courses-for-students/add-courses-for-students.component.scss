@@ -8,12 +8,9 @@
 .modal-body{
   display: flex;
 }
-.d-flex{
-  margin-left: 16px;
-}
 
-.all-selective-courses{
-  margin-top: 16px;
+.selective-courses-container{
+  margin-top: 4px;
 }
 
 .courses-container{
@@ -21,9 +18,9 @@
   width: 50%;
 }
 
-.all-selective-courses{
+.selective-courses-container{
   overflow-y: scroll;
-  height: 300px;
+  height: 340px;
 }
 
 .students-table-scroll{
@@ -50,4 +47,27 @@
 
 .d-flex {
   align-items: center;
+  padding-left: 16px;
+  padding-right: 1.73rem;
+}
+
+.students-input-container{
+  padding: 3px 2.05rem 3px 16px;
+}
+
+.courses-inputs-container {
+  display: flex;
+  width: 100%;
+}
+
+.courses-input{
+  width: 50%;
+}
+
+.courses-input:first-child{
+  padding-right: 1.5px;
+}
+
+.courses-input:last-child{
+  padding-left: 1.5px;
 }

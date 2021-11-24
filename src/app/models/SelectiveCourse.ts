@@ -12,7 +12,7 @@ export class SelectiveCourse extends BaseEntity {
   degree: Degree;
   department: Department;
   groupName: string;
-  fieldsOfKnowledge: FieldOfKnowledge[];
+  fieldsOfKnowledge: FieldOfKnowledge[] = [];
   trainingCycle: TypeCycle;
   description: string;
   studyYear: number;

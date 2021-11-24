@@ -9,6 +9,7 @@ import { MapsKeysPipe } from './maps-keys.pipe';
 import { AbbreviatedNamePipe } from './abbreviated-name.pipe';
 import {ShortenedPipe} from "./shortened.pipe";
 import { TypeOfEducationPipe } from './type-of-education.pipe';
+import {StudentsSearchPipe} from './students-search.pipe';
 
 @NgModule({
   imports: [],
@@ -22,7 +23,8 @@ import { TypeOfEducationPipe } from './type-of-education.pipe';
     MapsKeysPipe,
     AbbreviatedNamePipe,
     ShortenedPipe,
-    TypeOfEducationPipe
+    TypeOfEducationPipe,
+    StudentsSearchPipe
   ],
   exports: [
     CoursesSearchPipe,
@@ -34,7 +36,8 @@ import { TypeOfEducationPipe } from './type-of-education.pipe';
     MapsKeysPipe,
     AbbreviatedNamePipe,
     ShortenedPipe,
-    TypeOfEducationPipe
+    TypeOfEducationPipe,
+    StudentsSearchPipe
   ]
 })
  export class PipeModule {
@@ -47,7 +50,8 @@ import { TypeOfEducationPipe } from './type-of-education.pipe';
         TeacherSearchPipe,
         EntriesPipe,
         ByStringPipe,
-        NameWithInitialsPipe
+        NameWithInitialsPipe,
+        StudentsSearchPipe
       ],
     };
   }
