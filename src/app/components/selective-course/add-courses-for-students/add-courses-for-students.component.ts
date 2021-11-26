@@ -13,7 +13,7 @@ import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.serv
 import {Faculty} from '../../../models/Faculty';
 import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
 
-const ALL_COURSES = 0, GENERAL_ONLY = -1;
+const ALL_ITEMS = 0, GENERAL_ONLY = -1;
 
 @Component({
   selector: 'add-courses-for-students',
@@ -25,12 +25,11 @@ export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   groups: StudentGroup[] = [];
-  allGroups: StudentGroup;
+  allGroupsItem: StudentGroup;
   filteredGroups: StudentGroup[] = [];
   faculties: Faculty[];
   currentFaculty: Faculty;
   currentGroup: StudentGroup;
-  currentGroupName: string;
   students: StudentDegree[];
   selectedYear: string;
   filteredSelectiveCourses: SelectiveCourse[] = [];
@@ -68,24 +67,24 @@ export class AddCoursesForStudentsComponent implements OnInit {
       });
     this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
       this.faculties = faculties;
-      const allFaculty = new Faculty();
-      allFaculty.id = 0;
-      allFaculty.abbr = "Всі";
-      this.faculties.unshift(allFaculty);
+      const allFacultiesItem = new Faculty();
+      allFacultiesItem.id = ALL_ITEMS;
+      allFacultiesItem.abbr = "Всі";
+      this.faculties.unshift(allFacultiesItem);
       this.currentFaculty = this.faculties[0];
     });
     this.fieldOfKnowledgeService.getFieldsOfKnowledge().subscribe(fieldsOfKnowledge => {
       this.fieldsOfKnowledge = fieldsOfKnowledge;
-      const allFieldsOfKnowledge = new FieldOfKnowledge();
-      allFieldsOfKnowledge.id = ALL_COURSES;
-      allFieldsOfKnowledge.name = "Всі";
-      allFieldsOfKnowledge.code = "00";
+      const allFieldsOfKnowledgeItem = new FieldOfKnowledge();
+      allFieldsOfKnowledgeItem.id = ALL_ITEMS;
+      allFieldsOfKnowledgeItem.name = "Всі";
+      allFieldsOfKnowledgeItem.code = "";
       const generalFieldsOfKnowledge = new FieldOfKnowledge();
       generalFieldsOfKnowledge.id = GENERAL_ONLY;
       generalFieldsOfKnowledge.name = "Загальні";
-      generalFieldsOfKnowledge.code = "00";
+      generalFieldsOfKnowledge.code = "";
       this.fieldsOfKnowledge.unshift(generalFieldsOfKnowledge);
-      this.fieldsOfKnowledge.unshift(allFieldsOfKnowledge);
+      this.fieldsOfKnowledge.unshift(allFieldsOfKnowledgeItem);
       this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
     });
   }
@@ -93,34 +92,35 @@ export class AddCoursesForStudentsComponent implements OnInit {
   onDegreeOrYearChange(): void {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
+        this.isAllStudentsSelected = false;
         this.groups = groups ? groups : [];
-        this.allGroups = new StudentGroup();
-        this.allGroups.name = "Всі";
-        this.allGroups.id = 0;
-        this.allGroups.studentDegrees = [];
+        this.allGroupsItem = new StudentGroup();
+        this.allGroupsItem.name = "Всі";
+        this.allGroupsItem.id = ALL_ITEMS;
+        this.allGroupsItem.studentDegrees = [];
         for (let i = 0; i < this.groups.length; i++) {
-          this.allGroups.studentDegrees.push(...this.groups[i].studentDegrees);
+          this.groups[i].studentDegrees.forEach(sd => sd.groupName = groups[i].name);
+          this.allGroupsItem.studentDegrees.push(...this.groups[i].studentDegrees);
         }
-        this.groups.unshift(this.allGroups);
-        this.filteredGroups = groups ? groups : [];
-        this.currentGroup = groups[0];
+        let students = this.allGroupsItem.studentDegrees;
+        students.sort((a, b) =>
+          (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
+        this.groups.unshift(this.allGroupsItem);
+        this.filteredGroups = groups;
         this.selectedStudents = [];
         this.selectedCourses = [];
-        if (this.groups && this.groups.length) {
-          this.onGroupChange();
-          this.onFacultyChange();
-        } else {
-          this.students = [];
-          this.currentGroupName = '';
-        }
+        this.onFacultyChange();
+
       });
     this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
       .subscribe(selectiveCourses => {
-        this.filteredSelectiveCourses = selectiveCourses;
+        this.isAllCoursesSelected = false;
+        this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
         this.selectiveCourses = selectiveCourses;
+        this.filteredSelectiveCourses = this.selectiveCourses;
         this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2, false)
           .subscribe(selectiveCourses2 => {
-            this.filteredSelectiveCourses.push(...selectiveCourses2);
+            // this.filteredSelectiveCourses.push(...selectiveCourses2);
             this.selectiveCourses.push(...selectiveCourses2);
           });
       });
@@ -128,26 +128,22 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   onGroupChange() {
     this.students = this.currentGroup.studentDegrees;
-    this.students.sort((a, b) =>
-      (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
-    this.currentGroupName = this.currentGroup.name;
-    console.log(this.fieldsOfKnowledge);
   }
 
   onFacultyChange() {
-    if (this.currentFaculty.id === 0) {
-      this.filteredGroups =  this.groups;
+    if (this.currentFaculty.id === ALL_ITEMS) {
+      this.filteredGroups = this.groups;
     } else {
       this.filteredGroups = this.groups.filter(group => !group.specialization || group.specialization.facultyId == this.currentFaculty.id);
+      this.filteredGroups[0].studentDegrees = [];
+      for (let i = 1; i < this.filteredGroups.length; i++) {
+        this.filteredGroups[0].studentDegrees.push(...this.filteredGroups[i].studentDegrees);
+        this.students.sort((a, b) =>
+          (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
+      }
     }
-    this.filteredGroups[0].studentDegrees = [];
-    for (let i = 1; i < this.filteredGroups.length; i++) {
-      this.filteredGroups[0].studentDegrees.push(...this.filteredGroups[i].studentDegrees);
-    }
-    this.currentGroup = this.filteredGroups[0];
+    this.currentGroup = this.filteredGroups.length > 1 ? this.filteredGroups[1] : this.filteredGroups[0];
     this.students = this.currentGroup.studentDegrees;
-    this.students.sort((a, b) =>
-      (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
@@ -155,12 +151,13 @@ export class AddCoursesForStudentsComponent implements OnInit {
       for (const course of this.selectedCourses) {
         if (course.id === selectedCourse.id) {
           this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
+          break;
         }
       }
     } else {
       this.selectedCourses.push(selectedCourse);
     }
-    this.isAllCoursesSelected = this.selectedCourses.length > 0;
+    this.isAllCoursesSelected = this.isSelectedCourseEmpty();
   }
 
   changeSelectedStudents(checked: boolean, selectedStudent: StudentDegree) {
@@ -168,13 +165,13 @@ export class AddCoursesForStudentsComponent implements OnInit {
       for (const student of this.selectedStudents) {
         if (student.id === selectedStudent.id) {
           this.selectedStudents.splice(this.selectedStudents.indexOf(student), 1);
+          break;
         }
       }
     } else {
-      selectedStudent.groupName = this.currentGroupName;
       this.selectedStudents.push(selectedStudent);
     }
-    this.isAllStudentsSelected = Boolean(this.isSelectedStudentsEmpty());
+    this.isAllStudentsSelected = this.isSelectedStudentsEmpty();
   }
 
   changeAllCoursesIsSelected(): void {
@@ -184,7 +181,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
     }
   }
 
-  changeAllStudentsIsSelected() {
+  changeAllStudentsIsSelected(): void {
     if (this.selectedStudents.length > 0) {
       this.selectedStudents.forEach(student => student.selected = false);
       this.selectedStudents = []
@@ -194,12 +191,12 @@ export class AddCoursesForStudentsComponent implements OnInit {
     }
   }
 
-  isSelectedCourseEmpty() {
-      return this.selectedCourses.length;
+  isSelectedCourseEmpty(): boolean {
+      return this.selectedCourses.length > 0;
   }
 
-  isSelectedStudentsEmpty() {
-    return this.selectedStudents.length;
+  isSelectedStudentsEmpty(): boolean {
+    return this.selectedStudents.length > 0;
   }
 
   saveCoursesForStudents() {
@@ -219,24 +216,19 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   disableStudentCheckboxes() {
     this.selectedStudents.forEach(student => student.selected = false);
+    this.isAllStudentsSelected = false;
   }
 
   onFieldOfKnowledge() {
     this.filteredSelectiveCourses = [];
     if (this.selectiveCourses.length > 0) {
-      for (let i = 0; i < this.selectiveCourses.length; i++) {
-        if (this.currentFieldOfKnowledge.id === ALL_COURSES) {
-          this.filteredSelectiveCourses = this.selectiveCourses;
-        } else if (this.currentFieldOfKnowledge.id === GENERAL_ONLY) {
-          if (TypeCycle[this.selectiveCourses[i].trainingCycle] == TypeCycle.GENERAL) {
-            this.filteredSelectiveCourses.push(this.selectiveCourses[i])
-          }
-        } else {
-          if (this.selectiveCourses[i].fieldsOfKnowledge &&
-            this.selectiveCourses[i].fieldsOfKnowledge.some(fieldOfKn => fieldOfKn.id == this.currentFieldOfKnowledge.id)) {
-            this.filteredSelectiveCourses.push(this.selectiveCourses[i]);
-          }
-        }
+      if (this.currentFieldOfKnowledge.id === ALL_ITEMS) {
+        this.filteredSelectiveCourses = this.selectiveCourses;
+      } else if (this.currentFieldOfKnowledge.id === GENERAL_ONLY) {
+          this.filteredSelectiveCourses = this.selectiveCourses.filter(selCourse => TypeCycle[selCourse.trainingCycle] == TypeCycle.GENERAL);
+      } else {
+          this.filteredSelectiveCourses = this.selectiveCourses.filter(selectiveCourse => selectiveCourse.fieldsOfKnowledge &&
+            selectiveCourse.fieldsOfKnowledge.some(fieldOfKn => fieldOfKn.id == this.currentFieldOfKnowledge.id));
       }
     }
   }
