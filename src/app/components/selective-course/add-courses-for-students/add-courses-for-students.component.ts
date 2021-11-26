@@ -58,11 +58,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
         if (this.degrees) {
           this.currentDegree = this.degrees[0];
           this.onDegreeOrYearChange();
-          this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
-            .subscribe(selectiveCourses => {
-              this.filteredSelectiveCourses = selectiveCourses;
-              this.selectiveCourses = selectiveCourses;
-            });
         }
       });
     this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
@@ -110,7 +105,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.selectedStudents = [];
         this.selectedCourses = [];
         this.onFacultyChange();
-
       });
     this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
       .subscribe(selectiveCourses => {
@@ -120,7 +114,6 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.filteredSelectiveCourses = this.selectiveCourses;
         this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2, false)
           .subscribe(selectiveCourses2 => {
-            // this.filteredSelectiveCourses.push(...selectiveCourses2);
             this.selectiveCourses.push(...selectiveCourses2);
           });
       });
