@@ -8,6 +8,12 @@ import {StudentDegree} from '../../../models/StudentDegree';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {DegreeService} from '../../../services/degree.service';
 import {TypeCycle} from '../../../models/TypeCycle';
+import {FacultyService} from '../../../services/faculty.service';
+import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.service';
+import {Faculty} from '../../../models/Faculty';
+import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
+
+const ALL_ITEMS = 0, GENERAL_ONLY = -1;
 
 @Component({
   selector: 'add-courses-for-students',
@@ -18,21 +24,32 @@ import {TypeCycle} from '../../../models/TypeCycle';
 export class AddCoursesForStudentsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
-  groups: StudentGroup[];
+  groups: StudentGroup[] = [];
+  allGroupsItem: StudentGroup;
+  filteredGroups: StudentGroup[] = [];
+  faculties: Faculty[];
+  currentFaculty: Faculty;
   currentGroup: StudentGroup;
-  currentGroupName: string;
   students: StudentDegree[];
   selectedYear: string;
-  selectiveCourses: SelectiveCourse[];
+  filteredSelectiveCourses: SelectiveCourse[] = [];
+  selectiveCourses: SelectiveCourse[] = [];
   years: number[];
   currentYear: number = 2;
   typeCycle = TypeCycle;
   searchText: string;
   selectedCourses: SelectiveCourse[] = [];
   selectedStudents: StudentDegree[] = [];
+  isAllCoursesSelected = false;
+  isAllStudentsSelected = false;
+  searchTextForStudents: string;
+  fieldsOfKnowledge: FieldOfKnowledge[];
+  currentFieldOfKnowledge: FieldOfKnowledge;
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
-              private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService) {}
+              private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService,
+              private fieldOfKnowledgeService: FieldOfKnowledgeService,
+              private facultyService: FacultyService) {}
 
   ngOnInit() {
     this.years = [1, 2, 3, 4, 5, 6];
@@ -43,29 +60,67 @@ export class AddCoursesForStudentsComponent implements OnInit {
           this.onDegreeOrYearChange();
           this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
             .subscribe(selectiveCourses => {
+              this.filteredSelectiveCourses = selectiveCourses;
               this.selectiveCourses = selectiveCourses;
             });
         }
       });
+    this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
+      this.faculties = faculties;
+      const allFacultiesItem = new Faculty();
+      allFacultiesItem.id = ALL_ITEMS;
+      allFacultiesItem.abbr = "Всі";
+      this.faculties.unshift(allFacultiesItem);
+      this.currentFaculty = this.faculties[0];
+    });
+    this.fieldOfKnowledgeService.getFieldsOfKnowledge().subscribe(fieldsOfKnowledge => {
+      this.fieldsOfKnowledge = fieldsOfKnowledge;
+      const allFieldsOfKnowledgeItem = new FieldOfKnowledge();
+      allFieldsOfKnowledgeItem.id = ALL_ITEMS;
+      allFieldsOfKnowledgeItem.name = "Всі";
+      allFieldsOfKnowledgeItem.code = "";
+      const generalFieldsOfKnowledge = new FieldOfKnowledge();
+      generalFieldsOfKnowledge.id = GENERAL_ONLY;
+      generalFieldsOfKnowledge.name = "Загальні";
+      generalFieldsOfKnowledge.code = "";
+      this.fieldsOfKnowledge.unshift(generalFieldsOfKnowledge);
+      this.fieldsOfKnowledge.unshift(allFieldsOfKnowledgeItem);
+      this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
+    });
   }
 
   onDegreeOrYearChange(): void {
     this.groupService.getGroupsByDegreeAndRealYear(this.currentDegree.id, this.currentYear)
       .subscribe(groups => {
+        this.isAllStudentsSelected = false;
         this.groups = groups ? groups : [];
-        this.currentGroup = groups[0];
-        if (this.groups && this.groups.length) {
-          this.onGroupChange();
-        } else {
-          this.students = [];
-          this.currentGroupName = '';
+        this.allGroupsItem = new StudentGroup();
+        this.allGroupsItem.name = "Всі";
+        this.allGroupsItem.id = ALL_ITEMS;
+        this.allGroupsItem.studentDegrees = [];
+        for (let i = 0; i < this.groups.length; i++) {
+          this.groups[i].studentDegrees.forEach(sd => sd.groupName = groups[i].name);
+          this.allGroupsItem.studentDegrees.push(...this.groups[i].studentDegrees);
         }
+        let students = this.allGroupsItem.studentDegrees;
+        students.sort((a, b) =>
+          (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
+        this.groups.unshift(this.allGroupsItem);
+        this.filteredGroups = groups;
+        this.selectedStudents = [];
+        this.selectedCourses = [];
+        this.onFacultyChange();
+
       });
     this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
       .subscribe(selectiveCourses => {
+        this.isAllCoursesSelected = false;
+        this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
         this.selectiveCourses = selectiveCourses;
+        this.filteredSelectiveCourses = this.selectiveCourses;
         this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2, false)
           .subscribe(selectiveCourses2 => {
+            // this.filteredSelectiveCourses.push(...selectiveCourses2);
             this.selectiveCourses.push(...selectiveCourses2);
           });
       });
@@ -73,7 +128,22 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   onGroupChange() {
     this.students = this.currentGroup.studentDegrees;
-    this.currentGroupName = this.currentGroup.name;
+  }
+
+  onFacultyChange() {
+    if (this.currentFaculty.id === ALL_ITEMS) {
+      this.filteredGroups = this.groups;
+    } else {
+      this.filteredGroups = this.groups.filter(group => !group.specialization || group.specialization.facultyId == this.currentFaculty.id);
+      this.filteredGroups[0].studentDegrees = [];
+      for (let i = 1; i < this.filteredGroups.length; i++) {
+        this.filteredGroups[0].studentDegrees.push(...this.filteredGroups[i].studentDegrees);
+        this.students.sort((a, b) =>
+          (a.student.surname + a.student.name).localeCompare(b.student.surname + b.student.name));
+      }
+    }
+    this.currentGroup = this.filteredGroups.length > 1 ? this.filteredGroups[1] : this.filteredGroups[0];
+    this.students = this.currentGroup.studentDegrees;
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourse) {
@@ -81,19 +151,13 @@ export class AddCoursesForStudentsComponent implements OnInit {
       for (const course of this.selectedCourses) {
         if (course.id === selectedCourse.id) {
           this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
+          break;
         }
       }
     } else {
       this.selectedCourses.push(selectedCourse);
     }
-  }
-
-  isSelectedCourseEmpty() {
-      return this.selectedCourses.length;
-  }
-
-  isSelectedStudentsEmpty() {
-    return this.selectedStudents.length;
+    this.isAllCoursesSelected = this.isSelectedCourseEmpty();
   }
 
   changeSelectedStudents(checked: boolean, selectedStudent: StudentDegree) {
@@ -101,12 +165,38 @@ export class AddCoursesForStudentsComponent implements OnInit {
       for (const student of this.selectedStudents) {
         if (student.id === selectedStudent.id) {
           this.selectedStudents.splice(this.selectedStudents.indexOf(student), 1);
+          break;
         }
       }
     } else {
-      selectedStudent.groupName = this.currentGroupName;
       this.selectedStudents.push(selectedStudent);
     }
+    this.isAllStudentsSelected = this.isSelectedStudentsEmpty();
+  }
+
+  changeAllCoursesIsSelected(): void {
+    if (this.selectedCourses.length > 0) {
+      this.filteredSelectiveCourses.forEach(item => item.selected = this.isAllCoursesSelected);
+      this.selectedCourses = [];
+    }
+  }
+
+  changeAllStudentsIsSelected(): void {
+    if (this.selectedStudents.length > 0) {
+      this.selectedStudents.forEach(student => student.selected = false);
+      this.selectedStudents = []
+    } else {
+      this.currentGroup.studentDegrees.forEach(student => student.selected = true);
+      this.selectedStudents.push(...this.currentGroup.studentDegrees);
+    }
+  }
+
+  isSelectedCourseEmpty(): boolean {
+      return this.selectedCourses.length > 0;
+  }
+
+  isSelectedStudentsEmpty(): boolean {
+    return this.selectedStudents.length > 0;
   }
 
   saveCoursesForStudents() {
@@ -116,15 +206,30 @@ export class AddCoursesForStudentsComponent implements OnInit {
       studyYear: +this.selectedYear
     }
     this.selectiveCourseService.assignMultipleCoursesForMultipleStudents(body).subscribe((response: any) => {
-      this.selectedStudents = [];
       this.disableStudentCheckboxes();
+      this.selectedStudents = [];
       alert(response.message)
     }, error => {
-      console.log(body, error);
+      alert(error.message);
     });
   }
 
   disableStudentCheckboxes() {
-    this.students.forEach(student => student.selected = false);
+    this.selectedStudents.forEach(student => student.selected = false);
+    this.isAllStudentsSelected = false;
+  }
+
+  onFieldOfKnowledge() {
+    this.filteredSelectiveCourses = [];
+    if (this.selectiveCourses.length > 0) {
+      if (this.currentFieldOfKnowledge.id === ALL_ITEMS) {
+        this.filteredSelectiveCourses = this.selectiveCourses;
+      } else if (this.currentFieldOfKnowledge.id === GENERAL_ONLY) {
+          this.filteredSelectiveCourses = this.selectiveCourses.filter(selCourse => TypeCycle[selCourse.trainingCycle] == TypeCycle.GENERAL);
+      } else {
+          this.filteredSelectiveCourses = this.selectiveCourses.filter(selectiveCourse => selectiveCourse.fieldsOfKnowledge &&
+            selectiveCourse.fieldsOfKnowledge.some(fieldOfKn => fieldOfKn.id == this.currentFieldOfKnowledge.id));
+      }
+    }
   }
 }

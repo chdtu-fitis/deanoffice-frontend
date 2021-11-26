@@ -13,7 +13,7 @@ export class StudentGroup extends NameWithActiveEntity {
   studyYears: number;
   beginYears: number;
   realBeginYear: number;
-  studentDegrees: StudentDegree[];
+  studentDegrees: StudentDegree[] = [];
   selectiveGroupName: string;
   selected?: boolean;
 

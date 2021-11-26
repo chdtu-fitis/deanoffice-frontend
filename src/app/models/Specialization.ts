@@ -22,6 +22,7 @@ export class Specialization extends NameWithEngAndActiveEntity {
   specialityId?: number;
   degreeId?: number;
   departmentId?: number;
+  facultyId: number;
 
   faculty: Faculty;
 
