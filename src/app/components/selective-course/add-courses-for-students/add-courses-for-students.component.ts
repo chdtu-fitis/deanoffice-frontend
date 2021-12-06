@@ -176,7 +176,8 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   changeAllCoursesIsSelected(): void {
     if (this.selectedCourses.length > 0) {
-      this.filteredSelectiveCourses.forEach(item => item.selected = this.isAllCoursesSelected);
+      this.selectedCourses.forEach(item => item.selected = this.isAllCoursesSelected);
+      this.filteredSelectiveCourses.forEach(item => item.selected = this.isAllCoursesSelected);//without this also works
       this.selectedCourses = [];
     }
   }
