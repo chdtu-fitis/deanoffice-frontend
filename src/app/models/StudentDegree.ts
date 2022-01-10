@@ -37,6 +37,7 @@ export class StudentDegree extends BaseEntity {
   active: boolean;
   tuitionForm: string;
   tuitionTerm: string;
+  edeboId?: string;
 
   grade?: Grade;
   grades?: Grade[];
