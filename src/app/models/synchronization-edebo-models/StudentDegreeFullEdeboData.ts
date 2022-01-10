@@ -15,7 +15,7 @@ export class StudentDegreeFullEdeboData {
   previousDiplomaDate?: Date;
   previousDiplomaType?: DiplomaType;
   previousDiplomaIssuedBy?: string;
-  supplementNumber?: string;
+  edeboId?: string;
   admissionDate?: Date;
   admissionOrderNumber?: string;
   admissionOrderDate?: Date;
