@@ -84,7 +84,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadYearParameters() {
-    this.selectiveCourseService.getYearParameters(this.selectedYear)
+    this.selectiveCourseService.getYearParameters(String(+this.selectedYear - 1))
       .subscribe(yearParameters => {
         this.yearParameters = yearParameters;
         this.assignedCoursesChild.isWithYearParameters = Boolean(yearParameters.length);
