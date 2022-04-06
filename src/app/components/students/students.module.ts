@@ -3,10 +3,8 @@ import {CommonModule} from '@angular/common';
 import { MatIconModule } from '@angular/material';
 import {RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
-
 import {StudentsComponent} from './students.component';
 import {StudentsColumnsComponent} from './students-columns/students-columns.component';
 import {SharedModule} from '../shared/shared.module';
@@ -38,6 +36,7 @@ import {StudentDegreeHistoryComponent} from './student-degree-history/student-de
 import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component';
 import { StudentsTableComponent } from './students-table/students-table.component'
 import {EdeboDiplomaNumberComponent} from './edebo-diploma-number/edebo-diploma-number.component';
+import {ShowSelectedCoursesOfStudentsComponent} from './show-selected-courses-of-students/show-selected-courses-of-students.component';
 
 
 export const studentRoutes: Routes = [
@@ -78,12 +77,14 @@ export const studentRoutes: Routes = [
     GroupFilterComponent,
     PaymentFilterComponent,
     StudentSpecializationTransferComponent,
-    StudentsTableComponent
+    StudentsTableComponent,
+    ShowSelectedCoursesOfStudentsComponent
   ],
   entryComponents: [
     GroupFilterComponent,
     PaymentFilterComponent,
-    StudentsColumnsComponent
+    StudentsColumnsComponent,
+    ShowSelectedCoursesOfStudentsComponent
  ],
   imports: [
     CommonModule,

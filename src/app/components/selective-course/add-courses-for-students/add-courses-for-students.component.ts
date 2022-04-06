@@ -94,6 +94,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
       .subscribe(groups => {
         this.isAllStudentsSelected = false;
         this.groups = groups ? groups : [];
+
         this.allGroupsItem = new StudentGroup();
         this.allGroupsItem.name = "Всі";
         this.allGroupsItem.id = ALL_ITEMS;

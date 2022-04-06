@@ -19,6 +19,7 @@ import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import {StudentsStatisticsOfSelectiveCoursesComponent} from './students-statistics-of-selective-courses/students-statistics-of-selective-courses.component';
 
 @Component({
   selector: 'selective-course',
@@ -214,5 +215,10 @@ export class SelectiveCourseComponent implements OnInit {
     };
 
     const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
+  }
+  showStudentStatisticsOfSelectiveCourses() {
+    const initialState = {};
+    const modalRef = this.modalService.show(StudentsStatisticsOfSelectiveCoursesComponent, { initialState, class: 'modal-custom'});
+
   }
 }
