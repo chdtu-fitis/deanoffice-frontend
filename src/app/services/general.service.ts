@@ -1,8 +1,9 @@
 import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {CurrentYear} from "../models/CurrentYear";
 
 @Injectable()
 export class GeneralService {
@@ -26,6 +27,10 @@ export class GeneralService {
     if (this.academicVacationReasons) {
       return of(this.academicVacationReasons);
     }
-    return this.http.get(`${this.apiUrl}/reasons/vidp-students`)
+    return this.http.get(`${this.apiUrl}/reasons/vidp-students`);
+  }
+
+  getCurrentYear(): Observable<CurrentYear> {
+    return this.http.get<CurrentYear>(`${this.apiUrl}/current-year`);
   }
 }
