@@ -1,0 +1,26 @@
+::ng-deep .modal-dialog {
+  max-width: 80%;
+}
+
+.modal-body{
+  display: flex;
+}
+
+.info-container{
+  width: 70%;
+  margin-right: 20px;
+}
+
+.buttons-container{
+  width: 30%;
+}
+
+.buttons-container > * {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.modal-footer{
+  display: flex;
+  justify-content: space-between;
+}
+

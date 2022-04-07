@@ -1,3 +1,4 @@
+
 <div class="modal-header">
   <h4 class="modal-title">Статистика запису студентів на вибіркові дисципліни</h4>
   <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
@@ -5,19 +6,41 @@
   </button>
 </div>
 <div class="modal-body">
-  <table class="table-bordered table-sm table" >
-    <thead>
-    <tr>
-      <td>ПІБ</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let studentDegree of students; let i = index">
-      <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="info-container">
+    <table id="excel-table" class="table-bordered table-sm table" >
+      <thead>
+      <tr>
+        <td>№</td>
+        <td>Факультет</td>
+        <td>Курс</td>
+        <td>Кількість, що вибрали</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let number of testNumber; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{number}}</td>
+        <td>2</td>
+        <td>100%</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Середній відсоток:</td>
+        <td>{{averagePercent}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="buttons-container">
+    <select [(ngModel)]="currentDegree" (change)="onDegreeChange()" class="form-control">
+      <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
+    </select>
+    <button class="btn btn-success" (click)="showPercentOfStudentsWhoDidChoice()">Відсоток студентів, що здійснили вибір</button>
+    <button class="btn btn-danger" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
+    <button class="btn btn-warning" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
+  </div>
 </div>
 <div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="exportTableIntoCsv()">Експортувати таблицю в csv</button>
   <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
 </div>
