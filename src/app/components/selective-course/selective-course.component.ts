@@ -191,7 +191,9 @@ export class SelectiveCourseComponent implements OnInit {
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
     };
-    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, {
+      animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true, initialState, class: 'modal-custom'
+    });
     // this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
     //   this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
     //   this.assignedCoursesChild.load();
