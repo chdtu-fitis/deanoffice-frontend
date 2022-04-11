@@ -84,7 +84,7 @@
             Додати параметри н.р.
           </button>
 
-          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger">
+          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger" [disabled]="yearParameters && yearParameters.length <= 0">
             Дискваліф. дисципіни
           </button>
 

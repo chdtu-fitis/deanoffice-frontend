@@ -190,6 +190,7 @@ export class SelectiveCourseComponent implements OnInit {
       studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
+      yearParameters: this.yearParameters[0]
     };
     const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, {
       animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true, initialState, class: 'modal-custom'

@@ -11,6 +11,8 @@ export class DisqualifiableCoursesTableComponent implements OnInit {
 
   @Output() onSelectedSelectiveCoursesChange = new EventEmitter();
   @Input() selectiveCourses: SelectiveCourse[];
+  @Input() minGeneralStudentsCount: number;
+  @Input() minProfessionalStudentsCount: number;
   selectedSelectiveCourses: SelectiveCourse[];
   isAllSelected: boolean;
 

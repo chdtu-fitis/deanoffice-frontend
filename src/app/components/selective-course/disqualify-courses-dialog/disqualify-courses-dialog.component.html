@@ -8,13 +8,15 @@
   <div class="creation-form">
     <div>
       <disqualifiable-courses-table [selectiveCourses]="selectiveCourses"
+                                    [minGeneralStudentsCount]="minGeneralStudentsCount"
+                                    [minProfessionalStudentsCount]="minProfessionalStudentsCount"
                                     (onSelectedSelectiveCoursesChange)="changeSelectedSelectiveCourses($event)">
 
       </disqualifiable-courses-table>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Зберегти</button>
+      <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Дискваліфікувати</button>
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
     </div>
   </div>
