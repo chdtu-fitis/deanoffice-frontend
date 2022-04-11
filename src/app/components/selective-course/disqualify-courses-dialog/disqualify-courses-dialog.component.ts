@@ -33,6 +33,9 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
     } else if (this.degreeId == Degree.MASTER) {
       this.minGeneralStudentsCount = this.yearParameters.masterGeneralMinStudentsCount;
       this.minProfessionalStudentsCount = this.yearParameters.masterProfessionalMinStudentsCount;
+    } else if (this.degreeId == Degree.PHD) {
+      this.minGeneralStudentsCount = this.yearParameters.phdGeneralMinStudentsCount;
+      this.minProfessionalStudentsCount = this.yearParameters.phdProfessionalMinStudentsCount;
     }
     this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
       .subscribe((selectiveCourses: SelectiveCourse[]) => {
@@ -55,11 +58,10 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
 
   changeSelectedSelectiveCourses(selectedSelectiveCourses: SelectiveCourse[]) {
     this.selectedSelectiveCourses = selectedSelectiveCourses;
-    console.log(selectedSelectiveCourses);
   }
 
-  submit() {
-
+  onSubmit() {
+    //this.selectiveCourseService.disqualifySelectiveCourses(this.semester, this.degreeId)
   }
 
 }
