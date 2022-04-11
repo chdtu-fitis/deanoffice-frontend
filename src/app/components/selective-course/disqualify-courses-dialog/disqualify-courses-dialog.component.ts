@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {SelectiveCourse} from '../../../models/SelectiveCourse';
@@ -21,7 +21,6 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
   minProfessionalStudentsCount: number;
 
   selectiveCourses: SelectiveCourse[] = [];
-  selectedSelectiveCourses: SelectiveCourse[] = [];
 
   constructor(public bsModalRef: BsModalRef,
               private selectiveCourseService: SelectiveCourseService) { }
@@ -56,12 +55,11 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
       });
   }
 
-  changeSelectedSelectiveCourses(selectedSelectiveCourses: SelectiveCourse[]) {
-    this.selectedSelectiveCourses = selectedSelectiveCourses;
-  }
-
   onSubmit() {
-    //this.selectiveCourseService.disqualifySelectiveCourses(this.semester, this.degreeId)
+    let selectiveCourseIds = this.selectiveCourses.filter(sc => sc.selected).map(sc => sc.id);
+    this.selectiveCourseService.disqualifySelectiveCourses(selectiveCourseIds).subscribe(() => {
+      this.bsModalRef.hide();
+    });
   }
 
 }

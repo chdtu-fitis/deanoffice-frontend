@@ -9,14 +9,12 @@
     <div>
       <disqualifiable-courses-table [selectiveCourses]="selectiveCourses"
                                     [minGeneralStudentsCount]="minGeneralStudentsCount"
-                                    [minProfessionalStudentsCount]="minProfessionalStudentsCount"
-                                    (onSelectedSelectiveCoursesChange)="changeSelectedSelectiveCourses($event)">
-
+                                    [minProfessionalStudentsCount]="minProfessionalStudentsCount">
       </disqualifiable-courses-table>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Дискваліфікувати</button>
+      <button type="button" class="btn btn-outline-success" (click)="onSubmit()">Дискваліфікувати</button>
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
     </div>
   </div>

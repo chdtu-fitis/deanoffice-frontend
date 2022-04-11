@@ -19,9 +19,7 @@
           (course.trainingCycle == 'PROFESSIONAL' && course.studentsCount >= minProfessionalStudentsCount) ? 'black' : 'red'}">
     <tr >
       <td>{{i+1}}</td>
-      <td><input type="checkbox"
-                 [(ngModel)]="course.selected"
-                 (change)="changeSelectedSelectiveCourses($event.target.checked, course)"></td>
+      <td><input type="checkbox" [(ngModel)]="course.selected"></td>
       <td>{{course.course.courseName.name}}</td>
       <td>{{course.course.semester}}</td>
       <td>{{typeCycle[course.trainingCycle]}}</td>
