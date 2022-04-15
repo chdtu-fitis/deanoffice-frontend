@@ -106,6 +106,12 @@
           </button>
         </div>
 
+        <div class="row">
+          <button type="button" class="btn btn-info" (click)="importSelectiveCoursesFromCsv()">
+            Імпортувати з csv
+          </button>
+        </div>
+
         <div *ngIf="isChecked && yearParameters.length">
           <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
         </div>
@@ -117,3 +123,4 @@
     </div>
   </div>
 </div>
+

@@ -23,6 +23,8 @@ import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
+import { ImportCsvComponent } from './import-csv/import-csv.component';
+import {TabsModule} from "ngx-bootstrap";
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -37,15 +39,17 @@ export const selectiveCourseRoutes: Routes = [
         PipeModule.forRoot(),
         RouterModule.forChild(selectiveCourseRoutes),
         MatTooltipModule,
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        TabsModule.forRoot()
     ],
   declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent,
     CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
     YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
-    AddCoursesForStudentsComponent],
+    AddCoursesForStudentsComponent,
+    ImportCsvComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
-    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent]
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, ImportCsvComponent]
 })
 
 export class SelectiveCourseModule {

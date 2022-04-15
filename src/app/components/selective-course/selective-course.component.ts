@@ -19,6 +19,7 @@ import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import {ImportCsvComponent} from "./import-csv/import-csv.component";
 
 @Component({
   selector: 'selective-course',
@@ -63,8 +64,7 @@ export class SelectiveCourseComponent implements OnInit {
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
-              private modalService: BsModalService,
-              private alerts: AlertsService) {
+              private modalService: BsModalService) {
   }
 
   ngOnInit(): void {
@@ -213,6 +213,11 @@ export class SelectiveCourseComponent implements OnInit {
       selectedYear: this.selectedYear,
     };
 
-    const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(AddCoursesForStudentsComponent, {initialState, class: 'modal-custom'});
   }
+
+  importSelectiveCoursesFromCsv() {
+    const modalRef = this.modalService.show(ImportCsvComponent, {keyboard: true, backdrop: 'static', ignoreBackdropClick: true, class:'modal-custom'});
+  }
+
 }
