@@ -6,6 +6,8 @@ import {ImportSelectiveCourseCorrect} from './model/ImportSelectiveCourseCorrect
 import {ImportSelectiveCourseIncorrect} from './model/ImportSelectiveCourseIncorrect';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../shared/utils';
+import {ImportSelectiveCourseForSave} from "./model/ImportSelectiveCourseForSave";
+import {UpdateSelectiveCourses} from "./model/UpdateSelectiveCourses";
 
 @Component({
   selector: 'import-csv',
@@ -27,8 +29,14 @@ export class ImportCsvComponent {
   tableView = false;
   selectiveCoursesCorrect: ImportSelectiveCourseCorrect[];
   selectiveCoursesIncorrect: ImportSelectiveCourseIncorrect[];
+  notUpdatedData: string[];
+  updatedData: number;
+  isNotUpdatedData: boolean;
   form: FormGroup;
   allRowsIsSelected = true;
+  degreeId: number;
+  studyYear: number;
+  degrees: any[];
 
   constructor(public bsModalRef: BsModalRef, private selectiveCourseService: SelectiveCourseService, private fb: FormBuilder) {}
 
@@ -36,12 +44,6 @@ export class ImportCsvComponent {
     this.fileName = 'Виберіть файл';
     this.fileField = true;
     this.downloadButton = true;
-    const currentYear = new Date().getFullYear();
-    this.form = this.fb.group({
-      studyYear: [currentYear, Validators.required],
-      degree: ['', Validators.required],
-
-    });
    // this.modal.show();
   }
 
@@ -79,29 +81,29 @@ export class ImportCsvComponent {
   }
 
   saveImportCourses() {
-    // const selectiveCoursesForSave = this.getCoursesWithCorrectData();
-    // this.edeboDiplomaNumberService.updateDiplomaData(selectiveCoursesForSave, this.form.value).subscribe(
-    //   response => {
-    //     this.updatedDiplomaData = response.updatedDiplomaData;
-    //     this.notUpdatedDiplomaData = response.notUpdatedDiplomaData;
-    //     this.modalName = 'Дані змінено';
-    //     this.tableView = !this.tableView;
-    //     this.resultView = true;
-    //     this.isNotUpdatedDiplomaData = this.notUpdatedDiplomaData.length !== 0;
-    //   }
-    // );
-    // this.saveButton = true;
+    const selectiveCoursesForSave = this.getSelectedCourses();
+    this.selectiveCourseService.updateImportedSelectiveCoursesData(selectiveCoursesForSave, this.form.value).subscribe(
+      response => {
+        this.updatedData = response.updatedData;
+        this.notUpdatedData = response.notUpdatedData;
+        this.modalName = 'Дані змінено';
+        this.tableView = !this.tableView;
+        this.resultView = true;
+        this.isNotUpdatedData = this.notUpdatedData.length !== 0;
+      }
+    );
+    this.saveButton = true;
   }
 
   // private getStudentsWithCorrectData(): DiplomaNumberForSaveDTO[] {
-  private getCoursesWithCorrectData() {
+  private getSelectedCourses(): ImportSelectiveCourseForSave[] {
      const selectedCourses = this.selectiveCoursesCorrect.filter(course => course.selected);
-     return selectedCourses.map(course => new ImportSelectiveCourseCorrect());
+     return selectedCourses.map(course => new ImportSelectiveCourseForSave(course));
   }
 
   changeAllIsSelected(isSelected: boolean): void {
-    // this.diplomaSynchronizedData.forEach(student => student.selected = isSelected);
-    // this.allRowsIsSelected = isSelected;
+    this.selectiveCoursesCorrect.forEach(course => course.selected = isSelected);
+    this.allRowsIsSelected = isSelected;
   }
 
   coursesSelect() {

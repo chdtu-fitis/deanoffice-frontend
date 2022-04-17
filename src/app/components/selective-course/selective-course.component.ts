@@ -13,9 +13,7 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
-import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
-import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
@@ -217,7 +215,13 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   importSelectiveCoursesFromCsv() {
-    const modalRef = this.modalService.show(ImportCsvComponent, {keyboard: true, backdrop: 'static', ignoreBackdropClick: true, class:'modal-custom'});
+    const initialState = {
+      studyYear: this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      degrees: this.degrees,
+    };
+
+    const modalRef = this.modalService.show(ImportCsvComponent, {initialState, keyboard: true, backdrop: 'static', ignoreBackdropClick: true, class:'modal-custom'});
   }
 
 }

@@ -116,10 +116,11 @@ export class SelectiveCourseService {
     //   .pipe(catchError(forObservable<ImportSelectiveCourses>('upload Selective Courses')))
   }
 
-  updateImportedSelectiveCoursesData(data: ImportSelectiveCourseForSave, dates) {
-    // return this._http.put<UpdateSelectiveCourses>(
-    //   `${this.url}?diplomaDate=${dates.diplomaDate}&supplementDate=${dates.supplementDate}`, data)
-    //   .pipe(catchError(forObservable<UpdateSelectiveCourses>('save diplomaNumbers')))
+  updateImportedSelectiveCoursesData(data: any, dates) {
+   let result  = new UpdateSelectiveCourses();
+   result.updatedData = 4;
+   let res = of(result);
+   return res;
   }
   // addImportedSelectiveCourses(data: ImportSelectiveCourseCorrect[], dates) {
   //   return this.httpClient.put<ImportSelectiveCourseCorrect>(
