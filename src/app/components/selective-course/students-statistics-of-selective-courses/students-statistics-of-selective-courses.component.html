@@ -7,7 +7,70 @@
 </div>
 <div class="modal-body">
   <div class="info-container">
-    <table id="excel-table" class="table-bordered table-sm table" >
+    <table id="excel-table-1" class="table-bordered table-sm table" *ngIf="whichTable === 1">
+      <thead>
+      <tr>
+        <td>№</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"
+        >Рік навчання</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'"
+        >Факультет</td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'">Назва спеціалізації</td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">Назва групи</td>
+        <td>Відсоток</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let stats of registeredStudentsStatistics; let i = index">
+        <td>{{i+1}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"
+        >{{stats.studyYear}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'">{{stats.facultyName}}</td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'">{{stats.specializationName}}</td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">{{stats.groupName}}</td>
+        <td>{{stats.percent}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"></td>
+        <td>Середній відсоток:</td>
+        <td>{{averagePercent}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table id="excel-table-2" class="table-bordered table-sm table" *ngIf="whichTable === 2">
+      <thead>
+      <tr>
+        <td>№</td>
+        <td>Прізвище, Ім'я</td>
+        <td>Факультет</td>
+        <td>Код спеціальності</td>
+        <td>Назва групи</td>
+        <td>Випускова кафедра</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let number of testNumber; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{number}}</td>
+        <td>Факультет</td>
+        <td>спец - 075</td>
+        <td>бі-201</td>
+        <td>ртск</td>
+      </tr>
+      </tbody>
+    </table>
+    <table id="excel-table-3" class="table-bordered table-sm table" *ngIf="whichTable === 3">
       <thead>
       <tr>
         <td>№</td>
@@ -20,24 +83,45 @@
       <tr *ngFor="let number of testNumber; let i = index">
         <td>{{i+1}}</td>
         <td>{{number}}</td>
-        <td>2</td>
-        <td>100%</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>Середній відсоток:</td>
-        <td>{{averagePercent}}</td>
+        <td>5</td>
+        <td>90%</td>
       </tr>
       </tbody>
     </table>
   </div>
   <div class="buttons-container">
-    <select [(ngModel)]="currentDegree" (change)="onDegreeChange()" class="form-control">
+    <select [(ngModel)]="currentDegree" class="form-control">
       <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
     </select>
-    <button class="btn btn-success" (click)="showPercentOfStudentsWhoDidChoice()">Відсоток студентів, що здійснили вибір</button>
-    <button class="btn btn-danger" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
-    <button class="btn btn-warning" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
+    <div class="option-container">
+      <button class="btn btn-success btn-with-options" (click)="showPercentOfStudentsWhoDidChoice()">Відсоток студентів, що здійснили вибір</button>
+      <input type="radio" id="choice1" value="YEAR"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'YEAR' ? true : false">
+      <label for="choice1">Рік</label><br>
+      <input type="radio" id="choice2" value="FACULTY"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'FACULTY' ? true : false">
+      <label for="choice2">Факультет</label><br>
+      <input type="radio" id="choice3" value="GROUP"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'GROUP' ? true : false">
+      <label for="choice3">Група</label><br>
+      <input type="radio" id="choice4" value="FACULTY_AND_SPECIALIZATION"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_SPECIALIZATION' ? true : false">
+      <label for="choice4">Факультет + освітня програма</label><br>
+      <input type="radio" id="choice5" value="FACULTY_AND_YEAR"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
+      <label for="choice5">Факультет + рік</label><br>
+    </div>
+    <div>
+      <button class="btn btn-danger btn-out-of-input" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
+    </div>
+    <div>
+      <button class="btn btn-warning btn-out-of-input" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
+    </div>
   </div>
 </div>
 <div class="modal-footer">

@@ -9,18 +9,41 @@
 .info-container{
   width: 70%;
   margin-right: 20px;
+  overflow-y: scroll;
+  height: 500px;
 }
 
 .buttons-container{
   width: 30%;
 }
 
-.buttons-container > * {
+.btn-out-of-input {
   margin-bottom: 10px;
   width: 100%;
 }
+
+.btn-with-options {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
 .modal-footer{
   display: flex;
   justify-content: space-between;
 }
 
+.option-container{
+  margin: 10px 0;
+  padding: 3%;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+}
+
+.table{
+  width: 99%;
+  margin-right: 1%;
+}
+
+input{
+  margin-right: 5px;
+}

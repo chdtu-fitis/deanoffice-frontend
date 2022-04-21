@@ -217,7 +217,9 @@ export class SelectiveCourseComponent implements OnInit {
     const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
   }
   showStudentStatisticsOfSelectiveCourses() {
-    const initialState = {};
+    const initialState = {
+      selectedYear: this.selectedYear,
+    };
     const modalRef = this.modalService.show(StudentsStatisticsOfSelectiveCoursesComponent, { initialState, class: 'modal-custom'});
 
   }
