@@ -1,19 +1,13 @@
-
-<!--<div id = 'modalSC' class="modal"-->
-<!--     bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-hidden="true" >-->
-<!--  <div class="modal-dialog" [ngClass]="tableView && 'modal-full'" role="document">-->
-
-<!--    <div class="modal-content ">-->
-      <div class="modal-header">
+     <div class="modal-header" style = "max-width: 500px">
         <h4 class="modal-title">{{modalName}}</h4>
         <button type="button" class="close" aria-label="Close" (click)=bsModalRef.hide()>
           <span aria-hidden="true">x</span>
         </button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" style = "max-width: 500px">
         <form #inputFileForm="ngForm">
-          <div class="input-group" *ngIf="fileField" >
+          <div class="input-group " *ngIf="fileField" >
             <input
               type="file"
               name="file"
@@ -112,14 +106,14 @@
         </div>
       </div>
 
-      <div class="modal-footer d-inline">
+      <div class="modal-footer d-inline" style = "max-width: 500px">
         <button class="btn btn-success" *ngIf="downloadButton" (click)="onFileUpload()"
                 [disabled]="uploadInProgress || !inputFileForm.form.valid">
           Завантажити
         </button>
 
         <ng-container *ngIf="tableView">
-            <div class="form-group row">
+            <div class="form-group row" style = "max-width: 500px">
               <label class="col col-form-label" for="degree">Ступінь:</label>
               <select [(ngModel)]="degreeId" name="degree" id="degree" class="col-2 form-control">
                 <option *ngFor='let degree of degrees' value={{degree.id}}>{{degree.name}}</option>
@@ -145,7 +139,6 @@
         </ng-container>
         <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="bsModalRef.hide()">Закрити</button>
       </div>
-
 
   <script>
     $('#modalSC').modal({backdrop: 'static', keyboard: false})

@@ -7,7 +7,7 @@ export class ImportSelectiveCourseCorrect {
   degreeId?: number;
   departmentAbbr: string;
   fieldsOfKnowledge: number;
-  trainingCycle: TypeCycle;
+  trainingCycle: string;
   description: string;
   studyYear?: number;
   selected?: boolean;

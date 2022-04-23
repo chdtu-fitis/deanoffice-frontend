@@ -44,7 +44,6 @@ export class ImportCsvComponent {
     this.fileName = 'Виберіть файл';
     this.fileField = true;
     this.downloadButton = true;
-   // this.modal.show();
   }
 
   hideModal() {
@@ -82,7 +81,7 @@ export class ImportCsvComponent {
 
   saveImportCourses() {
     const selectiveCoursesForSave = this.getSelectedCourses();
-    this.selectiveCourseService.updateImportedSelectiveCoursesData(selectiveCoursesForSave, this.form.value).subscribe(
+    this.selectiveCourseService.addImportedSelectiveCourses(selectiveCoursesForSave).subscribe(
       response => {
         this.updatedData = response.updatedData;
         this.notUpdatedData = response.notUpdatedData;
@@ -98,7 +97,7 @@ export class ImportCsvComponent {
   // private getStudentsWithCorrectData(): DiplomaNumberForSaveDTO[] {
   private getSelectedCourses(): ImportSelectiveCourseForSave[] {
      const selectedCourses = this.selectiveCoursesCorrect.filter(course => course.selected);
-     return selectedCourses.map(course => new ImportSelectiveCourseForSave(course));
+     return selectedCourses.map(course => new ImportSelectiveCourseForSave(course, this.degreeId, this.studyYear));
   }
 
   changeAllIsSelected(isSelected: boolean): void {

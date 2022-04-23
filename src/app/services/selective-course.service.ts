@@ -12,6 +12,7 @@ import {ImportSelectiveCourses} from "../components/selective-course/import-csv/
 import {TypeCycle} from "../models/TypeCycle";
 import {ImportSelectiveCourseForSave} from "../components/selective-course/import-csv/model/ImportSelectiveCourseForSave";
 import {UpdateSelectiveCourses} from "../components/selective-course/import-csv/model/UpdateSelectiveCourses";
+import {UpdateDiplomaAnalytics} from "../models/edebo-diploma-number/updateDiplomaAnalytics";
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
@@ -116,19 +117,14 @@ export class SelectiveCourseService {
     //   .pipe(catchError(forObservable<ImportSelectiveCourses>('upload Selective Courses')))
   }
 
-  updateImportedSelectiveCoursesData(data: any, dates) {
-   let result  = new UpdateSelectiveCourses();
-   result.updatedData = 4;
-   let res = of(result);
-   return res;
+  addImportedSelectiveCourses(datta: ImportSelectiveCourseForSave[]) {
+    return this.httpClient.put<UpdateSelectiveCourses>(`${SELECTIVE_COURSE_URL}/save-selective-courses`, datta)
+      .pipe(catchError(forObservable<UpdateSelectiveCourses>('save selective courses')))
+   // let result  = new UpdateSelectiveCourses();
+   // result.updatedData = 4;
+   // result.notUpdatedData = ["No updated"];
+   // let res = of(result);
+   // return res;
   }
-  // addImportedSelectiveCourses(data: ImportSelectiveCourseCorrect[], dates) {
-  //   return this.httpClient.put<ImportSelectiveCourseCorrect>(
-  //     `${this.url}?diplomaDate=${dates.diplomaDate}&supplementDate=${dates.supplementDate}`, data)
-  //     .pipe(catchError(forObservable<ImportSelectiveCourseCorrect>('save diplomaNumbers')))
-  // }
 
-  // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {
-  //   return this.httpClient.post(`${SELECTIVE_COURSE_URL}/enrolling`, selectiveCoursesStudentDegreeWithStudyYear);
-  // }
 }
