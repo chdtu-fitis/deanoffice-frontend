@@ -54,19 +54,19 @@
         <td>№</td>
         <td>Прізвище, Ім'я</td>
         <td>Факультет</td>
-        <td>Код спеціальності</td>
         <td>Назва групи</td>
-        <td>Випускова кафедра</td>
+        <td>Код спеціальності</td>
+        <td>Відділ</td>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let number of testNumber; let i = index">
+      <tr *ngFor="let stats of registeredStudentsStatistics; let i = index">
         <td>{{i+1}}</td>
-        <td>{{number}}</td>
-        <td>Факультет</td>
-        <td>спец - 075</td>
-        <td>бі-201</td>
-        <td>ртск</td>
+        <td>{{stats.name}}</td>
+        <td>{{stats.faculty}}</td>
+        <td>{{stats.groupName}}</td>
+        <td>{{stats.specialityCode}}</td>
+        <td>{{stats.department}}</td>
       </tr>
       </tbody>
     </table>

@@ -11,6 +11,12 @@ export class SelectiveCourseStatisticsService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getStudentsNotSelectedSelectiveCourse(studyYear: number,
+                                        degreeId: number): Observable<RegisteredStudentsStatistics[]>{
+    return this.httpClient.get<RegisteredStudentsStatistics[]>(
+      `${SELECTIVE_COURSE_STATISTICS_URL}?studyYear=${studyYear}&degreeId=${degreeId}`);
+  };
+
   getStudentsPercentWhoChosenSelectiveCourse(studyYear: number, degreeId: number,
                                              selectiveStatisticsCriteria: string): Observable<RegisteredStudentsStatistics[]>{
     return this.httpClient.get<RegisteredStudentsStatistics[]>(

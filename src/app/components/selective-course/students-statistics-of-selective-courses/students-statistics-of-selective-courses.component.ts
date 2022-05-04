@@ -45,7 +45,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
       this.registeredStudentsStatistics.forEach((elem) => {
         this.averagePercent += elem.percent;
       });
-      this.averagePercent /= (this.registeredStudentsStatistics.length - 1);
+      this.averagePercent /= (this.registeredStudentsStatistics.length);
     });
     this.selectiveStatisticsCriteriaOfCurrentTable = this.selectiveStatisticsCriteria;
   }
@@ -53,7 +53,13 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   showListOfStudentsWhoDidNotChoice() {
     this.whichTable = 2;
     this.currentTableName = "excel-table-2"
+    console.log(this.currentDegree)
+    this.selectiveCourseStatisticsService.getStudentsNotSelectedSelectiveCourse(this.selectedYear, this.currentDegree.id).subscribe(data => {
+      this.registeredStudentsStatistics = data;
+    });
+    console.log(this.registeredStudentsStatistics)
   }
+
   studentsWithUnexpectedAmountOfCourses() {
     this.whichTable = 3;
     this.currentTableName = "excel-table-3"
