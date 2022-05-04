@@ -7,10 +7,6 @@ div {
 }
 
 .selection {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-
   .form-control {
     height: 1.5rem;
     font-size: 15px;
@@ -30,75 +26,6 @@ div {
   height: 2rem;
   margin: 7px;
   padding: 0.2rem 0.75rem;
-
-  &.btn-medium {
-    width: 145px;
-  }
-
-}
-
-.menu-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.element {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-right: 15px;
-
-  .element-header {
-    margin-right: 5px;
-    min-width: auto;
-    font-weight: bold;
-  }
-}
-
-.element-wider {
-  flex: 2;
-}
-
-.col-sm {
-  margin-top: -40px;
-}
-
-.col-1 {
-  padding: 1px;
-  min-width: 4.8em;
-}
-
-.col-2 {
-  padding: 1px;
-  min-width: 10em;
-}
-
-.col-4 {
-  padding: 1px;
-}
-
-.count-label {
-  margin-top: 15px;
-}
-
-.assigned-courses-table {
-  height: 50%;
-  overflow: auto;
-}
-
-.year-parameters{
-  margin-left: -20px;
-}
-
-
-
-
-
-
-.search{
-  margin-top: 27px;
 }
 
 .--padding-zero{
@@ -106,7 +33,7 @@ div {
 }
 
 .table{
-  height: 240px;
+  height: 255px;
   overflow: auto;
   margin-bottom: 5px;
 }
@@ -125,7 +52,7 @@ div {
 }
 
 .buttons-container{
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 

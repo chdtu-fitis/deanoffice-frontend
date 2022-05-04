@@ -3,7 +3,6 @@
     <div class="col-lg-7">
       <div class="row options-container">
         <div class="col-md-3">
-          <h6 class="element-header">Ступінь:</h6>
           <div>
             <select class="form-control" [(ngModel)]="selectedDegreeId" (change)="onSelectedDegreeChange()">
               <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
@@ -11,7 +10,6 @@
           </div>
         </div>
         <div class="col-md-3">
-          <h6 class="element-header">Навчальний рік:</h6>
           <div>
             <select class="form-control mr-2" [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
               <option *ngFor="let year of years" [ngValue]="year.id">{{year.name}}</option>
@@ -19,7 +17,6 @@
           </div>
         </div>
         <div class="col-md-2">
-          <h6 class="element-header">Семестр:</h6>
           <div>
             <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
                     (change)="onSelectedSemesterChange()">
