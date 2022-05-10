@@ -14,7 +14,7 @@ export class SelectiveCourseStatisticsService {
   getStudentsNotSelectedSelectiveCourse(studyYear: number,
                                         degreeId: number): Observable<RegisteredStudentsStatistics[]>{
     return this.httpClient.get<RegisteredStudentsStatistics[]>(
-      `${SELECTIVE_COURSE_STATISTICS_URL}?studyYear=${studyYear}&degreeId=${degreeId}`);
+      `${SELECTIVE_COURSE_STATISTICS_URL}/selected-zero?degreeId=${degreeId}$studyYear=${studyYear}`);
   };
 
   getStudentsPercentWhoChosenSelectiveCourse(studyYear: number, degreeId: number,

@@ -8,7 +8,6 @@ div {
 
 .selection {
   .form-control {
-    height: 1.5rem;
     font-size: 15px;
     padding: 0 0.75rem;
   }
@@ -52,8 +51,15 @@ div {
 }
 
 .buttons-container{
-  margin-top: 40px;
+  margin-top: -6px;
 }
 
+select{
+  height: 33px!important;
+}
+
+.search{
+  height: 33px;
+}
 
 

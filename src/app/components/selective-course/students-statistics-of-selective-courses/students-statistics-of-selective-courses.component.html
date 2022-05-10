@@ -13,15 +13,21 @@
         <td>№</td>
         <td
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
         >Рік навчання</td>
         <td
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
           || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'"
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
         >Факультет</td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'">Назва спеціалізації</td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
+        >Назва спеціалізації</td>
         <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">Назва групи</td>
+        <td>Кількість зареєстрованих</td>
+        <td>Загальна кількість</td>
         <td>Відсоток</td>
       </tr>
       </thead>
@@ -30,19 +36,31 @@
         <td>{{i+1}}</td>
         <td
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
         >{{stats.studyYear}}</td>
         <td
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
           || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'">{{stats.facultyName}}</td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'">{{stats.specializationName}}</td>
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
+          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'">{{stats.facultyName}}</td>
+
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
+            || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
+        >{{stats.specializationName}}</td>
         <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">{{stats.groupName}}</td>
+        <td>{{stats.registeredCount}}</td>
+        <td>{{stats.totalCount}}</td>
         <td>{{stats.percent}}</td>
       </tr>
       <tr>
         <td></td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'"></td>
+        <td></td>
+        <td></td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
+        || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
+        || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"></td>
+        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"></td>
         <td>Середній відсоток:</td>
         <td>{{averagePercent}}</td>
       </tr>
@@ -98,7 +116,7 @@
       <input type="radio" id="choice1" value="YEAR"
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'YEAR' ? true : false">
-      <label for="choice1">Рік</label><br>
+      <label for="choice1">Курс</label><br>
       <input type="radio" id="choice2" value="FACULTY"
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'FACULTY' ? true : false">
@@ -115,6 +133,10 @@
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
       <label for="choice5">Факультет + рік</label><br>
+      <input type="radio" id="choice6" value="FACULTY_AND_COURSES_AND_SPECIALIZATION"
+             [(ngModel)]="selectiveStatisticsCriteria"
+             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_COURSES_AND_SPECIALIZATION' ? true : false">
+      <label for="choice6">Факультет + курс + освітня програма</label><br>
     </div>
     <div>
       <button class="btn btn-danger btn-out-of-input" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>

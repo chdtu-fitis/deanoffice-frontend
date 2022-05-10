@@ -37,6 +37,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   }
 
   showPercentOfStudentsWhoDidChoice() {
+    console.log(this.selectedYear)
     this.whichTable = 1;
     this.averagePercent = 0;
     this.currentTableName = "excel-table-1";
@@ -53,11 +54,9 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   showListOfStudentsWhoDidNotChoice() {
     this.whichTable = 2;
     this.currentTableName = "excel-table-2"
-    console.log(this.currentDegree)
     this.selectiveCourseStatisticsService.getStudentsNotSelectedSelectiveCourse(this.selectedYear, this.currentDegree.id).subscribe(data => {
       this.registeredStudentsStatistics = data;
     });
-    console.log(this.registeredStudentsStatistics)
   }
 
   studentsWithUnexpectedAmountOfCourses() {

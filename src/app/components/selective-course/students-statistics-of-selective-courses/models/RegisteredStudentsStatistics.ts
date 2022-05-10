@@ -8,4 +8,6 @@ export class RegisteredStudentsStatistics {
   faculty: string;
   name: string;
   specialityCode: string;
+  totalCount: number;
+  registeredCount: number;
 }
