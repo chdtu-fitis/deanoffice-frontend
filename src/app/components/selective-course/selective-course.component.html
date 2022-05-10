@@ -4,7 +4,7 @@
       <div class="row options-container">
         <div class="col-md-3">
           <div>
-            <select class="form-control" [(ngModel)]="selectedDegreeId" (change)="onSelectedDegreeChange()">
+            <select class="form-control" [(ngModel)]="selectedDegreeId" size="1" (change)="onSelectedDegreeChange()">
               <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
             </select>
           </div>
@@ -71,9 +71,6 @@
                               (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)">
 
             </assigned-courses>
-            <div *ngIf="isChecked && yearParameters.length">
-              <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
-            </div>
           </div>
           <footer class="bg-light px-3 py-2">
             <span class="mr-3">Всього: {{assignedCoursesChild.selectiveCourses.length || '0'}}</span>
@@ -118,12 +115,15 @@
             Статистика запису студентів на вибіркові дисципліни
           </button>
         </div>
-      </div>
-    </div>
-    <div class="col-12 unsuspected-elements">
-      <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
-        <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id">
-        </registered-students>
+        <div class="col-12 unsuspected-elements">
+          <div *ngIf="isChecked && yearParameters.length">
+            <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
+          </div>
+          <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
+            <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id">
+            </registered-students>
+          </div>
+        </div>
       </div>
     </div>
   </div>
