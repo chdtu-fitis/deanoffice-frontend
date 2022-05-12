@@ -7,7 +7,7 @@
 
       <div class="modal-body" style = "max-width: 500px">
         <form #inputFileForm="ngForm">
-          <div class="input-group " *ngIf="fileField" >
+          <div class="input-group " *ngIf="isFileViewVisible" >
             <input
               type="file"
               name="file"
@@ -30,11 +30,11 @@
           </div>
         </form>
 
-        <div class="loader__content" *ngIf="uploadInProgress">
+        <div class="loader__content" *ngIf="isUploadInProgress">
           <loading [size]="50"></loading>
         </div>
 
-        <tabset *ngIf="tableView">
+        <tabset *ngIf="isTableViewVisible">
           <tab class="tab-body correct-data" heading="Коректні дані">
             <table class="table table-sm table-striped table-bordered mt-4">
               <thead>
@@ -94,7 +94,7 @@
           </tab>
         </tabset>
 
-        <div *ngIf="resultView" class="m-2">
+        <div *ngIf="isResultViewVisible" class="m-2">
           <p> Додано предметів: {{updatedData}}</p>
           <table class="table table-sm table-striped table-bordered mt-4 result-table"
                  *ngIf="isNotUpdatedData">
@@ -107,12 +107,12 @@
       </div>
 
       <div class="modal-footer d-inline" style = "max-width: 500px">
-        <button class="btn btn-success" *ngIf="downloadButton" (click)="onFileUpload()"
-                [disabled]="uploadInProgress || !inputFileForm.form.valid">
+        <button class="btn btn-success" *ngIf="isUploadButtonVisible" (click)="onFileUpload()"
+                [disabled]="isUploadInProgress || !inputFileForm.form.valid">
           Завантажити
         </button>
 
-        <ng-container *ngIf="tableView">
+        <ng-container *ngIf="isTableViewVisible">
             <div class="form-group row" style = "max-width: 500px">
               <label class="col col-form-label" for="degree">Ступінь:</label>
               <select [(ngModel)]="degreeId" name="degree" id="degree" class="col-2 form-control">
@@ -128,7 +128,7 @@
               </div>
               <div class="col">
               <button class="btn btn-success mr-2" type="button"  (click)="saveImportCourses()"
-                      [disabled]="saveButton">
+                      [disabled]="isSaveButtonVisible">
                 Зберегти
               </button>
               </div>
@@ -137,12 +137,5 @@
               </div>
             </div>
         </ng-container>
-        <button class="btn btn-primary" *ngIf="resultView" type="button" (click)="bsModalRef.hide()">Закрити</button>
+        <button class="btn btn-primary" *ngIf="isResultViewVisible" type="button" (click)="bsModalRef.hide()">Закрити</button>
       </div>
-
-  <script>
-    $('#modalSC').modal({backdrop: 'static', keyboard: false})
-  </script>
-
-
-

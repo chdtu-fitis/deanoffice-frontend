@@ -15,18 +15,16 @@ import {UpdateSelectiveCourses} from "./model/UpdateSelectiveCourses";
   styleUrls: ['./import-csv.component.scss']
 })
 export class ImportCsvComponent {
-
-  @ViewChild('modal', { static: false }) modal: ModalDirective;
   fileName = 'Виберіть файл';
   modalName = 'Вибіркові предмети';
   selectedFile: File;
   fileNameValid: string;
-  uploadInProgress = false;
-  resultView = false;
-  fileField = true;
-  downloadButton = true;
-  saveButton = false;
-  tableView = false;
+  isUploadInProgress = false;
+  isResultViewVisible = false;
+  isFileViewVisible = true;
+  isUploadButtonVisible = true;
+  isSaveButtonVisible = false;
+  isTableViewVisible = false;
   selectiveCoursesCorrect: ImportSelectiveCourseCorrect[];
   selectiveCoursesIncorrect: ImportSelectiveCourseIncorrect[];
   notUpdatedData: string[];
@@ -42,18 +40,8 @@ export class ImportCsvComponent {
 
   onShow() {
     this.fileName = 'Виберіть файл';
-    this.fileField = true;
-    this.downloadButton = true;
-  }
-
-  hideModal() {
-    this.modal.hide();
-
-    setTimeout(() => {
-      this.tableView = false;
-      this.saveButton = false;
-      this.resultView = false;
-    }, 500);
+    this.isFileViewVisible = true;
+    this.isUploadButtonVisible = true;
   }
 
   setFileName(event) {
@@ -62,19 +50,19 @@ export class ImportCsvComponent {
   }
 
   onFileUpload() {
-    this.fileField = false;
-    this.uploadInProgress = true;
+    this.isFileViewVisible = false;
+    this.isUploadInProgress = true;
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.fileName);
 
     this.selectiveCourseService.uploadImportedSelectiveCoursesData(formData).subscribe(
       res => {
         this.selectiveCoursesCorrect = res.selectiveCoursesCorrect;
-        this.selectiveCoursesCorrect.map(course => course.selected = true);
+        this.selectiveCoursesCorrect.forEach(course => course.selected = true);
         this.selectiveCoursesIncorrect = res.selectiveCoursesIncorrect;
-        this.uploadInProgress = false;
-        this.downloadButton = false;
-        this.tableView = true;
+        this.isUploadInProgress = false;
+        this.isUploadButtonVisible = false;
+        this.isTableViewVisible = true;
       }
     );
   }
@@ -86,15 +74,14 @@ export class ImportCsvComponent {
         this.updatedData = response.updatedData;
         this.notUpdatedData = response.notUpdatedData;
         this.modalName = 'Дані змінено';
-        this.tableView = !this.tableView;
-        this.resultView = true;
+        this.isTableViewVisible = !this.isTableViewVisible;
+        this.isResultViewVisible = true;
         this.isNotUpdatedData = this.notUpdatedData.length !== 0;
       }
     );
-    this.saveButton = true;
+    this.isSaveButtonVisible = true;
   }
 
-  // private getStudentsWithCorrectData(): DiplomaNumberForSaveDTO[] {
   private getSelectedCourses(): ImportSelectiveCourseForSave[] {
      const selectedCourses = this.selectiveCoursesCorrect.filter(course => course.selected);
      return selectedCourses.map(course => new ImportSelectiveCourseForSave(course, this.degreeId, this.studyYear));
@@ -108,6 +95,4 @@ export class ImportCsvComponent {
   coursesSelect() {
      this.allRowsIsSelected = this.selectiveCoursesCorrect.every(course => course.selected);
   }
-
-
 }
