@@ -98,6 +98,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.allGroupsItem.name = "Всі";
         this.allGroupsItem.id = ALL_ITEMS;
         this.allGroupsItem.studentDegrees = [];
+
         for (let i = 0; i < this.groups.length; i++) {
           this.groups[i].studentDegrees.forEach(sd => sd.groupName = groups[i].name);
           this.allGroupsItem.studentDegrees.push(...this.groups[i].studentDegrees);

@@ -23,6 +23,7 @@ import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
+import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -43,9 +44,9 @@ export const selectiveCourseRoutes: Routes = [
     CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
     YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
-    AddCoursesForStudentsComponent],
+    AddCoursesForStudentsComponent, CoursesByGroupComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
-    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent]
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent]
 })
 
 export class SelectiveCourseModule {

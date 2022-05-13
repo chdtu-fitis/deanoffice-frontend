@@ -83,4 +83,9 @@ export class SelectiveCourseService {
   // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {
   //   return this.httpClient.post(`${SELECTIVE_COURSE_URL}/enrolling`, selectiveCoursesStudentDegreeWithStudyYear);
   // }
+
+  getRegisteredStudentsAndCourseInGroup(groupId: number, studyYear: number): any {
+    const SELECTIVE_COURSE_STATISTICS_URL: string = environment.apiUrl + '/selective-courses-statistics';
+    return this.httpClient.get(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
+  }
 }
