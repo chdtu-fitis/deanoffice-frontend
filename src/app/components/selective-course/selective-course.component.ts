@@ -230,6 +230,5 @@ export class SelectiveCourseComponent implements OnInit {
     };
 
     const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
-
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {Degree} from '../../../models/Degree';
 import {Faculty} from '../../../models/Faculty';
@@ -21,8 +21,8 @@ const ALL_ITEMS = 0, GENERAL_ONLY = -1;
 })
 
 export class CoursesByGroupComponent implements OnInit {
+  selectedYear: string;
   studyYear: string;
-  academicYears: string;
 
   currentDegree: Degree;
   currentStudentsYear: number;
@@ -38,7 +38,6 @@ export class CoursesByGroupComponent implements OnInit {
   selectedCourses: SelectiveCourseWithStudents[] = [];
   selectiveCoursesWithStudents: SelectiveCourseWithStudents[] = [];
   isAllCoursesSelected = false;
-  selectedYear: string;
 
   typeCycle: TypeCycle;
 
@@ -48,9 +47,6 @@ export class CoursesByGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.academicYears = "2022";
-    //this.academicYears = ["2020-2021", "2021-2022", "2022-2023"];
-    this.selectedYear = this.academicYears;
     this.years = [1, 2, 3, 4];
     this.currentStudentsYear = 1;
     this.degreeService.getDegrees().subscribe(degrees => {
@@ -169,8 +165,4 @@ export class CoursesByGroupComponent implements OnInit {
         })
       });
   }
-
-
-
-
 }

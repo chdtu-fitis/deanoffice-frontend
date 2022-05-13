@@ -20,13 +20,6 @@
         <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
       </select>
     </div>
-    <h6>Навчальний рік:</h6>
-    <div class="p-3">
-      <input type="number" min="2021" max="2023" [(ngModel)]="selectedYear" (change)="onGroupOrAcademicYearChange()" >
-<!--      <select class="form-control" [(ngModel)]="selectedYear" (change)="onGroupOrAcademicYearChange()">-->
-<!--        <option *ngFor="let year of academicYears" [ngValue]="year">{{year}}</option>-->
-<!--      </select>-->
-    </div>
     <h6>Факультет:</h6>
     <div class="p-3">
       <select [(ngModel)]="currentFaculty" class="form-control" (change)="onFacultyChange()">
