@@ -1,5 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-
 import {SelectiveCourseService} from '../../services/selective-course.service';
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
 import {DEFAULT_COLUMN_DEFINITIONS, LOCALE_TEXT} from '../shared/constant';
@@ -14,15 +13,12 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
-import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
 import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
-
-
 
 @Component({
   selector: 'selective-course',
@@ -64,7 +60,6 @@ export class SelectiveCourseComponent implements OnInit {
   yearParameters: SelectiveCoursesYearParameters[] = [];
   isChecked = false;
 
-
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
@@ -72,13 +67,12 @@ export class SelectiveCourseComponent implements OnInit {
               private courseService: CourseService,
               private modalService: BsModalService,
               private alerts: AlertsService) {
-             }
+  }
 
   ngOnInit(): void {
     this.selectedYear = (Utils.getCurrentAcademicYear() + 1).toString();
     this.loadCourses();
     this.loadYearParameters();
-
   }
 
   loadCourses() {
@@ -220,7 +214,6 @@ export class SelectiveCourseComponent implements OnInit {
     const initialState = {
       selectedYear: this.selectedYear,
     };
-
     const modalRef = this.modalService.show(AddCoursesForStudentsComponent, {initialState, class: 'modal-custom'});
   }
 
@@ -228,7 +221,6 @@ export class SelectiveCourseComponent implements OnInit {
     const initialState = {
       selectedYear: this.selectedYear,
     };
-
     const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
   }
 }
