@@ -1,6 +1,6 @@
 import {Student} from './Student';
 
-export class SelectiveCourseWithStudents extends SelectiveCourse {
+export class SelectiveCourseWithStudents {
   selectiveCourseId: number;
   semester: number;
   courseName: string;

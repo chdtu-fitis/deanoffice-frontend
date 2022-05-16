@@ -13,8 +13,8 @@
 }
 
 .table {
-  margin-top: 2%;
- width: 80%;
+  margin-top: 0;
+  width: 80%;
 }
 
 .align-middle {
@@ -29,6 +29,19 @@
 h6 {
   vertical-align: center;
 }
+
+.modal-body {
+  padding-bottom: 0;
+}
+
+.selective-courses-list {
+  cursor: pointer;
+}
+
+//h5 {
+//  padding-top: 0;
+//  padding-bottom: 0;
+//}
 
 .choosed-courses {
   max-width: 50%;

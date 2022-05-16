@@ -51,60 +51,41 @@
         <th class="align-middle" scope="col">К-сть студентів</th>
         <th class="align-middle" scope="col">Семестр</th>
         <th class="align-middle" scope="col">Цикл підготовки</th>
+        <th class="align-middle" scope="col">Галузь знань</th>
       </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let courseWithStudents of selectiveCoursesWithStudents; let i = index">
-          <td>
-            <div class="font-weight-bolder">
-            <input type="checkbox" [(ngModel)]="courseWithStudents.selected"
+      <tr *ngFor="let courseWithStudents of selectiveCoursesWithStudents; let i = index">
+        <td>
+          <div class="font-weight-bolder">
+            <label class="selective-courses-list">
+              <input type="checkbox" #checkbox [(ngModel)]="courseWithStudents.selected"
                    (change)="changeSelectedCourses($event.target.checked, courseWithStudents)">
-            {{i+1}}) {{courseWithStudents.courseName}}
+              {{i+1}}) {{courseWithStudents.courseName}}
+            </label>
+          </div>
+          <div *ngIf="courseWithStudents.selected">
+            <div class="border-bottom"
+                 *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
+              {{ i+1 }}. {{studentOnCourse.name}}
             </div>
-            <div *ngIf="courseWithStudents.selected">
-              <div class="border-bottom"
-                *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
-                {{ i+1 }}. {{studentOnCourse.name}}
-              </div>
-            </div>
-          </td>
-          <td class="align-middle">
-            {{courseWithStudents.students.length}}
-          </td>
-          <td class="align-middle">
-            {{courseWithStudents.semester}}
-          </td>
-          <td class="align-middle">
-            {{courseWithStudents.trainingCycle}}
-          </td>
-
-        </tr>
+          </div>
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.students.length}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.semester}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.trainingCycle}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.fieldOfKnowledgeCode}}
+        </td>
+      </tr>
       </tbody>
     </table>
-
-  <!--    <div class="choosed-students students-table-scroll" >-->
-  <!--      <div class="px-3">-->
-  <!--        <div class="table-wrapper-2">-->
-
-  <!--          <table class="table-students table-sm table-striped" >-->
-  <!--            <thead>-->
-  <!--            <tr>-->
-  <!--              <td (change)="changeAllCoursesIsSelected()">№</td>-->
-  <!--              <td>ПІБ</td>-->
-  <!--            </tr>-->
-  <!--            </thead>-->
-  <!--            <tbody>-->
-  <!--            <tr *ngFor="let studentDegree of students; let i = index"  >-->
-  <!--              <td>-->
-  <!--                {{ i+1 }}</td>-->
-  <!--              <td>{{studentDegree.student.surname}} {{studentDegree.student.name}} {{studentDegree.student.patronimic}}</td>-->
-  <!--            </tr>-->
-  <!--            </tbody>-->
-  <!--          </table>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
   </div>
 </div>
 

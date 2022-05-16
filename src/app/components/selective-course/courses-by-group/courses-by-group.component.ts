@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {Degree} from '../../../models/Degree';
 import {Faculty} from '../../../models/Faculty';
@@ -7,12 +7,10 @@ import {GroupService} from '../../../services/group.service';
 import {DegreeService} from '../../../services/degree.service';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {FacultyService} from '../../../services/faculty.service';
-import {GeneralService} from '../../../services/general.service';
-import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {SelectiveCourseWithStudents} from './model/SelectiveCourseWithStudents';
 
-const ALL_ITEMS = 0, GENERAL_ONLY = -1;
+const ALL_ITEMS = 0;
 
 @Component({
   selector: 'courses-by-group',
@@ -43,7 +41,7 @@ export class CoursesByGroupComponent implements OnInit {
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
               private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService,
-              private facultyService: FacultyService, private generalService: GeneralService) {
+              private facultyService: FacultyService) {
   }
 
   ngOnInit() {
@@ -84,20 +82,6 @@ export class CoursesByGroupComponent implements OnInit {
         this.onFacultyChange();
         this.onGroupOrAcademicYearChange();
       });
-
-    // const studyYearForCourses = this.currentYear + (+this.selectedYear - this.currentYearInDB);
-    // const firstSemesterForCourses = studyYearForCourses * 2 - 1;
-    // this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, firstSemesterForCourses, false)
-    //   .subscribe(selectiveCourses => {
-    //     this.isAllCoursesSelected = false;
-    //     this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
-    //     this.selectiveCourses = selectiveCourses;
-    //     this.filteredSelectiveCourses = this.selectiveCourses;
-    //     this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, firstSemesterForCourses + 1, false)
-    //       .subscribe(selectiveCourses2 => {
-    //         this.selectiveCourses.push(...selectiveCourses2);
-    //       });
-    //   });
   }
 
   isGroupSelected(): boolean {
@@ -146,14 +130,8 @@ export class CoursesByGroupComponent implements OnInit {
     return this.selectiveCoursesWithStudents.length > 0;
   }
 
-  isSelectedCourseEmpty(): boolean {
-    return this.selectedCourses.length > 0;
-  }
-
   showCoursesByGroup() {
-    //const studyYearForCourses = this.currentYear + (+this.selectedYear - this.currentYearInDB);
     this.selectiveCourseService.getRegisteredStudentsAndCourseInGroup(this.currentGroup.id, +(this.selectedYear))
-    ///this.selectiveCourseService.getRegisteredStudentsAndCourseInGroup(this.currentGroup.id, +(this.selectedYear.slice(0, 4)))
       .subscribe(selectiveCoursesWithStudents => {
         this.selectiveCoursesWithStudents = selectiveCoursesWithStudents;
         this.selectiveCoursesWithStudents.forEach(function (item, i, selectiveCoursesWithStudents) {
