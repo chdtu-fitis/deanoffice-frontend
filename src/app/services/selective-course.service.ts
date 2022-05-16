@@ -9,6 +9,7 @@ import {SelectiveCoursesYearParameters} from '../models/SelectiveCoursesYearPara
 import {SelectiveCoursesStudentDegree} from '../models/SelectiveCoursesStudentDegree';
 import {SelectiveCoursesStudentDegreeSubstitution} from '../models/SelectiveCoursesStudentDegreeSubstitution';
 import {SelectiveCoursesStudentDegreeWithStudyYear} from '../models/SelectiveCoursesStudentDegreeWithStudyYear';
+import {SelectiveCourseWithStudents} from '../components/selective-course/courses-by-group/model/SelectiveCourseWithStudents';
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
@@ -83,4 +84,9 @@ export class SelectiveCourseService {
   // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {
   //   return this.httpClient.post(`${SELECTIVE_COURSE_URL}/enrolling`, selectiveCoursesStudentDegreeWithStudyYear);
   // }
+
+  getRegisteredStudentsAndCourseInGroup(groupId: number, studyYear: number): Observable<SelectiveCourseWithStudents[]> {
+    const SELECTIVE_COURSE_STATISTICS_URL: string = environment.apiUrl + '/selective-courses-statistics';
+    return this.httpClient.get<SelectiveCourseWithStudents[]>(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
+  }
 }
