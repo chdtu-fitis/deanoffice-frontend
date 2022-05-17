@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h4 class="modal-title">Вибіркові за групами</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+
+<div class="modal-body">
+  <div class="d-flex">
+    <h6>Ступінь:</h6>
+    <div class="p-3">
+      <select [(ngModel)]="currentDegree" (change)="onDegreeOrYearChange()" class="form-control">
+        <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
+      </select>
+    </div>
+    <h6>Курс:</h6>
+    <div class="p-3">
+      <select [(ngModel)]="currentStudentsYear" (change)="onDegreeOrYearChange()" id="years" class="form-control">
+        <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
+      </select>
+    </div>
+    <h6>Факультет:</h6>
+    <div class="p-3">
+      <select [(ngModel)]="currentFaculty" class="form-control" (change)="onFacultyChange()">
+        <option *ngFor="let faculty of faculties" [ngValue]="faculty">{{faculty.abbr}}</option>
+      </select>
+    </div>
+    <h6>Група:</h6>
+    <div class="p-3">
+      <select id="cmbGroup" [(ngModel)]="currentGroup" class="form-control" (change)="onGroupOrAcademicYearChange()">
+        <option *ngFor="let group of filteredGroups" [ngValue]="group">{{group.name}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class = "card-header mat-h2" *ngIf="!isGroupSelected() && !isSelectedCourseWithStudentsEmpty()">
+  Вибіркових дисциплін для групи {{currentGroup.name}} не знайдено!
+</div>
+
+<div class = "modal-content-part2" *ngIf="currentGroup && isSelectedCourseWithStudentsEmpty() && currentFaculty && currentStudentsYear">
+  <h5 class="card-header border-bottom-0">Вибіркові дисципліни для групи {{currentGroup.name}} </h5>
+  <div class="tables">
+    <table class="table table-bordered table-sm">
+      <thead>
+      <tr>
+        <th scope="col"><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()">
+          Дисципліна
+        </th>
+        <th class="align-middle" scope="col">К-сть студентів</th>
+        <th class="align-middle" scope="col">Семестр</th>
+        <th class="align-middle" scope="col">Цикл підготовки</th>
+        <th class="align-middle" scope="col">Галузь знань</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let courseWithStudents of selectiveCoursesWithStudents; let i = index">
+        <td>
+          <div class="font-weight-bolder">
+            <label class="selective-courses-list">
+              <input type="checkbox" #checkbox [(ngModel)]="courseWithStudents.selected"
+                   (change)="changeSelectedCourses($event.target.checked, courseWithStudents)">
+              {{i+1}}) {{courseWithStudents.courseName}}
+            </label>
+          </div>
+          <div *ngIf="courseWithStudents.selected">
+            <div class="border-bottom"
+                 *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
+              {{ i+1 }}. {{studentOnCourse.name}}
+            </div>
+          </div>
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.students.length}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.semester}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.trainingCycle}}
+        </td>
+        <td class="align-middle">
+          {{courseWithStudents.fieldOfKnowledgeCode}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
