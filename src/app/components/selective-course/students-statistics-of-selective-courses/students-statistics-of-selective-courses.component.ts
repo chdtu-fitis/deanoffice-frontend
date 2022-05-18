@@ -5,6 +5,7 @@ import {RegisteredStudentsStatistics} from './models/RegisteredStudentsStatistic
 import {DegreeService} from '../../../services/degree.service';
 import {SelectiveCourseStatisticsService} from "../../../services/selective-course-statistics.service";
 import * as XLSX from "xlsx";
+import {document} from 'ngx-bootstrap';
 
 @Component({
   selector: 'students-statistics-of-selective-courses',
@@ -23,6 +24,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   registeredStudentsStatistics: RegisteredStudentsStatistics[];
   selectiveStatisticsCriteria: string = "YEAR";
   selectiveStatisticsCriteriaOfCurrentTable: string = "YEAR";
+  csv_data = [];
 
   constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService,
               private selectiveCourseStatisticsService: SelectiveCourseStatisticsService) { }
@@ -66,12 +68,42 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
 
   exportTableIntoCsv(): void {
     let element = document.getElementById(this.currentTableName);
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+    if (element){
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Statistics");
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Statistics");
 
-    XLSX.writeFile(wb, this.fileName)
+      XLSX.writeFile(wb, this.fileName)
+    }
+  }
+
+  tableToCSV() {
+    const table = document.getElementById(this.currentTableName);
+    let csvContent = [];
+    if (table){
+      const trs = table.querySelectorAll("tr");
+      for (let i = 0; i < trs.length; i++){
+        const tds = trs[i].children;
+        let data = [];
+        for (let j = 0; j < tds.length; j++){
+          data.push(tds[j].innerHTML)
+        }
+        csvContent.push(data.join(","));
+      }
+      const csvContentStr = csvContent.join("\n");
+      const csvContentUrl = "data:text/csv;charset=UTF-8,"+csvContentStr;
+      this.downloadCSVFile(csvContentUrl, "table.csv")
+      console.log(csvContentStr)
+    }
+  }
+
+  downloadCSVFile(url, filename) {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = filename;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
   }
 
 }

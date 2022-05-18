@@ -91,10 +91,10 @@
     <table id="excel-table-3" class="table-bordered table-sm table" *ngIf="whichTable === 3">
       <thead>
       <tr>
-        <td>№</td>
-        <td>Факультет</td>
-        <td>Курс</td>
-        <td>Кількість, що вибрали</td>
+        <td>number</td>
+        <td>faculty</td>
+        <td>course</td>
+        <td>quantity</td>
       </tr>
       </thead>
       <tbody>
@@ -147,6 +147,9 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-success" (click)="exportTableIntoCsv()">Експортувати таблицю в csv</button>
+  <div class="row float-left">
+    <button type="button" class="btn btn-outline-success" (click)="tableToCSV()">Експортувати таблицю в csv</button>
+    <button type="button" class="btn btn-outline-success" (click)="exportTableIntoCsv()">Експортувати таблицю в xlsx</button>
+  </div>
   <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
 </div>
