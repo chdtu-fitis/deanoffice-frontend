@@ -54,7 +54,7 @@
 
               </tr>
               </thead>
-              <tr *ngFor="let course of selectiveCoursesCorrect let i = index">
+              <tr *ngFor="let course of correctSelectiveCourses let i = index">
                 <td><input type="checkbox" checked [(ngModel)]="course.selected" (change)="coursesSelect()"></td>
                 <td>{{ course?.courseName}}</td>
                 <td>{{ course?.semester }}</td>
@@ -101,7 +101,7 @@
                 <th>Повідомлення</th>
               </tr>
               </thead>
-              <tr *ngFor="let course of selectiveCoursesIncorrect; let i = index">
+              <tr *ngFor="let course of incorrectSelectiveCourses; let i = index">
                 <td>{{ course?.courseName}}</td>
                 <td>{{ course?.semester }}</td>
                 <td>{{ course?.teacher}}</td>

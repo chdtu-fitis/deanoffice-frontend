@@ -25,8 +25,8 @@ export class ImportCsvComponent {
   isUploadButtonVisible = true;
   isSaveButtonVisible = false;
   isTableViewVisible = false;
-  selectiveCoursesCorrect: ImportSelectiveCourseCorrect[];
-  selectiveCoursesIncorrect: ImportSelectiveCourseIncorrect[];
+  correctSelectiveCourses: ImportSelectiveCourseCorrect[];
+  incorrectSelectiveCourses: ImportSelectiveCourseIncorrect[];
   notUpdatedData: string[];
   updatedData: number;
   isNotUpdatedData: boolean;
@@ -57,9 +57,9 @@ export class ImportCsvComponent {
 
     this.selectiveCourseService.uploadImportedSelectiveCoursesData(formData).subscribe(
       res => {
-        this.selectiveCoursesCorrect = res.selectiveCoursesCorrect;
-        this.selectiveCoursesCorrect.forEach(course => course.selected = true);
-        this.selectiveCoursesIncorrect = res.selectiveCoursesIncorrect;
+        this.correctSelectiveCourses = res.correctSelectiveCourses;
+        this.correctSelectiveCourses.forEach(course => course.selected = true);
+        this.incorrectSelectiveCourses = res.incorrectSelectiveCourses;
         this.isUploadInProgress = false;
         this.isUploadButtonVisible = false;
         this.isTableViewVisible = true;
@@ -83,16 +83,16 @@ export class ImportCsvComponent {
   }
 
   private getSelectedCourses(): ImportSelectiveCourseForSave[] {
-     const selectedCourses = this.selectiveCoursesCorrect.filter(course => course.selected);
+     const selectedCourses = this.correctSelectiveCourses.filter(course => course.selected);
      return selectedCourses.map(course => new ImportSelectiveCourseForSave(course, this.degreeId, this.studyYear));
   }
 
   changeAllIsSelected(isSelected: boolean): void {
-    this.selectiveCoursesCorrect.forEach(course => course.selected = isSelected);
+    this.correctSelectiveCourses.forEach(course => course.selected = isSelected);
     this.allRowsIsSelected = isSelected;
   }
 
   coursesSelect() {
-     this.allRowsIsSelected = this.selectiveCoursesCorrect.every(course => course.selected);
+     this.allRowsIsSelected = this.correctSelectiveCourses.every(course => course.selected);
   }
 }
