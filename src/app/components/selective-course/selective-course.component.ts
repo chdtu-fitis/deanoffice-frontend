@@ -221,7 +221,7 @@ export class SelectiveCourseComponent implements OnInit {
       degrees: this.degrees,
     };
 
-    const modalRef = this.modalService.show(ImportCsvComponent, {initialState, keyboard: true, backdrop: 'static', ignoreBackdropClick: true, class:'modal-import-csv'});
+    const modalRef = this.modalService.show(ImportCsvComponent, {initialState, keyboard: true, backdrop: 'static', ignoreBackdropClick: true});
   }
 
 }

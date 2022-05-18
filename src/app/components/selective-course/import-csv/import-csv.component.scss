@@ -1,33 +1,15 @@
 ::ng-deep .modal-dialog {
   max-width: 95%;
+  width: fit-content;
 }
 
-.modal-header{
-  text-align: center;
-}
-.modal-body{
+.import-csv-modal-body {
   display: flex;
 }
 
-.modal-full {
-  min-width: 95%;
-  margin: 0 auto;
-
-  .tab-body {
-    height: 70vh;
-    overflow: auto;
-
-    &.correct-data table {
-      border:2px solid green;
-    }
-
-    &.wrong-data table {
-      border:2px solid red;
-    }
-  }
+.tab-width {
+  width: 95vw;
 }
-.loader__content {
-  padding: 60px 0 70px 0;
-}
+
 
 
