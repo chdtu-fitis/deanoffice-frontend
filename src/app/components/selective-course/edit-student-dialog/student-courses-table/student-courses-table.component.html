@@ -25,9 +25,9 @@
         <td>{{typeCycle[course.trainingCycle]}}</td>
         <td>{{course.department.abbr}}</td>
         <td>{{course.teacher | nameWithInitials}}</td>
-        <td>
-          <button type="button" [disabled]='isAnyCourseBeingEdited' (click)="editSubstituteCourse(i, j)">
-            <img src="assets/img/edit.jpg" class="rounded-lg" style="width: 25px; height: 25px">
+        <td *ngIf="course.available" class="align-items-sm-stretch">
+          <button type="button" class="rounded-lg" [disabled]='isAnyCourseBeingEdited' (click)="editSubstituteCourse(i, j)">
+            <img src="assets/img/icon-edit.svg"  style="width: 25px; height: 25px">
           </button>
           <button class="btn"><i class="fa fa-folder"></i></button>
         </td>
