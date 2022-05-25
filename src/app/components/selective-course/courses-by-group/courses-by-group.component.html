@@ -59,7 +59,7 @@
         <td>
           <div class="font-weight-bolder">
             <label class="selective-courses-list">
-              <input type="checkbox" #checkbox [(ngModel)]="courseWithStudents.selected"
+              <input type="checkbox" [(ngModel)]="courseWithStudents.selected"
                    (change)="changeSelectedCourses($event.target.checked, courseWithStudents)">
               {{i+1}}) {{courseWithStudents.courseName}}
             </label>
@@ -67,7 +67,8 @@
           <div *ngIf="courseWithStudents.selected">
             <div class="border-bottom"
                  *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
-              {{ i+1 }}. {{studentOnCourse.name}}
+              <p [ngClass]="{'student-not-made-choice': !studentOnCourse.isCourseSelected}">
+                {{ i+1 }}. {{studentOnCourse.name}}</p>
             </div>
           </div>
         </td>
@@ -86,6 +87,10 @@
       </tr>
       </tbody>
     </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="showStudentsWithNoSelectedCourses()">Запропонувати</button>
+    <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Зберегти</button>
   </div>
 </div>
 

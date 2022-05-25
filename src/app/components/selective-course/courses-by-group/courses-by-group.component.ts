@@ -9,6 +9,8 @@ import {SelectiveCourseService} from '../../../services/selective-course.service
 import {FacultyService} from '../../../services/faculty.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {SelectiveCourseWithStudents} from './model/SelectiveCourseWithStudents';
+import {RegisteredByGroup} from './model/RegisteredByGroup';
+import { Student } from './model/Student';
 
 const ALL_ITEMS = 0;
 
@@ -35,9 +37,13 @@ export class CoursesByGroupComponent implements OnInit {
 
   selectedCourses: SelectiveCourseWithStudents[] = [];
   selectiveCoursesWithStudents: SelectiveCourseWithStudents[] = [];
+  selectiveCoursesWithAllStudents: SelectiveCourseWithStudents[] = [];
+  studentsWithNoSelectedCourses: Student[] = [];
+  registeredByGroup: RegisteredByGroup;
   isAllCoursesSelected = false;
 
   typeCycle: TypeCycle;
+  btnStudentsWithNoSelectedCourses: boolean = false;
 
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
               private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService,
@@ -63,7 +69,6 @@ export class CoursesByGroupComponent implements OnInit {
       this.currentFaculty = this.faculties[0];
       this.currentFaculty.id = ALL_ITEMS;
     });
-
   }
 
   onDegreeOrYearChange(): void {
@@ -97,24 +102,24 @@ export class CoursesByGroupComponent implements OnInit {
   }
 
   onGroupOrAcademicYearChange() {
-    if (this.currentGroup) {
-      this.showCoursesByGroup();
+    if (this.currentGroup && this.currentGroup.id != 0) {
+      this.getCoursesAndStudentsInGroup();
     }
     this.isAllCoursesSelected = false;
   }
 
   changeAllCoursesIsSelected(): void {
-    if (this.selectiveCoursesWithStudents.length > 0 && this.isAllCoursesSelected) {
-      this.selectiveCoursesWithStudents.forEach(item => item.selected = true);
+    if (this.registeredByGroup.coursesSelectedByStudentsGroup.length > 0 && this.isAllCoursesSelected) {
+      this.registeredByGroup.coursesSelectedByStudentsGroup.forEach(item => item.selected = true);
     } else {
-      this.selectiveCoursesWithStudents.forEach(item => item.selected = false);
+      this.registeredByGroup.coursesSelectedByStudentsGroup.forEach(item => item.selected = false);
       this.isAllCoursesSelected = false;
     }
   }
 
   changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourseWithStudents) {
     if (!checked) {
-      for (const course of this.selectedCourses) {
+      for (const course of this.registeredByGroup.coursesSelectedByStudentsGroup) {
         if (course.selectiveCourseId === selectedCourse.selectiveCourseId) {
           this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
           break;
@@ -130,17 +135,41 @@ export class CoursesByGroupComponent implements OnInit {
     return this.selectiveCoursesWithStudents.length > 0;
   }
 
-  showCoursesByGroup() {
+  getCoursesAndStudentsInGroup() {
     this.selectiveCourseService.getRegisteredStudentsAndCourseInGroup(this.currentGroup.id, +(this.selectedYear))
-      .subscribe(selectiveCoursesWithStudents => {
-        this.selectiveCoursesWithStudents = selectiveCoursesWithStudents;
+      .subscribe(registeredByGroup => {
+        this.registeredByGroup = registeredByGroup;
+        this.selectiveCoursesWithStudents = registeredByGroup.coursesSelectedByStudentsGroup;
+        this.studentsWithNoSelectedCourses = registeredByGroup.groupStudentsWithNoSelectedCourses;
         this.selectiveCoursesWithStudents.forEach(function (item, i, selectiveCoursesWithStudents) {
           if (item.trainingCycle === "GENERAL") {
             item.trainingCycle = TypeCycle.GENERAL;
           } else if (item.trainingCycle === "PROFESSIONAL") {
             item.trainingCycle = TypeCycle.PROFESSIONAL;
           }
-        })
+        });
+        this.setIsCourseSelected();
       });
+  }
+
+  setIsCourseSelected() {
+    for (let selectiveCourseWithStudents of this.selectiveCoursesWithStudents) {
+      selectiveCourseWithStudents.students.forEach(student => student.isCourseSelected = true);
+    }
+    this.studentsWithNoSelectedCourses.forEach(student => student.isCourseSelected = false);
+  }
+
+  showStudentsWithNoSelectedCourses(): boolean {
+    this.convertToCommonStudent();
+    this.btnStudentsWithNoSelectedCourses = true;
+    return this.btnStudentsWithNoSelectedCourses;
+  }
+
+  convertToCommonStudent() {
+    for (let selectiveCourseWithStudents of this.selectiveCoursesWithStudents) {
+      selectiveCourseWithStudents.students.push(...this.studentsWithNoSelectedCourses);
+      selectiveCourseWithStudents.students.sort((a, b) =>
+        (a.name).localeCompare(b.name));
+    }
   }
 }
