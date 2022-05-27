@@ -38,16 +38,36 @@ div {
 }
 
 .prepDropdown{
-  margin-top: 4px;
+  margin-left: 0;
+  top: 0;
 }
 
 .buttons-connected-to-table{
+  margin-bottom: 3px;
+  padding-top: 7px;
+  padding-left: 7px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
   margin-left: -6px;
   margin-top: -6px;
+  button{
+    margin: 0;
+  }
 }
 
 .--width100{
   width: 100%;
+}
+
+.pl-0{
+  padding-left: 0;
+}
+
+.pr-0{
+  padding-right: 0;
 }
 
 .buttons-container{

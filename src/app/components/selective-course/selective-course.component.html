@@ -36,7 +36,7 @@
                              [searchText]="searchText"></studied-courses>
           </div>
           <div class="col-12 --padding-zero">
-            <div class="row buttons-connected-to-table">
+            <div *ngIf="this.assignOrFilter === this.ASSIGN" class="row buttons-connected-to-table">
               <div class="button-container">
                 <button type="button" class="btn btn-info" (click)="assignCourses()"
                         [disabled]="!selectedCourses.length">Призначити
@@ -60,6 +60,30 @@
                     </select>
                   </div>
                 </div>
+              </div>
+              <div class="button-container">
+                <button type="button" class="btn btn-info" (click)="assignOrFilterHandler()">
+                  {{assignOrFilter === this.ASSIGN? "Фільтрувати" : "Призначати"}}
+                </button>
+              </div>
+            </div>
+            <div *ngIf="this.assignOrFilter === this.FILTER" class="row buttons-connected-to-table">
+              <div class="button-container col-4 --width100 pl-0">
+                <input [(ngModel)]="nameFilter"  (ngModelChange)="onFilterChange()" placeholder="Пошук" class="form-control mr-2 search">
+              </div>
+              <div class="button-container col-4 --width100">
+                <div class="element">
+                  <div>
+                    <select [(ngModel)]="trainingCycleFilter" (change)="onFilterChange()" class="form-control prepDropdown" required>
+                      <option *ngFor="let type of trainingCycle" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="button-container col-4 pr-0">
+                <button type="button" class="btn btn-info --width100" (click)="assignOrFilterHandler()">
+                  {{assignOrFilter === this.ASSIGN? "Фільтрувати" : "Призначати"}}
+                </button>
               </div>
             </div>
           </div>

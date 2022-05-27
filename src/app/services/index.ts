@@ -33,6 +33,7 @@ import {ScientificDegreeService} from "./scientific-degree.service";
 import {SelectiveCourseService} from "./selective-course.service";
 import {FieldOfKnowledgeService} from './field-of-knowledge.service';
 import {SelectiveCourseStatisticsService} from './selective-course-statistics.service';
+import {TableFilterOfNameAndTrainingCycleService} from './tableFilterOfNameAndTrainingCycle';
 
 export const SERVICES = [
   DegreeService,
@@ -70,6 +71,7 @@ export const SERVICES = [
   SelectiveCourseService,
   FieldOfKnowledgeService,
   SelectiveCourseStatisticsService,
+  TableFilterOfNameAndTrainingCycleService,
 ];
 
 export const GUARDS = [

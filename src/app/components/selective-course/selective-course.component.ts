@@ -20,6 +20,7 @@ import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dia
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {StudentsStatisticsOfSelectiveCoursesComponent} from './students-statistics-of-selective-courses/students-statistics-of-selective-courses.component';
+import {TableFilterOfNameAndTrainingCycleService} from '../../services/tableFilterOfNameAndTrainingCycle';
 
 @Component({
   selector: 'selective-course',
@@ -47,7 +48,6 @@ export class SelectiveCourseComponent implements OnInit {
   prepTypes = [
     {id: 1, name: 'Цикл загальної підготовки'},
     {id: 2, name: 'Цикл професійної підготовки'}];
-
   selectedPrepType = this.prepTypes[0];
 
   courses: Course[];
@@ -59,13 +59,22 @@ export class SelectiveCourseComponent implements OnInit {
   yearParameters: SelectiveCoursesYearParameters[] = [];
   isChecked = false;
 
+  ASSIGN: string = "assign";
+  FILTER: string = "filter";
+  assignOrFilter: string = this.ASSIGN;
+  nameFilter: string = "";
+  trainingCycle = [{type: 'GENERAL', name: "Загальна"}, {type: 'PROFESSIONAL', name: "Професійна"}];
+  trainingCycleFilter = this.trainingCycle[0];
+
+
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
               private modalService: BsModalService,
-              private alerts: AlertsService) {
+              private alerts: AlertsService,
+              private tableFilterOfNameAndTrainingCycleService: TableFilterOfNameAndTrainingCycleService) {
   }
 
   ngOnInit(): void {
@@ -200,6 +209,15 @@ export class SelectiveCourseComponent implements OnInit {
     // });
   }
 
+  assignOrFilterHandler() {
+    this.assignOrFilter === this.ASSIGN ? this.assignOrFilter = this.FILTER : this.assignOrFilter = this.ASSIGN;
+  }
+
+  onFilterChange() {
+    console.log(this.nameFilter, this.trainingCycleFilter);
+    this.tableFilterOfNameAndTrainingCycleService.announceNewFilter([this.nameFilter, this.trainingCycleFilter.type])
+  }
+
   editStudentSelectiveCourses() {
     const initialState = {
       studyYear: this.selectedYear,
@@ -221,6 +239,5 @@ export class SelectiveCourseComponent implements OnInit {
       selectedYear: this.selectedYear,
     };
     const modalRef = this.modalService.show(StudentsStatisticsOfSelectiveCoursesComponent, { initialState, class: 'modal-custom'});
-
   }
 }

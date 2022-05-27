@@ -4,6 +4,8 @@ import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
+import {Subscription} from 'rxjs';
+import {TableFilterOfNameAndTrainingCycleService} from '../../../services/tableFilterOfNameAndTrainingCycle';
 
 @Component({
   selector: 'assigned-courses',
@@ -16,6 +18,11 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
   @Input() showEditButton = true;
+
+  nameFilter: string = "";
+  trainingCycleFilter: string = "";
+  filterSubscription: Subscription;
+
   isWithYearParameters: boolean;
 
   typeCycle = TypeCycle;
@@ -26,7 +33,13 @@ export class AssignedCoursesComponent implements OnInit {
   disqualifiedCourses: SelectiveCourse[] = [];
 
   constructor(private modalService: BsModalService,
-              private selectiveCourseService: SelectiveCourseService) {
+              private selectiveCourseService: SelectiveCourseService,
+              private tableFilterOfNameAndTrainingCycleService: TableFilterOfNameAndTrainingCycleService) {
+    this.filterSubscription = tableFilterOfNameAndTrainingCycleService.newFilterAnnounced$.subscribe(
+      newFilter => {
+           this.nameFilter = newFilter[0];
+           this.trainingCycleFilter = newFilter[1];
+        });
   }
 
   ngOnInit() {

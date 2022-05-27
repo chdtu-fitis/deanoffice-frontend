@@ -10,6 +10,7 @@ import { AbbreviatedNamePipe } from './abbreviated-name.pipe';
 import {ShortenedPipe} from "./shortened.pipe";
 import { TypeOfEducationPipe } from './type-of-education.pipe';
 import {StudentsSearchPipe} from './students-search.pipe';
+import {CoursesSearchTrainingCyclePipe} from './courses-searc-training-cycle.pipe';
 
 @NgModule({
   imports: [],
@@ -24,7 +25,8 @@ import {StudentsSearchPipe} from './students-search.pipe';
     AbbreviatedNamePipe,
     ShortenedPipe,
     TypeOfEducationPipe,
-    StudentsSearchPipe
+    StudentsSearchPipe,
+    CoursesSearchTrainingCyclePipe,
   ],
   exports: [
     CoursesSearchPipe,
@@ -37,7 +39,8 @@ import {StudentsSearchPipe} from './students-search.pipe';
     AbbreviatedNamePipe,
     ShortenedPipe,
     TypeOfEducationPipe,
-    StudentsSearchPipe
+    StudentsSearchPipe,
+    CoursesSearchTrainingCyclePipe,
   ]
 })
  export class PipeModule {
@@ -51,7 +54,8 @@ import {StudentsSearchPipe} from './students-search.pipe';
         EntriesPipe,
         ByStringPipe,
         NameWithInitialsPipe,
-        StudentsSearchPipe
+        StudentsSearchPipe,
+        CoursesSearchTrainingCyclePipe,
       ],
     };
   }

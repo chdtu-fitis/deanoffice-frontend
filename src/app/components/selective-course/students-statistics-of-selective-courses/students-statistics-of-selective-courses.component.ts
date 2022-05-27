@@ -83,6 +83,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
     let csvContent = [];
     if (table){
       const trs = table.querySelectorAll("tr");
+      console.log(trs);
       for (let i = 0; i < trs.length; i++){
         const tds = trs[i].children;
         let data = [];
@@ -92,7 +93,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
         csvContent.push(data.join(","));
       }
       const csvContentStr = csvContent.join("\n");
-      const csvContentUrl = "data:text/csv;charset=UTF-8,"+csvContentStr;
+      const csvContentUrl = "data:text/csv;charset=Windows-1251,"+csvContentStr;
       this.downloadCSVFile(csvContentUrl, "table.csv")
       console.log(csvContentStr)
     }
