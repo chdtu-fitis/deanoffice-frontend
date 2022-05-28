@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {GroupService} from '../../../services/group.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Degree} from '../../../models/Degree';
+import {DegreeService} from '../../../services/degree.service';
 
 @Component({
   selector: 'group-names-generation',
@@ -9,11 +12,25 @@ import {GroupService} from '../../../services/group.service';
   styleUrls: ['./group-names-generation.component.scss']
 })
 export class GroupNamesGenerationComponent implements OnInit {
-  studentsYear: string;
-  degreeId: number;
-  constructor() { }
+  studentsYear: string = "1";
+  currentDegree: Degree;
+  degrees: Degree[];
+
+  constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService) { }
 
   ngOnInit() {
+    // this.degreeService.getDegrees().subscribe(degrees => {
+    //   this.degrees = degrees;
+    // });
   }
+
+  // saveNames() {
+  //   this.selectiveCourseService.saveNamesOfGroups(studentsYear,currentDegree).subscribe(
+  //     response => {
+  //
+  //     }
+  //   );
+  //   this.saveButton = true;
+  // }
 
 }

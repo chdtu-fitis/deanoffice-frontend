@@ -112,6 +112,12 @@
           </button>
         </div>
 
+        <div class="row">
+          <button type="button" class="btn btn-info" (click)="saveNamesGroups()">
+            Генерування імен груп
+          </button>
+        </div>
+
         <div *ngIf="isChecked && yearParameters.length">
           <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
         </div>

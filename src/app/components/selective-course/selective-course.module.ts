@@ -47,7 +47,7 @@ export const selectiveCourseRoutes: Routes = [
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
     AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
-    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent]
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent]
 })
 
 export class SelectiveCourseModule {
