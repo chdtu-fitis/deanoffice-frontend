@@ -39,7 +39,9 @@
   Вибіркових дисциплін для групи {{currentGroup.name}} не знайдено!
 </div>
 
-<div class = "modal-content-part2" *ngIf="currentGroup && isSelectedCourseWithStudentsEmpty() && currentFaculty && currentStudentsYear">
+<div class = "modal-content-part2"
+     *ngIf="!isGroupSelected() && isSelectedCourseWithStudentsEmpty() &&
+     currentGroup.name != 'Не обрано' && currentFaculty && currentStudentsYear">
   <h5 class="card-header border-bottom-0">Вибіркові дисципліни для групи {{currentGroup.name}} </h5>
   <div class="tables">
     <table class="table table-bordered table-sm">
@@ -59,8 +61,7 @@
         <td>
           <div class="font-weight-bolder">
             <label class="selective-courses-list">
-              <input type="checkbox" [(ngModel)]="courseWithStudents.selected"
-                   (change)="changeSelectedCourses($event.target.checked, courseWithStudents)">
+              <input type="checkbox" [(ngModel)]="courseWithStudents.selected">
               {{i+1}}) {{courseWithStudents.courseName}}
             </label>
           </div>
@@ -89,8 +90,9 @@
     </table>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="showStudentsWithNoSelectedCourses()">Запропонувати</button>
-    <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Зберегти</button>
+    <button type="button" class="btn btn-outline-secondary" [disabled]="btnStudentsWithNoSelectedCourses" (click)="showStudentsWithNoSelectedCourses()">Запропонувати</button>
+    <button type="button" class="btn btn-outline-success"
+            (click)="onSave()">Зберегти</button>
   </div>
 </div>
 

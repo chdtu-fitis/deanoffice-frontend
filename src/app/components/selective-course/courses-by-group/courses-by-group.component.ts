@@ -10,7 +10,8 @@ import {FacultyService} from '../../../services/faculty.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {SelectiveCourseWithStudents} from './model/SelectiveCourseWithStudents';
 import {RegisteredByGroup} from './model/RegisteredByGroup';
-import { Student } from './model/Student';
+import {Student} from './model/Student';
+import {StudentDegree} from '../../../models/StudentDegree';
 
 const ALL_ITEMS = 0;
 
@@ -23,11 +24,13 @@ const ALL_ITEMS = 0;
 export class CoursesByGroupComponent implements OnInit {
   selectedYear: string;
   studyYear: string;
+  courseNumberForOffer: number = 5;
 
   currentDegree: Degree;
   currentStudentsYear: number;
   currentFaculty: Faculty;
   currentGroup: StudentGroup;
+  selectiveCoursesWithStudentsDegree: StudentDegree[];
 
   groups: StudentGroup[] = [];
   years: number[];
@@ -35,7 +38,6 @@ export class CoursesByGroupComponent implements OnInit {
   faculties: Faculty[];
   filteredGroups: StudentGroup[] = [];
 
-  selectedCourses: SelectiveCourseWithStudents[] = [];
   selectiveCoursesWithStudents: SelectiveCourseWithStudents[] = [];
   selectiveCoursesWithAllStudents: SelectiveCourseWithStudents[] = [];
   studentsWithNoSelectedCourses: Student[] = [];
@@ -83,7 +85,6 @@ export class CoursesByGroupComponent implements OnInit {
         this.currentGroup = this.groups[0];
 
         this.filteredGroups = this.groups;
-        this.selectedCourses = [];
         this.onFacultyChange();
         this.onGroupOrAcademicYearChange();
       });
@@ -117,25 +118,12 @@ export class CoursesByGroupComponent implements OnInit {
     }
   }
 
-  changeSelectedCourses(checked: boolean, selectedCourse: SelectiveCourseWithStudents) {
-    if (!checked) {
-      for (const course of this.registeredByGroup.coursesSelectedByStudentsGroup) {
-        if (course.selectiveCourseId === selectedCourse.selectiveCourseId) {
-          this.selectedCourses.splice(this.selectedCourses.indexOf(course), 1);
-          break;
-        }
-      }
-    } else {
-      this.selectedCourses.push(selectedCourse);
-    }
-    this.isAllCoursesSelected = false;
-  }
-
   isSelectedCourseWithStudentsEmpty(): boolean {
     return this.selectiveCoursesWithStudents.length > 0;
   }
 
   getCoursesAndStudentsInGroup() {
+    this.btnStudentsWithNoSelectedCourses = false;
     this.selectiveCourseService.getRegisteredStudentsAndCourseInGroup(this.currentGroup.id, +(this.selectedYear))
       .subscribe(registeredByGroup => {
         this.registeredByGroup = registeredByGroup;
@@ -170,6 +158,26 @@ export class CoursesByGroupComponent implements OnInit {
       selectiveCourseWithStudents.students.push(...this.studentsWithNoSelectedCourses);
       selectiveCourseWithStudents.students.sort((a, b) =>
         (a.name).localeCompare(b.name));
+    }
+  }
+
+  onSave() {
+    let selectedCourses = this.selectiveCoursesWithStudents.filter(selectiveCourse => selectiveCourse.selected);
+    if (selectedCourses.length <= this.courseNumberForOffer) {
+      const body = {
+        selectiveCourses: selectedCourses.map(selectedCourse => selectedCourse.selectiveCourseId),
+        studentDegrees: this.studentsWithNoSelectedCourses.map(student => student.id),
+        studyYear: +this.selectedYear
+      }
+      this.selectiveCourseService.assignMultipleCoursesForMultipleStudents(body).subscribe((response: any) => {
+        this.isAllCoursesSelected = false;
+        this.getCoursesAndStudentsInGroup();
+        alert(response.message)
+      }, error => {
+        alert(error.message);
+      });
+    } else {
+      alert("Кількість обраних дисциплін перевищує допустиму кількість: " + this.courseNumberForOffer);
     }
   }
 }
