@@ -89,4 +89,9 @@ export class SelectiveCourseService {
     const SELECTIVE_COURSE_STATISTICS_URL: string = environment.apiUrl + '/selective-courses-statistics';
     return this.httpClient.get<SelectiveCourseWithStudents[]>(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
   }
+
+  saveGeneratedNames(studentsYear, currentDegree) {
+    let url = `${SELECTIVE_COURSE_URL}/group-names-generation?studentsYear=${studentsYear}&degreeId=${currentDegree}`;
+    return this.httpClient.patch(url,{});
+  }
 }

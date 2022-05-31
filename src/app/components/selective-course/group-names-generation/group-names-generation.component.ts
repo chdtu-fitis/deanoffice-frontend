@@ -15,8 +15,7 @@ export class GroupNamesGenerationComponent implements OnInit {
   studentsYear: string = "1";
   currentDegree: Degree;
   degrees: Degree[];
-
-  constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService) { }
+  constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService,  private selectiveCourseService: SelectiveCourseService) { }
 
   ngOnInit() {
     // this.degreeService.getDegrees().subscribe(degrees => {
@@ -24,13 +23,9 @@ export class GroupNamesGenerationComponent implements OnInit {
     // });
   }
 
-  // saveNames() {
-  //   this.selectiveCourseService.saveNamesOfGroups(studentsYear,currentDegree).subscribe(
-  //     response => {
-  //
-  //     }
-  //   );
-  //   this.saveButton = true;
-  // }
+  saveNames() {
+    this.selectiveCourseService.saveGeneratedNames(this.studentsYear, this.currentDegree.id);
+    this.bsModalRef.hide();
+  }
 
 }
