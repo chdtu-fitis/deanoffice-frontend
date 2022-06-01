@@ -12,6 +12,7 @@ import {SelectiveCourseWithStudents} from './model/SelectiveCourseWithStudents';
 import {RegisteredByGroup} from './model/RegisteredByGroup';
 import {Student} from './model/Student';
 import {StudentDegree} from '../../../models/StudentDegree';
+import {SelectionRule} from './model/SelectionRule';
 
 const ALL_ITEMS = 0;
 
@@ -87,6 +88,14 @@ export class CoursesByGroupComponent implements OnInit {
         this.filteredGroups = this.groups;
         this.onFacultyChange();
         this.onGroupOrAcademicYearChange();
+      });
+
+    this.selectiveCourseService.getSelectionRules(this.currentDegree.id, this.currentStudentsYear)
+      .subscribe((selectionRules: SelectionRule[]) => {
+        this.courseNumberForOffer = 0;
+        for (let selectionRule of selectionRules) {
+          this.courseNumberForOffer += selectionRule.selectiveCoursesNumber.reduce((partialSum, a) => partialSum + a, 0);
+        }
       });
   }
 
