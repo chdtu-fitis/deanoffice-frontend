@@ -47,9 +47,8 @@
     <table class="table table-bordered table-sm">
       <thead>
       <tr>
-        <th scope="col"><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()">
-          Дисципліна
-        </th>
+        <th><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()"></th>
+        <th scope="col">Дисципліна</th>
         <th class="align-middle" scope="col">К-сть студентів</th>
         <th class="align-middle" scope="col">Семестр</th>
         <th class="align-middle" scope="col">Цикл підготовки</th>
@@ -59,13 +58,15 @@
       <tbody>
       <tr *ngFor="let courseWithStudents of selectiveCoursesWithStudents; let i = index">
         <td>
+          <input type="checkbox" [(ngModel)]="courseWithStudents.selected">
+        </td>
+        <td>
           <div class="font-weight-bolder">
             <label class="selective-courses-list">
-              <input type="checkbox" [(ngModel)]="courseWithStudents.selected">
-              {{i+1}}) {{courseWithStudents.courseName}}
+              <p (click)="changeExpanded(courseWithStudents)">{{i+1}}) {{courseWithStudents.courseName}}</p>
             </label>
           </div>
-          <div *ngIf="courseWithStudents.selected">
+          <div *ngIf="courseWithStudents.expanded">
             <div class="border-bottom"
                  *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
               <p [ngClass]="{'student-not-made-choice': !studentOnCourse.isCourseSelected}">

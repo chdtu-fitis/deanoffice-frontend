@@ -109,6 +109,14 @@ export class CoursesByGroupComponent implements OnInit {
     this.isAllCoursesSelected = false;
   }
 
+  changeExpanded(course: SelectiveCourseWithStudents) {
+    if(course.expanded) {
+      course.expanded = false;
+    } else {
+      course.expanded = true;
+    }
+  }
+
   changeAllCoursesIsSelected(): void {
     if (this.registeredByGroup.coursesSelectedByStudentsGroup.length > 0 && this.isAllCoursesSelected) {
       this.registeredByGroup.coursesSelectedByStudentsGroup.forEach(item => item.selected = true);
@@ -141,6 +149,7 @@ export class CoursesByGroupComponent implements OnInit {
   }
 
   setIsCourseSelected() {
+
     for (let selectiveCourseWithStudents of this.selectiveCoursesWithStudents) {
       selectiveCourseWithStudents.students.forEach(student => student.isCourseSelected = true);
     }
