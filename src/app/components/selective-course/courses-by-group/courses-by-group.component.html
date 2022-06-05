@@ -39,15 +39,16 @@
   Вибіркових дисциплін для групи {{currentGroup.name}} не знайдено!
 </div>
 
-<div class = "modal-content-part2" *ngIf="currentGroup && isSelectedCourseWithStudentsEmpty() && currentFaculty && currentStudentsYear">
+<div class = "modal-content-part2"
+     *ngIf="!isGroupSelected() && isSelectedCourseWithStudentsEmpty() &&
+     currentGroup.name != 'Не обрано' && currentFaculty && currentStudentsYear">
   <h5 class="card-header border-bottom-0">Вибіркові дисципліни для групи {{currentGroup.name}} </h5>
   <div class="tables">
     <table class="table table-bordered table-sm">
       <thead>
       <tr>
-        <th scope="col"><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()">
-          Дисципліна
-        </th>
+        <th><input type="checkbox" [(ngModel)]="isAllCoursesSelected" (change)="changeAllCoursesIsSelected()"></th>
+        <th scope="col">Дисципліна</th>
         <th class="align-middle" scope="col">К-сть студентів</th>
         <th class="align-middle" scope="col">Семестр</th>
         <th class="align-middle" scope="col">Цикл підготовки</th>
@@ -57,17 +58,19 @@
       <tbody>
       <tr *ngFor="let courseWithStudents of selectiveCoursesWithStudents; let i = index">
         <td>
+          <input type="checkbox" [(ngModel)]="courseWithStudents.selected">
+        </td>
+        <td>
           <div class="font-weight-bolder">
             <label class="selective-courses-list">
-              <input type="checkbox" #checkbox [(ngModel)]="courseWithStudents.selected"
-                   (change)="changeSelectedCourses($event.target.checked, courseWithStudents)">
-              {{i+1}}) {{courseWithStudents.courseName}}
+              <p (click)="changeExpanded(courseWithStudents)">{{i+1}}) {{courseWithStudents.courseName}}</p>
             </label>
           </div>
-          <div *ngIf="courseWithStudents.selected">
+          <div *ngIf="courseWithStudents.expanded">
             <div class="border-bottom"
                  *ngFor="let studentOnCourse of courseWithStudents.students; let i = index">
-              {{ i+1 }}. {{studentOnCourse.name}}
+              <p [ngClass]="{'student-not-made-choice': !studentOnCourse.isCourseSelected}">
+                {{ i+1 }}. {{studentOnCourse.name}}</p>
             </div>
           </div>
         </td>
@@ -86,6 +89,11 @@
       </tr>
       </tbody>
     </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" [disabled]="btnStudentsWithNoSelectedCourses" (click)="showStudentsWithNoSelectedCourses()">Запропонувати</button>
+    <button type="button" class="btn btn-outline-success"
+            (click)="onSave()">Зберегти</button>
   </div>
 </div>
 

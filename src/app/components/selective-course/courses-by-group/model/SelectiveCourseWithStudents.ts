@@ -9,4 +9,5 @@ export class SelectiveCourseWithStudents {
   students: Student[];
 
   selected?: boolean = false;
+  expanded?: boolean = false;
 }
