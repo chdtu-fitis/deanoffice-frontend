@@ -10,4 +10,9 @@ export class RegisteredStudentsStatistics {
   specialityCode: string;
   totalCount: number;
   registeredCount: number;
+  registeredPercent: number;
+  notRegisteredCount: number;
+  notRegisteredPercent: number;
+  choosingLessPercent: number;
+  choosingLessCount: number;
 }

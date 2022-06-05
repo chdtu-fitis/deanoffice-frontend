@@ -39,7 +39,6 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   }
 
   showPercentOfStudentsWhoDidChoice() {
-    console.log(this.selectedYear)
     this.whichTable = 1;
     this.averagePercent = 0;
     this.currentTableName = "excel-table-1";
@@ -51,6 +50,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
       this.averagePercent /= (this.registeredStudentsStatistics.length);
     });
     this.selectiveStatisticsCriteriaOfCurrentTable = this.selectiveStatisticsCriteria;
+    console.log(this.registeredStudentsStatistics);
   }
 
   showListOfStudentsWhoDidNotChoice() {
@@ -59,14 +59,20 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
     this.selectiveCourseStatisticsService.getStudentsNotSelectedSelectiveCourse(this.selectedYear, this.currentDegree.id).subscribe(data => {
       this.registeredStudentsStatistics = data;
     });
+    console.log(this.registeredStudentsStatistics)
   }
 
   studentsWithUnexpectedAmountOfCourses() {
     this.whichTable = 3;
-    this.currentTableName = "excel-table-3"
+    this.currentTableName = "excel-table-3";
+    const groupId = 1;
+    this.selectiveCourseStatisticsService.getRegistredStudentsName(this.selectedYear, groupId).subscribe(data => {
+      this.registeredStudentsStatistics = data;
+    });
+    console.log(this.registeredStudentsStatistics)
   }
 
-  exportTableIntoCsv(): void {
+  exportTableIntoXLSX(): void {
     let element = document.getElementById(this.currentTableName);
     if (element){
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -78,7 +84,7 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
     }
   }
 
-  tableToCSV() {
+  exportTableIntoCSV() {
     const table = document.getElementById(this.currentTableName);
     let csvContent = [];
     if (table){

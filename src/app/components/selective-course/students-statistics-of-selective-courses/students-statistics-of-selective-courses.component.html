@@ -12,57 +12,170 @@
       <tr>
         <td>№</td>
         <td
-          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Факультет</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
+        >Департамент</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
+        >Група</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Осв. програма</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
         >Рік навчання</td>
         <td
-          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
-        >Факультет</td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
-        >Назва спеціалізації</td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">Назва групи</td>
-        <td>Кількість зареєстрованих</td>
-        <td>Загальна кількість</td>
-        <td>Відсоток</td>
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Заг. кільк.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Кільк. зар.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Відс. зар.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Кільк. не зар.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Відс. не зар.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Найм. кільк. не зар.</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >Найм. відс. не зар.</td>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let stats of registeredStudentsStatistics; let i = index">
         <td>{{i+1}}</td>
         <td
-          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.facultyName}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
+        >{{stats.department}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
+        >{{stats.groupName}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.specializationName}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
         >{{stats.studyYear}}</td>
         <td
-          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-          || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'">{{stats.facultyName}}</td>
-
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-            || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"
-        >{{stats.specializationName}}</td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'">{{stats.groupName}}</td>
-        <td>{{stats.registeredCount}}</td>
-        <td>{{stats.totalCount}}</td>
-        <td>{{stats.percent}}</td>
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.totalCount}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.registeredCount}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.registeredPercent}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.notRegisteredCount}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.notRegisteredPercent}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.choosingLessCount}}</td>
+        <td
+          *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
+          selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
+        >{{stats.choosingLessPercent}}</td>
       </tr>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'
-        || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'
-        || selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"></td>
-        <td *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_COURSES_AND_SPECIALIZATION'"></td>
-        <td>Середній відсоток:</td>
-        <td>{{averagePercent}}</td>
       </tr>
       </tbody>
     </table>
@@ -116,7 +229,7 @@
       <input type="radio" id="choice1" value="YEAR"
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'YEAR' ? true : false">
-      <label for="choice1">Курс</label><br>
+      <label for="choice1">Рік</label><br>
       <input type="radio" id="choice2" value="FACULTY"
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'FACULTY' ? true : false">
@@ -133,10 +246,10 @@
              [(ngModel)]="selectiveStatisticsCriteria"
              [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
       <label for="choice5">Факультет + рік</label><br>
-      <input type="radio" id="choice6" value="FACULTY_AND_COURSES_AND_SPECIALIZATION"
+      <input type="radio" id="choice6" value="FACULTY_AND_YEAR_AND_SPECIALIZATION"
              [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_COURSES_AND_SPECIALIZATION' ? true : false">
-      <label for="choice6">Факультет + курс + освітня програма</label><br>
+             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR_AND_SPECIALIZATION' ? true : false">
+      <label for="choice6">Факультет + Рік + освітня програма</label><br>
     </div>
     <div>
       <button class="btn btn-danger btn-out-of-input" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
@@ -148,8 +261,8 @@
 </div>
 <div class="modal-footer">
   <div class="row float-left">
-    <button type="button" class="btn btn-outline-success" (click)="tableToCSV()">Експортувати таблицю в csv</button>
-    <button type="button" class="btn btn-outline-success" (click)="exportTableIntoCsv()">Експортувати таблицю в xlsx</button>
+    <button type="button" class="btn btn-outline-success" (click)="exportTableIntoCSV()">Експортувати таблицю в csv</button>
+    <button type="button" class="btn btn-outline-success" (click)="exportTableIntoXLSX()">Експортувати таблицю в xlsx</button>
   </div>
   <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
 </div>

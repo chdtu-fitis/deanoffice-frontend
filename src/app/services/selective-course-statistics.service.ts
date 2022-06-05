@@ -22,5 +22,10 @@ export class SelectiveCourseStatisticsService {
     return this.httpClient.get<RegisteredStudentsStatistics[]>(
       `${SELECTIVE_COURSE_STATISTICS_URL}/registered-percent?studyYear=${studyYear}&degreeId=${degreeId}&selectiveStatisticsCriteria=${selectiveStatisticsCriteria}`);
   };
+
+  getRegistredStudentsName(studyYear: number, groupId: number): Observable<RegisteredStudentsStatistics[]>{
+    return this.httpClient.get<RegisteredStudentsStatistics[]>(
+      `${SELECTIVE_COURSE_STATISTICS_URL}/registered-percent?studyYear=${studyYear}&groupId=${groupId}`);
+  };
 }
 

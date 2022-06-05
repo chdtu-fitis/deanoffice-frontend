@@ -36,7 +36,7 @@
                              [searchText]="searchText"></studied-courses>
           </div>
           <div class="col-12 --padding-zero">
-            <div *ngIf="this.assignOrFilter === this.ASSIGN" class="row buttons-connected-to-table">
+            <div *ngIf="this.assignOrFilter === this.ASSIGN" class="row buttons-connected-to-table justify-content-between">
               <div class="button-container">
                 <button type="button" class="btn btn-info" (click)="assignCourses()"
                         [disabled]="!selectedCourses.length">Призначити
@@ -67,7 +67,7 @@
                 </button>
               </div>
             </div>
-            <div *ngIf="this.assignOrFilter === this.FILTER" class="row buttons-connected-to-table">
+            <div *ngIf="this.assignOrFilter === this.FILTER" class="row buttons-connected-to-table justify-content-between">
               <div class="button-container col-4 --width100 pl-0">
                 <input [(ngModel)]="nameFilter"  (ngModelChange)="onFilterChange()" placeholder="Пошук" class="form-control mr-2 search">
               </div>
