@@ -20,7 +20,7 @@ export class GroupNamesGenerationComponent implements OnInit {
   }
 
   saveNames() {
-    this.selectiveCourseService.saveGeneratedNames(this.studentsYear, this.currentDegree.id);
+    this.selectiveCourseService.saveGeneratedNames(this.studentsYear, this.currentDegree.id).subscribe(() => {});
     this.bsModalRef.hide();
   }
 }
