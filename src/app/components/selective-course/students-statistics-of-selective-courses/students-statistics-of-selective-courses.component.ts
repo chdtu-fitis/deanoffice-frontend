@@ -140,7 +140,6 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
     } else {
       this.sortingOrder[colName] = this.ASC
     }
-    this.registeredStudentsStatistics.reverse()
   }
 
 }
