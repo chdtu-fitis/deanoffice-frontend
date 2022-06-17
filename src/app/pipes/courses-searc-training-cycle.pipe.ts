@@ -9,6 +9,9 @@ export class CoursesSearchTrainingCyclePipe implements PipeTransform {
       if (!trainingCycle) {
         return items;
       }
+      if (trainingCycle === "ALL"){
+        return items
+      }
       return items.filter(course => {
         return course.trainingCycle === trainingCycle;
       })

@@ -63,7 +63,7 @@ export class SelectiveCourseComponent implements OnInit {
   FILTER: string = "filter";
   assignOrFilter: string = this.ASSIGN;
   nameFilter: string = "";
-  trainingCycle = [{type: 'GENERAL', name: "Загальна"}, {type: 'PROFESSIONAL', name: "Професійна"}];
+  trainingCycle = [{type: 'ALL', name: "Всі"}, {type: 'GENERAL', name: "Загальна"}, {type: 'PROFESSIONAL', name: "Професійна"}];
   trainingCycleFilter = this.trainingCycle[0];
 
 
@@ -211,10 +211,11 @@ export class SelectiveCourseComponent implements OnInit {
 
   assignOrFilterHandler() {
     this.assignOrFilter === this.ASSIGN ? this.assignOrFilter = this.FILTER : this.assignOrFilter = this.ASSIGN;
+    this.nameFilter = "";
+    this.trainingCycleFilter = this.trainingCycle[0];
   }
 
   onFilterChange() {
-    console.log(this.nameFilter, this.trainingCycleFilter);
     this.tableFilterOfNameAndTrainingCycleService.announceNewFilter([this.nameFilter, this.trainingCycleFilter.type])
   }
 

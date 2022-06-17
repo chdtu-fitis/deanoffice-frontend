@@ -24,7 +24,12 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
   registeredStudentsStatistics: RegisteredStudentsStatistics[];
   selectiveStatisticsCriteria: string = "YEAR";
   selectiveStatisticsCriteriaOfCurrentTable: string = "YEAR";
-  csv_data = [];
+  ASC: string = "ASC";
+  DESC: string = "DESC";
+  sortingOrder = {"facultyName": this.ASC, "department": this.ASC, "groupName": this.ASC, "specializationName": this.ASC,
+                  "studyYear": this.ASC, "totalCount": this.ASC, "registeredCount": this.ASC,
+                  "registeredPercent": this.ASC, "notRegisteredPercent": this.ASC, "notRegisteredCount": this.ASC,
+                  "choosingLessCount": this.ASC, "choosingLessPercent": this.ASC};
 
   constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService,
               private selectiveCourseStatisticsService: SelectiveCourseStatisticsService) { }
@@ -111,6 +116,31 @@ export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
     downloadLink.download = filename;
     document.body.appendChild(downloadLink);
     downloadLink.click();
+  }
+
+  handleColSort(colName) {
+    this.registeredStudentsStatistics.sort((a,b) => {
+      if (colName === "facultyName" || colName === "department" || colName === "groupName"
+          || colName === "specializationName"){
+        if (this.sortingOrder[colName] === this.ASC){
+          return parseInt(a[colName].toString().toLowerCase(), 36) - parseInt(b[colName].toString().toLowerCase(), 36);
+        } else {
+          return parseInt(b[colName].toString().toLowerCase(), 36) - parseInt(a[colName].toString().toLowerCase(), 36);
+        }
+      } else {
+        if (this.sortingOrder[colName] === this.ASC){
+          return a[colName] - b[colName];
+        } else{
+          return b[colName] - a[colName];
+        }
+      }
+    });
+    if (this.sortingOrder[colName] === this.ASC){
+      this.sortingOrder[colName] = this.DESC
+    } else {
+      this.sortingOrder[colName] = this.ASC
+    }
+    this.registeredStudentsStatistics.reverse()
   }
 
 }
