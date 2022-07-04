@@ -19,7 +19,6 @@ export class EditStudentDialogComponent implements OnInit {
     'surname': new FormControl('', [Validators.required]),
   })
 
-
   constructor(public bsModalRef: BsModalRef,
               private selectiveCourseService: SelectiveCourseService) {
   }

@@ -12,6 +12,7 @@ import {FacultyService} from '../../../services/faculty.service';
 import {FieldOfKnowledgeService} from '../../../services/field-of-knowledge.service';
 import {Faculty} from '../../../models/Faculty';
 import {FieldOfKnowledge} from '../../../models/FieldOfKnowledge';
+import {GeneralService} from "../../../services/general.service";
 
 const ALL_ITEMS = 0, GENERAL_ONLY = -1;
 
@@ -32,6 +33,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
   currentGroup: StudentGroup;
   students: StudentDegree[];
   selectedYear: string;
+  currentYearInDB: number;
   filteredSelectiveCourses: SelectiveCourse[] = [];
   selectiveCourses: SelectiveCourse[] = [];
   years: number[];
@@ -49,22 +51,20 @@ export class AddCoursesForStudentsComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef, private groupService: GroupService,
               private degreeService: DegreeService, private selectiveCourseService: SelectiveCourseService,
               private fieldOfKnowledgeService: FieldOfKnowledgeService,
-              private facultyService: FacultyService) {}
+              private facultyService: FacultyService, private generalService: GeneralService) {}
 
   ngOnInit() {
-    this.years = [1, 2, 3, 4, 5, 6];
-    this.degreeService.getDegrees().subscribe(degrees => {
+    this.years = [1, 2, 3, 4];
+    this.generalService.getCurrentYear().subscribe(currentYear => {
+      this.currentYearInDB = currentYear.currYear;
+      this.degreeService.getDegrees().subscribe(degrees => {
         this.degrees = degrees;
         if (this.degrees) {
           this.currentDegree = this.degrees[0];
           this.onDegreeOrYearChange();
-          this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
-            .subscribe(selectiveCourses => {
-              this.filteredSelectiveCourses = selectiveCourses;
-              this.selectiveCourses = selectiveCourses;
-            });
         }
       });
+    });
     this.facultyService.getFaculties().subscribe((faculties: Faculty[]) => {
       this.faculties = faculties;
       const allFacultiesItem = new Faculty();
@@ -99,6 +99,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.allGroupsItem.name = "Всі";
         this.allGroupsItem.id = ALL_ITEMS;
         this.allGroupsItem.studentDegrees = [];
+
         for (let i = 0; i < this.groups.length; i++) {
           this.groups[i].studentDegrees.forEach(sd => sd.groupName = groups[i].name);
           this.allGroupsItem.studentDegrees.push(...this.groups[i].studentDegrees);
@@ -111,17 +112,18 @@ export class AddCoursesForStudentsComponent implements OnInit {
         this.selectedStudents = [];
         this.selectedCourses = [];
         this.onFacultyChange();
-
       });
-    this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2 - 1, false)
+
+    const studyYearForCourses = this.currentYear + (+this.selectedYear - this.currentYearInDB);
+    const firstSemesterForCourses = studyYearForCourses * 2 - 1;
+    this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, firstSemesterForCourses, false)
       .subscribe(selectiveCourses => {
         this.isAllCoursesSelected = false;
         this.currentFieldOfKnowledge = this.fieldsOfKnowledge[0];
         this.selectiveCourses = selectiveCourses;
         this.filteredSelectiveCourses = this.selectiveCourses;
-        this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, this.currentYear * 2, false)
+        this.selectiveCourseService.getSelectiveCourses(this.selectedYear, this.currentDegree.id, firstSemesterForCourses + 1, false)
           .subscribe(selectiveCourses2 => {
-            // this.filteredSelectiveCourses.push(...selectiveCourses2);
             this.selectiveCourses.push(...selectiveCourses2);
           });
       });

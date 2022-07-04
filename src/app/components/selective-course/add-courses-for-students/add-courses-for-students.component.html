@@ -112,7 +112,7 @@
                 <input type="checkbox" [(ngModel)]="studentDegree.selected"
                        (change)="changeSelectedStudents($event.target.checked, studentDegree) ">
                 {{ i+1 }}</td>
-              <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
+              <td>{{studentDegree.student.surname}} {{studentDegree.student.name}} {{studentDegree.student.patronimic}}</td>
             </tr>
             </tbody>
           </table>
@@ -134,7 +134,7 @@
               <tbody>
               <tr *ngFor="let studentDegree of selectedStudents; let i = index">
                 <td>{{ i+1 }}</td>
-                <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
+                <td>{{studentDegree.student.surname}} {{studentDegree.student.name}} {{studentDegree.student.patronimic}}</td>
                 <td>{{studentDegree.groupName}}</td>
               </tr>
               </tbody>

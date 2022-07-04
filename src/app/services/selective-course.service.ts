@@ -8,8 +8,8 @@ import {Observable} from 'rxjs';
 import {SelectiveCoursesYearParameters} from '../models/SelectiveCoursesYearParameters';
 import {SelectiveCoursesStudentDegree} from '../models/SelectiveCoursesStudentDegree';
 import {SelectiveCoursesStudentDegreeSubstitution} from '../models/SelectiveCoursesStudentDegreeSubstitution';
-import {SelectiveCoursesStudentDegreeWithStudyYear} from '../models/SelectiveCoursesStudentDegreeWithStudyYear';
-
+import {RegisteredByGroup} from '../components/selective-course/courses-by-group/model/RegisteredByGroup';
+import {SelectionRule} from '../components/selective-course/courses-by-group/model/SelectionRule';
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
 @Injectable()
@@ -53,8 +53,9 @@ export class SelectiveCourseService {
     return this.httpClient.get(`${SELECTIVE_COURSE_URL}/course-students?selectiveCourseId=${selectiveCourseId}&forFaculty=${forFaculty}`);
   }
 
-  disqualifySelectiveCourses(semester: number, degreeId: number) {
-    return this.httpClient.patch(`${SELECTIVE_COURSE_URL}/disqualification?semester=${semester}&degreeId=${degreeId}`, null);
+  disqualifySelectiveCourses(selectiveCourseIds: number[]) {
+    const body = selectiveCourseIds;
+    return this.httpClient.patch(`${SELECTIVE_COURSE_URL}/disqualification`, body);
   }
 
   createYearParameters(yearParametersEarlyPeriod: SelectiveCoursesYearParameters, yearParametersLatePeriod: SelectiveCoursesYearParameters) {
@@ -82,4 +83,14 @@ export class SelectiveCourseService {
   // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {
   //   return this.httpClient.post(`${SELECTIVE_COURSE_URL}/enrolling`, selectiveCoursesStudentDegreeWithStudyYear);
   // }
+
+  getRegisteredStudentsAndCourseInGroup(groupId: number, studyYear: number): Observable<RegisteredByGroup> {
+    const SELECTIVE_COURSE_STATISTICS_URL: string = environment.apiUrl + '/selective-courses-statistics';
+    return this.httpClient.get<RegisteredByGroup>(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
+  }
+
+  getSelectionRules(degreeId: number, studentsYear: number): Observable<SelectionRule[]> {
+    const SELECTION_RULES_URL: string = SELECTIVE_COURSE_URL + '/selection-rules';
+    return this.httpClient.get<SelectionRule[]>(`${SELECTION_RULES_URL}?degreeId=${degreeId}&studentsYear=${studentsYear}`);
+  }
 }

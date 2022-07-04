@@ -114,7 +114,7 @@
           </button>
         </div>
         <div class="col-5">
-          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger --width100">
+          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger --width100" [disabled]="yearParameters && yearParameters.length <= 0">
             Дискваліф. дисципіни
           </button>
         </div>
@@ -137,6 +137,16 @@
         <div class="col-5">
           <button type="button" class="btn btn-info --width100" (click)="showStudentStatisticsOfSelectiveCourses()">
             Статистика запису студентів на вибіркові дисципліни
+
+        <div class="row">
+          <button type="button" class="btn btn-info" (click)="openDialogSelectedByGroup()">
+            Вибіркові за групами
+          </button>
+        </div>
+
+        <div class="row">
+          <button type="button" class="btn btn-info" (click)="addStudentsSelectiveCourses()">
+            Додати вибіркові дисципліни студентам
           </button>
         </div>
         <div class="col-12 unsuspected-elements">

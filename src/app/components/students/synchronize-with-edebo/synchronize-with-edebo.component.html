@@ -59,7 +59,7 @@
                   <td>Попередній документ виданий</td>
                   <td>Номер попереднього документу</td>
                   <td>Попередній тип диплому</td>
-                  <td>Номер додатку до диплому</td>
+                  <td>Номер ЄДЕБО</td>
                   <td>Прізвище англійською</td>
                   <td>Ім'я англійською</td>
             </thead>
@@ -110,8 +110,8 @@
                 <td [attr.rowspan] = "compareValuesInBlueList('previousDiplomaType',i)">
                   {{translateDiplomaType(student.studentDegreeFromDb?.previousDiplomaType)}}
                 </td>
-                <td [attr.rowspan] = "compareValuesInBlueList('supplementNumber',i)">
-                  {{student.studentDegreeFromDb?.supplementNumber}}
+                <td [attr.rowspan] = "compareValuesInBlueList('edeboId',i)">
+                  {{student.studentDegreeFromDb?.edeboId}}
                 </td>
                 <td [attr.rowspan] = "compareValuesInBlueList('surnameEng',i)">
                   {{ student.studentDegreeFromDb?.student?.surnameEng }}
@@ -165,9 +165,9 @@
                   (click)="replaceDataWithCorrect(i,'previousDiplomaType')">
                   {{translateDiplomaType(student.studentDegreeFromData?.previousDiplomaType)}}
                 </td>
-                <td *ngIf="isNotEqual('supplementNumber',i)"
-                    (click)="replaceDataWithCorrect(i,'supplementNumber')">
-                  {{student.studentDegreeFromData?.supplementNumber}}
+                <td *ngIf="isNotEqual('edeboId',i)"
+                    (click)="replaceDataWithCorrect(i,'edeboId')">
+                  {{student.studentDegreeFromData?.edeboId}}
                 </td>
                 <td *ngIf="isNotEqual('surnameEng',i)"
                     (click)="replaceDataWithCorrect(i,'surnameEng')">

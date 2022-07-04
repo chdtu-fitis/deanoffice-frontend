@@ -21,6 +21,7 @@ import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disq
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {StudentsStatisticsOfSelectiveCoursesComponent} from './students-statistics-of-selective-courses/students-statistics-of-selective-courses.component';
 import {TableFilterOfNameAndTrainingCycleService} from '../../services/tableFilterOfNameAndTrainingCycle';
+import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 
 @Component({
   selector: 'selective-course',
@@ -39,7 +40,9 @@ export class SelectiveCourseComponent implements OnInit {
   years = [
     {id: '2020', name: '2020-2021'},
     {id: '2021', name: '2021-2022'},
-    {id: '2022', name: '2022-2023'}];
+    {id: '2022', name: '2022-2023'},
+    {id: '2023', name: '2023-2024'},
+  ];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
@@ -78,7 +81,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedYear = Utils.getCurrentAcademicYear().toString();
+    this.selectedYear = (Utils.getCurrentAcademicYear() + 1).toString();
     this.loadCourses();
     this.loadYearParameters();
   }
@@ -94,7 +97,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadYearParameters() {
-    this.selectiveCourseService.getYearParameters(this.selectedYear)
+    this.selectiveCourseService.getYearParameters(String(+this.selectedYear - 1))
       .subscribe(yearParameters => {
         this.yearParameters = yearParameters;
         this.assignedCoursesChild.isWithYearParameters = Boolean(yearParameters.length);
@@ -109,11 +112,9 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   onSelectionChanged(event) {
-
   }
 
   onModelUpdated($event) {
-
   }
 
   onSelectedYearChange() {
@@ -183,9 +184,8 @@ export class SelectiveCourseComponent implements OnInit {
     });
   }
 
-
   addYearParameters() {
-    const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
+    const modalRef = this.modalService.show(YearParametersDialogComponent, {class: 'modal-custom'});
 
     modalRef.content.onSubmit.subscribe(() => {
       this.loadYearParameters();
@@ -198,8 +198,11 @@ export class SelectiveCourseComponent implements OnInit {
       studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
+      yearParameters: this.yearParameters[0]
     };
-    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, {
+      animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true, initialState, class: 'modal-custom'
+    });
     // this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
     //   this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
     //   this.assignedCoursesChild.load();
@@ -225,16 +228,23 @@ export class SelectiveCourseComponent implements OnInit {
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
     };
-    const modalRef = this.modalService.show(EditStudentDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(EditStudentDialogComponent, {initialState, class: 'modal-custom'});
   }
 
   addStudentsSelectiveCourses() {
     const initialState = {
       selectedYear: this.selectedYear,
     };
-
-    const modalRef = this.modalService.show(AddCoursesForStudentsComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(AddCoursesForStudentsComponent, {initialState, class: 'modal-custom'});
   }
+
+  openDialogSelectedByGroup() {
+    const initialState = {
+      selectedYear: this.selectedYear,
+    };
+    const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
+  }
+
   showStudentStatisticsOfSelectiveCourses() {
     const initialState = {
       selectedYear: this.selectedYear,

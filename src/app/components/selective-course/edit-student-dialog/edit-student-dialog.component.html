@@ -6,13 +6,13 @@
 </div>
 <div class="modal-body">
   <div class="creation-form">
-
     <div>
       <div class="row">
         <div class="col" [formGroup]="form">
           <label for="surname">Введіть прізвище студента:</label>
           <input type="text" id="surname" class="form-control" formControlName="surname"
-                 [ngClass]="{ 'is-invalid': isButtonClicked && f.surname.errors }">
+                 [ngClass]="{ 'is-invalid': isButtonClicked && f.surname.errors }"
+                  (keyup.enter)="findStudentCourses(false)">
         </div>
       </div>
       <br>
@@ -42,7 +42,6 @@
       <div class="alert alert-danger" *ngIf="this.f.surname.value === '' && isButtonClicked">
         Введіть прізвище
       </div>
-
 
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
