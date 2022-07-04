@@ -19,7 +19,7 @@ import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
-import {StudentsStatisticsOfSelectiveCoursesComponent} from './students-statistics-of-selective-courses/students-statistics-of-selective-courses.component';
+import {SelectiveCoursesStatisticsComponent} from './students-statistics-of-selective-courses/selective-courses-statistics.component';
 import {TableFilterOfNameAndTrainingCycleService} from '../../services/tableFilterOfNameAndTrainingCycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 
@@ -249,6 +249,6 @@ export class SelectiveCourseComponent implements OnInit {
     const initialState = {
       selectedYear: this.selectedYear,
     };
-    const modalRef = this.modalService.show(StudentsStatisticsOfSelectiveCoursesComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(SelectiveCoursesStatisticsComponent, { initialState, class: 'modal-custom'});
   }
 }

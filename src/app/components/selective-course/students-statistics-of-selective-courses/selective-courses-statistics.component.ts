@@ -9,10 +9,10 @@ import {document} from 'ngx-bootstrap';
 
 @Component({
   selector: 'students-statistics-of-selective-courses',
-  templateUrl: './students-statistics-of-selective-courses.component.html',
-  styleUrls: ['./students-statistics-of-selective-courses.component.scss']
+  templateUrl: './selective-courses-statistics.component.html',
+  styleUrls: ['./selective-courses-statistics.component.scss']
 })
-export class StudentsStatisticsOfSelectiveCoursesComponent implements OnInit {
+export class SelectiveCoursesStatisticsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
   testNumber: number[] = [1,2,3,4,5,6]
