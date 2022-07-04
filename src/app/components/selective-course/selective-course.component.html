@@ -137,18 +137,14 @@
         <div class="col-5">
           <button type="button" class="btn btn-info --width100" (click)="showStudentStatisticsOfSelectiveCourses()">
             Статистика запису студентів на вибіркові дисципліни
-
+          </button>
+        </div>
         <div class="row">
           <button type="button" class="btn btn-info" (click)="openDialogSelectedByGroup()">
             Вибіркові за групами
           </button>
         </div>
 
-        <div class="row">
-          <button type="button" class="btn btn-info" (click)="addStudentsSelectiveCourses()">
-            Додати вибіркові дисципліни студентам
-          </button>
-        </div>
         <div class="col-12 unsuspected-elements">
           <div *ngIf="isChecked && yearParameters.length">
             <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
