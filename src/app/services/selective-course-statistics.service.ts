@@ -14,18 +14,13 @@ export class SelectiveCourseStatisticsService {
   getStudentsNotSelectedSelectiveCourse(studyYear: number,
                                         degreeId: number): Observable<RegisteredStudentsStatistics[]>{
     return this.httpClient.get<RegisteredStudentsStatistics[]>(
-      `${SELECTIVE_COURSE_STATISTICS_URL}/selected-zero?degreeId=${degreeId}$studyYear=${studyYear}`);
+      `${SELECTIVE_COURSE_STATISTICS_URL}/selected-zero?degreeId=${degreeId}&studyYear=${studyYear}`);
   };
 
   getStudentsPercentWhoChosenSelectiveCourse(studyYear: number, degreeId: number,
                                              selectiveStatisticsCriteria: string): Observable<RegisteredStudentsStatistics[]>{
     return this.httpClient.get<RegisteredStudentsStatistics[]>(
       `${SELECTIVE_COURSE_STATISTICS_URL}/registered-percent?studyYear=${studyYear}&degreeId=${degreeId}&selectiveStatisticsCriteria=${selectiveStatisticsCriteria}`);
-  };
-
-  getRegistredStudentsName(studyYear: number, groupId: number): Observable<RegisteredStudentsStatistics[]>{
-    return this.httpClient.get<RegisteredStudentsStatistics[]>(
-      `${SELECTIVE_COURSE_STATISTICS_URL}/registered-percent?studyYear=${studyYear}&groupId=${groupId}`);
   };
 }
 

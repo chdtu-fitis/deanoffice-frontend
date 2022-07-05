@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal';
 import {Degree} from '../../../models/Degree';
 import {RegisteredStudentsStatistics} from './models/RegisteredStudentsStatistics';
+import {StudentsNotRegisteredForSelectiveCourses} from '../../../models/StudentsNotRegisteredForSelectiveCourses';
+import {StudentSelectiveCourseMoreOrLessNorm} from '../../../models/StudentSelectiveCourseMoreOrLessNorm';
 import {DegreeService} from '../../../services/degree.service';
 import {SelectiveCourseStatisticsService} from "../../../services/selective-course-statistics.service";
+import {SelectiveCourseAnomalyService} from '../../../services/selective-course-anomaly.service';
 import * as XLSX from "xlsx";
 import {document} from 'ngx-bootstrap';
 
@@ -15,13 +18,17 @@ import {document} from 'ngx-bootstrap';
 export class SelectiveCoursesStatisticsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
-  testNumber: number[] = [1,2,3,4,5,6]
+  selectedCourse: number = 1;
+  moreNorm: string = "less";
+  courses: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   averagePercent: number = 0;
   fileName = "ExcelSheet.xlsx";
   selectedYear: number;
   whichTable = 0;
   currentTableName: string;
   registeredStudentsStatistics: RegisteredStudentsStatistics[];
+  studentsNotRegistered: StudentsNotRegisteredForSelectiveCourses[];
+  studentsAnomaly: StudentSelectiveCourseMoreOrLessNorm[];
   selectiveStatisticsCriteria: string = "YEAR";
   selectiveStatisticsCriteriaOfCurrentTable: string = "YEAR";
   ASC: string = "ASC";
@@ -32,7 +39,8 @@ export class SelectiveCoursesStatisticsComponent implements OnInit {
                   "choosingLessCount": this.ASC, "choosingLessPercent": this.ASC};
 
   constructor(public bsModalRef: BsModalRef, private degreeService: DegreeService,
-              private selectiveCourseStatisticsService: SelectiveCourseStatisticsService) { }
+              private selectiveCourseStatisticsService: SelectiveCourseStatisticsService,
+              private selectiveCourseAnomalyService: SelectiveCourseAnomalyService) { }
 
   ngOnInit() {
     this.degreeService.getDegrees().subscribe(degrees => {
@@ -55,27 +63,26 @@ export class SelectiveCoursesStatisticsComponent implements OnInit {
       this.averagePercent /= (this.registeredStudentsStatistics.length);
     });
     this.selectiveStatisticsCriteriaOfCurrentTable = this.selectiveStatisticsCriteria;
-    console.log(this.registeredStudentsStatistics);
   }
 
   showListOfStudentsWhoDidNotChoice() {
     this.whichTable = 2;
     this.currentTableName = "excel-table-2"
     this.selectiveCourseStatisticsService.getStudentsNotSelectedSelectiveCourse(this.selectedYear, this.currentDegree.id).subscribe(data => {
-      this.registeredStudentsStatistics = data;
+      this.studentsNotRegistered = data;
     });
-    console.log(this.registeredStudentsStatistics)
   }
 
   studentsWithUnexpectedAmountOfCourses() {
     this.whichTable = 3;
     this.currentTableName = "excel-table-3";
-    const groupId = 1;
-    this.selectiveCourseStatisticsService.getRegistredStudentsName(this.selectedYear, groupId).subscribe(data => {
-      this.registeredStudentsStatistics = data;
+    this.selectiveCourseAnomalyService.getStudentsSelectedSelectiveCoursesMoreNorm(this.currentDegree.id,
+      this.selectedYear,
+      this.selectedCourse,
+      this.moreNorm === "less" ? false : true).subscribe(data =>{
+      this.studentsAnomaly = data;
     });
-    console.log(this.registeredStudentsStatistics)
-  }
+  };
 
   exportTableIntoXLSX(): void {
     let element = document.getElementById(this.currentTableName);

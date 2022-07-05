@@ -15,4 +15,9 @@ export class RegisteredStudentsStatistics {
   notRegisteredPercent: number;
   choosingLessPercent: number;
   choosingLessCount: number;
+  specializationCode: string;
+  studentDegreeId: number;
+  surname: string;
+  year: number;
+  coursesNumber: number;
 }

@@ -203,12 +203,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let stats of registeredStudentsStatistics; let i = index">
+      <tr *ngFor="let stats of studentsNotRegistered; let i = index">
         <td>{{i+1}}</td>
         <td>{{stats.name}}</td>
         <td>{{stats.faculty}}</td>
         <td>{{stats.groupName}}</td>
-        <td>{{stats.specialityCode}}</td>
+        <td>{{stats.specializationCode}}</td>
         <td>{{stats.department}}</td>
       </tr>
       </tbody>
@@ -216,18 +216,26 @@
     <table id="excel-table-3" class="table-bordered table-sm table" *ngIf="whichTable === 3">
       <thead>
       <tr>
-        <td>number</td>
-        <td>faculty</td>
-        <td>course</td>
-        <td>quantity</td>
+        <td>№</td>
+        <td>Ім'я</td>
+        <td>Прізвище</td>
+        <td>Факультет</td>
+        <td>Код спеціальності</td>
+        <td>Група</td>
+        <td>Рік</td>
+        <td>Кількість дисциплін</td>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let number of testNumber; let i = index">
+      <tr *ngFor="let stats of studentsAnomaly; let i = index">
         <td>{{i+1}}</td>
-        <td>{{number}}</td>
-        <td>5</td>
-        <td>90%</td>
+        <td>{{stats.name}}</td>
+        <td>{{stats.surname}}</td>
+        <td>{{stats.facultyName}}</td>
+        <td>{{stats.specialityCode}}</td>
+        <td>{{stats.groupName}}</td>
+        <td>{{stats.year}}</td>
+        <td>{{stats.coursesNumber}}</td>
       </tr>
       </tbody>
     </table>
@@ -238,36 +246,59 @@
     </select>
     <div class="option-container">
       <button class="btn btn-success btn-with-options" (click)="showPercentOfStudentsWhoDidChoice()">Відсоток студентів, що здійснили вибір</button>
-      <input type="radio" id="choice1" value="YEAR"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'YEAR' ? true : false">
-      <label for="choice1">Рік</label><br>
-      <input type="radio" id="choice2" value="FACULTY"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'FACULTY' ? true : false">
-      <label for="choice2">Факультет</label><br>
-      <input type="radio" id="choice3" value="GROUP"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'GROUP' ? true : false">
-      <label for="choice3">Група</label><br>
-      <input type="radio" id="choice4" value="FACULTY_AND_SPECIALIZATION"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_SPECIALIZATION' ? true : false">
-      <label for="choice4">Факультет + освітня програма</label><br>
-      <input type="radio" id="choice5" value="FACULTY_AND_YEAR"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
-      <label for="choice5">Факультет + рік</label><br>
-      <input type="radio" id="choice6" value="FACULTY_AND_YEAR_AND_SPECIALIZATION"
-             [(ngModel)]="selectiveStatisticsCriteria"
-             [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR_AND_SPECIALIZATION' ? true : false">
-      <label for="choice6">Факультет + Рік + освітня програма</label><br>
+      <form>
+        <input type="radio" id="choice1" value="YEAR" name="1"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'YEAR' ? true : false">
+        <label for="choice1">Курс</label><br>
+        <input type="radio" id="choice2" value="FACULTY" name="2"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'FACULTY' ? true : false">
+        <label for="choice2">Факультет</label><br>
+        <input type="radio" id="choice3" value="GROUP" name="3"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'GROUP' ? true : false">
+        <label for="choice3">Група</label><br>
+        <input type="radio" id="choice4" value="FACULTY_AND_SPECIALIZATION" name="4"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_SPECIALIZATION' ? true : false">
+        <label for="choice4">Факультет + освітня програма</label><br>
+        <input type="radio" id="choice5" value="FACULTY_AND_YEAR" name="5"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
+        <label for="choice5">Факультет + рік</label><br>
+        <input type="radio" id="choice6" value="FACULTY_AND_YEAR_AND_SPECIALIZATION" name="6"
+               [(ngModel)]="selectiveStatisticsCriteria"
+               [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR_AND_SPECIALIZATION' ? true : false">
+        <label for="choice6">Факультет + Рік + освітня програма</label><br>
+      </form>
+    </div>
+    <div class="option-container">
+      <button class="btn btn-warning btn-with-options" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
+      <div class="row">
+        <div class="col-7">
+          <span>За нормальну кількість: </span> <br>
+          <input class="mt-2" type="radio" id="less" value="less" name="less"
+                 [(ngModel)]="moreNorm"
+                 [checked]="moreNorm === 'less'"
+          >
+          <label for="less">Менше</label><br>
+          <input type="radio" id="more" value="more" name="more"
+                 [(ngModel)]="moreNorm"
+                 [checked]="moreNorm === 'more'"
+          >
+          <label for="more">Більше</label><br>
+        </div>
+        <div class="col-5">
+          <span>Курс: </span> <br>
+          <select id="semester" class="form-control mt-2" [(ngModel)]="selectedCourse">
+            <option *ngFor="let course of courses" [ngValue]="course">{{course}}</option>
+          </select>
+        </div>
+      </div>
     </div>
     <div>
       <button class="btn btn-danger btn-out-of-input" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
-    </div>
-    <div>
-      <button class="btn btn-warning btn-out-of-input" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
     </div>
   </div>
 </div>
