@@ -277,7 +277,7 @@
       <button class="btn btn-warning btn-with-options" (click)="studentsWithUnexpectedAmountOfCourses()">Список студентів, в яких нестандартна кількість вибраних предметів</button>
       <div class="row">
         <div class="col-7">
-          <span>За нормальну кількість: </span> <br>
+          <span>Від правильної кількості: </span> <br>
           <input class="mt-2" type="radio" id="less" value="less" name="less"
                  [(ngModel)]="moreNorm"
                  [checked]="moreNorm === 'less'"
@@ -292,7 +292,7 @@
         <div class="col-5">
           <span>Курс: </span> <br>
           <select id="semester" class="form-control mt-2" [(ngModel)]="selectedCourse">
-            <option *ngFor="let course of courses" [ngValue]="course">{{course}}</option>
+            <option *ngFor="let course of courses" [ngValue]="course">{{course === 0 ? "Всі" : course}}</option>
           </select>
         </div>
       </div>

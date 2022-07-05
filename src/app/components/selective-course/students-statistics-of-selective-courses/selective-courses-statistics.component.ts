@@ -18,9 +18,9 @@ import {document} from 'ngx-bootstrap';
 export class SelectiveCoursesStatisticsComponent implements OnInit {
   degrees: Degree[] = [];
   currentDegree: Degree;
-  selectedCourse: number = 1;
+  selectedCourse: number = 0;
   moreNorm: string = "less";
-  courses: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
+  courses: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8];
   averagePercent: number = 0;
   fileName = "ExcelSheet.xlsx";
   selectedYear: number;

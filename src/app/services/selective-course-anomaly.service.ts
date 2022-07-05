@@ -15,6 +15,10 @@ export class SelectiveCourseAnomalyService {
                                               studentYear: number,
                                               moreNorm: boolean
                                         ): Observable<RegisteredStudentsStatistics[]>{
+    if (studentYear === 0) {
+      return this.httpClient.get<RegisteredStudentsStatistics[]>(
+        `${SELECTIVE_COURSE_ANOMALY_URL}?degreeId=${degreeId}&studyYear=${studyYear}&moreNorm=${moreNorm}`);
+    }
     return this.httpClient.get<RegisteredStudentsStatistics[]>(
       `${SELECTIVE_COURSE_ANOMALY_URL}?degreeId=${degreeId}&studyYear=${studyYear}&studentYear=${studentYear}&moreNorm=${moreNorm}`);
   };
