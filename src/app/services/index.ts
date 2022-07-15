@@ -32,6 +32,7 @@ import {CreditService} from './credit.service';
 import {ScientificDegreeService} from "./scientific-degree.service";
 import {SelectiveCourseService} from "./selective-course.service";
 import {FieldOfKnowledgeService} from './field-of-knowledge.service';
+import {DataShareService} from './data-share.service';
 
 export const SERVICES = [
   DegreeService,
@@ -68,6 +69,7 @@ export const SERVICES = [
   ScientificDegreeService,
   SelectiveCourseService,
   FieldOfKnowledgeService,
+  DataShareService,
 ];
 
 export const GUARDS = [

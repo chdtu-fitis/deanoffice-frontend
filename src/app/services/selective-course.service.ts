@@ -90,7 +90,7 @@ export class SelectiveCourseService {
     return this.httpClient.get<SelectiveCourseWithStudents[]>(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
   }
 
-  saveGeneratedNames(studentsYear, currentDegree) {
+  saveGeneratedNames(studentsYear: string, currentDegree: number): Observable<any> {
     let url = `${SELECTIVE_COURSE_URL}/group-names-generation?studentsYear=${studentsYear}&degreeId=${currentDegree}`;
     return this.httpClient.patch(url,{});
   }
