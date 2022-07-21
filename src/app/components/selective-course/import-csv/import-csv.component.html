@@ -46,12 +46,10 @@
                 <th>Назва</th>
                 <th>Семестр</th>
                 <th>Викладач</th>
-
                 <th>Кафедра</th>
                 <th>Галузь знань</th>
                 <th>Цикл</th>
                 <th>Опис</th>
-
               </tr>
               </thead>
               <tr *ngFor="let course of correctSelectiveCourses let i = index">
@@ -59,7 +57,7 @@
                 <td>{{ course?.courseName}}</td>
                 <td>{{ course?.semester }}</td>
                 <td>{{ course?.teacher}}</td>
-                <td>{{ course?.departmentAbbr}}</td>
+                <td>{{ course?.department}}</td>
                 <td>{{ course?.fieldsOfKnowledge}}</td>
                 <td>{{ course?.trainingCycle }}</td>
                 <td>{{ course?.description }}</td>
@@ -105,7 +103,7 @@
                 <td>{{ course?.courseName}}</td>
                 <td>{{ course?.semester }}</td>
                 <td>{{ course?.teacher}}</td>
-                <td>{{ course?.departmentAbbr}}</td>
+                <td>{{ course?.department}}</td>
                 <td>{{ course?.fieldsOfKnowledge}}</td>
                 <td>{{ course?.trainingCycle }}</td>
                 <td>{{ course?.description }}</td>
