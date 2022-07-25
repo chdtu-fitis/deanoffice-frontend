@@ -19,6 +19,8 @@ import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dia
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
+import {Degree} from '../../models/Degree';
+import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
 
 @Component({
   selector: 'selective-course',
@@ -222,5 +224,12 @@ export class SelectiveCourseComponent implements OnInit {
       selectedYear: this.selectedYear,
     };
     const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
+  }
+
+  saveNamesGroups() {
+    const initialState = {
+     degrees: this.degrees,
+    };
+    const modalRef = this.modalService.show(GroupNamesGenerationComponent, {initialState, class: 'modal-custom'});
   }
 }

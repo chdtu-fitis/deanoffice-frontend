@@ -24,6 +24,7 @@ import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-cou
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
 import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';
+import { GroupNamesGenerationComponent } from './group-names-generation/group-names-generation.component';
 
 export const selectiveCourseRoutes: Routes = [
   {path: '', component: SelectiveCourseComponent}
@@ -44,9 +45,9 @@ export const selectiveCourseRoutes: Routes = [
     CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
     YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
-    AddCoursesForStudentsComponent, CoursesByGroupComponent],
+    AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
-    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent]
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent]
 })
 
 export class SelectiveCourseModule {
