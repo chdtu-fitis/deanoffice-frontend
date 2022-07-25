@@ -19,10 +19,10 @@
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
         >Факультет</td>
-        <td title="Департамент"
+        <td title="Кафедра"
           (click)="handleColSort('department')"
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
-        >Департамент</td>
+        >Кафедра</td>
         <td title="Група"
             (click)="handleColSort('groupName')"
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'GROUP'"
@@ -31,7 +31,7 @@
             (click)="handleColSort('specializationName')"
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION'||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
-        >Осв. програма</td>
+        >Освітня програма</td>
         <td title="Курс"
             (click)="handleColSort('studyYear')"
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
@@ -92,7 +92,7 @@
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
-        >Найм. к-сть. не зар.</td>
+        >Менше норм.</td>
         <td title="Процент студентів, що не зареєструвались на вибіркові дисципліни, кількість яких менша від визначеної"
             (click)="handleColSort('choosingLessPercent')"
           *ngIf="selectiveStatisticsCriteriaOfCurrentTable === 'YEAR' ||
@@ -101,7 +101,7 @@
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_SPECIALIZATION' ||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR'||
           selectiveStatisticsCriteriaOfCurrentTable === 'FACULTY_AND_YEAR_AND_SPECIALIZATION'"
-        >Найм. % не зар.</td>
+        >% менше норм.</td>
       </tr>
       </thead>
       <tbody>
@@ -195,11 +195,11 @@
       <thead>
       <tr>
         <td>№</td>
-        <td>Прізвище, Ім'я</td>
+        <td>Прізвище та ім'я</td>
         <td>Факультет</td>
         <td>Назва групи</td>
         <td>Код спеціальності</td>
-        <td>Відділ</td>
+        <td>Кафедра</td>
       </tr>
       </thead>
       <tbody>
@@ -208,7 +208,7 @@
         <td>{{stats.name}}</td>
         <td>{{stats.faculty}}</td>
         <td>{{stats.groupName}}</td>
-        <td>{{stats.specializationCode}}</td>
+        <td>{{stats.specialityCode}}</td>
         <td>{{stats.department}}</td>
       </tr>
       </tbody>
@@ -217,20 +217,18 @@
       <thead>
       <tr>
         <td>№</td>
-        <td>Ім'я</td>
-        <td>Прізвище</td>
+        <td>Прізвище та ім'я</td>
         <td>Факультет</td>
         <td>Код спеціальності</td>
         <td>Група</td>
-        <td>Рік</td>
-        <td>Кількість дисциплін</td>
+        <td>Курс</td>
+        <td>К-сть дисциплін</td>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let stats of studentsAnomaly; let i = index">
         <td>{{i+1}}</td>
-        <td>{{stats.name}}</td>
-        <td>{{stats.surname}}</td>
+        <td>{{stats.surname}} {{stats.name}}</td>
         <td>{{stats.facultyName}}</td>
         <td>{{stats.specialityCode}}</td>
         <td>{{stats.groupName}}</td>
@@ -266,11 +264,11 @@
         <input type="radio" id="choice5" value="FACULTY_AND_YEAR" name="5"
                [(ngModel)]="selectiveStatisticsCriteria"
                [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR' ? true : false">
-        <label for="choice5">Факультет + рік</label><br>
+        <label for="choice5">Факультет + курс</label><br>
         <input type="radio" id="choice6" value="FACULTY_AND_YEAR_AND_SPECIALIZATION" name="6"
                [(ngModel)]="selectiveStatisticsCriteria"
                [checked]="selectiveStatisticsCriteria === 'FACULTY_AND_YEAR_AND_SPECIALIZATION' ? true : false">
-        <label for="choice6">Факультет + Рік + освітня програма</label><br>
+        <label for="choice6">Факультет + курс + освітня програма</label><br>
       </form>
     </div>
     <div class="option-container">
@@ -298,7 +296,7 @@
       </div>
     </div>
     <div>
-      <button class="btn btn-danger btn-out-of-input" (click)="showListOfStudentsWhoDidNotChoice()">Список студентів, що не здійснили вибір</button>
+      <button class="btn btn-danger btn-out-of-input" (click)="showNoChoiceStudents()">Список студентів, що не здійснили вибір</button>
     </div>
   </div>
 </div>

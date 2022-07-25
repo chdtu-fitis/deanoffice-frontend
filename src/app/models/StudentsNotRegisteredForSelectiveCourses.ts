@@ -1,7 +1,7 @@
 export class StudentsNotRegisteredForSelectiveCourses{
   name: string;
   faculty: string;
-  specializationCode: string;
+  specialityCode: string;
   groupName: string;
   department: string;
 }

@@ -23,7 +23,7 @@ import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {
   SelectiveCoursesStatisticsComponent
-} from './students-statistics-of-selective-courses/selective-courses-statistics.component';
+} from './selective-courses-statistics/selective-courses-statistics.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
 import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';

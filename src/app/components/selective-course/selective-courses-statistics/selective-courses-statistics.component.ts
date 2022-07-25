@@ -65,7 +65,7 @@ export class SelectiveCoursesStatisticsComponent implements OnInit {
     this.selectiveStatisticsCriteriaOfCurrentTable = this.selectiveStatisticsCriteria;
   }
 
-  showListOfStudentsWhoDidNotChoice() {
+  showNoChoiceStudents() {
     this.whichTable = 2;
     this.currentTableName = "excel-table-2"
     this.selectiveCourseStatisticsService.getStudentsNotSelectedSelectiveCourse(this.selectedYear, this.currentDegree.id).subscribe(data => {

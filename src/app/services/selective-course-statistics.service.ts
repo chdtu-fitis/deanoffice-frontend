@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs';
-import {RegisteredStudentsStatistics} from '../components/selective-course/students-statistics-of-selective-courses/models/RegisteredStudentsStatistics';
+import {RegisteredStudentsStatistics} from '../components/selective-course/selective-courses-statistics/models/RegisteredStudentsStatistics';
 
 const SELECTIVE_COURSE_STATISTICS_URL: string = environment.apiUrl + '/selective-courses-statistics';
 

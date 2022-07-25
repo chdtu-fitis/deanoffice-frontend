@@ -19,7 +19,7 @@ import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
-import {SelectiveCoursesStatisticsComponent} from './students-statistics-of-selective-courses/selective-courses-statistics.component';
+import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
 import {TableFilterOfNameAndTrainingCycleService} from '../../services/tableFilterOfNameAndTrainingCycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 
