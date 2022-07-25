@@ -5,11 +5,11 @@ import {SelectiveCourseService} from '../../../services/selective-course.service
 
 @Component({
   selector: 'show-selected-courses-of-students',
-  templateUrl: './show-selected-courses-of-students.component.html',
-  styleUrls: ['./show-selected-courses-of-students.component.scss']
+  templateUrl: './selective-courses.component.html',
+  styleUrls: ['./selective-courses.component.scss']
 })
 
-export class ShowSelectedCoursesOfStudentsComponent implements OnInit {
+export class SelectiveCoursesComponent implements OnInit {
   @Input() selected: StudentDegree[];
   constructor(public bsModalRef: BsModalRef, private selectiveCourseService: SelectiveCourseService,) { }
 

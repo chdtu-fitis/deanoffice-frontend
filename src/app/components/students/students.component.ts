@@ -11,7 +11,7 @@ import {StudentsColumnsComponent} from './students-columns/students-columns.comp
 import {CurrentUserService} from '../../services/auth/current-user.service';
 import {AcademicCertificateService} from "../../services/academic-certificate.service";
 import {AgGridModules, commonAgGridModules} from '../shared/ag-grid';
-import {ShowSelectedCoursesOfStudentsComponent} from './show-selected-courses-of-students/show-selected-courses-of-students.component';
+import {SelectiveCoursesComponent} from './selective-courses/selective-courses.component';
 
 @Component({
   selector: 'app-students',
@@ -182,6 +182,6 @@ export class StudentsComponent implements OnInit {
   showSelectedCoursesOfStudents() {
     const initialState = { };
 
-    const modalRef = this.modalService.show(ShowSelectedCoursesOfStudentsComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(SelectiveCoursesComponent, { initialState, class: 'modal-custom'});
   }
 }
