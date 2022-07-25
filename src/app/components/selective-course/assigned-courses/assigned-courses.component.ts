@@ -5,7 +5,7 @@ import {SelectiveCourseService} from '../../../services/selective-course.service
 import {TypeCycle} from '../../../models/TypeCycle';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
 import {Subscription} from 'rxjs';
-import {TableFilterOfNameAndTrainingCycleService} from '../../../services/tableFilterOfNameAndTrainingCycle';
+import {TableFilterNameAndTrainingCycleService} from '../../../services/table-filter-name-and-training-cycle';
 
 @Component({
   selector: 'assigned-courses',
@@ -34,7 +34,7 @@ export class AssignedCoursesComponent implements OnInit {
 
   constructor(private modalService: BsModalService,
               private selectiveCourseService: SelectiveCourseService,
-              private tableFilterOfNameAndTrainingCycleService: TableFilterOfNameAndTrainingCycleService) {
+              private tableFilterOfNameAndTrainingCycleService: TableFilterNameAndTrainingCycleService) {
     this.filterSubscription = tableFilterOfNameAndTrainingCycleService.newFilterAnnounced$.subscribe(
       newFilter => {
            this.nameFilter = newFilter[0];

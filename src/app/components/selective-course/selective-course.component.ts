@@ -20,7 +20,7 @@ import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dia
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
-import {TableFilterOfNameAndTrainingCycleService} from '../../services/tableFilterOfNameAndTrainingCycle';
+import {TableFilterNameAndTrainingCycleService} from '../../services/table-filter-name-and-training-cycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 
 @Component({
@@ -77,7 +77,7 @@ export class SelectiveCourseComponent implements OnInit {
               private courseService: CourseService,
               private modalService: BsModalService,
               private alerts: AlertsService,
-              private tableFilterOfNameAndTrainingCycleService: TableFilterOfNameAndTrainingCycleService) {
+              private tableFilterOfNameAndTrainingCycleService: TableFilterNameAndTrainingCycleService) {
   }
 
   ngOnInit(): void {
