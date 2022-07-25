@@ -22,6 +22,8 @@ import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-cou
 import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
 import {TableFilterNameAndTrainingCycleService} from '../../services/table-filter-name-and-training-cycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
+import {Degree} from '../../models/Degree';
+import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
 
 @Component({
   selector: 'selective-course',
@@ -111,10 +113,10 @@ export class SelectiveCourseComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  onSelectionChanged(event) {
-  }
+  onSelectionChanged(event) {  }
 
   onModelUpdated($event) {
+
   }
 
   onSelectedYearChange() {
@@ -250,5 +252,12 @@ export class SelectiveCourseComponent implements OnInit {
       selectedYear: this.selectedYear,
     };
     const modalRef = this.modalService.show(SelectiveCoursesStatisticsComponent, { initialState, class: 'modal-custom'});
+  }
+
+  saveNamesGroups() {
+    const initialState = {
+      degrees: this.degrees,
+    };
+    const modalRef = this.modalService.show(GroupNamesGenerationComponent, {initialState, class: 'modal-custom'});
   }
 }

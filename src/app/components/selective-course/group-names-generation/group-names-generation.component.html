@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title">Генерація назв груп</h4>
+</div>
+
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-form-label col-2" for="degree">Ступінь:</label>
+
+    <select [(ngModel)]="currentDegree" class="form-control col-4" id="degree">
+      <option *ngFor="let degree of degrees" [ngValue]="degree" >{{degree.name}}</option>
+    </select>
+
+    <label class="col-form-label col-2 text-right" for='studentsYear'>Курс:</label>
+    <input [(ngModel)]="studentsYear" type="number" min="1" max="4" class ="form-control col-2" id="studentsYear">
+  </div>
+
+  <div>
+    <button class="btn btn-success ml-4" type="button" (click)="saveNames()">
+      Генерувати
+    </button>
+    <button class="btn btn-primary ml-4" type="button" (click)=bsModalRef.hide()>Скасувати</button>
+  </div>
+</div>

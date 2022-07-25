@@ -93,4 +93,9 @@ export class SelectiveCourseService {
     const SELECTION_RULES_URL: string = SELECTIVE_COURSE_URL + '/selection-rules';
     return this.httpClient.get<SelectionRule[]>(`${SELECTION_RULES_URL}?degreeId=${degreeId}&studentsYear=${studentsYear}`);
   }
+
+  saveGeneratedNames(studentsYear: string, currentDegree: number): Observable<any> {
+    let url = `${SELECTIVE_COURSE_URL}/group-names-generation?studentsYear=${studentsYear}&degreeId=${currentDegree}`;
+    return this.httpClient.patch(url,{});
+  }
 }
