@@ -4,11 +4,12 @@ import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
+import {DataShareService} from '../../../services/data-share.service';
 
 @Component({
   selector: 'assigned-courses',
   templateUrl: './assigned-courses.component.html',
-  styleUrls: ['./assigned-courses.component.scss']
+  styleUrls: ['./assigned-courses.component.scss'],
 })
 export class AssignedCoursesComponent implements OnInit {
   @Input() studyYear: string;
@@ -26,7 +27,9 @@ export class AssignedCoursesComponent implements OnInit {
   disqualifiedCourses: SelectiveCourse[] = [];
 
   constructor(private modalService: BsModalService,
-              private selectiveCourseService: SelectiveCourseService) {
+              private selectiveCourseService: SelectiveCourseService,
+              private dataShareService: DataShareService) {
+    dataShareService.generateSelectiveCourseGroupNames$.subscribe(() => {this.load()})
   }
 
   ngOnInit() {
