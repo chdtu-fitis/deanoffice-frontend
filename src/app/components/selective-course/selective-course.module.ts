@@ -21,6 +21,7 @@ import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 import { DisqualifyCoursesDialogComponent } from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import { DisqualifiableCoursesTableComponent } from './disqualify-courses-dialog/disqualifiable-courses-table/disqualifiable-courses-table.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
 import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';
@@ -45,9 +46,10 @@ export const selectiveCourseRoutes: Routes = [
     CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
     YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
-    AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent],
+    AddCoursesForStudentsComponent, SelectiveCoursesStatisticsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
-    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent]
+    EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent,
+    SelectiveCoursesStatisticsComponent, GroupNamesGenerationComponent]
 })
 
 export class SelectiveCourseModule {

@@ -4,12 +4,14 @@ import {SelectiveCourse} from '../../../models/SelectiveCourse';
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {TypeCycle} from '../../../models/TypeCycle';
 import {EditDialogComponent} from '../edit-dialog/edit-dialog.component';
+import {Subscription} from 'rxjs';
+import {TableFilterNameAndTrainingCycleService} from '../../../services/table-filter-name-and-training-cycle';
 import {DataShareService} from '../../../services/data-share.service';
 
 @Component({
   selector: 'assigned-courses',
   templateUrl: './assigned-courses.component.html',
-  styleUrls: ['./assigned-courses.component.scss'],
+  styleUrls: ['./assigned-courses.component.scss']
 })
 export class AssignedCoursesComponent implements OnInit {
   @Input() studyYear: string;
@@ -17,6 +19,11 @@ export class AssignedCoursesComponent implements OnInit {
   @Input() semester: number;
   @Output() onSelectedAssignedCoursesChange = new EventEmitter();
   @Input() showEditButton = true;
+
+  nameFilter: string = "";
+  trainingCycleFilter: string = "";
+  filterSubscription: Subscription;
+
   isWithYearParameters: boolean;
 
   typeCycle = TypeCycle;
@@ -28,8 +35,14 @@ export class AssignedCoursesComponent implements OnInit {
 
   constructor(private modalService: BsModalService,
               private selectiveCourseService: SelectiveCourseService,
-              private dataShareService: DataShareService) {
-    dataShareService.generateSelectiveCourseGroupNames$.subscribe(() => {this.load()})
+              private dataShareService: DataShareService,
+              private tableFilterOfNameAndTrainingCycleService: TableFilterNameAndTrainingCycleService) {
+    dataShareService.generateSelectiveCourseGroupNames$.subscribe(() => {this.load()});
+    this.filterSubscription = tableFilterOfNameAndTrainingCycleService.newFilterAnnounced$.subscribe(
+      newFilter => {
+           this.nameFilter = newFilter[0];
+           this.trainingCycleFilter = newFilter[1];
+        });
   }
 
   ngOnInit() {

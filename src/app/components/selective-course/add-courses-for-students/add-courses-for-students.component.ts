@@ -94,6 +94,7 @@ export class AddCoursesForStudentsComponent implements OnInit {
       .subscribe(groups => {
         this.isAllStudentsSelected = false;
         this.groups = groups ? groups : [];
+
         this.allGroupsItem = new StudentGroup();
         this.allGroupsItem.name = "Всі";
         this.allGroupsItem.id = ALL_ITEMS;
@@ -178,7 +179,8 @@ export class AddCoursesForStudentsComponent implements OnInit {
 
   changeAllCoursesIsSelected(): void {
     if (this.selectedCourses.length > 0) {
-      this.filteredSelectiveCourses.forEach(item => item.selected = this.isAllCoursesSelected);
+      this.selectedCourses.forEach(item => item.selected = this.isAllCoursesSelected);
+      this.filteredSelectiveCourses.forEach(item => item.selected = this.isAllCoursesSelected);//without this also works
       this.selectedCourses = [];
     }
   }

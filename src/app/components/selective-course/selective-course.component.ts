@@ -13,11 +13,14 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
+import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
 import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
+import {TableFilterNameAndTrainingCycleService} from '../../services/table-filter-name-and-training-cycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 import {Degree} from '../../models/Degree';
 import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
@@ -50,7 +53,6 @@ export class SelectiveCourseComponent implements OnInit {
   prepTypes = [
     {id: 1, name: 'Цикл загальної підготовки'},
     {id: 2, name: 'Цикл професійної підготовки'}];
-
   selectedPrepType = this.prepTypes[0];
 
   courses: Course[];
@@ -62,13 +64,22 @@ export class SelectiveCourseComponent implements OnInit {
   yearParameters: SelectiveCoursesYearParameters[] = [];
   isChecked = false;
 
+  ASSIGN: string = "assign";
+  FILTER: string = "filter";
+  assignOrFilter: string = this.ASSIGN;
+  nameFilter: string = "";
+  trainingCycle = [{type: 'ALL', name: "Всі"}, {type: 'GENERAL', name: "Загальна"}, {type: 'PROFESSIONAL', name: "Професійна"}];
+  trainingCycleFilter = this.trainingCycle[0];
+
+
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
               private modalService: BsModalService,
-              private alerts: AlertsService) {
+              private alerts: AlertsService,
+              private tableFilterOfNameAndTrainingCycleService: TableFilterNameAndTrainingCycleService) {
   }
 
   ngOnInit(): void {
@@ -203,6 +214,16 @@ export class SelectiveCourseComponent implements OnInit {
     // });
   }
 
+  assignOrFilterHandler() {
+    this.assignOrFilter === this.ASSIGN ? this.assignOrFilter = this.FILTER : this.assignOrFilter = this.ASSIGN;
+    this.nameFilter = "";
+    this.trainingCycleFilter = this.trainingCycle[0];
+  }
+
+  onFilterChange() {
+    this.tableFilterOfNameAndTrainingCycleService.announceNewFilter([this.nameFilter, this.trainingCycleFilter.type])
+  }
+
   editStudentSelectiveCourses() {
     const initialState = {
       studyYear: this.selectedYear,
@@ -226,9 +247,16 @@ export class SelectiveCourseComponent implements OnInit {
     const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
   }
 
+  showStudentStatisticsOfSelectiveCourses() {
+    const initialState = {
+      selectedYear: this.selectedYear,
+    };
+    const modalRef = this.modalService.show(SelectiveCoursesStatisticsComponent, { initialState, class: 'modal-custom'});
+  }
+
   saveNamesGroups() {
     const initialState = {
-     degrees: this.degrees,
+      degrees: this.degrees,
     };
     const modalRef = this.modalService.show(GroupNamesGenerationComponent, {initialState, class: 'modal-custom'});
   }

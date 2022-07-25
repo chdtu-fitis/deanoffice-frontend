@@ -7,12 +7,7 @@ div {
 }
 
 .selection {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-
   .form-control {
-    height: 1.5rem;
     font-size: 15px;
     padding: 0 0.75rem;
   }
@@ -30,64 +25,67 @@ div {
   height: 2rem;
   margin: 7px;
   padding: 0.2rem 0.75rem;
-
-  &.btn-medium {
-    width: 145px;
-  }
-
 }
 
-.menu-row {
+.--padding-zero{
+  padding: 0;
+}
+
+.table{
+  height: 255px;
+  overflow: auto;
+  margin-bottom: 5px;
+}
+
+.prepDropdown{
+  margin-left: 0;
+  top: 0;
+}
+
+.buttons-connected-to-table{
+  margin-bottom: 3px;
+  padding-top: 7px;
+  padding-left: 7px;
+  padding-right: 16px;
   display: flex;
   flex-direction: row;
+  align-content: center;
   justify-content: space-between;
-}
-
-.element {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  margin-right: 15px;
-
-  .element-header {
-    margin-right: 5px;
-    min-width: auto;
-    font-weight: bold;
+  margin-left: -6px;
+  margin-top: -6px;
+  button{
+    margin: 0;
   }
 }
 
-.element-wider {
-  flex: 2;
+.--width100{
+  width: 100%;
 }
 
-.col-sm {
-  margin-top: -40px;
+.--height500{
+  height: 500px;
 }
 
-.col-1 {
-  padding: 1px;
-  min-width: 4.8em;
+.pl-0{
+  padding-left: 0;
 }
 
-.col-2 {
-  padding: 1px;
-  min-width: 10em;
+.pr-0{
+  padding-right: 0;
 }
 
-.col-4 {
-  padding: 1px;
+.buttons-container{
+  margin-top: -6px;
 }
 
-.count-label {
-  margin-top: 15px;
+select{
+  height: 33px!important;
+  font-size: 15px;
 }
 
-.assigned-courses-table {
-  height: 50%;
-  overflow: auto;
+.search{
+  height: 33px;
+  font-size: 15px;
 }
 
-.year-parameters{
-  margin-left: -20px;
-}
+

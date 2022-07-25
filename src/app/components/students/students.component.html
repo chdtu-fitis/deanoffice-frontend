@@ -114,6 +114,9 @@
               (click)="addStudentModal.modal.show()">
         Зарахувати
       </button>
+      <button type="button" class="btn btn-success w-100 mt-3" (click)="showSelectedCoursesOfStudents()">
+        Показати вибіркові дисципліни студентів
+      </button>
       <button class="btn btn-dark w-100 mt-3"
               (click)="onAbstractOfScholasticRecords(selected[0]?.id)"
               *ngIf="selected.length === 1">
@@ -137,6 +140,8 @@
   [groups]="groups"
   (onSubmit)="prependStudent($event)"
 ></app-add-student>
+
+<!--<show-selected-courses-of-students #showSelectiveCoursesForStudents> </show-selected-courses-of-students>-->
 
 <app-student-expel
   (onSubmit)="onRemove($event)"

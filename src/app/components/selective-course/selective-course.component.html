@@ -1,25 +1,22 @@
 <div class="container-fluid courses-for-groups">
-  <div class="selection row">
-    <div class="col-7">
-      <div class="menu-row">
-        <div class="element">
-          <div class="element-header">Ступінь:</div>
+  <div class="row mt-3">
+    <div class="col-lg-7 content-container">
+      <div class="row options-container">
+        <div class="col-md-3">
           <div>
-            <select class="form-control" [(ngModel)]="selectedDegreeId" (change)="onSelectedDegreeChange()">
+            <select class="form-control" [(ngModel)]="selectedDegreeId" size="1" (change)="onSelectedDegreeChange()">
               <option *ngFor="let degree of degrees" [ngValue]="degree.id">{{degree.name}}</option>
             </select>
           </div>
         </div>
-        <div class="element">
-          <div class="element-header">Навчальний рік:</div>
+        <div class="col-md-3">
           <div>
             <select class="form-control mr-2" [(ngModel)]="selectedYear" (change)="onSelectedYearChange()">
               <option *ngFor="let year of years" [ngValue]="year.id">{{year.name}}</option>
             </select>
           </div>
         </div>
-        <div class="element">
-          <div class="element-header">Семестр:</div>
+        <div class="col-md-2">
           <div>
             <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
                     (change)="onSelectedSemesterChange()">
@@ -27,88 +24,124 @@
             </select>
           </div>
         </div>
-        <div class="element-wider">
+        <div class="col-md-4">
           <input [(ngModel)]="searchText" placeholder="Пошук за предметом" class="form-control mr-2 search">
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row" style="height: 100%">
-    <div class="col-7 h-100">
-      <div class="h-50">
-        <div style="height: 85%; overflow: auto">
-          <studied-courses [loading]="studiedCoursesLoading"
-                           (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses"
-                           [searchText]="searchText"></studied-courses>
-        </div>
-        <div class="row-12">
-          <button type="button" class="btn btn-info btn-medium ml-1" (click)="assignCourses()"
-                  [disabled]="!selectedCourses.length">Призначити
-          </button>
-          <button type="button" class="btn btn-danger btn-medium" (click)="deleteAssignedCourses()"
-                  [disabled]="!selectedAssignedCourses.length">Видалити
-          </button>
-          <button type="button" class="btn btn-info" (click)="copyCourses()">
-            Скопіювати з іншого року
-          </button>
-          <div class="element">
-            <div>
-              <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
-                <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
-              </select>
+      <div class="row mt-2">
+        <div class="col-12 table-container">
+          <div class="table">
+            <studied-courses [loading]="studiedCoursesLoading"
+                             (onSelectedCoursesChange)="changeSelectedCourses($event)" [courses]="courses"
+                             [searchText]="searchText"></studied-courses>
+          </div>
+          <div class="col-12 --padding-zero">
+            <div *ngIf="this.assignOrFilter === this.ASSIGN" class="row buttons-connected-to-table justify-content-between">
+              <div class="button-container">
+                <button type="button" class="btn btn-info" (click)="assignCourses()"
+                        [disabled]="!selectedCourses.length">Призначити
+                </button>
+              </div>
+              <div class="button-container">
+                <button type="button" class="btn btn-danger" (click)="deleteAssignedCourses()"
+                        [disabled]="!selectedAssignedCourses.length">Видалити
+                </button>
+              </div>
+              <div class="button-container">
+                <button type="button" class="btn btn-info" (click)="copyCourses()">
+                  Скопіювати з іншого року
+                </button>
+              </div>
+              <div class="button-container">
+                <div class="element">
+                  <div>
+                    <select [(ngModel)]="selectedPrepType" class="form-control prepDropdown" required>
+                      <option *ngFor="let type of prepTypes" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="button-container">
+                <button type="button" class="btn btn-info" (click)="assignOrFilterHandler()">
+                  {{assignOrFilter === this.ASSIGN? "Фільтрувати" : "Призначати"}}
+                </button>
+              </div>
+            </div>
+            <div *ngIf="this.assignOrFilter === this.FILTER" class="row buttons-connected-to-table justify-content-between">
+              <div class="button-container col-4 --width100 pl-0">
+                <input [(ngModel)]="nameFilter"  (ngModelChange)="onFilterChange()" placeholder="Пошук" class="form-control mr-2 search">
+              </div>
+              <div class="button-container col-4 --width100">
+                <div class="element">
+                  <div>
+                    <select [(ngModel)]="trainingCycleFilter" (change)="onFilterChange()" class="form-control prepDropdown" required>
+                      <option *ngFor="let type of trainingCycle" [ngValue]="type">{{type.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="button-container col-4 pr-0">
+                <button type="button" class="btn btn-info --width100" (click)="assignOrFilterHandler()">
+                  {{assignOrFilter === this.ASSIGN? "Фільтрувати" : "Призначати"}}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div class="col-12 table-container">
+          <div class="table --height500">
+            <assigned-courses style="overflow: auto" [studyYear]="selectedYear" [degreeId]="selectedDegreeId"
+                              [semester]="selectedSemester"
+                              (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)">
 
-      <div class="h-50">
-        <div style="height: 90%; overflow: auto">
-          <assigned-courses style="overflow: auto" [studyYear]="selectedYear" [degreeId]="selectedDegreeId"
-                            [semester]="selectedSemester"
-                            (onSelectedAssignedCoursesChange)="changeSelectedSelectiveCourses($event)"></assigned-courses>
+            </assigned-courses>
+          </div>
+          <footer class="bg-light px-3 py-2">
+            <span class="mr-3">Всього: {{assignedCoursesChild.selectiveCourses.length || '0'}}</span>
+            <span class="mr-3">(скасованих: {{assignedCoursesChild.disqualifiedCourses.length || '0'}})</span>
+            <span class="mr-3"> Вибрано: {{selectedAssignedCourses.length || '0'}}</span>
+          </footer>
         </div>
-        <footer class="bg-light px-3 py-2">
-          <span class="mr-3">Всього: {{assignedCoursesChild.selectiveCourses.length || '0'}}</span>
-          <span class="mr-3">(скасованих: {{assignedCoursesChild.disqualifiedCourses.length || '0'}})</span>
-          <span class="mr-3"> Вибрано: {{selectedAssignedCourses.length || '0'}}</span>
-        </footer>
       </div>
     </div>
-    <div class="col-sm">
-      <div id="year-parameters">
-        <div class="row">
-          <button type="button" (click)="addYearParameters()" class="btn btn-primary"
+    <div class="col-lg-5 buttons-container">
+      <div class="row">
+        <div class="col-7">
+          <button type="button" (click)="addYearParameters()" class="btn btn-primary --width100"
                   matTooltip="Можна задати дати запису на вибіркові дисципліни та мінімальну кількість студентів на дисципліну.
                                     Додається для навчального року, наступного за поточним">
             Додати параметри н.р.
           </button>
-
-          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger" [disabled]="yearParameters && yearParameters.length <= 0">
+        </div>
+        <div class="col-5">
+          <button type="button" (click)="disqualifySelectiveCourses()" class="btn btn-danger --width100" [disabled]="yearParameters && yearParameters.length <= 0">
             Дискваліф. дисципіни
           </button>
-
-          <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary"
+        </div>
+        <div class="col-5">
+          <button type="button" (click)="editStudentSelectiveCourses()" class="btn btn-info --width100">
+            Вибіркові за студентами
+          </button>
+        </div>
+        <div class="col-7">
+          <button type="button" (click)="isChecked = !isChecked" class="btn btn-secondary --width100"
                   *ngIf="yearParameters.length">
             {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
           </button>
         </div>
-
-        <div class="row">
-          <button type="button" (click)="editStudentSelectiveCourses()" class="btn btn-info">
-            Вибіркові за студентами
-          </button>
-        </div>
-
-        <div class="row">
-          <button type="button" class="btn btn-info" (click)="openDialogSelectedByGroup()">
-            Вибіркові за групами
-          </button>
-        </div>
-
-        <div class="row">
-          <button type="button" class="btn btn-info" (click)="addStudentsSelectiveCourses()">
+        <div class="col-7">
+          <button type="button" class="btn btn-info --width100" (click)="addStudentsSelectiveCourses()">
             Додати вибіркові дисципліни студентам
+          </button>
+        </div>
+        <div class="col-5">
+          <button type="button" class="btn btn-info --width100" (click)="showStudentStatisticsOfSelectiveCourses()">
+            Статистика запису
+          </button>
+        </div>
+        <div class="col-5">
+          <button type="button" class="btn btn-info --width100" (click)="openDialogSelectedByGroup()">
+            Вибіркові за групами
           </button>
         </div>
 
@@ -118,13 +151,15 @@
           </button>
         </div>
 
-        <div *ngIf="isChecked && yearParameters.length">
-          <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
+        <div class="col-12 unsuspected-elements">
+          <div *ngIf="isChecked && yearParameters.length">
+            <year-parameters-table [yearParameters]="yearParameters"></year-parameters-table>
+          </div>
+          <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
+            <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id">
+            </registered-students>
+          </div>
         </div>
-      </div>
-      <div class="mt-2" *ngFor="let selectiveCourse of selectedAssignedCourses">
-        <registered-students class="overflow-auto" [selectiveCourseId]="selectiveCourse.id">
-        </registered-students>
       </div>
     </div>
   </div>

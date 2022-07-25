@@ -38,18 +38,23 @@ export class DisqualifyCoursesDialogComponent implements OnInit {
     }
     this.selectiveCourseService.getSelectiveCoursesWithStudentsCount(this.studyYear, this.degreeId, this.semester)
       .subscribe((selectiveCourses: SelectiveCourse[]) => {
-        const selectiveCoursesToApprove = [], selectiveCoursesToDecline = [];
+        // const selectiveCoursesToApprove = [], selectiveCoursesToDecline = [];
+        // selectiveCourses.forEach(sc => {
+        //   if ((TypeCycle[sc.trainingCycle] == TypeCycle.GENERAL && sc.studentsCount >= this.minGeneralStudentsCount) ||
+        //     (TypeCycle[sc.trainingCycle] == TypeCycle.PROFESSIONAL && sc.studentsCount >= this.minProfessionalStudentsCount))
+        //     selectiveCoursesToApprove.push(sc);
+        //   else {
+        //     sc.selected = true;
+        //     selectiveCoursesToDecline.push(sc);
+        //   }
+        // });
+        // this.selectiveCourses = selectiveCoursesToApprove.concat(selectiveCoursesToDecline);
         selectiveCourses.forEach(sc => {
-          if ((TypeCycle[sc.trainingCycle] == TypeCycle.GENERAL && sc.studentsCount >= this.minGeneralStudentsCount) ||
-            (TypeCycle[sc.trainingCycle] == TypeCycle.PROFESSIONAL && sc.studentsCount >= this.minProfessionalStudentsCount))
-            selectiveCoursesToApprove.push(sc);
-          else {
+          if (!((TypeCycle[sc.trainingCycle] == TypeCycle.GENERAL && sc.studentsCount >= this.minGeneralStudentsCount) ||
+                (TypeCycle[sc.trainingCycle] == TypeCycle.PROFESSIONAL && sc.studentsCount >= this.minProfessionalStudentsCount)))
             sc.selected = true;
-            selectiveCoursesToDecline.push(sc);
-          }
         });
-        this.selectiveCourses = selectiveCoursesToApprove.concat(selectiveCoursesToDecline);
-        // this.selectiveCourses = selectiveCourses;
+        this.selectiveCourses = selectiveCourses;
       }, error => {
         console.log(error);
       });
