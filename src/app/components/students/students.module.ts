@@ -36,8 +36,6 @@ import {StudentDegreeHistoryComponent} from './student-degree-history/student-de
 import { StudentSpecializationTransferComponent } from './student-specialization-transfer/student-specialization-transfer.component';
 import { StudentsTableComponent } from './students-table/students-table.component'
 import {EdeboDiplomaNumberComponent} from './edebo-diploma-number/edebo-diploma-number.component';
-import {SelectiveCoursesComponent} from './selective-courses/selective-courses.component';
-
 
 export const studentRoutes: Routes = [
   {path: '', component: StudentsComponent},
@@ -77,14 +75,12 @@ export const studentRoutes: Routes = [
     GroupFilterComponent,
     PaymentFilterComponent,
     StudentSpecializationTransferComponent,
-    StudentsTableComponent,
-    SelectiveCoursesComponent
+    StudentsTableComponent
   ],
   entryComponents: [
     GroupFilterComponent,
     PaymentFilterComponent,
-    StudentsColumnsComponent,
-    SelectiveCoursesComponent
+    StudentsColumnsComponent
  ],
   imports: [
     CommonModule,

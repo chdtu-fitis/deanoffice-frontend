@@ -114,9 +114,6 @@
               (click)="addStudentModal.modal.show()">
         Зарахувати
       </button>
-      <button type="button" class="btn btn-success w-100 mt-3" (click)="showSelectedCoursesOfStudents()">
-        Показати вибіркові дисципліни студентів
-      </button>
       <button class="btn btn-dark w-100 mt-3"
               (click)="onAbstractOfScholasticRecords(selected[0]?.id)"
               *ngIf="selected.length === 1">

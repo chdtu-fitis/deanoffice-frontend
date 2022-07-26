@@ -14,36 +14,39 @@
         </mat-sidenav>
         <mat-sidenav-content>
             <div class="group-buttons">
-                <button [disabled]="isSelectiveGroups" class="btn btn-primary" (click)="toggleSortableCoursesForGroup()">Сортувати колонки</button>
-                <button class="btn btn-primary" (click)="snav.toggle()">Групи і семестри</button>
-                <button class="btn btn-success" *ngIf="selectGroup"
+                <button [disabled]="isSelectiveGroups" class="btn btn-primary ml-1" (click)="toggleSortableCoursesForGroup()">Сортувати колонки</button>
+                <button class="btn btn-primary ml-1" (click)="snav.toggle()">Групи і семестри</button>
+                <button class="btn btn-success ml-1" *ngIf="selectGroup"
                         [disabled]="!emptyGradesList.length || isDeleteMode"
                         [ngClass]="{'btn-outline-secondary': !emptyGradesList.length || isDeleteMode}"
                         (click)="fillInWithZerosGrades()">Заповнити нулями
                 </button>
-                <button class="btn btn-success"
+                <button class="btn btn-success ml-1"
                         *ngIf="!isDeleteMode && selectGroup"
                         [disabled]="!gradesUpdate.length"
                         [ngClass]="{'btn-outline-secondary': !gradesUpdate.length}"
                         (click)="updateGradesForGroup()">Зберегти зміни
                 </button>
-                <button class="btn btn-danger"
+                <button class="btn btn-danger ml-1"
                         *ngIf="isDeleteMode"
                         [disabled]="!selectGradeForDelete"
                         [ngClass]="{'btn-outline-danger': !selectGradeForDelete}"
                         (click)="deleteSelectedGrade()"
                         >Видалити обрану оцiнку
                 </button>
-                <button class="btn" [disabled]="!loading"
+                <button class="btn ml-1" [disabled]="!loading"
                         [ngClass]="{ 'btn-primary': isDeleteMode, 'btn-danger': !isDeleteMode }"
                         (click)="changeMode()" *ngIf="selectGroup">
                     {{!isDeleteMode? 'Видалення оцiнок': 'Таблиця оцiнок'}}
                 </button>
-              <button [disabled]="isSelectiveGroups" class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+              <button [disabled]="isSelectiveGroups" class="btn btn-primary ml-1" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
                       (click)="setAcademicDifference()" *ngIf="selectGroup">
                 Змінити А.Р
               </button>
-              <button class="btn btn-primary" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
+              <button class="btn btn-success ml-1" (click)="showSelectiveCoursesGrades()" *ngIf="selectGroup">
+                Оцінки з вибіркових
+              </button>
+              <button class="btn btn-primary ml-1" [disabled]="gradeTable.focusGrade?.empty || gradeTable.focusGrade?.points < 60"
                       (click)="setOnTime()" *ngIf="selectGroup">
                 {{gradeTable.focusGrade.onTime ? 'Невчасно': 'Вчасно'}}
               </button>
