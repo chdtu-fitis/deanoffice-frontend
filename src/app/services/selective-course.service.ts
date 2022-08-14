@@ -83,48 +83,14 @@ export class SelectiveCourseService {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}/registration/multiple`, body);
   }
 
-  // @ts-ignore
   uploadImportedSelectiveCoursesData(data: FormData): Observable<ImportSelectiveCourses> {
-    // let result = new ImportSelectiveCourses();
-    // result.selectiveCoursesCorrect = [
-    //   {courseName: "Графічні техніки і комп’ютерна графіка", semester: 5, teacher: "Rise", departmentAbbr: "ДЗ", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.PROFESSIONAL,  description: "Вивчення графічних технік художньо-образної творчості і сучасних комп’ютерних технологій в графічному дизайні.  Вміння використовувати комп’ютерні програмами для створення складних і складених об’єктів, графічних дизайн проєктів (фотомонтаж, портфоліо, рекламна продукція тощо).",  selected: true},
-    //   {courseName: "Дизайн цифрової фотографії", semester: 5, teacher: "Rise", departmentAbbr: "ДЗ", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.PROFESSIONAL,  description: "Вивчення способів і методів в цифрової фотографії. Створення цифрової фотографії як елементу візуальної культури, використовуючи знання з композиції, кольорового рішення тощо. Виконання цифрової фотографії як твору дизайну.",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true},
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true}
-    // ];
-    // result.selectiveCoursesIncorrect = [
-    //   {courseName: "Programing", semester: 1, teacher: "Rise", departmentAbbr: "FT", fieldsOfKnowledge: 2, trainingCycle: TypeCycle.GENERAL,  description: "aadsjkads",  selected: true, message: "Incorrect "}
-    // ];
-    // let res = of(result);
-    // return res;
     return this.httpClient.post<ImportSelectiveCourses>(`${SELECTIVE_COURSE_URL}/csv-import-file`, data)
        .pipe(catchError(forObservable<ImportSelectiveCourses>('upload Selective Courses')))
   }
 
   addImportedSelectiveCourses(datta: ImportSelectiveCourseForSave[]) {
-    return this.httpClient.put<UpdateSelectiveCourses>(`${SELECTIVE_COURSE_URL}/save-selective-courses`, datta)
+    return this.httpClient.post<UpdateSelectiveCourses>(`${SELECTIVE_COURSE_URL}/csv-import-save`, datta)
       .pipe(catchError(forObservable<UpdateSelectiveCourses>('save selective courses')))
-   // let result  = new UpdateSelectiveCourses();
-   // result.updatedData = 4;
-   // result.notUpdatedData = ["No updated"];
-   // let res = of(result);
-   // return res;
   }
 
 }

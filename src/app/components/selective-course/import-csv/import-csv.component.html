@@ -58,7 +58,7 @@
                 <td>{{ course?.semester }}</td>
                 <td>{{ course?.teacher}}</td>
                 <td>{{ course?.department}}</td>
-                <td>{{ course?.fieldsOfKnowledge}}</td>
+                <td>{{ course?.fieldOfKnowledge > 0 ? course?.fieldOfKnowledge : ""}}</td>
                 <td>{{ course?.trainingCycle }}</td>
                 <td>{{ course?.description }}</td>
               </tr>
@@ -104,10 +104,10 @@
                 <td>{{ course?.semester }}</td>
                 <td>{{ course?.teacher}}</td>
                 <td>{{ course?.department}}</td>
-                <td>{{ course?.fieldsOfKnowledge}}</td>
+                <td>{{ course?.fieldOfKnowledge ? course?.fieldOfKnowledge : ""}}</td>
                 <td>{{ course?.trainingCycle }}</td>
                 <td>{{ course?.description }}</td>
-                <td>{{ course?.message}}</td>
+                <td>{{ course?.alert}}</td>
               </tr>
             </table>
           </tab>

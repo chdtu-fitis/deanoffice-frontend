@@ -6,7 +6,7 @@ export class ImportSelectiveCourseCorrect {
   teacher: string;
   degreeId?: number;
   department: string;
-  fieldsOfKnowledge: number;
+  fieldOfKnowledge: number;
   trainingCycle: string;
   description: string;
   studyYear?: number;

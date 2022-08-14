@@ -1,6 +1,5 @@
 import {Component, NgModule, ViewChild} from '@angular/core';
 import {BsModalRef, ModalDirective} from 'ngx-bootstrap/modal';
-
 import {SelectiveCourseService} from '../../../services/selective-course.service';
 import {ImportSelectiveCourseCorrect} from './model/ImportSelectiveCourseCorrect';
 import {ImportSelectiveCourseIncorrect} from './model/ImportSelectiveCourseIncorrect';
@@ -8,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../shared/utils';
 import {ImportSelectiveCourseForSave} from "./model/ImportSelectiveCourseForSave";
 import {UpdateSelectiveCourses} from "./model/UpdateSelectiveCourses";
+
 
 @Component({
   selector: 'import-csv',
