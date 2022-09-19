@@ -129,30 +129,30 @@
             {{isChecked ? "Приховати" : "Показати"}} параметри н.р.
           </button>
         </div>
-        <div class="col-7">
+        <div class="col-5 pl-0 pr-1">
           <button type="button" class="btn btn-info --width100" (click)="addStudentsSelectiveCourses()">
-            Додати вибіркові дисципліни студентам
+            Додати вибіркові студентам
           </button>
         </div>
-        <div class="col-5">
+        <div class="col-3 pl-0 pr-1">
           <button type="button" class="btn btn-info --width100" (click)="showStudentStatisticsOfSelectiveCourses()">
             Статистика запису
           </button>
         </div>
-        <div class="col-5">
+        <div class="col-4 pl-0 pr-1">
           <button type="button" class="btn btn-info --width100" (click)="openDialogSelectedByGroup()">
             Вибіркові за групами
           </button>
         </div>
 
-        <div class="col-5">
+        <div class="col-4 pr-1">
           <button type="button" class="btn btn-info" (click)="saveNamesGroups()">
-            Генерування імен груп
+            Генерувати імена груп
           </button>
         </div>
 
-        <div class="col-5">
-          <button type="button" class="btn btn-info" (click)="importSelectiveCoursesFromCsv()">
+        <div class="col-4 pr-1">
+          <button type="button" class="btn btn-warning" (click)="importSelectiveCoursesFromCsv()">
             Імпортувати з csv
           </button>
         </div>

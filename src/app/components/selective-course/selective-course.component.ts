@@ -23,6 +23,7 @@ import {TableFilterNameAndTrainingCycleService} from '../../services/table-filte
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 import {Degree} from '../../models/Degree';
 import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
+import {AlertsService} from "../shared/alerts/alerts.service";
 
 @Component({
   selector: 'selective-course',
