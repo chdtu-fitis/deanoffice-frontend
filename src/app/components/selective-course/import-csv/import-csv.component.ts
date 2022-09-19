@@ -6,7 +6,7 @@ import {ImportSelectiveCourseIncorrect} from './model/ImportSelectiveCourseIncor
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Utils} from '../../shared/utils';
 import {ImportSelectiveCourseForSave} from "./model/ImportSelectiveCourseForSave";
-import {UpdateSelectiveCourses} from "./model/UpdateSelectiveCourses";
+import {CreateSelectiveCoursesResult} from "./model/CreateSelectiveCoursesResult";
 
 
 @Component({
@@ -27,8 +27,7 @@ export class ImportCsvComponent {
   isTableViewVisible = false;
   correctSelectiveCourses: ImportSelectiveCourseCorrect[];
   incorrectSelectiveCourses: ImportSelectiveCourseIncorrect[];
-  notUpdatedData: string[];
-  updatedData: number;
+  creationResult: CreateSelectiveCoursesResult;
   isNotUpdatedData: boolean;
   form: FormGroup;
   allRowsIsSelected = true;
@@ -71,12 +70,10 @@ export class ImportCsvComponent {
     const selectiveCoursesForSave = this.getSelectedCourses();
     this.selectiveCourseService.addImportedSelectiveCourses(selectiveCoursesForSave).subscribe(
       response => {
-        this.updatedData = response.updatedData;
-        this.notUpdatedData = response.notUpdatedData;
-        this.modalName = 'Дані змінено';
+        this.creationResult = response;
+        this.modalName = 'Вибіркові дисципліни додано';
         this.isTableViewVisible = !this.isTableViewVisible;
         this.isResultViewVisible = true;
-        this.isNotUpdatedData = this.notUpdatedData.length !== 0;
       }
     );
     this.isSaveButtonVisible = true;

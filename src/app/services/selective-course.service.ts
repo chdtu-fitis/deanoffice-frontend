@@ -11,7 +11,7 @@ import {SelectiveCoursesStudentDegreeSubstitution} from '../models/SelectiveCour
 import {ImportSelectiveCourses} from "../components/selective-course/import-csv/model/ImportSelectiveCourses";
 import {TypeCycle} from "../models/TypeCycle";
 import {ImportSelectiveCourseForSave} from "../components/selective-course/import-csv/model/ImportSelectiveCourseForSave";
-import {UpdateSelectiveCourses} from "../components/selective-course/import-csv/model/UpdateSelectiveCourses";
+import {CreateSelectiveCoursesResult} from "../components/selective-course/import-csv/model/CreateSelectiveCoursesResult";
 import {UpdateDiplomaAnalytics} from "../models/edebo-diploma-number/updateDiplomaAnalytics";
 
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
@@ -89,8 +89,8 @@ export class SelectiveCourseService {
   }
 
   addImportedSelectiveCourses(datta: ImportSelectiveCourseForSave[]) {
-    return this.httpClient.post<UpdateSelectiveCourses>(`${SELECTIVE_COURSE_URL}/csv-import-save`, datta)
-      .pipe(catchError(forObservable<UpdateSelectiveCourses>('save selective courses')))
+    return this.httpClient.post<CreateSelectiveCoursesResult>(`${SELECTIVE_COURSE_URL}/csv-import-save`, datta)
+      .pipe(catchError(forObservable<CreateSelectiveCoursesResult>('save selective courses')))
   }
 
 }
