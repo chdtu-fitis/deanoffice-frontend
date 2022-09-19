@@ -18,6 +18,11 @@ import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dia
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
 import {ImportCsvComponent} from "./import-csv/import-csv.component";
+import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
+import {TableFilterNameAndTrainingCycleService} from '../../services/table-filter-name-and-training-cycle';
+import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
+import {Degree} from '../../models/Degree';
+import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
 
 @Component({
   selector: 'selective-course',
@@ -36,7 +41,9 @@ export class SelectiveCourseComponent implements OnInit {
   years = [
     {id: '2020', name: '2020-2021'},
     {id: '2021', name: '2021-2022'},
-    {id: '2022', name: '2022-2023'}];
+    {id: '2022', name: '2022-2023'},
+    {id: '2023', name: '2023-2024'},
+  ];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   selectedDegreeId: number = 1;
@@ -45,7 +52,6 @@ export class SelectiveCourseComponent implements OnInit {
   prepTypes = [
     {id: 1, name: 'Цикл загальної підготовки'},
     {id: 2, name: 'Цикл професійної підготовки'}];
-
   selectedPrepType = this.prepTypes[0];
 
   courses: Course[];
@@ -57,16 +63,26 @@ export class SelectiveCourseComponent implements OnInit {
   yearParameters: SelectiveCoursesYearParameters[] = [];
   isChecked = false;
 
+  ASSIGN: string = "assign";
+  FILTER: string = "filter";
+  assignOrFilter: string = this.ASSIGN;
+  nameFilter: string = "";
+  trainingCycle = [{type: 'ALL', name: "Всі"}, {type: 'GENERAL', name: "Загальна"}, {type: 'PROFESSIONAL', name: "Професійна"}];
+  trainingCycleFilter = this.trainingCycle[0];
+
+
   @ViewChild(StudiedCoursesComponent, {static: true}) studiedCoursesChild: StudiedCoursesComponent;
   @ViewChild(AssignedCoursesComponent, {static: true}) assignedCoursesChild: AssignedCoursesComponent;
 
   constructor(private selectiveCourseService: SelectiveCourseService,
               private courseService: CourseService,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private alerts: AlertsService,
+              private tableFilterOfNameAndTrainingCycleService: TableFilterNameAndTrainingCycleService) {
   }
 
   ngOnInit(): void {
-    this.selectedYear = Utils.getCurrentAcademicYear().toString();
+    this.selectedYear = (Utils.getCurrentAcademicYear() + 1).toString();
     this.loadCourses();
     this.loadYearParameters();
   }
@@ -82,7 +98,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   loadYearParameters() {
-    this.selectiveCourseService.getYearParameters(this.selectedYear)
+    this.selectiveCourseService.getYearParameters(String(+this.selectedYear - 1))
       .subscribe(yearParameters => {
         this.yearParameters = yearParameters;
         this.assignedCoursesChild.isWithYearParameters = Boolean(yearParameters.length);
@@ -96,9 +112,7 @@ export class SelectiveCourseComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
   }
 
-  onSelectionChanged(event) {
-
-  }
+  onSelectionChanged(event) {  }
 
   onModelUpdated($event) {
 
@@ -171,9 +185,8 @@ export class SelectiveCourseComponent implements OnInit {
     });
   }
 
-
   addYearParameters() {
-    const modalRef = this.modalService.show(YearParametersDialogComponent, { class: 'modal-custom'});
+    const modalRef = this.modalService.show(YearParametersDialogComponent, {class: 'modal-custom'});
 
     modalRef.content.onSubmit.subscribe(() => {
       this.loadYearParameters();
@@ -186,8 +199,11 @@ export class SelectiveCourseComponent implements OnInit {
       studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
+      yearParameters: this.yearParameters[0]
     };
-    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(DisqualifyCoursesDialogComponent, {
+      animated: true, keyboard: true, backdrop: true, ignoreBackdropClick: true, initialState, class: 'modal-custom'
+    });
     // this.selectiveCourseService.disqualifySelectiveCourses(this.selectedSemester, this.selectedDegreeId).subscribe(() => {
     //   this.alerts.showSuccess({body: 'Дисципліни з недостатньою кількістю студентів були дискваліфіковані', timeout: 5000});
     //   this.assignedCoursesChild.load();
@@ -197,21 +213,51 @@ export class SelectiveCourseComponent implements OnInit {
     // });
   }
 
+  assignOrFilterHandler() {
+    this.assignOrFilter === this.ASSIGN ? this.assignOrFilter = this.FILTER : this.assignOrFilter = this.ASSIGN;
+    this.nameFilter = "";
+    this.trainingCycleFilter = this.trainingCycle[0];
+  }
+
+  onFilterChange() {
+    this.tableFilterOfNameAndTrainingCycleService.announceNewFilter([this.nameFilter, this.trainingCycleFilter.type])
+  }
+
   editStudentSelectiveCourses() {
     const initialState = {
       studyYear: this.selectedYear,
       degreeId: this.selectedDegreeId,
       semester: this.selectedSemester,
     };
-    const modalRef = this.modalService.show(EditStudentDialogComponent, { initialState, class: 'modal-custom'});
+    const modalRef = this.modalService.show(EditStudentDialogComponent, {initialState, class: 'modal-custom'});
   }
 
   addStudentsSelectiveCourses() {
     const initialState = {
       selectedYear: this.selectedYear,
     };
-
     const modalRef = this.modalService.show(AddCoursesForStudentsComponent, {initialState, class: 'modal-custom'});
+  }
+
+  openDialogSelectedByGroup() {
+    const initialState = {
+      selectedYear: this.selectedYear,
+    };
+    const modalRef = this.modalService.show(CoursesByGroupComponent, {initialState, class: 'modal-custom'});
+  }
+
+  showStudentStatisticsOfSelectiveCourses() {
+    const initialState = {
+      selectedYear: this.selectedYear,
+    };
+    const modalRef = this.modalService.show(SelectiveCoursesStatisticsComponent, { initialState, class: 'modal-custom'});
+  }
+
+  saveNamesGroups() {
+    const initialState = {
+      degrees: this.degrees,
+    };
+    const modalRef = this.modalService.show(GroupNamesGenerationComponent, {initialState, class: 'modal-custom'});
   }
 
   importSelectiveCoursesFromCsv() {
@@ -223,5 +269,4 @@ export class SelectiveCourseComponent implements OnInit {
 
     const modalRef = this.modalService.show(ImportCsvComponent, {initialState, keyboard: true, backdrop: 'static', ignoreBackdropClick: true});
   }
-
 }

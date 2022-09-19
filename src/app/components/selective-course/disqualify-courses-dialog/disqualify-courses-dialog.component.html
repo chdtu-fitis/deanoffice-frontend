@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Оберіть які дисципліни будуть дизкваліфіковані</h4>
+  <h4 class="modal-title">Оберіть які дисципліни будуть дискваліфіковані</h4>
   <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -8,13 +8,13 @@
   <div class="creation-form">
     <div>
       <disqualifiable-courses-table [selectiveCourses]="selectiveCourses"
-                                    (onSelectedSelectiveCoursesChange)="changeSelectedSelectiveCourses($event)">
-
+                                    [minGeneralStudentsCount]="minGeneralStudentsCount"
+                                    [minProfessionalStudentsCount]="minProfessionalStudentsCount">
       </disqualifiable-courses-table>
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-success" (click)="bsModalRef.hide()">Зберегти</button>
+      <button type="button" class="btn btn-outline-success" (click)="onSubmit()">Дискваліфікувати</button>
       <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
     </div>
   </div>

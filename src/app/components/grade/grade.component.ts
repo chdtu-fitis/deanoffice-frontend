@@ -18,6 +18,8 @@ import {Utils} from '../shared/utils';
 import {Specialization} from '../../models/Specialization';
 import {Degree} from '../../models/Degree';
 import {SelectiveCourseStudentDegrees} from '../../models/SelectiveCourseStudentDegrees';
+import {SelectiveCoursesComponent} from "./selective-courses/selective-courses.component";
+import {BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'app-grade',
@@ -58,7 +60,8 @@ export class GradeComponent implements OnInit {
               private groupService: GroupService,
               private studentService: StudentService,
               private courseForGroupService: CourseForGroupService,
-              private selectiveCourseService: SelectiveCourseService) {
+              private selectiveCourseService: SelectiveCourseService,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -445,5 +448,10 @@ export class GradeComponent implements OnInit {
         return studentDegree;
       }
     );
+  }
+
+  showSelectiveCoursesGrades() {
+    const initialState = { };
+    const modalRef = this.modalService.show(SelectiveCoursesComponent, { initialState, class: 'modal-custom'});
   }
 }

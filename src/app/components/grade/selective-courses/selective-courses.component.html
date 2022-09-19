@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Показати вибіркові дисципліни студентів</h4>
+  <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table-bordered table-sm table" >
+    <thead>
+    <tr>
+      <td>№</td>
+      <td>ПІБ</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let student of selected; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{student.student.surname}} {{student.student.name}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Закрити</button>
+</div>

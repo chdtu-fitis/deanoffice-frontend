@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { StudentService } from '../../services/student.service';
 import { GroupService } from '../../services/group.service';
 import { StudentDegree } from '../../models/StudentDegree';
@@ -71,6 +70,7 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
     this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
       this.students = students;
+      console.log(this.students);
     });
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;

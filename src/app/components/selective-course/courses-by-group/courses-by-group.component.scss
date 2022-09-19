@@ -1,0 +1,60 @@
+::ng-deep .modal-dialog {
+  max-width: 80%;
+}
+
+.option{
+  color: black;
+}
+
+.tables{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+}
+
+.table {
+  margin-top: 0;
+  width: 80%;
+}
+
+.align-middle {
+  text-align: center;
+}
+
+.d-flex {
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+h6 {
+  vertical-align: center;
+}
+
+.modal-body {
+  padding-bottom: 0;
+}
+
+.selective-courses-list {
+  cursor: pointer;
+}
+
+//h5 {
+//  padding-top: 0;
+//  padding-bottom: 0;
+//}
+
+.choosed-courses {
+  max-width: 50%;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.student-not-made-choice {
+  color: red;
+}
+
