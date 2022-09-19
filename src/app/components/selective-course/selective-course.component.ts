@@ -13,17 +13,17 @@ import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
 import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
-import {YearParametersTableComponent} from './year-parameters-table/year-parameters-table.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';
-import {AlertsService} from '../shared/alerts/alerts.service';
 import {EditStudentDialogComponent} from './edit-student-dialog/edit-student-dialog.component';
 import {DisqualifyCoursesDialogComponent} from './disqualify-courses-dialog/disqualify-courses-dialog.component';
 import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-courses-for-students.component';
+import {ImportCsvComponent} from "./import-csv/import-csv.component";
 import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
 import {TableFilterNameAndTrainingCycleService} from '../../services/table-filter-name-and-training-cycle';
 import {CoursesByGroupComponent} from './courses-by-group/courses-by-group.component';
 import {Degree} from '../../models/Degree';
 import {GroupNamesGenerationComponent} from './group-names-generation/group-names-generation.component';
+import {AlertsService} from "../shared/alerts/alerts.service";
 
 @Component({
   selector: 'selective-course',
@@ -259,5 +259,15 @@ export class SelectiveCourseComponent implements OnInit {
       degrees: this.degrees,
     };
     const modalRef = this.modalService.show(GroupNamesGenerationComponent, {initialState, class: 'modal-custom'});
+  }
+
+  importSelectiveCoursesFromCsv() {
+    const initialState = {
+      studyYear: this.selectedYear,
+      degreeId: this.selectedDegreeId,
+      degrees: this.degrees,
+    };
+
+    const modalRef = this.modalService.show(ImportCsvComponent, {initialState, keyboard: true, backdrop: 'static', ignoreBackdropClick: true});
   }
 }

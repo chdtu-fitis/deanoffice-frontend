@@ -1,0 +1,138 @@
+      <div class="modal-header">
+         <h4 class="modal-title">{{modalName}}</h4>
+         <button type="button" class="close" aria-label="Close" (click)=bsModalRef.hide()>
+           <span aria-hidden="true">x</span>
+         </button>
+      </div>
+
+      <div class="modal-body import-csv-modal-body">
+        <form #inputFileForm="ngForm">
+          <div class="input-group " *ngIf="isFileViewVisible" >
+            <input
+              type="file"
+              name="file"
+              class="custom-file-input"
+              id="importFile"
+              accept=".csv"
+              #file="ngModel"
+              [ngModel]="fileNameValid"
+              appExpectedName=".+.(csv)$"
+              (change)="setFileName($event)"
+              required
+            >
+            <label class="custom-file-label" for="importFile">{{fileName}}</label>
+
+            <div class="w-100 mt-4" *ngIf="!file.valid && file.dirty">
+              <p class="alert alert-danger" *ngIf="file.errors?.appExpectedName">
+                Некоректне розширення файлу
+              </p>
+            </div>
+          </div>
+        </form>
+
+        <div class="loader__content" *ngIf="isUploadInProgress">
+          <loading [size]="50"></loading>
+        </div>
+
+        <tabset *ngIf="isTableViewVisible" class="tab-width">
+          <tab class="tab-body correct-data" heading="Коректні дані">
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <tr>
+                <th>№</th>
+                <th>
+                  <input type="checkbox" (change)="changeAllIsSelected($event.target.checked)"
+                         [ngModel]="allRowsIsSelected">
+                </th>
+                <th>Назва</th>
+                <th>Семестр</th>
+                <th>Викладач</th>
+                <th>Кафедра</th>
+                <th>Галузь знань</th>
+                <th>Цикл</th>
+                <th>Опис</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let course of correctSelectiveCourses let i = index">
+                <td>{{ i+1 }}</td>
+                <td><input type="checkbox" checked [(ngModel)]="course.selected" (change)="coursesSelect()"></td>
+                <td>{{ course?.courseName}}</td>
+                <td>{{ course?.semester }}</td>
+                <td>{{ course?.teacher}}</td>
+                <td>{{ course?.department}}</td>
+                <td>{{ course?.fieldOfKnowledge > 0 ? course?.fieldOfKnowledge : ""}}</td>
+                <td>{{ course?.trainingCycle }}</td>
+                <td>{{ course?.description }}</td>
+              </tr>
+            </table>
+            <ng-container *ngIf="isTableViewVisible">
+              <div class="form-group row tab-width">
+                <label class="col-form-label ml-3 mr-2" for="degree">Ступінь:</label>
+                <select [(ngModel)]="degreeId" name="degree" id="degree" class="form-control col-1">
+                  <option *ngFor='let degree of degrees' value={{degree.id}}>{{degree.name}}</option>
+                </select>
+                <label class="col-form-label ml-4" for="studyYear">Навчальний рік:</label>
+
+                <input [(ngModel)]="studyYear" type="number" min=2020 max=2050 class="form-control col-1 ml-2" id="studyYear" >
+
+                <div>
+                  <button class="btn btn-success ml-4" type="button" (click)="saveImportCourses()"
+                          [disabled]="isSaveButtonVisible">
+                    Зберегти
+                  </button>
+                </div>
+                <div >
+                  <button class="btn btn-primary ml-4" type="button" (click)=bsModalRef.hide()>Скасувати</button>
+                </div>
+              </div>
+            </ng-container>
+          </tab>
+          <tab class="tab-body wrong-data" heading="Некоректні дані">
+            <table class="table table-sm table-striped table-bordered mt-4">
+              <thead>
+              <tr>
+                <th>№</th>
+                <th>Назва</th>
+                <th>Семестр</th>
+                <th>Викладач</th>
+                <th>Кафедра</th>
+                <th>Галузь знань</th>
+                <th>Цикл</th>
+                <th>Опис</th>
+                <th>Повідомлення</th>
+              </tr>
+              </thead>
+              <tr *ngFor="let course of incorrectSelectiveCourses; let i = index">
+                <td>{{ i+1 }}</td>
+                <td>{{ course?.courseName}}</td>
+                <td>{{ course?.semester }}</td>
+                <td>{{ course?.teacher}}</td>
+                <td>{{ course?.department}}</td>
+                <td>{{ course?.fieldOfKnowledge ? course?.fieldOfKnowledge : ""}}</td>
+                <td>{{ course?.trainingCycle }}</td>
+                <td>{{ course?.description }}</td>
+                <td>{{ course?.alert}}</td>
+              </tr>
+            </table>
+          </tab>
+        </tabset>
+
+        <div *ngIf="isResultViewVisible" class="m-2">
+          <p> Додано предметів: {{creationResult.successfulImports}}</p>
+          <table class="table table-sm table-striped table-bordered mt-4 result-table"
+                 *ngIf="creationResult.importErrorsReport.length > 0">
+            <th>Не додані вибіркові дисципліни:</th>
+            <tr *ngFor="let errMessage of creationResult.importErrorsReport">
+              <td>{{ errMessage }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer d-inline">
+        <button class="btn btn-success" *ngIf="isUploadButtonVisible" (click)="onFileUpload()"
+                [disabled]="isUploadInProgress || !inputFileForm.form.valid">
+          Завантажити
+        </button>
+      </div>
+     <button class="btn btn-primary" *ngIf="isResultViewVisible" type="button" (click)="bsModalRef.hide()">Закрити</button>

@@ -4,12 +4,18 @@ import {SelectiveCourse} from '../models/SelectiveCourse';
 import {environment} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
 import {forObservable} from '../components/shared/httpErrors';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {SelectiveCoursesYearParameters} from '../models/SelectiveCoursesYearParameters';
 import {SelectiveCoursesStudentDegree} from '../models/SelectiveCoursesStudentDegree';
 import {SelectiveCoursesStudentDegreeSubstitution} from '../models/SelectiveCoursesStudentDegreeSubstitution';
+import {ImportSelectiveCourses} from "../components/selective-course/import-csv/model/ImportSelectiveCourses";
+import {TypeCycle} from "../models/TypeCycle";
+import {ImportSelectiveCourseForSave} from "../components/selective-course/import-csv/model/ImportSelectiveCourseForSave";
+import {CreateSelectiveCoursesResult} from "../components/selective-course/import-csv/model/CreateSelectiveCoursesResult";
+import {UpdateDiplomaAnalytics} from "../models/edebo-diploma-number/updateDiplomaAnalytics";
 import {RegisteredByGroup} from '../components/selective-course/courses-by-group/model/RegisteredByGroup';
 import {SelectionRule} from '../components/selective-course/courses-by-group/model/SelectionRule';
+
 const SELECTIVE_COURSE_URL: string = environment.apiUrl + '/selective-courses';
 
 @Injectable()
@@ -78,6 +84,16 @@ export class SelectiveCourseService {
 
   assignMultipleCoursesForMultipleStudents(body) {
     return this.httpClient.post(`${SELECTIVE_COURSE_URL}/registration/multiple`, body);
+  }
+
+  uploadImportedSelectiveCoursesData(data: FormData): Observable<ImportSelectiveCourses> {
+    return this.httpClient.post<ImportSelectiveCourses>(`${SELECTIVE_COURSE_URL}/csv-import-file`, data)
+       .pipe(catchError(forObservable<ImportSelectiveCourses>('upload Selective Courses')))
+  }
+
+  addImportedSelectiveCourses(datta: ImportSelectiveCourseForSave[]) {
+    return this.httpClient.post<CreateSelectiveCoursesResult>(`${SELECTIVE_COURSE_URL}/csv-import-save`, datta)
+      .pipe(catchError(forObservable<CreateSelectiveCoursesResult>('save selective courses')))
   }
 
   // enrollStudentInSelectiveCourses(selectiveCoursesStudentDegreeWithStudyYear: SelectiveCoursesStudentDegreeWithStudyYear): Observable<any> {

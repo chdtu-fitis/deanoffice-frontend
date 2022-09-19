@@ -24,6 +24,8 @@ import {AddCoursesForStudentsComponent} from './add-courses-for-students/add-cou
 import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistics/selective-courses-statistics.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
+import { ImportCsvComponent } from './import-csv/import-csv.component';
+import {TabsModule} from "ngx-bootstrap";
 import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';
 import { GroupNamesGenerationComponent } from './group-names-generation/group-names-generation.component';
 
@@ -40,18 +42,18 @@ export const selectiveCourseRoutes: Routes = [
         PipeModule.forRoot(),
         RouterModule.forChild(selectiveCourseRoutes),
         MatTooltipModule,
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        TabsModule.forRoot()
     ],
   declarations: [SelectiveCourseComponent, AssignDialogComponent, TeacherSearchComponent, AssignedCoursesComponent,
     CopyDialogComponent, RegisteredStudentsComponent, EditDialogComponent, SelectiveCourseFormComponent,
     YearParametersDialogComponent, YearParametersTableComponent, EditStudentDialogComponent,
     StudentCoursesTableComponent, DisqualifyCoursesDialogComponent, DisqualifiableCoursesTableComponent,
-    AddCoursesForStudentsComponent, SelectiveCoursesStatisticsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent],
+    AddCoursesForStudentsComponent, SelectiveCoursesStatisticsComponent, CoursesByGroupComponent, GroupNamesGenerationComponent, ImportCsvComponent],
   entryComponents: [AssignDialogComponent, CopyDialogComponent, EditDialogComponent, YearParametersDialogComponent,
     EditStudentDialogComponent, DisqualifyCoursesDialogComponent, AddCoursesForStudentsComponent, CoursesByGroupComponent,
-    SelectiveCoursesStatisticsComponent, GroupNamesGenerationComponent]
+    SelectiveCoursesStatisticsComponent, GroupNamesGenerationComponent, ImportCsvComponent]
 })
 
 export class SelectiveCourseModule {
-
 }
