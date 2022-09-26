@@ -95,7 +95,7 @@ export const appRoutes: Routes = [
       {
         path: 'specializations',
         loadChildren: () => import('../specialization/specialization.module').then(m => m.SpecializationModule),
-        data: { title: 'Спеціалізації (освітні програми)' }
+        data: { title: 'Освітні програми' }
       },
       {
         path: 'finish-study-year',
