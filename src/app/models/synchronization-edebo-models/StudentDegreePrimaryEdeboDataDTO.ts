@@ -9,4 +9,5 @@ export class StudentDegreePrimaryEdeboDataDTO {
   groupName?: string;
   fullSpecialityName?: string;
   fullSpecializationName?: string;
+  edeboId?: string;
 }

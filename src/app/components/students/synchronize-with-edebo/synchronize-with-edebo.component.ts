@@ -89,8 +89,9 @@ export class SynchronizeWithEdeboComponent implements OnInit, IAppModal {
           for (let newStudent of this.noSuchStudentOrSuchStudentDegreeInDbOrange) {
             let found = false;
             for (let absentInFileStudent of this.absentInFileStudentDegreesYellow) {
-              if (newStudent.student.surname === absentInFileStudent.lastName
-                  && newStudent.student.name === absentInFileStudent.firstName) {
+              if ((newStudent.student.surname === absentInFileStudent.lastName
+                  && newStudent.student.name === absentInFileStudent.firstName)
+                || newStudent.edeboId === absentInFileStudent.edeboId) {
                 found = true;
               }
             }

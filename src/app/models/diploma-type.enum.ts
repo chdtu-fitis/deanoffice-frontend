@@ -11,5 +11,5 @@ export enum DiplomaType {
   SPECIALIST_DIPLOMA = 'Диплом спеціаліста',
   SECONDARY_SCHOOL_CERTIFICATE1 = 'Свідоцтво про здобуття повної загальної середньої освіти',
   TEMPORARY_DONBAS_CERTIFICATE = 'Довідка (тимчасова) про повну загальну середню освіту (ОЦ «Донбас-Україна»)',
-  JUNIOR_BACHELOR_DIPLOMA = 'Диплом молодшого спеціаліста',
+  JUNIOR_BACHELOR_DIPLOMA = 'Диплом фахового молодшого бакалавра',
 }
