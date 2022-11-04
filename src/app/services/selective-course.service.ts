@@ -105,9 +105,9 @@ export class SelectiveCourseService {
     return this.httpClient.get<RegisteredByGroup>(`${SELECTIVE_COURSE_STATISTICS_URL}/registered-by-group?studyYear=${studyYear}&groupId=${groupId}`);
   }
 
-  getSelectionRules(degreeId: number, studentsYear: number): Observable<SelectionRule[]> {
+  getSelectionRules(degreeId: number, studentsYear: number, calendarYear: string): Observable<SelectionRule[]> {
     const SELECTION_RULES_URL: string = SELECTIVE_COURSE_URL + '/selection-rules';
-    return this.httpClient.get<SelectionRule[]>(`${SELECTION_RULES_URL}?degreeId=${degreeId}&studentsYear=${studentsYear}`);
+    return this.httpClient.get<SelectionRule[]>(`${SELECTION_RULES_URL}?degreeId=${degreeId}&studentsYear=${studentsYear}&calendarYear=${calendarYear}`);
   }
 
   saveGeneratedNames(studentsYear: string, currentDegree: number): Observable<any> {

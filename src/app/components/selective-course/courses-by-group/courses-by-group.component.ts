@@ -90,7 +90,7 @@ export class CoursesByGroupComponent implements OnInit {
         this.onGroupOrAcademicYearChange();
       });
 
-    this.selectiveCourseService.getSelectionRules(this.currentDegree.id, this.currentStudentsYear)
+    this.selectiveCourseService.getSelectionRules(this.currentDegree.id, this.currentStudentsYear, this.selectedYear)
       .subscribe((selectionRules: SelectionRule[]) => {
         this.courseNumberForOffer = 0;
         for (let selectionRule of selectionRules) {
