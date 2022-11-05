@@ -44,6 +44,7 @@ export class SelectiveCourseComponent implements OnInit {
     {id: '2021', name: '2021-2022'},
     {id: '2022', name: '2022-2023'},
     {id: '2023', name: '2023-2024'},
+    {id: '2024', name: '2024-2025'},
   ];
   selectedSemester: number = 1;
   semesters: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -83,7 +84,7 @@ export class SelectiveCourseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedYear = (Utils.getCurrentAcademicYear() + 1).toString();
+    this.selectedYear = new Date().getFullYear().toString();
     this.loadCourses();
     this.loadYearParameters();
   }
