@@ -27,6 +27,7 @@
           </th>
           <th scope="col">Семестр</th>
           <th scope="col">Цикл</th>
+          <th scope="col">Галузь</th>
           <th scope="col">Кафедра</th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@
             {{i+1}}) {{course.course.courseName.name}}</td>
           <td>{{course.course.semester}}</td>
           <td>{{typeCycle[course.trainingCycle]}}</td>
+          <td>{{course.fieldsOfKnowledge? course.fieldsOfKnowledge[0].code:''}}</td>
           <td>{{course.department.abbr}}</td>
         </tr>
         </tbody>
