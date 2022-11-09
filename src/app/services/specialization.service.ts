@@ -34,24 +34,24 @@ export class SpecializationService {
   create(body: Specialization): Promise<any> {
     body.active = true;
     return this._httpClient.post(SPECIALIZATION_URL, body).toPromise()
-      .catch(forPromise('Створення нової спеціалізації'));
+      .catch(forPromise('Створення нової освітньої програми'));
   }
 
   delete(itemId: number): Promise<any> {
     return this._httpClient.delete(`${SPECIALIZATION_URL}/${itemId}`).toPromise()
-      .catch(forPromise('Видалення спеціалізацій'));
+      .catch(forPromise('Видалення освітньої програми'));
   }
 
   getById(sourceId: number): Observable<Specialization> {
     return this._httpClient.get<Specialization>(`${SPECIALIZATION_URL}/${sourceId}`).pipe(
-      catchError(forObservable('Отриманная спеціалізації по Id', [])),
+      catchError(forObservable('Отриманная освітньої програми за Id', [])),
       map(data => data as Specialization)
     )
   }
 
   update(body: Specialization): Promise<any> {
     return this._httpClient.put(`${SPECIALIZATION_URL}/${body.id}`, body).toPromise()
-      .catch(forPromise('Оновлення спеціалізації'));
+      .catch(forPromise('Оновлення освітньої програми'));
   }
 
   restore(itemId: number): Observable<any> {

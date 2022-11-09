@@ -20,7 +20,7 @@ export class QualificationService {
   public getCurrent(specializationId: number): Observable<QualificationForSpecialization[]> {
     return this._http
       .get<QualificationForSpecialization[]>(`${SPECIALIZATION_URL}/${specializationId}/professional-qualifications`)
-      .pipe(catchError(forObservable('Отримання кваліфікацій для спеціалізації', [])));
+      .pipe(catchError(forObservable('Отримання кваліфікацій для освітньої програми', [])));
   }
 
   getAll(): Observable<ProfessionalQualification[]> {
@@ -32,7 +32,7 @@ export class QualificationService {
     const {selected, deleted} = events;
     return this._http
       .post(`${SPECIALIZATION_URL}/${events.specializationId}/professional-qualifications`, {selected, deleted})
-      .toPromise().catch(forPromise('Зміна кваліфікацій для спеціалізації'));
+      .toPromise().catch(forPromise('Зміна кваліфікацій для освітньої програми'));
   }
 
   create(body: ProfessionalQualification): Promise<ProfessionalQualification> {

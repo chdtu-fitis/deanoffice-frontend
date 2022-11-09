@@ -20,7 +20,7 @@ export class AcquiredCompetenciesService {
 
   getBySpecializationAndLang(specializationId: number, lang: Lang): Observable<any> {
     return this._httpClient.get(`${specializationIdCompetencies(specializationId)}/${lang}`)
-      .pipe(catchError(forObservable(`Отримання компетенцій для спеціалізації (${this.getFullValue(lang)})`, [])));
+      .pipe(catchError(forObservable(`Отримання компетентностей для освітньої програми (${this.getFullValue(lang)})`, [])));
   }
 
   getFullValue(lang: Lang): string {
@@ -51,11 +51,11 @@ export class AcquiredCompetenciesService {
     const headers = new HttpHeaders().set('Content-Type', 'text/plain');
     return this._httpClient.put(`${ACQUIRED_COMPETENCIES_URL}/${competenciesId}/${lang}`, competencies, {headers})
       .toPromise()
-      .catch(forPromise(`Оновлення компетенцій для спеціалізації (${this.getFullValue(lang)})`));
+      .catch(forPromise(`Оновлення компетентностей для освітньої програми (${this.getFullValue(lang)})`));
   }
 
   create(competencies: AcquiredCompetencies): Promise<any> {
     return this._httpClient.post(`${ACQUIRED_COMPETENCIES_URL}`, competencies).toPromise()
-      .catch(forPromise('Створення компетенцій для спеціалізації'));
+      .catch(forPromise('Створення компетеннтностей для освітньої програми'));
   }
 }
