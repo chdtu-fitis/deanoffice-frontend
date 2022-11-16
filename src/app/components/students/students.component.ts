@@ -70,7 +70,6 @@ export class StudentsComponent implements OnInit {
   ngOnInit() {
     this.studentService.getInitialStudents().subscribe((students: StudentDegree[]) => {
       this.students = students;
-      console.log(this.students);
     });
     this.groupService.getGroups().subscribe((groups: StudentGroup[]) => {
       this.groups = groups;

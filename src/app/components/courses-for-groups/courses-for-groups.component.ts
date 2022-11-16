@@ -250,7 +250,7 @@ export class CoursesForGroupsComponent implements OnInit {
       newCourses.push({
         course: {id: newCourse.course.id},
         teacher: {id: newCourse.teacher.id},
-        examDate: newCourse.examDate,
+        examDate: new Date(newCourse.examDate),
         academicDifference: newCourse.academicDifference
       })
     }
@@ -259,7 +259,7 @@ export class CoursesForGroupsComponent implements OnInit {
         id: updateCourse.id,
         course: {id: updateCourse.course.id},
         teacher: {id: updateCourse.teacher ? updateCourse.teacher.id : 0},
-        examDate: updateCourse.examDate,
+        examDate: new Date(updateCourse.examDate),
         academicDifference: updateCourse.academicDifference
       })
     }

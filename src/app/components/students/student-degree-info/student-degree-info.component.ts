@@ -158,11 +158,30 @@ export class StudentDegreeInfoComponent extends BaseReactiveFormComponent {
       );
       return;
     }
-    const degrees = this.form.value.degrees.filter(degree => degree.active);
+    let degrees = this.form.value.degrees.filter(degree => degree.active);
+    degrees = this.makeDateFieldsTypeDate(degrees);
     this.studentService.updateStudentDegreesByStudentId(this.model.id, degrees).subscribe(() => {
       this.onSubmit.emit(this.form.value);
       this.emitHide();
     });
+  }
+
+  makeDateFieldsTypeDate(degrees) {
+    degrees.forEach(degree => {
+      degree.diplomaDate = new Date(degree.diplomaDate);
+      degree.supplementDate = new Date(degree.supplementDate);
+        degree.protocolDate = new Date(degree.protocolDate);
+        degree.previousDiplomaDate = new Date(degree.previousDiplomaDate);
+        degree.admissionOrderDate = new Date(degree.admissionOrderDate);
+        degree.contractDate = new Date(degree.contractDate);
+        degree.admissionDate = new Date(degree.admissionDate);
+        degree.studentPreviousUniversities.forEach(university => {
+          university.studyStartDate = new Date(university.studyStartDate);
+          university.studyEndDate = new Date(university.studyEndDate);
+          university.academicCertificateDate = new Date(university.academicCertificateDate);
+        });
+    });
+    return degrees;
   }
 
   emitHide() {
