@@ -53,6 +53,9 @@ export class StopAcademicVacationComponent extends BaseReactiveFormComponent imp
     if (this.form.invalid) {
       return;
     }
+    this.form.value.orderDate = new Date(this.form.value.orderDate);
+    this.form.value.applicationDate = new Date(this.form.value.applicationDate);
+    this.form.value.renewDate = new Date(this.form.value.renewDate);
     this.studentService.stopAcademicVacation(this.form.value).subscribe(() => {
       this.onSubmit.emit();
       this.modal.hide();

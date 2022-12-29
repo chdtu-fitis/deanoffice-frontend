@@ -57,6 +57,10 @@ export class RenewStudentComponent extends BaseReactiveFormComponent implements 
     if (this.form.invalid) {
       return;
     }
+    this.form.value.orderDate = new Date(this.form.value.orderDate);
+    this.form.value.applicationDate = new Date(this.form.value.applicationDate);
+    this.form.value.renewDate = new Date(this.form.value.renewDate);
+    this.form.value.academicCertificateDate = new Date(this.form.value.academicCertificateDate);
     this.studentService.renewStudent(this.form.value).subscribe(
       () => {
         this.onSubmit.emit(this.form.value.studentExpelId);
