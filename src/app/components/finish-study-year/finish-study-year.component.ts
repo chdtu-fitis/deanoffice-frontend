@@ -82,6 +82,8 @@ export class FinishStudyYearComponent implements OnInit {
       }
     }
     this.form.controls.ids.setValue(studentIds);
+    this.form.value.expelDate = new Date(this.form.value.expelDate);
+    this.form.value.orderDate = new Date(this.form.value.orderDate);
     this.studyYearFinishService.finishStudyYear(this.form.value).subscribe(() => {
       this.finishingStudyYear = false;
       this.getGroupsByAllDegrees();
