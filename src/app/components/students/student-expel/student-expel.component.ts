@@ -62,6 +62,10 @@ export class StudentExpelComponent extends BaseReactiveFormComponent implements 
     if (this.form.invalid) {
       return;
     }
+    this.form.value.orderDate = new Date(this.form.value.orderDate);
+    if (this.form.value.applicationDate)
+      this.form.value.applicationDate = new Date(this.form.value.applicationDate);
+    this.form.value.expelDate = new Date(this.form.value.expelDate);
     this.studentService.expelStudents(this.form.value).subscribe(() => {
       this.onSubmit.emit(this.form.value.studentDegreeIds);
       this.modal.hide();

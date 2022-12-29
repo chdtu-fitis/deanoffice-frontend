@@ -59,6 +59,7 @@ export class AddStudentComponent extends BaseReactiveFormComponent implements IA
     if (this.form.invalid) {
       return;
     }
+    this.form.value.student.birthDate = new Date(this.form.value.student.birthDate);
     this.studentService.addStudentDegree(this.form.value)
       .subscribe((student: StudentDegree) => {
         this.onSubmit.emit(student);

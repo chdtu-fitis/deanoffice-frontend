@@ -53,6 +53,10 @@ export class StudentAcademicVacationComponent extends BaseReactiveFormComponent 
     if (this.form.invalid) {
       return;
     }
+    this.form.value.vacationStartDate = new Date(this.form.value.vacationStartDate);
+    this.form.value.vacationEndDate = new Date(this.form.value.vacationEndDate);
+    this.form.value.orderDate = new Date(this.form.value.orderDate);
+    this.form.value.applicationDate = new Date(this.form.value.applicationDate);
     this.studentService.startAcademicVacation(this.form.value).subscribe(() => {
       this.onSubmit.emit(this.form.value.studentDegreeId);
       this.hideModal();
