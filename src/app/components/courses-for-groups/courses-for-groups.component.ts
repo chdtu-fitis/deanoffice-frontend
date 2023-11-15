@@ -228,7 +228,6 @@ export class CoursesForGroupsComponent implements OnInit {
   }
 
   saveCoursesForGroup() {
-
     class courseForGroupNewCoursesType {
       course: { id: number };
       teacher: { id: number };

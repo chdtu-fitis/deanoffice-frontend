@@ -1,1 +1,33 @@
-<p>courses-for-students works!</p>
+<div class="container-fluid courses-for-groups">
+  <div *ngIf="!showPage">
+    <loading [size]="40"></loading>
+  </div>
+  <div *ngIf="showPage" class="selection row">
+    <div class="col-7">
+      <div class="menu-row">
+        <div class="element">
+          <div class="element-header">Група:</div>
+          <div class="col-2">
+            <select id="group" class="form-control mr-2" [(ngModel)]="selectedGroup"
+                    (change)="onGroupChange()">
+              <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
+          <div class="element-header">Семестр:</div>
+          <div class="col-1">
+            <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
+                    (change)="onSemesterChange()">
+              <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-7">
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
+                 class="form-control mr-2 search">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
