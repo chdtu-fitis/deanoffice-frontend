@@ -10,7 +10,7 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {AssignDialogComponent} from './assign-dialog/assign-dialog.component';
 import {AssignedCoursesComponent} from './assigned-courses/assigned-courses.component';
 import {CopyDialogComponent} from './copy-dialog/copy-dialog.component';
-import {StudiedCoursesComponent} from '../shared/studied-courses/studied-courses.component';
+import {StudiedCoursesComponent} from '../shared/courses-for/studied-courses/studied-courses.component';
 import {Utils} from '../shared/utils';
 import {YearParametersDialogComponent} from './year-parameters-dialog/year-parameters-dialog.component';
 import {SelectiveCoursesYearParameters} from '../../models/SelectiveCoursesYearParameters';

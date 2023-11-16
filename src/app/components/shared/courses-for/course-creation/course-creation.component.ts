@@ -2,13 +2,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {TypeaheadMatch} from 'ngx-bootstrap/typeahead';
-import {AlertsService} from '../../shared/alerts/alerts.service';
+import {AlertsService} from '../../alerts/alerts.service';
 
-import {Course} from '../../../models/Course';
-import {KnowledgeControl} from '../../../models/KnowlegeControl';
-import {CourseService} from '../../../services/course.service';
-import {KnowledgeControlService} from '../../../services/knowledge-control.service';
-import {CourseName} from '../../../models/CourseName';
+import {Course} from '../../../../models/Course';
+import {KnowledgeControl} from '../../../../models/KnowlegeControl';
+import {CourseService} from '../../../../services/course.service';
+import {KnowledgeControlService} from '../../../../services/knowledge-control.service';
+import {CourseName} from '../../../../models/CourseName';
 
 @Component({
   selector: 'course-creation',
@@ -19,6 +19,7 @@ import {CourseName} from '../../../models/CourseName';
 export class CourseCreationComponent implements OnInit {
   @Input() selectedSemester: number;
   @Input() courses: Course[];
+  @Input() isAddCourseForButton: boolean;
   @Output() onCourseAdding = new EventEmitter();
   @Output() onCourseCreation = new EventEmitter();
   knowledgeControl: KnowledgeControl[] = [];

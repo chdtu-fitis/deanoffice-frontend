@@ -30,4 +30,20 @@
       </div>
     </div>
   </div>
+  <div class="row courses">
+    <div class="col-7 h-100">
+      <div class="studied-courses">
+        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                         [courses]="courses" [searchText]="searchText"></studied-courses>
+      </div>
+    </div>
+    <div class="col-5">
+      <course-creation (onCourseCreation)="onCourseCreation()"
+                       (onCourseAdding)="selectedCourses.push($event)"
+                       [selectedSemester]="selectedSemester"
+                       [courses]="courses"
+      >
+      </course-creation>
+    </div>
+  </div>
 </div>
