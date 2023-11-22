@@ -4,6 +4,9 @@ import {GroupService} from "../../services/group.service";
 import {CourseService} from "../../services/course.service";
 import {Course} from "../../models/Course";
 import {CourseCreationComponent} from "../shared/courses-for/course-creation/course-creation.component";
+import {StudentService} from "../../services/student.service";
+import {StudentDegree} from "../../models/StudentDegree";
+import {CourseForStudent} from "../../models/CourseForStudent";
 
 @Component({
   selector: 'courses-for-students',
@@ -17,13 +20,16 @@ export class CoursesForStudentsComponent implements OnInit {
   selectedSemester: number;
   courses: Course[];
   selectedCourses: Course[] = [];
+  students: StudentDegree[];
+  coursesForStudent: CourseForStudent[] = [];
   showPage = false;
   searchText = '';
   semesters: number[] = [];
   studiedCoursesLoading: boolean = false;
   @ViewChild(CourseCreationComponent, { static: false }) courseCreationChild: CourseCreationComponent;
 
-  constructor(private groupService: GroupService, private courseService: CourseService) { }
+  constructor(private groupService: GroupService, private courseService: CourseService,
+          private studentService: StudentService) { }
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(groups => {
@@ -54,6 +60,9 @@ export class CoursesForStudentsComponent implements OnInit {
     if (this.selectedSemester) {
       this.onSemesterChange();
     }
+    this.studentService.getStudentsByGroupId(this.selectedGroup.id).subscribe(students => {
+      this.students = students;
+    })
   }
 
   loadCoursesBySemester() {
@@ -76,5 +85,21 @@ export class CoursesForStudentsComponent implements OnInit {
         this.studiedCoursesLoading = false;
       })
     }
+  }
+
+  addCoursesToCoursesForGroup() {
+
+  }
+
+  getCoursesByStudent() {
+
+  }
+
+  checkCourse(isChecked: boolean, course) {
+
+  }
+
+  changeTeacher(course) {
+
   }
 }

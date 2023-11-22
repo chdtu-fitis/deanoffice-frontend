@@ -78,3 +78,17 @@ div {
 .count-label {
   margin-top: 15px;
 }
+
+.selected-student {
+  background-color: lightgreen;
+}
+
+.students-for-groups-student-row {
+  padding: 1px;
+  border: 1px white solid;
+}
+
+.students-for-groups-student-header {
+  horizontal-align: left;
+  font-weight: bold;
+}
