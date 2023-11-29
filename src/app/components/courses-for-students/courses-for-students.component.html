@@ -48,7 +48,7 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesToCoursesForGroup()"
+      <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesForStudents(template)"
               [disabled]="!selectedCourses.length">Призначити
       </button>
 <!--      <button type="button" class="btn btn-danger btn-medium" (click)="checkAddedCoursesForDeleting()"-->
@@ -108,4 +108,12 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-body">
+    <div *ngFor="let student of modalService.config.initialState.selectedStudents">
+      {{ student.student.surname }}
+    </div>
+  </div>
+</ng-template>
 

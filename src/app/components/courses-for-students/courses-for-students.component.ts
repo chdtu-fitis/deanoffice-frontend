@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {StudentGroup} from "../../models/StudentGroup";
 import {GroupService} from "../../services/group.service";
 import {CourseService} from "../../services/course.service";
@@ -7,6 +7,9 @@ import {CourseCreationComponent} from "../shared/courses-for/course-creation/cou
 import {StudentService} from "../../services/student.service";
 import {StudentDegree} from "../../models/StudentDegree";
 import {CourseForStudent} from "../../models/CourseForStudent";
+import {CourseForStudentService} from "../../services/course-for-student.service";
+import {CourseType} from "../../models/course-type.enum";
+import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
 
 @Component({
   selector: 'courses-for-students',
@@ -27,9 +30,11 @@ export class CoursesForStudentsComponent implements OnInit {
   semesters: number[] = [];
   studiedCoursesLoading: boolean = false;
   @ViewChild(CourseCreationComponent, { static: false }) courseCreationChild: CourseCreationComponent;
+  assignCoursesModalRef: BsModalRef;
 
   constructor(private groupService: GroupService, private courseService: CourseService,
-          private studentService: StudentService) { }
+          private studentService: StudentService, private courseForStudentService: CourseForStudentService,
+          private modalService: BsModalService) { }
 
   ngOnInit() {
     this.groupService.getGroups().subscribe(groups => {
@@ -87,7 +92,17 @@ export class CoursesForStudentsComponent implements OnInit {
     }
   }
 
-  addCoursesToCoursesForGroup() {
+  addCoursesForStudents(template: TemplateRef<any>) {
+    let selectedCourses = this.courses.filter(course => course.selected);
+    let selectedCoursesWrite: CoursesForStudentWrite[] = selectedCourses.map(
+      selectedCourse => new CoursesForStudentWrite(selectedCourse.id, null, CourseType.RECREDIT));
+    let selectedStudents = this.students.filter(student => student.selected);
+    this.assignCoursesModalRef = this.modalService.show(template, {initialState: {selectedStudents: selectedStudents}});
+    // selectedStudents.forEach(student => {
+    //   this.courseForStudentService.createCoursesForStudent(student.id, selectedCoursesWrite).subscribe(result => {
+    //     console.log(result);
+    //   });
+    // });
 
   }
 
@@ -101,5 +116,18 @@ export class CoursesForStudentsComponent implements OnInit {
 
   changeTeacher(course) {
 
+  }
+}
+
+class CoursesForStudentWrite {
+  courseId: number;
+  teacherId: number;
+  courseType: CourseType;
+
+
+  constructor(courseId: number, teacherId: number, courseType: CourseType) {
+    this.courseId = courseId;
+    this.teacherId = teacherId;
+    this.courseType = courseType;
   }
 }
