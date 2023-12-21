@@ -25,7 +25,7 @@ import {SelectiveCoursesStatisticsComponent} from './selective-courses-statistic
 import { NgxPaginationModule } from 'ngx-pagination';
 import {courseRoutes} from '../course/course.module';
 import { ImportCsvComponent } from './import-csv/import-csv.component';
-import {TabsModule} from "ngx-bootstrap";
+import {TabsModule} from "ngx-bootstrap/tabs";
 import { CoursesByGroupComponent } from './courses-by-group/courses-by-group.component';
 import { GroupNamesGenerationComponent } from './group-names-generation/group-names-generation.component';
 

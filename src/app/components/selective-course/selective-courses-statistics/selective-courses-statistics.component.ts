@@ -8,7 +8,7 @@ import {DegreeService} from '../../../services/degree.service';
 import {SelectiveCourseStatisticsService} from "../../../services/selective-course-statistics.service";
 import {SelectiveCourseAnomalyService} from '../../../services/selective-course-anomaly.service';
 import * as XLSX from "xlsx";
-import {document} from 'ngx-bootstrap';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: 'students-statistics-of-selective-courses',
