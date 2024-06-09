@@ -48,9 +48,18 @@
   </div>
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesForStudents(template)"
-              [disabled]="!selectedCourses.length">Призначити
-      </button>
+      <div class="row">
+        <div class="col-2">
+          <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesForStudents(template)"
+                  [disabled]="!selectedCourses.length">Призначити
+          </button>
+        </div>
+        <div class="col-2">
+          <select class="form-control" [(ngModel)]="selectedCourseType">
+            <option *ngFor="let key of courseTypeKey" [ngValue]="key">{{courseType[key]}}</option>
+          </select>
+        </div>
+      </div>
 <!--      <button type="button" class="btn btn-danger btn-medium" (click)="checkAddedCoursesForDeleting()"-->
 <!--              [disabled]="!coursesForDelete.length">Видалити-->
 <!--      </button>-->
@@ -109,11 +118,4 @@
   </div>
 </div>
 
-<ng-template #template>
-  <div class="modal-body">
-    <div *ngFor="let student of modalService.config.initialState.selectedStudents">
-      {{ student.student.surname }}
-    </div>
-  </div>
-</ng-template>
 

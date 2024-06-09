@@ -10,6 +10,8 @@ import {CourseForStudent} from "../../models/CourseForStudent";
 import {CourseForStudentService} from "../../services/course-for-student.service";
 import {CourseType} from "../../models/course-type.enum";
 import {BsModalRef, BsModalService} from "ngx-bootstrap/modal";
+import {ConfirmSelectedComponent} from "./confirm-selected/confirm-selected.component";
+import {DiplomaType} from "../../models/diploma-type.enum";
 
 @Component({
   selector: 'courses-for-students',
@@ -28,6 +30,9 @@ export class CoursesForStudentsComponent implements OnInit {
   showPage = false;
   searchText = '';
   semesters: number[] = [];
+  courseType = CourseType;
+  courseTypeKey: Array<string>;
+  selectedCourseType: string;
   studiedCoursesLoading: boolean = false;
   @ViewChild(CourseCreationComponent, { static: false }) courseCreationChild: CourseCreationComponent;
   assignCoursesModalRef: BsModalRef;
@@ -41,9 +46,10 @@ export class CoursesForStudentsComponent implements OnInit {
       this.groups = groups;
       this.showPage = true;
     });
+    this.courseTypeKey = Object.keys(CourseType);
   }
 
-  private changeSemesters() {
+  changeSemesters() {
     this.semesters = [];
     for (let i = 0; i < this.selectedGroup.studySemesters; i++) {
       this.semesters.push(i + this.selectedGroup.beginYears * 2 - 1);
@@ -97,7 +103,9 @@ export class CoursesForStudentsComponent implements OnInit {
     let selectedCoursesWrite: CoursesForStudentWrite[] = selectedCourses.map(
       selectedCourse => new CoursesForStudentWrite(selectedCourse.id, null, CourseType.RECREDIT));
     let selectedStudents = this.students.filter(student => student.selected);
-    this.assignCoursesModalRef = this.modalService.show(template, {initialState: {selectedStudents: selectedStudents}});
+    this.assignCoursesModalRef = this.modalService.show(ConfirmSelectedComponent,
+      {initialState: {selectedStudents: selectedStudents, selectedCourses: this.selectedCourses, courseType: this.selectedCourseType},
+        class: 'modal-custom'});
     // selectedStudents.forEach(student => {
     //   this.courseForStudentService.createCoursesForStudent(student.id, selectedCoursesWrite).subscribe(result => {
     //     console.log(result);

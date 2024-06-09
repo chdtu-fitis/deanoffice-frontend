@@ -9,6 +9,7 @@ import {SharedModule} from '../shared/shared.module';
 import {AuthenticationModule} from '../login/authentication.module';
 import {PipeModule} from '../../pipes/pipe.module';
 import {CoursesForStudentsComponent} from "./courses-for-students.component";
+import { ConfirmSelectedComponent } from './confirm-selected/confirm-selected.component';
 //
 // import { CoursesForGroupsComponent } from './courses-for-groups.component';
 // import { AddedCoursesComponent } from './added-courses/added-courses.component';
@@ -34,6 +35,7 @@ const coursesForStudentsRoutes: Routes = [
   ],
   declarations: [
     CoursesForStudentsComponent,
+    ConfirmSelectedComponent,
     // AddedCoursesComponent,
     // CourseCreationComponent,
     // TeacherDialogComponent,
@@ -42,7 +44,7 @@ const coursesForStudentsRoutes: Routes = [
     // GroupsDifferentDialogComponent
   ],
   entryComponents: [
-    // EditDialogComponent,
+    ConfirmSelectedComponent,
     // CopyCoursesDialogComponent,
     // TeacherDialogComponent,
     // GroupsDifferentDialogComponent
