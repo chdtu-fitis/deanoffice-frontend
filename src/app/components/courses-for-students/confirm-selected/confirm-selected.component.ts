@@ -29,5 +29,6 @@ export class ConfirmSelectedComponent implements OnInit {
         console.log(result);
       });
     });
+    this.bsModalRef.hide();
   }
 }
