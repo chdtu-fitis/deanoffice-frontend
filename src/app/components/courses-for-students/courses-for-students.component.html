@@ -1,0 +1,121 @@
+<div class="container-fluid courses-for-groups">
+  <div *ngIf="!showPage">
+    <loading [size]="40"></loading>
+  </div>
+  <div *ngIf="showPage" class="selection row">
+    <div class="col-7">
+      <div class="menu-row">
+        <div class="element">
+          <div class="element-header">Група:</div>
+          <div class="col-2">
+            <select id="group" class="form-control mr-2" [(ngModel)]="selectedGroup"
+                    (change)="onGroupChange()">
+              <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="element">
+          <div class="element-header">Семестр:</div>
+          <div class="col-1">
+            <select id="semester" class="form-control mr-2" [(ngModel)]="selectedSemester"
+                    (change)="onSemesterChange()">
+              <option *ngFor="let semester of semesters" [ngValue]="semester">{{semester}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-7">
+          <input [(ngModel)]="searchText" placeholder="Пошук за предметом"
+                 class="form-control mr-2 search">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row courses">
+    <div class="col-7 h-100">
+      <div class="studied-courses">
+        <studied-courses [loading]="studiedCoursesLoading" (onSelectedCoursesChange)="changeSelectedCourses($event)"
+                         [courses]="courses" [searchText]="searchText"></studied-courses>
+      </div>
+    </div>
+    <div class="col-5">
+      <course-creation (onCourseCreation)="onCourseCreation()"
+                       (onCourseAdding)="selectedCourses.push($event)"
+                       [selectedSemester]="selectedSemester"
+                       [courses]="courses"
+      >
+      </course-creation>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div class="col-2">
+          <button type="button" class="btn btn-info btn-medium ml-1" (click)="addCoursesForStudents(template)"
+                  [disabled]="!selectedCourses.length">Призначити
+          </button>
+        </div>
+        <div class="col-2">
+          <select class="form-control" [(ngModel)]="selectedCourseType">
+            <option *ngFor="let key of courseTypeKey" [ngValue]="key">{{courseType[key]}}</option>
+          </select>
+        </div>
+      </div>
+<!--      <button type="button" class="btn btn-danger btn-medium" (click)="checkAddedCoursesForDeleting()"-->
+<!--              [disabled]="!coursesForDelete.length">Видалити-->
+<!--      </button>-->
+    </div>
+  </div>
+  <div class="row h-100">
+    <div class="col-2 h-100 pl-2 pr-0">
+      <div class="table-wrapper-2">
+        <table class="student-table">
+          <thead>
+          <tr class="students-for-groups-student-header">
+            <th class="students-for-groups-student-header">Студенти</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let studentDegree of students; let i = index" >
+            <div class="students-for-groups-student-row" [class.selected-student]="studentDegree.selected">
+              <td>{{ i+1 }}</td>
+              <td>
+                <input type="checkbox" [(ngModel)]="studentDegree.selected" (change)="getCoursesByStudent()">
+              </td>
+              <td>{{studentDegree.student.surname}} {{studentDegree.student.name}}</td>
+            </div>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-10">
+      <table class="table table-striped table-sm fs-13">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Назва</th>
+          <th>Контроль</th>
+          <th class="text-right">Години</th>
+          <th class="text-right">Кредити</th>
+          <th>Викладач</th>
+        <tr>
+        </thead>
+        <tr *ngFor="let course of coursesForStudent">
+          <td class="text-center"><input type="checkbox" #selected (change)="checkCourse($event.target.checked, course)"
+                                         [checked]="allRowsIsSelected"></td>
+          <td>{{ course.course.courseName.name }}</td>
+          <td>{{ course.course.knowledgeControl.name }}</td>
+          <td class="text-right">{{ course.course.hours }}</td>
+          <td class="text-right">{{ course.course.credits }}</td>
+          <td (click)="changeTeacher(course)">
+            <button class="btn btn-outline-secondary">
+              {{ (course.teacher | nameWithInitials) || 'Вибрати' }}
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+

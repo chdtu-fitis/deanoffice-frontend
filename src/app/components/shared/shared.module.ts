@@ -12,8 +12,10 @@ import {LoadingComponent} from './loading/loading.component';
 import {PipeModule} from '../../pipes/pipe.module';
 import {ModalWrapperComponent} from './modal-wrapper/modal-wrapper.component';
 import {ExpectedNameDirective} from './expected-name.directive';
-import {StudiedCoursesComponent} from "./studied-courses/studied-courses.component";
+import {StudiedCoursesComponent} from "./courses-for/studied-courses/studied-courses.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CourseCreationComponent} from "./courses-for/course-creation/course-creation.component";
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     LoadingComponent,
     ModalWrapperComponent,
     ExpectedNameDirective,
-    StudiedCoursesComponent
+    StudiedCoursesComponent,
+    CourseCreationComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
     AgGridModule.withComponents([]),
     ModalModule.forRoot(),
-    PipeModule
+    PipeModule,
+    TypeaheadModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -46,7 +50,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     LoadingComponent,
     ModalWrapperComponent,
     ExpectedNameDirective,
-    StudiedCoursesComponent
+    StudiedCoursesComponent,
+    CourseCreationComponent
   ]
 })
 

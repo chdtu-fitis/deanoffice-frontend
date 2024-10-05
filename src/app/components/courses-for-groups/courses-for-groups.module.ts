@@ -11,7 +11,7 @@ import {PipeModule} from '../../pipes/pipe.module';
 
 import { CoursesForGroupsComponent } from './courses-for-groups.component';
 import { AddedCoursesComponent } from './added-courses/added-courses.component';
-import { CourseCreationComponent } from './course-creation/course-creation.component';
+import { CourseCreationComponent } from '../shared/courses-for/course-creation/course-creation.component';
 import { TeacherDialogComponent } from './teacher-dialog/teacher-dialog.component';
 import { CopyCoursesDialogComponent } from './copy-courses-dialog/copy-courses-dialog.component';
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
@@ -34,7 +34,6 @@ const coursesForGroupsRoutes: Routes = [
   declarations: [
     CoursesForGroupsComponent,
     AddedCoursesComponent,
-    CourseCreationComponent,
     TeacherDialogComponent,
     CopyCoursesDialogComponent,
     EditDialogComponent,

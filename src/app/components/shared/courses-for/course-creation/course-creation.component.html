@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-8">
+        <div *ngIf="isAddCourseForButton" class="col-8">
           <button class="btn btn-success" (click)="createCourse(true)" [disabled]="form.invalid">
             Створити і додати до групи
           </button>
