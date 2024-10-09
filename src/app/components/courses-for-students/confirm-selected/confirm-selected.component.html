@@ -1,24 +1,39 @@
-<div pl-4><h4>Ви хочете призначити такі предмети таким студентам</h4></div>
-<div class="modal-body">
-  <div class="row">
-    <div class="col-3">
-      <div *ngFor="let student of selectedStudents">
-        {{ student.student.surname }} {{ student.student.name }}
+<div class="modal-content">
+  <div class="modal-header bg-dark text-white">
+    <h4 class="modal-title"><i class="bi bi-person-lines-fill"></i> Призначення предметів студентам</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-3 p-3 border-end">
+        <h5><i class="bi bi-people-fill text-primary"></i> Студенти</h5>
+        <div *ngFor="let student of selectedStudents" class="mb-2">
+          <span class="fw-bold">{{ student.student.surname }} {{ student.student.name }}</span>
+        </div>
       </div>
-    </div>
-    <div class="col-9">
-      <div class="row" *ngFor="let course of selectedCourses">
-        <div class="col-6">{{ course.courseName.name }}</div>
-        <div class="col-2">{{ course.knowledgeControl.name }}</div>
-        <div class="col-2">{{ courseType }}</div>
-        <div class="col-1">{{ course.hours }}</div>
-        <div class="col-1">{{ course.credits }}</div>
+      <div class="col-9 p-3">
+        <h5><i class="bi bi-book-fill text-info"></i> Предмети</h5>
+        <div class="row mb-2" *ngFor="let course of selectedCourses">
+          <div class="col-6">
+            <span class="fw-bold">{{ course.courseName.name }}</span>
+          </div>
+          <div class="col-2 text-center">
+            {{ course.knowledgeControl.name }}
+          </div>
+          <div class="col-2 text-center">
+            {{ courseType }}
+          </div>
+          <div class="col-1 text-center">
+            {{ course.hours }}
+          </div>
+          <div class="col-1 text-center">
+            {{ course.credits }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer border-top">
     <button type="button" class="btn btn-outline-success" (click)="save()">Зберегти</button>
-    <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати зміни</button>
+    <button type="button" class="btn btn-outline-danger" (click)="bsModalRef.hide()">Скасувати</button>
   </div>
 </div>
-
