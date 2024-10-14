@@ -99,10 +99,10 @@ export class CoursesForStudentsComponent implements OnInit {
   }
 
   addCoursesForStudents(template: TemplateRef<any>) {
-    let selectedCourses = this.courses.filter(course => course.selected);
-    let selectedCoursesWrite: CoursesForStudentWrite[] = selectedCourses.map(
+    const selectedCourses = this.courses.filter(course => course.selected);
+    const selectedCoursesWrite: CoursesForStudentWrite[] = selectedCourses.map(
       selectedCourse => new CoursesForStudentWrite(selectedCourse.id, null, CourseType.RECREDIT));
-    let selectedStudents = this.students.filter(student => student.selected);
+    const selectedStudents = this.students.filter(student => student.selected);
     this.assignCoursesModalRef = this.modalService.show(ConfirmSelectedComponent,
       {initialState: {selectedStudents: selectedStudents, selectedCourses: this.selectedCourses, courseType: this.selectedCourseType},
         class: 'modal-custom'});

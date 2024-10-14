@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef} from "ngx-bootstrap/modal";
-import {CourseForStudentService} from "../../../services/course-for-student.service";
-import {CourseForStudentWrite} from "./CourseForStudentWrite";
+import { BsModalRef } from "ngx-bootstrap/modal";
+import { CourseForStudentService } from "../../../services/course-for-student.service";
+import { CourseForStudentWrite } from "./CourseForStudentWrite";
+import { CourseType } from 'app/models/course-type.enum';
 
 @Component({
   selector: 'confirm-selected',
@@ -11,7 +12,8 @@ import {CourseForStudentWrite} from "./CourseForStudentWrite";
 export class ConfirmSelectedComponent implements OnInit {
   selectedStudents;
   selectedCourses;
-  courseType;
+  courseType: CourseType;
+  courseTypeEnum = CourseType;
 
   constructor(private courseForStudentService: CourseForStudentService, public bsModalRef: BsModalRef) { }
 

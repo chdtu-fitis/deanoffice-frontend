@@ -11,23 +11,27 @@
         </div>
       </div>
       <div class="col-9 p-3">
-        <h5><i class="bi bi-book-fill text-info"></i> Предмети</h5>
-        <div class="row mb-2" *ngFor="let course of selectedCourses">
-          <div class="col-6">
-            <span class="fw-bold">{{ course.courseName.name }}</span>
-          </div>
-          <div class="col-2 text-center">
-            {{ course.knowledgeControl.name }}
-          </div>
-          <div class="col-2 text-center">
-            {{ courseType }}
-          </div>
-          <div class="col-1 text-center">
-            {{ course.hours }}
-          </div>
-          <div class="col-1 text-center">
-            {{ course.credits }}
-          </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-sm align-middle">
+            <thead class="thead-dark">
+              <tr>
+                <th>Назва предмету</th>
+                <th class="text-center">Контроль</th>
+                <th class="text-center">Вид предмету</th>
+                <th class="text-center">Години</th>
+                <th class="text-center">Кредити</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of selectedCourses">
+                <td>{{ course.courseName.name }}</td>
+                <td class="text-center">{{ course.knowledgeControl.name }}</td>
+                <td class="text-center">{{ courseTypeEnum[courseType] }}</td>
+                <td class="text-center">{{ course.hours }}</td>
+                <td class="text-center">{{ course.credits }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
